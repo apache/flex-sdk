@@ -61,14 +61,14 @@ then
   AIR_SDK_DIR=3.7
 elif [ "$FLASH_VERSION" == "11.7" ]
 then
-  FLASH_VERSION=12.0
+  FLASH_VERSION=13.0
   AIR_VERSION=4.0
   AIR_SDK_DIR=4.0
-elif [ "$FLASH_VERSION" == "12.0" ]
+elif [ "$FLASH_VERSION" == "13.0" ]
 then
-  FLASH_VERSION=13.0
-  AIR_VERSION=13
-  AIR_SDK_DIR=13_beta
+  FLASH_VERSION=14.0
+  AIR_VERSION=14
+  AIR_SDK_DIR=14_beta
 else
   FLASH_VERSION=11.1
   AIR_VERSION=3.7
@@ -92,11 +92,11 @@ case "$FLASH_VERSION" in
   11.7)
     export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer11_7r700_232_win_sa_debug.exe"
   ;;
-  12.0)
-    export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer12-0_debugsa_win_32.exe"
-  ;;
   13.0)
-    export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer13_debugsa_win_32.exe"
+    export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer13_0r0_214_win_sa_debug.exe"
+  ;;
+  14.0)
+    export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer14_debugsa_win_32.exe"
   ;;
   *)
     echo "No valid Flash Player Debugger variable value could be parsed."
