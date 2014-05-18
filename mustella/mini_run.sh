@@ -551,10 +551,16 @@ do
         ### set a -D property for ant run_this_script. 
         ### otherwise, run a whole directory
         ### the other args are the same, however. :(
+        mustellaTestDir=${MUSTELLA_TEST_DIR}
 
-        tmpx=tests/${i}
+        if [ ! -d "$mustellaTestDir" ]
+            then
+            mustellaTestDir="tests";
+        fi
+
+        tmpx=$mustellaTestDir/${i}
+        
         # echo "Looking for $tmpx"
-
         end=`echo $tmpx | awk -F"." '{print $NF}'`
 
         if [ ! -f "$tmpx" ] && [ ! -d "$tmpx" ]

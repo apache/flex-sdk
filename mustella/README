@@ -60,3 +60,7 @@ Basic Commands
 		./mini_run.sh -caseName=datagrid_properties_columns_0 tests/components/DataGrid/DataGrid_SparkSkin/Properties/datagrid_properties_columns.mxml
 
 	This command runs a specific test case from a specific test file.
+
+Alternate Location of Test Files
+================================
+	You can create Mustella tests for your own components and put them in your own test directory outside of the Flex SDK and Mustella source directories. To do this set the MUSTELLA_TEST_DIR environment variable to the absolute path of the directory containing your tests. Your test directory will need to include the exclude files (ExcludeList*.txt) for the platforms you are testing on but the files may be empty if you have no tests to exclude. After setting MUSTELLA_TEST_DIR, mini_run.sh will look in the new directory for tests to run instead of the 'tests' subdirectory of mustella.
