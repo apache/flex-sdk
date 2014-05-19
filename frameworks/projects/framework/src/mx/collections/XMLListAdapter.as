@@ -248,16 +248,30 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
 
 		if (length > 0)
 		{
-			var localLength:uint = source.length();
-			
-			// Adjust all indexes by 1
-			for (var i:uint = localLength; i>index; i--)
-			{
-				source[i] = source[i - 1];
-			}
+            var newSource:XMLList = new XMLList();
+
+            for (var i:uint = 0; i <= (length); i++)
+            {
+                if (i < index)
+                {
+                    newSource[i] = source[i];
+                }
+                else if (i == index)
+                {
+                    newSource[i] = item;
+                }
+                else if (i > index)
+                {
+                    newSource[i] = source[i-1];
+                }
+            }
+
+            source = newSource;
 		}
-		
-		source[index] = item;
+		else
+        {
+            source[index] = item;
+        }
 
         startTrackUpdates(item, seedUID + uidCounter.toString());
 		uidCounter++;
