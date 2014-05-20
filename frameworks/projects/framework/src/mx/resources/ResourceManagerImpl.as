@@ -131,6 +131,7 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
             if (SystemManagerGlobals.topLevelSystemManagers[0].currentFrame == 1)
             {
                 ignoreMissingBundles = true;
+				inFrame1 = true;
                 SystemManagerGlobals.topLevelSystemManagers[0].
                     addEventListener(Event.ENTER_FRAME, enterFrameHandler);
             }
@@ -140,7 +141,8 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
 		// Falcon injects this property and it is always false
 		// We ignore missing bundles because Falcon doesn't
 		// generate fallback bundles like MXMLC;
-		ignoreMissingBundles = info && info.hasOwnProperty("isMXMLC");
+		if (!inFrame1)
+			ignoreMissingBundles = info && info.hasOwnProperty("isMXMLC");
 		
         if (info)
             processInfo(info, false);
@@ -158,6 +160,13 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     //
     //--------------------------------------------------------------------------
 
+	/**
+	 *  @private
+	 * 
+	 *  Whether or ignoreMissingBundles was set in frame 1
+	 */
+	private var inFrame1:Boolean = false;
+	
     /**
      *  @private
      * 
@@ -1171,6 +1180,7 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
         {
             if (SystemManagerGlobals.topLevelSystemManagers[0].currentFrame == 2)
             {
+				inFrame1 = false;
                 SystemManagerGlobals.topLevelSystemManagers[0].
                     removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
             }
