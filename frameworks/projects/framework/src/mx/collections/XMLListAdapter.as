@@ -215,7 +215,10 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
     /**
      *  Add the item at the specified index.  Any item that was after
      *  this index is moved out by one.  If the list is shorter than 
-     *  the specified index it will grow to accomodate the new item.
+     *  the specified index it will grow to accommodate the new item.
+     *
+     *  The source array may change, and changes made to it may not be
+     *  tracked after this operation if you access it directly.
      * 
      *  @param item the item to place at the index
      *  @param index the index at which to place the item
@@ -245,6 +248,10 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
 		}
         	
 		setBusy();
+
+        // Replace the current source XMLList with a new list in order to add
+        // the item to the list.  This is needed to maintain the structure of
+        // the new item added to the list and avoid an FP bug.
 
 		if (length > 0)
 		{
