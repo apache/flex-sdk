@@ -107,8 +107,6 @@ public class CompileMustellaSwfs extends Thread {
 
     private static String mustella_framework_dir = null;
 
-    private static String mustella_test_dir = null;
-
     private static String apollo_location = ""; 
 
     private static String file_of_tests = "";
@@ -323,11 +321,6 @@ public class CompileMustellaSwfs extends Thread {
 		} catch (Exception e) { 
 		}
 
-		try {
-			mustella_test_dir = System.getProperty ("sdk.mustella.dir");
-		} catch (Exception e) { 
-		}
-
 		try { 
 			flex_version = Double.parseDouble(System.getProperty ("flex_version"));
 		} catch (Exception e) { 
@@ -404,6 +397,7 @@ public class CompileMustellaSwfs extends Thread {
 			}
 
 		}
+
 
 		if (System.getProperty ("socket_mixin")!=null) { 
 			socket_mixin = System.getProperty ("socket_mixin");
@@ -703,6 +697,7 @@ public class CompileMustellaSwfs extends Thread {
 
 	/// System.out.println ("This is the filename I've fixed: " + s);
 
+
 	return "-includes=" +s;
 
     }
@@ -872,10 +867,8 @@ public class CompileMustellaSwfs extends Thread {
 			}
 		}
 
+		front = front.substring (front.indexOf("mustella" + File.separator + "tests")+15);
 		front = front.replaceAll ("\\\\", "/") + "/";
-		int test_index = front.indexOf(mustella_test_dir);
-		int test_length = mustella_test_dir.length();
-		front = front.substring (test_index + test_length + 1);
 
 		alinc.add ("\"" + transformName( front + extract, "") + "\": 1,");
 		alinc.add ("\"" + transformName( front + extract, "") + "$" + include_list + "\": 1");
@@ -1045,20 +1038,20 @@ public class CompileMustellaSwfs extends Thread {
 
 		compiler.setDir(dir);
 
-		/**	
+		/**
 		System.out.println ("************");
 		System.out.println ("************");
 		
 		String defaultArgsDebugString = new String();
 		
-		for(int i = 0; i < defaultArgs.size(); ++i){
-			defaultArgsDebugString += defaultArgs.get(i);
+		for(int i = 0; i < defaultArgs.length; ++i){
+			defaultArgsDebugString += defaultArgs[i];
 		}
-
+		
 		System.out.println ("mxml: " + mxml);
 		System.out.println ("defaultArgs: " + defaultArgsDebugString);
 		**/
-
+		
 		compiler.compile(mxml, defaultArgs);
 		RuntimeExecHelper rh = compiler.getRuntimeExecHelper();
 
@@ -1068,7 +1061,7 @@ public class CompileMustellaSwfs extends Thread {
 		// System.out.println("rh output: " + rh.getOutputText());
 		// System.out.println("rh error out: " + rh.getErrorText());
 		// System.out.println("exit value=" + rh.getExitValue());
-		
+
 		String failedFile=null;
 
 		// InsertErrorResult ier = null;
