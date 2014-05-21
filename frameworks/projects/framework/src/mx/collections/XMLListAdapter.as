@@ -198,8 +198,9 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
     //--------------------------------------------------------------------------
 
     /**
-     *  Add the specified item to the end of the list.
-     *  Equivalent to addItemAt(item, length);
+     *  Add the specified item to the end of the list.  Unlike addItemAt, this
+     *  does not change the source memory pointer.
+     *
      *  @param item the item to add
      *  
      *  @langversion 3.0
@@ -209,7 +210,33 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
      */
     public function addItem(item:Object):void
     {
-        addItemAt(item, length);
+        var message:String;
+
+        if (!(item is XML) && !(item is XMLList && item.length() == 1))
+        {
+            message = resourceManager.getString(
+                    "collections", "invalidType");
+            throw new Error(message);
+        }
+
+        setBusy();
+
+        source[length] = item;
+
+        startTrackUpdates(item, seedUID + uidCounter.toString());
+        uidCounter++;
+
+        if (_dispatchEvents == 0)
+        {
+            var event:CollectionEvent =
+                    new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+            event.kind = CollectionEventKind.ADD;
+            event.items.push(item);
+            event.location = index;
+            dispatchEvent(event);
+        }
+
+        clearBusy();
     }
     
     /**
