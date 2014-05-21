@@ -232,7 +232,7 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
                     new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
             event.kind = CollectionEventKind.ADD;
             event.items.push(item);
-            event.location = index;
+            event.location = source.length()-1;
             dispatchEvent(event);
         }
 
