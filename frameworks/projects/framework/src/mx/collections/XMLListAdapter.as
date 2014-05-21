@@ -441,8 +441,9 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
             for (var i:int=length - 1; i >= 0; i--)
             {
                 stopTrackUpdates(source[i]);
-                delete source[i];
             }
+
+            source = new XMLList();
             
             if (_dispatchEvents == 0)
             {
@@ -497,8 +498,34 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
 		setBusy();
 
         var removed:Object = source[index];
-        delete source[index];
         stopTrackUpdates(removed);
+
+        // loop through array to remove that index.
+
+        if (length > 1)
+        {
+            var newSource:XMLList = new XMLList();
+
+            for (var i:uint = 0; i < length; i++)
+            {
+                if (i < index)
+                {
+                    newSource[i] = source[i];
+                }
+                else if (i > index)
+                {
+                    newSource[i-1] = source[i];
+                }
+            }
+
+            source = newSource;
+        }
+        else
+        {
+            source = new XMLList();
+        }
+
+
         if (_dispatchEvents == 0)
         {
             var event:CollectionEvent =
