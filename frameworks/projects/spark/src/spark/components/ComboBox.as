@@ -672,6 +672,7 @@ public class ComboBox extends DropDownListBase implements IIMESupport
             }
             else
             {
+				selectedItem = textInput.text;
                 super.changeHighlightedSelection(CUSTOM_SELECTED_ITEM);
             }
         }
@@ -980,7 +981,7 @@ public class ComboBox extends DropDownListBase implements IIMESupport
                 if (selectedItem != null)
                     textInput.text = itemToLabel(selectedItem);
                 else
-                textInput.text = "";
+                	textInput.text = "";
             }
             changeHighlightedSelection(selectedIndex);
         }
