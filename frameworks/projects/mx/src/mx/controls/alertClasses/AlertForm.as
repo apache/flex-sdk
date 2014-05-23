@@ -380,10 +380,19 @@ public class AlertForm extends UIComponent implements IFontContextComponent
 		}
 
 		var newHeight:Number = textField.getExplicitOrMeasuredHeight();
-		var maxHeight:Number = unscaledHeight - buttons[0].height;
+		var paddingTop:Number = textField.getStyle("paddingTop");
+		var paddingBottom:Number = textField.getStyle("paddingBottom");
+		var maxHeight:Number = unscaledHeight - buttons[0].height
+			- paddingTop - paddingBottom;
 		
 		if (newHeight > maxHeight)
 			newHeight = maxHeight;
+		
+		// try and make at least one line of text show even if it overlapps buttons
+		// this may occur if the height of alert box is set to be too small
+		var lineMetrics:TextLineMetrics = textField.getUITextFormat().measureText(textField.text);
+		if (newHeight < lineMetrics.height)
+			newHeight = lineMetrics.height;
 		
 		textField.move(newX, Math.round((newY - newHeight) / 2));
 		textField.setActualSize(textWidth+5, newHeight);
