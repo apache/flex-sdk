@@ -3674,7 +3674,7 @@ public class DebugCLI implements Runnable, SourceLocator {
     // @throws ArrayIndexOutOfBoundsException if frame 'frm' doesn't exist
     void dumpFrame(int frm) throws PlayerDebugException, ArrayIndexOutOfBoundsException {
         StringBuilder sb = new StringBuilder();
-        Frame[] ar = m_session.getFrames();
+        Frame[] ar = m_session.getWorkerSession(m_activeIsolate).getFrames();
         appendFrameInfo(sb, ar[frm], frm, false, true);
 
         sb.append(m_newline);
@@ -3684,7 +3684,7 @@ public class DebugCLI implements Runnable, SourceLocator {
     // set the listing command to point to the file/line of the given frame
     void setListingToFrame(int frameNum) throws PlayerDebugException {
         // set the module and line
-        Frame[] frames = m_session.getFrames();
+        Frame[] frames = m_session.getWorkerSession(m_activeIsolate).getFrames();
         Frame ctx = frames[frameNum];
 
         Location l = ctx.getLocation();
