@@ -24,13 +24,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import flash.tools.debugger.*;
 import macromedia.asc.parser.*;
 import macromedia.asc.semantics.ObjectValue;
 import macromedia.asc.semantics.Value;
-import flash.tools.debugger.PlayerDebugException;
-import flash.tools.debugger.Session;
-import flash.tools.debugger.Variable;
-import flash.tools.debugger.VariableType;
 import flash.tools.debugger.concrete.DValue;
 
 /**
@@ -454,11 +451,11 @@ class DebuggerEvaluator implements Evaluator
 
 		if (isConstructor)
 		{
-			return session.callConstructor(functionName, valueArgs);
+			return ((IsolateController) session).callConstructorWorker(functionName, valueArgs, thisObject.getIsolateId());
 		}
 		else
 		{
-			return session.callFunction(thisObject, functionName, valueArgs);
+			return ((IsolateController) session).callFunctionWorker(thisObject, functionName, valueArgs, thisObject.getIsolateId());
 		}
 	}
 
