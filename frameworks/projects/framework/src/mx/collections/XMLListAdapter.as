@@ -328,7 +328,8 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
      * 
      *  @param index the index in the list from which to retrieve the item
      *  @param	prefetch int indicating both the direction and amount of items
-     *			to fetch during the request should the item not be local.
+     *			to fetch during the request should the item not be local. It is
+	 *			not used at this time.
      *  @return the item at that index, null if there is none
      *  @throws ItemPendingError if the data for that index needs to be 
      *                          loaded from a remote location
