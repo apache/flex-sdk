@@ -103,7 +103,7 @@ ButtonBar
 
 Callout
 {
-    backgroundColor: #484848;
+    backgroundColor: #33B5E5;
     contentBackgroundColor: #FFFFFF;
     gap: 12;
     skinClass: ClassReference("spark.skins.android4.CalloutSkin");
