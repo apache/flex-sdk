@@ -49,6 +49,9 @@ public class LocationCollection
     // Return the first Location object or null
 	public Location     first()					{ return ( (m_locations.size() > 0) ? m_locations.get(0) : null ); }
 
+    // Return the last Location object or null
+    public Location     last()					{ return ( (m_locations.size() > 0) ? m_locations.get(m_locations.size() - 1) : null ); }
+
 	/**
 	 * Removes Locations from the Collection which contain
 	 * SourceFiles with Ids in the range [startingId, endingId].
