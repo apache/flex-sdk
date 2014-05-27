@@ -142,6 +142,13 @@ public class DebugCLI implements Runnable, SourceLocator {
     // default metadata retry count 8 attempts per waitForMetadata() call * 5 calls
     public static final int METADATA_RETRIES = 8 * 5;
 
+    /**
+     * Whether the break command will show it changed workers.
+     * true at the moment because the break function itself does not display in
+     * which worker the breakpoint has been set.
+     */
+    public static final boolean WORKER_DISPLAY_INTERNAL_SWAP_INFO = true;
+
     /* Enum for the state of the initial prompt shown when a swf is loaded */
     public static enum InitialPromptState {
         NEVER_SHOWN, SHOWN_ONCE, DONE
@@ -156,6 +163,7 @@ public class DebugCLI implements Runnable, SourceLocator {
     String m_cdPath;
     String m_mruURI;
     String m_connectPort;
+    private boolean m_quietMode; // Don't dump out the state of the execution when WORKER_DISPLAY_INTERNAL_SWAP_INFO is set to false.
     public final static String m_newline = System.getProperty("line.separator"); //$NON-NLS-1$
 
     private final static LocalizationManager m_localizationManager = new LocalizationManager();
@@ -1674,7 +1682,7 @@ public class DebugCLI implements Runnable, SourceLocator {
         try {
             if (hasMoreTokens()) {
                 arg = nextToken();
-                int id = arg.equals(".") ? propertyGet(LIST_MODULE) : parseFileArg(-1, arg); //$NON-NLS-1$
+                int id = arg.equals(".") ? propertyGet(LIST_MODULE) : parseFileArg(m_activeIsolate, -1, arg); //$NON-NLS-1$
 
                 SourceFile m = m_fileInfo.getFile(id, m_activeIsolate);
                 listFunctionsFor(sb, m);
@@ -1759,6 +1767,7 @@ public class DebugCLI implements Runnable, SourceLocator {
             int status = b.getStatus();
             boolean isResolved = (status == BreakAction.RESOLVED);
             Location l = b.getLocation();
+            final LocationCollection locations = b.getLocations();
             SourceFile file = (l != null) ? l.getFile() : null;
             String funcName = (file == null) ? null : file.getFunctionNameForLine(m_session, l.getLine());
             boolean singleSwf = b.isSingleSwf();
@@ -1808,9 +1817,20 @@ public class DebugCLI implements Runnable, SourceLocator {
                     sb.append(expr);
             }
 
+            final StringBuilder workerList = new StringBuilder();
+            if (locations != null) {
+                for (Iterator<Location> iterator = locations.iterator(); iterator.hasNext(); ) {
+                    Location location = iterator.next();
+                    workerList.append(location.getIsolateId() - 1);
+                    if (iterator.hasNext())
+                        workerList.append(" / ");
+                }
+            }
+
+
             if (l != null) {
                 Map<String, Object> workerArgs = new HashMap<String, Object>();
-                workerArgs.put("worker", l.getIsolateId() - 1); //$NON-NLS-1$
+                workerArgs.put("worker", workerList.toString()); //$NON-NLS-1$
                 sb.append(" (");
                 sb.append(getLocalizationManager().getLocalizedTextString("inWorker", workerArgs)); //$NON-NLS-1$
                 sb.append(") ");
@@ -1928,7 +1948,7 @@ public class DebugCLI implements Runnable, SourceLocator {
      * Dump out the state of the execution, either the fact we are running
      * or the breakpoint we hit.
      */
-    void dumpHaltState(boolean postStep) throws NotConnectedException {
+    void dumpHaltState(boolean postStep) throws NotConnectedException, SuspendedException, NoResponseException, NotSupportedException, NotSuspendedException, IOException {
         // spit out any event output, if we are to resume after a fault and we're not stepping then we're done.
         processEvents();
 //		System.out.println("processEvents = "+m_requestResume);
@@ -1942,7 +1962,7 @@ public class DebugCLI implements Runnable, SourceLocator {
             out(getLocalizationManager().getLocalizedTextString("sessionTerminated")); //$NON-NLS-1$
             exitSession();
         } else {
-            if (hasAnythingSuspended()) {
+            if (!m_quietMode && hasAnythingSuspended()) {
                 // capture our break location / information
                 StringBuilder sbLine = new StringBuilder();
                 dumpBreakLine(postStep, sbLine);
@@ -1975,10 +1995,11 @@ public class DebugCLI implements Runnable, SourceLocator {
                     out(sb.toString());
 
 //				System.out.println("processbreak = "+m_requestResume+",silent="+silent+",reason="+m_session.suspendReason());
-            } else {
+            } else if (!m_quietMode) {
                 // very bad, set stepping so that we don't trigger a continue on a breakpoint or fault
                 out(getLocalizationManager().getLocalizedTextString("playerDidNotStop")); //$NON-NLS-1$
             }
+            m_quietMode = false;
         }
     }
 
@@ -2057,7 +2078,15 @@ public class DebugCLI implements Runnable, SourceLocator {
             /** disable this line (and enable the one after) if implementation Extensions are not provided */
             appendBreakInfo(sb, m_activeIsolate);
             //sb.append("unknown location");
-        } else {
+        }/* else if (reason == SuspendReason.Breakpoint && enabledBreakpointIndexOf(l) == -1) {
+            // Dont output anything
+
+            // That's a edge case when a function breaks often, let's say a timer,
+            // if the break action is disabled, the break event are still dispatched,
+            // sent to the debugger and outputed, the debugger can't then halt the player anymore,
+            // even removing the output, that's the same, I will try to fix this better later,
+            // in between, I comment my changes.
+        }*/ else {
             if (activeIsolateChanged) {
                 sb.append(m_newline + getLocalizationManager().getLocalizedTextString("workerChanged") + " " + (targetIsolate - 1) + m_newline);
             }
@@ -2224,7 +2253,7 @@ public class DebugCLI implements Runnable, SourceLocator {
     void propagateBreakpoints(int isolateId) throws NotConnectedException {
         // get the newly added swf, which lands at the end list
         SwfInfo[] swfs = m_fileInfo.getSwfsIsolate(isolateId);
-        SwfInfo swf = (swfs.length > 1) ? swfs[swfs.length - 1] : null;
+        SwfInfo swf = (swfs.length > 0) ? swfs[swfs.length - 1] : null;
 
         // now walk through all breakpoints propagating the
         // the break for each source and line number we
@@ -2237,6 +2266,8 @@ public class DebugCLI implements Runnable, SourceLocator {
                 continue;
             if (bp.getStatus() != BreakAction.RESOLVED)
                 continue;
+            if (!bp.isPropagable())
+                continue;
 
             try {
                 Location l = bp.getLocation();
@@ -2245,6 +2276,10 @@ public class DebugCLI implements Runnable, SourceLocator {
                 Location newLoc = findAndEnableBreak(swf, f, line);
                 if (newLoc != null)
                     bp.addLocation(newLoc);
+                else newLoc.getFile();
+
+                dumpAddedBreakpoint(bp);
+
             } catch (InProgressException ipe) {
                 if (breakpointCount() > 0) {
                     Map<String, Object> args = new HashMap<String, Object>();
@@ -2253,6 +2288,26 @@ public class DebugCLI implements Runnable, SourceLocator {
                 }
             }
         }
+    }
+
+    private void dumpAddedBreakpoint(BreakAction bp) {
+        Location l = bp.getLocations().last();
+        int which = bp.getId();
+        String name = l.getFile().getName();
+        int offset = adjustOffsetForUnitTests(l.getFile().getOffsetForLine(l.getLine()));
+
+        Map<String, Object> args = new HashMap<String, Object>();
+        args.put("breakpointNumber", Integer.toString(which)); //$NON-NLS-1$
+        args.put("file", name); //$NON-NLS-1$
+        args.put("line", Integer.toString(l.getLine())); //$NON-NLS-1$
+        String formatString;
+        if (offset != 0) {
+            args.put("offset", "0x" + Integer.toHexString(offset)); //$NON-NLS-1$ //$NON-NLS-2$
+            formatString = "createdBreakpointWithOffset"; //$NON-NLS-1$
+        } else {
+            formatString = "createdBreakpoint"; //$NON-NLS-1$
+        }
+        out(getLocalizationManager().getLocalizedTextString(formatString, args));
     }
 
     /**
@@ -2332,7 +2387,7 @@ public class DebugCLI implements Runnable, SourceLocator {
     /**
      * Our main loop when the player is off running
      */
-    public void runningLoop() throws NoResponseException, NotConnectedException {
+    public void runningLoop() throws NoResponseException, NotConnectedException, SuspendedException, NotSupportedException, NotSuspendedException, IOException {
         int update = propertyGet(UPDATE_DELAY);
         boolean nowait = (propertyGet(NO_WAITING) == 1) ? true : false;  // DEBUG ONLY; do not document
         boolean stop = false;
@@ -2561,7 +2616,7 @@ public class DebugCLI implements Runnable, SourceLocator {
     }
 
     // Dump a source line of text to the display
-    void dumpStep() throws NotConnectedException {
+    void dumpStep() throws NotConnectedException, SuspendedException, IOException, NotSupportedException, NotSuspendedException, NoResponseException {
         dumpHaltState(true);
     }
 
@@ -2611,7 +2666,7 @@ public class DebugCLI implements Runnable, SourceLocator {
     /**
      * Perform step into, optional COUNT parameter
      */
-    void doStep() throws PlayerDebugException {
+    void doStep() throws PlayerDebugException, IOException {
         waitTilHalted(m_activeIsolate);
 
         if (!allowedToStep(m_activeIsolate))
@@ -2651,7 +2706,7 @@ public class DebugCLI implements Runnable, SourceLocator {
     /**
      * Perform step over, optional COUNT parameter
      */
-    void doNext() throws PlayerDebugException {
+    void doNext() throws PlayerDebugException, IOException {
         waitTilHalted(m_activeIsolate);
 
         if (!allowedToStep(m_activeIsolate))
@@ -2699,7 +2754,7 @@ public class DebugCLI implements Runnable, SourceLocator {
     /**
      * Perform step out
      */
-    void doFinish() throws PlayerDebugException {
+    void doFinish() throws PlayerDebugException, IOException {
         waitTilHalted(m_activeIsolate);
 
         if (!allowedToStep(m_activeIsolate))
@@ -2743,7 +2798,7 @@ public class DebugCLI implements Runnable, SourceLocator {
     /**
      * Delete a breakpoint, very similar logic to disable.
      */
-    void doDelete() throws IOException, AmbiguousException, NotConnectedException {
+    void doDelete() throws IOException, AmbiguousException, NotConnectedException, SuspendedException, NotSupportedException, NotSuspendedException, NoResponseException {
         waitTilHalted(m_activeIsolate);
 
         try {
@@ -2814,70 +2869,60 @@ public class DebugCLI implements Runnable, SourceLocator {
     /**
      * Set a breakpoint
      */
-    void doBreak() throws NotConnectedException {
+    void doBreak() throws NotConnectedException, NoResponseException, NotSupportedException, NotSuspendedException, IOException, SuspendedException {
         int isolateId = propertyGet(LIST_WORKER);
+        int savedIsolateId = isolateId;
+
 		/* wait a bit if we are not halted */
         waitTilHalted(isolateId);
 
         int module = propertyGet(LIST_MODULE);
         int line = propertyGet(LIST_LINE);
 
+        FileLocation[] fileLocations = new FileLocation[0];
+        boolean wasAlreadySuspended = false;
+        boolean switching = false;
+
         String arg = null;
+        boolean propagate = true;
 
 		/* currentXXX may NOT be invalid! */
         try {
             if (hasMoreTokens()) {
                 arg = nextToken();
-                int[] result = parseLocationArg(module, line, arg, isolateId);
-                module = result[0];
-                line = result[1];
+                propagate = !arg.contains("@");
+                fileLocations = parseLocationArg(module, line, arg);
             } else {
                 // no parameter mean use current location;  null pointer if nothing works
                 Location l = getCurrentLocationIsolate(isolateId);
                 SourceFile file = l.getFile();
-                module = file.getId();
-                line = l.getLine();
+
+                final FileLocation fileLocation = new FileLocation(isolateId, file.getId(), l.getLine());
+                fileLocations[0] = fileLocation;
             }
 
-//			// check to see if there are any existing breakpoints at this file/line
-//			LinkedList existingBreakpoints = new LinkedList();
-//			int start = 0;
-//			for (;;)
-//			{
-//				int bp = breakpointIndexOf(module, line, start, true);
-//				if (bp == -1)
-//					break; // no more matches
-//				boolean isEnabled = breakpointAt(bp).isEnabled();
-//				existingBreakpoints.add("" + bp + (isEnabled ? "" : " (disabled)"));
-//			}
-//			if (existingBreakpoints.size() > 0)
-//			{
-//				String
-//			}
+            for (FileLocation fileLocation : fileLocations) {
+                isolateId = fileLocation.getIsolateId();
+                module = fileLocation.getModule();
+                line = fileLocation.getLine();
 
-            // go off; create it and set it
-            BreakAction b = addBreakpoint(module, line, isolateId);  // throws npe if not able to set
-            Location l = b.getLocation();
+                if (isolateId != savedIsolateId) {
+                    switching = true;
+                    wasAlreadySuspended = swapActiveWorkerAndStop(isolateId);
+                }
 
-            int which = b.getId();
-            String name = l.getFile().getName();
-            int offset = adjustOffsetForUnitTests(l.getFile().getOffsetForLine(line));
+                // go off; create it and set it
+                BreakAction b = addBreakpoint(module, line, isolateId, propagate);  // throws npe if not able to set
+                dumpAddedBreakpoint(b);
 
-            Map<String, Object> args = new HashMap<String, Object>();
-            args.put("breakpointNumber", Integer.toString(which)); //$NON-NLS-1$
-            args.put("file", name); //$NON-NLS-1$
-            args.put("line", Integer.toString(line)); //$NON-NLS-1$
-            String formatString;
-            if (offset != 0) {
-                args.put("offset", "0x" + Integer.toHexString(offset)); //$NON-NLS-1$ //$NON-NLS-2$
-                formatString = "createdBreakpointWithOffset"; //$NON-NLS-1$
-            } else {
-                formatString = "createdBreakpoint"; //$NON-NLS-1$
+                // worked so add it to our tracking state
+                propertyPut(BPNUM, b.getId());
+
+                if (switching) {
+                    continueAndSwapActiveWorkerBack(savedIsolateId, wasAlreadySuspended);
+                    switching = false;
+                }
             }
-            out(getLocalizationManager().getLocalizedTextString(formatString, args));
-
-            // worked so add it to our tracking state
-            propertyPut(BPNUM, which);
         } catch (ParseException pe) {
             err(pe.getMessage());
         } catch (AmbiguousException ae) {
@@ -2909,13 +2954,53 @@ public class DebugCLI implements Runnable, SourceLocator {
             args.put("filename", filename); //$NON-NLS-1$
             args.put("line", Integer.toString(line)); //$NON-NLS-1$
             err(getLocalizationManager().getLocalizedTextString("breakpointNotSetNoCode", args)); //$NON-NLS-1$
+
+            continueAndSwapActiveWorkerBack(savedIsolateId, wasAlreadySuspended);
+        } catch (InProgressException e) {
+            e.printStackTrace();
+        } finally {
+            if (switching) {
+                continueAndSwapActiveWorkerBack(savedIsolateId, wasAlreadySuspended);
+            }
         }
+    }
+
+    private boolean swapActiveWorkerAndStop(int isolateId) throws IOException, NotSupportedException, NotSuspendedException, NoResponseException, NotConnectedException, SuspendedException {
+        return swapActiveWorkerAndStop(isolateId, WORKER_DISPLAY_INTERNAL_SWAP_INFO);
+    }
+
+    private boolean swapActiveWorkerAndStop(int isolateId, boolean displayInfo) throws IOException, NotSupportedException, NotSuspendedException, NoResponseException, NotConnectedException, SuspendedException {
+        doWorker(isolateId, displayInfo);
+
+        IsolateSession session = m_session.getWorkerSession(m_activeIsolate);
+        final boolean suspended = session.isSuspended();
+
+        if (!suspended) {
+            session.suspend();
+            waitTilHalted(m_activeIsolate);
+        }
+
+        return suspended;
+    }
+
+    private void continueAndSwapActiveWorkerBack(int savedIsolateId, boolean wasAlreadySuspended) throws NotConnectedException, IOException, NotSupportedException, NotSuspendedException, NoResponseException {
+        continueAndSwapActiveWorkerBack(savedIsolateId, wasAlreadySuspended, WORKER_DISPLAY_INTERNAL_SWAP_INFO);
+    }
+
+    private void continueAndSwapActiveWorkerBack(int savedIsolateId, boolean wasAlreadySuspended, boolean displayInfo) throws NotConnectedException, IOException, NotSupportedException, NotSuspendedException, NoResponseException {
+        if (!wasAlreadySuspended) {
+            m_quietMode = !displayInfo;
+            doContinue();
+        }
+
+        if (m_activeIsolate != savedIsolateId)
+            doWorker(savedIsolateId, displayInfo);
     }
 
     /**
      * Clear a breakpoint
      */
-    void doClear() throws NotConnectedException {
+    void doClear() throws NotConnectedException, SuspendedException, NoResponseException, NotSupportedException, NotSuspendedException, IOException {
         int module = propertyGet(LIST_MODULE);
         int line = propertyGet(LIST_LINE);
         int isolateId = propertyGet(LIST_WORKER);
@@ -2928,55 +3013,117 @@ public class DebugCLI implements Runnable, SourceLocator {
         try {
             if (hasMoreTokens()) {
                 arg = nextToken();
-                int[] result = parseLocationArg(module, line, arg, isolateId);
-                module = result[0];
-                line = result[1];
+                FileLocation[] fileLocations = parseLocationArg(module, line, arg);
+
+                for (FileLocation fileLocation : fileLocations) {
+                    isolateId = fileLocation.getIsolateId();
+                    module = fileLocation.getModule();
+                    line = fileLocation.getLine();
+
+                    try {
+                        removeBreakpoint(module, line, isolateId);
+                    } catch (ArrayIndexOutOfBoundsException aio) {
+                        // means no breakpoint at this location
+                        err(getLocalizationManager().getLocalizedTextString("breakpointLocationUnknown")); //$NON-NLS-1$
+                    } catch (NullPointerException npe) {
+                        err(getLocalizationManager().getLocalizedTextString("breakpointNotCleared")); //$NON-NLS-1$
+                    }
+                }
             }
 
-            // map the breakpoint to location and then delete it
-            removeBreakpoint(module, line);
         } catch (ParseException pe) {
             err(pe.getMessage());
-        } catch (NoMatchException nme) {
-            if (removeUnresolvedBreakpoint(arg) == null)
-                err(getLocalizationManager().getLocalizedTextString("breakpointLocationUnknown")); //$NON-NLS-1$
         } catch (AmbiguousException ae) {
             err(ae.getMessage());
-        } catch (ArrayIndexOutOfBoundsException aio) {
-            // means no breakpoint at this location
-            err(getLocalizationManager().getLocalizedTextString("breakpointLocationUnknown")); //$NON-NLS-1$
-        } catch (NullPointerException npe) {
-            err(getLocalizationManager().getLocalizedTextString("breakpointNotCleared")); //$NON-NLS-1$
+        } catch (NoMatchException e) {
+            if (removeUnresolvedBreakpoint(arg) == null)
+                err(e.getMessage());
         }
     }
 
-    /**
-     * Remove the breakpoint from our table and then determine
-     */
-    BreakAction removeBreakpoint(int fileId, int line) throws ArrayIndexOutOfBoundsException, NotConnectedException {
-        int at = breakpointIndexOf(fileId, line);
-        return removeBreakpointAt(at);
+    BreakAction removeBreakpoint(int fileId, int line, int isolateId) throws ArrayIndexOutOfBoundsException, NotConnectedException, SuspendedException, IOException, NotSupportedException, NotSuspendedException, NoResponseException {
+        int at = breakpointIndexOf(fileId, line, isolateId);
+        return removeBreakpointAt(at, isolateId);
     }
 
-    BreakAction removeUnresolvedBreakpoint(String unresolvedLocation) throws NotConnectedException {
+    BreakAction removeUnresolvedBreakpoint(String unresolvedLocation) throws NotConnectedException, SuspendedException, IOException, NotSupportedException, NotSuspendedException, NoResponseException {
         int size = breakpointCount();
         for (int i = 0; i < size; i++) {
             BreakAction b = breakpointAt(i);
             String s = b.getBreakpointExpression();
-            if (s != null && s.equals(unresolvedLocation))
-                return removeBreakpointAt(i);
+            if (s != null && s.equals(unresolvedLocation)) {
+                m_breakpoints.removeElementAt(i);
+                return b;
+            }
         }
         return null;
     }
 
-    BreakAction removeBreakpointAt(int at) throws ArrayIndexOutOfBoundsException, NotConnectedException {
+    private BreakAction removeBreakpointAt(int at, int isolateId) throws ArrayIndexOutOfBoundsException, NotConnectedException, NoResponseException, NotSupportedException, SuspendedException, NotSuspendedException, IOException {
+
         BreakAction a = breakpointAt(at);
-//		if (isolateId == Isolate.DEFAULT_ID)
-//		else
-//			getIsolateState(isolateId).m_breakpoints.removeElementAt(at);
 
         if (a.getStatus() == BreakAction.RESOLVED) {
-            breakDisableRequest(a.getLocations());
+            int savedIsolateId = m_activeIsolate;
+            boolean wasAlreadySuspended = false;
+
+            Location location = null;
+            for (Iterator<Location> iterator = a.getLocations().iterator(); iterator.hasNext(); ) {
+                location = iterator.next();
+                if (location.getIsolateId() == isolateId) {
+
+                    boolean switching = false;
+                    if (location.getIsolateId() != savedIsolateId) {
+                        switching = true;
+                        wasAlreadySuspended = swapActiveWorkerAndStop(location.getIsolateId());
+                    }
+
+                    final LocationCollection locationCollection = new LocationCollection();
+                    locationCollection.add(location);
+
+                    breakDisableRequest(locationCollection);
+                    a.getLocations().remove(location);
+                    if (a.getLocations().isEmpty())
+                        m_breakpoints.removeElementAt(at);
+
+                    if (switching)
+                        continueAndSwapActiveWorkerBack(savedIsolateId, wasAlreadySuspended);
+
+                }
+            }
+        } else if (a.getStatus() == BreakAction.UNRESOLVED) {
+            m_breakpoints.removeElementAt(at);
+        }
+
+        return a;
+    }
+
+    BreakAction removeBreakpointAt(int at) throws ArrayIndexOutOfBoundsException, NotConnectedException, NoResponseException, NotSupportedException, SuspendedException, NotSuspendedException, IOException {
+        BreakAction a = breakpointAt(at);
+
+        if (a.getStatus() == BreakAction.RESOLVED) {
+            int savedIsolateId = m_activeIsolate;
+            boolean wasAlreadySuspended;
+
+            for (Iterator<Location> iterator = a.getLocations().iterator(); iterator.hasNext(); ) {
+                Location location = iterator.next();
+
+                if (location.getIsolateId() != savedIsolateId) {
+                    wasAlreadySuspended = swapActiveWorkerAndStop(a.getLocation().getIsolateId());
+
+                    final LocationCollection locationCollection = new LocationCollection();
+                    locationCollection.add(location);
+                    breakDisableRequest(locationCollection);
+
+                    continueAndSwapActiveWorkerBack(savedIsolateId, wasAlreadySuspended);
+                } else
+                    breakDisableRequest(a.getLocations());
+            }
+
+            m_breakpoints.removeElementAt(at);
+
+
+        } else if (a.getStatus() == BreakAction.UNRESOLVED) {
             m_breakpoints.removeElementAt(at);
         }
 
@@ -2988,19 +3135,42 @@ public class DebugCLI implements Runnable, SourceLocator {
      *
      * @param fileId source file identifier
      * @param line   line number
+     * @param propagate
      * @return object associated with breakpoint
      */
-    BreakAction addBreakpoint(int fileId, int line, int isolateId) throws NotConnectedException, NullPointerException {
+    BreakAction addBreakpoint(int fileId, int line, int isolateId, boolean propagate) throws NotConnectedException, NullPointerException, InProgressException {
         // use fileId SourceFile to denote the name of file in which we wish to set a breakpoint
-        SourceFile f = m_fileInfo.getFile(fileId, isolateId);
+        final SourceFile f = m_fileInfo.getFile(fileId, isolateId);
+        int bp = breakpointIndexOf(fileId, line, 0, true, -1);
+        int at = breakpointIndexOf(fileId, line, 0, true, isolateId);
 
+        final boolean bpDoesNotExistAtAll = at == -1 && bp == -1;
+        final boolean bpExistsButNotForThisIsolate = at == -1 && bp > -1;
 
-        LocationCollection col = enableBreak(f, line, isolateId);
+        BreakAction b = null;
 
-        BreakAction b = new BreakAction(col);  //  throws NullPointerException if collection is null
-        b.setEnabled(true);
-        b.setSingleSwf(m_fileInfo.isSwfFilterOn());
-        breakpointAdd(b);
+        if (bpDoesNotExistAtAll) {
+            LocationCollection col = enableBreak(f, line, isolateId);
+
+            b = new BreakAction(col);  //  throws NullPointerException if collection is null
+            b.setEnabled(true);
+            b.setSingleSwf(m_fileInfo.isSwfFilterOn());
+            b.setPropagable(propagate);
+            breakpointAdd(b);
+        } else {
+            if (bpExistsButNotForThisIsolate){
+                b = breakpointAt(bp);
+                if (b != null) {
+                    SwfInfo[] swfs = m_fileInfo.getSwfsIsolate(isolateId);
+                    SwfInfo swf = (swfs.length > 0) ? swfs[swfs.length - 1] : null;
+                    Location newLoc = findAndEnableBreak(swf, f, line);
+                    if (newLoc != null)
+                        b.addLocation(newLoc);
+                    else newLoc.getFile(); // force NullPointerException if newLoc == null
+                }
+            } else return breakpointAt(at); // already set before
+        }
+
         return b;
     }
 
@@ -3028,6 +3198,8 @@ public class DebugCLI implements Runnable, SourceLocator {
      * If a previously-unresolved breakpoint is now ambiguous, then that is
      * an error, and the return value is 'false' (indicating that the
      * debugger should halt).
+     *
+     * Resolve as well resolved BP set in other workers.
      */
     private boolean resolveBreakpoints(StringBuilder sb) {
         int count = breakpointCount();
@@ -3065,34 +3237,25 @@ public class DebugCLI implements Runnable, SourceLocator {
     private boolean tryResolveBreakpoint(BreakAction b, StringBuilder sb) throws AmbiguousException {
         int status = b.getStatus();
         boolean resolved = (status == BreakAction.RESOLVED);
-        if (status == BreakAction.UNRESOLVED) // we don't do anything for RESOLVED or AMBIGUOUS
+        if (status == BreakAction.UNRESOLVED || resolved) // we don't do anything for AMBIGUOUS
         {
 			/* wait a bit if we are not halted */
             try {
                 waitTilHalted(m_activeIsolate);
+                int module = propertyGet(LIST_MODULE);
+                int line = propertyGet(LIST_LINE);
+                int isolateId = propertyGet(LIST_WORKER);
 
-                // First we check for the case where this breakpoint already has a
-                // filename and line number, because those were determined during a
-                // previous session, but then the user did a "kill".
-                //
-                // If this fails, then the "else" clause deals with the case where
-                // the user typed in an expression for which we have not yet found
-                // a filename and line number.
-                if (enableBreakpoint(b, b.isAutoDisable(), b.isAutoDelete())) {
-                    resolved = true;
-                } else {
-                    int module = propertyGet(LIST_MODULE);
-                    int line = propertyGet(LIST_LINE);
-                    int isolateId = propertyGet(LIST_WORKER);
+                String arg = b.getBreakpointExpression();
 
-                    String arg = b.getBreakpointExpression();
+                if (arg != null) {
+                    FileLocation[] fileLocations = parseLocationArg(module, line, arg, false);
 
-                    if (arg != null) {
-                        int[] result = parseLocationArg(module, line, arg, isolateId);
-
+                    if (fileLocations.length == 1) {
                         // whoo-hoo, it resolved!
-                        module = result[0];
-                        line = result[1];
+                        isolateId = fileLocations[0].getIsolateId();
+                        module = fileLocations[0].getModule();
+                        line = fileLocations[0].getLine();
 
                         // use module SourceFile to denote the name of file in which we wish to set a breakpoint
                         SourceFile f = m_fileInfo.getFile(module, isolateId);
@@ -3127,7 +3290,7 @@ public class DebugCLI implements Runnable, SourceLocator {
                         sb.append(m_newline);
                         sb.append(m_newline);
 
-                        resolved = true;
+                        resolved |= true;
                     }
                 }
             } catch (NotConnectedException e) {
@@ -3300,6 +3463,10 @@ public class DebugCLI implements Runnable, SourceLocator {
         return breakpointIndexOf(fileId, line, 0, true);
     }
 
+    int breakpointIndexOf(int fileId, int line, int isolateId) {
+        return breakpointIndexOf(fileId, line, 0, true, isolateId);
+    }
+
     int breakpointIndexOf(Location l, int start) {
         return breakpointIndexOf(l.getFile().getId(), l.getLine(), start, true);
     }
@@ -3309,11 +3476,15 @@ public class DebugCLI implements Runnable, SourceLocator {
     }
 
     int breakpointIndexOf(int fileId, int line, int start, boolean includeDisabled) {
+        return breakpointIndexOf(fileId, line, start, includeDisabled, m_activeIsolate);
+    }
+
+    int breakpointIndexOf(int fileId, int line, int start, boolean includeDisabled, int isolateId) {
         int size = breakpointCount();
         int hit = -1;
         for (int i = start; (hit < 0) && (i < size); i++) {
             BreakAction b = breakpointAt(i);
-            if (b.locationMatches(fileId, line, m_activeIsolate) && (includeDisabled || b.isEnabled()))
+            if (b.locationMatches(fileId, line, isolateId) && (includeDisabled || b.isEnabled()))
                 hit = i;
         }
         return hit;
@@ -3326,7 +3497,7 @@ public class DebugCLI implements Runnable, SourceLocator {
 
         for (int i = 0; (hit < 0) && (i < size); i++) {
             BreakAction b = breakpointAt(i);
-            if (b.getId() == id && b.getLocation().getIsolateId() == m_activeIsolate)
+            if (b.getId() == id)
                 hit = i;
         }
         return hit;
@@ -3859,8 +4030,18 @@ public class DebugCLI implements Runnable, SourceLocator {
         }
     }
 
-    private int parseFileName(String partialFileName) throws NoMatchException, AmbiguousException {
-        SourceFile[] sourceFiles = m_fileInfo.getFiles(partialFileName, m_activeIsolate);
+    private int parseWorkerId(String workerId) throws ParseException {
+        try {
+            return Integer.parseInt(workerId);
+        } catch (NumberFormatException nfe) {
+            Map<String, Object> args = new HashMap<String, Object>();
+            args.put("token", workerId); //$NON-NLS-1$
+            throw new ParseException(getLocalizationManager().getLocalizedTextString("expectedIsolateNumber", args), 0); //$NON-NLS-1$
+        }
+    }
+
+    private int parseFileName(int isolateId, String partialFileName) throws NoMatchException, AmbiguousException {
+        SourceFile[] sourceFiles = m_fileInfo.getFiles(partialFileName, isolateId);
         int nSourceFiles = sourceFiles.length;
 
         if (nSourceFiles == 0) {
@@ -3992,7 +4173,7 @@ public class DebugCLI implements Runnable, SourceLocator {
      * Allowed formats: #29, MyApp.mxml, MyA
      * A variety of exceptions are thrown for other formats.
      */
-    public int parseFileArg(int module, String arg) throws ParseException, AmbiguousException, NoMatchException {
+    public int parseFileArg(int isolateId, int module, String arg) throws ParseException, AmbiguousException, NoMatchException {
         /* Special case: a location arg like :15 produces a file arg
            which is an empty string. */
         if (arg.length() == 0)
@@ -4008,11 +4189,17 @@ public class DebugCLI implements Runnable, SourceLocator {
         }
         /* If the first character is '#', the rest must be a file number. */
         else if (firstChar == '#') {
-            return parseFileNumber(arg.substring(1));
+            if (isolateId == m_activeIsolate)
+                return parseFileNumber(arg.substring(1));
+            else {
+                Map<String, Object> args = new HashMap<String, Object>();
+                args.put("token", arg); //$NON-NLS-1$
+                throw new NoMatchException(getLocalizationManager().getLocalizedTextString("noSuchFileOrFunction", args)); //$NON-NLS-1$
+            }
         }
         /* Otherwise, assume beforeColon is a full or partial file name. */
         else {
-            return parseFileName(arg);
+            return parseFileName(isolateId, arg);
         }
     }
 
@@ -4046,6 +4233,10 @@ public class DebugCLI implements Runnable, SourceLocator {
         }
     }
 
+    public FileLocation[] parseLocationArg(int module, int line, String arg) throws ParseException, AmbiguousException, NoMatchException {
+        return parseLocationArg(module, line, arg, true);
+    }
+
     /**
      * Parse arg to figure out what module and line it specifies.
      * <p/>
@@ -4070,16 +4261,27 @@ public class DebugCLI implements Runnable, SourceLocator {
      * Bu:MyF                  29          17
      * <p/>
      * A variety of exceptions are thrown for other formats.
+     *
+     * Added the possibility to indicate the worker id with this format:
+     *
+     * @2:#29:17
+     * @2:Button.as:17
+     * @2:Bu:17
+     * ...
+     * and all other previous combinations.
      */
-    public int[] parseLocationArg(int module, int line, String arg, int isolateId) throws ParseException, AmbiguousException, NoMatchException {
+    public FileLocation[] parseLocationArg(int module, int line, String arg, boolean all) throws ParseException, AmbiguousException, NoMatchException {
+        int workerId = -1;
         int colonAt = arg.indexOf(':');
         int wasFunc = 0;  // set to 1 if a function was named
+        char firstChar = arg.charAt(0);
+        final ArrayList<FileLocation> fileLocations = new ArrayList<FileLocation>();
+        int currentIsolate;
 
         /* First deal with the case where arg doesn't contain a ':'
            and therefore might be specifying either a file or a line. */
+        final Iterator<Integer> iterator = m_isolateState.keySet().iterator();
         if (colonAt < 0) {
-            char firstChar = arg.charAt(0);
-
             /* If the first character is 0-9 or '-', arg is assumed to be a line number. */
             if (Character.isDigit(firstChar) || firstChar == '-') {
                 line = parseLineNumber(arg);
@@ -4087,8 +4289,12 @@ public class DebugCLI implements Runnable, SourceLocator {
             /* If the first character is a '#', what follows
                is assumed to be a file number. */
             else if (firstChar == '#') {
+                workerId = m_activeIsolate;
                 module = parseFileNumber(arg.substring(1));
                 line = 1;
+
+                final FileLocation fileLocation = new FileLocation(workerId + 1, module, line, wasFunc);
+                fileLocations.add(fileLocation);
             }
             /* Otherwise, assume arg is a full or partial function name or file name. */
             else {
@@ -4098,30 +4304,87 @@ public class DebugCLI implements Runnable, SourceLocator {
                     module = moduleAndLine[0];
                     line = moduleAndLine[1];
                     wasFunc = 1;
-                }
-                /* If it isn't, assume arg is a full or partial file name. */ catch (NoMatchException pe) {
-                    try {
-                        module = parseFileName(arg);
+
+                    final FileLocation fileLocation = new FileLocation(workerId + 1, module, line, wasFunc);
+                    fileLocations.add(fileLocation);
+                } catch (NoMatchException pe) {
+                /* If it isn't, assume arg is a full or partial file name. */
+                    if (all) {
+                        while (iterator.hasNext()) {
+                            currentIsolate = iterator.next();
+                            try {
+                                module = parseFileName(currentIsolate, arg);
+                                line = 1;
+
+                                final FileLocation fileLocation = new FileLocation(currentIsolate, module, line, wasFunc);
+                                fileLocations.add(fileLocation);
+                            } catch (NoMatchException ignored) {
+                            }
+                        }
+                    } else {
+                        module = parseFileName(m_activeIsolate, arg);
                         line = 1;
-                    } catch (NoMatchException pee) {
-                        // catch the 'file name' string
-                        Map<String, Object> args = new HashMap<String, Object>();
-                        args.put("token", arg); //$NON-NLS-1$
-                        throw new NoMatchException(getLocalizationManager().getLocalizedTextString("noSuchFileOrFunction", args)); //$NON-NLS-1$
+
+                        final FileLocation fileLocation = new FileLocation(m_activeIsolate, module, line, wasFunc);
+                        fileLocations.add(fileLocation);
                     }
                 }
             }
         }
 
-        /* Now deal with the case where arg contains a ':',
-           and is therefore specifying both a file and a line. */
+        /* Now deal with the case where arg contains a '@' and / or ':',
+           and is therefore specifying both a file and a line plus eventually the workerId. */
         else {
-            module = parseFileArg(module, arg.substring(0, colonAt));
-            line = parseLineArg(module, arg.substring(colonAt + 1));
-            wasFunc = (arg.substring(colonAt + 1).length() > 1 && Character.isDigit(arg.substring(colonAt + 1).charAt(0))) ? 0 : 1;
+            workerId = m_activeIsolate;
+            if (firstChar == '@') {
+                workerId = parseWorkerId(arg.substring(1, colonAt));
+                arg = arg.substring(colonAt + 1);
+                colonAt = arg.indexOf(':');
+                if (colonAt < 0) {
+                    // catch the 'file name' string
+                    Map<String, Object> args = new HashMap<String, Object>();
+                    args.put("token", arg); //$NON-NLS-1$
+                    throw new NoMatchException(getLocalizationManager().getLocalizedTextString("noSuchFileOrFunction", args)); //$NON-NLS-1$
+                }
+
+                module = parseFileArg(workerId + 1, module, arg.substring(0, colonAt));
+                line = parseLineArg(module, arg.substring(colonAt + 1));
+                wasFunc = (arg.substring(colonAt + 1).length() > 1 && Character.isDigit(arg.substring(colonAt + 1).charAt(0))) ? 0 : 1;
+
+
+                final FileLocation fileLocation = new FileLocation(workerId + 1, module, line, wasFunc);
+                fileLocations.add(fileLocation);
+            } else if (all) {
+                while (iterator.hasNext()) {
+                    currentIsolate = iterator.next();
+                    try {
+                        module = parseFileArg(currentIsolate, module, arg.substring(0, colonAt));
+                        line = parseLineArg(module, arg.substring(colonAt + 1));
+                        wasFunc = (arg.substring(colonAt + 1).length() > 1 && Character.isDigit(arg.substring(colonAt + 1).charAt(0))) ? 0 : 1;
+
+                        final FileLocation fileLocation = new FileLocation(currentIsolate, module, line, wasFunc);
+                        fileLocations.add(fileLocation);
+                    } catch (NoMatchException ignored) {
+                    }
+                }
+            } else {
+                module = parseFileName(m_activeIsolate, arg.substring(0, colonAt));
+                line = parseLineArg(module, arg.substring(colonAt + 1));
+                wasFunc = (arg.substring(colonAt + 1).length() > 1 && Character.isDigit(arg.substring(colonAt + 1).charAt(0))) ? 0 : 1;
+
+                final FileLocation fileLocation = new FileLocation(m_activeIsolate, module, line, wasFunc);
+                fileLocations.add(fileLocation);
+            }
         }
 
-        return new int[]{module, line, wasFunc};
+        if (fileLocations.size() == 0) {
+            Map<String, Object> args = new HashMap<String, Object>();
+            args.put("token", arg); //$NON-NLS-1$
+            throw new NoMatchException(getLocalizationManager().getLocalizedTextString("noSuchFileOrFunction", args)); //$NON-NLS-1$
+        }
+
+        final Object[] original = fileLocations.toArray();
+        return Arrays.copyOf(original, original.length, FileLocation[].class);
     }
 
     /**
@@ -4205,9 +4468,12 @@ public class DebugCLI implements Runnable, SourceLocator {
                     // move back two times the listing size and if listsize is odd then move forward one
                     line1 = line2 = line1 - (2 * listsize);
                 } else {
-                    int[] result = parseLocationArg(currentModule, currentLine, arg1, workerid);
-                    module1 = result[0];
-                    line2 = line1 = result[1];
+                    FileLocation[] fileLocations = parseLocationArg(currentModule, currentLine, arg1, false);
+
+                    if (fileLocations.length == 1) {
+                        module1 = fileLocations[0].getModule();
+                        line2 = line1 = fileLocations[0].getLine();
+                    }
 
                     if (hasMoreTokens()) {
                         arg2 = nextToken();
@@ -5092,17 +5358,21 @@ public class DebugCLI implements Runnable, SourceLocator {
 
     boolean enableBreakpoint(BreakAction a, boolean autoDisable, boolean autoDelete) throws NotConnectedException {
         boolean retval = false;
-        Location l = a.getLocation();   // use the first location as a source file / line number template
-        if (l != null) {
-            LocationCollection col = enableBreak(l.getFile(), l.getLine(), l.getIsolateId());
-            if (!col.isEmpty()) {
-                a.setEnabled(true);
-                a.setLocations(col);
-                a.setAutoDisable(autoDisable);
-                a.setAutoDelete(autoDelete);
-                a.setSingleSwf(false);
-                a.setStatus(BreakAction.RESOLVED);
-                retval = true;
+        final LocationCollection locations = a.getLocations();
+
+        for (Iterator<Location> iterator = locations.iterator(); iterator.hasNext(); ) {
+            Location l = iterator.next();
+
+            if (l != null) {
+                LocationCollection col = enableBreak(l.getFile(), l.getLine(), l.getIsolateId());
+                if (!col.isEmpty()) {
+                    a.setEnabled(true);
+                    a.setAutoDisable(autoDisable);
+                    a.setAutoDelete(autoDelete);
+                    a.setSingleSwf(false);
+                    a.setStatus(BreakAction.RESOLVED);
+                    retval |= true;
+                }
             }
         }
         return retval;
@@ -5126,7 +5396,7 @@ public class DebugCLI implements Runnable, SourceLocator {
 
             if (hasMoreTokens()) {
                 String arg = nextToken();
-                module = parseFileArg(module, arg);
+                module = parseFileArg(worker, module, arg);
                 currentLine = 1;
                 setListingPosition(module, currentLine, worker);
             }
@@ -5570,7 +5840,7 @@ public class DebugCLI implements Runnable, SourceLocator {
      *
      * @return some hit breakpoint requested silence, shhhh!
      */
-    boolean processBreak(boolean postStep, StringBuilder sb, int isolateId) throws NotConnectedException {
+    boolean processBreak(boolean postStep, StringBuilder sb, int isolateId) throws NotConnectedException, SuspendedException, IOException, NotSupportedException, NotSuspendedException, NoResponseException {
         Location l = getCurrentLocationIsolate(isolateId);
         if (l == null || l.getFile() == null)
             return false;
@@ -6192,43 +6462,53 @@ public class DebugCLI implements Runnable, SourceLocator {
 
     void doWorker() throws IOException, NotSupportedException, NotSuspendedException, NoResponseException, NotConnectedException {
         if (hasMoreTokens()) {
-            String isolateid = nextToken();
-            if (isolateid != null && isolateid.length() > 0) {
-                try {
-                    int id = Integer.parseInt(isolateid);
-                    id++;
-                    boolean found = false;
-                    for (Isolate isolate : m_session.getWorkers()) {
-                        if (isolate.getId() == id) {
-                            found = true;
-                            break;
-                        }
-                    }
-                    StringBuilder sb = new StringBuilder();
-                    if (found) {
-                        m_activeIsolate = id;
-                        propertyPut(LIST_WORKER, id);
-                        propertyPut(LIST_LINE, 1);
-                        propertyPut(LIST_MODULE, 1);  // default to module #1
-                        propertyPut(BPNUM, 0); // set current breakpoint number as something bad
-                        propertyPut(LAST_FRAME_DEPTH, 0);
-                        propertyPut(CURRENT_FRAME_DEPTH, 0);
-                        propertyPut(DISPLAY_FRAME_NUMBER, 0);
-                        sb.append(getLocalizationManager().getLocalizedTextString("workerChanged") + " "); //$NON-NLS-1$ //$NON-NLS-2$
-                        if (id == Isolate.DEFAULT_ID) {
-                            sb.append(getLocalizationManager().getLocalizedTextString("mainThread")); //$NON-NLS-1$
-                        } else
-                            sb.append((id - 1));
-                        sb.append(m_newline);
-                    } else {
-                        sb.append(getLocalizationManager().getLocalizedTextString("workerNotFound") + " " + (id - 1)); //$NON-NLS-1$ //$NON-NLS-2$
-                        sb.append(m_newline);
-                    }
-                    out(sb.toString());
-                } catch (NumberFormatException e) {
-                    err(e.getLocalizedMessage());
+            String workerId = nextToken();
+            if (workerId != null && workerId.length() > 0) {
+                int id = Integer.parseInt(workerId);
+                doWorker(++id, true);
+            }
+        }
+    }
+
+    void doWorker(int id, boolean doOutput) throws IOException, NotSupportedException, NotSuspendedException, NoResponseException, NotConnectedException {
+        try {
+            boolean found = false;
+            for (Isolate isolate : m_session.getWorkers()) {
+                if (isolate.getId() == id) {
+                    found = true;
+                    break;
                 }
             }
+            StringBuilder sb = new StringBuilder();
+            if (found) {
+                m_activeIsolate = id;
+                propertyPut(LIST_WORKER, id);
+                propertyPut(LIST_LINE, 1);
+                propertyPut(LIST_MODULE, 1);  // default to module #1
+                propertyPut(BPNUM, 0); // set current breakpoint number as something bad
+                propertyPut(LAST_FRAME_DEPTH, 0);
+                propertyPut(CURRENT_FRAME_DEPTH, 0);
+                propertyPut(DISPLAY_FRAME_NUMBER, 0);
+
+                if (doOutput) {
+                    sb.append(getLocalizationManager().getLocalizedTextString("workerChanged") + " "); //$NON-NLS-1$ //$NON-NLS-2$
+                    if (id == Isolate.DEFAULT_ID) {
+                        sb.append(getLocalizationManager().getLocalizedTextString("mainThread")); //$NON-NLS-1$
+                    } else
+                        sb.append((id - 1));
+                    sb.append(m_newline);
+                }
+            } else {
+                if (doOutput) {
+                    sb.append(getLocalizationManager().getLocalizedTextString("workerNotFound") + " " + (id - 1)); //$NON-NLS-1$ //$NON-NLS-2$
+                    sb.append(m_newline);
+                }
+            }
+            if (doOutput) {
+                out(sb.toString());
+            }
+        } catch (NumberFormatException e) {
+            err(e.getLocalizedMessage());
         }
     }
 
@@ -6589,4 +6869,62 @@ public class DebugCLI implements Runnable, SourceLocator {
     void doDisassemble() throws PlayerDebugException {
         Extensions.doDisassemble(this);
     }
+}
+
+class FileLocation {
+
+    public FileLocation () {};
+
+    public FileLocation(int isolateId, int module, int line, int wasFunc) {
+        setIsolateId(isolateId);
+        setModule(module);
+        setLine(line);
+        setWasFunc(wasFunc);
+    };
+
+    public FileLocation(int isolateId, int module, int line) {
+        setIsolateId(isolateId);
+        setModule(module);
+        setLine(line);
+        setWasFunc(0);
+    };
+
+
+    public int getIsolateId() {
+        return isolateId;
+    }
+
+    public void setIsolateId(int isolateId) {
+        this.isolateId = isolateId;
+    }
+
+    public int getModule() {
+        return module;
+    }
+
+    public void setModule(int module) {
+        this.module = module;
+    }
+
+    public int getLine() {
+        return line;
+    }
+
+    public void setLine(int line) {
+        this.line = line;
+    }
+
+    int isolateId;
+    int module;
+    int line;
+
+    public int getWasFunc() {
+        return wasFunc;
+    }
+
+    public void setWasFunc(int wasFunc) {
+        this.wasFunc = wasFunc;
+    }
+
+    int wasFunc;
 }

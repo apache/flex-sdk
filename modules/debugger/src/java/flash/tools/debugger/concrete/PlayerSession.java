@@ -913,7 +913,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable, Is
 		int isolateId = local.getIsolateId();
 		Location l = null;
 		l = m_manager.getBreakpoint(bp, isolateId);
-		
+
 		if (l != null)
 		{
 			/* send the message */
