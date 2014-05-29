@@ -537,6 +537,9 @@ public class FileInfoCache implements Comparator<SourceFile>
 			// if we are using the full path string, then prefix a '.' to our matching string so that abc.as and Gabc.as don't both hit
 			String match = (usePath && pathExists) ? dotMatchString : matchString;
 
+            match = match.replace('/', '.');  // get rid of path identifiers and use dots
+            match = match.replace('\\', '.');
+
 			name = name.replace('/', '.');  // get rid of path identifiers and use dots
 			name = name.replace('\\', '.'); // would be better to modify the input string, but we don't know which path char will be used.
 
