@@ -1,20 +1,18 @@
 /*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- *  Licensed to the Apache Software Foundation (ASF) under one or more
- *  contributor license agreements.  See the NOTICE file distributed with
- *  this work for additional information regarding copyright ownership.
- *  The ASF licenses this file to You under the Apache License, Version 2.0
- *  (the "License"); you may not use this file except in compliance with
- *  the License.  You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package flash.tools.debugger.concrete;
@@ -48,9 +46,10 @@ public class DStackContext implements Frame
 	private int			m_offset;   /* offset within swf where we halted. (really part of location) */
 	private boolean		m_populated;
 	private DVariable	m_activationObject;
+	private int  m_isolateId;
 
 	public DStackContext(int module, int line, DModule f, long thisId /* bogus */,
-						 String functionSignature, int depth)
+			String functionSignature, int depth, int isolateId)
 	{
 		m_source = f;
 		m_module = module;
@@ -63,7 +62,8 @@ public class DStackContext implements Frame
 		m_locals = new LinkedHashMap<String, DVariable>(); // preserves order
 		m_scopeChain = new ArrayList<DVariable>();
 		m_populated = false;
-		m_location = new DLocation(m_source, line);
+		m_isolateId = isolateId;
+		m_location = new DLocation(m_source, line, isolateId);
 	}
 
 	/*
@@ -128,6 +128,7 @@ public class DStackContext implements Frame
 	void setThis(DVariable v)					{ m_this = v; }
 	void setSwfIndex(int index)					{ m_swfIndex = index; }
 	void setOffset(int offset)					{ m_offset = offset; }
+	void setIsolateId(int id)					{ m_isolateId = id; }
 	void markStale()							{ m_populated = false; } // triggers a reload of variables.
 
 	/**
@@ -153,16 +154,23 @@ public class DStackContext implements Frame
 	/**
 	 * Populate ensures that we have some locals and args. That is
 	 * that we have triggered a InFrame call to the player
-	 * @throws NoResponseException
-	 * @throws NotSuspendedException
-	 * @throws NotConnectedException
+	 * @throws flash.tools.debugger.NoResponseException
+	 * @throws flash.tools.debugger.NotSuspendedException
+	 * @throws flash.tools.debugger.NotConnectedException
 	 */
 	void populate(Session s) throws NoResponseException, NotSuspendedException, NotConnectedException
 	{
 		if (!m_populated)
 		{
-			((PlayerSession)s).requestFrame(m_depth);
+			PlayerSession ses = ((PlayerSession)s);
+			ses.requestFrame(m_depth, m_isolateId);
+			
 			m_populated = true;
 		}
+	}
+
+	public int getIsolateId() 
+	{
+		return m_isolateId;
 	}
 }

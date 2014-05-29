@@ -1,20 +1,18 @@
 /*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- *  Licensed to the Apache Software Foundation (ASF) under one or more
- *  contributor license agreements.  See the NOTICE file distributed with
- *  this work for additional information regarding copyright ownership.
- *  The ASF licenses this file to You under the Apache License, Version 2.0
- *  (the "License"); you may not use this file except in compliance with
- *  the License.  You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package flash.tools.debugger.concrete;
@@ -25,6 +23,7 @@ import flash.swf.debug.DebugModule;
 import flash.swf.debug.LineRecord;
 import flash.tools.ActionLocation;
 import flash.tools.debugger.InProgressException;
+import flash.tools.debugger.Isolate;
 import flash.tools.debugger.NoResponseException;
 import flash.tools.debugger.Session;
 import flash.tools.debugger.SourceFile;
@@ -61,7 +60,7 @@ public class DSwfInfo implements SwfInfo
 
 	private final static String UNKNOWN = PlayerSessionManager.getLocalizationManager().getLocalizedTextString("unknown"); //$NON-NLS-1$
 
-	public DSwfInfo(int index)	
+	public DSwfInfo(int index, int isolateId)	
 	{	
 		// defaults values of zero
 		m_id = 0;
@@ -73,6 +72,7 @@ public class DSwfInfo implements SwfInfo
 		m_port = 0;
 		m_swdLoading = true;
 		m_scriptsExpected = -1;  // means not yet set by anyone!
+		m_isolateId = isolateId;
 		// rest default to null, 0 or false
 	}
 
@@ -150,7 +150,8 @@ public class DSwfInfo implements SwfInfo
 		if (isSwdLoading() && !isUnloaded())
 		{
 			// make the request 
-			try { ((PlayerSession)s).requestSwfInfo(m_index); } catch(NoResponseException nre) {}
+//			System.out.println("Swdloaded " + m_isolateId);
+			try { ((PlayerSession)s).requestSwfInfo(m_index, m_isolateId); } catch(NoResponseException nre) {}
 
 			// I should now be complete
 			if (!m_swdLoading)
@@ -262,6 +263,7 @@ public class DSwfInfo implements SwfInfo
 
 	// temporary while we parse
 	DManager m_manager;
+	private int m_isolateId = Isolate.DEFAULT_ID;
 
 	/**
 	 * Extracts information out of the SWF/SWD in order to populate
@@ -302,14 +304,20 @@ public class DSwfInfo implements SwfInfo
 			;
 		else if ( (id = local2Global(dm.id)) < 0 )
 			;
-		else if ( (module = m_manager.getSource(id)) == null )
+		else if ( (module = m_manager.getSource(id, Isolate.DEFAULT_ID)) == null )
 			;
 		else
 			module.addLineFunctionInfo(where.actions.getOffset(where.at), line, func);
 	}
 
 	/* for debugging */
+	@Override
 	public String toString() {
 		return m_path;
+	}
+
+	@Override
+	public int getIsolateId() {
+		return m_isolateId;
 	}
 }

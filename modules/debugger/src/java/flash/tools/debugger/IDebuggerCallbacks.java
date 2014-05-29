@@ -1,20 +1,18 @@
 /*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- *  Licensed to the Apache Software Foundation (ASF) under one or more
- *  contributor license agreements.  See the NOTICE file distributed with
- *  this work for additional information regarding copyright ownership.
- *  The ASF licenses this file to You under the Apache License, Version 2.0
- *  (the "License"); you may not use this file except in compliance with
- *  the License.  You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package flash.tools.debugger;
@@ -82,6 +80,18 @@ public interface IDebuggerCallbacks
 	 * Terminates a debug target process.
 	 */
 	public void terminateDebugTarget(Process process) throws IOException;
+	
+	/**
+	 * Launches a debug target using the launcher instance<code>ILauncher.launch(cmd)</code>.
+	 * 
+	 */
+	public Process launchDebugTarget(String[] cmd, ILauncher launcher) throws IOException;
+
+	/**
+	 * Terminates a debug target process by invoking <code>ILauncher.terminate(process)</code>
+	 */
+	public void terminateDebugTarget(Process process, ILauncher launcher) throws IOException;
+
 
 	/**
 	 * Query the Windows registry.
@@ -96,13 +106,19 @@ public interface IDebuggerCallbacks
 	 *            value
 	 * @return the value stored at the location, or null if key or value was not
 	 *         found
-	 * @throws IOException
+	 * @throws java.io.IOException
 	 *             indicates the registry query failed -- warning, this can
 	 *             really happen! Some implementations of this function don't
 	 *             work on Windows 2000. So, this function should not be counted
 	 *             on too heavily -- you should have a backup plan.
 	 */
 	public String queryWindowsRegistry(String key, String value) throws IOException;
+	
+	/**
+	 * Same as queryWindowsRegistry, but allows specific access to the 32-bit
+	 * or 64-bit part of the registry.
+	 */
+	public String queryWindowsRegistry(String key, String value, int registryBitMode) throws IOException;
 
 	/**
 	 * Returns the version number of an application. For example, Firefox 3.5.4
@@ -127,7 +143,7 @@ public interface IDebuggerCallbacks
 	 *         this function needs to be cross- platform, and the format of
 	 *         version information tends to vary widely from one platform to
 	 *         another.
-	 * @throws IOException
+	 * @throws java.io.IOException
 	 *             e.g. for file not found, etc.
 	 */
 	public int[] getAppVersion(File application) throws IOException;

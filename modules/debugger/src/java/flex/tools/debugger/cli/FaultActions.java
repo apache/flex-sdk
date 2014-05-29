@@ -1,25 +1,34 @@
 /*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- *  Licensed to the Apache Software Foundation (ASF) under one or more
- *  contributor license agreements.  See the NOTICE file distributed with
- *  this work for additional information regarding copyright ownership.
- *  The ASF licenses this file to You under the Apache License, Version 2.0
- *  (the "License"); you may not use this file except in compliance with
- *  the License.  You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package flex.tools.debugger.cli;
 
 import java.util.HashMap;
+
+import flash.localization.LocalizationManager;
+import flash.tools.debugger.events.DivideByZeroFault;
+import flash.tools.debugger.events.ExceptionFault;
+import flash.tools.debugger.events.InvalidTargetFault;
+import flash.tools.debugger.events.InvalidURLFault;
+import flash.tools.debugger.events.InvalidWithFault;
+import flash.tools.debugger.events.ProtoLimitFault;
+import flash.tools.debugger.events.RecursionLimitFault;
+import flash.tools.debugger.events.ScriptTimeoutFault;
+import flash.tools.debugger.events.StackUnderFlowFault;
 
 /**
  * FaultActions proivdes a convenient wrapper for housing the user specified
@@ -39,7 +48,7 @@ public class FaultActions
 
 	int m_nextBitForAction = 0x1;  // the next bit to use for the action
 
-	public FaultActions() {}
+	private FaultActions() {}
 
 	Integer		get(String o)			{ return m_faults.get(o); }
 	Integer		getAction(String o)		{ return m_actions.get(o); }
@@ -115,5 +124,105 @@ public class FaultActions
 		put(fault, new Integer(n));
 
 		return n;
+	}
+	
+	public static class FaultActionsBuilder {
+
+		private final LocalizationManager localizationManager;
+
+		public FaultActionsBuilder(LocalizationManager localizationManager) {
+			super();
+			this.localizationManager = localizationManager;
+		}
+
+		public FaultActions build() {
+			FaultActions faultActions = new FaultActions();
+			populateFaultTable(faultActions);
+			return faultActions;
+		}
+
+		private void populateFaultTable(FaultActions faultActions) {
+			// possible actions for our fault table
+			faultActions.addAction("stop"); //$NON-NLS-1$
+			faultActions.addAction("print"); //$NON-NLS-1$
+
+			// the faults we support
+			faultActions.add(InvalidTargetFault.name);
+			faultActions.add(RecursionLimitFault.name);
+			faultActions.add(InvalidWithFault.name);
+			faultActions.add(ProtoLimitFault.name);
+			faultActions.add(InvalidURLFault.name);
+			faultActions.add(ExceptionFault.name);
+			faultActions.add(StackUnderFlowFault.name);
+			faultActions.add(DivideByZeroFault.name);
+			faultActions.add(ScriptTimeoutFault.name);
+			// faultActions.add(ConsoleErrorFault.name);
+
+			// nice description of the faults
+			faultActions.putDescription(
+					InvalidTargetFault.name,
+					getLocalizationManager().getLocalizedTextString(
+							"invalidTargetFault")); //$NON-NLS-1$
+			faultActions.putDescription(
+					RecursionLimitFault.name,
+					getLocalizationManager().getLocalizedTextString(
+							"recursionLimitFault")); //$NON-NLS-1$
+			faultActions.putDescription(
+					InvalidWithFault.name,
+					getLocalizationManager().getLocalizedTextString(
+							"invalidWithFault")); //$NON-NLS-1$
+			faultActions.putDescription(
+					ProtoLimitFault.name,
+					getLocalizationManager().getLocalizedTextString(
+							"protoLimitFault")); //$NON-NLS-1$
+			faultActions.putDescription(
+					InvalidURLFault.name,
+					getLocalizationManager().getLocalizedTextString(
+							"invalidUrlFault")); //$NON-NLS-1$
+			faultActions.putDescription(
+					ExceptionFault.name,
+					getLocalizationManager().getLocalizedTextString(
+							"exceptionFault")); //$NON-NLS-1$
+			faultActions.putDescription(
+					StackUnderFlowFault.name,
+					getLocalizationManager().getLocalizedTextString(
+							"stackUnderflowFault")); //$NON-NLS-1$
+			faultActions.putDescription(
+					DivideByZeroFault.name,
+					getLocalizationManager().getLocalizedTextString(
+							"divideByZeroFault")); //$NON-NLS-1$
+			faultActions.putDescription(
+					ScriptTimeoutFault.name,
+					getLocalizationManager().getLocalizedTextString(
+							"scriptTimeoutFault")); //$NON-NLS-1$
+			// faultActions.putDescription(ConsoleErrorFault.name,
+			// "ActionScript recoverable error");
+
+			// default values for the faults
+			faultActions.action(InvalidTargetFault.name, "stop"); //$NON-NLS-1$
+			faultActions.action(InvalidTargetFault.name, "print"); //$NON-NLS-1$
+			faultActions.action(RecursionLimitFault.name, "stop"); //$NON-NLS-1$
+			faultActions.action(RecursionLimitFault.name, "print"); //$NON-NLS-1$
+			faultActions.action(InvalidWithFault.name, "stop"); //$NON-NLS-1$
+			faultActions.action(InvalidWithFault.name, "print"); //$NON-NLS-1$
+			faultActions.action(ProtoLimitFault.name, "stop"); //$NON-NLS-1$
+			faultActions.action(ProtoLimitFault.name, "print"); //$NON-NLS-1$
+			faultActions.action(InvalidURLFault.name, "stop"); //$NON-NLS-1$
+			faultActions.action(InvalidURLFault.name, "print"); //$NON-NLS-1$
+			faultActions.action(ExceptionFault.name, "stop"); //$NON-NLS-1$
+			faultActions.action(ExceptionFault.name, "print"); //$NON-NLS-1$
+			faultActions.action(StackUnderFlowFault.name, "stop"); //$NON-NLS-1$
+			faultActions.action(StackUnderFlowFault.name, "print"); //$NON-NLS-1$
+			faultActions.action(DivideByZeroFault.name, "stop"); //$NON-NLS-1$
+			faultActions.action(DivideByZeroFault.name, "print"); //$NON-NLS-1$
+			faultActions.action(ScriptTimeoutFault.name, "stop"); //$NON-NLS-1$
+			faultActions.action(ScriptTimeoutFault.name, "print"); //$NON-NLS-1$
+			//			faultActions.action(ConsoleErrorFault.name, "print"); //$NON-NLS-1$
+			//			faultActions.action(ConsoleErrorFault.name, "stop"); //$NON-NLS-1$
+		}
+
+		private LocalizationManager getLocalizationManager() {
+			return localizationManager;
+		}
 	}
 }

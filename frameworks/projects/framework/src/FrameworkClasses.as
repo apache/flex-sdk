@@ -68,6 +68,7 @@ internal class FrameworkClasses
 	import mx.core.ContainerGlobals; ContainerGlobals;
 	import mx.core.ContextualClassFactory; ContextualClassFactory;
 	import mx.core.CrossDomainRSLItem; CrossDomainRSLItem;
+    import mx.core.DebuggableWorker; DebuggableWorker;
 	import mx.core.DeferredInstanceFromClass; DeferredInstanceFromClass;
 	import mx.core.DeferredInstanceFromFunction; DeferredInstanceFromFunction;
 	import mx.core.DesignLayer; DesignLayer;

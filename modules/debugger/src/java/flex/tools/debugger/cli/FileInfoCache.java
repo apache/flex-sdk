@@ -19,18 +19,19 @@
 
 package flex.tools.debugger.cli;
 
-import flash.tools.debugger.Session;
-import flash.tools.debugger.SourceFile;
-import flash.tools.debugger.SwfInfo;
-import flash.tools.debugger.InProgressException;
-import flash.tools.debugger.NoResponseException;
-
-import flash.util.IntMap;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Iterator;
+
+import flash.tools.debugger.InProgressException;
+import flash.tools.debugger.Isolate;
+import flash.tools.debugger.NoResponseException;
+import flash.tools.debugger.Session;
+import flash.tools.debugger.SourceFile;
+import flash.tools.debugger.SwfInfo;
+import flash.util.IntMap;
 
 /**
  * FileInfoCache manages a list of files that are unique
@@ -44,18 +45,89 @@ public class FileInfoCache implements Comparator<SourceFile>
 	 * We can get at files by module id or path
 	 */
 	IntMap				m_byInt = new IntMap();
+	HashMap<Integer, IntMap> m_isolateState = new HashMap<Integer, IntMap> ();
+
+	private IntMap getIsolateState(int isolateId) {
+		IntMap isolateState = null;
+		if (!m_isolateState.containsKey(isolateId)) {
+			isolateState = new IntMap();
+			m_isolateState.put(isolateId, isolateState);
+		}
+		else
+			isolateState = m_isolateState.get(isolateId);
+		return isolateState;
+	}
+
 	SourceFile[]		m_files = null;
+	SourceFile[]		m_isolateFiles = null;
 	SwfInfo				m_swfFilter = null;
 	int					m_swfsLoaded = 0;
     boolean             m_dirty = false;
+    int lastActiveIsolate = Isolate.DEFAULT_ID;
 
-	public FileInfoCache() {}
+	public FileInfoCache() {
+
+	}
 
 	public void			bind(Session s)									{ setSession(s); }
 	public void			unbind()										{ m_session = null; }
-	public SourceFile	getFile(int i)									{ populate(); return (SourceFile)m_byInt.get(i);	}
-	public SourceFile[]	getFileList()									{ populate(); return m_files; }
-	public Iterator     getAllFiles()									{ populate(); return m_byInt.iterator(); }
+
+	public SourceFile getFile(int i) {
+		return getFile(i, Isolate.DEFAULT_ID);
+	}
+
+	public SourceFile getFile(int i, int isolateId) {
+		populate();
+		if (isolateId == Isolate.DEFAULT_ID)
+			return (SourceFile) m_byInt.get(i);
+		else
+			return (SourceFile)getIsolateState(isolateId).get(i);
+	}
+
+	public SourceFile[] getFileList() {
+		populate();
+		return m_files;
+	}
+
+	public SourceFile[] getFileList(int isolateId) {
+		populate();
+		if (isolateId == Isolate.DEFAULT_ID) {
+            final Object[] valuesToArray = m_byInt.valuesToArray(new Object[m_byInt.size()]);
+            return Arrays.copyOf(valuesToArray, valuesToArray.length, SourceFile[].class);
+        }
+		else if (isolateId != lastActiveIsolate) {
+			buildIsolateFiles(isolateId);
+		}
+		return m_isolateFiles;
+	}
+
+	private void buildIsolateFiles(int isolateId) {
+		SwfInfo[] swfs = getSwfs(isolateId);
+		boolean worked = true; // check that all worked correctly
+		ArrayList<SourceFile> files = new ArrayList<SourceFile>();
+
+		for(int i=0; i<swfs.length; i++)
+		{
+			if (swfs[i] != null)
+				worked = loadSwfFiles(files, swfs[i]) ? worked : false;
+		}
+
+		// trim the file list
+		ArrayList<SourceFile> fa = trimFileList(files);
+		m_isolateFiles = fa.toArray( new SourceFile[fa.size()] );
+
+		// sort this array in place so calls to getFileList will be ordered
+		Arrays.sort(m_isolateFiles, this);
+	}
+
+	public Iterator getAllFiles(int isolateId) {
+		populate();
+		if (isolateId == Isolate.DEFAULT_ID)
+			return m_byInt.iterator();
+		else
+			return getIsolateState(isolateId).iterator();
+	}
+
     public SwfInfo      getSwfFilter()                                  { return m_swfFilter; }
     public boolean      isSwfFilterOn()                                 { return (m_swfFilter != null); }
     public void         setDirty()                                      { m_dirty = true; }
@@ -67,10 +139,28 @@ public class FileInfoCache implements Comparator<SourceFile>
 		clear();
 	}
 
+	SwfInfo[] getAllSwfs() {
+		ArrayList<SwfInfo> result = new ArrayList<SwfInfo>();
+
+		for ( Isolate isolate : m_session.getWorkers()) {
+			SwfInfo[] swfs = new SwfInfo[0];
+			try {
+				swfs = m_session.getWorkerSession(isolate.getId()).getSwfs();
+			} catch (NoResponseException e) {
+				swfs = new SwfInfo[0];
+			}
+
+			for (SwfInfo swf : swfs)
+				result.add(swf);
+		}
+
+		return result.toArray(new SwfInfo[0]);
+	}
+
 	void populate()
 	{
 		// do we have a new swf to load?
-		if (m_session != null && (m_dirty || getSwfs().length > m_swfsLoaded))
+		if (m_session != null && (m_dirty || getAllSwfs().length > m_swfsLoaded))
 			reloadCache();
 	}
 
@@ -84,6 +174,7 @@ public class FileInfoCache implements Comparator<SourceFile>
 	void clear()
 	{
 		m_byInt.clear();
+		m_isolateState.clear();
 		m_files = null;
 	}
 
@@ -113,7 +204,7 @@ public class FileInfoCache implements Comparator<SourceFile>
 	{
 		boolean worked = true; // check that all worked correctly
 		ArrayList<SourceFile> files = new ArrayList<SourceFile>();
-		SwfInfo[] swfs = getSwfs();
+		SwfInfo[] swfs = getAllSwfs();
 		for(int i=0; i<swfs.length; i++)
 		{
 			if (swfs[i] != null)
@@ -144,7 +235,7 @@ public class FileInfoCache implements Comparator<SourceFile>
 			// add each file to our global source file IntMap and our list
 			for(int i=0; i<files.length; i++)
 			{
-				putFile(files[i]);
+				putFile(files[i], swf.getIsolateId());
 				ar.add(files[i]);
 			}
 		}
@@ -209,10 +300,13 @@ public class FileInfoCache implements Comparator<SourceFile>
 	 * be able to locate the SourceFile so that we can
 	 * display the correct context for the user.
 	 */
-	void putFile(SourceFile s)
+	void putFile(SourceFile s, int isolateId)
 	{
 		int i = s.getId();
-		m_byInt.put(i, s);
+		if (isolateId == Isolate.DEFAULT_ID)
+		    m_byInt.put(i, s);
+		else
+			getIsolateState(isolateId).put(i, s);
 	}
 
 	/**
@@ -230,7 +324,7 @@ public class FileInfoCache implements Comparator<SourceFile>
 		}
 		else
 		{
-			SwfInfo[] swfs = getSwfs();
+			SwfInfo[] swfs = getAllSwfs();
 			for(int i=0; i<swfs.length; i++)
 			{
 				SwfInfo e = swfs[i];
@@ -251,12 +345,17 @@ public class FileInfoCache implements Comparator<SourceFile>
 	}
 
 	// list all swfs we know about
-	public SwfInfo[] getSwfs()
+	public SwfInfo[] getSwfs(int isolateId)
+	{
+		return getSwfsIsolate(isolateId);
+	}
+
+	public SwfInfo[] getSwfsIsolate(int isolateId)
 	{
 		SwfInfo[] swfs = null;
 		try
 		{
-			swfs = m_session.getSwfs();
+			swfs = m_session.getWorkerSession(isolateId).getSwfs();
 		}
 		catch(NoResponseException nre)
 		{
@@ -268,12 +367,12 @@ public class FileInfoCache implements Comparator<SourceFile>
 	/**
 	 * Given a SourceFile locate the swf which it came from
 	 */
-	public SwfInfo swfForFile(SourceFile f)
+	public SwfInfo swfForFile(SourceFile f, int isolateId)
 	{
 		// We use the id to determine which swf this source files resides in
 		int id = f.getId();
 		SwfInfo info = null;
-		SwfInfo[] swfs = getSwfs();
+		SwfInfo[] swfs = getSwfs(isolateId);//getAllSwfs();
 		for(int i=0; ( i<swfs.length && (info == null) ); i++)
 		{
 			if (swfs[i] != null && swfs[i].containsSource(f))
@@ -377,12 +476,18 @@ public class FileInfoCache implements Comparator<SourceFile>
 
         return yes;
     }
+
     /**
      * Return a array of SourceFiles whose names match
      * the specified string. The array is sorted by name.
-	 * The input can be mx.controls.xxx which will
+     * The input can be mx.controls.xxx which will
      */
     public SourceFile[] getFiles(String matchString)
+    {
+        return getFiles(matchString, -1);
+    }
+
+    public SourceFile[] getFiles(String matchString, int isolateId)
     {
         boolean doStartsWith = false;
         boolean doIndexOf = false;
@@ -416,7 +521,7 @@ public class FileInfoCache implements Comparator<SourceFile>
             doStartsWith = true;
         }
 
-		SourceFile[] files = getFileList();
+		SourceFile[] files = isolateId > -1 ? getFileList(isolateId) : getFileList();
         ArrayList<SourceFile> fileList = new ArrayList<SourceFile>();
         int n = files.length;
 		int exactHitAt = -1;
@@ -431,6 +536,9 @@ public class FileInfoCache implements Comparator<SourceFile>
 
 			// if we are using the full path string, then prefix a '.' to our matching string so that abc.as and Gabc.as don't both hit
 			String match = (usePath && pathExists) ? dotMatchString : matchString;
+
+            match = match.replace('/', '.');  // get rid of path identifiers and use dots
+            match = match.replace('\\', '.');
 
 			name = name.replace('/', '.');  // get rid of path identifiers and use dots
 			name = name.replace('\\', '.'); // would be better to modify the input string, but we don't know which path char will be used.

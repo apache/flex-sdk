@@ -1,5 +1,4 @@
 /*
- *
  *  Licensed to the Apache Software Foundation (ASF) under one or more
  *  contributor license agreements.  See the NOTICE file distributed with
  *  this work for additional information regarding copyright ownership.
@@ -14,7 +13,6 @@
  *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
  *  See the License for the specific language governing permissions and
  *  limitations under the License.
- *
  */
 
 package flex.tools.debugger.cli;
@@ -22,6 +20,7 @@ package flex.tools.debugger.cli;
 import java.util.StringTokenizer;
 import java.util.Vector;
 
+import flash.tools.debugger.Isolate;
 import flash.tools.debugger.PlayerDebugException;
 import flash.tools.debugger.Session;
 import flash.tools.debugger.SessionManager;
@@ -45,6 +44,7 @@ public class ExpressionContext implements Context
 	Vector<String>		m_namedPath;
 	boolean				m_nameLocked;
 	String				m_newline = System.getProperty("line.separator"); //$NON-NLS-1$
+	int m_isolateId;
 
 	// used when evaluating an expression
 	public ExpressionContext(ExpressionCache cache)
@@ -54,6 +54,11 @@ public class ExpressionContext implements Context
 		m_createIfMissing = false;
 		m_namedPath = new Vector<String>();
 		m_nameLocked = false;
+		m_isolateId = Isolate.DEFAULT_ID;
+	}
+
+	public void setIsolateId(int id) {
+		m_isolateId = id;
 	}
 
 	void		setContext(Object o)	{ m_current = o; }
@@ -77,7 +82,7 @@ public class ExpressionContext implements Context
 	}
 
 	String getCurrentPackageName()
-	{ 
+	{
 		String s = null;
 		try
 		{
@@ -90,7 +95,7 @@ public class ExpressionContext implements Context
 		catch(ClassCastException cce)
 		{
 		}
-		return s; 
+		return s;
 	}
 
 	//
@@ -100,13 +105,14 @@ public class ExpressionContext implements Context
 	//
 	public void createPseudoVariables(boolean oui) { m_createIfMissing = oui; }
 
-	// create a new context object by combining the current one and o 
+	// create a new context object by combining the current one and o
 	public Context createContext(Object o)
 	{
 		ExpressionContext c = new ExpressionContext(m_cache);
 		c.setContext(o);
 		c.createPseudoVariables(m_createIfMissing);
 		c.m_namedPath.addAll(m_namedPath);
+		c.setIsolateId(m_isolateId);
 		return c;
 	}
 
@@ -153,7 +159,7 @@ public class ExpressionContext implements Context
 	/**
 	 * The Context interface which goes out and gets values from the session
 	 * Expressions use this interface as a means of evaluation.
-	 * 
+	 *
 	 * We also use this to create a reference to internal variables.
 	 */
 	public Object lookup(Object o) throws NoSuchVariableException, PlayerFaultException
@@ -204,7 +210,7 @@ public class ExpressionContext implements Context
 				if (resultValue.isAttributeSet(ValueAttribute.IS_EXCEPTION))
 				{
 					String value = resultValue.getValueAsString();
-					throw new PlayerFaultException(new ExceptionFault(value, false, resultValue));
+					throw new PlayerFaultException(new ExceptionFault(value, false, resultValue, resultValue.getIsolateId()));
 				}
 			}
 		}
@@ -242,9 +248,9 @@ public class ExpressionContext implements Context
   		StringBuilder sb = new StringBuilder();
 
   		if (var != null)
-            m_cache.appendVariable(sb, var);
+            m_cache.appendVariable(sb, var, m_isolateId);
   		else
-            m_cache.appendVariableValue(sb, val);
+            m_cache.appendVariableValue(sb, val, m_isolateId);
 
 		boolean attrs = m_cache.propertyEnabled(DebugCLI.DISPLAY_ATTRIBUTES);
 		if (attrs && var != null)
@@ -263,7 +269,7 @@ public class ExpressionContext implements Context
 					if (classname.equals(mems[i].getDefiningClass()))
 					{
 			  			sb.append(m_newline + " "); //$NON-NLS-1$
-                        m_cache.appendVariable(sb, mems[i]);
+                        m_cache.appendVariable(sb, mems[i], m_isolateId);
 						if (attrs)
 							ExpressionCache.appendVariableAttributes(sb, mems[i]);
 					}
@@ -275,7 +281,7 @@ public class ExpressionContext implements Context
 	  		for(int i=0; i<mems.length; i++)
 	  		{
 	  			sb.append(m_newline + " "); //$NON-NLS-1$
-                m_cache.appendVariable(sb, mems[i]);
+                m_cache.appendVariable(sb, mems[i], m_isolateId);
 				if (attrs)
 					ExpressionCache.appendVariableAttributes(sb, mems[i]);
 	  		}
@@ -286,11 +292,11 @@ public class ExpressionContext implements Context
 
 	//
 	//
-	// End of Context API implementation 
+	// End of Context API implementation
 	//
 	//
 
-	// used to assign a value to an internal variable 
+	// used to assign a value to an internal variable
 	private void assignInternal(InternalProperty var, Value v) throws NoSuchVariableException, NumberFormatException, PlayerDebugException
 	{
 		// otherwise set it
@@ -315,7 +321,7 @@ public class ExpressionContext implements Context
 	}
 
 	/**
-	 * Resolve the object into a variable by various means and 
+	 * Resolve the object into a variable by various means and
 	 * using the current context.
 	 * @return variable, or <code>null</code>
 	 */
@@ -331,13 +337,13 @@ public class ExpressionContext implements Context
 		 * Resolve the name to something
 		 */
 		{
-			// not an id so try as name 
+			// not an id so try as name
 			String name = o.toString();
 			long id = nameAsId(name);
 
 			/**
 			 * if #N was used just pick up the variable, otherwise
-			 * we need to use the current context to resolve 
+			 * we need to use the current context to resolve
 			 * the name to a member
 			 */
 			if (id != Value.UNKNOWN_ID)
@@ -350,9 +356,9 @@ public class ExpressionContext implements Context
 				id = determineContext(name);
 				v = locateForNamed(id, name, true);
 				if (v != null)
-					v = new VariableFacade(v, id);
+					v = new VariableFacade(v, id, m_isolateId);
 				else if (v == null && m_createIfMissing && name.charAt(0) != '$')
-					v = new VariableFacade(id, name);
+					v = new VariableFacade(id, name, m_isolateId);
 			}
 		}
 
@@ -361,7 +367,7 @@ public class ExpressionContext implements Context
 	}
 
 	/*
-	 * Resolve the object into a variable by various means and 
+	 * Resolve the object into a variable by various means and
 	 * using the current context.
 	 */
 	Value resolveToValue(Object o) throws PlayerDebugException
@@ -374,36 +380,36 @@ public class ExpressionContext implements Context
 		else if (o instanceof Variable)
 			return ((Variable)o).getValue();
 		else if (o instanceof InternalProperty)
-			return DValue.forPrimitive(((InternalProperty)o).m_value);
+			return DValue.forPrimitive(((InternalProperty)o).m_value, m_isolateId);
 
 		/**
 		 * Resolve the name to something
 		 */
 		if (m_current == null)
 		{
-			// not an id so try as name 
+			// not an id so try as name
 			String name = o.toString();
 			long id = nameAsId(name);
 
 			/**
 			 * if #N was used just pick up the variable, otherwise
-			 * we need to use the current context to resolve 
+			 * we need to use the current context to resolve
 			 * the name to a member
 			 */
 			if (id != Value.UNKNOWN_ID)
 			{
-				v = getSession().getValue((int)id);
+				v = getSession().getWorkerSession(m_isolateId).getValue((int)id);
 			}
 			else if (name.equals("undefined")) //$NON-NLS-1$
 			{
-				v = DValue.forPrimitive(Value.UNDEFINED);
+				v = DValue.forPrimitive(Value.UNDEFINED, m_isolateId);
 			}
 			else
 			{
 				// Ask the player to find something, anything, on the scope chain
 				// with this name.  We'll end up here, for example, when resolving
 				// things like MyClass, String, Number, etc.
-				v = getSession().getGlobal(name);
+				v = getSession().getWorkerSession(m_isolateId).getGlobal(name);
 			}
 		}
 
@@ -420,7 +426,7 @@ public class ExpressionContext implements Context
 			if (name.charAt(0) == '#')
 				id = Long.parseLong(name.substring(1));
 		}
-		catch(Exception e) 
+		catch(Exception e)
 		{
 			id = Value.UNKNOWN_ID;
 		}
@@ -435,7 +441,7 @@ public class ExpressionContext implements Context
 	Variable memberNamed(long id, String name) throws NoSuchVariableException, PlayerDebugException
 	{
 		Variable v = null;
-		Value parent = getSession().getValue(id);
+		Value parent = getSession().getWorkerSession(m_isolateId).getValue(id);
 
 		if (parent == null)
 			throw new NoSuchVariableException(name);
@@ -448,7 +454,7 @@ public class ExpressionContext implements Context
 
 	/**
 	 * All the really good stuff about finding where name exists goes here!
-	 * 
+	 *
 	 * If name is not null, then it implies that we use the existing
 	 * m_current to find a member of m_current.  If m_current is null
 	 * Then we need to probe variable context points attempting to locate
@@ -475,13 +481,13 @@ public class ExpressionContext implements Context
 		{
 			// Each stack frame has a root variable under (BASE_ID-depth)
 			// where depth is the depth of the stack.
-			// So we query for our current stack depth and use that 
+			// So we query for our current stack depth and use that
 			// as the context for our base computation
 			long baseId = Value.BASE_ID;
 			int depth = ((Integer)m_cache.get(DebugCLI.DISPLAY_FRAME_NUMBER)).intValue();
 			baseId -= depth;
 
-			// obtain data about our current state 
+			// obtain data about our current state
 			Variable contextVar = null;
 			Value contextVal = null;
 			Value val = null;
@@ -504,7 +510,7 @@ public class ExpressionContext implements Context
 				;
 
 			// now try off of class level, if such a thing can be found
-			else if ( ( (contextVal = locate(Value.GLOBAL_ID, getCurrentPackageName(), false)) != null ) && 
+			else if ( ( (contextVal = locate(Value.GLOBAL_ID, getCurrentPackageName(), false)) != null ) &&
 					  ( setName("_global."+getCurrentPackageName()) && (val = locateParentForNamed(contextVal.getId(), name, true)) != null ) ) //$NON-NLS-1$
 				;
 
@@ -516,17 +522,17 @@ public class ExpressionContext implements Context
 				lockName();
 			}
 		}
-		
+
 		return id;
 	}
 
 	/**
 	 * Performs a search for a member with the given name using the
 	 * given id as the parent variable.
-	 * 
+	 *
 	 * If a match is found then, we return the parent variable of
 	 * the member that matched.  The proto chain is optionally traversed.
-	 * 
+	 *
 	 * No exceptions are thrown
 	 */
 	Value locateParentForNamed(long id, String name, boolean traverseProto) throws PlayerDebugException
@@ -569,7 +575,7 @@ public class ExpressionContext implements Context
 		if (var != null)
 		{
 			pushName(sb.toString());
-			val = getSession().getValue(id);
+			val = getSession().getWorkerSession(m_isolateId).getValue(id);
 		}
 
 		return val;
@@ -606,7 +612,7 @@ public class ExpressionContext implements Context
 
 		// first rip apart the dottedName
 		StringTokenizer names = new StringTokenizer(dottedName, "."); //$NON-NLS-1$
-		Value val = getSession().getValue(startingId);
+		Value val = getSession().getWorkerSession(m_isolateId).getValue(startingId);
 
 		while(names.hasMoreTokens() && val != null)
 			val = locateForNamed(val.getId(), names.nextToken(), traverseProto).getValue();
@@ -625,9 +631,9 @@ public class ExpressionContext implements Context
 		else if (o instanceof Variable)
 			return ((Variable)o).getValue();
 		else if (o instanceof InternalProperty)
-			return DValue.forPrimitive(((InternalProperty)o).m_value);
+			return DValue.forPrimitive(((InternalProperty)o).m_value, m_isolateId);
 		else
-			return DValue.forPrimitive(o);
+			return DValue.forPrimitive(o, m_isolateId);
 	}
 
 	public Value toValue()
@@ -638,5 +644,10 @@ public class ExpressionContext implements Context
 	public Session getSession()
 	{
 		return m_cache.getSession();
+	}
+
+	@Override
+	public int getIsolateId() {
+		return m_isolateId;
 	}
 }
