@@ -735,9 +735,9 @@ public class DManager implements DProtocolNotifierIF, SourceLocator {
 	void addBreakpoint(int id, DLocation l, int isolateId) {
 		ArrayList<DLocation> breakpoints = getIsolateState(isolateId).m_breakpoints;
 		synchronized (breakpoints) {
-			breakpoints.add(l);
+                breakpoints.add(l);
+            }
 		}
-	}
 
 	public DLocation[] getBreakpoints(int isolateId) {
 		ArrayList<DLocation> breakpoints = getIsolateState(isolateId).m_breakpoints;
