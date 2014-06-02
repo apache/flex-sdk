@@ -2274,12 +2274,10 @@ public class DebugCLI implements Runnable, SourceLocator {
                 int line = l.getLine();
                 SourceFile f = l.getFile();
                 Location newLoc = findAndEnableBreak(swf, f, line);
-                if (newLoc != null)
+                if (newLoc != null) {
                     bp.addLocation(newLoc);
-                else newLoc.getFile();
-
-                dumpAddedBreakpoint(bp);
-
+                    dumpAddedBreakpoint(bp);
+                }
             } catch (InProgressException ipe) {
                 if (breakpointCount() > 0) {
                     Map<String, Object> args = new HashMap<String, Object>();
