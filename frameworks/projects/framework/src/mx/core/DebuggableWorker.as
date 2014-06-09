@@ -28,7 +28,7 @@ import flash.utils.setInterval;
  *  it allows the debugging of those workers using FDB.
  *
  *  @langversion 3.0
- *  @playerversion Flash 10
+ *  @playerversion Flash 11.4
  *  @playerversion AIR 3.4
  *  @productversion Flex 4
  */
@@ -49,7 +49,7 @@ public class DebuggableWorker extends Sprite {
 
     /**
      *  @private
-     *  This is here so we get the this pointer set to Application.
+     *  This is here so we get the "this" pointer set to this worker instance.
      */
     private function debugTickler():void {
         // We need some bytes of code in order to have a place to break.
