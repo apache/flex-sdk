@@ -1942,5 +1942,11 @@ There are no known issues.
             </fileset>
         </rat:report>
     </target>
+	
+	<!-- displays the md5 of a file specified via -Dfile=<file -->
+	<target name="md5" >
+		<checksum file="${file}" property="mymd5" />
+		<echo>${mymd5}</echo>
+	</target>
 
 </project>
