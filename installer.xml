@@ -50,10 +50,10 @@
     <property file="${FLEX_HOME}/installer.properties/en_US.properties"/>
     <property name="download.dir" value="${FLEX_HOME}/in"/>
     
-    <property name="swfobject.url.server" value="http://swfobject.googlecode.com" />
-    <property name="swfobject.url.folder" value="files" />
-    <property name="swfobject.url.file" value="swfobject_2_2.zip" />
-    <property name="swfobject.url.md5" value="dec4b83b3e73f3f0011a075cd5385b9c" />
+    <property name="swfobject.url.server" value="https://github.com" />
+    <property name="swfobject.url.folder" value="swfobject/swfobject/archive" />
+    <property name="swfobject.url.file" value="2.2.zip" />
+    <property name="swfobject.url.md5" value="4723bc29f2a93e9ad9fbeeac6fe63b9e" />
 
     <property name="osmf.url.server" value="http://downloads.sourceforge.net" />
     <property name="osmf.url.folder" value="project/osmf.adobe/OSMF%202.0%20Release%20%28final%20source%2C%20ASDocs%2C%20pdf%20guides%20and%20release%20notes%29" />
@@ -570,8 +570,8 @@
         description="Copies SWFObject from code.google.com">
         
         <echo file="${basedir}/swfobject.properties">swfobject.echo=${INFO_DOWNLOADING_FILE_FROM}</echo>
-        <replace file="${basedir}/swfobject.properties" token="{0}" value="swfobject_2_2.zip" />
-        <replace file="${basedir}/swfobject.properties" token="{1}" value="http://swfobject.googlecode.com/files" />
+        <replace file="${basedir}/swfobject.properties" token="{0}" value="${swfobject.url.file}" />
+        <replace file="${basedir}/swfobject.properties" token="{1}" value="${swfobject.url.server}/${swfobject.url.folder}" />
         <property file="${basedir}/swfobject.properties" />
         <delete file="${basedir}/swfobject.properties" />
         <echo>${swfobject.echo}</echo>
@@ -587,12 +587,18 @@
         </antcall>
 
         <echo>${INFO_DOWNLOADED}</echo>
-        <unzip src="${download.dir}/swfobject_2_2.zip" dest="${FLEX_HOME}/templates">
+        <mkdir dir="${download.dir}/swfobject"/>
+        <unzip src="${download.dir}/swfobject_2_2.zip" dest="${download.dir}/swfobject">
             <patternset>
-                <include name="swfobject/expressInstall.swf"/>
-                <include name="swfobject/swfobject.js"/>
+                <include name="swfobject-2.2/swfobject/expressInstall.swf"/>
+                <include name="swfobject-2.2/swfobject/swfobject.js"/>
             </patternset>
         </unzip>
+        <mkdir dir="${FLEX_HOME}/templates/swfobject"/>
+		<copy file="${download.dir}/swfobject/swfobject-2.2/swfobject/expressInstall.swf"
+			tofile="${FLEX_HOME}/templates/swfobject/expressInstall.swf" />
+		<copy file="${download.dir}/swfobject/swfobject-2.2/swfobject/swfobject.js"
+			tofile="${FLEX_HOME}/templates/swfobject/swfobject.js" />
         <mkdir dir="${FLEX_HOME}/frameworks/javascript/fabridge/samples/fabridge/swfobject" />
         <copy file="${FLEX_HOME}/templates/swfobject/swfobject.js" tofile="${FLEX_HOME}/frameworks/javascript/fabridge/samples/fabridge/swfobject/swfobject.js" />
     </target>
