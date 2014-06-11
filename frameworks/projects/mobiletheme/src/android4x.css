@@ -111,6 +111,15 @@ Callout
     borderColor: 0;
 }
 
+Callout ViewNavigator ActionBar
+{
+	skinClass: ClassReference("spark.skins.mobile.CalloutActionBarSkin");
+	defaultButtonAppearance: none;
+	paddingLeft: 0;
+	paddingRight: 0;
+}
+
+
 CheckBox
 {
 	skinClass: ClassReference("spark.skins.android4.CheckBoxSkin");
@@ -128,6 +137,25 @@ RadioButton
 {
 	skinClass: ClassReference("spark.skins.android4.RadioButtonSkin");
 	chromeColor: #FFFFFF;
+}
+
+SpinnerList
+{
+	skinClass: ClassReference("spark.skins.android4.SpinnerListSkin");
+}
+
+SpinnerListContainer
+{
+	skinClass: ClassReference("spark.skins.android4.SpinnerListContainerSkin");
+	backgroundAlpha: 0;
+}
+
+SpinnerListItemRenderer
+{
+	paddingTop : 18;
+	paddingBottom : 18;
+	paddingLeft : 16;
+	paddingRight : 16;
 }
 
 TabbedViewNavigator #tabBar
