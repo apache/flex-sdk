@@ -24,14 +24,13 @@ package spark.skins.android4
 	
 	import mx.core.DPIClassification;
 	import mx.core.mx_internal;
+	
 	import spark.components.Group;
 	import spark.components.SpinnerListContainer;
 	import spark.layouts.HorizontalLayout;
-	//import android skins
 	import spark.skins.android4.assets.SpinnerListContainerBackground;
 	import spark.skins.android4.assets.SpinnerListContainerSelectionIndicator;
-	import spark.skins.android4.assets.SpinnerListContainerShadow
-		
+	import spark.skins.android4.assets.SpinnerListContainerShadow;
 	import spark.skins.mobile.supportClasses.MobileSkin;
 
 	use namespace mx_internal;
@@ -66,46 +65,41 @@ package spark.skins.android4
 			borderClass = spark.skins.android4.assets.SpinnerListContainerBackground;
 			selectionIndicatorClass = spark.skins.android4.assets.SpinnerListContainerSelectionIndicator;
 			shadowClass = spark.skins.android4.assets.SpinnerListContainerShadow;
+			cornerRadius = 0;
 			switch (applicationDPI)
 			{
 				case DPIClassification.DPI_640:
 				{
-					cornerRadius = 0;
 					borderThickness = 3;
 					selectionIndicatorHeight = 182;
 					break;
 				}
 				case DPIClassification.DPI_480:
 				{
-					cornerRadius = 0;
 					borderThickness = 2;
 					selectionIndicatorHeight = 144;
 					break;
 				}
 				case DPIClassification.DPI_320:
 				{					
-					cornerRadius = 0;
 					borderThickness = 2;
 					selectionIndicatorHeight = 96;
 					break;
 				}
 				case DPIClassification.DPI_240:
 				{
-					cornerRadius = 0;
 					borderThickness = 1;
 					selectionIndicatorHeight = 72;
 					break;
 				}
 				case DPIClassification.DPI_120:
 				{
-					cornerRadius = 0;
 					borderThickness = 0;
-					selectionIndicatorHeight = 37;
+					selectionIndicatorHeight = 36;
 					break;
 				}
 				default: // default DPI_160
 				{
-					cornerRadius = 0;
 					borderThickness = 1;
 					selectionIndicatorHeight = 48;
 					
@@ -319,8 +313,8 @@ package spark.skins.android4
 			setElementSize(border, unscaledWidth - borderThickness * 2, unscaledHeight);
 			setElementPosition(border, borderThickness, 0);			
 			
-			setElementSize(shadow, unscaledWidth - borderThickness * 4, unscaledHeight - borderThickness * 2);
-			setElementPosition(shadow, borderThickness * 2, borderThickness);
+			setElementSize(shadow, unscaledWidth - borderThickness * 4, measuredHeight - borderThickness * 2);
+			setElementPosition(shadow, borderThickness * 2, unscaledHeight/2 - measuredHeight/2);
 		
 			// The SpinnerLists contain a left and right border. We don't want to show the leftmost 
 			// SpinnerLists's left border nor the rightmost one's right border. 

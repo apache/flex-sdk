@@ -22,17 +22,15 @@ package spark.skins.android4
 	
 	import mx.core.ClassFactory;
 	import mx.core.DPIClassification;
-	import mx.core.mx_internal;	
-
+	import mx.core.mx_internal;
+	
 	import spark.components.DataGroup;
 	import spark.components.Scroller;
-	import spark.layouts.VerticalSpinnerLayout;
-	import spark.skins.mobile.supportClasses.MobileSkin;
-	
-	import spark.skins.android4.assets.SpinnerListContainerSelectionIndicator;
-	
 	import spark.components.SpinnerList;
-	import spark.components.SpinnerListItemRenderer;	
+	import spark.components.SpinnerListItemRenderer;
+	import spark.layouts.VerticalSpinnerLayout;
+	import spark.skins.android4.assets.SpinnerListContainerSelectionIndicator;
+	import spark.skins.mobile.supportClasses.MobileSkin;	
 
 	
 	use namespace mx_internal;
@@ -59,23 +57,52 @@ package spark.skins.android4
 			super();
 			
 			selectionIndicatorClass = spark.skins.android4.assets.SpinnerListContainerSelectionIndicator;
+			borderThickness = 1;
 			switch (applicationDPI)
 			{
 				case DPIClassification.DPI_640:
+				{
+					selectionIndicatorHeight = 182;
+					minWidth = 64;
+					borderThickness = 3;
+					break;
+				}
 				case DPIClassification.DPI_480:
+				{
+					selectionIndicatorHeight = 144;
+					minWidth = 48;
+					borderThickness = 2;
+					break;
+				}
 				case DPIClassification.DPI_320:
 				{
+					selectionIndicatorHeight = 96;
+					minWidth = 32;
 					borderThickness = 2;
+					break;
+				}
+				case DPIClassification.DPI_240:
+				{
+					selectionIndicatorHeight = 72;
+					minWidth = 24;
+					borderThickness = 1;
+					break;
+				}
+				case DPIClassification.DPI_120:
+				{
+					selectionIndicatorHeight = 36;
+					minWidth = 12;
+					borderThickness = 0;
 					break;
 				}
 				default:
 				{
 					selectionIndicatorHeight = 48;
+					minWidth = 16;
 					borderThickness = 1;
 				}   
 			}
 			
-			minWidth = 16;
 		}
 		
 		//--------------------------------------------------------------------------

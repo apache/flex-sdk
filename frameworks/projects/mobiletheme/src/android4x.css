@@ -147,15 +147,14 @@ SpinnerList
 SpinnerListContainer
 {
 	skinClass: ClassReference("spark.skins.android4.SpinnerListContainerSkin");
-	backgroundAlpha: 0;
 }
 
 SpinnerListItemRenderer
 {
 	paddingTop : 18;
 	paddingBottom : 18;
-	paddingLeft : 16;
-	paddingRight : 16;
+	paddingLeft : 6;
+	paddingRight : 6;
 }
 
 TabbedViewNavigator #tabBar
@@ -201,6 +200,14 @@ ToggleSwitch
 		fontSize: 14;
 	}
 	
+	SpinnerListItemRenderer
+	{
+		paddingTop : 9;
+		paddingBottom : 9;
+		paddingLeft : 3;
+		paddingRight : 3;
+	}
+	
 	TabbedViewNavigator #tabBar
 	{
 		fontSize: 11;
@@ -228,6 +235,14 @@ ToggleSwitch
 		fontSize: 18;
 	}
 	
+	SpinnerListItemRenderer
+	{
+		paddingTop : 12;
+		paddingBottom : 12;
+		paddingLeft : 4;
+		paddingRight : 4;
+	}
+	
 	TabbedViewNavigator #tabBar
 	{
 		fontSize: 14;
@@ -245,6 +260,7 @@ ToggleSwitch
 	{
 		fontSize: 24;
 	}
+	
 }
 
 @media (application-dpi: 320)
@@ -265,6 +281,14 @@ ToggleSwitch
 	ActionBar #titleDisplay
 	{
 		fontSize: 36;
+	}
+	
+	SpinnerListItemRenderer
+	{
+		paddingTop : 24;
+		paddingBottom : 24;
+		paddingLeft : 8;
+		paddingRight : 8;
 	}
 	
 	TabbedViewNavigator #tabBar
@@ -294,6 +318,15 @@ ToggleSwitch
 		fontSize: 54;
 	}
 	
+	SpinnerListItemRenderer
+	{
+		paddingTop : 36;
+		paddingBottom : 36;
+		paddingLeft : 12;
+		paddingRight : 12;
+	}
+
+	
 	TabbedViewNavigator #tabBar
 	{
 		fontSize: 42;
@@ -318,6 +351,14 @@ ToggleSwitch
 	ActionBar #titleDisplay
 	{
 		fontSize: 72;
+	}
+	
+	SpinnerListItemRenderer
+	{
+		paddingTop : 48;
+		paddingBottom : 48;
+		paddingLeft : 16;
+		paddingRight : 16;
 	}
 	
 	TabbedViewNavigator #tabBar
