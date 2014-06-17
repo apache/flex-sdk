@@ -626,6 +626,12 @@ public class DropDownController extends EventDispatcher
                 }
             }
 
+			// contains() doesn't cover popups/dropdowns, but owns() does.
+			if (dropDown is IUIComponent)
+			{
+				if ((dropDown as IUIComponent).owns(target))
+					return;
+			}
             closeDropDown(true);
         } 
     }
