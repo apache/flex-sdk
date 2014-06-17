@@ -38,7 +38,6 @@ import mx.managers.ISystemManager;
 
 import spark.components.DropDownList;
 import spark.events.DropDownEvent;
-import mx.controls.CalendarLayout;
 
 use namespace mx_internal;
 
@@ -613,8 +612,6 @@ public class DropDownController extends EventDispatcher
 			{
                 var document:Object = (target as IUIComponent).document;
                 if (("hostComponent" in document) && document.hostComponent is DropDownList)
-			        return;
-				 if (target.parent is CalendarLayout)
 			        return;
             }
 
