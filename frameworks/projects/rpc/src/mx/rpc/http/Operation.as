@@ -354,6 +354,7 @@ public class Operation extends AbstractOperation
             if (params is Array && argumentNames != null)
             {
                 args = params as Array;
+				params = new Object();
                 if (args.length != argumentNames.length)
                 {
                     throw new ArgumentError("HTTPMultiService operation called with " + argumentNames.length + " argumentNames and " + args.length + " number of parameters.  When argumentNames is specified, it must match the number of arguments passed to the invocation");
