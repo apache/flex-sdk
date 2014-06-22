@@ -711,8 +711,40 @@ public class ToolTipManagerImpl extends EventDispatcher
 		if (target is IFlexDisplayObject && !IFlexDisplayObject(target).visible)
 			return false;
     		
+        if (!isVisibleParentsIncluded(target))
+            return false;
+        
     	return target.hitTestPoint(target.stage.mouseX,
     							   target.stage.mouseY, true);
+    }
+    
+    /**
+     * @private
+     * <p>Determines if the UIComponent and the parents in the hierarchy
+     * are visible, if yes return true, otherwise returns false.</p>
+     *
+     * @param target DisplayObject
+     * @return Boolean true is all parents are visible, false if one of them is invisible
+     */
+    private function isVisibleParentsIncluded(target:DisplayObject):Boolean 
+    {
+        if (target == null) return false;
+        return isTopLevelApplication(target) ? target.visible :
+                    target.visible && isVisibleParentsIncluded(target.parent);
+    }
+    
+    /**
+     * @private
+     *
+     * <p>Determines if the target is topLevelApplication and
+     * returns true if yes, otherwise false
+     *
+     * @param target UIComponent
+     * @return Boolean true is is topLevelApplication, otherwise false
+     */
+    private function isTopLevelApplication(target:DisplayObject):Boolean 
+    {
+        return target == FlexGlobals.topLevelApplication;
     }
     
     /**
