@@ -477,6 +477,22 @@ public class FormItem extends Container
 
     //--------------------------------------------------------------------------
     //
+    //  Overridden properties: UIComponent
+    //
+    //--------------------------------------------------------------------------
+    
+    /**
+     *  @private
+     */
+    override public function set includeInLayout(value:Boolean):void
+    {
+        super.includeInLayout = value;
+        if(value)
+            invalidateSize();
+    }
+        
+    //--------------------------------------------------------------------------
+    //
     //  Overridden methods: UIComponent
     //
     //--------------------------------------------------------------------------
