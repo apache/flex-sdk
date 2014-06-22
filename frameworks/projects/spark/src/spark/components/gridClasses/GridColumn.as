@@ -1180,6 +1180,49 @@ public class GridColumn extends EventDispatcher
         dispatchChangeEvent("maxWidthChanged");
     }
     
+    [Inspectable(category="General")]
+    [PercentProxy("percentWidth")]
+    
+    /**
+     *  @private
+     */
+    private var _percentWidth:Number = NaN;
+
+    [Bindable("widthChanged")]
+    [Inspectable(environment="none")]
+    
+    /**
+     *  The width of this column as a percentage of DataGrid width. 
+     *  Setting this property does not change the <code>width</code> 
+     *  or <code>minWidth</code> properties.
+     *
+     *  @default NaN
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 13
+     *  @playerversion AIR 13.0
+     *  @productversion Flex 4.12.2
+     */
+    public function get percentWidth ():Number 
+    {
+        return _percentWidth;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set percentWidth(value:Number):void 
+    {
+        if (_percentWidth == value) 
+        {
+            return;
+        }
+        this._percentWidth = value;
+        invalidateGrid();
+        
+        dispatchChangeEvent("widthChanged");
+    }
+
     //----------------------------------
     //  rendererIsEditable
     //----------------------------------
