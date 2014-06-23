@@ -1,3 +1,75 @@
+Apache Flex 4.13.0
+=================
+
+Apache Flex 4.13.0 is an update to Apache Flex 4.12.1 
+
+Known Issues
+_____________
+
+Adobe Flash Builder Integration
+
+Adobe Flash Builder 4.7 and Adobe Flash Builder 4.6 both contain a bug where,
+when generating the .mxml file for a new project that uses Apache Flex SDK
+4.10.0 or later Spark Application, Flash Builder will incorrectly insert the
+attribute:
+
+	layout="absolute"
+
+This results in a compile error in the new project.  The remedy is to simply
+remove the errant attribute.
+
+The following wiki page has been set up to contain the latest news on Adobe's
+attempt to correct this problem:
+
+https://cwiki.apache.org/confluence/display/FLEX/Adobe+Flash+Builder+'New+Project'+Bug
+
+Adobe has provided a patch for Flash Builder 4.7 that resolves this issue:
+
+http://helpx.adobe.com/flash-builder/kb/flex-new-project-issue--.html
+
+
+Differences from Apache Flex 4.12.1 include:
+
+AIR and Flash Player support
+------------------------------
+ - Support Flash Player 14.0
+ - Support for AIR 14.0
+
+SDK Changes
+-------------
+- FDB supports debugging ActionScript Workers
+
+Bug Fixes
+----------
+ Below is a complete list of all the bug fixes that have been included since
+ the last full release, Apache Flex 4.12.1.
+ If you would like specific information about any of the items below, go to
+ https://issues.apache.org and search for the JIRA Issue Number by using the
+ Quick Search.  Details of the bug and its fix will be included on the
+ resulting page.
+
+JIRA Issue Number and Summary                                                                                        
+-------------------------------------------------------------------------------------------------------------------
+FLEX-34386  percentWidth for GridColumn
+FLEX-34376  TreeItemRenderer can in some situations throw an RTE
+FLEX-34375  FormItem label doesn't show when formItem visible and includeInLayout are set FLEX-34353  Focus not going into Flex application when user press the Shfit + Tab button
+FLEX-34346  BP in mxml inline item renderer shouldn't be consider as Ambiguous
+FLEX-34324  Operation class improperly builds rest call parameters
+FLEX-34315  Building framework 4.12.1 manually does not work due to OSMF uppercase renaming
+FLEX-34304  Wrong version of AIR / FP installed
+FLEX-34303  Installer licenses refer to wrong product
+FLEX-34302  Installer not cleaning up after itself
+FLEX-34301  Installer missing javascript directory
+dynamically
+FLEX-34300  Installer not installing airsdk.xml
+FLEX-34219  Tooltip displays in a wrong tag
+FLEX-34193  Bugs from Spark ColorPicker
+FLEX-34131  ResourceManagerImpl bug fix fails
+FLEX-34078  mx:DateField and datechange
+FLEX-33986  Validator, make "source" property [Bindable]
+FLEX-23915  LabelWidth not updating properly in Forms
+FLEX-13036  NestLevel never gets set for a control added to a container whilst the container is not parented if the scrollbars are on
+
 Apache Flex 4.12.1
 =================
 
