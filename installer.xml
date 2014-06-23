@@ -153,7 +153,8 @@
 
     <target name="get-data">
 		<tstamp />
-		<property name="xml.properties" value="http://flex.apache.org/installer/sdk-installer-config-4.0.xml?ts=${DSTAMP}" />
+		<property name="ts" value="${DSTAMP}${TSTAMP}" />
+		<property name="xml.properties" value="http://flex.apache.org/installer/sdk-installer-config-4.0.xml?ts=${ts}" />
         <get src="${xml.properties}" dest="${basedir}/sdk-installer-config-4.0.xml" />
         <xmlproperty file="${basedir}/sdk-installer-config-4.0.xml" semanticAttributes="true" collapseAttributes="true"/>
         <xmlproperty file="${basedir}/flex-sdk-description.xml" semanticAttributes="true" collapseAttributes="true"/>
@@ -895,13 +896,14 @@
         <get src="${srcDomain}/${srcFolder}/${srcFile}" dest="${dest}"/>
 	</target>
 	<target name="get-with-no-params" depends="check-params" if="not-local-no-params" >
-        <get src="${srcDomain}/${srcFolder}/${srcFile}?ts=${DSTAMP}" dest="${dest}"/>
+        <get src="${srcDomain}/${srcFolder}/${srcFile}?ts=${ts}" dest="${dest}"/>
 	</target>
 	<target name="get-with-params" depends="check-params" if="has-params" >
-        <get src="${srcDomain}/${srcFolder}/${srcFile}&amp;ts=${DSTAMP}" dest="${dest}"/>
+        <get src="${srcDomain}/${srcFolder}/${srcFile}&amp;ts=${ts}" dest="${dest}"/>
 	</target>
 	
     <target name="copy-if-cached" if="found-in-cache">
+		<echo>${INFO_USING_CACHED_FILE} ${downloadCacheFolder}/${srcFolder}/${srcFile}</echo>
         <copy file="${downloadCacheFolder}/${srcFolder}/${srcFile}" tofile="${dest}" overwrite="true" />
     </target>
     
