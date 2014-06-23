@@ -51,9 +51,16 @@ Bug Fixes
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
 FLEX-34386  percentWidth for GridColumn
+FLEX-34377  Add Chinese translations for all the installers of Flex
 FLEX-34376  TreeItemRenderer can in some situations throw an RTE
 FLEX-34375  FormItem label doesn't show when formItem visible and includeInLayout are set FLEX-34353  Focus not going into Flex application when user press the Shfit + Tab button
+FLEX-34347  propagate breakpoint shouldn't throw an NPE when the location is not found
 FLEX-34346  BP in mxml inline item renderer shouldn't be consider as Ambiguous
+FLEX-34343  Remove the fdbworkers directory before to merge to the develop branch
+FLEX-34342  Break and Clear command should accept paths
+FLEX-34334  FDB should allow to set / removed breakpoint by default in all existed and new created instances of a worker
+FLEX-34333  print #<number> should be evaluated in the context of the current worker
+FLEX-34332  frame should return info in the context of the current worker
 FLEX-34324  Operation class improperly builds rest call parameters
 FLEX-34315  Building framework 4.12.1 manually does not work due to OSMF uppercase renaming
 FLEX-34304  Wrong version of AIR / FP installed
@@ -62,6 +69,12 @@ FLEX-34302  Installer not cleaning up after itself
 FLEX-34301  Installer missing javascript directory
 dynamically
 FLEX-34300  Installer not installing airsdk.xml
+FLEX-34297  FDB set a breakpoint in the wrong file when asked to be set for a file existing in another Worker
+FLEX-34296  Disable and Remove Breakpoint should now respect the Worker logic
+FLEX-34295  info breakpoints should now display the worker ID
+FLEX-34294  Create a base Class for workers making them debuggable via FDB
+FLEX-34292  Can't select another worker while a pending prompt is required
+FLEX-34291  Merge the donated FDB with the current one
 FLEX-34219  Tooltip displays in a wrong tag
 FLEX-34193  Bugs from Spark ColorPicker
 FLEX-34131  ResourceManagerImpl bug fix fails
