@@ -54,7 +54,7 @@ Getting the convenience packages for Apache Flex
     Starting with Apache Flex 4.12 the binary distribution can be installed
     using only ANT in addition to the AIR installer mentioned above. This is
     the recommended method for Linux users.  More information about installing
-    the binary installtion with ANT can be found on our wiki at :
+    the binary package with ANT can be found on our wiki at :
 
       https://cwiki.apache.org/confluence/display/FLEX/Installation+help#Installationhelp-Antinstaller
 
@@ -172,10 +172,10 @@ Install Prerequisites
          be set correctly and you will get compile errors.
 
     *3) The Adobe AIR integration kit for Windows can be downloaded from:
-           http://airdownload.adobe.com/air/win/download/13.0/AdobeAIRSDK.zip
+           http://airdownload.adobe.com/air/win/download/14.0/AdobeAIRSDK.zip
 
          The Adobe AIR integration kit for Mac can be downloaded from:
-            http://airdownload.adobe.com/air/mac/download/13.0/AdobeAIRSDK.tbz2
+            http://airdownload.adobe.com/air/mac/download/14.0/AdobeAIRSDK.tbz2
 
           The Adobe AIR integration kit for Linux can be downloaded from:
             http://airdownload.adobe.com/air/lin/download/2.6/AdobeAIRSDK.tbz2
@@ -192,9 +192,10 @@ Install Prerequisites
 
         This version of Apache Flex was certified for use with Adobe Flash
         Player 11.1, and is compatible with versions 10.2 through 14.0. It has
-        been tested with versions 11.1, 11.7, 11.8, 11.9 and 12.0 on Windows
-        and Mac. It has been compiled against other Adobe Flash Player versions
-        but has not been fully tested. It has not been fully tested on Linux.
+        been tested with versions 11.1, 11.7, 11.8, 11.9, 12.0, 13.0 and 14.0
+        on Windows and Mac. It has been compiled against other Adobe Flash 
+        Player versions but has not been fully tested. It has not been fully 
+        tested on Linux.
 
         On Windows, set FLASHPLAYER_DEBUGGER to the absolute path including the
         filename of the FlashPlayerDebugger.exe. Note the filename of flash
@@ -399,7 +400,7 @@ Adobe Flash Player Version Support
     Apache Flex has been tested with Adobe Flash Player 11.1, 11.5, 11.7, 11.8,
     11.9, 12.0, 13.0 and 14.0 on Windows and Mac.
 
-    Apache Flex has not been tested on Linux so some issue may exist in this
+    Apache Flex has not been tested on Linux so some issues may exist in this
     release.
 
     It compiles against other Adobe Flash Player versions and is expected to
