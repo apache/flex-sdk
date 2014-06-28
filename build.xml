@@ -558,6 +558,7 @@
         
         <copy todir="${basedir}/temp" includeEmptyDirs="false">
             <fileset dir="${basedir}">
+                <include name="apache-flex-sdk-installer-config.xml"/>
                 <include name="build.xml"/>
                 <include name="build.properties"/>
 				<include name="env-template.properties"/>
