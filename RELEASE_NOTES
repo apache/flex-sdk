@@ -193,6 +193,12 @@ Adobe has provided a patch for Flash Builder 4.7 that resolves this issue:
 http://helpx.adobe.com/flash-builder/kb/flex-new-project-issue--.html
 
 
+ASDoc Examples
+
+The mx.controls.VideoDisplay and mx.effects.SoundEffect examples are not operational
+pending new media.
+
+
 Differences from Apache Flex 4.11 include:
 
 AIR and Flash Player support
