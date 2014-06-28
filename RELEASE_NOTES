@@ -50,7 +50,7 @@ Bug Fixes
 
 JIRA Issue Number and Summary                                                                                        
 -------------------------------------------------------------------------------------------------------------------
-FLEX-34386  percentWidth for GridColumn
+FLEX-34368  percentWidth for GridColumn
 FLEX-34377  Add Chinese translations for all the installers of Flex
 FLEX-34376  TreeItemRenderer can in some situations throw an RTE
 FLEX-34375  FormItem label doesn't show when formItem visible and includeInLayout are set FLEX-34353  Focus not going into Flex application when user press the Shfit + Tab button
@@ -67,7 +67,6 @@ FLEX-34304  Wrong version of AIR / FP installed
 FLEX-34303  Installer licenses refer to wrong product
 FLEX-34302  Installer not cleaning up after itself
 FLEX-34301  Installer missing javascript directory
-dynamically
 FLEX-34300  Installer not installing airsdk.xml
 FLEX-34297  FDB set a breakpoint in the wrong file when asked to be set for a file existing in another Worker
 FLEX-34296  Disable and Remove Breakpoint should now respect the Worker logic
