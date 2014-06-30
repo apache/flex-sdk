@@ -369,6 +369,7 @@
             <fileset dir="${download.dir}/airsdk">
                 <include name="AIR SDK license.pdf" />
                 <include name="AIR SDK Readme.txt" />
+                <include name="airsdk.xml" />
                 <include name="bin/adl.exe" />
                 <include name="bin/adl" />
                 <include name="bin/adl.bat" />
