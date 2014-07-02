@@ -211,7 +211,7 @@ public class DateValidator extends Validator
 			else
 			{
 				noSeperators = false;
-				formatParts[part] = formatChar;
+				formatParts[part] += formatChar;
 			}
 			
 			lastFormatChar = formatChar;
@@ -387,7 +387,16 @@ public class DateValidator extends Validator
 					{
 						dateObj.year = dateParts[part];
 						yearPart = formatParts[part];
-					}
+					}else if(!noSeperators){
+						//separator part, we have valid separator characters just validate against repeating separator values, validate now as we could have multiple separators
+						if(dateParts[part].length != formatParts[part].length){
+							results.push(new ValidationResult(
+								true, baseField, "wrongLength", 
+								validator.wrongLengthError
+								+ (DateValidator._includeFormatInError?" " + inputFormat:"")));
+							return results;
+						}
+ 					}
 				}
 				
 				// DD or D format

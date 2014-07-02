@@ -184,7 +184,21 @@
 				<AssertNoEvent target="myCustomDt.myDt" eventName="invalid" />
 			</body>  
 		</TestCase>
-
+		<TestCase testID="DateValidator_formatError_tooManySeperators_FLEX34378" keywords="[DateSymbol, DateValidator]">
+			<setup>
+				
+				<ResetComponent target="myCustomDt" className="CustomDt"  waitEvent="updateComplete" waitTarget="myCustomDt"/>
+				<SetProperty target="myCustomDt.myDt" propertyName="property" value="text"/>
+				<SetProperty target="myCustomDt.myDt" propertyName="inputFormat" value="MM/DD/YYYY"/>
+				<SetProperty target="myCustomDt.ti1" propertyName="text" value="12////12////2012" waitEvent="updateComplete" waitTarget="myCustomDt.ti1"/>
+				<WaitForEffectsToEnd />
+			</setup>
+			<body>
+				<DispatchKeyEvent keys="[TAB, TAB]" />
+				<AssertEvent target="myCustomDt.myDt" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomDt.myDt" eventName="valid" />
+			</body>  
+		</TestCase>
 		<TestCase testID="DateValidator_formatError"  keywords="[DateSymbol, DateValidator]">
 			<setup>
 				
