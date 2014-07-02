@@ -42,12 +42,6 @@ import spark.primitives.RectangularDropShadow;
 import spark.skins.android4.assets.CalloutContentBackground;
 import spark.skins.android4.supportClasses.CalloutArrow;
 import spark.skins.mobile.supportClasses.MobileSkin;
-import spark.skins.mobile120.assets.CalloutContentBackground;
-import spark.skins.mobile160.assets.CalloutContentBackground;
-import spark.skins.mobile240.assets.CalloutContentBackground;
-import spark.skins.mobile320.assets.CalloutContentBackground;
-import spark.skins.mobile480.assets.CalloutContentBackground;
-import spark.skins.mobile640.assets.CalloutContentBackground;
 
 use namespace mx_internal;
 
@@ -102,29 +96,28 @@ public class CalloutSkin extends MobileSkin
         {
 			case DPIClassification.DPI_640:
 			{
-				// Note provisional may need changes  
-				backgroundCornerRadius = 32;
+				
+				backgroundCornerRadius = 24;
 				backgroundGradientHeight = 440;
-				frameThickness = 32;
-				arrowWidth = 208;
-				arrowHeight = 104;
-				contentCornerRadius = 20;
+				frameThickness = 12;
+				arrowWidth = 160;
+				arrowHeight = 80;
+				contentCornerRadius = 40;
 				dropShadowBlurX = 64;
 				dropShadowBlurY = 64;
 				dropShadowDistance = 12;
-				highlightWeight = 2;
+				highlightWeight = 4;
 				
 				break;
 			}
 			case DPIClassification.DPI_480:
 			{
-				// Note provisional may need changes
-				backgroundCornerRadius = 24;
+				backgroundCornerRadius = 16;
 				backgroundGradientHeight = 330;
-				frameThickness = 24;
-				arrowWidth = 156;
-				arrowHeight = 78;
-				contentCornerRadius = 14;
+				frameThickness = 8;
+				arrowWidth = 120;
+				arrowHeight = 60;
+				contentCornerRadius = 28;
 				dropShadowBlurX = 48;
 				dropShadowBlurY = 48;
 				dropShadowDistance = 8;
@@ -134,27 +127,28 @@ public class CalloutSkin extends MobileSkin
 			}
             case DPIClassification.DPI_320:
             {
-                backgroundCornerRadius = 16;
-                backgroundGradientHeight = 220;
-                frameThickness = 16;
-                arrowWidth = 104;
-                arrowHeight = 52;
-                contentCornerRadius = 10;
-                dropShadowBlurX = 32;
-                dropShadowBlurY = 32;
-                dropShadowDistance = 6;
-                highlightWeight = 2;
+				
+				backgroundCornerRadius = 12;
+				backgroundGradientHeight = 220;
+				frameThickness = 6;
+				arrowWidth = 80;
+				arrowHeight = 40;
+				contentCornerRadius = 20;
+				dropShadowBlurX = 32;
+				dropShadowBlurY = 32;
+				dropShadowDistance = 6;
+				highlightWeight = 2;
                 
                 break;
             }
             case DPIClassification.DPI_240:
             {
-                backgroundCornerRadius = 12;
+                backgroundCornerRadius = 8;
                 backgroundGradientHeight = 165;
-                frameThickness = 12;
-                arrowWidth = 78;
-                arrowHeight = 39;
-                contentCornerRadius = 7;
+                frameThickness = 4;
+                arrowWidth = 60;
+                arrowHeight = 30;
+                contentCornerRadius = 14;
                 dropShadowBlurX = 24;
                 dropShadowBlurY = 24;
                 dropShadowDistance = 4;
@@ -164,12 +158,12 @@ public class CalloutSkin extends MobileSkin
             }
 			case DPIClassification.DPI_120:
 			{
-				backgroundCornerRadius = 6;
+				backgroundCornerRadius = 4;
 				backgroundGradientHeight = 83;
-				frameThickness = 6;
-				arrowWidth = 39;
-				arrowHeight = 19;
-				contentCornerRadius = 4;
+				frameThickness = 2;
+				arrowWidth = 30;
+				arrowHeight = 15;
+				contentCornerRadius = 7;
 				dropShadowBlurX = 12;
 				dropShadowBlurY = 12;
 				dropShadowDistance = 2;
@@ -180,12 +174,12 @@ public class CalloutSkin extends MobileSkin
             default:
             {
                 // default DPI_160
-                backgroundCornerRadius = 8;
+                backgroundCornerRadius = 6;
                 backgroundGradientHeight = 110;
-                frameThickness = 2;
-                arrowWidth = 52;
-                arrowHeight = 26;
-                contentCornerRadius = 5;
+                frameThickness = 3;
+                arrowWidth = 40;
+                arrowHeight = 20;
+                contentCornerRadius = 10;
                 dropShadowBlurX = 16;
                 dropShadowBlurY = 16;
                 dropShadowDistance = 3;

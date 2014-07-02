@@ -119,6 +119,27 @@ Callout ViewNavigator ActionBar
 	paddingRight: 0;
 }
 
+Callout ViewNavigator ActionBar.beveled
+{
+	paddingLeft: 0;
+	paddingRight: 0;
+}
+
+Callout ViewNavigator ActionBar.beveled Group#navigationGroup Button
+{
+	skinClass: ClassReference("spark.skins.mobile.BeveledActionButtonSkin");
+}
+
+Callout ViewNavigator ActionBar.beveled Group#navigationGroup Button.emphasized
+{
+	skinClass: ClassReference("spark.skins.mobile.DefaultBeveledActionButtonSkin");
+}
+
+Callout#viewNavigatorPopUp
+{
+	contentBackgroundAppearance: none;
+}
+
 
 CheckBox
 {
@@ -179,6 +200,11 @@ ToggleSwitch
 	slideDuration: 125;
 	textShadowAlpha: .65;
 	textShadowColor: #000000;
+}
+
+ViewNavigator
+{
+	skinClass: ClassReference("spark.skins.mobile.ViewNavigatorSkin");
 }
 
 @media (application-dpi: 120)
