@@ -320,7 +320,7 @@ Adobe Flash Player Version Support
     Change the playerglobal.version in the build.properties file to have a value
     other than "11.1". For this change to take effect the SDK needs to be
     recompiled.  For example to compile against the latest version of the Adobe
-    Flash Player set the value of playerglobal.version to be "12.0" like so:
+    Flash Player set the value of playerglobal.version to be "13.0" like so:
 
         playerglobal.version = 13.0
 
@@ -399,7 +399,7 @@ Adobe Flash Player Version Support
     release.
 
     It compiles against other Adobe Flash Player versions and is expected to
-    work but their may be some issues, particularly with the earlier 10.2 and
+    work but there may be some issues, particularly with the earlier 10.2 and
     10.3 versions of the Adobe Flash Player.
 
 Software Dependencies
