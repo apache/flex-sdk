@@ -35,6 +35,7 @@ flex2/
 thirdparty/
 META-INF/
 tempDoc/
+air/
 
 *.pbj
 *.vms
@@ -80,6 +81,8 @@ ipch/
 obj/
 [Bb]in
 [Dd]ebug*/
+!debugger/
+modules/debugger/classes/
 [Rr]elease*/
 Ankh.NoLoad
 

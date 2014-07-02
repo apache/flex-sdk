@@ -569,6 +569,7 @@
                 <include name="NOTICE"/>
                 <include name="README"/>
                 <include name="RELEASE_NOTES"/>
+            	<include name="CONTRIBUTING"/>
             </fileset>
         </copy>
          
@@ -1798,6 +1799,7 @@ There are no known issues.
                 <!-- exclude batik manifests -->
                 <exclude name="modules/thirdparty/batik/sources/*.mf"/>
                 <!-- exclude text files -->
+                <exclude name="CONTRIBUTING"/>
                 <exclude name="modules/thirdparty/batik/lib/**/LICENSE*.txt"/>
                 <exclude name="modules/thirdparty/batik/lib/**/README*.txt"/>
                 <!-- exclude w3c sources -->
@@ -1940,5 +1942,11 @@ There are no known issues.
             </fileset>
         </rat:report>
     </target>
+	
+	<!-- displays the md5 of a file specified via -Dfile=<file -->
+	<target name="md5" >
+		<checksum file="${file}" property="mymd5" />
+		<echo>${mymd5}</echo>
+	</target>
 
 </project>

@@ -49,6 +49,7 @@ public class MxmlConfiguration
     // 'compiler.mxml.compatibility-version' option
     //
 	public static final int VERSION_4_13 = 0x040d0000;
+	public static final int VERSION_4_12_1 = 0x040c0001;
 	public static final int VERSION_4_12 = 0x040c0000;
 	public static final int VERSION_4_11 = 0x040b0000;
 	public static final int VERSION_4_10 = 0x040a0000;

@@ -120,4 +120,9 @@ public interface Context
 	 * beginning a debugging session.
 	 */
 	public Session getSession();
+
+    /**
+     * The worker id to which this context object belongs.
+     */
+    public int getIsolateId();
 }

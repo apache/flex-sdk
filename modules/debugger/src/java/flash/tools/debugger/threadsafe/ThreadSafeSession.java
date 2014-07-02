@@ -1,25 +1,26 @@
 /*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- *  Licensed to the Apache Software Foundation (ASF) under one or more
- *  contributor license agreements.  See the NOTICE file distributed with
- *  this work for additional information regarding copyright ownership.
- *  The ASF licenses this file to You under the Apache License, Version 2.0
- *  (the "License"); you may not use this file except in compliance with
- *  the License.  You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package flash.tools.debugger.threadsafe;
 
 import flash.tools.debugger.Frame;
+import flash.tools.debugger.ILauncher;
+import flash.tools.debugger.Isolate;
+import flash.tools.debugger.IsolateSession;
 import flash.tools.debugger.Location;
 import flash.tools.debugger.NoResponseException;
 import flash.tools.debugger.NotConnectedException;
@@ -355,6 +356,12 @@ public class ThreadSafeSession extends ThreadSafeDebuggerObject implements Sessi
 			return fSession.supportsWatchpoints();
 		}
 	}
+	
+	public boolean supportsConcurrency() {
+		synchronized (getSyncObject()) {
+			return fSession.supportsConcurrency();
+		}
+	}
 
 	/* (non-Javadoc)
 	 * @see flash.tools.debugger.Session#getDisconnectCause()
@@ -364,4 +371,65 @@ public class ThreadSafeSession extends ThreadSafeDebuggerObject implements Sessi
 			return fSession.getDisconnectCause();
 		}
 	}
+
+	/* (non-Javadoc)
+	 * @see flash.tools.debugger.Session#refreshWorkers()
+	 */
+	@Override
+	public Isolate[] refreshWorkers() throws NotSupportedException,
+			NotSuspendedException, NoResponseException, NotConnectedException {
+		synchronized (getSyncObject()) {
+			return ThreadSafeIsolate.wrapArray(getSyncObject(), fSession.getWorkers());
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see flash.tools.debugger.Session#getWorkers()
+	 */
+	@Override
+	public Isolate[] getWorkers() {
+		synchronized (getSyncObject()) {
+			return fSession.getWorkers();
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see flash.tools.debugger.Session#getWorkerSession(int)
+	 */
+	@Override
+	public IsolateSession getWorkerSession(int isolateId) {
+		synchronized (getSyncObject()) {
+			return ThreadSafeIsolateSession.wrap(getSyncObject(), fSession.getWorkerSession(isolateId));
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see flash.tools.debugger.Session#setExceptionBreakpoint(String)
+	 */
+	@Override
+	public boolean setExceptionBreakpoint(String exceptionClass)
+			throws NoResponseException, NotConnectedException {
+		synchronized (getSyncObject()) {
+			return fSession.setExceptionBreakpoint(exceptionClass);
+		}
+	}
+
+	/* (non-Javadoc)
+	 * @see flash.tools.debugger.Session#clearExceptionBreakpoint(String)
+	 */
+	@Override
+	public boolean clearExceptionBreakpoint(String exceptionClass)
+			throws NoResponseException, NotConnectedException {
+		synchronized (getSyncObject()) {
+			return fSession.clearExceptionBreakpoint(exceptionClass);
+		}
+	}
+
+	@Override
+	public void setLauncher(ILauncher launcher) {
+		synchronized (getSyncObject()) {
+			fSession.setLauncher(launcher);
+		}
+	}
+
 }

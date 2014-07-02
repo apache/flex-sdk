@@ -1,10 +1,10 @@
 Apache Flex (Flex)
 ==================
 
-    Apache Flex is an application framework for easily building Flash-based
-    applications for mobile devices, the browser and desktop.
+    Apache Flex SDK is an application development framework for easily building
+    Flash-based applications for mobile devices, web browsers, and desktops.
 
-    Apache Flex 4.12 is a follow up release to Apache Flex 4.11. This version
+    Apache Flex 4.12.1 is a follow up release to Apache Flex 4.12.0. This version
     adds new features and implements bug fixes that were unavailable in previous
     versions.  It is compatible with most code written to target Adobe Flex 4.6.
 
@@ -90,7 +90,7 @@ Getting the latest sources via git
 
     For further information visit http://flex.apache.org/download-source.html
 
-Building Apache Flex 4.12
+Building Apache Flex 4.12.1
 =========================
 
     Apache Flex is a large project. It requires some build tools which must be
@@ -110,7 +110,7 @@ Install Prerequisites
 ---------------------
 
     Before building Flex you must install the following software and set the
-    corresponding environment variables using absolute file paths.  Relativei
+    corresponding environment variables using absolute file paths.  Relative
     file paths will result in build errors.
 
     The environment variables PLAYERGLOBAL_HOME, AIR_HOME, FLASHPLAYER_DEBUGGER,
@@ -172,15 +172,15 @@ Install Prerequisites
          be set correctly and you will get compile errors.
 
     *3) The Adobe AIR integration kit for Windows can be downloaded from:
-           http://airdownload.adobe.com/air/win/download/4.0/AdobeAIRSDK.zip
+           http://airdownload.adobe.com/air/win/download/13.0/AdobeAIRSDK.zip
 
          The Adobe AIR integration kit for Mac can be downloaded from:
-            http://airdownload.adobe.com/air/mac/download/4.0/AdobeAIRSDK.tbz2
+            http://airdownload.adobe.com/air/mac/download/13.0/AdobeAIRSDK.tbz2
 
           The Adobe AIR integration kit for Linux can be downloaded from:
             http://airdownload.adobe.com/air/lin/download/2.6/AdobeAIRSDK.tbz2
 
-        This version of Apache Flex was certified for use with AIR 4.0, and
+        This version of Apache Flex was certified for use with AIR 13.0, and
         should be compatible with other versions of AIR newer than 3.1. However
         it hasn't been fully tested on AIR 3.2, 3.3, 3.5, 3.6 or 3.7.
 
@@ -229,6 +229,7 @@ Install Prerequisites
             http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_8.swc
             http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_9.swc
             http://download.macromedia.com/get/flashplayer/updaters/12/playerglobal12_0.swc
+            http://download.macromedia.com/get/flashplayer/updaters/13/playerglobal13_0.swc
 
         These can be used with Apache Flex but not all have not been fully
         tested.
@@ -294,7 +295,8 @@ Other Locale Support
         de_CH	en_AU	en_US	fr_CH	ja_JP	nl_NL	ru_RU	zh_TW
         de_DE	en_CA	es_ES	fr_FR	ko_KR	pt_BR	sv_SE
 
-    The Apache Flex SDK has only been tested for the en_US locale, however there    is unlikely to be any issues with a SDK compiled for another locales.
+    The Apache Flex SDK has only been tested for the en_US locale, however there
+    is unlikely to be any issues with a SDK compiled for another locales.
 
 Adobe Flash Player Version Support
 ----------------------------------
@@ -320,7 +322,7 @@ Adobe Flash Player Version Support
     recompiled.  For example to compile against the latest version of the Adobe
     Flash Player set the value of playerglobal.version to be "12.0" like so:
 
-        playerglobal.version = 12.0
+        playerglobal.version = 13.0
 
     OR
 
@@ -346,6 +348,7 @@ Adobe Flash Player Version Support
     http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_8.swc
     http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_9.swc
     http://download.macromedia.com/get/flashplayer/updaters/12/playerglobal12_0.swc
+    http://download.macromedia.com/get/flashplayer/updaters/13/playerglobal13_0.swc
 
     Copy the target playerglobal.swc to the directory:
 
@@ -386,9 +389,11 @@ Adobe Flash Player Version Support
                          /playerglobal.swc
                     /12.0
                          /playerglobal.swc
+                    /13.0
+                         /playerglobal.swc
 
     Apache Flex has been tested with Adobe Flash Player 11.1, 11.5, 11.7, 11.8,
-    11.9 and 12.0 on Windows and Mac.
+    11.9, 12.0 nd 13.0 on Windows and Mac.
 
     Apache Flex has not been tested on Linux so some issue may exist in this
     release.
@@ -490,17 +495,17 @@ Using the Binary Distribution
 		/ide/constructFlexForIDE.sh (on Mac and Linux)
 		/ide/constructFlexForIDE.bat (on Windows)
 
-	This will create an Apache Flex 4.12 SDK that can be used with Flash
+	This will create an Apache Flex 4.12.1 SDK that can be used with Flash
         Builder by copying the required files from the Adobe Flex 4.6 SDK.
 
-	To create an SDK for other IDE or if you want to use Adobe AIR 4.0
+	To create an SDK for other IDE or if you want to use Adobe AIR 13.0
         (rather than AIR 3.1 contained in Adobe Flex 4.6) run:
 
 		/ide/flashbuilder/makeApacheFlexForIDE.sh (on Mac and Linux)
 		/ide/flashbuilder/makeApacheFlexForIDE.bat (on Windows)
 
-	This will create an Apache Flex 4.12 SDK that can be used by an IDE by
-        downloading Adobe Flex 4.6 SDK and Adobe AIR 4.0.
+	This will create an Apache Flex 4.12.1 SDK that can be used by an IDE by
+    downloading Adobe Flex 4.6 SDK and Adobe AIR 13.0.
 
 Building the Framework in a Binary Distribution
 -----------------------------------------------

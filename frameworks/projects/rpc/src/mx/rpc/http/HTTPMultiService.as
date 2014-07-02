@@ -511,7 +511,7 @@ public dynamic class HTTPMultiService extends AbstractService
             var op:AbstractOperation = operations[i];
             ol.push(op);
         }
-        return ol
+        return ol;
     }
 
     //--------------------------------------------------------------------------

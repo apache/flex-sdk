@@ -94,17 +94,18 @@ public class ExpressionCache
 	public String		getPackageName(int id)	{ return m_cli.module2ClassName(id); }
 
 	public void bind(Session s)
-	{ 
-		setSession(s); 
+	{
+		setSession(s);
 
 		// propagates our properties to the session / non-critical if fails
 		try { ((flash.tools.debugger.concrete.PlayerSession)s).setPreferences(m_props.map()); } catch(Exception e) {}
 	}
 
-	public EvaluationResult evaluate(ValueExp e) throws NumberFormatException, NoSuchVariableException, PlayerFaultException, PlayerDebugException
+	public EvaluationResult evaluate(ValueExp e, int isolateId) throws NumberFormatException, NoSuchVariableException, PlayerFaultException, PlayerDebugException
 	{
 		EvaluationResult result = new EvaluationResult();
 		result.context = new ExpressionContext(this);
+		result.context.setIsolateId(isolateId);
 		result.value = e.evaluate(result.context);
 		return result;
 	}
@@ -145,7 +146,7 @@ public class ExpressionCache
 	public Set<String>  keySet() { return m_props.keySet(); }
 
 	/**
-	 * Allow the session to receive property updates 
+	 * Allow the session to receive property updates
 	 */
 	void setSessionProperty(String s, int value)
 	{
@@ -157,7 +158,7 @@ public class ExpressionCache
 
 	/**
 	 * We are able to fetch properties or expressions (i.e previous expression)
-	 * using this single call, despite the fact that each of these types of 
+	 * using this single call, despite the fact that each of these types of
 	 * results lie in different data structures m_expressions and m_props.
 	 * This allows us to easily perform expression evaluation without
 	 * need or concern over which 'type' of $ reference we are dealing with
@@ -184,7 +185,7 @@ public class ExpressionCache
 			}
 			catch(NumberFormatException nfe)
 			{
-				// must be in the property list 
+				// must be in the property list
 				exp = m_props.getInteger(s);
 			}
 		}
@@ -198,27 +199,27 @@ public class ExpressionCache
 	/**
 	 * Formatting function for variable
 	 */
-	public void appendVariable(StringBuilder sb, Variable v)
+	public void appendVariable(StringBuilder sb, Variable v, int isolateId)
 	{
 		//sb.append('\'');
 		String name = v.getName();
 		sb.append(name);
 		//sb.append('\'');
 		sb.append(" = "); //$NON-NLS-1$
-		appendVariableValue(sb, v.getValue(), name);
+		appendVariableValue(sb, v.getValue(), name, isolateId);
 		//appendVariableAttributes(sb, v);
 	}
 
 	/**
 	 * Given any arbitrary constant value, such as a Double, a String, etc.,
 	 * format its value appropriately. For example, strings will be quoted.
-	 * 
+	 *
 	 * @param sb
 	 *            a StringBuilder to which the formatted value will be appended.
 	 * @param o
 	 *            the value to format.
 	 */
-	public void appendVariableValue(StringBuilder sb, final Object o)
+	public void appendVariableValue(StringBuilder sb, final Object o, final int isolateId)
 	{
 		Value v;
 
@@ -298,15 +299,20 @@ public class ExpressionCache
 				public Variable[] getPrivateInheritedMemberNamed(String name) {
 					return new Variable[0];
 				}
-			};
+
+                @Override
+                public int getIsolateId() {
+					return isolateId;
+                }
+            };
 		}
 
-		appendVariableValue(sb, v);
+		appendVariableValue(sb, v, isolateId);
 	}
 
-	public void appendVariableValue(StringBuilder sb, Value val) { appendVariableValue(sb,val,""); } //$NON-NLS-1$
+	public void appendVariableValue(StringBuilder sb, Value val, final int isolateId) { appendVariableValue(sb,val,"", isolateId); } //$NON-NLS-1$
 
-	public void appendVariableValue(StringBuilder sb, Value val, String variableName)
+	public void appendVariableValue(StringBuilder sb, Value val, String variableName, final int isolateId)
 	{
 		int type = val.getType();
 		String typeName = val.getTypeName();

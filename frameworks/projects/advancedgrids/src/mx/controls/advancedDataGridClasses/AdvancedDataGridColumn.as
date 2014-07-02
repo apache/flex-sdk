@@ -1778,13 +1778,10 @@ public class AdvancedDataGridColumn extends CSSStyleDeclaration implements IIMES
 
         if (typeof(data) == "object" || typeof(data) == "xml")
         {
-			if (dataField != null)
-			{
-	            if (dataField in data)
-	                data = data[dataField];
-				else
-					return " "; // stops "[object Object]" showing
-			}
+			if (dataField != null && dataField in data)
+	            data = data[dataField];
+			else
+				return " "; // stops "[object Object]" showing
         }
 
         if (data is String)
