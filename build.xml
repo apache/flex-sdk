@@ -612,7 +612,7 @@
                 <exclude name="**/*.swf"/>
                 <!-- zen theme is missing assets.  Don't package it
                  because FB will fail when it can't find the swc -->
-                <exclude name="zen/**"/>
+                <exclude name="themes/zen/**"/>
             </fileset>
         </copy>
         
@@ -992,7 +992,7 @@ There are no known issues.
                 <include name="**/*.swf"/>
                 <!-- don't package zen theme as it is missing
                  some assets and FB fails looking for the swc -->
-                <exclude name="zen/**"/>
+                <exclude name="themes/zen/**"/>
             </fileset>
         </copy>
 
