@@ -192,6 +192,34 @@ TabbedViewNavigator #tabBar
 	textShadowColor: #000000;
 }
 
+TextInput
+{ 
+	skinClass: ClassReference("spark.skins.android4.StageTextInputSkin");
+	contentBackgroundAlpha: 0; 
+	focusColor: #33B5E5;
+	borderColor: #4e4e4e;
+	contentBackgroundColor: #DEDEDD;
+	contentBackgroundBorder: "flat";
+	fontFamily: RobotoRegular;
+	selectionHighlighting: "never";
+	focusEnabled:"false";
+	focusThickness: 0;
+}
+
+TextArea
+{ 
+	skinClass: ClassReference("spark.skins.android4.StageTextAreaSkin");
+	contentBackgroundAlpha: 1;
+	contentBackgroundBorder: "rectangle";
+	contentBackgroundColor: #DEDEDD;
+	focusColor: #33B5E5;
+	fontFamily: RobotoRegular;
+	borderColor: #4e4e4e;
+	selectionHighlighting: "never";
+	focusEnabled:"false";
+	focusThickness: 0;
+} 
+
 ToggleSwitch
 {
 	accentColor: #3F7FBA;
