@@ -28,7 +28,6 @@ package spark.skins.android4
 	
 	import spark.components.Button;
 	import spark.components.HSlider;
-	import spark.components.ToggleSwitch;
 	import spark.skins.android4.assets.HSliderTrack_filled;
 	import spark.skins.mobile.supportClasses.HSliderDataTip;
 	import spark.skins.mobile.supportClasses.MobileSkin;

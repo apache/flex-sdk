@@ -25,6 +25,7 @@
 -->
 <componentPackage>
     <component id="ActionBar" class="spark.components.ActionBar"/>
+	<component id="MobileBusyIndicator" class="spark.components.MobileBusyIndicator" />
     <component id="CrossFadeViewTransition" class="spark.transitions.CrossFadeViewTransition"/>
     <component id="DateSpinner" class="spark.components.DateSpinner"/>
     <component id="DateSpinnerItemRenderer" class="spark.components.calendarClasses.DateSpinnerItemRenderer"/>

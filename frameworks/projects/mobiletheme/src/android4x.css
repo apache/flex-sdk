@@ -19,7 +19,6 @@
 
 @namespace "library://ns.adobe.com/flex/spark";
 
-
 /*
 Android 4.x specific Mobile Flex skins and styles. Defaults sizes are based on
 application-dpi=240.
@@ -80,6 +79,11 @@ ActionBar ButtonBase
 ActionBar Group#actionGroup Button
 {
 	skinClass: ClassReference("spark.skins.android4.TransparentActionButtonSkin");
+}
+
+MobileBusyIndicator
+{
+	skinClass: ClassReference("spark.skins.android4.BusyIndicatorSkin");
 }
 
 Button
