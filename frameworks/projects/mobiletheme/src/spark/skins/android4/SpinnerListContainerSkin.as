@@ -66,41 +66,36 @@ package spark.skins.android4
 			selectionIndicatorClass = spark.skins.android4.assets.SpinnerListContainerSelectionIndicator;
 			shadowClass = spark.skins.android4.assets.SpinnerListContainerShadow;
 			cornerRadius = 0;
+			borderThickness = 0;
 			switch (applicationDPI)
 			{
 				case DPIClassification.DPI_640:
 				{
-					borderThickness = 3;
 					selectionIndicatorHeight = 182;
 					break;
 				}
 				case DPIClassification.DPI_480:
 				{
-					borderThickness = 2;
 					selectionIndicatorHeight = 144;
 					break;
 				}
 				case DPIClassification.DPI_320:
 				{					
-					borderThickness = 2;
 					selectionIndicatorHeight = 96;
 					break;
 				}
 				case DPIClassification.DPI_240:
 				{
-					borderThickness = 1;
 					selectionIndicatorHeight = 72;
 					break;
 				}
 				case DPIClassification.DPI_120:
 				{
-					borderThickness = 0;
 					selectionIndicatorHeight = 36;
 					break;
 				}
 				default: // default DPI_160
 				{
-					borderThickness = 1;
 					selectionIndicatorHeight = 48;
 					
 					break;

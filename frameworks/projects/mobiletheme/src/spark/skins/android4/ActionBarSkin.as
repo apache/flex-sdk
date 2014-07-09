@@ -91,7 +91,6 @@ public class ActionBarSkin extends MobileSkin
 			case DPIClassification.DPI_640:
 			{
 				borderSize = 2;
-				layoutShadowHeight = 12;
 				layoutContentGroupHeight = 172;
 				layoutTitleGroupHorizontalPadding = 52;
 				
@@ -99,9 +98,7 @@ public class ActionBarSkin extends MobileSkin
 			}
 			case DPIClassification.DPI_480:
 			{
-				// Note provisional may need changes
 				borderSize = 2;
-				layoutShadowHeight = 9;
 				layoutContentGroupHeight = 130;
 				layoutTitleGroupHorizontalPadding = 40;
 				
@@ -111,7 +108,6 @@ public class ActionBarSkin extends MobileSkin
             case DPIClassification.DPI_320:
             {
                 borderSize = 2;
-                layoutShadowHeight = 6;
                 layoutContentGroupHeight = 86;
                 layoutTitleGroupHorizontalPadding = 26;
                 
@@ -120,7 +116,6 @@ public class ActionBarSkin extends MobileSkin
             case DPIClassification.DPI_240:
             {
                 borderSize = 1;
-                layoutShadowHeight = 3;
                 layoutContentGroupHeight = 65;
                 layoutTitleGroupHorizontalPadding = 20;
                 
@@ -129,7 +124,6 @@ public class ActionBarSkin extends MobileSkin
 			case DPIClassification.DPI_120:
 			{
 				borderSize = 1;
-				layoutShadowHeight = 1.5;
 				layoutContentGroupHeight = 32;
 				layoutTitleGroupHorizontalPadding = 10;
 				
@@ -139,7 +133,6 @@ public class ActionBarSkin extends MobileSkin
             {
                 // default DPI_160
                 borderSize = 1;
-                layoutShadowHeight = 3;
                 layoutContentGroupHeight = 43;
                 layoutTitleGroupHorizontalPadding = 13;
                 
@@ -173,15 +166,6 @@ public class ActionBarSkin extends MobileSkin
      *  @private
      */
     private var borderSize:uint;
-    
-    /**
-     *  Height of shadow embedded in borderClass graphic.
-     *
-     *  @langversion 3.0
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    protected var layoutShadowHeight:uint;
     
     /**
      *  Default height for navigationGroup, titleGroup and actionGroup.
@@ -434,7 +418,7 @@ public class ActionBarSkin extends MobileSkin
         if (border)
         {
             // FXG uses scale-9, drop shadow is drawn outside the bounds
-            setElementSize(border, unscaledWidth, unscaledHeight + layoutShadowHeight);
+            setElementSize(border, unscaledWidth, unscaledHeight);
         }
         
         // position groups, overlap of navigation and action groups is allowed

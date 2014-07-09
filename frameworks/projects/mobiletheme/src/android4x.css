@@ -144,7 +144,6 @@ Callout#viewNavigatorPopUp
 	contentBackgroundAppearance: none;
 }
 
-
 CheckBox
 {
 	skinClass: ClassReference("spark.skins.android4.CheckBoxSkin");
@@ -305,20 +304,6 @@ ViewNavigator
 	{
 		fontSize: 14;
 	}
-}
-
-@media (application-dpi: 240)
-{
-	global
-	{
-		fontSize: 20;
-	}
-	
-	ActionBar #titleDisplay
-	{
-		fontSize: 24;
-	}
-	
 }
 
 @media (application-dpi: 320)
