@@ -13659,6 +13659,12 @@ public class UIComponent extends FlexSprite
      *  Dispatches an event into the event flow.
      *  The event target is the EventDispatcher object upon which
      *  the <code>dispatchEvent()</code> method is called.
+	 * 
+	 *  Note that when <code>dispatchEvent()</code> is called by code inside a
+	 *  <code>try</code> block, any error thrown thereafter can be caught by
+	 *  listening to LoaderInfo.uncaughtErrorEvents. It will NOT reach the
+	 *  <code>catch</code> block.
+	 *   
      *
      *  @param event The Event object that is dispatched into the event flow.
      *  If the event is being redispatched, a clone of the event is created automatically.
