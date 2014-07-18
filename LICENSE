@@ -715,3 +715,14 @@ EXHIBIT A -Mozilla Public License.
 
 ------------------------------------------------------------------------------------------
 
+APACHE FLEX SUBCOMPONENTS:
+
+The Apache Flex SDK includes a number of subcomponents with
+separate copyright notices and license terms. Your use of the source
+code for the these subcomponents is subject to the terms and
+conditions of the following licenses. 
+
+The Open-Sans font is available under Apache License 2.0.  For details
+see frameworks/projects/framework/asdoc/en_US/mx/effects/examples/assets/OpenSans-Regular.ttf
+
+

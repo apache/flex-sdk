@@ -70,6 +70,11 @@
             property="TLF_HOME"
             value="${FLEX_HOME}/frameworks/projects" />
 
+    <tstamp>
+        <format property="build.number.date" pattern="yyyyMMdd" />
+    </tstamp>
+    <property name="build.version" value="${release.version}.${build.number.date}" />
+
     <!--
         Optional jars but should be in place for a real release build.
         
@@ -238,9 +243,6 @@
     </target>
 
     <target name="create-description" description="Generate flex-sdk-description.xml">
-        <tstamp>
-        	<format property="build.number.date" pattern="yyyyMMdd" />
-        </tstamp>
         <echo message="build.number is ${build.number.date}"/>
         <echo file="${basedir}/flex-sdk-description.xml">&lt;?xml version="1.0"?&gt;
 &lt;!--
@@ -440,9 +442,6 @@
     </macrodef>
 
 	<target name="frameworks-rsls" description="Build signed framework RSLs">
-		<tstamp>
-        	<format property="build.number.date" pattern="yyyyMMdd" />
-        </tstamp>
         <echo message="build.number is ${build.number.date}"/>
 		<!-- textLayout RSL -->
 		<create-rsl rsl-dir="${basedir}/frameworks/rsls" swc-dir="${basedir}/frameworks/libs" swc-name="textLayout" build-number="${release.version}.${build.number.date}"/>
@@ -558,6 +557,7 @@
         
         <copy todir="${basedir}/temp" includeEmptyDirs="false">
             <fileset dir="${basedir}">
+                <include name="apache-flex-sdk-installer-config.xml"/>
                 <include name="build.xml"/>
                 <include name="build.properties"/>
 				<include name="env-template.properties"/>
@@ -610,6 +610,9 @@
             <fileset dir="${basedir}/samples" >
                 <exclude name="**/*.swc"/>
                 <exclude name="**/*.swf"/>
+                <!-- zen theme is missing assets.  Don't package it
+                 because FB will fail when it can't find the swc -->
+                <exclude name="themes/zen/**"/>
             </fileset>
         </copy>
         
@@ -690,17 +693,6 @@
         <!-- frameworks/tests -->
         <antcall target="stage-frameworks-tests"/>
 
-        <tstamp>
-        	<format property="build.number.date" pattern="yyyyMMdd" />
-        </tstamp>
-        <property name="build.version" value="${release.version}.${build.number.date}" />
-
-        <!-- now that config xml files are in temp, fix them up for release. -->
-        <echo message="Updating config file air-config.xml with version ${build.version}"/>
-        <fix-config-file file="${basedir}/temp/frameworks/air-config.xml" version="${build.version}" />
-        <echo message="Updating config file flex-config.xml with version ${build.version}"/>
-        <fix-config-file file="${basedir}/temp/frameworks/flex-config.xml" version="${build.version}" />
-        
         <!-- Update all Version.as files in the kit frameworks directory with build.number -->
         <antcall target="version-update"/>
     </target>
@@ -998,6 +990,9 @@ There are no known issues.
                 <include name="**/build.xml"/>
                 <include name="**/*.swc"/>
                 <include name="**/*.swf"/>
+                <!-- don't package zen theme as it is missing
+                 some assets and FB fails looking for the swc -->
+                <exclude name="themes/zen/**"/>
             </fileset>
         </copy>
 
@@ -1009,7 +1004,13 @@ There are no known issues.
             </fileset>
         </copy>
                 
-        <antcall target="binary-package-zip"/>        
+        <!-- now that config xml files are in temp, fix them up for release. -->
+        <echo message="Updating config file air-config.xml with version ${build.version}"/>
+        <fix-config-file file="${basedir}/temp/frameworks/air-config.xml" version="${build.version}" />
+        <echo message="Updating config file flex-config.xml with version ${build.version}"/>
+        <fix-config-file file="${basedir}/temp/frameworks/flex-config.xml" version="${build.version}" />
+
+        <antcall target="binary-package-zip"/>
         <antcall target="binary-package-tgz"/>        
         <copy todir="${basedir}/out" file="${basedir}/apache-flex-sdk-installer-config.xml" />
     </target>
@@ -1183,11 +1184,7 @@ There are no known issues.
 
     <target name="have-greptask" if="have.greptask">
 		<taskdef name="grep" classname="ise.antelope.tasks.Find" classpathref="anttask.classpath"/>                 
-
-        <tstamp>
-        	<format property="build.number.date" pattern="yyyyMMdd" />
-        </tstamp>
-        	
+        
         <echo message="Updating all frameworks/projects/**/Version.as files with version ${release.version}.${build.number.date}"/>
 		
         <!-- Update all Version.as files in the kit frameworks directory-->
