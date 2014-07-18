@@ -135,7 +135,7 @@
 														<xsl:value-of select="$name"/>
 														<xsl:if test="prolog/asMetadata/apiVersion/apiPlatform[@name='AIR'] and not (prolog/asMetadata/apiVersion/apiPlatform[@name='Flash'])">
 															<xsl:value-of select="$nbsp"/>
-															<img src="images/AirIcon12x12.gif" width="12" height="12" hspace="0" vspace="0"/>
+															<img src="http://help.adobe.com/en_US/FlashPlatform//reference/actionscript/3/images/AirIcon12x12.gif" width="12" height="12" hspace="0" vspace="0"/>
 														</xsl:if>
 													</i>
 												</xsl:if>
@@ -143,7 +143,7 @@
 													<xsl:value-of select="$name"/>
 													<xsl:if test="prolog/asMetadata/apiVersion/apiPlatform[@name='AIR'] and not (prolog/asMetadata/apiVersion/apiPlatform[@name='Flash'])">
 														<xsl:value-of select="$nbsp"/>
-														<img src="images/AirIcon12x12.gif" width="12" height="12" hspace="0" vspace="0"/>
+														<img src="http://help.adobe.com/en_US/FlashPlatform//reference/actionscript/3/images/AirIcon12x12.gif" width="12" height="12" hspace="0" vspace="0"/>
 													</xsl:if>
 												</xsl:if>
 											</a>
@@ -156,7 +156,7 @@
 														<xsl:value-of select="$name"/>
 														<xsl:if test="prolog/asMetadata/apiVersion/apiPlatform[@name='AIR'] and not (prolog/asMetadata/apiVersion/apiPlatform[@name='Flash'])">
 															<xsl:value-of select="$nbsp"/>
-															<img src="images/AirIcon12x12.gif" width="12" height="12" hspace="0" vspace="0"/>
+															<img src="http://help.adobe.com/en_US/FlashPlatform//reference/actionscript/3/images/AirIcon12x12.gif" width="12" height="12" hspace="0" vspace="0"/>
 														</xsl:if>
 													</i>
 												</xsl:if>
@@ -164,7 +164,7 @@
 													<xsl:value-of select="$name"/>
 													<xsl:if test="prolog/asMetadata/apiVersion/apiPlatform[@name='AIR'] and not (prolog/asMetadata/apiVersion/apiPlatform[@name='Flash'])">
 														<xsl:value-of select="$nbsp"/>
-														<img src="images/AirIcon12x12.gif" width="12" height="12" hspace="0" vspace="0"/>
+														<img src="http://help.adobe.com/en_US/FlashPlatform//reference/actionscript/3/images/AirIcon12x12.gif" width="12" height="12" hspace="0" vspace="0"/>
 													</xsl:if>
 												</xsl:if>
 											</a>

@@ -1,4 +1,4 @@
-﻿
+    
       Licensed to the Apache Software Foundation (ASF) under one or more
       contributor license agreements.  See the NOTICE file distributed with
       this work for additional information regarding copyright ownership.
@@ -13,6 +13,7 @@
       WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
       See the License for the specific language governing permissions and
       limitations under the License.
+
 
 This file contains the text displayed by the 'help' command in fdb.
 
@@ -63,6 +64,22 @@ The following line is 80 characters wide.
 [bt]
 
 スタックのバックトレースです。
+
+[catch]
+
+例外がスローされると中止します。これは、キャッチされた
+例外 ("catch" ブロックによって処理される例外) にのみ
+影響します。キャッチされない例外は常にデバッガーで
+中止されます。
+
+"delete" コマンドを使用してキャッチポイントを削除します。
+
+例 :
+catch *
+例外がスローされると中止します。
+catch ReferenceError
+キャッチされた、されないに関わらず、ReferenceError が
+スローされると中止します。
 
 [cf]
 
@@ -128,6 +145,28 @@ N は整数で、COND はブレークポイント N に達したときに評価�
 コマンドは 'end' という行で終了します。
   >w
   >end	
+
+[connect]
+
+ポートをリッスンしているデバッグする Player に接続します。
+デバッグ接続のために現在リッスンしている Player は
+モバイル用のみです。その他は常に接続しています。
+
+例：
+  connect
+ポート 7936 をリッスンしているデバッグ Player に接続します。
+  connect 7938
+ポート 7938 をリッスンしているデバッグ Player に接続します。
+    
+[worker]
+
+アクティブなワーカーを後続のデバッガー 
+コマンドの送信先に設定します。ワーカーのリストのクエリを行う
+情報ワーカーを使用します。メインスレッドの id は 0 です。
+
+例：
+  worker 3
+アクティブなワーカーを id 3 のワーカーに設定します。 
 
 [delete]
 
@@ -301,9 +340,11 @@ fdb を初めて使用する場合は、'tutorial' を実行し、基本情報�
 fdb コマンドの一覧 : 
 bt (bt)             すべてのスタックフレームのバックトレースをプリントします。
 break (b)           指定された行または関数にブレークポイントを設定します。
+catch (ca)          例外がスローされると中止します。
 cf (cf)             現在のファイルの名前と番号を表示します。
 clear (cl)          指定された行または関数のブレークポイントをクリアします。
 condition (cond)    ブレークポイントに対する条件式を適用または削除します。
+connect (con)       デバッグ Player に接続します。
 continue (c)        ブレークポイントで停止した後に実行を続行します。
 commands (com)      ブレークポイントに達したときに実行するコマンドを設定します。
 delete (d)          ブレークポイントまたは auto-display 式を削除します。
@@ -331,8 +372,10 @@ step (s)            別のソース行に達するまで、プログラムを進
 tutorial (t)        fdb の使用方法に関するチュートリアルを表示します。
 undisplay (u)       auto-display 式を削除します。
 viewswf (v)         swf に基づいて、ファイルの一覧表示のフィルタを設定またはクリアします。
+watch (wa)          指定された変数の監視ポイントを追加します。
 what (wh)           変数のコンテキストを表示します。
 where (w)           bt と同じです。
+worker (wo)         アクティブなワーカーを設定します。
 詳細を確認するには、'help' の後にコマンド名を入力します。
 
 [home]
@@ -350,11 +393,13 @@ info files (i f)        デバッグ中のターゲットとファイルの名�
 info functions (i fu)   すべての関数名を表示します。
 info handle (i h)       失敗の処理方法を表示します。
 info locals (i l)       現在のスタックフレームのローカル変数です。
+info scopechain (i sc)  現在のスタックフレームのスコープチェーンです。
 info sources (i so)     プログラムのソースファイルを表示します。
 info stack (i s)        スタックのバックトレースです。
 info swfs (i sw)        このセッションの swf のリストです。
 info targets(i t)       デバッグ中のアプリケーションです。
 info variables (i v)    すべてのグローバル変数と静的変数の名前を表示します。
+info workers (i w)      すべてのワーカーをリストします。
 詳細を確認するには、'help info' の後に info サブコマンド名を入力します。
 
 [info arguments]
@@ -423,9 +468,10 @@ fdb が recursion_limit の失敗を処理する方法を表示します。
 
 [info scopechain]
 
-Display the scope chain of the current stack frame.  The scope chain is
-the list of objects that is searched when the Flash player is trying
-to resolve a symbol name.
+現在のスタックフレームのスコープチェーンを表示します。 スコープチェーンは、
+Flash Player がシンボル名を解決しようとするときに検索される
+オブジェクトのリストです。
+
 
 [info sources]
 
@@ -450,6 +496,10 @@ swf 名に基づいてファイルの一覧表示をフィルタする方法の�
 [info variables]
 
 すべてのグローバル変数と静的変数の名前と値を表示します。
+
+[info workers]
+
+開始されたすべてのワーカーを表示します。
 
 [info ?]
 
@@ -565,6 +615,8 @@ $columnwrap - 出力が折り返す列番号。
 $infostackshowthis - 0 の場合は、スタックバックトレースに 'this' が表示されません。
 $invokegetters - 0 の場合、fdb は getter 関数を発行しません。
 $bpnum - 最後に定義されたブレークポイント番号。
+$displayattributes - 1 の場合、'print var.' は 'var' のメンバー（private、static
+                     など）のすべての属性を表示します。
 
 例 : 
   set i = 3
@@ -719,6 +771,13 @@ swf 名に基づいて、ファイルの一覧表示のフィルタ
 "myApp.mxml.swf" のファイルのみが表示されます。
  viewswf 
 すべての swf のすべてのファイルが表示されます。
+
+[watch]
+
+指定された変数の監視ポイントを追加します。変数の値が変更されると、
+デバッガーの実行は中止されます。
+例 :
+watch foo
  
 [what]
 

@@ -151,6 +151,7 @@ package spark.components {
 				solidColor.color = getColor(-1);
 				if(noColorOrnament)
 					noColorOrnament.visible = true;
+				selectedColor = getColor(-1);
 				dispatchEvent(new ColorChangeEvent(ColorChangeEvent.NO_COLOR,0));
 				return;
 			}
@@ -160,6 +161,7 @@ package spark.components {
 				if(noColorOrnament)
 					noColorOrnament.visible = false;
             }
+			selectedColor = newColor;
 			var ev:ColorChangeEvent = new ColorChangeEvent(ColorChangeEvent.CHOOSE, newColor);
 			if(typeof(selectedItem) == "object"){
 				ev.colorObject = selectedItem;

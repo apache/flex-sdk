@@ -1,20 +1,18 @@
 /*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- *  Licensed to the Apache Software Foundation (ASF) under one or more
- *  contributor license agreements.  See the NOTICE file distributed with
- *  this work for additional information regarding copyright ownership.
- *  The ASF licenses this file to You under the Apache License, Version 2.0
- *  (the "License"); you may not use this file except in compliance with
- *  the License.  You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package flash.tools.debugger.concrete;
@@ -67,12 +65,13 @@ public class DModule implements SourceFile
 	private int					m_anonymousFunctionCounter = 0;
 	private SourceLocator		m_sourceLocator;
 	private int					m_sourceLocatorChangeCount;
+	private int m_isolateId;
 	private final static String	m_newline = System.getProperty("line.separator"); //$NON-NLS-1$
 
 	/**
 	 * @param name filename in "basepath;package;filename" format
 	 */
-	public DModule(SourceLocator sourceLocator, int id, int bitmap, String name, String script)
+	public DModule(SourceLocator sourceLocator, int id, int bitmap, String name, String script, int isolateId)
 	{
 		// If the caller gave us the script text, then we will create m_script
 		// now.  But if the caller gave us an empty string, then we won't bother
@@ -98,6 +97,7 @@ public class DModule implements SourceFile
 		m_func2LastLine = new HashMap<String, Integer>();
 		m_packageName = nameParser.getPackage();
         m_gotAllFncNames = false;
+        m_isolateId = isolateId;
 	}
 
 	public synchronized ScriptText getScript()
@@ -138,7 +138,7 @@ public class DModule implements SourceFile
 	public int			getId()					{ return m_id; }
 	public int			getBitmap()				{ return m_bitmap; }
 	public int			getLineCount()			{ return getScript().getLineCount(); }
-	public String		getLine(int i)			{ return (i > getLineCount()) ? "// code goes here" : getScript().getLine(i); }
+	public String		getLine(int i)			{ return (i > getLineCount()) ? "// code goes here" : getScript().getLine(i); } //$NON-NLS-1$
 
 	void setPackageName(String name)    { m_packageName = name; }
 
@@ -336,7 +336,7 @@ public class DModule implements SourceFile
         {
             try
             {
-                ps.requestFunctionNames(m_id, -1);
+                ps.requestFunctionNames(m_id, -1, m_isolateId);
             }
             catch (VersionException e)
             {
@@ -726,7 +726,8 @@ public class DModule implements SourceFile
     }
 
     /** for debugging */
-    public String toString()
+    @Override
+	public String toString()
     {
     	return getFullPath();
     }

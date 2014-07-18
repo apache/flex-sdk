@@ -1289,18 +1289,67 @@ public class GridViewLayout extends LayoutBase
         const startCellX:Number = gridDimensionsView.getCellX(0 /* rowIndex */, firstVisibleColumnIndex);
         const columnGap:int = gridDimensionsView.columnGap;
         
-        for (var columnIndex:int = firstVisibleColumnIndex;
+        var columnIndex : int;
+        var column : GridColumn;
+        var totalWidthCoef : Number = 0;
+        var contentFreeSpace : Number = grid.contentWidth;
+        var gridFreeSpace : Number = grid.width;
+        for (columnIndex = 0; (columnIndex < columnCount); columnIndex++) 
+        {
+            column = getGridColumn(columnIndex);
+            if (isNaN(column.width) && column.visible) 
+            {
+                totalWidthCoef += column.percentWidth;
+            } 
+            else 
+            {
+                if (!isNaN(column.width) && column.visible) 
+                {
+                    contentFreeSpace -= column.width;
+                    gridFreeSpace -= column.width;
+                }
+            }
+        }
+        var freeSpace : Number = gridFreeSpace < 0 ? contentFreeSpace : gridFreeSpace;
+        var unusedFreeSpace : Number = freeSpace;
+
+        for (columnIndex = firstVisibleColumnIndex;
             (width > 0) && (columnIndex >= 0) && (columnIndex < columnCount);
             columnIndex = getNextVisibleColumnIndex(columnIndex))
         {
             var cellHeight:Number = gridDimensionsView.getTypicalCellHeight(columnIndex);
             var cellWidth:Number = gridDimensionsView.getTypicalCellWidth(columnIndex);
             
-            var column:GridColumn = getGridColumn(columnIndex);
+            column = getGridColumn(columnIndex);
             if (!isNaN(column.width))
             {
                 cellWidth = column.width;
                 gridDimensionsView.setTypicalCellWidth(columnIndex, cellWidth);
+            } 
+            else 
+            {
+                if (totalWidthCoef > 0) 
+                {
+                    cellWidth = Math.round(column.percentWidth / totalWidthCoef * (freeSpace > 0 ? freeSpace : 0));
+                    if (cellWidth < column.minWidth) 
+                    {
+                        cellWidth = column.minWidth;
+                        unusedFreeSpace -= cellWidth;
+                    } 
+                    else 
+                    {
+                        if (cellWidth > unusedFreeSpace) 
+                        {
+                            cellWidth = unusedFreeSpace;
+                            unusedFreeSpace = 0;
+                        } 
+                        else 
+                        {
+                            unusedFreeSpace -= cellWidth;
+                        }
+                    }
+                    gridDimensionsView.setTypicalCellWidth(columnIndex, cellWidth);
+                }
             }
             
             if (isNaN(cellWidth) || isNaN(cellHeight))
@@ -1344,12 +1393,36 @@ public class GridViewLayout extends LayoutBase
         const requestedColumnCount:int = grid.requestedColumnCount;  // TBD GridView...
         var measuredColumnCount:int = 0;
         
-        for (var columnIndex:int = 0; (columnIndex < columnCount); columnIndex++)
+        var columnIndex : int;
+        var column : GridColumn;
+        var totalWidthCoef : Number = 0;
+        var contentFreeSpace : Number = grid.contentWidth;
+        var gridFreeSpace : Number = grid.width;
+        for (columnIndex = 0; (columnIndex < columnCount); columnIndex++) 
+        {
+            column = getGridColumn(columnIndex);
+            if (isNaN(column.width) && column.visible) 
+            {
+                totalWidthCoef += column.percentWidth;
+            } 
+            else 
+            {
+                if (!isNaN(column.width) && column.visible) 
+                {
+                    contentFreeSpace -= column.width;
+                    gridFreeSpace -= column.width;
+                }
+            }
+        }
+        var freeSpace : Number = gridFreeSpace < 0 ? contentFreeSpace : gridFreeSpace;
+        var unusedFreeSpace : Number = freeSpace;
+        
+        for (columnIndex = 0; (columnIndex < columnCount); columnIndex++)
         {
             var cellHeight:Number = gridDimensionsView.getTypicalCellHeight(columnIndex);
             var cellWidth:Number = gridDimensionsView.getTypicalCellWidth(columnIndex);
             
-            var column:GridColumn = getGridColumn(columnIndex);
+            column = getGridColumn(columnIndex);
             
             // GridColumn.visible==false columns have a typical size of (0,0)
             // to distinguish them from the GridColumn.visible==true columns
@@ -1366,6 +1439,31 @@ public class GridViewLayout extends LayoutBase
             {
                 cellWidth = column.width;
                 gridDimensionsView.setTypicalCellWidth(columnIndex, cellWidth);
+            } 
+            else 
+            {
+                if (totalWidthCoef > 0) 
+                {
+                    cellWidth = Math.round(column.percentWidth / totalWidthCoef * (freeSpace > 0 ? freeSpace : 0));
+                    if (cellWidth < column.minWidth) 
+                    {
+                        cellWidth = column.minWidth;
+                        unusedFreeSpace -= cellWidth;
+                    } 
+                    else 
+                    {
+                        if (cellWidth > unusedFreeSpace) 
+                        {
+                            cellWidth = unusedFreeSpace;
+                            unusedFreeSpace = 0;
+                        } 
+                        else 
+                        {
+                            unusedFreeSpace -= cellWidth;
+                        }
+                    }
+                    gridDimensionsView.setTypicalCellWidth(columnIndex, cellWidth);
+                }
             }
             
             var needTypicalRenderer:Boolean = (requestedColumnCount == -1) || (measuredColumnCount < requestedColumnCount);

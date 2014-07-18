@@ -431,6 +431,14 @@ public class Form extends Container
         super.styleChanged(styleProp);
     }
 
+    /**
+    *  @private
+    * */
+    override public function invalidateSize():void
+    {
+        super.invalidateSize();
+        invalidateLabelWidth();
+    }
     //--------------------------------------------------------------------------
     //
     //  Methods
