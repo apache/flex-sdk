@@ -142,7 +142,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
      *  @private
      *  A stack of the currentChildBookmark in all parents of the currentNode.
      */
-    private var childIndexStack:Array = [];
+    private var parentBookmarkStack:Array = [];
 
     /**
      *  @private
@@ -215,7 +215,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
      */
     public function get current():Object
     {
-        if (childIndexStack.length == 0)
+        if (parentBookmarkStack.length == 0)
         {
             return modelCursor.current;
         }
@@ -431,7 +431,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                 childNodes = collection.getChildren(currentNode);
                 if (childNodes.length > 0)
                 {
-                    childIndexStack.push(currentChildBookmark);
+                    parentBookmarkStack.push(currentChildBookmark);
                     parentNodes.push(currentNode);
                     currentChildBookmark = CursorBookmark.FIRST;
                     childCursor = childNodes.createCursor();
@@ -481,7 +481,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                 (childCursor.bookmark == CursorBookmark.LAST || childCursor.afterLast))
             {
                 //check for the end of the tree here.
-                if (childIndexStack.length < 1 && !more)  
+                if (parentBookmarkStack.length < 1 && !more)  
                 {
                     currentNode = null;
                     currentIndex++;
@@ -507,7 +507,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                         childNodes = null;
                     }
                     //get new current nodes index
-                    currentChildBookmark = childIndexStack.pop();
+                    currentChildBookmark = parentBookmarkStack.pop();
                     //pop the level up one
                     _currentDepth--;
                 }
@@ -515,7 +515,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
             else
             {
                 //if no childnodes then we're probably at the top level
-                if (childIndexStack.length == 0)
+                if (parentBookmarkStack.length == 0)
                 {
                     //check for more top level siblings
                     //and if we're here the depth should be 1
@@ -568,11 +568,11 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                             childNodes = null;
                         }
                         //get new current nodes index
-                        currentChildBookmark = childIndexStack.pop();
+                        currentChildBookmark = parentBookmarkStack.pop();
                         //pop the level up one
                         _currentDepth--;
                         
-                        if (childIndexStack.length == 0)
+                        if (parentBookmarkStack.length == 0)
                         {
                             //check for more top level siblings
                             //and if we're here the depth should be 1
@@ -628,7 +628,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
             {
                 //at the first node in this branch so move to parent
                 currentNode = parentNodes.pop();
-                currentChildBookmark = childIndexStack.pop();
+                currentChildBookmark = parentBookmarkStack.pop();
                 var grandParent:Object = parentNodes[parentNodes.length-1];
                 //we could probably assume that a non-null grandparent has descendants 
                 //but the analogy only goes so far... 
@@ -709,7 +709,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                 childNodes = collection.getChildren(currentNode);
                 if (childNodes.length > 0)
                 {
-                    childIndexStack.push(currentChildBookmark);
+                    parentBookmarkStack.push(currentChildBookmark);
                     parentNodes.push(currentNode);
                     // if the child collection has only one item then set the
                     // bookmark to first
@@ -1066,7 +1066,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
             more = false;        
         currentChildBookmark = CursorBookmark.FIRST;
         parentNodes = [];
-        childIndexStack = [];
+        parentBookmarkStack = [];
         currentIndex = 0;
         _currentDepth = 1;
     }
@@ -1077,7 +1077,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
     public function moveToLast():void
     {
         childNodes = null;
-        childIndexStack = [];
+        parentBookmarkStack = [];
         _currentDepth = 1;
         parentNodes = [];
         var emptyBranch:Boolean = false;
@@ -1109,7 +1109,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                     break;
                 }
                 parentNodes.push(currentNode);
-                childIndexStack.push(currentChildBookmark);                
+                parentBookmarkStack.push(currentChildBookmark);                
                 currentNode = childCursor.current;
                 currentChildBookmark = CursorBookmark.LAST;
                 try
@@ -1149,9 +1149,9 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
     {
         var i:int;
         var n:int;
-        var node:Object;
-        var nodeParent:Object
-        var parent:Object;
+        var changingNode:Object;
+        var parentOfChangingNode:Object;
+        var parentOfCurrentNode:Object;
         var parentStack:Array;
         var parentTable:Dictionary;
         var isBefore:Boolean = false;
@@ -1168,10 +1168,10 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
             parentTable[parentStack[i]] = i + 1;
         }
         // remember the current parent
-        parent = parentStack[parentStack.length - 1];
+        parentOfCurrentNode = parentStack[parentStack.length - 1];
         
-        var tmpChildnodes:ICollectionView;
-        var childCursor:IViewCursor;
+        var changingNodeAndSiblings:ICollectionView;
+        var changingCollectionCursor:IViewCursor;
 
         if (event.kind == CollectionEventKind.ADD)
         {
@@ -1184,25 +1184,25 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
 
             for (i = 0; i < n; i++)
             {
-                node = event.items[i];
+                changingNode = event.items[i];
                 if (isBefore)
                 {
                     // if the added node is before the current
                     // and they share parent's then we have to
                     // adjust the currentChildIndex or
                     // the stack of child indexes.
-                    nodeParent = collection.getParentItem(node);
-                    tmpChildnodes = collection.getChildren(nodeParent); 
-                    if (nodeParent == parent)
+                    parentOfChangingNode = collection.getParentItem(changingNode);
+                    changingNodeAndSiblings = collection.getChildren(parentOfChangingNode); 
+                    if (parentOfChangingNode == parentOfCurrentNode)
                     {
-                        if (tmpChildnodes != null)
+                        if (changingNodeAndSiblings != null)
                         {
-                            childCursor = tmpChildnodes.createCursor();
+                            changingCollectionCursor = changingNodeAndSiblings.createCursor();
                             try
                             {
-                                childCursor.seek(currentChildBookmark);
-                                childCursor.moveNext();
-                                currentChildBookmark = childCursor.bookmark;
+                                changingCollectionCursor.seek(currentChildBookmark);
+                                changingCollectionCursor.moveNext();
+                                currentChildBookmark = changingCollectionCursor.bookmark;
                             }
                             catch (e:ItemPendingError)
                             {
@@ -1210,21 +1210,21 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                             }
                         }
                     }
-                    else if (parentTable[nodeParent] != null)
+                    else if (parentTable[parentOfChangingNode] != null)
                     {
-                        if (tmpChildnodes != null)
+                        if (changingNodeAndSiblings != null)
                         {
-                            childCursor = tmpChildnodes.createCursor();
+                            changingCollectionCursor = changingNodeAndSiblings.createCursor();
                             try
                             {
-                                childCursor.seek(currentChildBookmark);
-                                childCursor.moveNext();
-                                currentChildBookmark = childCursor.bookmark;
+                                changingCollectionCursor.seek(currentChildBookmark);
+                                changingCollectionCursor.moveNext();
+                                currentChildBookmark = changingCollectionCursor.bookmark;
                             }
                             catch (e:ItemPendingError)
                             {
                             }
-                            childIndexStack[parentTable[nodeParent]] = currentChildBookmark;
+                            parentBookmarkStack[parentTable[parentOfChangingNode]] = currentChildBookmark;
                         }
                     }
                 }
@@ -1247,8 +1247,8 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                     seek(CursorBookmark.FIRST, newIndex);
                     for (i = 0; i < n; i++)
                     {
-                        node = event.items[i];
-                        delete collection.parentMap[UIDUtil.getUID(node)];
+                        changingNode = event.items[i];
+                        delete collection.parentMap[UIDUtil.getUID(changingNode)];
                     }
                     return;
                 }
@@ -1259,25 +1259,25 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
 
             for (i = 0; i < n; i++)
             {
-                node = event.items[i];
+                changingNode = event.items[i];
                 if (isBefore)
                 {
                     // if the removed node is before the current
                     // and they share parent's then we have to
                     // adjust the currentChildIndex or
                     // the stack of child indexes.
-                    nodeParent = collection.getParentItem(node);
-                    tmpChildnodes = collection.getChildren(nodeParent);
-                    if (nodeParent == parent)
+                    parentOfChangingNode = collection.getParentItem(changingNode);
+                    changingNodeAndSiblings = collection.getChildren(parentOfChangingNode);
+                    if (parentOfChangingNode == parentOfCurrentNode)
                     {
-                        if (tmpChildnodes != null)
+                        if (changingNodeAndSiblings != null)
                         {
-                            childCursor = tmpChildnodes.createCursor();
+                            changingCollectionCursor = changingNodeAndSiblings.createCursor();
                             try
                             {
-                                childCursor.seek(currentChildBookmark);
-                                childCursor.movePrevious();
-                                currentChildBookmark = childCursor.bookmark;
+                                changingCollectionCursor.seek(currentChildBookmark);
+                                changingCollectionCursor.movePrevious();
+                                currentChildBookmark = changingCollectionCursor.bookmark;
                             }
                             catch (e:ItemPendingError)
                             {
@@ -1285,25 +1285,25 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                             }
                         }
                     }
-                    else if (parentTable[nodeParent] != null)
+                    else if (parentTable[parentOfChangingNode] != null)
                     {
-                        if (tmpChildnodes != null)
+                        if (changingNodeAndSiblings != null)
                         {
-                            childCursor = tmpChildnodes.createCursor();
+                            changingCollectionCursor = changingNodeAndSiblings.createCursor();
                             try
                             {
-                                childCursor.seek(currentChildBookmark);
-                                childCursor.movePrevious();
-                                currentChildBookmark = childCursor.bookmark;
+                                changingCollectionCursor.seek(currentChildBookmark);
+                                changingCollectionCursor.movePrevious();
+                                currentChildBookmark = changingCollectionCursor.bookmark;
                             }
                             catch (e:ItemPendingError)
                             {
                             }
-                            childIndexStack[parentTable[nodeParent]] = currentChildBookmark;
+                            parentBookmarkStack[parentTable[parentOfChangingNode]] = currentChildBookmark;
                         }
                     }
                 }
-                delete collection.parentMap[UIDUtil.getUID(node)];
+                delete collection.parentMap[UIDUtil.getUID(changingNode)];
             }
             
         }
