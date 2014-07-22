@@ -91,11 +91,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
         modelCursor = model.createCursor();
         
         //check to see if the model has more than one top level items
-        if (model.length > 1)
-            more = true;
-        else 
-            more = false;
-            
+        more = model.length > 1;
     }
     
     //--------------------------------------------------------------------------
@@ -1061,10 +1057,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
         // let it throw an IPE, the classes using this cursor will handle it
         modelCursor.seek(CursorBookmark.FIRST, 0);
         
-        if (model.length > 1)
-            more = true;
-        else
-            more = false;        
+        more = model.length > 1;
         currentChildBookmark = CursorBookmark.FIRST;
         parentNodes = [];
         parentBookmarkStack = [];
@@ -1081,8 +1074,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
         parentBookmarkStack = [];
         _currentDepth = 1;
         parentNodes = [];
-        var emptyBranch:Boolean = false;
-        
+
         //first move to the end of the top level collection
         // let it throw an IPE, the classes using this cursor will handle it
         modelCursor.seek(CursorBookmark.LAST, 0);
@@ -1155,6 +1147,9 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
         var parentOfCurrentNode:Object;
         var parentStack:Array = getParentStack(current);
         var isBefore:Boolean = false;
+        var parentOfChangingNodeIndex:int;
+        var isOurAncestorChanging:Boolean;
+        var bookmarkInChangingCollection:CursorBookmark;
 
         // remember the current parent
         parentOfCurrentNode = parentStack[parentStack.length - 1];
@@ -1199,15 +1194,15 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                         }
                     }
                     else {
-                        var parentOfChangingNodeIndex:int = parentStack.indexOf(parentOfChangingNode);
-                        var isOurAncestorChanging:Boolean = parentOfChangingNodeIndex != -1;
+                        parentOfChangingNodeIndex = parentStack.indexOf(parentOfChangingNode);
+                        isOurAncestorChanging = parentOfChangingNodeIndex != -1;
                         if (isOurAncestorChanging)
                         {
                             if (changingNodeAndSiblings != null)
                             {
                                 var changingNodeCollectionIndex:int = parentOfChangingNodeIndex + 1;
                                 changingCollectionCursor = changingNodeAndSiblings.createCursor();
-                                var bookmarkInChangingCollection:CursorBookmark = parentBookmarkStack[changingNodeCollectionIndex];
+                                bookmarkInChangingCollection = parentBookmarkStack[changingNodeCollectionIndex];
                                 try
                                 {
                                     changingCollectionCursor.seek(bookmarkInChangingCollection);
@@ -1278,15 +1273,15 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                         }
                     }
                     else {
-                        var parentOfChangingNodeIndex:int = parentStack.indexOf(parentOfChangingNode);
-                        var isOurAncestorChanging:Boolean = parentOfChangingNodeIndex != -1;
+                        parentOfChangingNodeIndex = parentStack.indexOf(parentOfChangingNode);
+                        isOurAncestorChanging = parentOfChangingNodeIndex != -1;
                         if (isOurAncestorChanging)
                         {
                             if (changingNodeAndSiblings != null)
                             {
                                 var changingNodeCollectionBookmarkIndex:int = parentOfChangingNodeIndex + 1;
                                 changingCollectionCursor = changingNodeAndSiblings.createCursor();
-                                var bookmarkInChangingCollection:CursorBookmark = parentBookmarkStack[changingNodeCollectionBookmarkIndex];
+                                bookmarkInChangingCollection = parentBookmarkStack[changingNodeCollectionBookmarkIndex];
                                 try
                                 {
                                     changingCollectionCursor.seek(bookmarkInChangingCollection);
