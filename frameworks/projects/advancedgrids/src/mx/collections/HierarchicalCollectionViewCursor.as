@@ -111,6 +111,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
     
     /**
      *  @private
+     *  The bookmark representing the position of the current node in its siblings collection
      */
     private var currentChildBookmark:CursorBookmark = CursorBookmark.FIRST;
 
@@ -1152,21 +1153,9 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
         var changingNode:Object;
         var parentOfChangingNode:Object;
         var parentOfCurrentNode:Object;
-        var parentStack:Array;
-        var parentTable:Dictionary;
+        var parentStack:Array = getParentStack(current);
         var isBefore:Boolean = false;
-        
-        // get the parent of the current item
-        parentStack = getParentStack(current);
-        // hash it by parent to map to depth
-        parentTable = new Dictionary();
-        n = parentStack.length;
-        // don't insert the immediate parent
-        for (i = 0; i < n - 1; i++)
-        {
-            // 0 is null parent (the model)
-            parentTable[parentStack[i]] = i + 1;
-        }
+
         // remember the current parent
         parentOfCurrentNode = parentStack[parentStack.length - 1];
         
@@ -1206,25 +1195,29 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                             }
                             catch (e:ItemPendingError)
                             {
-                                
                             }
                         }
                     }
-                    else if (parentTable[parentOfChangingNode] != null)
-                    {
-                        if (changingNodeAndSiblings != null)
+                    else {
+                        var parentOfChangingNodeIndex:int = parentStack.indexOf(parentOfChangingNode);
+                        var isOurAncestorChanging:Boolean = parentOfChangingNodeIndex != -1;
+                        if (isOurAncestorChanging)
                         {
-                            changingCollectionCursor = changingNodeAndSiblings.createCursor();
-                            try
+                            if (changingNodeAndSiblings != null)
                             {
-                                changingCollectionCursor.seek(currentChildBookmark);
-                                changingCollectionCursor.moveNext();
-                                currentChildBookmark = changingCollectionCursor.bookmark;
+                                var changingNodeCollectionIndex:int = parentOfChangingNodeIndex + 1;
+                                changingCollectionCursor = changingNodeAndSiblings.createCursor();
+                                var bookmarkInChangingCollection:CursorBookmark = parentBookmarkStack[changingNodeCollectionIndex];
+                                try
+                                {
+                                    changingCollectionCursor.seek(bookmarkInChangingCollection);
+                                    changingCollectionCursor.moveNext();
+                                }
+                                catch (e:ItemPendingError)
+                                {
+                                }
+                                parentBookmarkStack[changingNodeCollectionIndex] = changingCollectionCursor.bookmark;
                             }
-                            catch (e:ItemPendingError)
-                            {
-                            }
-                            parentBookmarkStack[parentTable[parentOfChangingNode]] = currentChildBookmark;
                         }
                     }
                 }
@@ -1281,25 +1274,29 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                             }
                             catch (e:ItemPendingError)
                             {
-                                
                             }
                         }
                     }
-                    else if (parentTable[parentOfChangingNode] != null)
-                    {
-                        if (changingNodeAndSiblings != null)
+                    else {
+                        var parentOfChangingNodeIndex:int = parentStack.indexOf(parentOfChangingNode);
+                        var isOurAncestorChanging:Boolean = parentOfChangingNodeIndex != -1;
+                        if (isOurAncestorChanging)
                         {
-                            changingCollectionCursor = changingNodeAndSiblings.createCursor();
-                            try
+                            if (changingNodeAndSiblings != null)
                             {
-                                changingCollectionCursor.seek(currentChildBookmark);
-                                changingCollectionCursor.movePrevious();
-                                currentChildBookmark = changingCollectionCursor.bookmark;
+                                var changingNodeCollectionBookmarkIndex:int = parentOfChangingNodeIndex + 1;
+                                changingCollectionCursor = changingNodeAndSiblings.createCursor();
+                                var bookmarkInChangingCollection:CursorBookmark = parentBookmarkStack[changingNodeCollectionBookmarkIndex];
+                                try
+                                {
+                                    changingCollectionCursor.seek(bookmarkInChangingCollection);
+                                    changingCollectionCursor.movePrevious();
+                                }
+                                catch (e:ItemPendingError)
+                                {
+                                }
+                                parentBookmarkStack[changingNodeCollectionBookmarkIndex] = changingCollectionCursor.bookmark;
                             }
-                            catch (e:ItemPendingError)
-                            {
-                            }
-                            parentBookmarkStack[parentTable[parentOfChangingNode]] = currentChildBookmark;
                         }
                     }
                 }
