@@ -150,6 +150,12 @@ CheckBox
 	chromeColor: #FFFFFF;
 }
 
+HScrollBar
+{
+	skinClass: ClassReference("spark.skins.android4.HScrollBarSkin");
+	thumbColor: #333333;
+}
+
 HSlider
 {
     skinClass: ClassReference("spark.skins.android4.HSliderSkin");
@@ -231,6 +237,12 @@ ToggleSwitch
 	slideDuration: 125;
 	textShadowAlpha: .65;
 	textShadowColor: #000000;
+}
+
+VScrollBar
+{
+	skinClass: ClassReference("spark.skins.android4.VScrollBarSkin");
+	thumbColor: #333333;
 }
 
 ViewNavigator
