@@ -19,6 +19,17 @@ package
 	import org.flexunit.asserts.assertTrue;
 	import org.flexunit.runners.Parameterized;
 
+    /**
+     * README
+     *
+     * -This unit test was initially created to test FLEX-34119, and ended up uncovering FLEX-34424 as well.
+     * -This test builds a hierarchical collection from a string (see HIERARCHY_STRING), so that it's easy
+     * to edit and change it for specific scenarios.
+     * -This test uses utility functions from HierarchicalCollectionViewTestUtils, and data objects from DataNode.
+     * -Running the test takes about 3min on my machine. It will vary on yours, of course, but it shouldn't
+     * be wildly different.
+     * -To speed it up you can decrease the size of the hierarchical collection by editing HIERARCHY_STRING.
+     */
 	[RunWith("org.flexunit.runners.Parameterized")]
 	public class HierarchicalCollectionViewCursor_FLEX_34119_Test
 	{
