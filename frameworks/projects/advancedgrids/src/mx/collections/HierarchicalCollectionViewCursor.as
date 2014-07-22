@@ -1148,7 +1148,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
         var parentStack:Array = getParentStack(current);
         var isBefore:Boolean = false;
         var parentOfChangingNodeIndex:int;
-        var isOurAncestorChanging:Boolean;
+        var selectedAndChangingNodesHaveCommonAncestor:Boolean;
         var bookmarkInChangingCollection:CursorBookmark;
 
         // remember the current parent
@@ -1172,11 +1172,12 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                 if (isBefore)
                 {
                     // if the added node is before the current
-                    // and they share parent's then we have to
+                    // and they share parents then we have to
                     // adjust the currentChildIndex or
                     // the stack of child indexes.
                     parentOfChangingNode = collection.getParentItem(changingNode);
                     changingNodeAndSiblings = collection.getChildren(parentOfChangingNode); 
+
                     if (parentOfChangingNode == parentOfCurrentNode)
                     {
                         if (changingNodeAndSiblings != null)
@@ -1195,8 +1196,8 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                     }
                     else {
                         parentOfChangingNodeIndex = parentStack.indexOf(parentOfChangingNode);
-                        isOurAncestorChanging = parentOfChangingNodeIndex != -1;
-                        if (isOurAncestorChanging)
+                        selectedAndChangingNodesHaveCommonAncestor = parentOfChangingNodeIndex != -1;
+                        if (selectedAndChangingNodesHaveCommonAncestor)
                         {
                             if (changingNodeAndSiblings != null)
                             {
@@ -1251,11 +1252,12 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                 if (isBefore)
                 {
                     // if the removed node is before the current
-                    // and they share parent's then we have to
+                    // and they share parents then we have to
                     // adjust the currentChildIndex or
                     // the stack of child indexes.
                     parentOfChangingNode = collection.getParentItem(changingNode);
                     changingNodeAndSiblings = collection.getChildren(parentOfChangingNode);
+
                     if (parentOfChangingNode == parentOfCurrentNode)
                     {
                         if (changingNodeAndSiblings != null)
@@ -1274,8 +1276,8 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                     }
                     else {
                         parentOfChangingNodeIndex = parentStack.indexOf(parentOfChangingNode);
-                        isOurAncestorChanging = parentOfChangingNodeIndex != -1;
-                        if (isOurAncestorChanging)
+                        selectedAndChangingNodesHaveCommonAncestor = parentOfChangingNodeIndex != -1;
+                        if (selectedAndChangingNodesHaveCommonAncestor)
                         {
                             if (changingNodeAndSiblings != null)
                             {
