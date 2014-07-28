@@ -8,7 +8,7 @@ package
 	import mx.collections.HierarchicalCollectionViewCursor;
 	import mx.collections.IViewCursor;
 	import mx.core.FlexGlobals;
-	
+
 	import spark.components.WindowedApplication;
 	
 	import flexunit.framework.AssertionFailedError;
@@ -49,7 +49,7 @@ package
 	        private static var OPERATION_LOCATION:int = 0;
 	        private static var OPERATION_INDEX:int = 0;
 	        for(SELECTED_INDEX = 0; SELECTED_INDEX < NO_ITEMS_IN_HIERARCHY; SELECTED_INDEX++)
-		        for(OPERATION_LOCATION = SELECTED_INDEX -1; OPERATION_LOCATION >= 0; OPERATION_LOCATION--)
+		        for(OPERATION_LOCATION = SELECTED_INDEX; OPERATION_LOCATION >= 0; OPERATION_LOCATION--)
 		            for(OPERATION_INDEX = 0; OPERATION_INDEX < OPERATIONS.length; OPERATION_INDEX++)
 		                positionAndOperation.push([SELECTED_INDEX, OPERATION_LOCATION, OPERATIONS[OPERATION_INDEX]]);
 	    }
@@ -124,7 +124,7 @@ package
        	[Test(dataProvider="positionAndOperation")]
         public function testReproduce_FLEX_34119_Comprehensive(selectedItemIndex:int, operationIndex:int, operation:int):void
         {
-			assertThat(operationIndex < selectedItemIndex);
+			assertThat(operationIndex <= selectedItemIndex);
 			
             try {
 				//WHEN
@@ -143,17 +143,21 @@ package
 			   
 			   selectedNode.isSelected = true;
 
+               var selectedNodeOrDirectAncestorWasRemoved:Boolean;
                 //3. Perform operation
                 if (operation == OP_ADD)
-                    testAddition(_operationCursor);
+                    selectedNodeOrDirectAncestorWasRemoved = testAddition(_operationCursor);
                 else if (operation == OP_REMOVE)
-                    testRemoval(_operationCursor);
+                    selectedNodeOrDirectAncestorWasRemoved = testRemoval(_operationCursor, selectedNode);
+                else if(operation == OP_SET)
+                    selectedNodeOrDirectAncestorWasRemoved = testReplacement(_operationCursor, selectedNode);
 
                 //THEN 1
                 assertTrue(_noErrorsThrown);
 
-				
-				
+				if(selectedNodeOrDirectAncestorWasRemoved)
+                    return; //it means that _sut.current is now (correctly) null
+
                 //4. Create mirror HierarchicalCollectionView from the changed root, as the source of truth
                 _mirrorCursor = _utils.navigateToItem(_currentHierarchy.createCursor() as HierarchicalCollectionViewCursor, selectedNode);
 
@@ -181,25 +185,16 @@ package
 			_operationCursor = _currentHierarchy.createCursor() as HierarchicalCollectionViewCursor;
 			_operationCursor.seek(new CursorBookmark(where));
 			var itemToPerformOperationOn:DataNode = _operationCursor.current as DataNode;
-			
-			switch(operation)
-			{
-				case OP_ADD:
-					return _utils.nodesHaveCommonAncestor(itemToPerformOperationOn, selectedNode, _currentHierarchy);
-				case OP_REMOVE:
-					return !_utils.isAncestor(itemToPerformOperationOn, selectedNode, _currentHierarchy);
-				case OP_SET:
-					return false;
-				default:
-					return false;
-			}
+            return _utils.nodesHaveCommonAncestor(itemToPerformOperationOn, selectedNode, _currentHierarchy);
 		}
 	
-	    private function testRemoval(where:HierarchicalCollectionViewCursor):void
+	    private function testRemoval(where:HierarchicalCollectionViewCursor, selectedNode:DataNode):Boolean
 	    {
 	        var itemToDelete:DataNode = where.current as DataNode;
 	        assertNotNull(itemToDelete);
-	
+
+            var currentWillBeNulled:Boolean = itemToDelete == selectedNode || _utils.isAncestor(itemToDelete, selectedNode, _currentHierarchy);
+
 	        //mark the next item, so we know which item disappeared
 			where.moveNext();
 	        var nextItem:DataNode = where.current as DataNode;
@@ -209,16 +204,15 @@ package
 			//remove the item
 	        var parentOfItemToRemove:DataNode = _currentHierarchy.getParentItem(itemToDelete) as DataNode;
 	        var collectionToChange:ArrayCollection = parentOfItemToRemove ? parentOfItemToRemove.children : _utils.getRoot(_currentHierarchy) as ArrayCollection;
-			//trace("REM: sel=" + selectedNode + "; before=" + itemToDelete);
+			//trace("REM: sel=" + selectedNode + "; before=" + nextItem);
 			_operationPerformedInLastStep = true;
 	        collectionToChange.removeItem(itemToDelete);
+
+            return currentWillBeNulled;
 	    }
 
 
-        /**
-         * @return true when the where parameter designates an item on the root collection (last ancestor of modified node)
-         */
-        private function testAddition(where:HierarchicalCollectionViewCursor):void
+        private function testAddition(where:HierarchicalCollectionViewCursor):Boolean
         {
             var itemBeforeWhichWereAdding:DataNode = where.current as DataNode;
             assertNotNull(itemBeforeWhichWereAdding);
@@ -229,7 +223,25 @@ package
 
 			_operationPerformedInLastStep = true;
             collectionToChange.addItemAt(_utils.createSimpleNode(itemBeforeWhichWereAdding.label + " [INSERTED NODE]"), positionOfItemBeforeWhichWereAdding);
-			//trace("ADD: sel=" + selectedNode + "; before=" + itemBeforeWhichWereAdding);
+			//trace("ADD: sel=" + selectedNode + ");
+            return false;
+        }
+
+        private function testReplacement(where:HierarchicalCollectionViewCursor, selectedNode:DataNode):Boolean
+        {
+            var itemToBeReplaced:DataNode = where.current as DataNode;
+            assertNotNull(itemToBeReplaced);
+
+            var currentWillBeNulled:Boolean = itemToBeReplaced == selectedNode || _utils.isAncestor(itemToBeReplaced, selectedNode, _currentHierarchy);
+
+            var parentOfReplacementLocation:DataNode = _currentHierarchy.getParentItem(itemToBeReplaced) as DataNode;
+            var collectionToChange:ArrayCollection = parentOfReplacementLocation ? parentOfReplacementLocation.children : _utils.getRoot(_currentHierarchy) as ArrayCollection;
+            var replacedItemIndex:int = collectionToChange.getItemIndex(itemToBeReplaced);
+
+            _operationPerformedInLastStep = true;
+            collectionToChange.setItemAt(_utils.createSimpleNode(itemToBeReplaced.label + " [REPLACED NODE]"), replacedItemIndex);
+            //trace("REPLACE: sel=" + selectedNode + ");
+            return currentWillBeNulled;
         }
 
 
