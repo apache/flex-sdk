@@ -245,6 +245,23 @@ VScrollBar
 	thumbColor: #333333;
 }
 
+ViewMenu
+{
+	skinClass: ClassReference("spark.skins.android4.ViewMenuSkin");
+}
+
+ViewMenuItem
+{ 
+	iconPlacement : "left";
+	chromeColor : #FFFFFF;
+	focusColor: #DEDEDD;
+	paddingBottom: 8;
+	paddingLeft: 8;
+	paddingRight: 8;
+	paddingTop: 8;
+	skinClass : ClassReference("spark.skins.android4.ViewMenuItemSkin");
+}
+
 ViewNavigator
 {
 	skinClass: ClassReference("spark.skins.mobile.ViewNavigatorSkin");
