@@ -1540,11 +1540,8 @@ public class HierarchicalCollectionView extends EventDispatcher
     {
         var i:int;
         var n:int;
-        var location:int;
-        var uid:String;
         var parentOfChangingNode:Object;
         var changingNode:Object;
-        var items:Array;
         var convertedEvent:CollectionEvent;
 
         if (event is CollectionEvent)
@@ -1632,12 +1629,7 @@ public class HierarchicalCollectionView extends EventDispatcher
                         // if the parent node is opened
                         if (_openNodes[UIDUtil.getUID(parentOfChangingNode)] != null)
                         {
-                            var newNode:Object = ce.items[i].newValue;
-                            uid = UIDUtil.getUID(newNode);
-                            parentMap[uid] = parentOfChangingNode;
-                            
-                            // delete the parent map for the old node
-                            delete parentMap[UIDUtil.getUID(changingNode)];
+                            parentMap[UIDUtil.getUID(ce.items[i].newValue)] = parentOfChangingNode;
                         }
                     }
                 }
@@ -1660,6 +1652,15 @@ public class HierarchicalCollectionView extends EventDispatcher
                     dispatchEvent(convertedEvent);
                 }
                 dispatchEvent(event);
+
+                for (i = 0; i < n; i++)
+                {
+                    changingNode = ce.items[i].oldValue;
+                    parentOfChangingNode = getParentItem(changingNode);
+
+                    if (parentOfChangingNode != null && _openNodes[UIDUtil.getUID(parentOfChangingNode)] != null)
+                        delete parentMap[UIDUtil.getUID(changingNode)];
+                }
             }
             else if (ce.kind == CollectionEventKind.RESET)
             {
