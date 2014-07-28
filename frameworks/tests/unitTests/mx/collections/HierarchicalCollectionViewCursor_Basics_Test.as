@@ -1,8 +1,10 @@
 package mx.collections
 {
     import flash.events.UncaughtErrorEvent;
-    
-    import mx.collections.ArrayCollection;
+
+import flashx.textLayout.debug.assert;
+
+import mx.collections.ArrayCollection;
     import mx.collections.CursorBookmark;
     import mx.collections.HierarchicalCollectionView;
     import mx.collections.HierarchicalCollectionViewCursor;
@@ -124,6 +126,81 @@ package mx.collections
 
             //then
             assertEquals(newLastCompany, _sut.current);
+        }
+
+        [Test]
+        public function testRemovingCurrentMiddleItemChangesCurrentToNextItem():void
+        {
+            //given
+            var firstCompany:DataNode = _level0.getItemAt(0) as DataNode;
+            var secondLocation:DataNode = firstCompany.children.getItemAt(1) as DataNode;
+            var thirdDepartmentOfSecondLocation:DataNode = secondLocation.children.getItemAt(2) as DataNode;
+
+            _sut.seek(new CursorBookmark(6)); //Company(1)->Location(2)->Department(2)
+
+            //when
+            secondLocation.children.removeItemAt(1);
+
+            //then
+            assertEquals(thirdDepartmentOfSecondLocation, _sut.current);
+        }
+
+        [Test]
+        public function testRemovingPreviousSiblingOfCurrentMiddleItemDoesNotChangeCurrent():void
+        {
+            //given
+            var firstCompany:DataNode = _level0.getItemAt(0) as DataNode;
+            var secondLocation:DataNode = firstCompany.children.getItemAt(1) as DataNode;
+            var secondDepartmentOfSecondLocation:DataNode = secondLocation.children.getItemAt(1) as DataNode;
+
+            //when
+            _sut.seek(new CursorBookmark(6)); //Company(1)->Location(2)->Department(2)
+
+            //then
+            assertEquals(secondDepartmentOfSecondLocation, _sut.current);
+
+            //when
+            secondLocation.children.removeItemAt(0);
+
+            //then
+            assertEquals(secondDepartmentOfSecondLocation, _sut.current);
+        }
+
+        [Test]
+        public function testRemovingCurrentFirstItemChangesCurrentToNextItem():void
+        {
+            //given
+            var firstCompany:DataNode = _level0.getItemAt(0) as DataNode;
+            var secondCompany:DataNode = _level0.getItemAt(1) as DataNode;
+
+            //initial assumption
+            assertEquals(firstCompany, _sut.current);
+
+            //when
+            _level0.removeItemAt(0);
+
+            //then
+            assertEquals(secondCompany, _sut.current);
+        }
+
+        [Test]
+        public function testRemovingSiblingOfCurrentFirstItemDoesNotChangeCurrent():void
+        {
+            //given
+            var firstCompany:DataNode = _level0.getItemAt(0) as DataNode;
+            var firstLocation:DataNode = firstCompany.children.getItemAt(0) as DataNode;
+
+            //when
+            _sut.seek(new CursorBookmark(1)); //Company(1)->Location(1)
+
+            //then
+            assertEquals(firstLocation, _sut.current);
+
+            //when
+            firstCompany.children.removeItemAt(1);
+
+            //then
+            assertEquals(firstLocation, _sut.current);
         }
 		
 		
