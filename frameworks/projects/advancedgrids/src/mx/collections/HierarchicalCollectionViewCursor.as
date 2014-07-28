@@ -1145,16 +1145,12 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
         var changingNode:Object;
         var parentOfChangingNode:Object;
         var parentOfCurrentNode:Object;
-        var parentStack:Array = getParentStack(current);
+        var parentStack:Array;
         var isBefore:Boolean = false;
         var parentOfChangingNodeIndex:int;
         var isChangingNodeParentAncestorOfSelectedNode:Boolean;
         var bookmarkInChangingCollection:CursorBookmark;
 		var changingNodeCollectionBookmarkIndex:int;
-
-        // remember the current parent
-        parentOfCurrentNode = parentStack[parentStack.length - 1];
-        
         var changingNodeAndSiblings:ICollectionView;
         var changingCollectionCursor:IViewCursor;
 
@@ -1166,6 +1162,9 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                 currentIndex += n;
                 isBefore = true;
             }
+
+            parentStack = getParentStack(current);
+            parentOfCurrentNode = parentStack[parentStack.length - 1];
 
             for (i = 0; i < n; i++)
             {
@@ -1226,26 +1225,32 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
             n = event.items.length;
             if (event.location <= currentIndex)
             {
-                if (event.location + n >= currentIndex)
+                var lastIndexAffectedByDeletion:int = event.location + n;
+                var isCurrentIndexAmongRemovedNodes:Boolean = lastIndexAffectedByDeletion >= currentIndex;
+                var currentItemNotFoundAmongItsSiblings:Boolean = isCurrentIndexAmongRemovedNodes ? false : current == null;
+
+                if (isCurrentIndexAmongRemovedNodes || currentItemNotFoundAmongItsSiblings)
                 {
-                    // the current node was removed
                     // the list classes expect that we
                     // leave the cursor on whatever falls
                     // into that slot
-                    var newIndex:int = event.location;
+                    var indexToReturnTo:int = isCurrentIndexAmongRemovedNodes ? event.location : currentIndex - n;
                     moveToFirst();
-                    seek(CursorBookmark.FIRST, newIndex);
+                    seek(CursorBookmark.FIRST, indexToReturnTo);
                     for (i = 0; i < n; i++)
                     {
-                        changingNode = event.items[i];
-                        delete collection.parentMap[UIDUtil.getUID(changingNode)];
+                        delete collection.parentMap[UIDUtil.getUID(event.items[i])];
                     }
+
                     return;
                 }
 
                 currentIndex -= n;
                 isBefore = true;
             }
+
+            parentStack = getParentStack(current);
+            parentOfCurrentNode = parentStack[parentStack.length - 1];
 
             for (i = 0; i < n; i++)
             {
