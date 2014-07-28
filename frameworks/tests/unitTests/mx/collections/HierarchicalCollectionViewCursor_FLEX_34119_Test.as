@@ -1,4 +1,4 @@
-package
+package mx.collections
 {
 	import flash.events.UncaughtErrorEvent;
 	

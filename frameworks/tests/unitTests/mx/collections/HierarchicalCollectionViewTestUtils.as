@@ -1,4 +1,4 @@
-package
+package mx.collections
 {
 	import com.adobe.utils.StringUtil;
 	

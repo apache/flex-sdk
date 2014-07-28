@@ -1,4 +1,4 @@
-package {
+package mx.collections {
 import mx.collections.ArrayCollection;
 
 public class DataNode {
