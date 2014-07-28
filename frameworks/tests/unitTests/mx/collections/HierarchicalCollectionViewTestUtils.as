@@ -3,14 +3,18 @@ package
 	import com.adobe.utils.StringUtil;
 	
 	import mx.collections.ArrayCollection;
+	import mx.collections.CursorBookmark;
 	import mx.collections.HierarchicalCollectionView;
 	import mx.collections.HierarchicalCollectionViewCursor;
 	import mx.collections.HierarchicalData;
 	import mx.collections.IViewCursor;
+	import mx.utils.UIDUtil;
 
 	public class HierarchicalCollectionViewTestUtils
 	{
 		//assumes the root is an ArrayCollection of DataNodes
+		private var _allNodes:Object = {};
+		
 		public function clone(hcv:HierarchicalCollectionView):HierarchicalCollectionView
 		{
 			var oldRoot:ArrayCollection = ArrayCollection(getRoot(hcv));
@@ -37,14 +41,20 @@ package
 		
 		public function generateOpenHierarchyFromRootList(root:ArrayCollection):HierarchicalCollectionView
 		{
-			var hcv:HierarchicalCollectionView = generateHCV(root);
+			var hcv:HierarchicalCollectionView = generateHCV(root, false);
 			openAllNodes(hcv);
 			return hcv;
 		}
+
+        public function generateOpenHierarchyFromRootListWithAllNodesMethod(root:ArrayCollection):HierarchicalCollectionView
+        {
+            var hcv:HierarchicalCollectionView = generateHCV(root, true);
+            return hcv;
+        }
 		
-		public function generateHCV(rootCollection:ArrayCollection):HierarchicalCollectionView
+		public function generateHCV(rootCollection:ArrayCollection, useAllNodes:Boolean = false):HierarchicalCollectionView
 		{
-			return new HierarchicalCollectionView(new HierarchicalData(rootCollection));
+			return new HierarchicalCollectionView(new HierarchicalData(rootCollection), useAllNodes ? _allNodes : null);
 		}
 		
 		public function openAllNodes(hcv:HierarchicalCollectionView):void
@@ -75,7 +85,9 @@ package
 
         public function createSimpleNode(label:String):DataNode
 		{
-            return new DataNode(label);
+			var node:DataNode = new DataNode(label);
+			_allNodes[UIDUtil.getUID(node)] = node;
+            return node;
         }
 
         public function isAncestor(node:DataNode, forNode:DataNode, hcv:HierarchicalCollectionView):Boolean
