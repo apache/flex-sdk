@@ -1148,8 +1148,9 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
         var parentStack:Array = getParentStack(current);
         var isBefore:Boolean = false;
         var parentOfChangingNodeIndex:int;
-        var selectedAndChangingNodesHaveCommonAncestor:Boolean;
+        var isChangingNodeParentAncestorOfSelectedNode:Boolean;
         var bookmarkInChangingCollection:CursorBookmark;
+		var changingNodeCollectionBookmarkIndex:int;
 
         // remember the current parent
         parentOfCurrentNode = parentStack[parentStack.length - 1];
@@ -1196,14 +1197,14 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                     }
                     else {
                         parentOfChangingNodeIndex = parentStack.indexOf(parentOfChangingNode);
-                        selectedAndChangingNodesHaveCommonAncestor = parentOfChangingNodeIndex != -1;
-                        if (selectedAndChangingNodesHaveCommonAncestor)
+                        isChangingNodeParentAncestorOfSelectedNode = parentOfChangingNodeIndex != -1;
+                        if (isChangingNodeParentAncestorOfSelectedNode)
                         {
                             if (changingNodeAndSiblings != null)
                             {
-                                var changingNodeCollectionIndex:int = parentOfChangingNodeIndex + 1;
+                                changingNodeCollectionBookmarkIndex = parentOfChangingNodeIndex + 1;
                                 changingCollectionCursor = changingNodeAndSiblings.createCursor();
-                                bookmarkInChangingCollection = parentBookmarkStack[changingNodeCollectionIndex];
+                                bookmarkInChangingCollection = parentBookmarkStack[changingNodeCollectionBookmarkIndex];
                                 try
                                 {
                                     changingCollectionCursor.seek(bookmarkInChangingCollection);
@@ -1212,7 +1213,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                                 catch (e:ItemPendingError)
                                 {
                                 }
-                                parentBookmarkStack[changingNodeCollectionIndex] = changingCollectionCursor.bookmark;
+                                parentBookmarkStack[changingNodeCollectionBookmarkIndex] = changingCollectionCursor.bookmark;
                             }
                         }
                     }
@@ -1276,12 +1277,12 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                     }
                     else {
                         parentOfChangingNodeIndex = parentStack.indexOf(parentOfChangingNode);
-                        selectedAndChangingNodesHaveCommonAncestor = parentOfChangingNodeIndex != -1;
-                        if (selectedAndChangingNodesHaveCommonAncestor)
+                        isChangingNodeParentAncestorOfSelectedNode = parentOfChangingNodeIndex != -1;
+                        if (isChangingNodeParentAncestorOfSelectedNode)
                         {
                             if (changingNodeAndSiblings != null)
                             {
-                                var changingNodeCollectionBookmarkIndex:int = parentOfChangingNodeIndex + 1;
+                                changingNodeCollectionBookmarkIndex = parentOfChangingNodeIndex + 1;
                                 changingCollectionCursor = changingNodeAndSiblings.createCursor();
                                 bookmarkInChangingCollection = parentBookmarkStack[changingNodeCollectionBookmarkIndex];
                                 try
@@ -1297,6 +1298,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                         }
                     }
                 }
+
                 delete collection.parentMap[UIDUtil.getUID(changingNode)];
             }
             
