@@ -1261,6 +1261,9 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
 
                     if (parentOfChangingNode == parentOfCurrentNode)
                     {
+                        if(currentChildBookmark == CursorBookmark.LAST)
+                            break;
+
                         if (changingNodeAndSiblings != null)
                         {
                             changingCollectionCursor = changingNodeAndSiblings.createCursor();
@@ -1285,6 +1288,10 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                                 changingNodeCollectionBookmarkIndex = parentOfChangingNodeIndex + 1;
                                 changingCollectionCursor = changingNodeAndSiblings.createCursor();
                                 bookmarkInChangingCollection = parentBookmarkStack[changingNodeCollectionBookmarkIndex];
+
+                                if(bookmarkInChangingCollection == CursorBookmark.LAST)
+                                    break;
+
                                 try
                                 {
                                     changingCollectionCursor.seek(bookmarkInChangingCollection);
