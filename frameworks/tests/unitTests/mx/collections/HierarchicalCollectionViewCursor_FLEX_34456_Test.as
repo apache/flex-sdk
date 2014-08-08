@@ -49,7 +49,6 @@ package mx.collections
 			_currentHierarchy = _utils.clone(_generatedHierarchy);
 			_utils.openAllNodes(_currentHierarchy);
 			_sut = _currentHierarchy.createCursor() as HierarchicalCollectionViewCursor;
-			_sut.name = "_sut";
 		}
 		
 		[After]
@@ -76,7 +75,6 @@ package mx.collections
 		   
             //2. Perform operation
 		   _operationCursor = _currentHierarchy.createCursor() as HierarchicalCollectionViewCursor;
-		   _operationCursor.name = "_operationCursor";
 		   _operationCursor.seek(new CursorBookmark(operationIndex));
 		   
             if (operation == OP_ADD)
@@ -89,7 +87,6 @@ package mx.collections
 
             //3. Create mirror HierarchicalCollectionView from the changed root, as the source of truth
             _mirrorCursor = _utils.navigateToItem(_currentHierarchy.createCursor() as HierarchicalCollectionViewCursor, selectedNode) as HierarchicalCollectionViewCursor;
-			_mirrorCursor.name = "_mirrorCursor";
 
             //4. Navigate somewhere in both HierarchicalCollectionViews and make sure they do the same thing
             _sut.moveNext();

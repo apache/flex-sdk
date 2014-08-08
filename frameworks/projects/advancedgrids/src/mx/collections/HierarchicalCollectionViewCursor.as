@@ -265,7 +265,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
      */
     public function get beforeFirst():Boolean
     {
-        return (currentIndex <= collection.length && current == null);
+        return currentIndex < 0 && current == null;
     }
     
     //----------------------------------
@@ -281,7 +281,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
      */
     public function get afterLast():Boolean
     {
-        return (currentIndex >= collection.length && current == null); 
+        return currentIndex >= collection.length && current == null;
     } 
     
     //----------------------------------
@@ -755,7 +755,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
 
         updateParentMap(currentNode);
 
-        currentIndex--; 
+        currentIndex--;
         return true;
     }
 
@@ -878,7 +878,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
     public function insert(item:Object):void
     {
         var parent:Object = collection.getParentItem(current);
-        collection.addChildAt(parent, item, currentIndex); 
+        collection.addChildAt(parent, item, currentIndex);
     }
     
     /**
@@ -923,8 +923,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
         if (currentNode != null)
         {
             var uid:String = UIDUtil.getUID(currentNode);
-            if (!collection.parentMap.hasOwnProperty(uid))
-                collection.parentMap[uid] = parentNodes[parentNodes.length - 1];
+            collection.addParentMapping(uid, parentNodes[parentNodes.length - 1], false);
         }
     }
 
@@ -1227,7 +1226,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
             {
                 var lastIndexAffectedByDeletion:int = event.location + n;
                 var isCurrentIndexAmongRemovedNodes:Boolean = lastIndexAffectedByDeletion >= currentIndex;
-                var currentItemNotFoundAmongItsSiblings:Boolean = isCurrentIndexAmongRemovedNodes ? false : current == null;
+                var currentItemNotFoundAmongItsSiblings:Boolean = isCurrentIndexAmongRemovedNodes ? false : (!afterLast && !beforeFirst && current == null);
 
                 if (isCurrentIndexAmongRemovedNodes || currentItemNotFoundAmongItsSiblings)
                 {
@@ -1237,10 +1236,6 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                     var indexToReturnTo:int = isCurrentIndexAmongRemovedNodes ? event.location : currentIndex - n;
                     moveToFirst();
                     seek(CursorBookmark.FIRST, indexToReturnTo);
-                    for (i = 0; i < n; i++)
-                    {
-                        delete collection.parentMap[UIDUtil.getUID(event.items[i])];
-                    }
 
                     return;
                 }
@@ -1303,10 +1298,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
                         }
                     }
                 }
-
-                delete collection.parentMap[UIDUtil.getUID(changingNode)];
             }
-            
         }
         else if (event.kind == CollectionEventKind.RESET)
         {
@@ -1326,5 +1318,4 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
         }
     }
 }
-
 }

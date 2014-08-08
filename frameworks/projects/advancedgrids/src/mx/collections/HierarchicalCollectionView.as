@@ -139,7 +139,7 @@ public class HierarchicalCollectionView extends EventDispatcher
      *  Mapping of UID to parents.  Must be maintained as things get removed/added
      *  This map is created as objects are visited
      */
-    mx_internal var parentMap:Object;
+    private var parentMap:Object;
 
     //--------------------------------------------------------------------------
     //
@@ -536,6 +536,17 @@ public class HierarchicalCollectionView extends EventDispatcher
 
         return undefined;
     }
+
+    public function deleteParentMapping(uid:String):void
+    {
+        delete parentMap[uid];
+    }
+
+    public function addParentMapping(uid:String, parent:Object, replaceExisting:Boolean = true):void
+    {
+        if(replaceExisting || !parentMap.hasOwnProperty(uid))
+            parentMap[uid] = parent;
+    }
     
     /**
      *  @inheritDoc 
@@ -677,7 +688,7 @@ public class HierarchicalCollectionView extends EventDispatcher
             while (!cursor.afterLast)
             {
                 var uid:String = UIDUtil.getUID(cursor.current);
-                delete parentMap[uid];
+                deleteParentMapping(uid);
 
                 try
                 {
@@ -722,7 +733,6 @@ public class HierarchicalCollectionView extends EventDispatcher
     public function removeChild(parent:Object, child:Object):Boolean
     {
         var cursor:IViewCursor;
-        var index:int = 0;
         if (parent == null)
         {
             cursor = treeData.createCursor();
@@ -1007,7 +1017,7 @@ public class HierarchicalCollectionView extends EventDispatcher
         {
             var item:Object = cursor.current;
             var uid:String = UIDUtil.getUID(item);
-            parentMap[uid] = node;
+            addParentMapping(uid, node);
             
             // check that the node is opened or not.
             // If it is open, then update the length with the node's children.
@@ -1091,7 +1101,7 @@ public class HierarchicalCollectionView extends EventDispatcher
         else
         {
             var uid:String = UIDUtil.getUID(node);
-            parentMap[uid] = parent;
+            addParentMapping(uid, parent);
             if (node != null &&
                 openNodes[uid] &&
                 hierarchicalData.canHaveChildren(node) &&
@@ -1303,7 +1313,7 @@ public class HierarchicalCollectionView extends EventDispatcher
         nodeArray.push(node);
 
         var uid:String = UIDUtil.getUID(node);
-        parentMap[uid] = parent;
+        addParentMapping(uid, parent);
         if (openNodes[uid] != null &&
             hierarchicalData.canHaveChildren(node) &&
             hierarchicalData.hasChildren(node))
@@ -1422,11 +1432,7 @@ public class HierarchicalCollectionView extends EventDispatcher
     {
         var i:int;
         var n:int;
-        var location:int;
-        var uid:String;
-        var parent:Object;
         var node:Object;
-        var items:Array;
 
         var convertedEvent:CollectionEvent;
         
@@ -1482,9 +1488,16 @@ public class HierarchicalCollectionView extends EventDispatcher
                         stopTrackUpdates(node);
                     getVisibleNodes(node, null, convertedEvent.items);
                 }
+
                 currentLength -= convertedEvent.items.length;
+
                 dispatchEvent(convertedEvent);
-                
+
+                n = convertedEvent.items.length;
+                for (i = 0; i < n; i++)
+                {
+                    deleteParentMapping(UIDUtil.getUID(convertedEvent.items[i]));
+                }
             }
             else if (ce.kind == CollectionEventKind.UPDATE)
             {
@@ -1629,7 +1642,7 @@ public class HierarchicalCollectionView extends EventDispatcher
                         // if the parent node is opened
                         if (_openNodes[UIDUtil.getUID(parentOfChangingNode)] != null)
                         {
-                            parentMap[UIDUtil.getUID(ce.items[i].newValue)] = parentOfChangingNode;
+                            addParentMapping(UIDUtil.getUID(ce.items[i].newValue), parentOfChangingNode);
                         }
                     }
                 }
@@ -1659,7 +1672,7 @@ public class HierarchicalCollectionView extends EventDispatcher
                     parentOfChangingNode = getParentItem(changingNode);
 
                     if (parentOfChangingNode != null && _openNodes[UIDUtil.getUID(parentOfChangingNode)] != null)
-                        delete parentMap[UIDUtil.getUID(changingNode)];
+                        deleteParentMapping(UIDUtil.getUID(changingNode));
                 }
             }
             else if (ce.kind == CollectionEventKind.RESET)
