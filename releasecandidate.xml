@@ -236,6 +236,7 @@
 			</fileset>
 		</copy>
 		<copy file="${basedir}/README" tofile="${dist.dev}/flex/sdk/${release.version}/rc${rc}/READme" />
+		<copy file="${basedir}/RELEASE_NOTES" tofile="${dist.dev}/flex/sdk/${release.version}/rc${rc}/RELEASE_NOTES" />
 		<copy file="${basedir}/ApproveSDK.xml" tofile="${dist.dev}/flex/sdk/${release.version}/rc${rc}/ApproveSDK.xml" />
 		<copy file="${basedir}/apache-flex-sdk-installer-config.xml" tofile="${dist.dev}/flex/sdk/${release.version}/rc${rc}/binaries/apache-flex-sdk-installer-config.xml" />
 	</target>
