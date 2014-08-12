@@ -1875,6 +1875,55 @@ There are no known issues.
 		<checksum algorithm="md5" file="${basedir}/out/${source.kit}.zip" forceOverwrite="yes"/>
 	</target>
 	
+    <target name="sign" >
+        <exec executable="gpg">
+            <arg value="--armor" />
+            <arg value="--output" />
+            <arg value="${basedir}/out/${source.kit}.zip.asc" />
+            <arg value="--detach-sig" />
+            <arg value="${basedir}/out/${source.kit}.zip" />
+        </exec>
+        
+        <exec executable="gpg">
+            <arg value="--armor" />
+            <arg value="--output" />
+            <arg value="${basedir}/out/${source.kit}.tar.gz.asc" />
+            <arg value="--detach-sig" />
+            <arg value="${basedir}/out/${source.kit}.tar.gz" />
+        </exec>
+        
+        <exec executable="gpg">
+            <arg value="--armor" />
+            <arg value="--output" />
+            <arg value="${basedir}/out/${binary.kit}.zip.asc" />
+            <arg value="--detach-sig" />
+            <arg value="${basedir}/out/${binary.kit}.zip" />
+        </exec>
+        
+        <exec executable="gpg">
+            <arg value="--armor" />
+            <arg value="--output" />
+            <arg value="${basedir}/out/${binary.kit}.tar.gz.asc" />
+            <arg value="--detach-sig" />
+            <arg value="${basedir}/out/${binary.kit}.tar.gz" />
+        </exec>
+    </target>
+        
+	<target name="doc-create-md5" >
+		<echo message="Generating MD5 hashes for doc artifacts"/>
+		<checksum algorithm="md5" file="${basedir}/out/${kit.prefix}-asdocs.zip" forceOverwrite="yes"/>
+	</target>
+	
+    <target name="doc-sign" >
+        <exec executable="gpg">
+            <arg value="--armor" />
+            <arg value="--output" />
+            <arg value="${basedir}/out/${kit.prefix}-asdocs.zip.asc" />
+            <arg value="--detach-sig" />
+            <arg value="${basedir}/out/${kit.prefix}-asdocs.zip" />
+        </exec>
+	</target>
+	
 	<target name="create-md5-pixelbender" >
 		<echo message="Generating MD5 hashes for release artifacts"/>
 		<checksum algorithm="md5" file="${basedir}/out/${binary-pixelbender.kit}.tar.gz" forceOverwrite="yes"/>
