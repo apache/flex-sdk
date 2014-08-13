@@ -1,21 +1,21 @@
 /*
- *
- *  Licensed to the Apache Software Foundation (ASF) under one or more
- *  contributor license agreements.  See the NOTICE file distributed with
- *  this work for additional information regarding copyright ownership.
- *  The ASF licenses this file to You under the Apache License, Version 2.0
- *  (the "License"); you may not use this file except in compliance with
- *  the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *
- */
+*
+*  Licensed to the Apache Software Foundation (ASF) under one or more
+*  contributor license agreements.  See the NOTICE file distributed with
+*  this work for additional information regarding copyright ownership.
+*  The ASF licenses this file to You under the Apache License, Version 2.0
+*  (the "License"); you may not use this file except in compliance with
+*  the License.  You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+*  Unless required by applicable law or agreed to in writing, software
+*  distributed under the License is distributed on an "AS IS" BASIS,
+*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+*  See the License for the specific language governing permissions and
+*  limitations under the License.
+*
+*/
 
 @namespace "library://ns.adobe.com/flex/spark";
 
@@ -38,236 +38,238 @@ application-dpi=240.
 	embed-as-cff: false;
 }
 
-global
-{
-	primaryAccentColor: #33B5E5;
-	fontFamily: RobotoRegular;
-	fontWeight: "normal";
-	fontSize: 24;
-	color: #000000;
-	textShadowColor: #FFFFFF;
-	textShadowAlpha: 0;
+@media (os-platform: "android") AND (min-os-version: "4.1.2") {
+	
+	global
+	{
+		primaryAccentColor: #33B5E5;
+		fontFamily: RobotoRegular;
+		fontWeight: "normal";
+		fontSize: 24;
+		color: #000000;
+		textShadowColor: #FFFFFF;
+		textShadowAlpha: 0;
+	}
+	
+	ActionBar
+	{
+		chromeColor: #DEDEDD;
+		defaultButtonAppearance: normal;
+		skinClass: ClassReference("spark.skins.android4.ActionBarSkin");
+		textShadowAlpha: 0;
+		textShadowColor: #000000;
+		paddingBottom: 1;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 1;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		color: #333333;
+		fontSize: 24;
+		fontFamily: RobotoBold;
+	}
+	
+	ActionBar ButtonBase
+	{
+		color: #333333;
+		fontFamily: RobotoBold;
+		fontWeight: bold;
+	}
+	
+	ActionBar Group#actionGroup Button
+	{
+		skinClass: ClassReference("spark.skins.android4.TransparentActionButtonSkin");
+	}
+	
+	MobileBusyIndicator
+	{
+		skinClass: ClassReference("spark.skins.android4.BusyIndicatorSkin");
+	}
+	
+	Button
+	{
+		fontFamily: RobotoBold;
+		fontWeight: "bold";
+		skinClass: ClassReference("spark.skins.android4.ButtonSkin");
+	}
+	
+	Button.emphasized
+	{
+		skinClass: ClassReference("spark.skins.mobile.DefaultButtonSkin");
+	}
+	
+	ButtonBar
+	{
+		skinClass: ClassReference("spark.skins.android4.ButtonBarSkin");
+		fontFamily: RobotoBold;
+		fontWeight: "bold";
+	}
+	
+	Callout
+	{
+		backgroundColor: #33B5E5;
+		contentBackgroundColor: #FFFFFF;
+		gap: 12;
+		skinClass: ClassReference("spark.skins.android4.CalloutSkin");
+		borderThickness: 0;
+		borderColor: 0;
+	}
+	
+	Callout ViewNavigator ActionBar
+	{
+		skinClass: ClassReference("spark.skins.mobile.CalloutActionBarSkin");
+		defaultButtonAppearance: none;
+		paddingLeft: 0;
+		paddingRight: 0;
+	}
+	
+	Callout ViewNavigator ActionBar.beveled
+	{
+		paddingLeft: 0;
+		paddingRight: 0;
+	}
+	
+	Callout ViewNavigator ActionBar.beveled Group#navigationGroup Button
+	{
+		skinClass: ClassReference("spark.skins.mobile.BeveledActionButtonSkin");
+	}
+	
+	Callout ViewNavigator ActionBar.beveled Group#navigationGroup Button.emphasized
+	{
+		skinClass: ClassReference("spark.skins.mobile.DefaultBeveledActionButtonSkin");
+	}
+	
+	Callout#viewNavigatorPopUp
+	{
+		contentBackgroundAppearance: none;
+	}
+	
+	CheckBox
+	{
+		skinClass: ClassReference("spark.skins.android4.CheckBoxSkin");
+		chromeColor: #FFFFFF;
+	}
+	
+	HScrollBar
+	{
+		skinClass: ClassReference("spark.skins.android4.HScrollBarSkin");
+		thumbColor: #333333;
+	}
+	
+	HSlider
+	{
+		skinClass: ClassReference("spark.skins.android4.HSliderSkin");
+		fontFamily: RobotoBold;
+		fontWeight: bold;
+	}
+	
+	RadioButton
+	{
+		skinClass: ClassReference("spark.skins.android4.RadioButtonSkin");
+		chromeColor: #FFFFFF;
+	}
+	
+	SpinnerList
+	{
+		skinClass: ClassReference("spark.skins.android4.SpinnerListSkin");
+	}
+	
+	SpinnerListContainer
+	{
+		skinClass: ClassReference("spark.skins.android4.SpinnerListContainerSkin");
+	}
+	
+	SpinnerListItemRenderer
+	{
+		paddingTop : 18;
+		paddingBottom : 18;
+		paddingLeft : 6;
+		paddingRight : 6;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontFamily: RobotoRegular;
+		chromeColor: #484848;
+		color: #000000;
+		fontSize: 20;
+		fontWeight: normal;
+		iconPlacement: top;
+		interactionMode: mouse;
+		skinClass: ClassReference("spark.skins.android4.TabbedViewNavigatorTabBarSkin");
+		textShadowAlpha: 0;
+		textShadowColor: #000000;
+	}
+	
+	TextInput
+	{ 
+		skinClass: ClassReference("spark.skins.android4.StageTextInputSkin");
+		contentBackgroundAlpha: 0; 
+		focusColor: #33B5E5;
+		borderColor: #4e4e4e;
+		contentBackgroundColor: #DEDEDD;
+		contentBackgroundBorder: "flat";
+		fontFamily: RobotoRegular;
+		selectionHighlighting: "never";
+		focusEnabled:"false";
+		focusThickness: 0;
+	}
+	
+	TextArea
+	{ 
+		skinClass: ClassReference("spark.skins.android4.StageTextAreaSkin");
+		contentBackgroundAlpha: 1;
+		contentBackgroundBorder: "rectangle";
+		contentBackgroundColor: #DEDEDD;
+		focusColor: #33B5E5;
+		fontFamily: RobotoRegular;
+		borderColor: #4e4e4e;
+		selectionHighlighting: "never";
+		focusEnabled:"false";
+		focusThickness: 0;
+	} 
+	
+	ToggleSwitch
+	{
+		accentColor: #3F7FBA;
+		color: #FFFFFF;
+		skinClass: ClassReference("spark.skins.android4.ToggleSwitchSkin");
+		slideDuration: 125;
+		textShadowAlpha: .65;
+		textShadowColor: #000000;
+	}
+	
+	VScrollBar
+	{
+		skinClass: ClassReference("spark.skins.android4.VScrollBarSkin");
+		thumbColor: #333333;
+	}
+	
+	ViewMenu
+	{
+		skinClass: ClassReference("spark.skins.android4.ViewMenuSkin");
+	}
+	
+	ViewMenuItem
+	{ 
+		iconPlacement : "left";
+		chromeColor : #FFFFFF;
+		focusColor: #DEDEDD;
+		paddingBottom: 8;
+		paddingLeft: 8;
+		paddingRight: 8;
+		paddingTop: 8;
+		skinClass : ClassReference("spark.skins.android4.ViewMenuItemSkin");
+	}
+	
+	ViewNavigator
+	{
+		skinClass: ClassReference("spark.skins.mobile.ViewNavigatorSkin");
+	}
 }
-
-ActionBar
-{
-	chromeColor: #DEDEDD;
-	defaultButtonAppearance: normal;
-	skinClass: ClassReference("spark.skins.android4.ActionBarSkin");
-	textShadowAlpha: 0;
-	textShadowColor: #000000;
-	paddingBottom: 1;
-	paddingLeft: 0;
-	paddingRight: 0;
-	paddingTop: 1;
-}
-
-ActionBar #titleDisplay
-{
-	color: #333333;
-	fontSize: 24;
-	fontFamily: RobotoBold;
-}
-
-ActionBar ButtonBase
-{
-	color: #333333;
-	fontFamily: RobotoBold;
-	fontWeight: bold;
-}
-
-ActionBar Group#actionGroup Button
-{
-	skinClass: ClassReference("spark.skins.android4.TransparentActionButtonSkin");
-}
-
-MobileBusyIndicator
-{
-	skinClass: ClassReference("spark.skins.android4.BusyIndicatorSkin");
-}
-
-Button
-{
-	fontFamily: RobotoBold;
-	fontWeight: "bold";
-	skinClass: ClassReference("spark.skins.android4.ButtonSkin");
-}
-
-Button.emphasized
-{
-	skinClass: ClassReference("spark.skins.mobile.DefaultButtonSkin");
-}
-
-ButtonBar
-{
-	skinClass: ClassReference("spark.skins.android4.ButtonBarSkin");
-	fontFamily: RobotoBold;
-	fontWeight: "bold";
-}
-
-Callout
-{
-    backgroundColor: #33B5E5;
-    contentBackgroundColor: #FFFFFF;
-    gap: 12;
-    skinClass: ClassReference("spark.skins.android4.CalloutSkin");
-    borderThickness: 0;
-    borderColor: 0;
-}
-
-Callout ViewNavigator ActionBar
-{
-	skinClass: ClassReference("spark.skins.mobile.CalloutActionBarSkin");
-	defaultButtonAppearance: none;
-	paddingLeft: 0;
-	paddingRight: 0;
-}
-
-Callout ViewNavigator ActionBar.beveled
-{
-	paddingLeft: 0;
-	paddingRight: 0;
-}
-
-Callout ViewNavigator ActionBar.beveled Group#navigationGroup Button
-{
-	skinClass: ClassReference("spark.skins.mobile.BeveledActionButtonSkin");
-}
-
-Callout ViewNavigator ActionBar.beveled Group#navigationGroup Button.emphasized
-{
-	skinClass: ClassReference("spark.skins.mobile.DefaultBeveledActionButtonSkin");
-}
-
-Callout#viewNavigatorPopUp
-{
-	contentBackgroundAppearance: none;
-}
-
-CheckBox
-{
-	skinClass: ClassReference("spark.skins.android4.CheckBoxSkin");
-	chromeColor: #FFFFFF;
-}
-
-HScrollBar
-{
-	skinClass: ClassReference("spark.skins.android4.HScrollBarSkin");
-	thumbColor: #333333;
-}
-
-HSlider
-{
-    skinClass: ClassReference("spark.skins.android4.HSliderSkin");
-	fontFamily: RobotoBold;
-	fontWeight: bold;
-}
-
-RadioButton
-{
-	skinClass: ClassReference("spark.skins.android4.RadioButtonSkin");
-	chromeColor: #FFFFFF;
-}
-
-SpinnerList
-{
-	skinClass: ClassReference("spark.skins.android4.SpinnerListSkin");
-}
-
-SpinnerListContainer
-{
-	skinClass: ClassReference("spark.skins.android4.SpinnerListContainerSkin");
-}
-
-SpinnerListItemRenderer
-{
-	paddingTop : 18;
-	paddingBottom : 18;
-	paddingLeft : 6;
-	paddingRight : 6;
-}
-
-TabbedViewNavigator #tabBar
-{
-	fontFamily: RobotoRegular;
-	chromeColor: #484848;
-	color: #000000;
-	fontSize: 20;
-	fontWeight: normal;
-	iconPlacement: top;
-	interactionMode: mouse;
-	skinClass: ClassReference("spark.skins.android4.TabbedViewNavigatorTabBarSkin");
-	textShadowAlpha: 0;
-	textShadowColor: #000000;
-}
-
-TextInput
-{ 
-	skinClass: ClassReference("spark.skins.android4.StageTextInputSkin");
-	contentBackgroundAlpha: 0; 
-	focusColor: #33B5E5;
-	borderColor: #4e4e4e;
-	contentBackgroundColor: #DEDEDD;
-	contentBackgroundBorder: "flat";
-	fontFamily: RobotoRegular;
-	selectionHighlighting: "never";
-	focusEnabled:"false";
-	focusThickness: 0;
-}
-
-TextArea
-{ 
-	skinClass: ClassReference("spark.skins.android4.StageTextAreaSkin");
-	contentBackgroundAlpha: 1;
-	contentBackgroundBorder: "rectangle";
-	contentBackgroundColor: #DEDEDD;
-	focusColor: #33B5E5;
-	fontFamily: RobotoRegular;
-	borderColor: #4e4e4e;
-	selectionHighlighting: "never";
-	focusEnabled:"false";
-	focusThickness: 0;
-} 
-
-ToggleSwitch
-{
-	accentColor: #3F7FBA;
-	color: #FFFFFF;
-	skinClass: ClassReference("spark.skins.android4.ToggleSwitchSkin");
-	slideDuration: 125;
-	textShadowAlpha: .65;
-	textShadowColor: #000000;
-}
-
-VScrollBar
-{
-	skinClass: ClassReference("spark.skins.android4.VScrollBarSkin");
-	thumbColor: #333333;
-}
-
-ViewMenu
-{
-	skinClass: ClassReference("spark.skins.android4.ViewMenuSkin");
-}
-
-ViewMenuItem
-{ 
-	iconPlacement : "left";
-	chromeColor : #FFFFFF;
-	focusColor: #DEDEDD;
-	paddingBottom: 8;
-	paddingLeft: 8;
-	paddingRight: 8;
-	paddingTop: 8;
-	skinClass : ClassReference("spark.skins.android4.ViewMenuItemSkin");
-}
-
-ViewNavigator
-{
-	skinClass: ClassReference("spark.skins.mobile.ViewNavigatorSkin");
-}
-
-@media (application-dpi: 120)
+@media (os-platform: "android") AND (min-os-version: "4.1.2") AND (application-dpi: 120) 
 {
 	global
 	{
@@ -300,7 +302,7 @@ ViewNavigator
 	}
 }
 
-@media (application-dpi: 160)
+@media (os-platform: "android") AND (min-os-version: "4.1.2") AND (application-dpi: 160)
 {
 	global
 	{
@@ -335,7 +337,7 @@ ViewNavigator
 	}
 }
 
-@media (application-dpi: 320)
+@media (os-platform: "android") AND (min-os-version: "4.1.2") AND (application-dpi: 320)
 {
 	global
 	{
@@ -369,7 +371,7 @@ ViewNavigator
 	}
 }
 
-@media (application-dpi: 480)
+@media (os-platform: "android") AND (min-os-version: "4.1.2") AND (application-dpi: 480)
 {
 	global
 	{
@@ -397,7 +399,7 @@ ViewNavigator
 		paddingLeft : 12;
 		paddingRight : 12;
 	}
-
+	
 	
 	TabbedViewNavigator #tabBar
 	{
@@ -405,7 +407,7 @@ ViewNavigator
 	}	
 }
 
-@media (application-dpi: 640)
+@media (os-platform: "android") AND (min-os-version: "4.1.2") AND (application-dpi: 640)
 {
 	global
 	{
