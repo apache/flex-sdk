@@ -6,7 +6,7 @@ package mx.utils
 	import mx.core.mx_internal;
 
 	[Mixin]
-	public class AndroidVersionMediaQueryParserOverride
+	public class AndroidPlatformVersionOverride
 	{
 		public static function init(root:DisplayObject):void
 		{
