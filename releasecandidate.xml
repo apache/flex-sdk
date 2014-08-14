@@ -415,9 +415,6 @@
                 <include name="flex-v2-footer.html"/>
             </fileset>
         </replaceregexp>
-	</target>
-	
-	<target name="temp" >
 		<exec executable="${svn}" dir="${site}" failonerror="true" >
 			<arg value="commit" />
 			<arg value="--username" />
@@ -425,7 +422,7 @@
 			<arg value="--password" />
 			<arg value="${apache.password}" />
 			<arg value="-m" />
-			<arg value="&quot;update sdk-installer-config-4.0 for flex sdk ${release.version} rc${rc}&quot;" />
+			<arg value="&quot;update sdk-installer-config-4.0 and other files for flex sdk ${release.version} rc${rc}&quot;" />
 		</exec>
 		<!-- pause to give buildbot chance to react -->
 		<sleep seconds="5" />
