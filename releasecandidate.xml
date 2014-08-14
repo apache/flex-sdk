@@ -356,7 +356,7 @@
         </replaceregexp>
         <replaceregexp byline="true" flags="g">
             <regexp pattern="&lt;rc id=&quot;FlexSDKRC&quot;(.*)"/>
-            <substitution expression="&lt;VersionX id=&quot;${release.version}&quot; version=&quot;${release.version}&quot; path=&quot;flex/${release.version}/binaries/&quot; file=&quot;apache-flex-sdk-${release.version}-bin&quot; default=&quot;true&quot; &gt;&#x0a;    &lt;rc id=&quot;FlexSDKRC&quot;\1"/>
+            <substitution expression="&lt;VersionX id=&quot;${release.version}&quot; version=&quot;${release.version}&quot; path=&quot;flex/${release.version}/binaries/&quot; file=&quot;apache-flex-sdk-${release.version}-bin&quot; default=&quot;true&quot; /&gt;&#x0a;    &lt;rc id=&quot;FlexSDKRC&quot;\1"/>
             <fileset dir="${site}/trunk/content/installer">
                 <include name="sdk-installer-config-4.0.xml"/>
             </fileset>
