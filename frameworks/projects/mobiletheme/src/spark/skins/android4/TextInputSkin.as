@@ -22,7 +22,6 @@ package spark.skins.android4
 	import flash.events.Event;
 	import flash.events.FocusEvent;
 	import flash.events.SoftKeyboardEvent;
-	import flash.system.Capabilities;
 	
 	import mx.core.DPIClassification;
 	import mx.core.EventPriority;
@@ -46,7 +45,7 @@ package spark.skins.android4
 	 *  @playerversion AIR 2.5 
 	 *  @productversion Flex 4.5
 	 */
-	public class TextInputSkin extends TextSkinBase 
+	public class TextInputSkin extends TextSkinBase
 	{
 		//--------------------------------------------------------------------------
 		//
