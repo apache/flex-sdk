@@ -17,7 +17,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.mobile
+package spark.skins.android4
 {
 import flash.display.DisplayObject;
 import flash.display.Graphics;
