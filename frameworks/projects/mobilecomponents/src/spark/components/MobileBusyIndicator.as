@@ -17,7 +17,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package components
+package spark.components
 {
 	import flash.events.Event;
 	import mx.core.IUIComponent;
@@ -34,7 +34,7 @@ package components
 		private var effectiveVisibility:Boolean = false;
 		private var effectiveVisibilityChanged:Boolean = true;
 		
-		public function BusyIndicator()
+		public function MobileBusyIndicator()
 		{
 			super();
 			// Listen to added to stage and removed from stage.
