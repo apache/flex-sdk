@@ -64,6 +64,8 @@
 	    <comps:PanelComp id="panel2" />
         <comps:TitleWindowComp id="tw1" />
     </mx:HBox>
+	<!-- get the button out of the panel dropshadow -->
+	<mx:Spacer width="100" height="100" />
 	<mx:Button label="What color am I?" id="main_button1"/>
 
 	<s:Button id="openButton" label="open pop up" click="openWindow(false)"/>
