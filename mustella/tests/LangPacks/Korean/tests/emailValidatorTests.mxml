@@ -87,22 +87,6 @@
 				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png"  />				
 			</body>  
 		</TestCase>
-		<TestCase testID="KO_EmailValidator_invalidDomainError"  keywords="[invalidDomainError, EmailValidator]">
-			<setup>
-				
-				<ResetComponent target="ct" className="components.CustomTester" waitEvent="updateComplete" waitTarget="ct" />
-				<SetProperty target="ct.myEmailV.myEm" propertyName="property" value="text"/>
-				<SetProperty target="ct.myEmailV.ti1" propertyName="text" value="mavenki@yahoo.hello" waitEvent="updateComplete" waitTarget="ct.myEmailV.ti1"/>
-			</setup>
-			<body>
-				<RunCode code="application.ct.myEmailV.myEm.validate(application.ct.myEmailV.ti1.text)"/> 
-				<AssertEvent target="ct.myEmailV.myEm" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
-				<AssertNoEvent target="ct.myEmailV.myEm" eventName="valid" />
-				<DispatchMouseEvent target="ct.myEmailV.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="ct.myEmailV.ti1"/>
-				<RunCode code="getErrorTip()" />
-				<CompareBitmap target="script:curTip" url="../tests/baselines/$testID.png"  />				
-			</body>  
-		</TestCase>
 		<TestCase testID="KO_EmailValidator_missingAtSignError"  keywords="[missingAtSignError, EmailValidator]">
 			<setup>
 				

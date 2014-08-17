@@ -44,6 +44,7 @@ import mx.controls.HScrollBar;
 import mx.controls.VScrollBar;
 import mx.controls.listClasses.IListItemRenderer;
 import mx.controls.scrollClasses.ScrollBar;
+import mx.core.IUITextField;
 import mx.events.ChildExistenceChangedEvent;
 import mx.events.FlexEvent;
 import mx.events.IndexChangedEvent;
@@ -4080,6 +4081,50 @@ public class Container extends UIComponent
         }
     }
 
+	/**
+	 *  @private
+	 */
+	override public function set nestLevel(value:int):void
+	{
+		var oldValue:int = super.nestLevel;
+		
+		super.nestLevel = value;
+		if (contentPane)
+		{
+			// If my parent hasn't been attached to the display list, then its nestLevel
+			// will be zero.  If it tries to set my nestLevel to 1, ignore it.  We'll
+			// update nest levels again after the parent is added to the display list.
+			if (value == 1)
+				return;
+			
+			// Also punt if the new value for nestLevel is the same as my current value.
+			// TODO: (aharui) add early exit if nestLevel isn't changing
+			if (value > 1 && oldValue != value)
+				value ++;
+			else if (value == 0)
+				value = 0;
+			else
+				value ++;
+			
+			var n:int = contentPane.numChildren;
+			for (var i:int = 0; i < n; i++)
+			{
+				var ui:ILayoutManagerClient  = contentPane.getChildAt(i) as ILayoutManagerClient;
+				if (ui)
+				{
+					ui.nestLevel = value;
+				}
+				else
+				{
+					var textField:IUITextField = contentPane.getChildAt(i) as IUITextField;
+					
+					if (textField)
+						textField.nestLevel = value;
+				}
+			}
+		}
+	}
+	
     //--------------------------------------------------------------------------
     //
     //  Methods: Deferred instantiation

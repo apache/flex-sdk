@@ -38,7 +38,6 @@ import mx.managers.ISystemManager;
 
 import spark.components.DropDownList;
 import spark.events.DropDownEvent;
-import mx.controls.CalendarLayout;
 
 use namespace mx_internal;
 
@@ -614,8 +613,6 @@ public class DropDownController extends EventDispatcher
                 var document:Object = (target as IUIComponent).document;
                 if (("hostComponent" in document) && document.hostComponent is DropDownList)
 			        return;
-				 if (target.parent is CalendarLayout)
-			        return;
             }
 
             if (hitAreaAdditions != null)
@@ -629,6 +626,12 @@ public class DropDownController extends EventDispatcher
                 }
             }
 
+			// contains() doesn't cover popups/dropdowns, but owns() does.
+			if (dropDown is IUIComponent)
+			{
+				if ((dropDown as IUIComponent).owns(target))
+					return;
+			}
             closeDropDown(true);
         } 
     }
