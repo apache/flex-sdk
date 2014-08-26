@@ -622,9 +622,6 @@ public class AdvancedDataGridHeaderRenderer
         if (sortItemRendererWidth == 0)
             horizontalGap = 0;
 
-        // Size of label
-        const MINIMUM_SIZE:TextLineMetrics = measureText("w");
-
         // Adjust to given width
         var lineMetrics:TextLineMetrics = measureText(label.text);
         var labelWidth:Number  = lineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
