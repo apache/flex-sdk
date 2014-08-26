@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<s:HGroup gap="6" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:richTextEditorClasses="spark.components.richTextEditorClasses.*"
+		  xmlns:s="library://ns.adobe.com/flex/spark">
+	<fx:Metadata>
+		[Event(name="linkSelectedChange", type="flash.events.Event")]
+	</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			import mx.collections.IList;
+			import spark.components.TextArea;
+
+			[Bindable]
+			/**
+			 * A list of fonts for the font dropdown
+			 */
+			public var fonts:IList = null;
+
+			[Bindable]
+			/**
+			 * A list of sizes for the size dropdown
+			 */
+			public var sizes:IList = null;
+
+			private var _linkSelected:Boolean = false;
+			private var _textArea:TextArea;
+
+			[Bindable("linkSelectedChange")]
+			/**
+			 *  True if a link is currently selected
+			 */
+			public function get linkSelected():Boolean
+			{
+				return _linkSelected;
+			}
+
+			/**
+			 * The textArea that this toolbar is controlling
+			 */
+			[Bindable]
+			public function get textArea():TextArea
+			{
+				return _textArea;
+			}
+
+			/**
+			 *  @private
+			 */
+			public function set textArea(value:TextArea):void
+			{
+				_textArea = value;
+			}
+
+			/**
+			 *  @private
+			 */
+			private function handleLinkSelectedChange(e:Event):void
+			{
+				_linkSelected = (e.currentTarget as LinkTool).linkSelected;
+				this.dispatchEvent(new Event("linkSelectedChange"));
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+	<richTextEditorClasses:FontTool dataProvider="{fonts}" textArea="{textArea}"/>
+	<richTextEditorClasses:SizeTool dataProvider="{sizes}" textArea="{textArea}"/>
+	<s:HGroup gap="0">
+		<richTextEditorClasses:BoldTool textArea="{textArea}"/>
+		<richTextEditorClasses:ItalicTool textArea="{textArea}"/>
+		<richTextEditorClasses:UnderlineTool textArea="{textArea}"/>
+	</s:HGroup>
+	<richTextEditorClasses:ColorTool textArea="{textArea}"/>
+	<s:Line height="100%">
+		<s:stroke>
+			<s:SolidColorStroke color="#B3C2B8"/>
+		</s:stroke>
+	</s:Line>
+	<richTextEditorClasses:AlignTool textArea="{textArea}"/>
+	<richTextEditorClasses:BulletTool textArea="{textArea}"/>
+	<s:Line height="100%">
+		<s:stroke>
+			<s:SolidColorStroke color="#B3C2B8"/>
+		</s:stroke>
+	</s:Line>
+	<richTextEditorClasses:LinkTool linkSelectedChange="handleLinkSelectedChange(event)" textArea="{textArea}"/>
+</s:HGroup>

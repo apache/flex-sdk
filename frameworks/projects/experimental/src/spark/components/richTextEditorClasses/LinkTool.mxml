@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<s:TextInput width="100%" text="" enabled="false" enter="apply(event)" keyDown="handleLinkKeydown(event)" minWidth="100" mouseFocusChange="apply(event)" mouseFocusEnabled="false"
+			 toolTip="Hyperlink text" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark">
+	<fx:Metadata>
+		[Event(name="linkSelectedChange", type="flash.events.Event")]
+	</fx:Metadata>
+	<fx:Script>
+		<![CDATA[
+			import flashx.textLayout.edit.ElementRange;
+			import flashx.textLayout.edit.IEditManager;
+			import flashx.textLayout.edit.SelectionState;
+			import flashx.textLayout.elements.LinkElement;
+			import flashx.textLayout.elements.ParagraphElement;
+			import flashx.textLayout.formats.TextLayoutFormat;
+			import mx.events.FlexEvent;
+			import spark.components.TextArea;
+
+			private var _linkSelected:Boolean = false;
+
+			private var _textArea:TextArea;
+			private var _urlRegExpression:RegExp = new RegExp("^(https?://(www\\.)?|www\\.)[-._~:/?#\\[\\]@!$&'()*+,;=a-z0-9]+$", 'i');
+			private const defaultLinkText:String = "http://";
+			private var lastRange:ElementRange;
+			private var _linkEl:LinkElement
+
+			[Bindable("linkSelectedChange")]
+			public function get linkSelected():Boolean
+			{
+				return _linkSelected;
+			}
+
+			/**
+			 *  The textArea that this component interacts with
+			 */
+			public function get textArea():TextArea
+			{
+				return _textArea;
+			}
+
+			/**
+			 *  @private
+			 */
+			public function set textArea(value:TextArea):void
+			{
+				if (_textArea)
+				{
+					_textArea.removeEventListener(FlexEvent.SELECTION_CHANGE, handleSelectionChange);
+					_textArea.removeEventListener(KeyboardEvent.KEY_DOWN, handleKeyDown);
+				}
+				_textArea = value;
+				if (_textArea)
+				{
+					_textArea.addEventListener(FlexEvent.SELECTION_CHANGE, handleSelectionChange, false, 0, true);
+					_textArea.addEventListener(KeyboardEvent.KEY_DOWN, handleKeyDown, false, 0, true);
+					handleSelectionChange();
+				}
+			}
+
+			/**
+			 *  @private
+			 *  Apply the link to the selected text
+			 */
+			private function apply(e:Event = null):void
+			{
+				var urlText:String = this.text == defaultLinkText ? '' : this.text;
+				applyLink(urlText, "_blank", true);
+				//Set focus to textFlow
+				textArea.textFlow.interactionManager.setFocus();
+			}
+
+			/**
+			 *  @private
+			 *  Actually apply the link to the selection. Repair the formating in the process.
+			 */
+			private function applyLink(href:String, target:String = null, extendToLinkBoundary:Boolean = false, operationState:SelectionState = null):void
+			{
+				if (textArea && textArea.textFlow && textArea.textFlow.interactionManager is IEditManager)
+				{
+					//Get the current format
+					var txtLayFmt:TextLayoutFormat = textArea.textFlow.interactionManager.getCommonCharacterFormat();
+					//Set the link
+					var operationState:SelectionState = null;
+					if (_linkEl != null)
+					{
+						operationState = new SelectionState(textArea.textFlow, _linkEl.getAbsoluteStart(), _linkEl.getAbsoluteStart() + _linkEl.textLength);
+					}
+					var linkElement:LinkElement = IEditManager(textArea.textFlow.interactionManager).applyLink(href, target, extendToLinkBoundary, operationState);
+					//Fix the formatting
+					if(linkElement)
+					{
+						IEditManager(textArea.textFlow.interactionManager).clearFormatOnElement(linkElement.getChildAt(0), txtLayFmt);
+					}
+					var selectionEnd:int = Math.max(textArea.selectionActivePosition, textArea.selectionAnchorPosition);
+					textArea.selectRange(selectionEnd, selectionEnd);
+					IEditManager(textArea.textFlow.interactionManager).applyLeafFormat(txtLayFmt);
+				}
+			}
+
+			/**
+			 *  @private
+			 *  Automatically add a link if the previous text looks like a link
+			 */
+			private function checkLinks():void
+			{
+				var position:int = _textArea.selectionActivePosition;
+				//Find the firt non-whitespace character
+				while (position > 0)
+				{
+					if (!isWhitespace(_textArea.textFlow.getCharCodeAtPosition(position)))
+					{
+						break;
+					}
+					position--;
+				}
+				//Find the next whitespace character
+				while (position > 0)
+				{
+					if (isWhitespace(_textArea.textFlow.getCharCodeAtPosition(position)))
+					{
+						position++; //Back up one character
+						break;
+					}
+					position--;
+				}
+				var testText:String = _textArea.textFlow.getText(position, _textArea.selectionActivePosition);
+				var result:Array = testText.match(_urlRegExpression);
+				if (result != null && result.length > 0)
+				{
+					if (_textArea.textFlow.interactionManager is IEditManager)
+					{
+						var selectionState:SelectionState = new SelectionState(_textArea.textFlow, position, _textArea.selectionActivePosition);
+						if (testText.substr(0, 3) == "www")
+						{
+							testText = "http://" + testText; //Add a missing 'http://' if needed
+						}
+						applyLink(testText, "_blank", true, selectionState);
+						_textArea.setFocus();
+					}
+				}
+			}
+
+			/**
+			 *  @private
+			 */
+			private function handleKeyDown(e:KeyboardEvent):void
+			{
+				if (e.keyCode == Keyboard.ENTER || e.keyCode == Keyboard.SPACE || e.keyCode == Keyboard.TAB)
+				{
+					checkLinks();
+				}
+			}
+
+			/**
+			 *  @private
+			 */
+			private function handleLinkKeydown(e:KeyboardEvent):void
+			{
+				e.stopImmediatePropagation();
+				if (e.keyCode == Keyboard.ENTER)
+				{
+					_textArea.setFocus();
+				}
+			}
+
+			/**
+			 *  @private
+			 *  Update the text display based on the selected range
+			 */
+			private function handleSelectionChange(e:FlexEvent = null):void
+			{
+				var selectionState:SelectionState = _textArea.textFlow.interactionManager.getSelectionState();
+				if (selectionState.absoluteStart != -1 && selectionState.absoluteEnd != -1)
+				{
+					var range:ElementRange = ElementRange.createElementRange(selectionState.textFlow, selectionState.absoluteStart, selectionState.absoluteEnd);
+					if (range)
+					{
+						var linkString:String = defaultLinkText;
+						_linkEl = range.firstLeaf.getParentByType(LinkElement) as LinkElement;
+						if (_linkEl != null)
+						{
+							var linkElStart:int = _linkEl.getAbsoluteStart();
+							var linkElEnd:int = linkElStart + _linkEl.textLength;
+							if (linkElEnd < linkElStart)
+							{
+								var temp:int = linkElStart;
+								linkElStart = linkElEnd;
+								linkElEnd = temp;
+							}
+
+							var beginRange:int = range.absoluteStart;
+							var endRange:int = range.absoluteEnd;
+
+							var beginPara:ParagraphElement = range.firstParagraph;
+							if (endRange == (beginPara.getAbsoluteStart() + beginPara.textLength))
+							{
+								endRange--;
+							}
+
+							if ((beginRange == endRange) || (endRange <= linkElEnd))
+							{
+								linkString = LinkElement(_linkEl).href;
+							}
+						}
+						var newLinkSelected:Boolean = _linkEl != null;
+						if (_linkSelected != newLinkSelected)
+						{
+							_linkSelected = newLinkSelected;
+							this.dispatchEvent(new Event("linkSelectedChange"));
+						}
+
+						this.text = linkString;
+
+						lastRange = range;
+					}
+					else
+					{
+						lastRange = null;
+					}
+				}
+				
+				enabled = _textArea.selectionAnchorPosition != _textArea.selectionActivePosition || _linkSelected;
+			}
+
+			/**
+			 *  @private
+			 *  Return true if the character is a whitespace character
+			 */
+			private function isWhitespace(charCode:uint):Boolean
+			{
+				return charCode === 0x0009 || charCode === 0x000A || charCode === 0x000B || charCode === 0x000C || charCode === 0x000D || charCode === 0x0020 || charCode === 0x0085 || charCode === 0x00A0 || charCode === 0x1680 || charCode === 0x180E || charCode === 0x2000 || charCode === 0x2001 || charCode === 0x2002 || charCode === 0x2003 || charCode === 0x2004 || charCode === 0x2005 || charCode === 0x2006 || charCode === 0x2007 || charCode === 0x2008 || charCode === 0x2009 || charCode === 0x200A || charCode === 0x2028 || charCode === 0x2029 || charCode === 0x202F || charCode === 0x205F || charCode === 0x3000;
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+</s:TextInput>

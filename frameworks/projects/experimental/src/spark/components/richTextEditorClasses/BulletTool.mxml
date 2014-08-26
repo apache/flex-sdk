@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<s:ToggleButton width="20" click="handleClick(event);" icon="@Embed('../../../../assets/tools/bullet.png')" mouseFocusEnabled="false" toolTip="Bullet points" xmlns:fx="http://ns.adobe.com/mxml/2009"
+				xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark">
+	<fx:Script>
+		<![CDATA[
+			import flash.text.engine.FontWeight;
+			import flashx.textLayout.edit.IEditManager;
+			import flashx.textLayout.edit.ISelectionManager;
+			import flashx.textLayout.edit.SelectionState;
+			import flashx.textLayout.elements.FlowGroupElement;
+			import flashx.textLayout.elements.FlowLeafElement;
+			import flashx.textLayout.elements.ListElement;
+			import flashx.textLayout.formats.TextLayoutFormat;
+			import mx.events.FlexEvent;
+			import spark.components.TextArea;
+			import spark.events.TextOperationEvent;
+
+			private var _textArea:TextArea;
+
+			/**
+			 *  The textArea that this component interacts with
+			 */
+			public function get textArea():TextArea
+			{
+				return _textArea;
+			}
+
+			/**
+			 *  @private
+			 */
+			public function set textArea(value:TextArea):void
+			{
+				if (_textArea)
+				{
+					_textArea.removeEventListener(FlexEvent.SELECTION_CHANGE, handleSelectionChange);
+				}
+				_textArea = value;
+				if (_textArea)
+				{
+					_textArea.addEventListener(FlexEvent.SELECTION_CHANGE, handleSelectionChange, false, 0, true);
+					handleSelectionChange();
+				}
+			}
+
+			/**
+			 *  @private
+			 */
+			private function getSelectionState():SelectionState
+			{
+				if (_textArea.textFlow)
+				{
+					var selectionManager:ISelectionManager = _textArea.textFlow.interactionManager;
+					var selectionState:SelectionState = selectionManager.getSelectionState();
+					var startleaf:FlowLeafElement = _textArea.textFlow.findLeaf(selectionState.absoluteStart);
+					var endleaf:FlowLeafElement = _textArea.textFlow.findLeaf(selectionState.absoluteEnd);
+					selectionState.absoluteStart = startleaf.getAbsoluteStart();
+					selectionState.absoluteEnd = endleaf.getAbsoluteStart() + endleaf.parentRelativeEnd - endleaf.parentRelativeStart;
+					return selectionState;
+				}
+				return null;
+			}
+
+			/**
+			 *  @private
+			 */
+			private function handleClick(e:MouseEvent):void
+			{
+				if (_textArea.textFlow && _textArea.textFlow.interactionManager is IEditManager)
+				{
+					var editManager:IEditManager = IEditManager(_textArea.textFlow.interactionManager);
+					var doCreate:Boolean = true;
+					var selectionState:SelectionState = getSelectionState();
+					var listElements:Array = _textArea.textFlow.getElementsByTypeName("list");
+					for each (var listElement:ListElement in listElements)
+					{
+						var start:int = listElement.getAbsoluteStart();
+						var end:int = listElement.getAbsoluteStart() + listElement.parentRelativeEnd - listElement.parentRelativeStart;
+						if (selectionState.absoluteStart == start && selectionState.absoluteEnd == end)
+						{ //Same
+							removeList(listElement);
+							doCreate = false;
+							break;
+						}
+						else if (selectionState.absoluteStart == start && selectionState.absoluteEnd <= end)
+						{ //Inside touching start
+							selectionState = new SelectionState(_textArea.textFlow, end, selectionState.absoluteEnd);
+							removeList(listElement);
+							editManager.createList(null, null, selectionState);
+							doCreate = false;
+							break;
+						}
+						else if (selectionState.absoluteStart >= start && selectionState.absoluteEnd == end)
+						{ //Inside touching end
+							selectionState = new SelectionState(_textArea.textFlow, selectionState.absoluteStart, start);
+							removeList(listElement);
+							editManager.createList(null, null, selectionState);
+							doCreate = false;
+							break;
+						}
+						else if (selectionState.absoluteStart >= start && selectionState.absoluteEnd <= end)
+						{ //Inside
+							var firstRange:SelectionState = new SelectionState(_textArea.textFlow, selectionState.absoluteStart, start);
+							var secondRange:SelectionState = new SelectionState(_textArea.textFlow, end, selectionState.absoluteEnd);
+							removeList(listElement);
+							editManager.createList(null, null, firstRange);
+							editManager.createList(null, null, secondRange);
+							doCreate = false;
+							break;
+						}
+						else if ((selectionState.absoluteStart >= start && selectionState.absoluteStart <= end) || (selectionState.absoluteEnd >= start && selectionState.absoluteEnd <= end))
+						{ //Overlap. Include this list in the selection
+							selectionState = new SelectionState(_textArea.textFlow, Math.min(start, selectionState.absoluteStart), Math.max(end, selectionState.absoluteEnd));
+							removeList(listElement);
+						}
+						else if (selectionState.absoluteStart <= start && selectionState.absoluteEnd >= end)
+						{ //surround. Remove this list since it will get added back in, only expanded.
+							removeList(listElement);
+						}
+					}
+					if (doCreate)
+					{
+						IEditManager(_textArea.textFlow.interactionManager).createList(null, null, selectionState);
+					}
+					_textArea.textFlow.interactionManager.setFocus();
+				}
+			}
+
+			/**
+			 *  @private
+			 */
+			private function handleSelectionChange(e:FlexEvent = null):void
+			{
+				if (_textArea.textFlow)
+				{
+					var willRemoveBulletsIfClicked:Boolean = false;
+					var selectionState:SelectionState = getSelectionState();
+					var listElements:Array = _textArea.textFlow.getElementsByTypeName("list");
+					for each (var listElement:ListElement in listElements)
+					{
+						var start:int = listElement.getAbsoluteStart();
+						var end:int = listElement.getAbsoluteStart() + listElement.parentRelativeEnd - listElement.parentRelativeStart;
+						if (selectionState.absoluteStart == start && selectionState.absoluteEnd == end)
+						{ //Same
+							willRemoveBulletsIfClicked = true;
+							break;
+						}
+						else if (selectionState.absoluteStart >= start && selectionState.absoluteEnd <= end)
+						{ //Inside
+							willRemoveBulletsIfClicked = true;
+							break;
+						}
+					}
+					this.selected = willRemoveBulletsIfClicked;
+
+				}
+
+			}
+
+			/**
+			 *  @private
+			 */
+			private function removeList(listElement:ListElement):void
+			{
+				var editManager:IEditManager = IEditManager(_textArea.textFlow.interactionManager);
+
+				var target:FlowGroupElement = listElement.parent;
+				var targetIndex:int = target.getChildIndex(listElement);
+				editManager.moveChildren(listElement, 0, listElement.numChildren, target, targetIndex);
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+</s:ToggleButton>
