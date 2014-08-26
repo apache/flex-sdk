@@ -791,6 +791,9 @@ public class AdvancedDataGridHeaderRenderer
      */
     public function mouseEventToHeaderPart(event:MouseEvent):String
     {
+        if(sortItemRendererInstance == null)
+            return AdvancedDataGrid.HEADER_TEXT_PART;
+
         var point:Point = new Point(event.stageX, event.stageY);
         point = globalToLocal(point);
 
