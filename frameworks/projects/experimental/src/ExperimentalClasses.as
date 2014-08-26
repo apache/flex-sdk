@@ -32,6 +32,7 @@ package
 		import spark.components.itemRenderers.MenuItemRenderer; MenuItemRenderer;
 		import spark.components.listClasses.IListItemRenderer; IListItemRenderer;
 		import spark.components.supportClasses.IDropDownContainer; IDropDownContainer;
+		import spark.components.RichTextEditor; RichTextEditor;
 		import spark.containers.supportClasses.DeferredCreationPolicy; DeferredCreationPolicy;
 		import spark.containers.Accordion; Accordion;
 		import spark.events.ColorChangeEvent; ColorChangeEvent;
