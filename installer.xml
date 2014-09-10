@@ -334,10 +334,15 @@
     <target name="get-third-party-files" depends="air-download,flash-download,swfobject-download,osmf-download,fontswf-download,blazeds-download" />
     
     <target name="air-check" description="Checks if AIR SDK has been downloaded.">
-        <available file="${FLEX_HOME}/lib/adt.jar" property="air.jar.present"/>
+        <available file="${FLEX_HOME}/lib/adt.jar" property="skip.air.install"/>
+		<condition property="skip.air.install" value="true">
+			<not>
+				<isset property="do.air.install" />
+			</not>
+		</condition>
     </target>
     
-    <target name="air-download" depends="air-check" unless="air.jar.present"
+    <target name="air-download" depends="air-check" unless="skip.air.install"
         description="Downloads AIR SDK and copies to correct locations">
         
         <mkdir dir="${download.dir}"/>
@@ -549,10 +554,15 @@
 
     <!-- Because this requires a network connection it downloads Flash SDK only if it doesn't already exist. -->
     <target name="flash-check" description="Checks if Flash SDK has been downloaded.">
-        <available file="${FLEX_HOME}/frameworks/libs/player/${flash.sdk.version}/playerglobal.swc" property="flash.swc.present"/>
+        <available file="${FLEX_HOME}/frameworks/libs/player/${flash.sdk.version}/playerglobal.swc" property="skip.flash.install"/>
+		<condition property="skip.flash.install" value="true">
+			<not>
+				<isset property="do.flash.install" />
+			</not>
+		</condition>
     </target>
     
-    <target name="flash-download" depends="flash-check" unless="flash.swc.present"
+    <target name="flash-download" depends="flash-check" unless="skip.flash.install"
         description="Downloads playerglobal.swc and copies to correct locations">
         
         <mkdir dir="${download.dir}"/>
@@ -580,10 +590,15 @@
     <!-- swfobject.js (Version 2.2) -->
     <!-- Because this requires a network connection it downloads SWFObject only if it doesn't already exist. -->
     <target name="swfobject-check" description="Checks if SWFObject has been downloaded.">
-        <available file="${basedir}/../templates/swfobject/swfobject.js" property="swfobject.js.present"/>
+        <available file="${basedir}/../templates/swfobject/swfobject.js" property="skip.swfobject.install"/>
+		<condition property="skip.swfobject.install" value="true">
+			<not>
+				<isset property="do.swfobject.install" />
+			</not>
+		</condition>
     </target>
     
-    <target name="swfobject-download" depends="swfobject-check" unless="swfobject.js.present"
+    <target name="swfobject-download" depends="swfobject-check" unless="skip.swfobject.install"
         description="Copies SWFObject from code.google.com">
         
         <echo file="${basedir}/swfobject.properties">swfobject.echo=${INFO_DOWNLOADING_FILE_FROM}</echo>
@@ -623,10 +638,15 @@
     <!-- osmf (Version 2.0) -->
     <!-- Because this requires a network connection it downloads OSMF only if it doesn't already exist. -->
     <target name="osmf-check" description="Checks if OSMF has been downloaded.">
-        <available file="${basedir}/frameworks/libs/osmf.swc" property="osmf.swc.present"/>
+        <available file="${basedir}/frameworks/libs/osmf.swc" property="skip.osmf.install"/>
+		<condition property="skip.osmf.install" value="true">
+			<not>
+				<isset property="do.osmf.install" />
+			</not>
+		</condition>
     </target>
     
-    <target name="osmf-download" depends="osmf-check" unless="osmf.swc.present"
+    <target name="osmf-download" depends="osmf-check" unless="skip.osmf.install"
         description="Copies OSMF from Open@Adobe">
         
         <echo file="${basedir}/osmf.properties">osmf.echo=${INFO_DOWNLOADING_FILE_FROM}</echo>
@@ -657,7 +677,7 @@
     <!-- fontswf -->
     <!-- Because this requires a network connection it downloads only if it doesn't already exist. -->
     <target name="fontswf-check" description="Checks if fontswf has been downloaded.">
-        <condition property="fontswf.jars.present">
+        <condition property="skip.fontswf.install">
             <and>
                 <available file="${basedir}/lib/external/optional/afe.jar" />
                 <available file="${basedir}/lib/external/optional/aglj40.jar" />
@@ -665,9 +685,14 @@
                 <available file="${basedir}/lib/external/optional/rideau.jar" />
             </and>
         </condition>
+		<condition property="skip.fontswf.install" value="true">
+			<not>
+				<isset property="do.fontswf.install" />
+			</not>
+		</condition>
     </target>
 
-    <target name="fontswf-download" depends="fontswf-check" unless="fontswf.jars.present"
+    <target name="fontswf-download" depends="fontswf-check" unless="skip.fontswf.install"
         description="Copies OSMF from Open@Adobe">
         
         <echo file="${basedir}/afe.properties">afe.echo=${INFO_DOWNLOADING_FILE_FROM}</echo>
@@ -742,10 +767,15 @@
     <!-- BlazeDS  -->
     <!-- Because this requires a network connection it downloads BlazeDS only if it doesn't already exist. -->
     <target name="blazeds-check" description="Checks if BlazeDS has been downloaded.">
-        <available file="${basedir}/external/optional/flex-messaging-common.jar" property="blazeds.jar.present"/>
+        <available file="${basedir}/external/optional/flex-messaging-common.jar" property="skip.blazeds.install"/>
+		<condition property="skip.blazeds.install" value="true">
+			<not>
+				<isset property="do.blazeds.install" />
+			</not>
+		</condition>
     </target>
 
-    <target name="blazeds-download" depends="blazeds-check" unless="blazeds.jar.present"
+    <target name="blazeds-download" depends="blazeds-check" unless="skip.blazeds.install"
         description="Copies BlazeDS from Open@Adobe">
         
         <echo file="${basedir}/blaze.properties">blaze.echo=${INFO_DOWNLOADING_FILE_FROM}</echo>

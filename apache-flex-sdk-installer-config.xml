@@ -69,7 +69,7 @@
 			<zh_CN>SWFObject (必须的)</zh_CN>
 			<zh_TW>SWFObject (必須的)</zh_TW>
 		</step>
-		<step id="osmf-download" property="do.swfobject.install">
+		<step id="osmf-download" property="do.osmf.install">
 			<de_DE>OSMF (Benötigt)</de_DE>
 			<el_GR>OSMF (Απαιτούμενο)</el_GR>
 			<en_US>OSMF (Required)</en_US>
@@ -81,7 +81,7 @@
 			<zh_CN>OSMF (必须的)</zh_CN>
 			<zh_TW>OSMF (必須的)</zh_TW>
 		</step>
-		<step id="fontswf-download" property="do.swfobject.install">
+		<step id="fontswf-download" property="do.fontswf.install">
 			<de_DE>Adobe Bibliothek zur Einbettung von Schriften (Optional)</de_DE>
 			<el_GR>Adobe Embedded Font Libraries and Utilities (Προαιρετικό)</el_GR>
 			<en_US>Adobe Embedded Font Libraries and Utilities (Optional)</en_US>
@@ -93,7 +93,7 @@
 			<zh_CN>Adobe 镶入字体库和实用程序 (可选的)</zh_CN>
 			<zh_TW>Adobe 鑲入字體庫和實用程式 (可選的)</zh_TW>
 		</step>
-		<step id="blazeds-download" property="do.swfobject.install">
+		<step id="blazeds-download" property="do.blazeds.install">
 			<de_DE>Remoting Support (Optional)</de_DE>
 			<el_GR>Remoting Support (Προαιρετικό)</el_GR>
 			<en_US>Remoting Support (Optional)</en_US>
