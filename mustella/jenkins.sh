@@ -49,10 +49,10 @@ fi
 
 # Toggle between versions:
 # 11.1 is the default version
-# 11.7 is the "current long term support" version
-# 12.0 is the latest release
-# 13 is the current beta version
-# Note: the previous release and current beta versions of AIR are both '4', 
+# 11.7 is a much used version?
+# 13 is the current "long term support" version
+# 15 is the current 'beta' version
+# Note: the previous release and current beta versions of AIR are both '4',
 #       so to make the distinction, the beta version is '4.01' on the VM
 if [ "$FLASH_VERSION" == "11.1" ]
 then
@@ -66,9 +66,9 @@ then
   AIR_SDK_DIR=4.0
 elif [ "$FLASH_VERSION" == "13.0" ]
 then
-  FLASH_VERSION=14.0
-  AIR_VERSION=14
-  AIR_SDK_DIR=14_beta
+  FLASH_VERSION=15.0
+  AIR_VERSION=15
+  AIR_SDK_DIR=15
 else
   FLASH_VERSION=11.1
   AIR_VERSION=3.7
@@ -80,13 +80,11 @@ LOG=$LOG"- Set FLASH_VERSION to '$FLASH_VERSION' and AIR_VERSION to '$AIR_VERSIO
 
 
 # LOCATIONS
-#export AIR_HOME="/Users/erik/Documents/ApacheFlex/dependencies/AdobeAIRSDK"
 export AIR_HOME="C:\\ApacheFlex\\dependencies\\AdobeAIRSDK\\$AIR_SDK_DIR"
 LOG=$LOG"- Set AIR_HOME to '$AIR_HOME'"$'\n'
 
 case "$FLASH_VERSION" in
   11.1)
-    #export FLASHPLAYER_DEBUGGER="/Applications/Flash Player Debugger.app/Contents/MacOS/Flash Player Debugger"
     export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer11_1r102_55_win_sa_debug_32bit.exe"
   ;;
   11.7)
@@ -95,8 +93,8 @@ case "$FLASH_VERSION" in
   13.0)
     export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer13_0r0_214_win_sa_debug.exe"
   ;;
-  14.0)
-    export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer14_debugsa_win_32.exe"
+  15.0)
+    export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer_15_sa_debug.exe"
   ;;
   *)
     echo "No valid Flash Player Debugger variable value could be parsed."
