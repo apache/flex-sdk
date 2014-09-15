@@ -172,17 +172,17 @@ Install Prerequisites
          be set correctly and you will get compile errors.
 
     *3) The Adobe AIR integration kit for Windows can be downloaded from:
-           http://airdownload.adobe.com/air/win/download/14.0/AdobeAIRSDK.zip
+           http://airdownload.adobe.com/air/win/download/15.0/AdobeAIRSDK.zip
 
          The Adobe AIR integration kit for Mac can be downloaded from:
-            http://airdownload.adobe.com/air/mac/download/14.0/AdobeAIRSDK.tbz2
+            http://airdownload.adobe.com/air/mac/download/15.0/AdobeAIRSDK.tbz2
 
           The Adobe AIR integration kit for Linux can be downloaded from:
             http://airdownload.adobe.com/air/lin/download/2.6/AdobeAIRSDK.tbz2
 
-        This version of Apache Flex was certified for use with AIR 14.0, and
-        should be compatible with other versions of AIR newer than 3.1. However
-        it hasn't been fully tested on AIR 3.2, 3.3, 3.5, 3.6 or 3.7.
+        This version of Apache Flex was certified for use with AIR 15.0, and
+        should be compatible with versions of AIR newer than 3.1. It has been
+        fully tested on AIR 3.7, 4 and 15.
 
         Download the AIR SDK for your platform and unzip it. Set AIR_HOME to the
         absolute path of the AIR SDK directory.
@@ -191,11 +191,11 @@ Install Prerequisites
             http://www.adobe.com/support/flashplayer/downloads.html
 
         This version of Apache Flex was certified for use with Adobe Flash
-        Player 11.1, and is compatible with versions 10.2 through 14.0. It has
-        been tested with versions 11.1, 11.7, 11.8, 11.9, 12.0, 13.0 and 14.0
-        on Windows and Mac. It has been compiled against other Adobe Flash 
-        Player versions but has not been fully tested. It has not been fully 
-        tested on Linux.
+        Player 11.1, and is compatible with versions 10.2 through 15.0. It has
+        been tested with versions 11.1, 11.7, 11.8, 11.9, 12.0, 13.0, 14.0 
+        and 15.0 on Windows and Mac. It has been compiled against other Adobe 
+        Flash Player versions but has not been fully tested. It has not been 
+        fully tested on Linux.
 
         On Windows, set FLASHPLAYER_DEBUGGER to the absolute path including the
         filename of the FlashPlayerDebugger.exe. Note the filename of flash
@@ -219,22 +219,8 @@ Install Prerequisites
         including the version subdirectory). The target-player option controls
         which PLAYERGLOBAL_HOME subdirectory is used.
 
-        Other more recent versions of Adobe Flash Player playerglobal.swc can be
-        downloaded from:
-            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_2.swc
-            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_3.swc
-            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_4.swc
-            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_5.swc
-            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_6.swc
-            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_7.swc
-            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_8.swc
-            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_9.swc
-            http://download.macromedia.com/get/flashplayer/updaters/12/playerglobal12_0.swc
-            http://download.macromedia.com/get/flashplayer/updaters/13/playerglobal13_0.swc
-            http://download.macromedia.com/get/flashplayer/updaters/14/playerglobal14_0.swc
-
-        These can be used with Apache Flex but not all have not been fully
-        tested.
+        Information about downloading, setting up and support of the Adobe Flash
+        Player can be found in the section "Adobe Flash Player Version Support" below.
 
     *6) The Adobe Extension Manager is only required for those creating releases
         or testing changes to the flash-integration swc.  Note that if you
@@ -266,6 +252,9 @@ FlashPlayer Configuration
         TraceOutputFileEnable=1
 
     and a FlashPlayerTrust file must allow local SWFs to access local files.
+
+    More information about these settings can be found here:
+        http://help.adobe.com/en_US/ActionScript/3.0_ProgrammingAS3/WS5b3ccc516d4fbf351e63e3d118a9b90204-7c95.html
 
 Other Locale Support
 --------------------
@@ -305,7 +294,7 @@ Adobe Flash Player Version Support
 
     The Apache Flex SDK defaults to using the Adobe Flash Player 11.1. The SDK
     can be used with Flash Player versions 10.2, 10.3, 11.0, 11.1, 11.2, 11.3,
-    11.4, 11.5, 11.6, 11.7, 11.8, 11.9, 12.0, 13.0 and 14.0.
+    11.4, 11.5, 11.6, 11.7, 11.8, 11.9, 12.0, 13.0, 14.0 and 15.0.
 
     It is recommended that you update to the latest version of Adobe Flash
     Player.  Newer versions of the Adobe Flash player address security
@@ -352,6 +341,7 @@ Adobe Flash Player Version Support
     http://download.macromedia.com/get/flashplayer/updaters/12/playerglobal12_0.swc
     http://download.macromedia.com/get/flashplayer/updaters/13/playerglobal13_0.swc
     http://download.macromedia.com/get/flashplayer/updaters/14/playerglobal14_0.swc
+    http://download.macromedia.com/get/flashplayer/updaters/15/playerglobal15_0.swc
 
     Copy the target playerglobal.swc to the directory:
 
@@ -396,9 +386,11 @@ Adobe Flash Player Version Support
                          /playerglobal.swc
                     /14.0
                          /playerglobal.swc
+                    /15.0
+                         /playerglobal.swc
 
     Apache Flex has been tested with Adobe Flash Player 11.1, 11.5, 11.7, 11.8,
-    11.9, 12.0, 13.0 and 14.0 on Windows and Mac.
+    11.9, 12.0, 13.0, 14.0 and 15.0 on Windows and Mac.
 
     Apache Flex has not been tested on Linux so some issues may exist in this
     release.
