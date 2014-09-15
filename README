@@ -585,6 +585,17 @@ Building the Source in the Source Distribution
         ant -projecthelp
 
 
+Using the SDK in Flash Builder
+------------------------------
+
+    If you want to use the SDK you build from source in Flash Builder, you
+    need to run these commands/scripts:
+
+        cd <flex.dir>
+        ant frameworks-rsls
+        ./ide/constructFlexForIDE.[sh/bat]
+        [if you're on a Mac, also run: ./ide/addAIRtoSDK.sh]
+
 Thanks for using Apache Flex.  Enjoy!
 
                                           The Apache Flex Project
