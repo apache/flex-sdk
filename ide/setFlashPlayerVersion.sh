@@ -127,9 +127,10 @@ if [[ "${FLASH_VERSION}" != "10.2" && "${FLASH_VERSION}" != "10.3"  && "${FLASH_
   && "${FLASH_VERSION}" != "11.1" && "${FLASH_VERSION}" != "11.2" && "${FLASH_VERSION}" != "11.3"
   && "${FLASH_VERSION}" != "11.4" && "${FLASH_VERSION}" != "11.5" && "${FLASH_VERSION}" != "11.6"
   && "${FLASH_VERSION}" != "11.7" && "${FLASH_VERSION}" != "11.8" && "${FLASH_VERSION}" != "11.9"
-  && "${FLASH_VERSION}" != "12.0" && "${FLASH_VERSION}" != "13.0" && "${FLASH_VERSION}" != "14.0" ]]
+  && "${FLASH_VERSION}" != "12.0" && "${FLASH_VERSION}" != "13.0" && "${FLASH_VERSION}" != "14.0"
+  && "${FLASH_VERSION}" != "15.0" ]]
 then
-	echo Unknown version ${FLASH_VERSION} of Flash Player. Versions 10.2, 10.3, 11.0, 11.1, 11.2, 11.3, 11.4, 11.5, 11.6, 11.7, 11.8, 11.9, 12.0, 13.0 and 14.0 are supported.
+	echo Unknown version ${FLASH_VERSION} of Flash Player. Versions 10.2, 10.3, 11.0, 11.1, 11.2, 11.3, 11.4, 11.5, 11.6, 11.7, 11.8, 11.9, 12.0, 13.0, 14.0 and 15.0 are supported.
 	exit 1;
 fi
 
