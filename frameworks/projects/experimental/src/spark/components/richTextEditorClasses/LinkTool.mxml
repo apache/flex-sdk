@@ -97,7 +97,6 @@ limitations under the License.
 					//Get the current format
 					var txtLayFmt:TextLayoutFormat = textArea.textFlow.interactionManager.getCommonCharacterFormat();
 					//Set the link
-					var operationState:SelectionState = null;
 					if (_linkEl != null)
 					{
 						operationState = new SelectionState(textArea.textFlow, _linkEl.getAbsoluteStart(), _linkEl.getAbsoluteStart() + _linkEl.textLength);
