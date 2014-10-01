@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group scaleGridLeft="8" scaleGridRight="24" scaleGridTop="24" scaleGridBottom="8">
+    <Path winding="nonZero" data="M32 31.001C32 31.5527 31.5527 32 31.001 32L0.999023 32C0.447266 32 0 31.5527 0 31.001L0 0.999023C0 0.447266 0.447266 0 0.999023 0L31.001 0C31.5527 0 32 0.447266 32 0.999023L32 31.001Z">
+      <fill>
+        <SolidColor color="#DEDEDD"/>
+      </fill>
+    </Path>
+    <Path x="8" y="8" winding="nonZero" data="M16 16 0 16 0 0 16 0 16 16ZM1 15 15 15 15 1 1 1 1 15Z">
+      <fill>
+        <SolidColor color="#676767"/>
+      </fill>
+    </Path>
+  </Group>
+</Graphic>
