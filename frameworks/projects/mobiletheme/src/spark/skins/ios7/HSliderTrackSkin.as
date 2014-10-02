@@ -17,14 +17,14 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.android4
+package spark.skins.ios7
 {
 	import flash.display.DisplayObject;
 	
 	import mx.core.DPIClassification;
 	
 	import spark.components.Button;
-	import spark.skins.android4.assets.HSliderTrack;
+	import spark.skins.ios7.assets.HSliderTrack;
 	import spark.skins.mobile.supportClasses.MobileSkin;
 	
 	/**
@@ -56,7 +56,7 @@ package spark.skins.android4
 		{
 			super();
 			
-			trackClass = spark.skins.android4.assets.HSliderTrack;
+			trackClass = spark.skins.ios7.assets.HSliderTrack;
 			
 			// set the right dimensions to use based on the screen density
 			switch (applicationDPI)

@@ -17,12 +17,12 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.android4
+package spark.skins.ios7
 {
 	
-	import spark.skins.android4.assets.ButtonBarMiddleButton_selectedDown;
-	import spark.skins.android4.assets.ButtonBarMiddleButton_selectedUp;
-	import spark.skins.android4.assets.ButtonBarMiddleButton_up;
+	import spark.skins.ios7.assets.ButtonBarMiddleButton_selectedDown;
+	import spark.skins.ios7.assets.ButtonBarMiddleButton_selectedUp;
+	import spark.skins.ios7.assets.ButtonBarMiddleButton_up;
 	import spark.skins.mobile.supportClasses.ButtonBarButtonSkinBase;
 	
 	/**
@@ -60,10 +60,10 @@ package spark.skins.android4
 		{
 			super();
 			
-			upBorderSkin = spark.skins.android4.assets.ButtonBarMiddleButton_up;
-			downBorderSkin = spark.skins.android4.assets.ButtonBarMiddleButton_down;
-			selectedBorderSkin = spark.skins.android4.assets.ButtonBarMiddleButton_selectedUp;
-			selectedDownBorderSkin = spark.skins.android4.assets.ButtonBarMiddleButton_selectedDown;
+			upBorderSkin = spark.skins.ios7.assets.ButtonBarMiddleButton_up;
+			downBorderSkin = spark.skins.ios7.assets.ButtonBarMiddleButton_down;
+			selectedBorderSkin = spark.skins.ios7.assets.ButtonBarMiddleButton_selectedUp;
+			selectedDownBorderSkin = spark.skins.ios7.assets.ButtonBarMiddleButton_selectedDown;
 		}
 		
 		//--------------------------------------------------------------------------

@@ -17,7 +17,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.android4
+package spark.skins.ios7
 {
 	import flash.events.Event;
 	import flash.events.FocusEvent;
@@ -31,7 +31,7 @@ package spark.skins.android4
 	
 	import spark.components.TextInput;
 	import spark.components.supportClasses.StyleableTextField;
-	import spark.skins.android4.supportClasses.TextSkinBase;
+	import spark.skins.ios7.supportClasses.TextSkinBase;
 	
 	use namespace mx_internal;
 	

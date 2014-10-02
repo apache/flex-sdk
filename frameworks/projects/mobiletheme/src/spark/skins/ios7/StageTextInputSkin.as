@@ -17,13 +17,13 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.android4
+package spark.skins.ios7
 {
 	import spark.components.TextInput;
 	import spark.components.supportClasses.IStyleableEditableText;
 	import spark.components.supportClasses.ScrollableStageText;
 	import spark.components.supportClasses.StyleableTextField;
-	import spark.skins.android4.supportClasses.StageTextSkinBase;
+	import spark.skins.ios7.supportClasses.StageTextSkinBase;
 	
 	/**
 	 *  ActionScript-based skin for TextInput controls in mobile applications that uses a

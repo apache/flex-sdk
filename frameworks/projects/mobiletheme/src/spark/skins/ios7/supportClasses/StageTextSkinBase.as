@@ -16,7 +16,7 @@
 //  limitations under the License.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package spark.skins.android4.supportClasses
+package spark.skins.ios7.supportClasses
 {
 import flash.display.DisplayObject;
 import flash.events.FocusEvent;

@@ -17,7 +17,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.android4
+package spark.skins.ios7
 {
 import flash.display.BlendMode;
 import flash.display.GradientType;
@@ -39,8 +39,8 @@ import spark.components.Group;
 import spark.core.SpriteVisualElement;
 import spark.effects.Fade;
 import spark.primitives.RectangularDropShadow;
-import spark.skins.android4.assets.CalloutContentBackground;
-import spark.skins.android4.supportClasses.CalloutArrow;
+import spark.skins.ios7.assets.CalloutContentBackground;
+import spark.skins.ios7.supportClasses.CalloutArrow;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
 use namespace mx_internal;
@@ -90,7 +90,7 @@ public class CalloutSkin extends MobileSkin
         super();
         
         dropShadowAlpha = 0.7;
-		contentBackgroundInsetClass = spark.skins.android4.assets.CalloutContentBackground;
+		contentBackgroundInsetClass = spark.skins.ios7.assets.CalloutContentBackground;
         
         switch (applicationDPI)
         {

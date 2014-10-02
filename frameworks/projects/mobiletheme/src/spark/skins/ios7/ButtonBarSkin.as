@@ -17,13 +17,13 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.android4
+package spark.skins.ios7
 {
 import spark.components.ButtonBar;
 import spark.components.ButtonBarButton;
 import spark.components.DataGroup;
 import spark.components.supportClasses.ButtonBarHorizontalLayout;
-import spark.skins.android4.ButtonBarFirstButtonSkin;
+import spark.skins.ios7.ButtonBarFirstButtonSkin;
 import spark.skins.mobile.ButtonBarLastButtonSkin;
 import spark.skins.mobile.supportClasses.ButtonBarButtonClassFactory;
 import spark.skins.mobile.supportClasses.MobileSkin;
@@ -106,19 +106,19 @@ public class ButtonBarSkin extends MobileSkin
         if (!firstButton)
         {
             firstButton = new ButtonBarButtonClassFactory(ButtonBarButton);
-            firstButton.skinClass = spark.skins.android4.ButtonBarFirstButtonSkin;
+            firstButton.skinClass = spark.skins.ios7.ButtonBarFirstButtonSkin;
         }
         
         if (!lastButton)
         {
             lastButton = new ButtonBarButtonClassFactory(ButtonBarButton);
-            lastButton.skinClass = spark.skins.android4.ButtonBarFirstButtonSkin;
+            lastButton.skinClass = spark.skins.ios7.ButtonBarFirstButtonSkin;
         }
         
         if (!middleButton)
         {
             middleButton = new ButtonBarButtonClassFactory(ButtonBarButton);
-            middleButton.skinClass = spark.skins.android4.ButtonBarMiddleButtonSkin;
+            middleButton.skinClass = spark.skins.ios7.ButtonBarMiddleButtonSkin;
         }
         
         // create the data group to house the buttons

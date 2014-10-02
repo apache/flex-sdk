@@ -17,7 +17,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.android4
+package spark.skins.ios7
 {
 
 import flash.display.DisplayObject;
@@ -27,8 +27,8 @@ import mx.core.mx_internal;
 import mx.events.FlexEvent;
 
 import spark.components.supportClasses.StyleableTextField;
-import spark.skins.android4.assets.Button_down;
-import spark.skins.android4.assets.Button_up;
+import spark.skins.ios7.assets.Button_down;
+import spark.skins.ios7.assets.Button_up;
 import spark.skins.mobile.supportClasses.ButtonSkinBase;
 
 
@@ -90,8 +90,8 @@ public class ButtonSkin extends ButtonSkinBase
     public function ButtonSkin()
     {
         super();
-		upBorderSkin = spark.skins.android4.assets.Button_up;
-		downBorderSkin = spark.skins.android4.assets.Button_down;
+		upBorderSkin = spark.skins.ios7.assets.Button_up;
+		downBorderSkin = spark.skins.ios7.assets.Button_down;
 		layoutCornerEllipseSize = 0;
         
         switch (applicationDPI)

@@ -17,7 +17,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.android4
+package spark.skins.ios7
 {
 	
 	import mx.core.DPIClassification;
@@ -27,7 +27,7 @@ package spark.skins.android4
 	import spark.components.supportClasses.IStyleableEditableText;
 	import spark.components.supportClasses.ScrollableStageText;
 	import spark.components.supportClasses.StyleableTextField;
-	import spark.skins.android4.supportClasses.StageTextSkinBase;
+	import spark.skins.ios7.supportClasses.StageTextSkinBase;
 	
 	use namespace mx_internal;
 	

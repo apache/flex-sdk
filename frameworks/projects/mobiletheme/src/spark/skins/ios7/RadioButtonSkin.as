@@ -17,14 +17,14 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.android4
+package spark.skins.ios7
 {
 
 import flash.display.DisplayObject;
 
 import mx.core.DPIClassification;
 
-import spark.skins.android4.assets.RadioButton_up;
+import spark.skins.ios7.assets.RadioButton_up;
 import spark.skins.mobile.supportClasses.SelectableButtonSkinBase;
 
 /**
@@ -87,14 +87,14 @@ public class RadioButtonSkin extends SelectableButtonSkinBase
         layoutPaddingTop = 0;
         layoutPaddingBottom = 0;
 
-		upIconClass = spark.skins.android4.assets.RadioButton_up;
-		upSelectedIconClass = spark.skins.android4.assets.RadioButton_up;
-		downIconClass = spark.skins.android4.assets.RadioButton_down;
-		downSelectedIconClass = spark.skins.android4.assets.RadioButton_down;
+		upIconClass = spark.skins.ios7.assets.RadioButton_up;
+		upSelectedIconClass = spark.skins.ios7.assets.RadioButton_up;
+		downIconClass = spark.skins.ios7.assets.RadioButton_down;
+		downSelectedIconClass = spark.skins.ios7.assets.RadioButton_down;
 		upSymbolIconClass =  null;
 		downSymbolIconClass =  null;
-		upSymbolIconSelectedClass = spark.skins.android4.assets.RadioButton_upSymbolSelected;
-		downSymbolIconSelectedClass = spark.skins.android4.assets.RadioButton_downSymbolSelected;
+		upSymbolIconSelectedClass = spark.skins.ios7.assets.RadioButton_upSymbolSelected;
+		downSymbolIconSelectedClass = spark.skins.ios7.assets.RadioButton_downSymbolSelected;
 		
         switch (applicationDPI)
         {

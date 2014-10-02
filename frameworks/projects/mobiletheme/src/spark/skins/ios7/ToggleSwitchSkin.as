@@ -17,7 +17,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.android4
+package spark.skins.ios7
 {
 	
 	import flash.display.BlendMode;
@@ -30,8 +30,8 @@ package spark.skins.android4
 	import spark.components.ToggleSwitch;
 	import spark.components.supportClasses.StyleableTextField;
 	import spark.core.SpriteVisualElement;
-	import spark.skins.android4.assets.ToggleSwitchBackground;
-	import spark.skins.android4.assets.ToggleSwitchThumb_off;
+	import spark.skins.ios7.assets.ToggleSwitchBackground;
+	import spark.skins.ios7.assets.ToggleSwitchThumb_off;
 	import spark.skins.mobile.supportClasses.MobileSkin;
 	
 	
@@ -162,9 +162,9 @@ package spark.skins.android4
 		{
 			super();
 			
-			switchTrack = spark.skins.android4.assets.ToggleSwitchBackground;
-			switchOn = spark.skins.android4.assets.ToggleSwitchThumb_on;
-			switchOff = spark.skins.android4.assets.ToggleSwitchThumb_off;
+			switchTrack = spark.skins.ios7.assets.ToggleSwitchBackground;
+			switchOn = spark.skins.ios7.assets.ToggleSwitchThumb_on;
+			switchOff = spark.skins.ios7.assets.ToggleSwitchThumb_off;
 			
 			switch(applicationDPI) 
 			{	

@@ -16,7 +16,7 @@
 //  limitations under the License.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package spark.skins.android4
+package spark.skins.ios7
 {
 import flash.display.GradientType;
 import flash.display.Graphics;

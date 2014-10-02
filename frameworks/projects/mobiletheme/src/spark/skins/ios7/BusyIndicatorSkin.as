@@ -17,14 +17,14 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.android4
+package spark.skins.ios7
 {
 	import flash.display.DisplayObject;
 	import flash.events.TimerEvent;
 	import flash.geom.Matrix;
 	import flash.utils.Timer;
 	import mx.core.DPIClassification;
-	import spark.skins.android4.assets.BusyIndicator;
+	import spark.skins.ios7.assets.BusyIndicator;
 	import spark.skins.mobile.supportClasses.MobileSkin;
 	
 	import spark.components.MobileBusyIndicator;
@@ -48,7 +48,7 @@ package spark.skins.android4
 		{
 			super();
 			
-			busyIndicatorClass = spark.skins.android4.assets.BusyIndicator;
+			busyIndicatorClass = spark.skins.ios7.assets.BusyIndicator;
 			rotationInterval = getStyle("rotationInterval");
 			if (isNaN(rotationInterval))
 				rotationInterval = DEFAULT_ROTATION_INTERVAL;

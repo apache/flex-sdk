@@ -16,7 +16,7 @@
 //  limitations under the License.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package spark.skins.android4
+package spark.skins.ios7
 {
 	import flash.display.Graphics;
 	import flash.display.InteractiveObject;
@@ -28,9 +28,9 @@ package spark.skins.android4
 	import spark.components.Group;
 	import spark.components.SpinnerListContainer;
 	import spark.layouts.HorizontalLayout;
-	import spark.skins.android4.assets.SpinnerListContainerBackground;
-	import spark.skins.android4.assets.SpinnerListContainerSelectionIndicator;
-	import spark.skins.android4.assets.SpinnerListContainerShadow;
+	import spark.skins.ios7.assets.SpinnerListContainerBackground;
+	import spark.skins.ios7.assets.SpinnerListContainerSelectionIndicator;
+	import spark.skins.ios7.assets.SpinnerListContainerShadow;
 	import spark.skins.mobile.supportClasses.MobileSkin;
 
 	use namespace mx_internal;
@@ -62,9 +62,9 @@ package spark.skins.android4
 		{
 			super();
 			
-			borderClass = spark.skins.android4.assets.SpinnerListContainerBackground;
-			selectionIndicatorClass = spark.skins.android4.assets.SpinnerListContainerSelectionIndicator;
-			shadowClass = spark.skins.android4.assets.SpinnerListContainerShadow;
+			borderClass = spark.skins.ios7.assets.SpinnerListContainerBackground;
+			selectionIndicatorClass = spark.skins.ios7.assets.SpinnerListContainerSelectionIndicator;
+			shadowClass = spark.skins.ios7.assets.SpinnerListContainerShadow;
 			cornerRadius = 0;
 			borderThickness = 0;
 			switch (applicationDPI)

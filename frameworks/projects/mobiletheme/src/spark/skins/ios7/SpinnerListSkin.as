@@ -16,7 +16,7 @@
 //  limitations under the License.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package spark.skins.android4
+package spark.skins.ios7
 {
 	import flash.display.InteractiveObject;
 	
@@ -29,7 +29,7 @@ package spark.skins.android4
 	import spark.components.SpinnerList;
 	import spark.components.SpinnerListItemRenderer;
 	import spark.layouts.VerticalSpinnerLayout;
-	import spark.skins.android4.assets.SpinnerListContainerSelectionIndicator;
+	import spark.skins.ios7.assets.SpinnerListContainerSelectionIndicator;
 	import spark.skins.mobile.supportClasses.MobileSkin;	
 
 	
@@ -56,7 +56,7 @@ package spark.skins.android4
 		{
 			super();
 			
-			selectionIndicatorClass = spark.skins.android4.assets.SpinnerListContainerSelectionIndicator;
+			selectionIndicatorClass = spark.skins.ios7.assets.SpinnerListContainerSelectionIndicator;
 			borderThickness = 1;
 			switch (applicationDPI)
 			{
@@ -227,7 +227,7 @@ package spark.skins.android4
 				// Only support vertical scrolling
 				scroller.setStyle("verticalScrollPolicy","on");
 				scroller.setStyle("horizontalScrollPolicy", "off");
-				scroller.setStyle("skinClass", spark.skins.android4.SpinnerListScrollerSkin);
+				scroller.setStyle("skinClass", spark.skins.ios7.SpinnerListScrollerSkin);
 				
 				addChild(scroller);
 			}

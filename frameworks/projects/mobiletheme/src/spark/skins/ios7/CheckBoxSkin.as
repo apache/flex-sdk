@@ -17,13 +17,13 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.android4
+package spark.skins.ios7
 {
 	import flash.display.DisplayObject;
 	
 	import mx.core.DPIClassification;
 	
-	import spark.skins.android4.assets.CheckBox_up;
+	import spark.skins.ios7.assets.CheckBox_up;
 	import spark.skins.mobile.supportClasses.SelectableButtonSkinBase;
 	
 	/**
@@ -82,13 +82,13 @@ package spark.skins.android4
 			layoutPaddingTop = 0;
 			layoutPaddingBottom = 0;
 			
-			upIconClass = spark.skins.android4.assets.CheckBox_up;
-			upSelectedIconClass = spark.skins.android4.assets.CheckBox_upSelected;
-			downIconClass = spark.skins.android4.assets.CheckBox_down;
-			downSelectedIconClass = spark.skins.android4.assets.CheckBox_downSelected;
+			upIconClass = spark.skins.ios7.assets.CheckBox_up;
+			upSelectedIconClass = spark.skins.ios7.assets.CheckBox_upSelected;
+			downIconClass = spark.skins.ios7.assets.CheckBox_down;
+			downSelectedIconClass = spark.skins.ios7.assets.CheckBox_downSelected;
 			upSymbolIconClass = null;
-			upSymbolIconSelectedClass = spark.skins.android4.assets.CheckBox_upSymbolSelected;
-			downSymbolIconSelectedClass = spark.skins.android4.assets.CheckBox_downSymbolSelected;
+			upSymbolIconSelectedClass = spark.skins.ios7.assets.CheckBox_upSymbolSelected;
+			downSymbolIconSelectedClass = spark.skins.ios7.assets.CheckBox_downSymbolSelected;
 			downSymbolIconClass = null;
 					
 			switch (applicationDPI)

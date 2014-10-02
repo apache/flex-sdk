@@ -17,7 +17,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.android4
+package spark.skins.ios7
 {
 import flash.display.GradientType;
 import flash.events.Event;
@@ -34,7 +34,7 @@ import spark.core.SpriteVisualElement;
 import spark.layouts.HorizontalAlign;
 import spark.layouts.HorizontalLayout;
 import spark.layouts.VerticalAlign;
-import spark.skins.android4.assets.ActionBarBackground;
+import spark.skins.ios7.assets.ActionBarBackground;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
 use namespace mx_internal;
@@ -83,7 +83,7 @@ public class ActionBarSkin extends MobileSkin
     {
         super();
 		
-		borderClass = spark.skins.android4.assets.ActionBarBackground;
+		borderClass = spark.skins.ios7.assets.ActionBarBackground;
         
         switch (applicationDPI)
         {

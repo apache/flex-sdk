@@ -17,14 +17,14 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.android4
+package spark.skins.ios7
 {
 import flash.display.DisplayObject;
 
 import mx.core.DPIClassification;
 
 import spark.components.Button;
-import spark.skins.android4.assets.HSliderThumb_normal;
+import spark.skins.ios7.assets.HSliderThumb_normal;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
 /**
@@ -59,8 +59,8 @@ public class HSliderThumbSkin extends MobileSkin
     {
         super();
         
-		thumbNormalClass = spark.skins.android4.assets.HSliderThumb_normal;
-		thumbPressedClass = spark.skins.android4.assets.HSliderThumb_pressed;
+		thumbNormalClass = spark.skins.ios7.assets.HSliderThumb_normal;
+		thumbPressedClass = spark.skins.ios7.assets.HSliderThumb_pressed;
 		
         // set the dimensions to use based on the screen density
         switch (applicationDPI)

@@ -17,7 +17,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.android4.supportClasses
+package spark.skins.ios7.supportClasses
 {
 import flash.display.BlendMode;
 import flash.display.GradientType;
@@ -35,7 +35,7 @@ import mx.utils.ColorUtil;
 import spark.components.Application;
 import spark.components.ArrowDirection;
 import spark.components.Callout;
-import spark.skins.android4.CalloutSkin;
+import spark.skins.ios7.CalloutSkin;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
 use namespace mx_internal;

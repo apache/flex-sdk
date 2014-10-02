@@ -17,7 +17,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.android4
+package spark.skins.ios7
 {
 import spark.components.ButtonBarButton;
 import spark.components.DataGroup;
@@ -72,19 +72,19 @@ public class TabbedViewNavigatorTabBarSkin extends ButtonBarSkin
         if (!firstButton)
         {
             firstButton = new ButtonBarButtonClassFactory(ButtonBarButton);
-            firstButton.skinClass = spark.skins.android4.ButtonBarFirstButtonSkin;
+            firstButton.skinClass = spark.skins.ios7.ButtonBarFirstButtonSkin;
         }
         
         if (!lastButton)
         {
             lastButton = new ButtonBarButtonClassFactory(ButtonBarButton);
-            lastButton.skinClass = spark.skins.android4.ButtonBarFirstButtonSkin;
+            lastButton.skinClass = spark.skins.ios7.ButtonBarFirstButtonSkin;
         }
         
         if (!middleButton)
         {
             middleButton = new ButtonBarButtonClassFactory(ButtonBarButton);
-            middleButton.skinClass = spark.skins.android4.ButtonBarMiddleButtonSkin;
+            middleButton.skinClass = spark.skins.ios7.ButtonBarMiddleButtonSkin;
         }
         
         if (!dataGroup)
