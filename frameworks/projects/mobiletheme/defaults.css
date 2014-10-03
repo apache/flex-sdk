@@ -931,48 +931,7 @@ global
 	}
 }
 
-/* ios 7 status bar
-requires new os-version selector (cf FLEX-FLEX-33949)
-*/
 
-@media (application-dpi: 120) AND (os-platform:"IOS") AND (min-os-version: 7)
-{
-	Application
-	{
-		osStatusBarHeight: 15;
-	}
-}
-
-@media (application-dpi: 160) AND (os-platform:"IOS") AND (min-os-version: 7)
-{
-	Application {
-		osStatusBarHeight: 20;
-	}
-}
-
-@media (application-dpi: 240) AND (os-platform:"IOS") AND (min-os-version: 7)
-{
-	Application
-	{
-		osStatusBarHeight: 30;
-	}
-}
-
-@media (application-dpi: 320) AND (os-platform:"IOS") AND (min-os-version: 7)
-{
-	Application
-	{
-		osStatusBarHeight: 40;
-	}
-}
-
-@media (application-dpi: 480) AND (os-platform:"IOS") AND (min-os-version: 7)
-{
-	Application
-	{
-		osStatusBarHeight: 60;
-	}
-}
 
 /* ios 7+ new theme */
 
@@ -1204,6 +1163,205 @@ requires new os-version selector (cf FLEX-FLEX-33949)
 	}
 	
 }
+
+@media (os-platform:"IOS") AND (min-os-version: 7) AND (application-dpi: 120)
+{
+	global
+	{
+		fontSize: 12;
+		focusThickness: 2;
+	}
+	
+	ActionBar.beveled
+	{
+		paddingLeft: 4;
+		paddingRight: 4;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 14;
+	}
+	
+	Application
+	{
+		osStatusBarHeight: 15;
+	}
+
+	SpinnerListItemRenderer
+	{
+		paddingTop : 9;
+		paddingBottom : 9;
+		paddingLeft : 3;
+		paddingRight : 3;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 11;
+	}
+}
+
+@media (os-platform:"IOS") AND (min-os-version: 7) AND (application-dpi: 160)
+{
+	global
+	{
+		fontSize: 16;
+		focusThickness: 2;
+	}
+	
+	ActionBar
+	{
+		paddingBottom: 1;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 1;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 18;
+	}
+	
+	Application {
+		osStatusBarHeight: 20;
+	}
+
+	SpinnerListItemRenderer
+	{
+		paddingTop : 12;
+		paddingBottom : 12;
+		paddingLeft : 4;
+		paddingRight : 4;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 14;
+	}
+}
+
+@media (os-platform:"IOS") AND (min-os-version: 7) AND (application-dpi: 240)
+{
+	Application
+	{
+		osStatusBarHeight: 30;
+	}
+}
+
+@media (os-platform:"IOS") AND (min-os-version: 7) AND (application-dpi: 320)
+{
+	global
+	{
+		fontSize: 32;
+	}
+	
+	ActionBar
+	{
+		paddingBottom: 2;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 2;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 36;
+	}
+	
+	Application
+	{
+		osStatusBarHeight: 40;
+	}
+
+	SpinnerListItemRenderer
+	{
+		paddingTop : 24;
+		paddingBottom : 24;
+		paddingLeft : 8;
+		paddingRight : 8;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 28;
+	}
+}
+
+@media (os-platform:"IOS") AND (min-os-version: 7) AND (application-dpi: 480)
+{
+	global
+	{
+		fontSize: 48;
+		focusThickness: 6;
+	}
+	
+	ActionBar
+	{
+		paddingBottom: 4;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 4;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 54;
+	}
+	
+	Application
+	{
+		osStatusBarHeight: 60;
+	}
+	
+	SpinnerListItemRenderer
+	{
+		paddingTop : 36;
+		paddingBottom : 36;
+		paddingLeft : 12;
+		paddingRight : 12;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 42;
+	}	
+}
+
+@media (os-platform:"IOS") AND (min-os-version: 7) AND (application-dpi: 640)
+{
+	global
+	{
+		fontSize: 64;
+	}
+	
+	ActionBar
+	{
+		paddingBottom: 4;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 4;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 72;
+	}
+	
+	SpinnerListItemRenderer
+	{
+		paddingTop : 48;
+		paddingBottom : 48;
+		paddingLeft : 16;
+		paddingRight : 16;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 56;
+	}	
+}
+
 
 
 /*
