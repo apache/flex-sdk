@@ -978,10 +978,21 @@ requires new os-version selector (cf FLEX-FLEX-33949)
 
 @media (os-platform:"IOS") AND (min-os-version: 7)
 {
+
+	global
+	{
+		fontFamily: RobotoRegular;
+		fontWeight: "normal";
+		fontSize: 24;
+		color: #007AFF;
+		textShadowColor: #FFFFFF;
+		textShadowAlpha: 0;
+	}
 	
 	Button
 	{
 		skinClass: ClassReference("spark.skins.ios7.ButtonSkin");
+		fontFamily: RobotoBold;
 	}
 	
 }
