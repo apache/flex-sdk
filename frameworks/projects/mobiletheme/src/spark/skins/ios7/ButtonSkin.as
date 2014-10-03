@@ -278,18 +278,6 @@ public class ButtonSkin extends ButtonSkinBase
     override protected function createChildren():void
     {
         super.createChildren();
-        
-        if (!labelDisplayShadow && labelDisplay)
-        {
-            labelDisplayShadow = StyleableTextField(createInFontContext(StyleableTextField));
-            labelDisplayShadow.styleName = this;
-            labelDisplayShadow.colorName = "textShadowColor";
-            labelDisplayShadow.useTightTextBounds = false;
-            
-            // add shadow before display
-            addChildAt(labelDisplayShadow, getChildIndex(labelDisplay));
-        }
-        
         setStyle("textAlign", "center");
     }
     
@@ -336,18 +324,6 @@ public class ButtonSkin extends ButtonSkinBase
         
         layoutBorder(unscaledWidth, unscaledHeight);
         
-        // update label shadow
-        labelDisplayShadow.alpha = getStyle("textShadowAlpha");
-        labelDisplayShadow.commitStyles();
-        
-        // don't use tightText positioning on shadow
-        setElementPosition(labelDisplayShadow, labelDisplay.x, labelDisplay.y + 1);
-        setElementSize(labelDisplayShadow, labelDisplay.width, labelDisplay.height);
-        
-        // if labelDisplay is truncated, then push it down here as well.
-        // otherwise, it would have gotten pushed in the labelDisplay_valueCommitHandler()
-        if (labelDisplay.isTruncated)
-            labelDisplayShadow.text = labelDisplay.text;
     }
     
     /**
@@ -392,7 +368,6 @@ public class ButtonSkin extends ButtonSkinBase
     override protected function labelDisplay_valueCommitHandler(event:FlexEvent):void 
     {
         super.labelDisplay_valueCommitHandler(event);
-        labelDisplayShadow.text = labelDisplay.text;
     }
     
 }
