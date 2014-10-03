@@ -90,8 +90,11 @@ public class ButtonSkin extends ButtonSkinBase
     public function ButtonSkin()
     {
         super();
+		//In iOS7, buttons look like simple links, without any shape containing the text
+		//We still need to assign an asset to determine the size of the button
+		//Button_up is a simple transparent graphic object
 		upBorderSkin = spark.skins.ios7.assets.Button_up;
-		downBorderSkin = spark.skins.ios7.assets.Button_down;
+		downBorderSkin = spark.skins.ios7.assets.Button_up;
 		layoutCornerEllipseSize = 0;
         
         switch (applicationDPI)
