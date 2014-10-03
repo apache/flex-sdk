@@ -989,10 +989,218 @@ requires new os-version selector (cf FLEX-FLEX-33949)
 		textShadowAlpha: 0;
 	}
 	
+	ActionBar
+	{
+		chromeColor: #DEDEDD;
+		defaultButtonAppearance: normal;
+		skinClass: ClassReference("spark.skins.ios7.ActionBarSkin");
+		textShadowAlpha: 0;
+		textShadowColor: #000000;
+		paddingBottom: 1;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 1;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		color: #333333;
+		fontSize: 24;
+		fontFamily: RobotoBold;
+	}
+	
+	ActionBar ButtonBase
+	{
+		color: #333333;
+		fontFamily: RobotoBold;
+		fontWeight: bold;
+	}
+	
+	ActionBar Group#actionGroup Button
+	{
+		skinClass: ClassReference("spark.skins.ios7.TransparentActionButtonSkin");
+	}
+	
 	Button
 	{
 		skinClass: ClassReference("spark.skins.ios7.ButtonSkin");
 		fontFamily: RobotoBold;
+	}
+	
+	Button.emphasized
+	{
+		skinClass: ClassReference("spark.skins.mobile.DefaultButtonSkin");
+	}
+	
+	ButtonBar
+	{
+		skinClass: ClassReference("spark.skins.ios7.ButtonBarSkin");
+		fontFamily: RobotoBold;
+		fontWeight: "bold";
+	}
+	
+	Callout
+	{
+		backgroundColor: #33B5E5;
+		contentBackgroundColor: #FFFFFF;
+		gap: 12;
+		skinClass: ClassReference("spark.skins.ios7.CalloutSkin");
+		borderThickness: 0;
+		borderColor: 0;
+	}
+	
+	Callout ViewNavigator ActionBar
+	{
+		skinClass: ClassReference("spark.skins.mobile.CalloutActionBarSkin");
+		defaultButtonAppearance: none;
+		paddingLeft: 0;
+		paddingRight: 0;
+	}
+	
+	Callout ViewNavigator ActionBar.beveled
+	{
+		paddingLeft: 0;
+		paddingRight: 0;
+	}
+	
+	Callout ViewNavigator ActionBar.beveled Group#navigationGroup Button
+	{
+		skinClass: ClassReference("spark.skins.mobile.BeveledActionButtonSkin");
+	}
+	
+	Callout ViewNavigator ActionBar.beveled Group#navigationGroup Button.emphasized
+	{
+		skinClass: ClassReference("spark.skins.mobile.DefaultBeveledActionButtonSkin");
+	}
+	
+	Callout#viewNavigatorPopUp
+	{
+		contentBackgroundAppearance: none;
+	}
+	
+	CheckBox
+	{
+		skinClass: ClassReference("spark.skins.ios7.CheckBoxSkin");
+		chromeColor: #FFFFFF;
+	}
+	
+	HScrollBar
+	{
+		skinClass: ClassReference("spark.skins.ios7.HScrollBarSkin");
+		thumbColor: #333333;
+	}
+	
+	HSlider
+	{
+		skinClass: ClassReference("spark.skins.ios7.HSliderSkin");
+		fontFamily: RobotoBold;
+	}
+	
+	RadioButton
+	{
+		skinClass: ClassReference("spark.skins.ios7.RadioButtonSkin");
+		chromeColor: #FFFFFF;
+	}
+	
+	SpinnerList
+	{
+		skinClass: ClassReference("spark.skins.ios7.SpinnerListSkin");
+	}
+	
+	SpinnerListContainer
+	{
+		skinClass: ClassReference("spark.skins.ios7.SpinnerListContainerSkin");
+	}
+	
+	SpinnerListItemRenderer
+	{
+		paddingTop : 18;
+		paddingBottom : 18;
+		paddingLeft : 6;
+		paddingRight : 6;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontFamily: RobotoRegular;
+		chromeColor: #484848;
+		color: #000000;
+		fontSize: 20;
+		fontWeight: normal;
+		iconPlacement: top;
+		interactionMode: mouse;
+		skinClass: ClassReference("spark.skins.ios7.TabbedViewNavigatorTabBarSkin");
+		textShadowAlpha: 0;
+		textShadowColor: #000000;
+	}
+	
+	TextInput
+	{ 
+		skinClass: ClassReference("spark.skins.ios7.StageTextInputSkin");
+		contentBackgroundAlpha: 0; 
+		focusColor: #33B5E5;
+		contentBackgroundColor: #DEDEDD;
+		contentBackgroundBorder: "flat";
+		fontFamily: RobotoRegular;
+		selectionHighlighting: "never";
+		focusEnabled:"false";
+		focusThickness: 0;
+	}
+	
+	TextArea
+	{ 
+		skinClass: ClassReference("spark.skins.ios7.StageTextAreaSkin");
+		contentBackgroundAlpha: 1;
+		contentBackgroundBorder: "rectangle";
+		contentBackgroundColor: #DEDEDD;
+		focusColor: #33B5E5;
+		fontFamily: RobotoRegular;
+		selectionHighlighting: "never";
+		focusEnabled:"false";
+		focusThickness: 0;
+	} 
+	
+	ToggleSwitch
+	{
+		accentColor: #3F7FBA;
+		color: #FFFFFF;
+		skinClass: ClassReference("spark.skins.ios7.ToggleSwitchSkin");
+		slideDuration: 125;
+		textShadowAlpha: .65;
+		textShadowColor: #000000;
+	}
+	
+	VScrollBar
+	{
+		skinClass: ClassReference("spark.skins.ios7.VScrollBarSkin");
+		thumbColor: #333333;
+	}
+	
+	ViewMenu
+	{
+		skinClass: ClassReference("spark.skins.ios7.ViewMenuSkin");
+	}
+	
+	ViewMenuItem
+	{ 
+		iconPlacement : "left";
+		chromeColor : #FFFFFF;
+		focusColor: #DEDEDD;
+		paddingBottom: 8;
+		paddingLeft: 8;
+		paddingRight: 8;
+		paddingTop: 8;
+		skinClass : ClassReference("spark.skins.ios7.ViewMenuItemSkin");
+	}
+	
+	MobileBusyIndicator
+	{
+		skinClass: ClassReference("spark.skins.ios7.BusyIndicatorSkin");
+	}
+	
+	ViewNavigator
+	{
+		skinClass: ClassReference("spark.skins.mobile.ViewNavigatorSkin");
 	}
 	
 }
