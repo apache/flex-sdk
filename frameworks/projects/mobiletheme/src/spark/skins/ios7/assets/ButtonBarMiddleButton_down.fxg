@@ -19,52 +19,12 @@
 -->
 
 <Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008">
-  <Group>
-    <Path winding="nonZero" data="M119 48 0 48 0 0 119 0 119 48Z">
+  <Group scaleGridLeft="50.5" scaleGridRight="151.5" scaleGridTop="43.5" scaleGridBottom="14.5">
+    <Path data="M202 58 0 58 0 0 202 0 202 58Z">
       <fill>
-        <SolidColor color="#DEDEDD"/>
+        <SolidColor color="#007AFF"/>
       </fill>
     </Path>
-    <Group y="12" alpha="0.100006">
-      <Group>
-        <mask>
-          <Group>
-            <Path winding="nonZero" data="M1 24 0 24 0 0 1 0 1 24Z">
-              <fill>
-                <SolidColor color="#FFFFFF"/>
-              </fill>
-            </Path>
-          </Group>
-        </mask>
-        <Path winding="nonZero" data="M1 24 0 24 0 0 1 0 1 24Z">
-          <fill>
-            <SolidColor color="#333333"/>
-          </fill>
-        </Path>
-      </Group>
-    </Group>
-    <Group x="118" y="12" alpha="0.100006">
-      <Group>
-        <mask>
-          <Group>
-            <Path winding="nonZero" data="M1 24 0 24 0 0 1 0 1 24Z">
-              <fill>
-                <SolidColor color="#FFFFFF"/>
-              </fill>
-            </Path>
-          </Group>
-        </mask>
-        <Path winding="nonZero" data="M1 24 0 24 0 0 1 0 1 24Z">
-          <fill>
-            <SolidColor color="#333333"/>
-          </fill>
-        </Path>
-      </Group>
-    </Group>
-    <Path alpha="0.5" winding="nonZero" data="M119 48 0 48 0 0 119 0 119 48Z">
-      <fill>
-        <SolidColor color="#33B5E5"/>
-      </fill>
-    </Path>
+    <Path visible="false" winding="nonZero" data="M0 0 202 0 202 58 0 58 0 0Z"/>
   </Group>
 </Graphic>

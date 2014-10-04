@@ -944,6 +944,7 @@ global
 		fontWeight: "normal";
 		fontSize: 24;
 		color: #007AFF;
+		highlightTextColor: #FFFFFF;
 		textShadowColor: #FFFFFF;
 		textShadowAlpha: 0;
 	}

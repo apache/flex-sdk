@@ -19,10 +19,10 @@
 -->
 
 <Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008">
-  <Group scaleGridLeft="29.75" scaleGridRight="89.25" scaleGridTop="36" scaleGridBottom="12">
-    <Path winding="nonZero" data="M119 48 0 48 0 0 119 0 119 48Z">
+  <Group scaleGridLeft="50" scaleGridRight="150" scaleGridTop="43.5" scaleGridBottom="14.5">
+    <Path winding="nonZero" data="M198 2 198 56 9 56C5.13965 56 2 52.8594 2 49L2 9C2 5.14063 5.13965 2 9 2L198 2M200 0 9 0C4.02881 0 0 4.0293 0 9L0 49C0 53.9717 4.02881 58 9 58L200 58 200 0Z">
       <fill>
-        <SolidColor color="#DEDEDD"/>
+        <SolidColor color="#007AFF"/>
       </fill>
     </Path>
   </Group>

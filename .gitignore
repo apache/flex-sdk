@@ -138,3 +138,4 @@ samples/descriptor-sample.xml
 include/FlashRuntimeExtensions.h
 
 /frameworks/projects/mobiletheme/src/spark/skins/ios7/visualcomps/*.ai
+visualcomps

@@ -23,13 +23,11 @@ import spark.components.ButtonBar;
 import spark.components.ButtonBarButton;
 import spark.components.DataGroup;
 import spark.components.supportClasses.ButtonBarHorizontalLayout;
-import spark.skins.ios7.ButtonBarFirstButtonSkin;
-import spark.skins.mobile.ButtonBarLastButtonSkin;
 import spark.skins.mobile.supportClasses.ButtonBarButtonClassFactory;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
 /**
- *  The Android 4.x specific skin class for the Spark ButtonBar component.
+ *  iOS7+ specific skin class for the Spark ButtonBar component.
  *
  *  @see spark.components.ButtonBar
  *
@@ -112,7 +110,7 @@ public class ButtonBarSkin extends MobileSkin
         if (!lastButton)
         {
             lastButton = new ButtonBarButtonClassFactory(ButtonBarButton);
-            lastButton.skinClass = spark.skins.ios7.ButtonBarFirstButtonSkin;
+            lastButton.skinClass = spark.skins.ios7.ButtonBarLastButtonSkin;
         }
         
         if (!middleButton)
@@ -126,7 +124,7 @@ public class ButtonBarSkin extends MobileSkin
         {
             dataGroup = new DataGroup();
             var hLayout:ButtonBarHorizontalLayout = new ButtonBarHorizontalLayout();
-            hLayout.gap = 0;
+            hLayout.gap = -1;
             dataGroup.layout = hLayout;
             addChild(dataGroup);
         }

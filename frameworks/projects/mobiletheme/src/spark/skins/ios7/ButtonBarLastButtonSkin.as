@@ -19,20 +19,19 @@
 
 package spark.skins.ios7
 {
-	
-	import spark.skins.ios7.assets.ButtonBarMiddleButton_up;
+	import spark.skins.ios7.assets.ButtonBarLastButton_up;
 	
 	/**
-	 *  Android 4.x specific Button skin for middle Buttons in a ButtonBar.
+	 *  iOS7+ specific Button skin for the last Button in a ButtonBar.
 	 * 
-	 *  @see spark.components.ButtonBar#middleButton
+	 *  @see spark.components.ButtonBar#lastButton
 	 * 
 	 *  @langversion 3.0
 	 *  @playerversion Flash 10
 	 *  @playerversion AIR 2.5 
 	 *  @productversion Flex 4.5
 	 */
-	public class ButtonBarMiddleButtonSkin extends IOS7ButtonBarButtonSkinBase
+	public class ButtonBarLastButtonSkin extends IOS7ButtonBarButtonSkinBase
 	{
 		
 		/**
@@ -43,14 +42,14 @@ package spark.skins.ios7
 		 *  @playerversion AIR 2.5 
 		 *  @productversion Flex 4.5
 		 */
-		public function ButtonBarMiddleButtonSkin()
+		public function ButtonBarLastButtonSkin()
 		{
 			super();
 			
-			upBorderSkin = spark.skins.ios7.assets.ButtonBarMiddleButton_up
-			downBorderSkin = spark.skins.ios7.assets.ButtonBarMiddleButton_down;
-			selectedBorderSkin = spark.skins.ios7.assets.ButtonBarMiddleButton_down;
-			selectedDownBorderSkin = spark.skins.ios7.assets.ButtonBarMiddleButton_up;
+			upBorderSkin = spark.skins.ios7.assets.ButtonBarLastButton_up
+			downBorderSkin = spark.skins.ios7.assets.ButtonBarLastButton_down;
+			selectedBorderSkin = spark.skins.ios7.assets.ButtonBarLastButton_down;
+			selectedDownBorderSkin = spark.skins.ios7.assets.ButtonBarLastButton_up;
 		}
 		
 	}

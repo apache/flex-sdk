@@ -19,12 +19,10 @@
 
 package spark.skins.ios7
 {
-	import spark.skins.ios7.assets.ButtonBarFirstButton_selectedDown;
-	import spark.skins.ios7.assets.ButtonBarFirstButton_selectedUp;
-	import spark.skins.mobile.supportClasses.ButtonBarButtonSkinBase;
+	import spark.skins.ios7.assets.ButtonBarFirstButton_up;
 	
 	/**
-	 *  Android 4.x specific Button skin for the first Button in a ButtonBar.
+	 *  iOS7+ specific Button skin for the first Button in a ButtonBar.
 	 * 
 	 *  @see spark.components.ButtonBar#firstButton
 	 * 
@@ -33,19 +31,8 @@ package spark.skins.ios7
 	 *  @playerversion AIR 2.5 
 	 *  @productversion Flex 4.5
 	 */
-	public class ButtonBarFirstButtonSkin extends ButtonBarButtonSkinBase
+	public class ButtonBarFirstButtonSkin extends IOS7ButtonBarButtonSkinBase
 	{
-		
-		/**
-		 *  Class to use for the border in the selected and down state.
-		 * 
-		 *  @langversion 3.0
-		 *  @playerversion Flash 10
-		 *  @playerversion AIR 2.5 
-		 *  @productversion Flex 4.5
-		 */  
-		protected var selectedDownBorderSkin:Class;
-		
 		/**
 		 *  Constructor.
 		 * 
@@ -60,34 +47,10 @@ package spark.skins.ios7
 			
 			upBorderSkin = spark.skins.ios7.assets.ButtonBarFirstButton_up;
 			downBorderSkin = spark.skins.ios7.assets.ButtonBarFirstButton_down;
-			selectedBorderSkin = spark.skins.ios7.assets.ButtonBarFirstButton_selectedUp;
-			selectedDownBorderSkin = spark.skins.ios7.assets.ButtonBarFirstButton_selectedDown;
+			selectedBorderSkin = spark.skins.ios7.assets.ButtonBarFirstButton_down;
+			selectedDownBorderSkin = spark.skins.ios7.assets.ButtonBarFirstButton_up;
 		}
 		
-		//--------------------------------------------------------------------------
-		//
-		//  Overridden methods
-		//
-		//--------------------------------------------------------------------------
 		
-		override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
-		{
-			//Dont draw background
-		}
-		
-		override protected function getBorderClassForCurrentState():Class
-		{
-			var isSelected:Boolean = currentState.indexOf("Selected") >= 0;
-			var isDown:Boolean = currentState.indexOf("down") >= 0;
-			
-			if (isSelected && !isDown )
-				return selectedBorderSkin;
-			else if (isSelected && isDown)
-				return selectedDownBorderSkin;
-			else if (!isSelected && !isDown)
-				return upBorderSkin;
-			else 
-				return downBorderSkin;
-		}
 	}
 }
