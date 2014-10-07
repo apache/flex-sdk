@@ -118,31 +118,34 @@ public class RuntimeDPIProvider
      */
 
     public function get runtimeDPI():Number
-    {
-        var isIOS:Boolean = Platform.isIOS;
-        var screenDPI:Number = Capabilities.screenDPI;
-
-        if (isIOS) // as isIPad returns false in the simulator
+	{
+		if (Platform.isIOS) // as isIPad returns false in the simulator
 		{
-            var root:DisplayObject = SystemManager.getSWFRoot(this);
-            if (root != null )  {
-                var stage:Stage = root.stage;
-                if (stage != null){
-                    var scX:Number = stage.fullScreenWidth;
-                    var scY:Number = stage.fullScreenHeight;
-                    /*  as of Dec 2013,  iPad (resp. iPad retina) are the only iOS devices to have 1024 (resp. 2048) screen width or height
-                     cf http://en.wikipedia.org/wiki/List_of_displays_by_pixel_density#Apple
-                     * */
-                    if ((scX == IPAD_RETINA_MAX_EXTENT || scY == IPAD_RETINA_MAX_EXTENT))
-                        return DPIClassification.DPI_320;
-                    else if (scX == IPAD_MAX_EXTENT || scY == IPAD_MAX_EXTENT)
-                        return DPIClassification.DPI_160;
-                }
-            }
-        }
-		
-        return classifyDPI(screenDPI);
-    }
+			var scX:Number = Capabilities.screenResolutionX;
+			var scY:Number = Capabilities.screenResolutionY;
+					
+			// Use the stage width/height only when debugging, because Capabilities reports the computer resolution
+			if (Capabilities.isDebugger)
+			{
+				var root:DisplayObject = SystemManager.getSWFRoot(this);
+				if (root && root.stage)
+				{
+					scX = root.stage.fullScreenWidth;
+					scY = root.stage.fullScreenHeight;
+				}
+			}
+					
+			/*  as of Dec 2013,  iPad (resp. iPad retina) are the only iOS devices to have 1024 (resp. 2048) screen width or height
+			cf http://en.wikipedia.org/wiki/List_of_displays_by_pixel_density#Apple
+			* */
+			if (scX == IPAD_MAX_EXTENT || scY == IPAD_MAX_EXTENT)
+				return DPIClassification.DPI_160;
+			else if ((scX == IPAD_RETINA_MAX_EXTENT || scY == IPAD_RETINA_MAX_EXTENT))
+				return DPIClassification.DPI_320;
+		}
+				
+		return classifyDPI(Capabilities.screenDPI);
+	}
     
     /**
      *  @private
