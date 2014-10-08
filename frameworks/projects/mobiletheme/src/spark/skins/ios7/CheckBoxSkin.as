@@ -83,14 +83,15 @@ package spark.skins.ios7
 			layoutPaddingBottom = 0;
 			
 			upIconClass = spark.skins.ios7.assets.CheckBox_up;
-			upSelectedIconClass = spark.skins.ios7.assets.CheckBox_upSelected;
-			downIconClass = spark.skins.ios7.assets.CheckBox_down;
-			downSelectedIconClass = spark.skins.ios7.assets.CheckBox_downSelected;
 			upSymbolIconClass = null;
+			upSelectedIconClass = spark.skins.ios7.assets.CheckBox_upSelected;
 			upSymbolIconSelectedClass = spark.skins.ios7.assets.CheckBox_upSymbolSelected;
-			downSymbolIconSelectedClass = spark.skins.ios7.assets.CheckBox_downSymbolSelected;
-			downSymbolIconClass = null;
-					
+
+			downIconClass = spark.skins.ios7.assets.CheckBox_up;
+			downSymbolIconClass = null
+			downSelectedIconClass = spark.skins.ios7.assets.CheckBox_up;
+			downSymbolIconSelectedClass = null;
+			
 			switch (applicationDPI)
 			{
 				case DPIClassification.DPI_640:
@@ -102,10 +103,10 @@ package spark.skins.ios7
 					layoutBorderSize = 6;
 					iconWidth = 128;
 					iconHeight = 128;
-					symbolWidth = 64;
-					symbolHeight = 64;
-					symbolOffsetX = 32;
-					symbolOffsetY = 32;
+					symbolWidth = 80;
+					symbolHeight = 80;
+					symbolOffsetX = 2;
+					symbolOffsetY = 0;
 					
 					break;
 				}
@@ -118,10 +119,10 @@ package spark.skins.ios7
 					layoutBorderSize = 4;
 					iconWidth = 96;
 					iconHeight = 96;
-					symbolWidth = 48;
-					symbolHeight = 48;
-					symbolOffsetX = 24;
-					symbolOffsetY = 24;
+					symbolWidth = 60;
+					symbolHeight = 60;
+					symbolOffsetX = 2;
+					symbolOffsetY = 0;
 					
 					break;
 				}
@@ -134,11 +135,11 @@ package spark.skins.ios7
 					layoutBorderSize = 3;
 					iconWidth = 64;
 					iconHeight = 64;
-					symbolWidth = 32;
-					symbolHeight = 32;
-					symbolOffsetX = 16;
-					symbolOffsetY = 16;
-					
+					symbolWidth = 40;
+					symbolHeight = 40;
+					symbolOffsetX = 1;
+					symbolOffsetY = 0;
+
 					break;
 				}
 				case DPIClassification.DPI_240:
@@ -150,10 +151,10 @@ package spark.skins.ios7
 					layoutBorderSize = 2;
 					iconWidth = 48;
 					iconHeight = 48;
-					symbolWidth = 24;
-					symbolHeight = 24;
-					symbolOffsetX = 12;
-					symbolOffsetY = 12;
+					symbolWidth = 30;
+					symbolHeight = 30;
+					symbolOffsetX = 0;
+					symbolOffsetY = 0;
 					
 					break;
 				}
@@ -166,28 +167,25 @@ package spark.skins.ios7
 					layoutBorderSize = 1;
 					iconWidth = 24;
 					iconHeight = 24;
-					symbolWidth = 12;
-					symbolHeight = 12;
-					symbolOffsetX = 6;
-					symbolOffsetY = 6;
+					symbolWidth = 16;
+					symbolHeight = 16;
+					symbolOffsetX = 0;
+					symbolOffsetY = -1;
 					
 					break;
 				}
 				default:
 				{
-					// default DPI_160
-					
 					layoutGap = 4;
 					minWidth = 32;
 					minHeight = 32;
 					layoutBorderSize = 2;
 					iconWidth = 32;
 					iconHeight = 32;
-					symbolWidth = 16;
-					symbolHeight = 16;
-					symbolOffsetX = 8;
-					symbolOffsetY = 8;
-					
+					symbolWidth = 20;
+					symbolHeight = 20;
+					symbolOffsetX = 0.5;
+					symbolOffsetY = 0;
 					
 					break;
 				}

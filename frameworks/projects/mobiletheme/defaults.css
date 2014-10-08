@@ -1040,8 +1040,9 @@ global
 	
 	CheckBox
 	{
-		skinClass: ClassReference("spark.skins.ios7.CheckBoxSkin");
 		chromeColor: #FFFFFF;
+		color: #000000;
+		skinClass: ClassReference("spark.skins.ios7.CheckBoxSkin");
 	}
 	
 	HScrollBar

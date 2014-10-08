@@ -19,15 +19,18 @@
 -->
 <Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008">
   <Group>
-      <Path x="0.624023" y="0.399414" winding="nonZero" data="M14.165 0 16.3838 2.21924 5.24023 13.3232 0 8.52441 2.18164 6.11719 5.37305 9.06348 14.165 0Z">
-        <fill>
-          <SolidColor color="#33B5E5"/>
-        </fill>
-      </Path>
-    <Path x="0.704102" y="0.712402" winding="nonZero" data="M14.165 0 16.3838 2.21924 5.24023 13.3232 0 8.52441 2.18164 6.11719 5.37305 9.06348 14.165 0Z">
-      <stroke>
-        <SolidColorStroke caps="none" joints="miter" miterLimit="10" color="#676767"/>
-      </stroke>
+    <Path x="8" y="8" 
+      data="
+        M 4 7.5 
+        L 3 8.5
+        L 6 11.25
+        L 12.25 5.25
+        L 11.25 4.25
+        L 6 9.5"
+      winding="nonZero">
+      <fill>
+        <SolidColor color="#FFFFFF" alpha="1"/>
+      </fill>
     </Path>
   </Group>
 </Graphic>

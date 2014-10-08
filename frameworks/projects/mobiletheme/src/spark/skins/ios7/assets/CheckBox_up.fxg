@@ -19,13 +19,9 @@
 -->
 
 <Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008" viewHeight="32" viewWidth="32">
-    <Group alpha="0.5" x="8" y="8">
-      <Group>
-        <Path winding="nonZero" data="M16 16 0 16 0 0 16 0 16 16ZM1 15 15 15 15 1 1 1 1 15Z">
-          <fill>
-            <SolidColor color="#676767"/>
-          </fill>
-        </Path>
-      </Group>
-    </Group>
+  <Ellipse width="16" height="16" x="8" y="8">
+    <stroke>
+      <SolidColorStroke color="#CCCCCC" alpha="1" weight="1"/>
+    </stroke>
+  </Ellipse>
 </Graphic>
