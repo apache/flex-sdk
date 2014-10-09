@@ -2699,7 +2699,7 @@ public class SkinnableTextBase extends SkinnableComponent
         
         // We may have gone from empty to non-empty or vice-versa. This should
         // cause the prompt to show or hide.
-        if (prompt != null && prompt != "" && skin && 
+        if (prompt != null && prompt != "" && skin && skin.currentState &&
             (skin.currentState.indexOf("WithPrompt") != -1 && text.length != 0 ||
             skin.currentState.indexOf("WithPrompt") == -1 && text.length == 0))
             invalidateSkinState();
