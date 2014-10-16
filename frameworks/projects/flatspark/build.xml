@@ -1,0 +1,114 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<project name="flatspark" default="main" basedir=".">
+
+    <property name="FLEX_HOME" location="${basedir}/../../.."/>
+    
+    <property file="${FLEX_HOME}/env.properties"/>
+    <property environment="env"/>
+    <property file="${FLEX_HOME}/build.properties"/>
+
+    <target name="main" depends="clean,compile" description="Clean build of flatspark.swc"/>
+
+    <target name="clean">
+        <delete failonerror="false">
+            <fileset file="${basedir}/bundles.properties"/>
+            <fileset dir="${FLEX_HOME}/frameworks/libs">
+                <include name="flatspark.swc"/>
+                <include name="flatspark.swc.incr"/>
+            </fileset>
+        </delete>
+    </target>
+
+    <target name="compile" description="Compiles flatspark.swc">
+        <echo message="Compiling frameworks/libs/flatspark.swc"/>
+
+        <!-- Load the <compc> task. We can't do this at the <project> level -->
+        <!-- because targets that run before flexTasks.jar gets built would fail. -->
+        <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+        <!--
+            This project builds a theme SWC containing skin classes.
+            It has no MXML tags and therefore no manifest.
+            Link in the classes (and their dependencies)
+            listed in SparkSkinsClasses.as.
+            Compile against framework.swc, but don't link it into flatspark.swc.
+            Link in accessibility support.
+            Include various CSS and asset files in the SWC.
+            Don't put any resources into the SWC. (The classes don't require any.)
+            Write a bundle list of referenced resource bundles
+            into the file bundles.properties in this directory.
+            (This should be an empty list.)
+        -->
+        <compc fork="true" 
+               output="${FLEX_HOME}/frameworks/libs/flatspark.swc">
+            <jvmarg line="${compc.jvm.args}"/>
+            <load-config filename="compile-config.xml" />
+            <arg value="+playerglobal.version=${playerglobal.version}" />
+            <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
+        </compc>
+    </target>
+
+    <target name="doc" depends="clean-temp-docs" description="updates flatspark.swc with asdoc xml">
+        <!-- Load the <asdoc> task. We can't do this at the <project> level -->
+        <!-- because targets that run before flexTasks.jar gets built would fail. -->
+        <taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+
+        <condition property="asdoc.jvm.args" value="-Xmx384m">
+            <os family="windows"/>
+        </condition>
+
+        <condition property="asdoc.jvm.args" value="-Xmx512m">
+            <os family="mac"/>
+        </condition>
+
+        <condition property="asdoc.jvm.args" value="-Xmx512m">
+            <os family="unix"/>
+        </condition>
+
+        <!-- Call asdoc to generate dita xml files -->
+        <asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" >
+            <compiler.source-path path-element="${basedir}/src"/>
+            <external-library-path dir="${env.PLAYERGLOBAL_HOME}">
+                <include name="${playerglobal.version}/playerglobal.swc"/>
+            </external-library-path>
+            <external-library-path dir="${FLEX_HOME}/frameworks/libs">
+                <include name="framework.swc" />
+                <include name="spark.swc" />
+            </external-library-path>
+            <jvmarg line="${asdoc.jvm.args}"/>
+        </asdoc>
+
+        <!-- updates flatspark.swc with asdoc xml -->
+        <zip destfile="${FLEX_HOME}/frameworks/libs/flatspark.swc" update="true">
+            <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
+                <include name="*.*"/>
+                <exclude name="ASDoc_Config.xml"/>
+                <exclude name="overviews.xml"/>
+            </zipfileset>
+        </zip>
+    </target>
+
+    <target name="clean-temp-docs">
+        <delete dir="${FLEX_HOME}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
+    </target>
+
+</project>

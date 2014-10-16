@@ -1,37 +1,37 @@
 /* CSS file */
 @namespace s "library://ns.adobe.com/flex/spark";
-@namespace components "flatSpark.components.*";
+@namespace components "flatspark.components.*";
 @namespace ns "http://flex.apache.org/experimental/ns";
 
 
 @font-face { 
-	src: url("flatSpark/assets/fonts/awesome/FontAwesome.otf"); 
+	src: url("flatspark/assets/fonts/awesome/FontAwesome.otf"); 
 	fontFamily: FontAwesome;
 	embedAsCFF: true;
 }
 
 @font-face {
-	src:url("flatSpark/assets/fonts/lato/Lato_Regular.otf");
+	src:url("flatspark/assets/fonts/lato/Lato_Regular.otf");
 	fontFamily: Lato; 
 	embedAsCFF: true; 
 }
 
 @font-face {
-	src:url("flatSpark/assets/fonts/lato/Lato_Regular_Italic.otf");
+	src:url("flatspark/assets/fonts/lato/Lato_Regular_Italic.otf");
 	fontFamily: Lato;
 	fontStyle: italic;
 	embedAsCFF: true; 
 }
 
 @font-face {
-	src:url("flatSpark/assets/fonts/lato/Lato_Bold.otf");
+	src:url("flatspark/assets/fonts/lato/Lato_Bold.otf");
 	fontFamily: Lato;
 	fontWeight: bold;
 	embedAsCFF: true; 
 }
 
 @font-face {
-	src:url("flatSpark/assets/fonts/lato/Lato_Bold_Italic.otf");
+	src:url("flatspark/assets/fonts/lato/Lato_Bold_Italic.otf");
 	fontFamily: Lato;
 	fontStyle: italic;
 	fontWeight: bold;
@@ -39,39 +39,39 @@
 }
 
 @font-face {
-	src:url("flatSpark/assets/fonts/lato/Lato_Light.otf");
+	src:url("flatspark/assets/fonts/lato/Lato_Light.otf");
 	fontFamily: LatoLight;
 	embedAsCFF: true; 
 }
 
 @font-face {
-	src:url("flatSpark/assets/fonts/lato/Lato_Light_Italic.otf");
+	src:url("flatspark/assets/fonts/lato/Lato_Light_Italic.otf");
 	fontFamily: LatoLight;
 	fontStyle: italic;
 	embedAsCFF: true; 
 }
 
 @font-face {
-	src:url("flatSpark/assets/fonts/lato/Lato_Hairline.otf");
+	src:url("flatspark/assets/fonts/lato/Lato_Hairline.otf");
 	fontFamily: LatoHairline;
 	embedAsCFF: true; 
 }
 
 @font-face {
-	src:url("flatSpark/assets/fonts/lato/Lato_Hairline_Italic.otf");
+	src:url("flatspark/assets/fonts/lato/Lato_Hairline_Italic.otf");
 	fontFamily: LatoHairline;
 	fontStyle: italic;
 	embedAsCFF: true; 
 }
 
 @font-face {
-	src:url("flatSpark/assets/fonts/lato/Lato_Black.otf");
+	src:url("flatspark/assets/fonts/lato/Lato_Black.otf");
 	fontFamily: LatoBlack;
 	embedAsCFF: true; 
 }
 
 @font-face {
-	src:url("flatSpark/assets/fonts/lato/Lato_Black_Italic.otf");
+	src:url("flatspark/assets/fonts/lato/Lato_Black_Italic.otf");
 	fontFamily: LatoBlack;
 	fontStyle: italic;
 	embedAsCFF: true; 
@@ -89,9 +89,9 @@ s|Application {
 }
 
 components|ButtonIcon {
-	skinClass: ClassReference("flatSpark.skins.ButtonIconSkin");
+	skinClass: ClassReference("flatspark.skins.ButtonIconSkin");
 }
 
 components|TextInputIcon {
-	skinClass: ClassReference("flatSpark.skins.TextInputIconSkin");
+	skinClass: ClassReference("flatspark.skins.TextInputIconSkin");
 }
