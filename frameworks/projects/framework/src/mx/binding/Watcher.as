@@ -199,37 +199,35 @@ public class Watcher
         {
             wrappedFunction.apply(this);
         }
-        catch(itemPendingError:ItemPendingError)
-        {
-            // The parent's value is not yet available.  This is being ignored for now -
-            // updateParent() will be called when the parent has a value.
-            value = null;
-        }
-        catch(rangeError:RangeError)
-        {
-            // The parent's value is not yet available.  This is being ignored for now -
-            // updateParent() will be called when the parent has a value.
-            value = null;
-        }
         catch(error:Error)
         {
-            // Certain errors are normal when executing an update, so we swallow them:
-            //   Error #1006: Call attempted on an object that is not a function.
-            //   Error #1009: null has no properties.
-            //   Error #1010: undefined has no properties.
-            //   Error #1055: - has no properties.
-            //   Error #1069: Property - not found on - and there is no default value
-            //   Error #1507: - invalid null argument.
-            // We allow any other errors to be thrown.
-            if ((error.errorID != 1006) &&
-                (error.errorID != 1009) &&
-                (error.errorID != 1010) &&
-                (error.errorID != 1055) &&
-                (error.errorID != 1069) &&
-                (error.errorID != 1507))
-            {
-                throw error;
-            }
+			if (error is ItemPendingError) {
+	            // The parent's value is not yet available.  This is being ignored for now -
+	            // updateParent() will be called when the parent has a value.
+	            value = null;
+			} else if (error is RangeError) {
+	            // The parent's value is not yet available.  This is being ignored for now -
+	            // updateParent() will be called when the parent has a value.
+	            value = null;
+			} else {
+	            // Certain errors are normal when executing an update, so we swallow them:
+	            //   Error #1006: Call attempted on an object that is not a function.
+	            //   Error #1009: null has no properties.
+	            //   Error #1010: undefined has no properties.
+	            //   Error #1055: - has no properties.
+	            //   Error #1069: Property - not found on - and there is no default value
+	            //   Error #1507: - invalid null argument.
+	            // We allow any other errors to be thrown.
+	            if ((error.errorID != 1006) &&
+	                (error.errorID != 1009) &&
+	                (error.errorID != 1010) &&
+	                (error.errorID != 1055) &&
+	                (error.errorID != 1069) &&
+	                (error.errorID != 1507))
+	            {
+	                throw error;
+	            }
+			}
         }
     }
 
