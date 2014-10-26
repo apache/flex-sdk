@@ -31,6 +31,7 @@ package
 internal class FlatSparkSkinsClasses
 {
 	// skins
+	import flatspark.skins.AlertSkin; AlertSkin;
     import flatspark.skins.ButtonSkin; ButtonSkin;
 	import flatspark.skins.ButtonIconSkin; ButtonIconSkin;
 	import flatspark.skins.CheckBoxSkin; CheckBoxSkin;
@@ -38,6 +39,7 @@ internal class FlatSparkSkinsClasses
 	import flatspark.skins.ScrollerSkin; ScrollerSkin;
 	import flatspark.skins.DropDownListSkin; DropDownListSkin;
 	import flatspark.skins.PanelSkin; PanelSkin;
+	import flatspark.skins.ProgressBarSkin; ProgressBarSkin;
 	import flatspark.skins.RadioButtonSkin; RadioButtonSkin;
 	import flatspark.skins.TextInputSkin; TextInputSkin;
 	import flatspark.skins.TextInputIconSkin; TextInputIconSkin;
