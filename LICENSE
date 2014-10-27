@@ -728,4 +728,10 @@ see frameworks/projects/framework/asdoc/en_US/mx/effects/examples/assets/OpenSan
 The Roboto-Regular and Roboto-Bold fonts are available under Apache License 2.0.  
 For details see frameworks\projects\mobiletheme\src\spark\skins\android4\assets\fonts
 
+The Font Awesome font is available under OFL.  For details
+see frameworks/projects/flatspark/src/flatspark/assets/fonts/awesome
+
+The Lato font is available under OFL. For details
+see frameworks/projects/flatspark/src/flatspark/assets/fonts/lato
+
 ------------------------------------------------------------------------------------------
