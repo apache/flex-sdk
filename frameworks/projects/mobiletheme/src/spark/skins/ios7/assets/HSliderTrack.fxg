@@ -22,7 +22,7 @@
   <Group scaleGridLeft="82" scaleGridRight="246" scaleGridTop="1.5" scaleGridBottom="0.5">
     <Path winding="nonZero" data="M328 2 0 2 0 0 328 0 328 2Z">
       <fill>
-        <SolidColor color="#A6A6A6"/>
+        <SolidColor color="#b6b6b6"/>
       </fill>
     </Path>
   </Group>

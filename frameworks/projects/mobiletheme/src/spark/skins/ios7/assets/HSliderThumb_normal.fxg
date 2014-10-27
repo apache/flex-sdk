@@ -20,14 +20,22 @@
 
 <Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008">
   <Group scaleGridLeft="6.75" scaleGridRight="20.25" scaleGridTop="20.25" scaleGridBottom="6.75">
-    <Path alpha="0.5" winding="nonZero" data="M27 13.5C27 20.9556 20.9561 27 13.5 27 6.04395 27 0 20.9556 0 13.5 0 6.04395 6.04395 0 13.5 0 20.9561 0 27 6.04395 27 13.5Z">
+    <Path alpha="1" winding="nonZero" data="M27 13.5C27 20.9556 20.9561 27 13.5 27 6.04395 27 0 20.9556 0 13.5 0 6.04395 6.04395 0 13.5 0 20.9561 0 27 6.04395 27 13.5Z">
+   	  <!--dropshadow-->
+      <filters>
+          <DropShadowFilter distance="5" alpha=".4" strength=".33" angle="90" blurX="5" blurY="5"/>
+      </filters>
+      <!--outer border-->  
+      <stroke>
+    	<LinearGradientStroke rotation ="90" weight=".2">
+           <GradientEntry color="#b6b6b6" ratio="0" alpha=".2"/>
+           <GradientEntry color="#b6b6b6" ratio=".50" alpha=".6"/>
+           <GradientEntry color="#b6b6b6" ratio="1" alpha=".8"/>
+         </LinearGradientStroke>
+	  </stroke> 
+	  <!--solid fill-->
       <fill>
-        <SolidColor color="#33B5E5"/>
-      </fill>
-    </Path>
-    <Path x="10.0049" y="10" winding="nonZero" data="M7 3.5C7 5.43262 5.43262 7 3.5 7 1.56738 7 0 5.43262 0 3.5 0 1.56689 1.56738 0 3.5 0 5.43262 0 7 1.56689 7 3.5Z">
-      <fill>
-        <SolidColor color="#33B5E5"/>
+        <SolidColor color="#ffffff"/>
       </fill>
     </Path>
   </Group>
