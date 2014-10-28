@@ -280,6 +280,19 @@ public class ButtonSkin extends ButtonSkinBase
         super.createChildren();
         setStyle("textAlign", "center");
     }
+	
+	override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+	{
+		super.updateDisplayList(unscaledWidth,unscaledHeight);
+		if(currentState == "down")
+		{
+			this.alpha = 0.5;	
+		}
+		else
+		{
+			this.alpha = 1.0;
+		}
+	}
     
     /**
      *  @private 
