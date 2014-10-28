@@ -22,7 +22,7 @@
   <Group x="-1" y="-1" scaleGridLeft="2.5" scaleGridRight="7.5" scaleGridTop="7.5" scaleGridBottom="2.5">
     <Path winding="nonZero" data="M10 5C10 7.76123 7.76172 10 5 10 2.23828 10 0 7.76123 0 5 0 2.23877 2.23828 0 5 0 7.76172 0 10 2.23877 10 5Z">
       <fill>
-        <SolidColor color="#676767"/>
+        <SolidColor color="#007AFF"/>
       </fill>
     </Path>
   </Group>
