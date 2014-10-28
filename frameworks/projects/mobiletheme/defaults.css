@@ -951,7 +951,6 @@ global
 	
 	ActionBar
 	{
-		chromeColor: #DEDEDD;
 		defaultButtonAppearance: normal;
 		skinClass: ClassReference("spark.skins.ios7.ActionBarSkin");
 		textShadowAlpha: 0;
@@ -964,21 +963,21 @@ global
 	
 	ActionBar #titleDisplay
 	{
-		color: #333333;
+		color: #007AFF;
 		fontSize: 24;
 		fontFamily: RobotoBold;
 	}
 	
 	ActionBar ButtonBase
 	{
-		color: #333333;
+		color: #007AFF;
 		fontFamily: RobotoBold;
 		fontWeight: bold;
 	}
 	
 	ActionBar Group#actionGroup Button
 	{
-		skinClass: ClassReference("spark.skins.ios7.TransparentActionButtonSkin");
+		skinClass: ClassReference("spark.skins.ios7.ButtonSkin");
 	}
 	
 	Button
