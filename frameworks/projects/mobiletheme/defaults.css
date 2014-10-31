@@ -965,14 +965,15 @@ global
 	{
 		color: #007AFF;
 		fontSize: 24;
-		fontFamily: RobotoBold;
+		fontFamily: RobotoRegular;
+		fontWeight: normal;
 	}
 	
 	ActionBar ButtonBase
 	{
 		color: #007AFF;
-		fontFamily: RobotoBold;
-		fontWeight: bold;
+		fontFamily: RobotoRegular;
+		fontWeight: normal;
 	}
 	
 	ActionBar Group#actionGroup Button
@@ -983,7 +984,8 @@ global
 	Button
 	{
 		skinClass: ClassReference("spark.skins.ios7.ButtonSkin");
-		fontFamily: RobotoBold;
+		fontFamily: RobotoRegular;
+		fontWeight: normal;
 	}
 	
 	Button.emphasized
@@ -994,8 +996,8 @@ global
 	ButtonBar
 	{
 		skinClass: ClassReference("spark.skins.ios7.ButtonBarSkin");
-		fontFamily: RobotoBold;
-		fontWeight: "bold";
+		fontFamily: RobotoRegular;
+		fontWeight: normal;
 	}
 	
 	Callout
@@ -1040,7 +1042,6 @@ global
 	CheckBox
 	{
 		chromeColor: #FFFFFF;
-		color: #000000;
 		skinClass: ClassReference("spark.skins.ios7.CheckBoxSkin");
 	}
 	
@@ -1083,8 +1084,9 @@ global
 	TabbedViewNavigator #tabBar
 	{
 		fontFamily: RobotoRegular;
-		chromeColor: #484848;
-		color: #000000;
+		chromeColor: #FFFFFF;
+		color: #007AFF;
+		highlightTextColor: #FFFFFF;
 		fontSize: 20;
 		fontWeight: normal;
 		iconPlacement: top;
