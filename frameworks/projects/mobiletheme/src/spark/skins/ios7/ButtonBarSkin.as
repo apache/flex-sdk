@@ -124,6 +124,7 @@ public class ButtonBarSkin extends MobileSkin
         {
             dataGroup = new DataGroup();
             var hLayout:ButtonBarHorizontalLayout = new ButtonBarHorizontalLayout();
+			//TODO: Gap should vary depending on current DPI
             hLayout.gap = -1;
             dataGroup.layout = hLayout;
             addChild(dataGroup);
