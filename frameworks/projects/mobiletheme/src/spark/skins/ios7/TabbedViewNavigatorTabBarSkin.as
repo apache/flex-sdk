@@ -25,9 +25,7 @@ import spark.skins.mobile.supportClasses.ButtonBarButtonClassFactory;
 import spark.skins.mobile.supportClasses.TabbedViewNavigatorTabBarHorizontalLayout;
 
 /**
- *  The Android 4.x specific skin class for the Spark TabbedViewNavigator tabBar skin part.
- *  It uses the ButtonBarFirstButtonSkin and ButtonBarMiddleButtonSkin as skins for first
- *  middle buttons
+ *  The iOS7+ specific skin class for the Spark TabbedViewNavigator tabBar skin part.
  *  
  *  @see spark.components.TabbedViewNavigator#tabBar
  *  
@@ -78,7 +76,7 @@ public class TabbedViewNavigatorTabBarSkin extends ButtonBarSkin
         if (!lastButton)
         {
             lastButton = new ButtonBarButtonClassFactory(ButtonBarButton);
-            lastButton.skinClass = spark.skins.ios7.ButtonBarFirstButtonSkin;
+            lastButton.skinClass = spark.skins.ios7.ButtonBarLastButtonSkin;
         }
         
         if (!middleButton)
