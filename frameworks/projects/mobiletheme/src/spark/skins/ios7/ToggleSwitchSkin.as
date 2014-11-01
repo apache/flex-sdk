@@ -30,13 +30,13 @@ package spark.skins.ios7
 	import spark.components.ToggleSwitch;
 	import spark.components.supportClasses.StyleableTextField;
 	import spark.core.SpriteVisualElement;
-	import spark.skins.ios7.assets.ToggleSwitchBackground;
-	import spark.skins.ios7.assets.ToggleSwitchThumb_off;
+	import spark.skins.ios7.assets.ToggleSwitchBackground_off;
+	import spark.skins.ios7.assets.ToggleSwitchBackground_on;
 	import spark.skins.mobile.supportClasses.MobileSkin;
 	
 	
 	/**
-	 *  ActionScript-based Android 4.x specific skin for the ToggleSwitch control. 
+	 *  ActionScript-based iOS7+ specific skin for the ToggleSwitch control. 
 	 *  This class is responsible for most of the 
 	 *  graphics drawing, with additional fxg assets.
 	 *  
@@ -77,6 +77,7 @@ package spark.skins.ios7
 		//----------------------------------
 		
 		private var _hostComponent:ToggleSwitch;
+		//The label is called selectedLabelDisplay because the hostComponent expects it
 		public var selectedLabelDisplay:LabelDisplayComponent;
 		
 		/**
@@ -96,59 +97,13 @@ package spark.skins.ios7
 				_hostComponent.addEventListener("thumbPositionChanged", thumbPositionChanged_handler);
 		}
 		
-		//----------------------------------
-		//  selectedLabel
-		//----------------------------------
-		
-		private var _selectedLabel:String;
-		/**
-		 *  The text of the label showing when the component is selected.
-		 *  Subclasses can set or override this property to customize the selected label.
-		 *  
-		 *  @langversion 3.0
-		 *  @playerversion AIR 3
-		 *  @productversion Flex 4.6
-		 */
-		protected function get selectedLabel():String 
-		{
-			return _selectedLabel;
-		}
-		
-		protected function set selectedLabel(value:String):void
-		{
-			_selectedLabel = value;
-		}
-		
-		//----------------------------------
-		//  unselectedLabel
-		//----------------------------------
-		
-		private var _unselectedLabel:String;
-		/**
-		 *  The text of the label showing when the component is not selected.
-		 *  Subclasses can set or override this property to customize the unselected label.
-		 * 
-		 *  @langversion 3.0
-		 *  @playerversion AIR 3
-		 *  @productversion Flex 4.6
-		 */
-		protected function get unselectedLabel():String 
-		{
-			return _unselectedLabel;
-		}
-		
-		protected function set unselectedLabel(value:String):void
-		{
-			_unselectedLabel = value;
-		}
-				
-		
 		/**
 		 *  The contents inside the skin, not including the outline
 		 *  stroke
 		 */
 		private var contents:UIComponent;
-		private var switchTrack:Class;
+		private var switchTrackOn:Class;
+		private var switchTrackOff:Class;
 		private var switchOff:Class;
 		private var switchOn:Class;
 		protected var trackWidth:Number;
@@ -157,12 +112,15 @@ package spark.skins.ios7
 		protected var layoutThumbHeight:Number;
 		private var thumbOn:IVisualElement;
 		private var thumbOff:IVisualElement;
+		private var trackOn:IVisualElement;
+		private var trackOff:IVisualElement;
 		
 		public function ToggleSwitchSkin()
 		{
 			super();
 			
-			switchTrack = spark.skins.ios7.assets.ToggleSwitchBackground;
+			switchTrackOn = spark.skins.ios7.assets.ToggleSwitchBackground_on;
+			switchTrackOff = spark.skins.ios7.assets.ToggleSwitchBackground_off;
 			switchOn = spark.skins.ios7.assets.ToggleSwitchThumb_on;
 			switchOff = spark.skins.ios7.assets.ToggleSwitchThumb_off;
 			
@@ -170,108 +128,108 @@ package spark.skins.ios7
 			{	
 				case DPIClassification.DPI_640:
 				{
-					layoutThumbWidth = 188;
-					layoutThumbHeight = 96;
-					trackWidth = 388;
-					trackHeight = 96;
+					layoutThumbWidth = 108;
+					layoutThumbHeight = 108;
+					trackWidth = 224;
+					trackHeight = 124;
 					break;
 				}
 				case DPIClassification.DPI_480:
 				{
-					layoutThumbWidth = 140;
-					layoutThumbHeight = 72;
-					trackWidth = 291;
-					trackHeight = 72;
+					layoutThumbWidth = 80;
+					layoutThumbHeight = 80;
+					trackWidth = 168;
+					trackHeight = 92;
 					break;
 				}		
 				case DPIClassification.DPI_320:
 				{
-					layoutThumbWidth = 94;
-					layoutThumbHeight = 48;
-					trackWidth = 194;
-					trackHeight = 48;
+					layoutThumbWidth = 54;
+					layoutThumbHeight = 54;
+					trackWidth = 112;
+					trackHeight = 62;
 					break;
 				}
 				case DPIClassification.DPI_240:
 				{
-					layoutThumbWidth = 70;
-					layoutThumbHeight = 36;
-					trackWidth = 146;
-					trackHeight = 36;
+					layoutThumbWidth = 40;
+					layoutThumbHeight = 40;
+					trackWidth = 84;
+					trackHeight = 46;
 					break;
 				}
 				case DPIClassification.DPI_120:
 				{
-					layoutThumbWidth = 35;
-					layoutThumbHeight = 18;
-					trackWidth = 73;
-					trackHeight = 18;
+					layoutThumbWidth = 20;
+					layoutThumbHeight = 20;
+					trackWidth = 42;
+					trackHeight = 23;
 					break;
 				}
 				default:
 				{
-					layoutThumbWidth = 47;
-					layoutThumbHeight = 24;
-					trackWidth = 97;
-					trackHeight = 24;
+					layoutThumbWidth = 27;
+					layoutThumbHeight = 27;
+					trackWidth = 56;
+					trackHeight = 31;
 					break;
 				}
 			}
 			
-			selectedLabel = resourceManager.getString("components","toggleSwitchSelectedLabel");
-			unselectedLabel =  resourceManager.getString("components","toggleSwitchUnselectedLabel");
 		}
 		
 		override protected function createChildren():void
 		{
 			super.createChildren();
 			contents = new UIComponent();
-			contents.blendMode = BlendMode.LAYER;
 			addChild(contents);
-			drawTrack();
+			drawTracks();
 			drawThumbs();
-			drawLabel();
 		}
 		
 		override protected function measure():void 
 		{
 			// The skin must be at least as large as the thumb
-			measuredMinWidth = layoutThumbWidth;
-			measuredMinHeight = layoutThumbHeight;
+			measuredMinWidth = trackWidth;
+			measuredMinHeight = trackHeight;
 			
-			// The preferred size will display all label text
-			var labelWidth:Number = getElementPreferredWidth(selectedLabelDisplay);
-			measuredWidth = layoutThumbWidth + labelWidth;
-			measuredHeight = layoutThumbHeight;
+			measuredWidth = trackWidth;
+			measuredHeight = trackHeight;
 		}
 		
 		override protected function commitCurrentState():void
 		{
 			toggleSelectionState();
 			layoutThumbs();
-			layoutLabel();
 		}
 		
-		//The label is called selectedLabelDisplay because the hostComponent expects it
-		protected function drawLabel():void
+		//Draw both thumbs.  Set skinpart track to be switchTrackOff because default 
+		//state of the switch is OFF
+		protected function drawTracks():void
 		{
-			selectedLabelDisplay = new LabelDisplayComponent();
-			selectedLabelDisplay.id = "selectedLabelDisplay";
-			selectedLabelDisplay.text = selectedLabel;
-			setElementSize(selectedLabelDisplay,thumb.width,thumb.height);
-			contents.addChild(selectedLabelDisplay);
+			drawTrackOff();
+			drawTrackOn();
+			if(track == null)
+			{
+				track = trackOff;
+			}
 		}
 		
 		//Draw the track behind everything else
-		protected function drawTrack():void
+		protected function drawTrackOn():void
 		{
-			if(track == null)
-			{
-				track = new switchTrack();
-				track.width = trackWidth;
-				track.height = trackHeight;
-				contents.addChildAt(SpriteVisualElement(track),0);
-			}
+			trackOn = new switchTrackOn();
+			trackOn.width = trackWidth;
+			trackOn.height = trackHeight;
+			contents.addChildAt(SpriteVisualElement(trackOn),0);
+		}
+		
+		protected function drawTrackOff():void
+		{
+			trackOff = new switchTrackOff();
+			trackOff.width = trackWidth;
+			trackOff.height = trackHeight;
+			contents.addChildAt(SpriteVisualElement(trackOff),0);
 		}
 		
 		//Draw both thumbs.  Set skinpart thumb to be thumbOff because default state of the switch is OFF
@@ -288,24 +246,8 @@ package spark.skins.ios7
 		//Thumb ON the right side; Thumb OFF is on the left side
 		protected function layoutThumbs():void
 		{
-			setElementPosition(thumbOn,trackWidth/2,0);
-			setElementPosition(thumbOff,0,0);
-		}
-		
-		//Label display sould be at the same location as the thumb
-		protected function layoutLabel():void
-		{
-			if(selectedLabelDisplay != null)
-			{
-				if(currentState.indexOf("AndSelected") != -1)
-				{
-					setElementPosition(selectedLabelDisplay,trackWidth/2,0);
-				}
-				else
-				{
-					setElementPosition(selectedLabelDisplay,0,0);
-				}
-			}
+			setElementPosition(thumbOn,trackWidth/2,trackHeight/2 - thumbOn.height/2);
+			setElementPosition(thumbOff,0,trackHeight/2 - thumbOff.height/2);
 		}
 		
 		//Depending on current state, set skinpart thumb accordingly
@@ -316,14 +258,18 @@ package spark.skins.ios7
 				thumbOn.visible = true;
 				thumbOff.visible = false;
 				thumb = thumbOn;
-				selectedLabelDisplay.text = selectedLabel;
+				trackOn.visible = true;
+				trackOff.visible = false;
+				track = trackOn;
 			}
 			else
 			{
 				thumbOff.visible = true;
 				thumbOn.visible = false;
 				thumb = thumbOff;
-				selectedLabelDisplay.text = unselectedLabel;
+				trackOff.visible = true;
+				trackOn.visible = false;
+				track = trackOff;
 			}
 		}
 		
@@ -332,7 +278,7 @@ package spark.skins.ios7
 			thumbOn = new switchOn();
 			thumbOn.width = layoutThumbWidth;
 			thumbOn.height = layoutThumbHeight;
-			contents.addChildAt(SpriteVisualElement(thumbOn),1);
+			contents.addChildAt(SpriteVisualElement(thumbOn),2);
 		}
 		
 		protected function drawThumbOff():void
@@ -340,7 +286,7 @@ package spark.skins.ios7
 			thumbOff = new switchOff();
 			thumbOff.width = layoutThumbWidth;
 			thumbOff.height = layoutThumbHeight;
-			contents.addChildAt(SpriteVisualElement(thumbOff),1);
+			contents.addChildAt(SpriteVisualElement(thumbOff),2);
 		}
 		
 		//Hostcomponent dispatches this event whenever the thumb position changes	
@@ -358,7 +304,6 @@ package spark.skins.ios7
 				hostComponent.thumbPosition + track.getLayoutBoundsX();
 			var y:Number = thumb.getLayoutBoundsY();
 			setElementPosition(thumb, x, y);
-			setElementPosition(selectedLabelDisplay, x, y);
 		}
 	}
 }

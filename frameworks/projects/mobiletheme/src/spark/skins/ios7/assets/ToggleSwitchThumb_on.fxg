@@ -19,22 +19,14 @@
 -->
 
 <Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008">
-  <Group scaleGridLeft="11.75" scaleGridRight="35.25" scaleGridTop="16.5" scaleGridBottom="5.5">
-    <Path winding="nonZero" data="M47 22 0 22 0 0 47 0 47 22Z">
-      <fill>
-        <SolidColor color="#33B5E5"/>
-      </fill>
-    </Path>
-    <Path winding="nonZero" data="M46 0 46 21 0 21 0 22 47 22 47 0 46 0Z">
-      <fill>
-        <SolidColor color="#3399E5"/>
-      </fill>
-    </Path>
-    <Path winding="nonZero" data="M47 1 0 1 0 0 47 0 47 1Z">
+  <Group scaleGridLeft="14" scaleGridRight="42" scaleGridTop="42" scaleGridBottom="14">
+    <Path winding="nonZero" data="M56 28C56 43.4619 43.4609 56 28 56 12.5381 56 0 43.4619 0 28 0 12.5391 12.5381 0 28 0 43.4609 0 56 12.5391 56 28Z">
       <fill>
         <SolidColor color="#FFFFFF"/>
       </fill>
+      <filters>
+          <DropShadowFilter distance="5" alpha=".4" strength=".33" angle="90" blurX="5" blurY="5"/>
+      </filters>
     </Path>
-    <Path visible="false" winding="nonZero" data="M0 0 47 0 47 22 0 22 0 0Z"/>
   </Group>
 </Graphic>
