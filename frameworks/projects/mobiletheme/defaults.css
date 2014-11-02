@@ -137,6 +137,11 @@ Callout
 	borderColor: 0;
 }
 
+CalloutButton
+{
+	rollOverOpenDelay: NaN;
+}
+
 Callout ViewNavigator
 {
 	skinClass: ClassReference("spark.skins.mobile.CalloutViewNavigatorSkin");
@@ -1002,20 +1007,26 @@ global
 	
 	Callout
 	{
-		backgroundColor: #33B5E5;
-		contentBackgroundColor: #FFFFFF;
-		gap: 12;
 		skinClass: ClassReference("spark.skins.ios7.CalloutSkin");
+		backgroundColor: #F6F6F6;
+		contentBackgroundColor: #F6F6F6;
+		gap: 12;
 		borderThickness: 0;
-		borderColor: 0;
+		frameThickness: 0;
+		contentBackgroundAppearance: flat;
 	}
 	
 	Callout ViewNavigator ActionBar
 	{
-		skinClass: ClassReference("spark.skins.mobile.CalloutActionBarSkin");
-		defaultButtonAppearance: none;
+		skinClass: ClassReference("spark.skins.ios7.CalloutActionBarSkin");
+		defaultButtonAppearance: normal;
+		textShadowAlpha: 0;
+		textShadowColor: #000000;
+		paddingBottom: 0;
 		paddingLeft: 0;
 		paddingRight: 0;
+		paddingTop: 0;
+		contentBackgroundAppearance: flat;
 	}
 	
 	Callout ViewNavigator ActionBar.beveled
@@ -1026,19 +1037,29 @@ global
 	
 	Callout ViewNavigator ActionBar.beveled Group#navigationGroup Button
 	{
-		skinClass: ClassReference("spark.skins.mobile.BeveledActionButtonSkin");
+		skinClass: ClassReference("spark.skins.ios7.ButtonSkin");
 	}
 	
 	Callout ViewNavigator ActionBar.beveled Group#navigationGroup Button.emphasized
 	{
-		skinClass: ClassReference("spark.skins.mobile.DefaultBeveledActionButtonSkin");
+		skinClass: ClassReference("spark.skins.ios7.ButtonSkin");
+	}
+	
+	Callout ViewNavigator ActionBar Group#navigationGroup Button
+	{
+		skinClass: ClassReference("spark.skins.ios7.ButtonSkin");
+	}
+	
+	Callout ViewNavigator ActionBar Group#navigationGroup Button.emphasized
+	{
+		skinClass: ClassReference("spark.skins.ios7.ButtonSkin");
 	}
 	
 	Callout#viewNavigatorPopUp
 	{
-		contentBackgroundAppearance: none;
+		contentBackgroundAppearance: flat;
 	}
-	
+
 	CheckBox
 	{
 		chromeColor: #FFFFFF;
@@ -1463,6 +1484,7 @@ application-dpi=240.
 		skinClass: ClassReference("spark.skins.android4.CalloutSkin");
 		borderThickness: 0;
 		borderColor: 0;
+		contentBackgroundAppearance: flat;
 	}
 	
 	Callout ViewNavigator ActionBar

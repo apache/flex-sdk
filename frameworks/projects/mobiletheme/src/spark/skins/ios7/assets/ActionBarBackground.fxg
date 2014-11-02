@@ -53,7 +53,7 @@
       </mask>
       <Path winding="nonZero" data="M640 1 0 1 0 0 640 0 640 1Z">
         <fill>
-          <SolidColor/>
+          <SolidColor color="#B2B2B2"/>
         </fill>
       </Path>
     </Group>

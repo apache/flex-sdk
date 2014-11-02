@@ -89,17 +89,17 @@ public class CalloutSkin extends MobileSkin
     {
         super();
         
-        dropShadowAlpha = 0.7;
-		contentBackgroundInsetClass = spark.skins.ios7.assets.CalloutContentBackground;
+        dropShadowAlpha = 0;
+		contentBackgroundInsetClass = null;
+		frameThickness = 0;
+		backgroundCornerRadius = 0;
+		backgroundGradientHeight = 0;
         
         switch (applicationDPI)
         {
 			case DPIClassification.DPI_640:
 			{
 				
-				backgroundCornerRadius = 24;
-				backgroundGradientHeight = 440;
-				frameThickness = 12;
 				arrowWidth = 160;
 				arrowHeight = 80;
 				contentCornerRadius = 40;
@@ -112,12 +112,9 @@ public class CalloutSkin extends MobileSkin
 			}
 			case DPIClassification.DPI_480:
 			{
-				backgroundCornerRadius = 16;
-				backgroundGradientHeight = 330;
-				frameThickness = 8;
 				arrowWidth = 120;
 				arrowHeight = 60;
-				contentCornerRadius = 28;
+				contentCornerRadius = 30;
 				dropShadowBlurX = 48;
 				dropShadowBlurY = 48;
 				dropShadowDistance = 8;
@@ -128,9 +125,6 @@ public class CalloutSkin extends MobileSkin
             case DPIClassification.DPI_320:
             {
 				
-				backgroundCornerRadius = 12;
-				backgroundGradientHeight = 220;
-				frameThickness = 6;
 				arrowWidth = 80;
 				arrowHeight = 40;
 				contentCornerRadius = 20;
@@ -143,12 +137,9 @@ public class CalloutSkin extends MobileSkin
             }
             case DPIClassification.DPI_240:
             {
-                backgroundCornerRadius = 8;
-                backgroundGradientHeight = 165;
-                frameThickness = 4;
                 arrowWidth = 60;
                 arrowHeight = 30;
-                contentCornerRadius = 14;
+                contentCornerRadius = 15;
                 dropShadowBlurX = 24;
                 dropShadowBlurY = 24;
                 dropShadowDistance = 4;
@@ -158,12 +149,9 @@ public class CalloutSkin extends MobileSkin
             }
 			case DPIClassification.DPI_120:
 			{
-				backgroundCornerRadius = 4;
-				backgroundGradientHeight = 83;
-				frameThickness = 2;
 				arrowWidth = 30;
 				arrowHeight = 15;
-				contentCornerRadius = 7;
+				contentCornerRadius = 7.5;
 				dropShadowBlurX = 12;
 				dropShadowBlurY = 12;
 				dropShadowDistance = 2;
@@ -174,9 +162,6 @@ public class CalloutSkin extends MobileSkin
             default:
             {
                 // default DPI_160
-                backgroundCornerRadius = 6;
-                backgroundGradientHeight = 110;
-                frameThickness = 3;
                 arrowWidth = 40;
                 arrowHeight = 20;
                 contentCornerRadius = 10;
@@ -208,7 +193,7 @@ public class CalloutSkin extends MobileSkin
      *  @playerversion AIR 3
      *  @productversion Flex 4.6
      */
-    protected var dropShadowVisible:Boolean = true;
+    protected var dropShadowVisible:Boolean = false;
     
     /**
      *  Enables a vertical linear gradient in the <code>backgroundColor</code> frame. This
@@ -591,42 +576,12 @@ public class CalloutSkin extends MobileSkin
         var frameWidth:Number = contentGroup.getLayoutBoundsWidth() + (frameThickness * 2) + borderWeight;
         var frameHeight:Number = contentGroup.getLayoutBoundsHeight() + (frameThickness * 2) + borderWeight;
         
-        var backgroundColor:Number = getStyle("primaryAccentColor");
+        var backgroundColor:Number = getStyle("contentBackgroundColor");
         var backgroundAlpha:Number = getStyle("backgroundAlpha");
         
         var bgFill:Graphics = backgroundFill.graphics;
         bgFill.clear();
-        
-        if (showBorder)
-            bgFill.lineStyle(borderWeight, actualBorderColor, 1, true);
-        
-        if (useBackgroundGradient)
-        {
-            // top color is brighter if arrowDirection == ArrowDirection.UP
-            var backgroundColorTop:Number = ColorUtil.adjustBrightness2(backgroundColor, 
-                BACKGROUND_GRADIENT_BRIGHTNESS_TOP);
-            var backgroundColorBottom:Number = ColorUtil.adjustBrightness2(backgroundColor, 
-                BACKGROUND_GRADIENT_BRIGHTNESS_BOTTOM);
-            
-            // max gradient height = backgroundGradientHeight
-            colorMatrix.createGradientBox(unscaledWidth, backgroundGradientHeight,
-                Math.PI / 2, 0, 0);
-            
-            bgFill.beginGradientFill(GradientType.LINEAR,
-                [backgroundColorTop, backgroundColorBottom],
-                [backgroundAlpha, backgroundAlpha],
-                [0, 255],
-                colorMatrix);
-        }
-        else
-        {
-            bgFill.beginFill(backgroundColor, backgroundAlpha);
-        }
-        
-        bgFill.drawRoundRect(frameX, frameY, frameWidth,
-            frameHeight, frameEllipseSize, frameEllipseSize);
-        bgFill.endFill();
-        
+		
         // draw content background styles
         var contentBackgroundAppearance:String = getStyle("contentBackgroundAppearance");
         
