@@ -423,44 +423,46 @@ public class Binding
             wrappedFunctionSuccessful = true;
             return result;
         }
+        catch(itemPendingError:ItemPendingError)
+        {
+            itemPendingError.addResponder(new EvalBindingResponder(this, object));
+            if (BindingManager.debugDestinationStrings[destString])
+            {
+                trace("Binding: destString = " + destString + ", error = " + itemPendingError);
+            }
+        }
+        catch(rangeError:RangeError)
+        {
+            if (BindingManager.debugDestinationStrings[destString])
+            {
+                trace("Binding: destString = " + destString + ", error = " + rangeError);
+            }
+        }
         catch(error:Error)
         {
-			if (error is ItemPendingError) {
-	            error.addResponder(new EvalBindingResponder(this, object));
-	            if (BindingManager.debugDestinationStrings[destString])
-	            {
-	                trace("Binding: destString = " + destString + ", error = " + error);
-	            }
-			} else if (error is RangeError) {
-	            if (BindingManager.debugDestinationStrings[destString])
-	            {
-	                trace("Binding: destString = " + destString + ", error = " + error);
-	            }
-			} else {
-	            // Certain errors are normal when executing a srcFunc or destFunc,
-	            // so we swallow them:
-	            //   Error #1006: Call attempted on an object that is not a function.
-	            //   Error #1009: null has no properties.
-	            //   Error #1010: undefined has no properties.
-	            //   Error #1055: - has no properties.
-	            //   Error #1069: Property - not found on - and there is no default value
-	            // We allow any other errors to be thrown.
-	            if ((error.errorID != 1006) &&
-	                (error.errorID != 1009) &&
-	                (error.errorID != 1010) &&
-	                (error.errorID != 1055) &&
-	                (error.errorID != 1069))
-	            {
-	                throw error;
-	            }
-	            else
-	            {
-	                if (BindingManager.debugDestinationStrings[destString])
-	                {
-	                    trace("Binding: destString = " + destString + ", error = " + error);
-	                }
-	            }
-			}
+            // Certain errors are normal when executing a srcFunc or destFunc,
+            // so we swallow them:
+            //   Error #1006: Call attempted on an object that is not a function.
+            //   Error #1009: null has no properties.
+            //   Error #1010: undefined has no properties.
+            //   Error #1055: - has no properties.
+            //   Error #1069: Property - not found on - and there is no default value
+            // We allow any other errors to be thrown.
+            if ((error.errorID != 1006) &&
+                (error.errorID != 1009) &&
+                (error.errorID != 1010) &&
+                (error.errorID != 1055) &&
+                (error.errorID != 1069))
+            {
+                throw error;
+            }
+            else
+            {
+                if (BindingManager.debugDestinationStrings[destString])
+                {
+                    trace("Binding: destString = " + destString + ", error = " + error);
+                }
+            }
         }
 
         return null;
