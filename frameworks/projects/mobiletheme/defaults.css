@@ -986,6 +986,12 @@ global
 		skinClass: ClassReference("spark.skins.ios7.ButtonSkin");
 	}
 	
+	BusyIndicator
+	{
+		skinClass: ClassReference("spark.skins.ios7.BusyIndicatorSkin");
+		rotationInterval: 30;  /* Must be multiples of 30 */
+	}	
+	
 	Button
 	{
 		skinClass: ClassReference("spark.skins.ios7.ButtonSkin");
@@ -1174,11 +1180,6 @@ global
 		paddingRight: 8;
 		paddingTop: 8;
 		skinClass : ClassReference("spark.skins.ios7.ViewMenuItemSkin");
-	}
-	
-	MobileBusyIndicator
-	{
-		skinClass: ClassReference("spark.skins.ios7.BusyIndicatorSkin");
 	}
 	
 	ViewNavigator
@@ -1452,7 +1453,7 @@ application-dpi=240.
 		skinClass: ClassReference("spark.skins.android4.TransparentActionButtonSkin");
 	}
 	
-	MobileBusyIndicator
+	BusyIndicator
 	{
 		skinClass: ClassReference("spark.skins.android4.BusyIndicatorSkin");
 	}

@@ -27,7 +27,7 @@ package spark.skins.android4
 	import spark.skins.android4.assets.BusyIndicator;
 	import spark.skins.mobile.supportClasses.MobileSkin;
 	
-	import spark.components.MobileBusyIndicator;
+	import spark.components.BusyIndicator;
 	
 	public class BusyIndicatorSkin extends MobileSkin
 	{
@@ -43,6 +43,8 @@ package spark.skins.android4
 		 *  Current rotation of this component in degrees.
 		 */   
 		private var currentRotation:Number = 0;
+		private var symbolColor:uint;
+		private var symbolColorChanged:Boolean = false;		
 		
 		public function BusyIndicatorSkin()
 		{
@@ -90,14 +92,14 @@ package spark.skins.android4
 			}
 		}
 		
-		private var _hostComponent:spark.components.MobileBusyIndicator;
+		private var _hostComponent:spark.components.BusyIndicator;
 		
-		public function get hostComponent():spark.components.MobileBusyIndicator
+		public function get hostComponent():spark.components.BusyIndicator
 		{
 			return _hostComponent;
 		}
 		
-		public function set hostComponent(value:spark.components.MobileBusyIndicator):void 
+		public function set hostComponent(value:spark.components.BusyIndicator):void 
 		{
 			_hostComponent = value;
 		}
@@ -130,6 +132,34 @@ package spark.skins.android4
 				stopRotation();
 			}
 		}
+		
+		override public function styleChanged(styleProp:String):void
+		{
+			var allStyles:Boolean = !styleProp || styleProp == "styleName";
+			
+			if (allStyles || styleProp == "symbolColor")
+			{
+				symbolColor = getStyle("symbolColor");
+				symbolColorChanged = true;
+				invalidateDisplayList();
+			}
+			super.styleChanged(styleProp);
+		}
+		
+		override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+		{
+			super.updateDisplayList(unscaledWidth,unscaledHeight);
+			if(symbolColorChanged)
+			{
+				colorizeSymbol();	
+				symbolColorChanged = false;
+			}
+		}
+		
+		private function colorizeSymbol():void
+		{
+			super.applyColorTransform(this.busyIndicator, 0x000000, symbolColor);
+		}		
 		
 		private function startRotation():void
 		{
