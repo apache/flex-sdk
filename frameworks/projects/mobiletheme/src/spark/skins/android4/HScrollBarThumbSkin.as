@@ -20,10 +20,6 @@
 package spark.skins.android4
 {
 
-import flash.display.CapsStyle;
-import flash.display.JointStyle;
-import flash.display.LineScaleMode;
-
 import mx.core.DPIClassification;
 import mx.core.mx_internal;
 
@@ -82,6 +78,12 @@ public class HScrollBarThumbSkin extends MobileSkin
         // Depending on density set padding
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				paddingBottom = PADDING_BOTTOM_640DPI;
+				paddingHorizontal = PADDING_HORIZONTAL_640DPI;
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{
 				paddingBottom = PADDING_BOTTOM_480DPI;
@@ -98,6 +100,12 @@ public class HScrollBarThumbSkin extends MobileSkin
             {
                 paddingBottom = PADDING_BOTTOM_240DPI;
                 paddingHorizontal = PADDING_HORIZONTAL_240DPI;
+                break;
+            }
+            case DPIClassification.DPI_120:
+            {
+                paddingBottom = PADDING_BOTTOM_120DPI;
+                paddingHorizontal = PADDING_HORIZONTAL_120DPI;
                 break;
             }
             default:
