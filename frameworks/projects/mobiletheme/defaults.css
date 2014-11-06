@@ -1075,7 +1075,7 @@ global
 	HScrollBar
 	{
 		skinClass: ClassReference("spark.skins.ios7.HScrollBarSkin");
-		thumbColor: #333333;
+		color: #E6E6E6;
 	}
 	
 	HSlider
@@ -1162,7 +1162,7 @@ global
 	VScrollBar
 	{
 		skinClass: ClassReference("spark.skins.ios7.VScrollBarSkin");
-		thumbColor: #333333;
+		color: #E6E6E6;
 	}
 	
 	ViewMenu
@@ -1526,7 +1526,7 @@ application-dpi=240.
 	HScrollBar
 	{
 		skinClass: ClassReference("spark.skins.android4.HScrollBarSkin");
-		thumbColor: #333333;
+		color: #333333;
 	}
 	
 	HSlider
@@ -1612,7 +1612,7 @@ application-dpi=240.
 	VScrollBar
 	{
 		skinClass: ClassReference("spark.skins.android4.VScrollBarSkin");
-		thumbColor: #333333;
+		color: #333333;
 	}
 	
 	ViewMenu

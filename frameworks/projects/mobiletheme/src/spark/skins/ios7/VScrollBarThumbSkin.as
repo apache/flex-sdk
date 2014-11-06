@@ -108,6 +108,12 @@ public class VScrollBarThumbSkin extends MobileSkin
                 paddingVertical = PADDING_VERTICAL_240DPI;
                 break;
             }
+            case DPIClassification.DPI_120:
+            {
+                paddingRight = PADDING_RIGHT_120DPI;
+                paddingVertical = PADDING_VERTICAL_120DPI;
+                break;
+            }
             default:
             {
                 paddingRight = PADDING_RIGHT_DEFAULTDPI;
@@ -168,7 +174,9 @@ public class VScrollBarThumbSkin extends MobileSkin
 
         var thumbWidth:Number = unscaledWidth - paddingRight;
         
-        graphics.beginFill(getStyle("thumbColor"), 1);
+		var thumbColor:uint = getStyle("color"); 
+		
+        graphics.beginFill(thumbColor, 1);
         graphics.drawRect(0.5, paddingVertical + 0.5,thumbWidth, unscaledHeight - 2 * paddingVertical);
         
         graphics.endFill();

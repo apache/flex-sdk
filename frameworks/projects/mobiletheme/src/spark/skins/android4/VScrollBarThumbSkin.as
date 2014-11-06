@@ -170,7 +170,7 @@ public class VScrollBarThumbSkin extends MobileSkin
 
         var thumbWidth:Number = unscaledWidth - paddingRight;
         
-        graphics.beginFill(getStyle("thumbColor"), 1);
+        graphics.beginFill(getStyle("color"), 1);
         graphics.drawRect(0.5, paddingVertical + 0.5,thumbWidth, unscaledHeight - 2 * paddingVertical);
         
         graphics.endFill();

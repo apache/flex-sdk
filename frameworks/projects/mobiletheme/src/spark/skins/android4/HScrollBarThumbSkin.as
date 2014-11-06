@@ -168,7 +168,7 @@ public class HScrollBarThumbSkin extends MobileSkin
 
         var thumbHeight:Number = unscaledHeight - paddingBottom;
         
-        graphics.beginFill(getStyle("thumbColor"), 1);
+        graphics.beginFill(getStyle("color"), 1);
         graphics.drawRect(paddingHorizontal + .5, 0.5, unscaledWidth - 2 * paddingHorizontal, thumbHeight);
         
         graphics.endFill();
