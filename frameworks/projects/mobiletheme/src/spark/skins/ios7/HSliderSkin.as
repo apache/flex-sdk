@@ -25,6 +25,7 @@ package spark.skins.ios7
 	
 	import mx.core.ClassFactory;
 	import mx.core.IFactory;
+	import mx.events.FlexEvent;
 	
 	import spark.components.Button;
 	import spark.components.HSlider;
@@ -100,10 +101,16 @@ package spark.skins.ios7
 		public function set hostComponent(value:HSlider):void 
 		{
 			if (_hostComponent)
+			{
 				_hostComponent.removeEventListener(Event.CHANGE, thumbPositionChanged_handler);
+				_hostComponent.removeEventListener(FlexEvent.VALUE_COMMIT, thumbPositionChanged_handler);
+			}
 			_hostComponent = value;
 			if (_hostComponent)
+			{
 				_hostComponent.addEventListener(Event.CHANGE, thumbPositionChanged_handler);
+				_hostComponent.addEventListener(FlexEvent.VALUE_COMMIT, thumbPositionChanged_handler);
+			}
 		}
 		
 		//--------------------------------------------------------------------------
