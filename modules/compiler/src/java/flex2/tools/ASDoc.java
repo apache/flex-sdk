@@ -42,7 +42,7 @@ public class ASDoc extends Tool implements FlexTool
 
     @Override
     public String getName() {
-        return "ASDOC";
+        return FLEX_TOOL_ASDOC;
     }
 
     @Override

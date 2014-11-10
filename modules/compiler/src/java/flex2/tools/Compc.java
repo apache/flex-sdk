@@ -53,7 +53,7 @@ public class Compc extends Tool implements FlexTool
 {
     @Override
     public String getName() {
-        return "COMPC";
+        return FLEX_TOOL_COMPC;
     }
 
     @Override

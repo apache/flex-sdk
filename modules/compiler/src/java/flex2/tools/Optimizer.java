@@ -57,7 +57,7 @@ public class Optimizer implements FlexTool
 
     @Override
     public String getName() {
-        return "OPTIMIZER";
+        return FLEX_TOOL_OPTIMIZER;
     }
 
     @Override
