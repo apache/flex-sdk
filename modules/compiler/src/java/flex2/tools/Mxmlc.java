@@ -41,6 +41,7 @@ import flex2.compiler.util.ThreadLocalToolkit;
 import flex2.linker.ConsoleApplication;
 import flex2.linker.LinkerAPI;
 import flex2.linker.LinkerException;
+import org.apache.flex.tools.FlexTool;
 
 import java.io.*;
 import java.util.*;
@@ -53,9 +54,20 @@ import java.util.Map.Entry;
  *
  * @author Clement Wong
  */
-public final class Mxmlc extends Tool
+public final class Mxmlc extends Tool implements FlexTool
 {
     public static final String FILE_SPECS = "file-specs";
+
+    @Override
+    public String getName() {
+        return "MXMLC";
+    }
+
+    @Override
+    public int execute(String[] args) {
+        mxmlc(args);
+        return ThreadLocalToolkit.errorCount();
+    }
 
     /**
      * The entry-point for Mxmlc.

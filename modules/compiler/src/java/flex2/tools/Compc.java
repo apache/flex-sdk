@@ -36,6 +36,7 @@ import flash.localization.LocalizationManager;
 import flash.localization.XLRLocalizer;
 import flash.localization.ResourceBundleLocalizer;
 import flash.util.Trace;
+import org.apache.flex.tools.FlexTool;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -48,8 +49,19 @@ import java.util.*;
  *
  * @author Brian Deitte
  */
-public class Compc extends Tool
+public class Compc extends Tool implements FlexTool
 {
+    @Override
+    public String getName() {
+        return "COMPC";
+    }
+
+    @Override
+    public int execute(String[] args) {
+        compc(args);
+        return ThreadLocalToolkit.errorCount();
+    }
+
     public static void main(String[] args)
     {
         compc(args);

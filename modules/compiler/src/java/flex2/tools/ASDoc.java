@@ -29,6 +29,7 @@ import flash.localization.LocalizationManager;
 import flash.localization.XLRLocalizer;
 import flash.localization.ResourceBundleLocalizer;
 import flash.util.Trace;
+import org.apache.flex.tools.FlexTool;
 
 /**
  * The entry-point for ASDoc.
@@ -36,8 +37,20 @@ import flash.util.Trace;
  * @see flex2.compiler.asdoc.AsDocAPI
  * @author Brian Deitte
  */
-public class ASDoc extends Tool
+public class ASDoc extends Tool implements FlexTool
 {
+
+    @Override
+    public String getName() {
+        return "ASDOC";
+    }
+
+    @Override
+    public int execute(String[] args) {
+        ASDoc.asdoc(args);
+        return 0;
+    }
+
     public static void main(String[] args)
     {
 	    asdoc(args);
