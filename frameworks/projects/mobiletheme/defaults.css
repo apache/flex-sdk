@@ -1093,6 +1093,9 @@ global
 	SpinnerList
 	{
 		skinClass: ClassReference("spark.skins.ios7.SpinnerListSkin");
+		fontSize: 10;
+		color: #999999;
+		accentColor: #333333;
 	}
 	
 	SpinnerListContainer
@@ -1102,8 +1105,8 @@ global
 	
 	SpinnerListItemRenderer
 	{
-		paddingTop : 18;
-		paddingBottom : 18;
+		paddingTop : 9;
+		paddingBottom : 9;
 		paddingLeft : 6;
 		paddingRight : 6;
 	}

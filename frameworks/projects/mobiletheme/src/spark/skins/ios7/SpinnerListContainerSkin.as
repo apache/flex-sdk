@@ -64,7 +64,6 @@ package spark.skins.ios7
 			
 			borderClass = spark.skins.ios7.assets.SpinnerListContainerBackground;
 			selectionIndicatorClass = spark.skins.ios7.assets.SpinnerListContainerSelectionIndicator;
-			shadowClass = spark.skins.ios7.assets.SpinnerListContainerShadow;
 			cornerRadius = 0;
 			borderThickness = 0;
 			switch (applicationDPI)
@@ -84,6 +83,7 @@ package spark.skins.ios7
 					selectionIndicatorHeight = 96;
 					break;
 				}
+					selectionIndicatorHeight = 24;
 				case DPIClassification.DPI_240:
 				{
 					selectionIndicatorHeight = 72;
@@ -96,7 +96,6 @@ package spark.skins.ios7
 				}
 				default: // default DPI_160
 				{
-					selectionIndicatorHeight = 48;
 					
 					break;
 				}
@@ -156,15 +155,6 @@ package spark.skins.ios7
 		protected var selectionIndicatorClass:Class;
 		
 		/**
-		 *  Class for the shadow skin part.  
-		 *       
-		 *  @langversion 3.0
-		 *  @playerversion AIR 3
-		 *  @productversion Flex 4.6
-		 */
-		protected var shadowClass:Class;
-		
-		/**
 		 *  Border skin part which includes the background. 
 		 *       
 		 *  @langversion 3.0
@@ -181,15 +171,6 @@ package spark.skins.ios7
 		 *  @productversion Flex 4.6
 		 */
 		protected var selectionIndicator:InteractiveObject;
-		
-		/**
-		 *  Shadow skin part. 
-		 *       
-		 *  @langversion 3.0
-		 *  @playerversion AIR 3
-		 *  @productversion Flex 4.6
-		 */
-		protected var shadow:InteractiveObject;
 		
 		/**
 		 *  Mask for the content group. 
@@ -262,15 +243,6 @@ package spark.skins.ios7
 				addChild(contentGroup);
 			}
 			
-			if (!shadow)
-			{
-				// Shadowing sits on top of the content
-				shadow = new shadowClass();
-				shadow.mouseEnabled = false;
-				addChild(shadow);
-			}
-			
-
 			if (!contentGroupMask)
 			{
 				// Create a mask for the content
@@ -308,9 +280,6 @@ package spark.skins.ios7
 			setElementSize(border, unscaledWidth - borderThickness * 2, unscaledHeight);
 			setElementPosition(border, borderThickness, 0);			
 			
-			setElementSize(shadow, unscaledWidth - borderThickness * 4, measuredHeight - borderThickness * 2);
-			setElementPosition(shadow, borderThickness * 2, unscaledHeight/2 - measuredHeight/2);
-		
 			// The SpinnerLists contain a left and right border. We don't want to show the leftmost 
 			// SpinnerLists's left border nor the rightmost one's right border. 
 			// We inset the mask on the left and right sides to accomplish this. 

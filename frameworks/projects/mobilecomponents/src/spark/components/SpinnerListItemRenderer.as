@@ -21,6 +21,8 @@ package spark.components
 
 import mx.core.DPIClassification;
 import mx.core.mx_internal;
+
+import spark.components.supportClasses.ListBase;
     
 use namespace mx_internal;
 
@@ -83,12 +85,45 @@ public class SpinnerListItemRenderer extends LabelItemRenderer
         }
     }
     
+	//--------------------------------------------------------------------------
+	//
+	//  Variables
+	//
+	//--------------------------------------------------------------------------
+	
+	private var _colorName:String = "color";
+	
     //--------------------------------------------------------------------------
     //
     //  Overridden Methods
     //
     //--------------------------------------------------------------------------
     
+	override public function set selected(value:Boolean):void
+	{
+		var oldValue:Boolean = selected;
+		super.selected = value;
+		if(oldValue != selected)
+		{
+			if(selected)
+			{
+				_colorName = "accentColor"; // highlighted item
+			}else{
+				_colorName = "color"; // reset to use standard color
+			}
+			setTextProperties();
+		}
+	}
+	
+	private function setTextProperties():void
+	{
+		if (labelDisplay)
+		{
+			labelDisplay.colorName = _colorName;
+			labelDisplay.alpha = enabled ? 1 : .5;
+		}        
+	}
+	
     /**
      *  @private
      *

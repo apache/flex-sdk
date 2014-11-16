@@ -21,8 +21,8 @@
 
 
 -->
-<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008" viewHeight="48" viewWidth="100"
-	scaleGridLeft="3" scaleGridTop="5.5" scaleGridRight="97" scaleGridBottom="41">
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008" viewHeight="24" viewWidth="100"
+	scaleGridLeft="3" scaleGridTop="5.5" scaleGridRight="97" scaleGridBottom="18.5">
 	<!-- Transparent rect used to center the bar -->
 	<Rect x="0" y="0" width="100" height="4">
 		<fill>
@@ -30,15 +30,15 @@
 		</fill>
 	</Rect>
 	<!-- Top highlight -->
-	<Rect x="5" y="5" width="95" height="1.5">
+	<Rect x="0" y="5" width="100" height="1">
     	<fill>
-        	<SolidColor color="#33afdd"/>
+        	<SolidColor color="#999999"/>
         </fill>
 	</Rect>
 	<!-- Bottom highlight -->
-	<Rect x="5" y="40" width="95" height="1.5">
+	<Rect x="0" y="19" width="100" height="1">
     	<fill>
-        	<SolidColor color="#33afdd"/>
+        	<SolidColor color="#999999"/>
         </fill>
 	</Rect>
 </Graphic>

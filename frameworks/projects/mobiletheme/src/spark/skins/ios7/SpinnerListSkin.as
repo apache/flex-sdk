@@ -30,7 +30,8 @@ package spark.skins.ios7
 	import spark.components.SpinnerListItemRenderer;
 	import spark.layouts.VerticalSpinnerLayout;
 	import spark.skins.ios7.assets.SpinnerListContainerSelectionIndicator;
-	import spark.skins.mobile.supportClasses.MobileSkin;	
+	import spark.skins.ios7.assets.SpinnerListContainerShadow;
+	import spark.skins.mobile.supportClasses.MobileSkin;
 
 	
 	use namespace mx_internal;
@@ -57,6 +58,7 @@ package spark.skins.ios7
 			super();
 			
 			selectionIndicatorClass = spark.skins.ios7.assets.SpinnerListContainerSelectionIndicator;
+			shadowClass = spark.skins.ios7.assets.SpinnerListContainerShadow;
 			borderThickness = 1;
 			switch (applicationDPI)
 			{
@@ -97,7 +99,7 @@ package spark.skins.ios7
 				}
 				default:
 				{
-					selectionIndicatorHeight = 48;
+					selectionIndicatorHeight = 24;
 					minWidth = 16;
 					borderThickness = 1;
 				}   
@@ -178,6 +180,24 @@ package spark.skins.ios7
 		 *  @productversion Flex 4.6
 		 */
 		protected var selectionIndicatorHeight:Number;
+		
+		/**
+		 *  Class for the shadow skin part.  
+		 *       
+		 *  @langversion 3.0
+		 *  @playerversion AIR 3
+		 *  @productversion Flex 4.6
+		 */
+		protected var shadowClass:Class;
+		
+		/**
+		 *  Shadow skin part. 
+		 *       
+		 *  @langversion 3.0
+		 *  @playerversion AIR 3
+		 *  @productversion Flex 4.6
+		 */
+		protected var shadow:InteractiveObject;
 
 		//--------------------------------------------------------------------------
 		//
@@ -206,8 +226,9 @@ package spark.skins.ios7
 			{
 				// Create data group layout
 				var layout:VerticalSpinnerLayout = new VerticalSpinnerLayout();
-				layout.requestedRowCount = 5;
-				
+				layout.requestedRowCount = 9;
+				layout.rowHeight = 20;
+
 				// Create data group
 				dataGroup = new DataGroup();
 				dataGroup.id = "dataGroup";
@@ -231,6 +252,14 @@ package spark.skins.ios7
 				
 				addChild(scroller);
 			}
+
+			if (!shadow)
+			{
+				// Shadowing sits on top of the content
+				shadow = new shadowClass();
+				shadow.mouseEnabled = false;
+				addChild(shadow);
+			}
 			
 			if (!selectionIndicator)
 			{
@@ -243,6 +272,7 @@ package spark.skins.ios7
 			// Associate scroller with data group
 			if (!scroller.viewport)
 				scroller.viewport = dataGroup;
+			
 		}
 		
 		/**
@@ -272,6 +302,9 @@ package spark.skins.ios7
 			
 			setElementSize(selectionIndicator, unscaledWidth, selectionIndicatorHeight);
 			setElementPosition(selectionIndicator, 0, Math.floor((unscaledHeight - selectionIndicatorHeight) / 2));
+			
+			setElementSize(shadow, unscaledWidth - borderThickness * 2, unscaledHeight);
+			setElementPosition(shadow, borderThickness, 0);
 		}
 		
 		/**
