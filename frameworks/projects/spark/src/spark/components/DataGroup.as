@@ -1761,15 +1761,15 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         
         if (oldRenderer)
         {
-        dispatchEvent(new RendererExistenceEvent(
-            RendererExistenceEvent.RENDERER_REMOVE, false, false, oldRenderer, index, item));
-        
-        if (oldRenderer is IDataRenderer && oldRenderer !== item)
-            IDataRenderer(oldRenderer).data = null;
-        
-        var child:DisplayObject = oldRenderer as DisplayObject;
-        if (child)
-            super.removeChild(child);
+            dispatchEvent(new RendererExistenceEvent(
+                RendererExistenceEvent.RENDERER_REMOVE, false, false, oldRenderer, index, item));
+            
+            if (oldRenderer is IDataRenderer && oldRenderer !== item)
+                IDataRenderer(oldRenderer).data = null;
+            
+            var child:DisplayObject = oldRenderer as DisplayObject;
+            if (child)
+                super.removeChild(child);
         }
         
         invalidateSize();
