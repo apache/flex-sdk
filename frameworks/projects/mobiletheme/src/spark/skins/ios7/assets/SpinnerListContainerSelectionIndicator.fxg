@@ -30,13 +30,13 @@
 		</fill>
 	</Rect>
 	<!-- Top highlight -->
-	<Rect x="0" y="5" width="100" height="1">
+	<Rect x="0" y="5" width="100" height="0.5">
     	<fill>
         	<SolidColor color="#999999"/>
         </fill>
 	</Rect>
 	<!-- Bottom highlight -->
-	<Rect x="0" y="19" width="100" height="1">
+	<Rect x="0" y="19" width="100" height="0.5">
     	<fill>
         	<SolidColor color="#999999"/>
         </fill>
