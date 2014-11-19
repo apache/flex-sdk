@@ -106,48 +106,48 @@ public class TextAreaSkin extends TextSkinBase
 			{
 				measuredDefaultWidth = 1024;
 				measuredDefaultHeight = 212;
-				layoutBorderSize = 4;
-				flatheight = 9;
+				layoutBorderSize = 3;
+				roundheight = 24;
 				break;
 			}
 			case DPIClassification.DPI_480:
 			{
 				measuredDefaultWidth = 880;
 				measuredDefaultHeight = 140;
-				layoutBorderSize = 3;
-				flatheight = 7;	
+				layoutBorderSize = 2;
+				roundheight = 18;	
 				break;
 			}
             case DPIClassification.DPI_320:
             {
                 measuredDefaultWidth = 612;
                 measuredDefaultHeight = 106;
-				layoutBorderSize = 2;
-				flatheight = 6;		
+				layoutBorderSize = 1.5;
+				roundheight = 14;	
                 break;
             }
 			case DPIClassification.DPI_240:
 			{
 				measuredDefaultWidth = 440;
 				measuredDefaultHeight = 70;
-				layoutBorderSize = 2;
-				flatheight = 5;
+				layoutBorderSize = 1;
+				roundheight = 10;
 				break;
 			}
 			case DPIClassification.DPI_120:
 			{
 				measuredDefaultWidth = 220;
 				measuredDefaultHeight = 35;
-				layoutBorderSize = 1;
-				flatheight = 2;
+				layoutBorderSize = .5;
+				roundheight = 5;
 				break;
 			}
             default:
             {
                 measuredDefaultWidth = 306;
                 measuredDefaultHeight = 53;
-				layoutBorderSize = 1;
-				flatheight = 3; 
+				layoutBorderSize = .5;
+				roundheight = 7; 
                 break;
             }
         }
@@ -190,7 +190,7 @@ public class TextAreaSkin extends TextSkinBase
 	
 	protected var isFocused:Boolean = false;
 	
-	protected var flatheight:uint;
+	protected var roundheight:uint;
 	
     /**
      *  @private
@@ -622,35 +622,33 @@ public class TextAreaSkin extends TextSkinBase
 		var contentBackgroundAlpha:Number = getStyle("contentBackgroundAlpha");	
 		//change border color and thickness when in focus
 		var borderColor:uint = isFocused ? getStyle("focusColor") : getStyle("borderColor");
-		var selectWidth:uint = isFocused ? layoutBorderSize + 1 : layoutBorderSize;
+		var borderWidth:uint = layoutBorderSize * 2;
 		if (isNaN(contentBackgroundAlpha))
 		{
 			contentBackgroundAlpha = 1;
 		}        
-		if (getStyle("contentBackgroundBorder") == "flat")
+		if (getStyle("contentBackgroundBorder") == "roundedrect")
 		{		
-			var halfGap:int = flatheight * 2;
-			//background
+			graphics.lineStyle(layoutBorderSize, borderColor, 1, true);
 			graphics.beginFill(contentBackgroundColor, contentBackgroundAlpha);
-			graphics.drawRect(0, 0, unscaledWidth, unscaledHeight - flatheight);
-			graphics.endFill();
-			//begin flat border
-			graphics.beginFill(borderColor, 1);
-			//left half border
-			graphics.drawRect(0, unscaledHeight - halfGap, selectWidth, flatheight );
-			//bottom border
-			graphics.drawRect(0, unscaledHeight - flatheight, unscaledWidth, selectWidth);
-			//right border
-			graphics.drawRect(unscaledWidth - selectWidth, unscaledHeight - halfGap, selectWidth, flatheight);
+			graphics.drawRoundRectComplex(layoutBorderSize, layoutBorderSize, unscaledWidth - borderWidth, unscaledHeight - borderWidth, roundheight, roundheight, roundheight, roundheight);
 			graphics.endFill();
 		}
-		else if (getStyle("contentBackgroundBorder") == "rectangle")
+		if (getStyle("contentBackgroundBorder") == "rectangle")
 		{
-			var borderWidth:uint = layoutBorderSize * 2;
+			
 			//rectangle border and background
-			graphics.lineStyle(selectWidth, borderColor, 1);
+			graphics.lineStyle(layoutBorderSize, borderColor, 1);
 			graphics.beginFill(contentBackgroundColor, contentBackgroundAlpha);
 			graphics.drawRect(layoutBorderSize, layoutBorderSize, unscaledWidth - borderWidth, unscaledHeight - borderWidth);
+			graphics.endFill();
+		}
+		else if (getStyle("contentBackgroundBorder") == "none")
+		{
+			
+			//rectangle border and background
+			graphics.beginFill(contentBackgroundColor, contentBackgroundAlpha);
+			graphics.drawRect(0, 0, unscaledWidth - borderWidth, unscaledHeight - borderWidth);
 			graphics.endFill();
 		}
 	}
@@ -663,8 +661,7 @@ public class TextAreaSkin extends TextSkinBase
     {
         var maxHsp:Number = textDisplayGroup.contentWidth > textDisplayGroup.width ? 
             textDisplayGroup.contentWidth-textDisplayGroup.width : 0; 
-        textDisplayGroup.horizontalScrollPosition = 
-            Math.min(Math.max(0,textDisplayGroup.horizontalScrollPosition),maxHsp);
+        textDisplayGroup.horizontalScrollPosition =  Math.min(Math.max(0,textDisplayGroup.horizontalScrollPosition),maxHsp);
         
         var maxVsp:Number = textDisplayGroup.contentHeight > textDisplayGroup.height ? 
             textDisplayGroup.contentHeight-textDisplayGroup.height : 0; 

@@ -1093,7 +1093,6 @@ global
 	SpinnerList
 	{
 		skinClass: ClassReference("spark.skins.ios7.SpinnerListSkin");
-		fontSize: 10;
 		color: #999999;
 		accentColor: #333333;
 	}
@@ -1127,29 +1126,33 @@ global
 	}
 	
 	TextInput
-	{ 
+	{
 		skinClass: ClassReference("spark.skins.ios7.StageTextInputSkin");
-		contentBackgroundAlpha: 0; 
-		focusColor: #33B5E5;
+		contentBackgroundAlpha: 0;
+		focusColor: #cccccc;
+		borderColor: #cccccc;
 		contentBackgroundColor: #DEDEDD;
-		contentBackgroundBorder: "flat";
+		contentBackgroundBorder: "roundedrect";
 		fontFamily: RobotoRegular;
+		fontWeight: normal;
 		selectionHighlighting: "never";
 		focusEnabled:"false";
 		focusThickness: 0;
+		focusAlpha: 0;
 	}
 	
 	TextArea
-	{ 
+	{
 		skinClass: ClassReference("spark.skins.ios7.StageTextAreaSkin");
 		contentBackgroundAlpha: 1;
 		contentBackgroundBorder: "rectangle";
 		contentBackgroundColor: #DEDEDD;
-		focusColor: #33B5E5;
-		fontFamily: RobotoRegular;
+		focusColor: #cccccc;
+		borderColor: #cccccc;
 		selectionHighlighting: "never";
 		focusEnabled:"false";
 		focusThickness: 0;
+		focusAlpha: 0;
 	} 
 	
 	ToggleSwitch

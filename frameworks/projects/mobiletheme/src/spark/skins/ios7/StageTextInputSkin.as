@@ -129,6 +129,5 @@ package spark.skins.ios7
 		{
 			return new ScrollableStageText(multiline);
 		}
-		
 	}
 }

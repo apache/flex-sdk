@@ -66,48 +66,48 @@ public class StageTextSkinBase extends MobileSkin
 			{	
 				measuredDefaultWidth = 1200;
 				measuredDefaultHeight = 132;
-				layoutBorderSize = 4;
-				flatheight = 9;
+				layoutBorderSize = 3;
+				roundheight = 24;
 				break;
 			}
 			case DPIClassification.DPI_480:
 			{				
 				measuredDefaultWidth = 880;
 				measuredDefaultHeight = 100;	
-				layoutBorderSize = 3;
-				flatheight = 7;
+				layoutBorderSize = 2;
+				roundheight = 18;
 				break;
 			}
             case DPIClassification.DPI_320:
             {               
                 measuredDefaultWidth = 600;
                 measuredDefaultHeight = 66;   
-				layoutBorderSize = 2;
-				flatheight = 6;
+				layoutBorderSize = 1.5;
+				roundheight = 14;
                 break;
             }
 			case DPIClassification.DPI_240:
 			{				
 				measuredDefaultWidth = 440;
 				measuredDefaultHeight = 50;			
-				layoutBorderSize = 2;
-				flatheight = 5;
+				layoutBorderSize = 1;
+				roundheight = 10;
 				break;
 			}
 			case DPIClassification.DPI_120:
 			{				
 				measuredDefaultWidth = 220;
 				measuredDefaultHeight = 25;		
-				layoutBorderSize = 1;
-				flatheight = 2;
+				layoutBorderSize = .5;
+				roundheight = 5;
 				break;
 			}
             default:
 			{
                 measuredDefaultWidth = 300;
                 measuredDefaultHeight = 33;
-				layoutBorderSize = 1;
-				flatheight = 3; 
+				layoutBorderSize = .5;
+				roundheight = 7; 
                 break;
             }
 				
@@ -138,7 +138,7 @@ public class StageTextSkinBase extends MobileSkin
      */
     protected var layoutBorderSize:uint;
 	
-	protected var flatheight:uint;
+	protected var roundheight:uint;
     
     //--------------------------------------------------------------------------
     //
@@ -216,7 +216,7 @@ public class StageTextSkinBase extends MobileSkin
      *
      * @return   instance of  IStyleableEditableText
      */
-    protected function createTextDisplay():IStyleableEditableText
+    protected function createTextDisplay():IStyleableEditableText 
 	{
         return   new StyleableStageText(multiline);
     }
@@ -232,36 +232,34 @@ public class StageTextSkinBase extends MobileSkin
         var contentBackgroundAlpha:Number = getStyle("contentBackgroundAlpha");	
 		//change border color and thickness when in focus
 		var borderColor:uint = isFocused ? getStyle("focusColor") : getStyle("borderColor");
-		var selectWidth:uint = isFocused ? layoutBorderSize + 1 : layoutBorderSize;
+		var borderWidth:uint = layoutBorderSize * 2;
         if (isNaN(contentBackgroundAlpha))
 		{
             contentBackgroundAlpha = 1;
 		}        
-		var halfGap:int = flatheight * 2;
 		// change the border type
-		if (getStyle("contentBackgroundBorder") == "flat")
+		if (getStyle("contentBackgroundBorder") == "roundedrect")
 		{		
-			//background
+			graphics.lineStyle(layoutBorderSize, borderColor, 1, true);
 			graphics.beginFill(contentBackgroundColor, contentBackgroundAlpha);
-			graphics.drawRect(0, 0, unscaledWidth, unscaledHeight - flatheight);
-			graphics.endFill();
-			//begin flat border
-			graphics.beginFill(borderColor, 1);
-			//left half border
-			graphics.drawRect(0, unscaledHeight - halfGap, selectWidth, flatheight );
-			//bottom border
-			graphics.drawRect(0, unscaledHeight - flatheight, unscaledWidth, selectWidth);
-			//right border
-			graphics.drawRect(unscaledWidth - selectWidth, unscaledHeight - halfGap, selectWidth, flatheight);
+			graphics.drawRoundRectComplex(layoutBorderSize, layoutBorderSize, unscaledWidth - borderWidth, unscaledHeight - borderWidth, roundheight, roundheight, roundheight, roundheight);
 			graphics.endFill();
 		}
-		else if (getStyle("contentBackgroundBorder") == "rectangle")
+		if (getStyle("contentBackgroundBorder") == "rectangle")
 		{
-			var borderWidth:uint = layoutBorderSize * 2;
+			
 			//rectangle border and background
-			graphics.lineStyle(selectWidth, borderColor, 1);
+			graphics.lineStyle(layoutBorderSize, borderColor, 1);
 			graphics.beginFill(contentBackgroundColor, contentBackgroundAlpha);
 			graphics.drawRect(layoutBorderSize, layoutBorderSize, unscaledWidth - borderWidth, unscaledHeight - borderWidth);
+			graphics.endFill();
+		}
+		else if (getStyle("contentBackgroundBorder") == "none")
+		{
+			
+			//rectangle border and background
+			graphics.beginFill(contentBackgroundColor, contentBackgroundAlpha);
+			graphics.drawRect(0, 0, unscaledWidth - borderWidth, unscaledHeight - borderWidth);
 			graphics.endFill();
 		}
     }
