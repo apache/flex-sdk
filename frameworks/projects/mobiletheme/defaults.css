@@ -1110,6 +1110,11 @@ global
 		paddingRight : 6;
 	}
 	
+	SplitViewNavigator
+	{
+		backgroundColor: #FFFFFF;
+	}
+	
 	TabbedViewNavigator #tabBar
 	{
 		fontFamily: RobotoRegular;
