@@ -22,7 +22,7 @@
 
 -->
 <Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008" viewHeight="24" viewWidth="100"
-	scaleGridLeft="3" scaleGridTop="5.5" scaleGridRight="97" scaleGridBottom="18.5">
+	scaleGridLeft="3" scaleGridTop="3" scaleGridRight="97" scaleGridBottom="21">
 	<!-- Transparent rect used to center the bar -->
 	<Rect x="0" y="0" width="100" height="4">
 		<fill>

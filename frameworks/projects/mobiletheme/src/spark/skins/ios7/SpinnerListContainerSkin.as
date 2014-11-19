@@ -66,40 +66,7 @@ package spark.skins.ios7
 			selectionIndicatorClass = spark.skins.ios7.assets.SpinnerListContainerSelectionIndicator;
 			cornerRadius = 0;
 			borderThickness = 0;
-			switch (applicationDPI)
-			{
-				case DPIClassification.DPI_640:
-				{
-					selectionIndicatorHeight = 182;
-					break;
-				}
-				case DPIClassification.DPI_480:
-				{
-					selectionIndicatorHeight = 144;
-					break;
-				}
-				case DPIClassification.DPI_320:
-				{					
-					selectionIndicatorHeight = 96;
-					break;
-				}
-					selectionIndicatorHeight = 24;
-				case DPIClassification.DPI_240:
-				{
-					selectionIndicatorHeight = 72;
-					break;
-				}
-				case DPIClassification.DPI_120:
-				{
-					selectionIndicatorHeight = 36;
-					break;
-				}
-				default: // default DPI_160
-				{
-					
-					break;
-				}
-			}
+
 			
 			minWidth = 30;
 		}
@@ -134,7 +101,6 @@ package spark.skins.ios7
 		 *  @playerversion AIR 3
 		 *  @productversion Flex 4.6
 		 */
-		protected var selectionIndicatorHeight:Number;
 		
 		/**
 		 *  Class for the border part. 

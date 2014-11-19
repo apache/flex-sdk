@@ -64,42 +64,42 @@ package spark.skins.ios7
 			{
 				case DPIClassification.DPI_640:
 				{
-					selectionIndicatorHeight = 182;
+					selectionIndicatorHeight = 144;
 					minWidth = 64;
 					borderThickness = 3;
 					break;
 				}
 				case DPIClassification.DPI_480:
 				{
-					selectionIndicatorHeight = 144;
+					selectionIndicatorHeight = 96;
 					minWidth = 48;
 					borderThickness = 2;
 					break;
 				}
 				case DPIClassification.DPI_320:
 				{
-					selectionIndicatorHeight = 96;
+					selectionIndicatorHeight = 72;
 					minWidth = 32;
 					borderThickness = 2;
 					break;
 				}
 				case DPIClassification.DPI_240:
 				{
-					selectionIndicatorHeight = 72;
+					selectionIndicatorHeight = 48;
 					minWidth = 24;
 					borderThickness = 1;
 					break;
 				}
 				case DPIClassification.DPI_120:
 				{
-					selectionIndicatorHeight = 36;
+					selectionIndicatorHeight = 24;
 					minWidth = 12;
 					borderThickness = 0;
 					break;
 				}
 				default:
 				{
-					selectionIndicatorHeight = 24;
+					selectionIndicatorHeight = 36;
 					minWidth = 16;
 					borderThickness = 1;
 				}   
@@ -227,7 +227,8 @@ package spark.skins.ios7
 				// Create data group layout
 				var layout:VerticalSpinnerLayout = new VerticalSpinnerLayout();
 				layout.requestedRowCount = 9;
-				layout.rowHeight = 20;
+				layout.rowHeight = selectionIndicatorHeight/1.5;
+				layout.gap = 0;
 
 				// Create data group
 				dataGroup = new DataGroup();
