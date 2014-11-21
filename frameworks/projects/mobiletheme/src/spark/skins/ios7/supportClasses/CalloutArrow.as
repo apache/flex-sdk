@@ -55,7 +55,7 @@ public class CalloutArrow extends UIComponent
     {
         super();
         
-        useBackgroundGradient = true;
+        useBackgroundGradient = false;
         
 		var applicationDPI:Number = DPIClassification.DPI_160;
 		if (FlexGlobals.topLevelApplication is Application)
@@ -72,6 +72,7 @@ public class CalloutArrow extends UIComponent
 				gap = 32;
 				backgroundGradientHeight = 440;
 				highlightWeight = 4;
+				arrowTipCurveAnchorDistance = 12;
 				
 				break;
 			}
@@ -81,6 +82,7 @@ public class CalloutArrow extends UIComponent
 				gap = 24;
 				backgroundGradientHeight = 330;
 				highlightWeight = 3;
+				arrowTipCurveAnchorDistance = 8;
 				
 				break;
 			}
@@ -89,6 +91,7 @@ public class CalloutArrow extends UIComponent
                 gap = 16;
                 backgroundGradientHeight = 220;
                 highlightWeight = 2;
+				arrowTipCurveAnchorDistance = 6;
                 
                 break;
             }
@@ -97,6 +100,7 @@ public class CalloutArrow extends UIComponent
 				gap = 12;
 				backgroundGradientHeight = 165;
 				highlightWeight = 1;
+				arrowTipCurveAnchorDistance = 4;
 				
 				break;
 			}
@@ -106,6 +110,7 @@ public class CalloutArrow extends UIComponent
 				gap = 6;
 				backgroundGradientHeight = 83;
 				highlightWeight = 1;
+				arrowTipCurveAnchorDistance = 2;
 				
 				break;
 			}
@@ -115,6 +120,7 @@ public class CalloutArrow extends UIComponent
                 gap = 8;
                 backgroundGradientHeight = 110;
                 highlightWeight = 1;
+				arrowTipCurveAnchorDistance = 3;
                 
                 break;
             }
@@ -166,6 +172,11 @@ public class CalloutArrow extends UIComponent
      *  A sibling of the arrow used to erase the drop shadow in CalloutSkin
      */
     private var eraseFill:Sprite;
+	
+	/**
+	 * The distance of the arrow tip's curve's anchor point from arrow tip   
+	 */
+	private var arrowTipCurveAnchorDistance:Number;
 
     /* helper private accessors */
 
@@ -238,6 +249,12 @@ public class CalloutArrow extends UIComponent
 
         var borderHalf:Number = borderWeight / 2;
         var isHorizontal:Boolean = false;
+		var commands:Vector.<int> = new Vector.<int>(4, true);
+		var coords:Vector.<Number> = new Vector.<Number>(10, true);
+		commands[0] = GraphicsPathCommand.MOVE_TO;
+		commands[1] = GraphicsPathCommand.LINE_TO;
+		commands[2] = GraphicsPathCommand.CURVE_TO;
+		commands[3] = GraphicsPathCommand.LINE_TO;
         
         if ((arrowDirection == ArrowDirection.LEFT) ||
             (arrowDirection == ArrowDirection.RIGHT))
@@ -261,6 +278,24 @@ public class CalloutArrow extends UIComponent
                 arrowTipX = arrowWidth - arrowTipX;
                 arrowEndX = arrowWidth - arrowEndX;
             }
+			
+			coords[0] = arrowX;
+			coords[1] = arrowY;
+			coords[2] = arrowTipX + arrowTipCurveAnchorDistance;
+			coords[3] = arrowTipY - arrowTipCurveAnchorDistance;
+            if (arrowDirection == ArrowDirection.LEFT)
+            {
+				coords[4] = arrowTipX - arrowTipCurveAnchorDistance * 2;
+            }
+			else
+			{
+				coords[4] = arrowTipX + arrowTipCurveAnchorDistance * 2;
+			}
+			coords[5] = arrowTipY;
+			coords[6] = arrowTipX + arrowTipCurveAnchorDistance;
+			coords[7] = arrowTipY + arrowTipCurveAnchorDistance;
+			coords[8] = arrowEndX
+			coords[9] = arrowEndY;
         }
         else
         {
@@ -281,20 +316,26 @@ public class CalloutArrow extends UIComponent
                 arrowTipY = arrowHeight - arrowTipY;
                 arrowEndY = arrowHeight - arrowEndY;
             }
+			
+			coords[0] = arrowX;
+			coords[1] = arrowY;
+			coords[2] = arrowTipX - arrowTipCurveAnchorDistance;
+			coords[3] = arrowTipY - arrowTipCurveAnchorDistance;
+			coords[4] = arrowTipX;
+            if (hostComponent.arrowDirection == ArrowDirection.UP)
+            {
+				coords[5] = arrowTipY - arrowTipCurveAnchorDistance * 2;
+			}
+			else
+			{
+				coords[5] = arrowTipY + arrowTipCurveAnchorDistance * 2;
+			}
+			coords[6] = arrowTipX + arrowTipCurveAnchorDistance;
+			coords[7] = arrowTipY - arrowTipCurveAnchorDistance;
+			coords[8] = arrowEndX
+			coords[9] = arrowEndY;
         }
         
-        var commands:Vector.<int> = new Vector.<int>(3, true);
-        commands[0] = GraphicsPathCommand.MOVE_TO;
-        commands[1] = GraphicsPathCommand.LINE_TO;
-        commands[2] = GraphicsPathCommand.LINE_TO;
-        
-        var coords:Vector.<Number> = new Vector.<Number>(6, true);
-        coords[0] = arrowX;
-        coords[1] = arrowY;
-        coords[2] = arrowTipX
-        coords[3] = arrowTipY;
-        coords[4] = arrowEndX
-        coords[5] = arrowEndY;
         
         var backgroundColor:Number = getStyle("backgroundColor");
         var backgroundAlpha:Number = getStyle("backgroundAlpha");
