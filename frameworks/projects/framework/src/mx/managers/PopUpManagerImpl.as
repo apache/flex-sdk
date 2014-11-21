@@ -1047,7 +1047,7 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             // don't remove blur unless this is the first modal window to put up the blur
             if (blurOwners[sm] != null && blurOwners[sm] == o.owner)
             {
-                
+                blurOwners[sm] = null;
                 // Blur effect on the application
                 const blurAmount:Number = popUpStyleClient.getStyle("modalTransparencyBlur");
                 
