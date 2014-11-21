@@ -53,6 +53,8 @@ bug and its fix will be included on the resulting page.
 
 JIRA Issue Number and Summary
 --------------------------------------------------------------------------------
+FLEX-34454  Setting modalTransparencyBlur to 0 gives blur when Alert ist shown
+            on top of modal Dialog
 FLEX-34373  spark.components.Alert should set a focus to defaultButton
 FLEX-34557  Platform.isBrowser does not work correctly
 FLEX-34213  Flex mobile list performance
