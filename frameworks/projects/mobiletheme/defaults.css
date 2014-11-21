@@ -948,7 +948,7 @@ global
 		fontFamily: RobotoRegular;
 		fontWeight: "normal";
 		fontSize: 24;
-		color: #007AFF;
+		color: #000000;
 		highlightTextColor: #FFFFFF;
 		textShadowColor: #FFFFFF;
 		textShadowAlpha: 0;
@@ -1007,6 +1007,7 @@ global
 	ButtonBar
 	{
 		skinClass: ClassReference("spark.skins.ios7.ButtonBarSkin");
+		color: #007AFF;
 		fontFamily: RobotoRegular;
 		fontWeight: normal;
 	}
