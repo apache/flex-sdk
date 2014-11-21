@@ -1047,7 +1047,6 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             // don't remove blur unless this is the first modal window to put up the blur
             if (blurOwners[sm] != null && blurOwners[sm] == o.owner)
             {
-                blurOwners[sm] = null;
                 // Blur effect on the application
                 const blurAmount:Number = popUpStyleClient.getStyle("modalTransparencyBlur");
                 
@@ -1279,6 +1278,8 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
     				awm.numModalWindows--;
                 }
 
+                if (blurOwners[sm] == o.owner)
+                    blurOwners[sm] = null;
                 popupInfo.splice(i, 1);
                 break;
             }
@@ -1337,7 +1338,6 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 			if (obj.parent)	// Mustella can already take you off stage
 				obj.parent.removeChild(obj);
 		}
-		
     }
     
     /**
