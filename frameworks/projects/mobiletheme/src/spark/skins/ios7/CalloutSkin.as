@@ -39,7 +39,6 @@ import spark.components.Group;
 import spark.core.SpriteVisualElement;
 import spark.effects.Fade;
 import spark.primitives.RectangularDropShadow;
-import spark.skins.ios7.assets.CalloutContentBackground;
 import spark.skins.ios7.supportClasses.CalloutArrow;
 import spark.skins.mobile.supportClasses.MobileSkin;
 

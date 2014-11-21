@@ -1023,6 +1023,12 @@ global
 		contentBackgroundAppearance: flat;
 	}
 	
+	Callout ViewNavigator
+	{
+		skinClass: ClassReference("spark.skins.ios7.CalloutViewNavigatorSkin");
+		contentBackgroundColor: #FFFFFF;
+	}
+	
 	Callout ViewNavigator ActionBar
 	{
 		skinClass: ClassReference("spark.skins.ios7.CalloutActionBarSkin");

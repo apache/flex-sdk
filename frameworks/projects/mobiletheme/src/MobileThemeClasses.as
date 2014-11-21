@@ -116,6 +116,7 @@ package
 		import spark.skins.ios7.ButtonSkin; spark.skins.ios7.ButtonSkin;
 		import spark.skins.ios7.CalloutSkin; spark.skins.ios7.CalloutSkin;
 		import spark.skins.ios7.CalloutActionBarSkin; spark.skins.ios7.CalloutActionBarSkin;
+		import spark.skins.ios7.CalloutViewNavigatorSkin; spark.skins.ios7.CalloutViewNavigatorSkin;
 		import spark.skins.ios7.CheckBoxSkin; spark.skins.ios7.CheckBoxSkin;
 		import spark.skins.ios7.HScrollBarSkin; spark.skins.ios7.HScrollBarSkin;
 		import spark.skins.ios7.HScrollBarThumbSkin; spark.skins.ios7.HScrollBarThumbSkin;
