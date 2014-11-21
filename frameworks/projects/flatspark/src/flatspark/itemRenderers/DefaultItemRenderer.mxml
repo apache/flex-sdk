@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+
+<s:ItemRenderer xmlns:fx="http://ns.adobe.com/mxml/2009" 
+				xmlns:s="library://ns.adobe.com/flex/spark"
+				autoDrawBackground="false" height="32">
+	<s:states>
+		<s:State name="normal" />
+		<s:State name="hovered" />
+		<s:State name="selected" />
+	</s:states>
+	<fx:Script>
+		<![CDATA[
+			
+			import flatspark.utils.ColorUtils;
+			
+		]]>
+	</fx:Script>
+	
+	<s:Rect id="bgFill"
+			radiusX="4"
+			includeIn="hovered,selected"
+			left="0" right="0" top="0" bottom="0">
+		<s:fill>
+			<s:SolidColor color="{ColorUtils.MidnightBlue}"
+						  color.selected="{ColorUtils.Turquoise}"/>
+		</s:fill>
+	</s:Rect>
+	
+	<s:Label id="labelDisplay" paddingRight="4" paddingTop="1" paddingBottom="1" paddingLeft="4" 
+			 verticalAlign="middle" height="100%" fontFamily="Lato" fontSize="15" fontWeight="normal" 
+			 fontStyle="normal" color="{ColorUtils.Clouds}" color.hovered="{ColorUtils.Silver}"/>
+	
+</s:ItemRenderer>

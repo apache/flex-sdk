@@ -1,3 +1,117 @@
+Apache Flex 4.14.0
+==================
+
+Apache Flex 4.14.0 is an update to Apache Flex 4.13.0
+
+Known Issues
+_____________
+
+Adobe Flash Builder Integration
+
+Adobe Flash Builder 4.7 and Adobe Flash Builder 4.6 both contain a bug where,
+when generating the .mxml file for a new project that uses Apache Flex SDK
+4.10.0 or later Spark Application, Flash Builder will incorrectly insert the
+attribute:
+
+    layout="absolute"
+
+This results in a compile error in the new project.  The remedy is to simply
+remove the errant attribute.
+
+The following wiki page has been set up to contain the latest news on Adobe's
+attempt to correct this problem:
+
+    https://cwiki.apache.org/confluence/display/FLEX/Adobe+Flash+Builder+'New+Project'+Bug
+
+Adobe has provided a patch for Flash Builder 4.7 that resolves this issue:
+
+    http://helpx.adobe.com/flash-builder/kb/flex-new-project-issue--.html
+
+Differences from Apache Flex 4.13.0 include:
+
+AIR and Flash Player support
+------------------------------
+ - Support Flash Player 15.0
+ - Support for AIR 15.0
+
+SDK Changes
+-------------
+- iOS 7 and Android 4.x Mobile theme support
+- new theme: FlatSpark
+- Spark RichTextEditor
+
+Bug Fixes
+----------
+Below is a complete list of all the bug fixes that have been included since the
+last full release, Apache Flex 4.13.0. If you would like specific information
+about any of the items below, go to
+
+    https://issues.apache.org
+
+and search for the JIRA Issue Number by using the Quick Search. Details of the
+bug and its fix will be included on the resulting page.
+
+JIRA Issue Number and Summary
+--------------------------------------------------------------------------------
+FLEX-34454  Setting modalTransparencyBlur to 0 gives blur when Alert ist shown
+            on top of modal Dialog
+FLEX-34373  spark.components.Alert should set a focus to defaultButton
+FLEX-34557  Platform.isBrowser does not work correctly
+FLEX-34213  Flex mobile list performance
+FLEX-34531  mx.charts.series.HLOCSeries excluding a style being used in example
+FLEX-34476  Added RichTextEditor
+FLEX-34323  Allow the mustella tests directory to be located anywhere
+FLEX-34460  adt is missing in windows install
+FLEX-34633  HSlider track (Android4 skin) not being filled if thumb position set
+            programmatically
+FLEX-34457  in one case, text selection using the arrow keys doesn't work in
+            RichEditableText
+FLEX-34634  DataGroup fires RendererExistenceEvent with a null renderer when an
+            offscreen item is removed/replaced in the dataProvider
+FLEX-34636  Release build does not work as described in README on OS X
+FLEX-34543  Invalid event data when saving or cancelling grid item editor
+            session after data provider changes
+FLEX-28291  Linear Vector Layout on the ComboBox
+FLEX-34212  invalidIndex RTE in LinearLayoutVector when mouse scrolling List
+FLEX-34608  IOS 7 Hslider (Scrubber) skin
+FLEX-34611  Application crash when textFlow property set to null with
+            preserveSelection
+FLEX-34606  Redundant variable
+FLEX-34592  Can't use optionnal importer for TLF plainTextFormat and
+            TextLayoutFormat
+FLEX-34390  SkinnableTextBase bug (found in Flex 4.13.0 RC2)
+FLEX-34538  Spark Alert component does not add proper padding
+FLEX-34539  Callout skin assumes top level application is s:Application
+FLEX-34556  Starting an app in portrait on an iPad results in wrong DPI
+FLEX-34318  [Mavenizer] Refactor the Mavenizer in preparation of future
+            mavenized releases of flex
+FLEX-34458  HierarchicalCollectionViewCursor.current returns wrong item after
+            previous sibling is removed when current was "${L}"
+            (CursorBookmark.LAST)
+FLEX-34385  Document try..catch limitation
+FLEX-34119  mx.collections.HierarchicalCollectionViewCursor causes CursorError
+            RTE from ListCollectionView when the underlying collections change
+FLEX-32541  sortable ou sortableColumns = false still shows box of sorting and 
+            sortItemRenderer = null throws error
+FLEX-33732  Mobile theme support Android 4.x look and feel
+FLEX-34424  HierarchicalCollectionViewCursor.current returns null when previous 
+            sibling is removed
+FLEX-34456  HierarchicalCollectionViewCursors interfere with each other's 
+            operation
+FLEX-33054  Cursor Seek in HierarchicalCollectionViewCursor operates on wrong 
+            child level
+FLEX-34440  'Bookmark no longer valid' CursorError caused by 
+            HierarchicalCollectionView's conversion of 
+            CollectionEventKind.REPLACE into CollectionEventKind.REMOVE
+FLEX-34034  You can paste a newline code to a single-line TextInput.
+FLEX-34450  mx.validators.EmailValidator does not accept ".email" domain
+FLEX-34378  mx:DateValidator allows multiple separator chars
+
+Other fixes (no JIRA issue created):
+- correct case for osmf.swc so compiles on Linux work
+- Adding a mixin to set android os version during AIR simulation
+
+
 Apache Flex 4.13.0
 =================
 

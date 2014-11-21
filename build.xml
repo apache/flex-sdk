@@ -1799,6 +1799,7 @@ There are no known issues.
                 <exclude name="CONTRIBUTING"/>
                 <exclude name="modules/thirdparty/batik/lib/**/LICENSE*.txt"/>
                 <exclude name="modules/thirdparty/batik/lib/**/README*.txt"/>
+                <exclude name="frameworks/projects/flatspark/src/flatspark/assets/fonts/**/OFL.txt"/>
                 <!-- exclude w3c sources -->
                 <exclude name="modules/thirdparty/batik/resources/org/apache/flex/forks/batik/dom/svg/resources/*.mod"/>
                 <exclude name="modules/thirdparty/batik/resources/org/apache/flex/forks/batik/dom/svg/resources/*.dtd"/>

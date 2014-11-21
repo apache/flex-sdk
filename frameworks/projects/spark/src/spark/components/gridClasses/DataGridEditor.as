@@ -931,7 +931,7 @@ public class DataGridEditor
         
         dataGridEvent.columnIndex = editedItemPosition.columnIndex;
         dataGridEvent.column = itemEditorInstance.column;
-        dataGridEvent.rowIndex = editedItemPosition.rowIndex;
+        dataGridEvent.rowIndex = dataGrid.dataProvider ? dataGrid.dataProvider.getItemIndex(itemEditorInstance.data) : -1;
         dataGrid.dispatchEvent(dataGridEvent);
     }
     
@@ -960,6 +960,7 @@ public class DataGridEditor
         inEndEdit = true;
         
         var itemPosition:Object = editedItemPosition;
+        var editedItem:Object = itemEditorInstance.data;
         if (!saveItemEditorSession())
         {
             // The save was cancelled so check if the editor can be cancelled.
@@ -977,7 +978,7 @@ public class DataGridEditor
         // GRID_ITEM_EDITOR_SESSION_SAVE events are NOT cancelable
         dataGridEvent.columnIndex = itemPosition.columnIndex;
         dataGridEvent.column = dataGrid.columns.getItemAt(itemPosition.columnIndex) as GridColumn;
-        dataGridEvent.rowIndex = itemPosition.rowIndex;
+        dataGridEvent.rowIndex = dataGrid.dataProvider ? dataGrid.dataProvider.getItemIndex(editedItem) : -1;
         dataGrid.dispatchEvent(dataGridEvent);
 
         inEndEdit = false;

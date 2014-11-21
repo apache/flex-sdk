@@ -232,6 +232,7 @@
 
 				</s:Group>
 				<s:VGroup width="100%" height="100%" paddingLeft="5" paddingRight="5" paddingBottom="5"
+						  paddingTop="5"
 						  verticalAlign="middle" horizontalAlign="center">
 					<s:RichText id="messageDisplay"
 							 left="9" right="3" top="1" bottom="0" minHeight="30" maxWidth="400"

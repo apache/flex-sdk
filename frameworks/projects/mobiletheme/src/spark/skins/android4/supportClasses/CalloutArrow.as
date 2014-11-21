@@ -57,7 +57,11 @@ public class CalloutArrow extends UIComponent
         
         useBackgroundGradient = true;
         
-        var applicationDPI:Number = Application(FlexGlobals.topLevelApplication).applicationDPI;
+		var applicationDPI:Number = DPIClassification.DPI_160;
+		if (FlexGlobals.topLevelApplication is Application)
+		{
+			applicationDPI = Application(FlexGlobals.topLevelApplication).applicationDPI;
+		}
         
         // Copy DPI-specific values from CalloutSkin
         switch (applicationDPI)

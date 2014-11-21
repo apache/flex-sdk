@@ -282,7 +282,7 @@ public class Platform
 			_isDesktop = !_isMobile;
 			
 			_isAir = playerType == "Desktop";
-			_isBrowser = (playerType == "Plugin" || playerType == "ActiveX");
+			_isBrowser = (playerType == "PlugIn" || playerType == "ActiveX");
 			
 			_initialized = true;
 		}
