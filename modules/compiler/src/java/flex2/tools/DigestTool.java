@@ -37,6 +37,7 @@ import flex2.compiler.swc.SwcException;
 import flex2.compiler.swc.SwcGroup;
 import flex2.compiler.util.CompilerMessage;
 import flex2.compiler.util.ThreadLocalToolkit;
+import org.apache.flex.tools.FlexTool;
 
 /**
  * Given the path to a file and a swc, update the digest xml in catalog.xml of the swc
@@ -45,9 +46,20 @@ import flex2.compiler.util.ThreadLocalToolkit;
  * @author dloverin
  *
  */
-public class DigestTool extends Tool
+public class DigestTool extends Tool implements FlexTool
 {
 	static private final String PROGRAM_NAME = "digest";
+
+	@Override
+	public String getName() {
+		return FLEX_TOOL_DIGEST;
+	}
+
+	@Override
+	public int execute(String[] args) {
+		digestTool(args);
+		return ThreadLocalToolkit.errorCount();
+	}
 
 	/**
 	 * @param args
@@ -86,8 +98,8 @@ public class DigestTool extends Tool
 	        DigestConfiguration configuration = rootConfiguration.getDigestConfiguration();
 
 	        // load SWC
-            SwcCache cache = null;
-    		File libraryFile = null;
+            SwcCache cache;
+    		File libraryFile;
             BufferedInputStream libraryInput = null;
 	        try 
 	        {

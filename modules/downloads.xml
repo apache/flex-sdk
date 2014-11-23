@@ -82,7 +82,7 @@
         they are each downloaded only if they don't already exist. 
     -->
     
-	<target name="main" depends="batik-jars, commons-jars, javacc-jar, saxon9-jar, velocity-jars, xalan-jar, xerces-jars" 
+	<target name="main" depends="batik-jars, commons-jars, javacc-jar, saxon9-jar, velocity-jars, xalan-jar, xerces-jars, flex-tool-api-jar"
 		description="Downloads all the required thirdparty JARs"/>
 
     <!--
@@ -559,5 +559,24 @@
             <globmapper from="*" to="xerces-LICENSE/*"/>
         </copy>
         <delete dir="${download.dir}/${xerces.dir}"/>
-    </target>    
+    </target>
+
+    <!--
+        flex-tool-api
+    -->
+
+    <target name="flex-tool-api-jar-check" description="Checks if flex-tool-api.jar is in lib directory.">
+        <available file="${lib.ext.dir}/flex-tool-api.jar" property="flexToolApi.jar.exists"/>
+    </target>
+
+    <target name="flex-tool-api-jar" depends="flex-tool-api-jar-check" unless="flexToolApi.jar.exists"
+            description="Downloads and copies flex-tool-api.jar to the lib directory.">
+
+        <get src="http://repository.apache.org/content/groups/snapshots/org/apache/flex/flex-tool-api/1.0.0-SNAPSHOT/flex-tool-api-1.0.0-20141110.132854-7.jar"
+             dest="${download.dir}/flex-tool-api.jar"
+             verbose="false"/>
+
+        <copy file="${download.dir}/flex-tool-api.jar" toDir="${lib.ext.dir}" verbose="true"/>
+    </target>
+
 </project>

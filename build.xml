@@ -1038,6 +1038,7 @@ There are no known issues.
                 <include name="swfutils.jar"/>
                 <include name="fxgutils.jar"/>
                 <include name="velocity-dep-1.4-flex.jar"/>
+                <include name="flex-tool-api.jar"/>
                 <exclude name="external/optional/**"/>
             </fileset>
         </copy>
