@@ -107,5 +107,39 @@ package
 		import spark.skins.android4.VScrollBarThumbSkin; spark.skins.android4.VScrollBarThumbSkin;
 		import spark.skins.android4.supportClasses.CalloutArrow; spark.skins.android4.supportClasses.CalloutArrow;
 		
+		//iOS7+ skins
+		import spark.skins.ios7.ActionBarSkin; spark.skins.ios7.ActionBarSkin;
+		import spark.skins.ios7.BusyIndicatorSkin; spark.skins.ios7.BusyIndicatorSkin;
+		import spark.skins.ios7.ButtonBarFirstButtonSkin; spark.skins.ios7.ButtonBarFirstButtonSkin;
+		import spark.skins.ios7.ButtonBarMiddleButtonSkin; spark.skins.ios7.ButtonBarMiddleButtonSkin;
+		import spark.skins.ios7.ButtonBarSkin; spark.skins.ios7.ButtonBarSkin;
+		import spark.skins.ios7.ButtonSkin; spark.skins.ios7.ButtonSkin;
+		import spark.skins.ios7.CalloutSkin; spark.skins.ios7.CalloutSkin;
+		import spark.skins.ios7.CalloutActionBarSkin; spark.skins.ios7.CalloutActionBarSkin;
+		import spark.skins.ios7.CalloutViewNavigatorSkin; spark.skins.ios7.CalloutViewNavigatorSkin;
+		import spark.skins.ios7.CheckBoxSkin; spark.skins.ios7.CheckBoxSkin;
+		import spark.skins.ios7.HScrollBarSkin; spark.skins.ios7.HScrollBarSkin;
+		import spark.skins.ios7.HScrollBarThumbSkin; spark.skins.ios7.HScrollBarThumbSkin;
+		import spark.skins.ios7.HSliderSkin; spark.skins.ios7.HSliderSkin;
+		import spark.skins.ios7.HSliderThumbSkin; spark.skins.ios7.HSliderThumbSkin;
+		import spark.skins.ios7.HSliderTrackSkin; spark.skins.ios7.HSliderTrackSkin;
+		import spark.skins.ios7.RadioButtonSkin; spark.skins.ios7.RadioButtonSkin;
+		import spark.skins.ios7.SpinnerListContainerSkin; spark.skins.ios7.SpinnerListContainerSkin;
+		import spark.skins.ios7.SpinnerListScrollerSkin; spark.skins.ios7.SpinnerListScrollerSkin;
+		import spark.skins.ios7.SpinnerListSkin; spark.skins.ios7.SpinnerListSkin;
+		import spark.skins.ios7.StageTextAreaSkin; spark.skins.ios7.StageTextAreaSkin;
+		import spark.skins.ios7.StageTextInputSkin; spark.skins.ios7.StageTextInputSkin;
+		import spark.skins.ios7.TabbedViewNavigatorTabBarSkin; spark.skins.ios7.TabbedViewNavigatorTabBarSkin;
+		import spark.skins.ios7.TextAreaSkin; spark.skins.ios7.TextAreaSkin;
+		import spark.skins.ios7.TextInputSkin; spark.skins.ios7.TextInputSkin;
+		import spark.skins.ios7.ToggleSwitchSkin; spark.skins.ios7.ToggleSwitchSkin;
+		import spark.skins.ios7.TransparentActionButtonSkin; spark.skins.ios7.TransparentActionButtonSkin;
+		import spark.skins.ios7.TransparentNavigationButtonSkin; spark.skins.ios7.TransparentNavigationButtonSkin;
+		import spark.skins.ios7.ViewMenuItemSkin; spark.skins.ios7.ViewMenuItemSkin;
+		import spark.skins.ios7.ViewMenuSkin; spark.skins.ios7.ViewMenuSkin;
+		import spark.skins.ios7.VScrollBarSkin; spark.skins.ios7.VScrollBarSkin;
+		import spark.skins.ios7.VScrollBarThumbSkin; spark.skins.ios7.VScrollBarThumbSkin;
+		import spark.skins.ios7.supportClasses.CalloutArrow; spark.skins.ios7.supportClasses.CalloutArrow;
+		
 	}
 }

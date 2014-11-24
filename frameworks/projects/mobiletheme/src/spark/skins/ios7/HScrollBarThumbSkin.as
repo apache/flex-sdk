@@ -17,25 +17,30 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.android4
+package spark.skins.ios7
 {
+
+import flash.display.CapsStyle;
+import flash.display.JointStyle;
+import flash.display.LineScaleMode;
 
 import mx.core.DPIClassification;
 import mx.core.mx_internal;
-use namespace mx_internal;
 
 import spark.components.Button;
 import spark.skins.mobile.supportClasses.MobileSkin;
 
+use namespace mx_internal;
+
 /**
- *  ActionScript-based skin for the VScrollBar thumb skin part in mobile applications. 
+ *  ActionScript-based skin for the HScrollBar thumb skin part in mobile applications. 
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 2.5 
  *  @productversion Flex 4.5
  */
-public class VScrollBarThumbSkin extends MobileSkin 
+public class HScrollBarThumbSkin extends MobileSkin 
 {
     //--------------------------------------------------------------------------
     //
@@ -43,35 +48,34 @@ public class VScrollBarThumbSkin extends MobileSkin
     //
     //--------------------------------------------------------------------------
     
-    // These constants are also accessed from VScrollBarSkin
-	mx_internal static const PADDING_RIGHT_640DPI:int = 10;
-	mx_internal static const PADDING_VERTICAL_640DPI:int = 8;
-	mx_internal static const PADDING_RIGHT_480DPI:int = 8;
-	mx_internal static const PADDING_VERTICAL_480DPI:int = 6;
-    mx_internal static const PADDING_RIGHT_320DPI:int = 5;
-    mx_internal static const PADDING_VERTICAL_320DPI:int = 4;
-	mx_internal static const PADDING_RIGHT_240DPI:int = 4;
-	mx_internal static const PADDING_VERTICAL_240DPI:int = 3;
-	mx_internal static const PADDING_RIGHT_120DPI:int = 2;
-	mx_internal static const PADDING_VERTICAL_120DPI:int = 1;
-    mx_internal static const PADDING_RIGHT_DEFAULTDPI:int = 3;
-    mx_internal static const PADDING_VERTICAL_DEFAULTDPI:int = 2;
+    // These constants are also accessed from HScrollBarSkin
+	mx_internal static const PADDING_BOTTOM_640DPI:int = 10;
+	mx_internal static const PADDING_HORIZONTAL_640DPI:int = 8;
+	mx_internal static const PADDING_BOTTOM_480DPI:int = 8;
+	mx_internal static const PADDING_HORIZONTAL_480DPI:int = 6;
+    mx_internal static const PADDING_BOTTOM_320DPI:int = 5;
+    mx_internal static const PADDING_HORIZONTAL_320DPI:int = 4;
+	mx_internal static const PADDING_BOTTOM_240DPI:int = 4;
+	mx_internal static const PADDING_HORIZONTAL_240DPI:int = 3;
+	mx_internal static const PADDING_BOTTOM_120DPI:int = 2;
+	mx_internal static const PADDING_HORIZONTAL_120DPI:int = 2;
+    mx_internal static const PADDING_BOTTOM_DEFAULTDPI:int = 3;
+    mx_internal static const PADDING_HORIZONTAL_DEFAULTDPI:int = 2;
     
     //--------------------------------------------------------------------------
     //
     //  Constructor
     //
-    //-------------------------------------------------------------------------- 
+    //--------------------------------------------------------------------------
     /**
      *  Constructor.
-     * 
+     *  
      *  @langversion 3.0
      *  @playerversion Flash 10
-     *  @playerversion AIR 2.5 
+     *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
-     * 
      */
-    public function VScrollBarThumbSkin()
+    public function HScrollBarThumbSkin()
     {
         super();
         
@@ -80,40 +84,38 @@ public class VScrollBarThumbSkin extends MobileSkin
         {
 			case DPIClassification.DPI_640:
 			{
-				minWidth = 19;
-				paddingRight = VScrollBarThumbSkin.PADDING_RIGHT_640DPI;
-				paddingVertical = VScrollBarThumbSkin.PADDING_VERTICAL_640DPI;
+				paddingBottom = PADDING_BOTTOM_640DPI;
+				paddingHorizontal = PADDING_HORIZONTAL_640DPI;
 				break;
 			}
 			case DPIClassification.DPI_480:
 			{
-				minWidth = 19;
-				paddingRight = VScrollBarThumbSkin.PADDING_RIGHT_480DPI;
-				paddingVertical = VScrollBarThumbSkin.PADDING_VERTICAL_480DPI;
+				paddingBottom = PADDING_BOTTOM_480DPI;
+				paddingHorizontal = PADDING_HORIZONTAL_480DPI;
 				break;
 			}
             case DPIClassification.DPI_320:
             {
-                paddingRight = PADDING_RIGHT_320DPI;
-                paddingVertical = PADDING_VERTICAL_320DPI;
+                paddingBottom = PADDING_BOTTOM_320DPI;
+                paddingHorizontal = PADDING_HORIZONTAL_320DPI;
                 break;
             }
             case DPIClassification.DPI_240:
             {
-                paddingRight = PADDING_RIGHT_240DPI;
-                paddingVertical = PADDING_VERTICAL_240DPI;
+                paddingBottom = PADDING_BOTTOM_240DPI;
+                paddingHorizontal = PADDING_HORIZONTAL_240DPI;
                 break;
             }
             case DPIClassification.DPI_120:
             {
-                paddingRight = PADDING_RIGHT_120DPI;
-                paddingVertical = PADDING_VERTICAL_120DPI;
+                paddingBottom = PADDING_BOTTOM_120DPI;
+                paddingHorizontal = PADDING_HORIZONTAL_120DPI;
                 break;
             }
             default:
             {
-                paddingRight = PADDING_RIGHT_DEFAULTDPI;
-                paddingVertical = PADDING_VERTICAL_DEFAULTDPI;
+                paddingBottom = PADDING_BOTTOM_DEFAULTDPI;
+                paddingHorizontal = PADDING_HORIZONTAL_DEFAULTDPI;
                 break;
             }
         }
@@ -133,48 +135,47 @@ public class VScrollBarThumbSkin extends MobileSkin
     //
     //  Variables
     //
-    //--------------------------------------------------------------------------	
+    //--------------------------------------------------------------------------    
     /**
-     *  Padding from the right
+     *  Padding from bottom.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    protected var paddingRight:int;
+    protected var paddingBottom:int;
     
     /**
-     *  Vertical padding from top and bottom
+     *  Horizontal padding from left and right.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */ 
-    protected var paddingVertical:int;
+    protected var paddingHorizontal:int;
     
     
     //--------------------------------------------------------------------------
     //
     //  Overridden methods
     //
-    //--------------------------------------------------------------------------	
+    //--------------------------------------------------------------------------
     
     /**
-     *  @protected
-     */ 
+     *  @private
+     */
     override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.drawBackground(unscaledWidth, unscaledHeight);
 
-        var thumbWidth:Number = unscaledWidth - paddingRight;
+        var thumbHeight:Number = unscaledHeight - paddingBottom;
         
-        graphics.beginFill(getStyle("color"), 1);
-        graphics.drawRect(0.5, paddingVertical + 0.5,thumbWidth, unscaledHeight - 2 * paddingVertical);
+        graphics.beginFill(getStyle("thumbColor"), 1);
+        graphics.drawRect(paddingHorizontal + .5, 0.5, unscaledWidth - 2 * paddingHorizontal, thumbHeight);
         
         graphics.endFill();
-    }
-    
+    }    
 }
 }

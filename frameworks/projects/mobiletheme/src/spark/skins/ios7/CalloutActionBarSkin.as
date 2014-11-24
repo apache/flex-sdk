@@ -16,128 +16,87 @@
 //  limitations under the License.
 //
 ////////////////////////////////////////////////////////////////////////////////
-package spark.components
+
+package spark.skins.ios7
 {
-
 import mx.core.DPIClassification;
-import mx.core.mx_internal;
-
-import spark.components.supportClasses.ListBase;
-    
-use namespace mx_internal;
 
 /**
- *  The SpinnerListItemRenderer class defines the default item renderer
- *  for a SpinnerList control in the mobile theme.  
- *  This is a simple item renderer with a single text component.
+ *  Additional skin class for the Spark ActionBar component for use with a
+ *  ViewNavigator inside a Callout component.
  * 
- * @see spark.components.SpinnerList
- * 
+ *  Uses a transparent background instead of a gradient fill.
+ *  
+ *  @see spark.skins.mobile.ActionBarSkin
+ *  
  *  @langversion 3.0
  *  @playerversion AIR 3
  *  @productversion Flex 4.6
- */ 
-public class SpinnerListItemRenderer extends LabelItemRenderer
+ */
+public class CalloutActionBarSkin extends ActionBarSkin
 {
-    /**
-     *  Constructor.
-     *        
-     *  @langversion 3.0
-     *  @playerversion AIR 3
-     *  @productversion Flex 4.6
-     */ 
-    public function SpinnerListItemRenderer()
+    //--------------------------------------------------------------------------
+    //
+    //  Constructor
+    //
+    //--------------------------------------------------------------------------
+    
+    public function CalloutActionBarSkin()
     {
         super();
         
+        // remove default background
+        //borderClass = null;
+        
+        // shorten ActionBar height visual paddingTop comes from CalloutSkin
         switch (applicationDPI)
         {
 			case DPIClassification.DPI_640:
 			{
-				minHeight = 40;
+				layoutContentGroupHeight = 108;
 				break;
 			}
 			case DPIClassification.DPI_480:
 			{
-				minHeight = 30;
+				layoutContentGroupHeight = 84;
 				break;
 			}
             case DPIClassification.DPI_320:
             {
-                minHeight = 20;
+                layoutContentGroupHeight = 54;
                 break;
             }
 			case DPIClassification.DPI_240:
 			{
-				minHeight = 15;
+				layoutContentGroupHeight = 42;
 				break;
 			}
 			case DPIClassification.DPI_120:
 			{
-				minHeight = 8;
+				layoutContentGroupHeight = 21;
 				break;
 			}
-            default: // default PPI160
+            default:
             {
-                minHeight = 10;
+                // default DPI_160
+                layoutContentGroupHeight = 28;
                 break;
             }
         }
     }
     
-	//--------------------------------------------------------------------------
-	//
-	//  Variables
-	//
-	//--------------------------------------------------------------------------
-	
-	private var _colorName:String = "color";
-	
     //--------------------------------------------------------------------------
     //
-    //  Overridden Methods
+    //  Overridden methods
     //
     //--------------------------------------------------------------------------
     
-	override public function set selected(value:Boolean):void
-	{
-		var oldValue:Boolean = selected;
-		super.selected = value;
-		if(oldValue != selected)
-		{
-			if(selected)
-			{
-				_colorName = "accentColor"; // highlighted item
-			}else{
-				_colorName = "color"; // reset to use standard color
-			}
-			setTextProperties();
-		}
-	}
-	
-	private function setTextProperties():void
-	{
-		if (labelDisplay)
-		{
-			labelDisplay.colorName = _colorName;
-			labelDisplay.alpha = enabled ? 1 : .5;
-		}        
-	}
-	
     /**
      *  @private
-     *
-     *  @langversion 3.0
-     *  @playerversion AIR 3
-     *  @productversion Flex 4.6
      */
     override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
     {
-        // draw a transparent background for hit testing
-        graphics.beginFill(0x000000, 0);
-        graphics.lineStyle();
-        graphics.drawRect(0, 0, unscaledWidth, unscaledHeight);
-        graphics.endFill();
+        // do not draw chromeColor
     }
 }
 }

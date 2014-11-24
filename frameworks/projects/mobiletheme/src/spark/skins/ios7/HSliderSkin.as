@@ -17,7 +17,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.android4
+package spark.skins.ios7
 {
 	import flash.display.BlendMode;
 	import flash.display.DisplayObject;
@@ -29,7 +29,7 @@ package spark.skins.android4
 	
 	import spark.components.Button;
 	import spark.components.HSlider;
-	import spark.skins.android4.assets.HSliderTrack_filled;
+	import spark.skins.ios7.assets.HSliderTrack_filled;
 	import spark.skins.mobile.supportClasses.HSliderDataTip;
 	import spark.skins.mobile.supportClasses.MobileSkin;
 	
@@ -71,9 +71,9 @@ package spark.skins.android4
 		{
 			super();
 			
-			thumbSkinClass = spark.skins.android4.HSliderThumbSkin;
-			trackSkinClass = spark.skins.android4.HSliderTrackSkin;
-			filledTrackSkinClass = spark.skins.android4.assets.HSliderTrack_filled;
+			thumbSkinClass = spark.skins.ios7.HSliderThumbSkin;
+			trackSkinClass = spark.skins.ios7.HSliderTrackSkin;
+			filledTrackSkinClass = spark.skins.ios7.assets.HSliderTrack_filled;
 			dataTipClass = spark.skins.mobile.supportClasses.HSliderDataTip;
 			
 			blendMode = BlendMode.LAYER;

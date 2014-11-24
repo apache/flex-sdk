@@ -17,8 +17,12 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package spark.skins.android4
+package spark.skins.ios7
 {
+
+import flash.display.CapsStyle;
+import flash.display.JointStyle;
+import flash.display.LineScaleMode;
 
 import mx.core.DPIClassification;
 import mx.core.mx_internal;
@@ -170,7 +174,9 @@ public class VScrollBarThumbSkin extends MobileSkin
 
         var thumbWidth:Number = unscaledWidth - paddingRight;
         
-        graphics.beginFill(getStyle("color"), 1);
+		var thumbColor:uint = getStyle("color"); 
+		
+        graphics.beginFill(thumbColor, 1);
         graphics.drawRect(0.5, paddingVertical + 0.5,thumbWidth, unscaledHeight - 2 * paddingVertical);
         
         graphics.endFill();
