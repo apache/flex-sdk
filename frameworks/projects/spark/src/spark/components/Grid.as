@@ -5924,5 +5924,37 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
             dispatchEvent(caretChangeEvent);
         }
     }
+    
+    /**
+     *  @private
+     *  Renders a background for the container, if necessary.  It is used to fill in
+     *  a transparent background fill as necessary to support the _mouseEnabledWhereTransparent flag.  It 
+     *  is also used in ItemRenderers when handleBackgroundColor is set to true.
+     *  We assume for now that we are the first layer to be rendered into the graphics
+     *  context.
+     * 
+     *  This is mostly copied from GroupBase, but always chooses the virtualLayout path.  The Grid's
+     *  layout has useVirtualLayout=false but the Grid's GridView always has useVirtualLayout=true
+     *  which causes the GroupBase logic to go down the wrong path.
+     */
+    override mx_internal function drawBackground():void
+    {
+        if (!mouseEnabledWhereTransparent || !hasMouseListeners)
+            return;
+        
+        var w:Number = (resizeMode == ResizeMode.SCALE) ? measuredWidth : unscaledWidth;
+        var h:Number = (resizeMode == ResizeMode.SCALE) ? measuredHeight : unscaledHeight;
+        
+        if (isNaN(w) || isNaN(h))
+            return;
+        
+        graphics.clear();
+        graphics.beginFill(0xFFFFFF, 0);
+        
+        graphics.drawRect(horizontalScrollPosition, verticalScrollPosition, w, h);
+        
+        graphics.endFill();
+    }
+
 }
 }
