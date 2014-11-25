@@ -20,20 +20,8 @@ limitations under the License.
 <s:ButtonBar arrowKeysWrapFocus="true" mouseFocusEnabled="false" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
 			 xmlns:s="library://ns.adobe.com/flex/spark">
 	<fx:Script>
-		<![CDATA[
-			import mx.collections.ArrayList;
-			import mx.core.UIComponent;
-			
+		<![CDATA[			
 			import flashx.textLayout.formats.TextAlign;
-
-			public override function addChildAt(child:DisplayObject, index:int):DisplayObject
-			{
-				if(child is UIComponent)
-				{
-					(child as UIComponent).toolTip = null;
-				}
-				return super.addChildAt(child, index);
-			}
 			
 			/**
 			 *  The selected text align
