@@ -53,6 +53,7 @@ bug and its fix will be included on the resulting page.
 
 JIRA Issue Number and Summary
 --------------------------------------------------------------------------------
+FLEX-34644  Datagrid - Rectangle bounds problem
 FLEX-34454  Setting modalTransparencyBlur to 0 gives blur when Alert ist shown
             on top of modal Dialog
 FLEX-34373  spark.components.Alert should set a focus to defaultButton
