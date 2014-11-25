@@ -49,6 +49,8 @@
     <component id="MenuBarItemRenderer" class="spark.components.itemRenderers.MenuBarItemRenderer"/>
     <!-- ProgressBar -->
     <component id="ProgressBar" class="spark.components.ProgressBar"/>
+    <!-- RichTextEditor -->
+    <component id="RichTextEditor" class="spark.components.RichTextEditor"/>
     
 	<!-- containers -->
     <component id="Accordion" class="spark.containers.Accordion"/>

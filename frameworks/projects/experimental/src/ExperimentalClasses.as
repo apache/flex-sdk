@@ -64,6 +64,7 @@ package
 		import spark.skins.MenuSkin; MenuSkin;
 		import spark.skins.NavigatorSkin; NavigatorSkin;
 		import spark.skins.ProgressBarSkin; ProgressBarSkin;
+		import spark.skins.RichTextEditorSkin; RichTextEditorSkin;
 		import spark.skins.TabNavigatorSkin; TabNavigatorSkin;
 		import spark.skins.VNoTrackNoThumbScrollBarSkin; VNoTrackNoThumbScrollBarSkin;
 		import spark.supportClasses.INavigator; INavigator;

@@ -17,7 +17,7 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<s:DropDownList width="60" change="callLater(handleChange, [event]);" dataProvider="{null}" mouseFocusEnabled="false" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
+<s:DropDownList dataProvider="{null}" mouseFocusEnabled="false" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
 				xmlns:s="library://ns.adobe.com/flex/spark">
 	<fx:Script>
 		<![CDATA[
@@ -30,7 +30,6 @@ limitations under the License.
 			import spark.events.TextOperationEvent;
 
 			private const _defaultDataProvider:ArrayList = new ArrayList([8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72]);
-			private var _textArea:TextArea;
 
 			public override function set dataProvider(value:IList):void
 			{
@@ -43,51 +42,21 @@ limitations under the License.
 					super.dataProvider = value;
 				}
 			}
-
+			
 			/**
-			 *  The textArea that this component interacts with
+			 *  The selected font size
 			 */
-			public function get textArea():TextArea
+			public function set selectedFontSize(value:String):void
 			{
-				return _textArea;
+				this.selectedItem = value;
 			}
-
+			
 			/**
-			 *  @private
+			 *  The selected font family
 			 */
-			public function set textArea(value:TextArea):void
+			public function get selectedFontSize():String
 			{
-				if (_textArea)
-				{
-					_textArea.removeEventListener(FlexEvent.SELECTION_CHANGE, handleSelectionChange);
-				}
-				_textArea = value;
-				if (_textArea)
-				{
-					_textArea.addEventListener(FlexEvent.SELECTION_CHANGE, handleSelectionChange, false, 0, true);
-					handleSelectionChange();
-				}
-			}
-
-			/**
-			 *  @private
-			 */
-			private function handleChange(e:Event):void
-			{
-				var format:TextLayoutFormat = _textArea.getFormatOfRange(null, _textArea.selectionAnchorPosition, _textArea.selectionActivePosition);
-				format.fontSize = this.selectedItem;
-				_textArea.setFormatOfRange(format, _textArea.selectionAnchorPosition, _textArea.selectionActivePosition);
-				_textArea.setFocus();
-				_textArea.dispatchEvent(new TextOperationEvent(TextOperationEvent.CHANGE));
-			}
-
-			/**
-			 *  @private
-			 */
-			private function handleSelectionChange(e:FlexEvent = null):void
-			{
-				var format:TextLayoutFormat = _textArea.getFormatOfRange(null, _textArea.selectionAnchorPosition, _textArea.selectionActivePosition);
-				this.selectedItem = format.fontSize;
+				return this.selectedItem;
 			}
 		]]>
 	</fx:Script>

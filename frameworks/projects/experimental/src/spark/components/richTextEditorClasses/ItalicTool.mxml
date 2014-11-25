@@ -17,68 +17,39 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<s:ToggleButton width="20" click="handleClick(event);" icon="@Embed('../../../../assets/tools/italic.png')" mouseFocusEnabled="false" toolTip="Italic text" xmlns:fx="http://ns.adobe.com/mxml/2009"
+<s:ToggleButton mouseFocusEnabled="false" xmlns:fx="http://ns.adobe.com/mxml/2009"
 				xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark">
 	<fx:Script>
 		<![CDATA[
 			import flash.text.engine.FontPosture;
-			import flashx.textLayout.formats.TextLayoutFormat;
-			import mx.events.FlexEvent;
-			import spark.components.TextArea;
-			import spark.events.TextOperationEvent;
-
-			private var _textArea:TextArea;
-
+			
 			/**
-			 *  The textArea that this component interacts with
+			 *  The selected font style
 			 */
-			public function get textArea():TextArea
+			public function set selectedFontStyle(value:String):void
 			{
-				return _textArea;
-			}
-
-			/**
-			 *  @private
-			 */
-			public function set textArea(value:TextArea):void
-			{
-				if (_textArea)
-				{
-					_textArea.removeEventListener(FlexEvent.SELECTION_CHANGE, handleSelectionChange);
-				}
-				_textArea = value;
-				if (_textArea)
-				{
-					_textArea.addEventListener(FlexEvent.SELECTION_CHANGE, handleSelectionChange, false, 0, true);
-					handleSelectionChange();
-				}
-			}
-
-			/**
-			 *  @private
-			 */
-			private function handleClick(e:MouseEvent):void
-			{
-				var format:TextLayoutFormat = _textArea.getFormatOfRange(null, _textArea.selectionAnchorPosition, _textArea.selectionActivePosition);
-				format.fontStyle = (format.fontStyle == FontPosture.ITALIC) ? FontPosture.NORMAL : FontPosture.ITALIC;
-				_textArea.setFormatOfRange(format, _textArea.selectionAnchorPosition, _textArea.selectionActivePosition);
-				_textArea.setFocus();
-				_textArea.dispatchEvent(new TextOperationEvent(TextOperationEvent.CHANGE));
-			}
-
-			/**
-			 *  @private
-			 */
-			private function handleSelectionChange(e:FlexEvent = null):void
-			{
-				var format:TextLayoutFormat = _textArea.getFormatOfRange(null, _textArea.selectionAnchorPosition, _textArea.selectionActivePosition);
-				if (format.fontStyle == FontPosture.ITALIC)
+				if (value == FontPosture.ITALIC)
 				{
 					this.selected = true;
 				}
 				else
 				{
 					this.selected = false;
+				}
+			}
+			
+			/**
+			 *  The selected font style
+			 */
+			public function get selectedFontStyle():String
+			{
+				if (this.selected)
+				{
+					return FontPosture.ITALIC;
+				}
+				else
+				{
+					return FontPosture.NORMAL;
 				}
 			}
 		]]>

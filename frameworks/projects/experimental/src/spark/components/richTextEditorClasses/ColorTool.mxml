@@ -17,64 +17,25 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<ns:ColorPicker height="21" width="20" choose="{handleChoose(event)}" mouseFocusEnabled="false" toolTip="Color text" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
+<ns:ColorPicker mouseFocusEnabled="false" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
 				xmlns:ns="http://flex.apache.org/experimental/ns" xmlns:s="library://ns.adobe.com/flex/spark">
 	<fx:Script>
 		<![CDATA[
-			import mx.events.FlexEvent;
 			
-			import spark.components.TextArea;
-			import spark.events.ColorChangeEvent;
-			import spark.events.TextOperationEvent;
+			/**
+			 *  The selected text color
+			 */
+			public function set selectedTextColor(value:uint):void
+			{
+				this.selectedColor = value;
+			}
 			
-			import flashx.textLayout.formats.TextLayoutFormat;
-
-			private var _textArea:TextArea;
-
 			/**
-			 *  The textArea that this component interacts with
+			 *  The selected text color
 			 */
-			public function get textArea():TextArea
+			public function get selectedTextColor():uint
 			{
-				return _textArea;
-			}
-
-			/**
-			 *  @private
-			 */
-			public function set textArea(value:TextArea):void
-			{
-				if (_textArea)
-				{
-					_textArea.removeEventListener(FlexEvent.SELECTION_CHANGE, handleSelectionChange);
-				}
-				_textArea = value;
-				if (_textArea)
-				{
-					_textArea.addEventListener(FlexEvent.SELECTION_CHANGE, handleSelectionChange, false, 0, true);
-					handleSelectionChange();
-				}
-			}
-
-			/**
-			 *  @private
-			 */
-			private function handleChoose(e:ColorChangeEvent):void
-			{
-				var format:TextLayoutFormat = _textArea.getFormatOfRange(null, _textArea.selectionAnchorPosition, _textArea.selectionActivePosition);
-				format.color = e.color
-				_textArea.setFormatOfRange(format, _textArea.selectionAnchorPosition, _textArea.selectionActivePosition);
-				_textArea.setFocus();
-				_textArea.dispatchEvent(new TextOperationEvent(TextOperationEvent.CHANGE));
-			}
-
-			/**
-			 *  @private
-			 */
-			private function handleSelectionChange(e:FlexEvent = null):void
-			{
-				var format:TextLayoutFormat = _textArea.getFormatOfRange(null, _textArea.selectionAnchorPosition, _textArea.selectionActivePosition);
-				this.selectedColor = format.color;
+				return this.selectedColor;
 			}
 		]]>
 	</fx:Script>

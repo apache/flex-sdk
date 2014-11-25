@@ -17,19 +17,16 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<s:DropDownList width="100%" change="callLater(handleChange, [event]);" dataProvider="{null}" maxWidth="120" minWidth="80" mouseFocusEnabled="false" xmlns:fx="http://ns.adobe.com/mxml/2009"
+<s:DropDownList dataProvider="{null}" mouseFocusEnabled="false" xmlns:fx="http://ns.adobe.com/mxml/2009"
 				xmlns:mx="library://ns.adobe.com/flex/mx" xmlns:s="library://ns.adobe.com/flex/spark">
 	<fx:Script>
 		<![CDATA[
-			import flashx.textLayout.formats.TextLayoutFormat;
+			import flash.text.engine.FontWeight;
+			
 			import mx.collections.ArrayList;
 			import mx.collections.IList;
-			import mx.events.FlexEvent;
-			import spark.components.TextArea;
-			import spark.events.TextOperationEvent;
 
 			private const _defaultDataProvider:ArrayList = new ArrayList(["_sans", "_serif", "_typewriter", "Arial", "Calibri", "Courier", "Courier New", "Geneva,Georgia", "Helvetica", "Times New Roman", "Times", "Trebuchet MS", "Verdana"]);
-			private var _textArea:TextArea;
 
 			public override function set dataProvider(value:IList):void
 			{
@@ -42,51 +39,21 @@ limitations under the License.
 					super.dataProvider = value;
 				}
 			}
-
+			
 			/**
-			 *  The textArea that this component interacts with
+			 *  The selected font family
 			 */
-			public function get textArea():TextArea
+			public function set selectedFontFamily(value:String):void
 			{
-				return _textArea;
+				this.selectedItem = value;
 			}
-
+			
 			/**
-			 *  @private
+			 *  The selected font family
 			 */
-			public function set textArea(value:TextArea):void
+			public function get selectedFontFamily():String
 			{
-				if (_textArea)
-				{
-					_textArea.removeEventListener(FlexEvent.SELECTION_CHANGE, handleSelectionChange);
-				}
-				_textArea = value;
-				if (_textArea)
-				{
-					_textArea.addEventListener(FlexEvent.SELECTION_CHANGE, handleSelectionChange, false, 0, true);
-					handleSelectionChange();
-				}
-			}
-
-			/**
-			 *  @private
-			 */
-			private function handleChange(e:Event):void
-			{
-				var format:TextLayoutFormat = _textArea.getFormatOfRange(null, _textArea.selectionAnchorPosition, _textArea.selectionActivePosition);
-				format.fontFamily = this.selectedItem;
-				_textArea.setFormatOfRange(format, _textArea.selectionAnchorPosition, _textArea.selectionActivePosition);
-				_textArea.setFocus();
-				_textArea.dispatchEvent(new TextOperationEvent(TextOperationEvent.CHANGE));
-			}
-
-			/**
-			 *  @private
-			 */
-			private function handleSelectionChange(e:FlexEvent = null):void
-			{
-				var format:TextLayoutFormat = _textArea.getFormatOfRange(null, _textArea.selectionAnchorPosition, _textArea.selectionActivePosition);
-				this.selectedItem = format.fontFamily;
+				return this.selectedItem;
 			}
 		]]>
 	</fx:Script>
