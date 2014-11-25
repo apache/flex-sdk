@@ -5925,6 +5925,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
         }
     }
     
+    
     /**
      *  @private
      *  Renders a background for the container, if necessary.  It is used to fill in
@@ -5935,7 +5936,8 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
      * 
      *  This is mostly copied from GroupBase, but always chooses the virtualLayout path.  The Grid's
      *  layout has useVirtualLayout=false but the Grid's GridView always has useVirtualLayout=true
-     *  which causes the GroupBase logic to go down the wrong path.
+     *  which causes the GroupBase logic to go down the wrong path.  It also always positions at 0,0
+     *  because the grid itself doesn't scroll, it scrols the layers
      */
     override mx_internal function drawBackground():void
     {
@@ -5951,7 +5953,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
         graphics.clear();
         graphics.beginFill(0xFFFFFF, 0);
         
-        graphics.drawRect(horizontalScrollPosition, verticalScrollPosition, w, h);
+        graphics.drawRect(0, 0, w, h);
         
         graphics.endFill();
     }
