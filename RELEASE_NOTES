@@ -1,59 +1,20 @@
 Apache Flex 4.14.0
 ==================
 
-Apache Flex 4.14.0 is an update to Apache Flex 4.13.0
-
-Known Issues
-_____________
-
-Adobe Flash Builder Integration
-
-Adobe Flash Builder 4.7 and Adobe Flash Builder 4.6 both contain a bug where,
-when generating the .mxml file for a new project that uses Apache Flex SDK
-4.10.0 or later Spark Application, Flash Builder will incorrectly insert the
-attribute:
-
-    layout="absolute"
-
-This results in a compile error in the new project.  The remedy is to simply
-remove the errant attribute.
-
-The following wiki page has been set up to contain the latest news on Adobe's
-attempt to correct this problem:
-
-    https://cwiki.apache.org/confluence/display/FLEX/Adobe+Flash+Builder+'New+Project'+Bug
-
-Adobe has provided a patch for Flash Builder 4.7 that resolves this issue:
-
-    http://helpx.adobe.com/flash-builder/kb/flex-new-project-issue--.html
-
-Differences from Apache Flex 4.13.0 include:
-
-AIR and Flash Player support
-------------------------------
- - Support Flash Player 15.0
- - Support for AIR 15.0
-
-SDK Changes
--------------
+New Features
+------------
 - iOS 7 and Android 4.x Mobile theme support
 - new theme: FlatSpark
 - Spark RichTextEditor
 - native support for tables in TLF
 
+AIR and Flash Player Support
+----------------------------
+ - Support Flash Player 15.0
+ - Support for AIR 15.0
+
 Bug Fixes
-----------
-Below is a complete list of all the bug fixes that have been included since the
-last full release, Apache Flex 4.13.0. If you would like specific information
-about any of the items below, go to
-
-    https://issues.apache.org
-
-and search for the JIRA Issue Number by using the Quick Search. Details of the
-bug and its fix will be included on the resulting page.
-
-JIRA Issue Number and Summary
---------------------------------------------------------------------------------
+---------
 FLEX-34644  Datagrid - Rectangle bounds problem
 FLEX-34454  Setting modalTransparencyBlur to 0 gives blur when Alert ist shown
             on top of modal Dialog
@@ -112,6 +73,31 @@ FLEX-34378  mx:DateValidator allows multiple separator chars
 Other fixes (no JIRA issue created):
 - correct case for osmf.swc so compiles on Linux work
 - Adding a mixin to set android os version during AIR simulation
+
+Known Issues
+------------
+
+Adobe Flash Builder Integration
+
+Adobe Flash Builder 4.7 and Adobe Flash Builder 4.6 both contain a bug where,
+when generating the .mxml file for a new project that uses Apache Flex SDK
+4.10.0 or later Spark Application, Flash Builder will incorrectly insert the
+attribute:
+
+    layout="absolute"
+
+This results in a compile error in the new project.  The remedy is to simply
+remove the errant attribute.
+
+The following wiki page has been set up to contain the latest news on Adobe's
+attempt to correct this problem:
+
+    https://cwiki.apache.org/confluence/display/FLEX/Adobe+Flash+Builder+'New+Project'+Bug
+
+Adobe has provided a patch for Flash Builder 4.7 that resolves this issue:
+
+    http://helpx.adobe.com/flash-builder/kb/flex-new-project-issue--.html
+
 
 
 Apache Flex 4.13.0
