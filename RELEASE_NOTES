@@ -39,6 +39,7 @@ SDK Changes
 - iOS 7 and Android 4.x Mobile theme support
 - new theme: FlatSpark
 - Spark RichTextEditor
+- native support for tables in TLF
 
 Bug Fixes
 ----------
