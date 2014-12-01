@@ -572,7 +572,7 @@
     <target name="flex-tool-api-jar" depends="flex-tool-api-jar-check" unless="flexToolApi.jar.exists"
             description="Downloads and copies flex-tool-api.jar to the lib directory.">
 
-        <get src="http://repository.apache.org/content/groups/snapshots/org/apache/flex/flex-tool-api/1.1.0-SNAPSHOT/flex-tool-api-1.1.0-20141120.103148-15.jar"
+        <get src="http://repository.apache.org/content/groups/snapshots/org/apache/flex/flex-tool-api/1.1.0-SNAPSHOT/flex-tool-api-1.1.0-20141121.233135-20.jar"
              dest="${download.dir}/flex-tool-api.jar"
              verbose="false"/>
 
