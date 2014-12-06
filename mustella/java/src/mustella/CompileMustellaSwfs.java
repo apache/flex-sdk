@@ -132,8 +132,8 @@ public class CompileMustellaSwfs extends Thread {
 
 
     public static String htmlDir = "/templates/client-side-detection-with-history/"; 
-    private static String resultInclude =" -includes=SendFormattedResultsToLog";
-    private static String exitInclude = " -includes=ExitWhenDone"; 
+    private static String resultInclude =" -includes+=SendFormattedResultsToLog";
+    private static String exitInclude = " -includes+=ExitWhenDone"; 
     public static int allowedCount = 1; 
 	
 	private static boolean run_mobile_tests = false;
@@ -278,20 +278,20 @@ public class CompileMustellaSwfs extends Thread {
 			if (System.getProperty ("result_include") != null && !System.getProperty ("result_include").startsWith ("${")) { 
 				resultInclude = System.getProperty ("result_include");
 			} else {
-				resultInclude =" -includes=SendFormattedResultsToLog";
+				resultInclude =" -includes+=SendFormattedResultsToLog";
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			resultInclude =" -includes=SendFormattedResultsToLog";          
+			resultInclude =" -includes+=SendFormattedResultsToLog";          
 		}
 		System.out.println ("result_include: " + resultInclude);
 
 		try { 
 			exitInclude = System.getProperty ("exit_include");
 			if (exitInclude != null && exitInclude.equals (""))
-				exitInclude = " -includes=ExitWhenDone"; 
+				exitInclude = " -includes+=ExitWhenDone"; 
 		} catch (Exception e) { 
-			exitInclude = " -includes=ExitWhenDone";
+			exitInclude = " -includes+=ExitWhenDone";
 		}
 
 		try { 
@@ -408,7 +408,7 @@ public class CompileMustellaSwfs extends Thread {
 		if (System.getProperty ("socket_mixin")!=null) { 
 			socket_mixin = System.getProperty ("socket_mixin");
 			if (socket_mixin != null && !socket_mixin.equals (""))
-				socket_mixin = " -includes=" + socket_mixin;
+				socket_mixin = " -includes+=" + socket_mixin;
 		}
 
 		if (System.getProperty ("run_id")!=null) { 
@@ -526,7 +526,7 @@ public class CompileMustellaSwfs extends Thread {
 		// Write a mobile config class to mustella/tests/mobile.
 		// Note: this seems to be assuming use_mustella_framework_dir is true.
 		if( run_mobile_tests ){			
-			mobileConfigArg = " -includes=" + MobileConfigWriter.write( device_name, target_os_name, os_version, mustella_framework_dir, run_id, exclude_filename );
+			mobileConfigArg = " -includes+=" + MobileConfigWriter.write( device_name, target_os_name, os_version, mustella_framework_dir, run_id, exclude_filename );
 		}
 		
 		// System.out.println ("the hash: " + swfs);
@@ -675,7 +675,7 @@ public class CompileMustellaSwfs extends Thread {
 		for (int i=0;i<arg_list.size();i++) { 
 			tmp = (String) arg_list.get (i);
 
-			if ( tmp.trim().startsWith ("-includes=") ) { 
+			if ( tmp.trim().startsWith ("-includes+=") ) { 
 				tmp_fixed = finalFixUp(tmp);
 				// System.out.println ("Would replace " + tmp + " with + " + tmp_fixed);
 
@@ -694,7 +694,7 @@ public class CompileMustellaSwfs extends Thread {
 
 	
 	// 
-	s = s.substring ("-includes=".length()+1);
+	s = s.substring ("-includes+=".length()+1);
 
 	s = new File (s).getName();
 
@@ -703,7 +703,7 @@ public class CompileMustellaSwfs extends Thread {
 
 	/// System.out.println ("This is the filename I've fixed: " + s);
 
-	return "-includes=" +s;
+	return "-includes+=" +s;
 
     }
 
@@ -776,7 +776,7 @@ public class CompileMustellaSwfs extends Thread {
 		/// if we're excluding, add the ExcludeList mixin
 	} else if  (System.getProperty("exclude_source_path") != null && !System.getProperty("exclude_source_path").equals("")) { 
 		/// if not present, and not skip exclude, add that path
-		args+= " -source-path=" + System.getProperty("exclude_source_path");
+		args+= " -source-path+=" + System.getProperty("exclude_source_path");
 
 
 	}
@@ -788,26 +788,26 @@ public class CompileMustellaSwfs extends Thread {
 	}		
 		
 	if ( device_name.equalsIgnoreCase( "mac" ) ) {
-		args += " -includes=DesktopMacSettings";
+		args += " -includes+=DesktopMacSettings";
 	}
 
 	if ( device_name.equalsIgnoreCase( "win" ) ) {
-		args += " -includes=DesktopWinSettings";
+		args += " -includes+=DesktopWinSettings";
 	}
 		
 	// NOTE: Put this after anything which sets something related to excludes,
 	// such as AndroidSettings!
 	if (!skip_exclude) { 
-		args += " -includes=" + excludeListMixinName;
+		args += " -includes+=" + excludeListMixinName;
 
 	}
 
 	if (use_apollo) { 
-		args += " -includes=ApolloFilePath";
+		args += " -includes+=ApolloFilePath";
 	}
 
 	if (use_include_file) { 
-		args += " -includes=IncludeFileLocation";
+		args += " -includes+=IncludeFileLocation";
 	}
 
 	if (user_args != null)
@@ -834,10 +834,10 @@ public class CompileMustellaSwfs extends Thread {
 		String tmp = null;
 		for (int i=0;i<ermineArgs.size();i++) {
 			tmp = (String)ermineArgs.get(i);
-			if (tmp.indexOf ("-includes=")!= -1) { 
-				extract = tmp.substring ("-includes=".length());
-			} else if (tmp.indexOf ("-source-path=")!= -1) { 
-				front = tmp.substring ("-source-path=".length());
+			if (tmp.indexOf ("-includes+=")!= -1) { 
+				extract = tmp.substring ("-includes+=".length());
+			} else if (tmp.indexOf ("-source-path+=")!= -1) { 
+				front = tmp.substring ("-source-path+=".length());
 			}
 		}
 
@@ -850,8 +850,8 @@ public class CompileMustellaSwfs extends Thread {
 		String whereToWrite= System.getProperty("mustella.dir") + File.separator + "classes";
 		// we thought it best to write these to a temp location
 		GetExcIncCase.writeToFile (alinc, whereToWrite + File.separator + includeListMixinName + ".as", false);
-		args += " -includes=" + includeListMixinName;
-		args += " -source-path="+whereToWrite;
+		args += " -includes+=" + includeListMixinName;
+		args += " -source-path+="+whereToWrite;
 	}
 	*/
 
@@ -865,10 +865,10 @@ public class CompileMustellaSwfs extends Thread {
 		String tmp = null;
 		for (int i=0;i<ermineArgs.size();i++) {
 			tmp = (String)ermineArgs.get(i);
-			if (tmp.indexOf ("-includes=")!= -1) { 
-				extract = tmp.substring ("-includes=".length());
-			} else if (tmp.indexOf ("-source-path=")!= -1) { 
-				front = tmp.substring ("-source-path=".length());
+			if (tmp.indexOf ("-includes+=")!= -1) { 
+				extract = tmp.substring ("-includes+=".length());
+			} else if (tmp.indexOf ("-source-path+=")!= -1) { 
+				front = tmp.substring ("-source-path+=".length());
 			}
 		}
 
@@ -882,8 +882,8 @@ public class CompileMustellaSwfs extends Thread {
 		String whereToWrite= System.getProperty("mustella.dir") + File.separator + "classes";
 		// we thought it best to write these to a temp location
 		GetExcIncCase.writeToFile (alinc, whereToWrite + File.separator + includeListMixinName + ".as", false);
-		args += " -includes=" + includeListMixinName;
-		args += " -source-path="+whereToWrite;
+		args += " -includes+=" + includeListMixinName;
+		args += " -source-path+="+whereToWrite;
 	}
 
 
@@ -907,10 +907,10 @@ public class CompileMustellaSwfs extends Thread {
 	if (save_failures) {
 	   if (!distributed && !pmd) { 
 		System.out.println ("Choosing local runner bitmap save");
-		args+=" -includes=SaveBitmapFailures";
+		args+=" -includes+=SaveBitmapFailures";
 	   } else if (distributed || pmd) { 
 		System.out.println ("Choosing the Dist server bitmap save");
-		args+=" -includes=SaveBitmapFailuresDistServer";
+		args+=" -includes+=SaveBitmapFailuresDistServer";
 	   }
 	}
 
@@ -964,7 +964,7 @@ public class CompileMustellaSwfs extends Thread {
 	String [] pieces = asclasspath.split (",");
 	for (int i=0;i<pieces.length;i++) { 
 		if (pieces[i] != null && pieces[i].length() > 0)
-			args+=" -source-path="+pieces[i];
+			args+=" -source-path+="+pieces[i];
 	}
 
 	if (use_mustella_framework_dir) { 
@@ -972,7 +972,7 @@ public class CompileMustellaSwfs extends Thread {
 		// System.out.println ("Adding qa fwk dir: " + mustella_framework_dir);
 		
 		// Now add the rest.
-		args+= " -source-path="+mustella_framework_dir;	
+		args+= " -source-path+="+mustella_framework_dir;	
 		
 		// If we're using android or iOS, use the CompareBitmap which handles file I/O. MXMLC will
 		// keep whichever CompareBitmap it encounters first.
@@ -981,7 +981,7 @@ public class CompileMustellaSwfs extends Thread {
 			target_os_name.equalsIgnoreCase( MobileUtil.QNX ) )
 		{
 			//System.out.println("AIR files will override.");
-			args+= " -source-path="+mustella_framework_dir+File.separator+"AIR";
+			args+= " -source-path+="+mustella_framework_dir+File.separator+"AIR";
 		}	
 	}
 
@@ -1259,7 +1259,7 @@ public class CompileMustellaSwfs extends Thread {
 	for (int i=0;i<ermineArgs.size();i++) { 
 
 		tmp = (String) ermineArgs.get (i);
-		if (tmp.indexOf ("-includes=") != -1) 
+		if (tmp.indexOf ("-includes+=") != -1) 
 			tmp = tmp.substring (11);
 		else { 
 			System.out.println ("skipping arg: "+ tmp);
@@ -1311,9 +1311,9 @@ public class CompileMustellaSwfs extends Thread {
 	for (int i=0;i<al.size();i++) { 
 
 		tmp = (String) al.get (i);
-		if ( tmp.indexOf ("-includes=") != -1) { 
+		if ( tmp.indexOf ("-includes+=") != -1) { 
 
-			if (tmp.length() <= "-includes=".length())
+			if (tmp.length() <= "-includes+=".length())
 				continue;
 
 			/// unless includes are default ones, count

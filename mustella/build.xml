@@ -87,7 +87,7 @@
 
     <property name="compc.dir" value="${sdk.dir}/bin" />
     <property name="compc" value="" />
-    <property name="mxmlc.args" value="-debug -define=CONFIG::skaha,false -compiler.fonts.managers=flash.fonts.JREFontManager,flash.fonts.AFEFontManager,flash.fonts.BatikFontManager,flash.fonts.CFFFontManager" />
+    <property name="mxmlc.args" value="-debug -define+=CONFIG::skaha,false -compiler.fonts.managers=flash.fonts.JREFontManager,flash.fonts.AFEFontManager,flash.fonts.BatikFontManager,flash.fonts.CFFFontManager" />
     <property name="asclasspath" value=""/>
     <property name="aschartspath" value="."/>
     <property name="frameworks.dir1" value="${frameworks}" />
@@ -1153,7 +1153,7 @@
             <sysproperty key="strict" value="${strict}"/>
             <sysproperty key="index" value="${index}"/>
             <sysproperty key="compcdir" value="${compc.dir}" />
-            <sysproperty key="mxmlc.args" value="${mxmlc.args} -source-path=${mustella.dir}/Assets "/>
+            <sysproperty key="mxmlc.args" value="${mxmlc.args} -source-path+=${mustella.dir}/Assets "/>
             <sysproperty key="rsl" value="${rsl}" />
             <sysproperty key="build" value="${build}"/>
             <sysproperty key="debug" value="${debug}"/>
