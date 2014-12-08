@@ -15,6 +15,7 @@ AIR and Flash Player Support
 
 Bug Fixes
 ---------
+FLEX-34631  Cannot add source paths to a mustella test using a config file
 FLEX-34644  Datagrid - Rectangle bounds problem
 FLEX-34454  Setting modalTransparencyBlur to 0 gives blur when Alert ist shown
             on top of modal Dialog
