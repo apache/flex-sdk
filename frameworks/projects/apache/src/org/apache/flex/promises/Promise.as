@@ -20,14 +20,11 @@
 package org.apache.flex.promises
 {
 
-import flash.events.TimerEvent;
-import flash.utils.Timer;
-
 import org.apache.flex.promises.enums.PromiseState;
-import org.apache.flex.promises.interfaces.IPromise;
+import org.apache.flex.promises.interfaces.IThenable;
 import org.apache.flex.promises.vo.Handler;
 
-public class Promise implements IPromise
+public class Promise implements IThenable
 {
 
 
@@ -38,11 +35,11 @@ public class Promise implements IPromise
 	//--------------------------------------------------------------------------
 	
 	public function Promise(resolver:Function) {
-		this.handlers_ = new Vector.<Handler>();
+		handlers_ = new Vector.<Handler>();
 		
-		this.state_ = PromiseState.PENDING;
+		state_ = PromiseState.PENDING;
 		
-		this.doResolve_(resolver, this.resolve_, this.reject_);
+		doResolve_(resolver, resolve_, reject_);
 	}
 
 
@@ -66,21 +63,6 @@ public class Promise implements IPromise
 	//    Methods
 	//
 	//--------------------------------------------------------------------------
-	
-	//----------------------------------
-	//    done
-	//----------------------------------
-	
-	public function done(onFulfilled:Function = null, onRejected:Function = null):void
-	{
-		//var self:Promise = this;
-		
-		//var timer:Timer = new Timer(0, 1);
-		//timer.addEventListener(TimerEvent.TIMER, function ():void {
-			this.handle_(new Handler(onFulfilled, onRejected));
-		//});
-		//timer.start();
-	}
 	
 	//----------------------------------
 	//    doResolve_
@@ -126,63 +108,51 @@ public class Promise implements IPromise
 	}
 	
 	//----------------------------------
-	//    getThen_
-	//----------------------------------
-	
-	private function getThen_(value:*):Function
-	{
-		var type:String = typeof value;
-		
-		if (value && (value === 'object' || value === 'function'))
-		{
-			var then:* = value.then;
-			
-			if (then is Function)
-			{
-				return then;
-			}
-		}
-		
-		return null;
-	}
-	
-	//----------------------------------
 	//    fulfill_
 	//----------------------------------
 	
 	private function fulfill_(result:*):void
 	{
-		this.state_ = PromiseState.FULFILLED;
+		state_ = PromiseState.FULFILLED;
 		
-		this.value_ = result;
+		value_ = result;
 		
-		this.handlers_.forEach(this.handle_);
-		
-		this.handlers_ = null;
+		processHandlers_();
 	}
 	
 	//----------------------------------
 	//    handle_
 	//----------------------------------
 	
-	private function handle_(handler:Object, ...rest):void
+	private function handle_(handler:Handler):void
 	{
-		if (this.state_ === PromiseState.PENDING)
+		if (state_ === PromiseState.PENDING)
 		{
-			trace(this.state_);
-			this.handlers_.push(handler);
+			handlers_.push(handler);
 		}
 		else
 		{
-			if (this.state_ === PromiseState.FULFILLED && handler.onFulfilled != null)
+			if (state_ === PromiseState.FULFILLED && handler.onFulfilled != null)
 			{
-				handler.onFulfilled(this.value_);
+				handler.onFulfilled(value_);
 			}
 			
-			if (this.state_ === PromiseState.REJECTED && handler.onRejected != null)
+			if (state_ === PromiseState.REJECTED && handler.onRejected != null)
 			{
-				handler.onRejected(this.value_);
+				handler.onRejected(value_);
 			}
+		}
+	}
+	
+	//----------------------------------
+	//    processHandlers_
+	//----------------------------------
+	
+	private function processHandlers_():void
+	{
+		for (var i:int = 0, n:int = handlers_.length; i < n; i++)
+		{
+			handle_(handlers_.shift());
 		}
 	}
 	
@@ -192,13 +162,11 @@ public class Promise implements IPromise
 	
 	private function reject_(error:*):void
 	{
-		this.state_ = PromiseState.REJECTED;
+		state_ = PromiseState.REJECTED;
 		
-		this.value_ = error;
+		value_ = error;
 		
-		this.handlers_.forEach(this.handle_);
-		
-		this.handlers_ = null;
+		processHandlers_();
 	}
 	
 	//----------------------------------
@@ -209,19 +177,20 @@ public class Promise implements IPromise
 	{
 		try 
 		{
-			var then:Function = this.getThen_(result);
-			
-			if (then != null) {
-				this.doResolve_(then, this.resolve_, this.reject_);
-				
-				return;
+			if (result && 
+				(typeof(result) === 'object' || typeof(result) === 'function') &&
+				result.then is Function)
+			{
+				doResolve_(result.then, resolve_, reject_);
 			}
-			
-			this.fulfill_(result);
+			else 
+			{
+				fulfill_(result);
+			}
 		}
 		catch (e:Error)
 		{
-			this.reject_(e);
+			reject_(e);
 		}
 	}
 
@@ -230,13 +199,11 @@ public class Promise implements IPromise
 	//----------------------------------
 
 	public function then(onFulfilled:Function = null, 
-						 onRejected:Function = null):IPromise
+						 onRejected:Function = null):IThenable
 	{
-		var self:IPromise = this;
-		
-		var resolver:Function = function (resolve:Function, reject:Function):* {
-			return self.done(function (result:*):* {
-				if (onFulfilled is Function)
+		return new Promise(function (resolve:Function, reject:Function):* {
+			handle_(new Handler(function (result:*):* {
+				if (typeof(onFulfilled) === 'function')
 				{
 					try
 					{
@@ -252,7 +219,7 @@ public class Promise implements IPromise
 					return resolve(result);
 				}
 			}, function (error:*):* {
-				if (onRejected is Function)
+				if (typeof(onRejected) === 'function')
 				{
 					try
 					{
@@ -267,10 +234,8 @@ public class Promise implements IPromise
 				{
 					return reject(error);
 				}
-			});
-		};
-		
-		return new Promise(resolver);
+			}))
+		});
 	}
 
 }

@@ -27,7 +27,6 @@ import flash.utils.setTimeout;
 import flexunit.framework.Assert;
 
 import org.apache.flex.promises.Promise;
-import org.apache.flex.promises.interfaces.IPromise;
 import org.apache.flex.promises.interfaces.IThenable;
 import org.flexunit.asserts.assertEquals;
 import org.flexunit.asserts.assertNotNull;
@@ -45,7 +44,7 @@ public class PromisesBasicTests
 	
 	private var expected_:*;
 	
-	private var promise_:IPromise;
+	private var promise_:IThenable;
 	
 	private var got_:*;
 	
@@ -131,48 +130,7 @@ public class PromisesBasicTests
 		assertNotNull(promise_);
 		
 		assertTrue(promise_ is IThenable);
-		assertTrue(promise_ is IPromise);
 		assertTrue(promise_ is Promise);
-	}
-	
-	//----------------------------------
-	//    test_SimpleSyncDone_FulFill
-	//----------------------------------
-	
-	[Test(async)]
-	public function test_SimpleSyncDone_FulFill():void
-	{
-		Async.handleEvent(this, timer_, TimerEvent.TIMER_COMPLETE, verifyGot_);
-		
-		timer_.start();
-		
-		promise_ = new Promise(function (fulfill:Function = null, reject:Function = null):*
-		{
-			fulfill('Hello world');
-		});
-		
-		expected_ = 'Hello world';
-		promise_.done(parseGot_);
-	}
-	
-	//----------------------------------
-	//    test_SimpleSyncDone_Reject
-	//----------------------------------
-	
-	[Test(async)]
-	public function test_SimpleSyncDone_Reject():void
-	{
-		Async.handleEvent(this, timer_, TimerEvent.TIMER_COMPLETE, verifyGot_);
-		
-		timer_.start();
-		
-		promise_ = new Promise(function (fulfill:Function = null, reject:Function = null):*
-		{
-			reject(new Error('reject'));
-		});
-		
-		expected_ = 'Error: reject';
-		promise_.done(null, parseErrorGot_);
 	}
 	
 	//----------------------------------
@@ -229,7 +187,7 @@ public class PromisesBasicTests
 		this.promise_ = new Promise(function (fulfill:Function = null, 
 											  reject:Function = null):*
 		{
-			setTimeout(function ():void { fulfill('Hello world'); }, 0);
+			setTimeout(function ():void { fulfill('Hello world'); }, 10);
 		});
 		
 		expected_ = 'Hello world';
@@ -250,7 +208,7 @@ public class PromisesBasicTests
 		this.promise_ = new Promise(function (fulfill:Function = null, 
 											  reject:Function = null):*
 		{
-			setTimeout(function ():void { reject(new Error('reject')); }, 0);
+			setTimeout(function ():void { reject(new Error('reject')); }, 10);
 		});
 		
 		expected_ = 'Error: reject';
@@ -269,21 +227,77 @@ public class PromisesBasicTests
 		
 		timer_.start();
 		
-		var anotherStep:Function = function (value:*):IPromise
+		var anotherStep:Function = function (value:*):IThenable
 		{
 			return new Promise(function (fulfill:Function = null, reject:Function = null):*
 			{
-				setTimeout(function ():void { fulfill(value + ' ... again'); }, 0);
+				setTimeout(function ():void { fulfill(value + ' ... again'); }, 10);
 			});
 		}
 		
 		promise_ = new Promise(function (fulfill:Function = null, reject:Function = null):*
 		{
-			setTimeout(function ():void { fulfill('Hello world'); }, 0);
+			setTimeout(function ():void { fulfill('Hello world'); }, 10);
 		});
 		
-		expected_ = 'Hello worlds ... again';
+		expected_ = 'Hello world ... again';
 		promise_.then(anotherStep).then(parseGot_);
+	}
+	
+	//----------------------------------
+	//    test_MultipleASyncThen_RejectLast
+	//----------------------------------
+	
+	[Test(async)]
+	public function test_MultipleASyncThen_RejectLast():void
+	{
+		Async.handleEvent(this, timer_, TimerEvent.TIMER_COMPLETE, verifyGot_);
+		
+		timer_.start();
+		
+		var anotherStep:Function = function (value:*):IThenable
+		{
+			return new Promise(function (fulfill:Function = null, reject:Function = null):*
+			{
+				setTimeout(function ():void { reject(new Error('reject')); }, 10);
+			});
+		}
+		
+		promise_ = new Promise(function (fulfill:Function = null, reject:Function = null):*
+		{
+			setTimeout(function ():void { fulfill('Hello world'); }, 10);
+		});
+		
+		expected_ = 'Error: reject';
+		promise_.then(anotherStep).then(null, parseErrorGot_);
+	}
+	
+	//----------------------------------
+	//    test_MultipleASyncThen_RejectFirst
+	//----------------------------------
+	
+	[Test(async)]
+	public function test_MultipleASyncThen_Reject():void
+	{
+		Async.handleEvent(this, timer_, TimerEvent.TIMER_COMPLETE, verifyGot_);
+		
+		timer_.start();
+		
+		var anotherStep:Function = function (value:*):IThenable
+		{
+			return new Promise(function (fulfill:Function = null, reject:Function = null):*
+			{
+				setTimeout(function ():void { fulfill(value + ' ... again'); }, 10);
+			});
+		}
+		
+		promise_ = new Promise(function (fulfill:Function = null, reject:Function = null):*
+		{
+			setTimeout(function ():void { reject(new Error('reject')); }, 10);
+		});
+		
+		expected_ = 'Error: reject';
+		promise_.then(anotherStep).then(null, parseErrorGot_);
 	}
 	
 }}
