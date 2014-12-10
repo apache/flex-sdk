@@ -135,6 +135,10 @@
         <antcall target="flatspark"/>
     </target>
 	
+    <target name="test" description="Runs the tests for all projects that have FlexUnit tests">
+        <antcall target="apache-test"/>
+    </target>
+
 	<target name="flex-config" depends="playerglobal-setswfversion" description="Copy the flex/air/airmobile config templates to flex/air/airmobile-config.xml and inject version numbers">
 		<copy file="${basedir}/flex-config-template.xml" tofile="${basedir}/flex-config.xml" overwrite="true">
 			<filterset>
@@ -502,6 +506,9 @@
 	
     <target name="apache" description="Clean build of apache.swc">
         <ant dir="${basedir}/projects/apache"/>
+    </target>
+    <target name="apache-test" description="Tests for 'apache' project">
+        <ant dir="${basedir}/projects/apache" target="test"/>
     </target>
 	
     <target name="experimental" description="Clean build of experimental.swc">

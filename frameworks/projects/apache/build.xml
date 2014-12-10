@@ -188,7 +188,7 @@
 		</compc>
 	</target>
 	
-  <target name="test" description="Runs FlexUnit tests for 'org.apache.flex' components">
+  <target name="test" description="Runs the FlexUnit tests for the 'apache' project">
     <ant antfile="${FLEX_HOME}/flexunit-tests.xml">
       <property name="project.root" value="${basedir}"/>
     </ant>
