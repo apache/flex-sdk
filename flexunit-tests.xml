@@ -83,6 +83,14 @@
       <library dir="${FLEXUNIT_HOME}/FlexUnit4CIListener/target"/>
     </flexunit>
 
+    <mkdir dir="${FLEX_HOME}/test-reports"/>
+
+    <copy todir="${FLEX_HOME}/test-reports">
+      <fileset dir="${project.root}">
+        <include name="TEST-*.xml" />
+      </fileset>
+    </copy>
+
   </target>
 
   <target name="test-clean" unless="${exit}">
