@@ -136,6 +136,8 @@
     </target>
 	
     <target name="test" description="Runs the tests for all projects that have FlexUnit tests">
+        <delete dir="${FLEX_HOME}/test-reports"/>
+
         <antcall target="apache-test"/>
     </target>
 
