@@ -132,6 +132,7 @@
     	<antcall target="experimental"/>
     	<antcall target="experimental_mobile"/>
         <antcall target="compile-automation"/>
+        <antcall target="flatspark"/>
     </target>
 	
 	<target name="flex-config" depends="playerglobal-setswfversion" description="Copy the flex/air/airmobile config templates to flex/air/airmobile-config.xml and inject version numbers">
@@ -271,6 +272,7 @@
         <ant dir="${basedir}/projects/apache" target="doc" />
     	<ant dir="${basedir}/projects/experimental" target="doc" />
     	<ant dir="${basedir}/projects/experimental_mobile" target="doc" />
+        <ant dir="${basedir}/projects/flatspark" target="doc" />
     </target>
    
     <!--
@@ -309,6 +311,7 @@
     	<ant dir="${basedir}/projects/apache" target="clean"/>
     	<ant dir="${basedir}/projects/experimental" target="clean"/>
     	<ant dir="${basedir}/projects/experimental_mobile" target="clean"/>
+        <ant dir="${basedir}/projects/flatspark" target="clean"/>
         <ant dir="${basedir}/javascript" target="clean"/>
     	<ant dir="${basedir}/themes/AeonGraphical" target="clean"/>
         <!-- delete the FlashBuilder executable directories -->
@@ -507,5 +510,9 @@
 	
     <target name="experimental_mobile" description="Clean build of experimental_mobile.swc">
         <ant dir="${basedir}/projects/experimental_mobile"/>
+    </target>
+	
+    <target name="flatspark" description="Clean build of flatspark.swc">
+        <ant dir="${basedir}/projects/flatspark"/>
     </target>
 </project>
