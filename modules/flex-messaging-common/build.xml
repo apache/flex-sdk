@@ -1,0 +1,95 @@
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<project name="flex-messaging-common" default="main" basedir=".">
+	<property name="FLEX_HOME" location="${basedir}/../.."/>
+	
+    <property file="${FLEX_HOME}/env.properties"/>
+    <property environment="env"/>
+	<property file="${FLEX_HOME}/local.properties"/>
+	<property file="${FLEX_HOME}/build.properties"/>
+
+	<property name="output.file" value="${FLEX_HOME}/lib/flex-messaging-common.jar"/>
+	<property name="flexTasks.location" value="${FLEX_HOME}/lib/flexTasks.jar"/>
+	<property name="project.uri" value="library://ns.adobe.com/flashx/textLayout"/>
+
+    <available file="${FLEX_HOME}/../flex-blazeds/modules/remoting"
+            type="dir" 
+            property="BLAZEDS_HOME"
+            value="${FLEX_HOME}/../flex-blazeds" />
+
+    <available file="${FLEX_HOME}/../blazeds/modules/remoting"
+            type="dir" 
+            property="BLAZEDS_HOME"
+            value="${FLEX_HOME}/../blazeds" />
+
+    <available file="${basedir}/common/src"
+            type="dir" 
+            property="src.folder.exists"/>
+
+    <available file="${basedir}/common/src"
+            type="dir" 
+            property="BLAZEDS_HOME"
+            value="${basedir}/common" />
+				
+	<target name="main" depends="check-blazeds-home,clean,compile,compile.external" description="Clean build of flex-messaging-common.jar">
+	</target>
+
+    <target name="check-blazeds-home" unless="BLAZEDS_HOME"
+        description="Check BLAZEDS_HOME is a directory.">
+        
+        <echo message="BLAZEDS_HOME is ${env.BLAZEDS_HOME}"/>
+
+        <available file="${env.BLAZEDS_HOME}"
+            type="dir" 
+            property="BLAZEDS_HOME"
+            value="${env.BLAZEDS_HOME}"/>
+
+        <fail message="BLAZEDS_HOME must be set correctly for a release build"
+            unless="BLAZEDS_HOME"/>
+    	
+    </target>
+	
+	
+	<target name="clean" depends="check-blazeds-home,clean-external" description="Deletes the jar">
+		<delete failonerror="false">
+			<fileset dir="${FLEX_HOME}/lib">
+				<include name="flex-messaging-common.jar"/>
+			</fileset>
+		</delete>
+	</target>
+
+	<target name="compile" description="Compiles flex-messaging-common.jar" if="src.folder.exists">
+        <ant dir="${basedir}/common">
+            <property name="lib.dir" value="${FLEX_HOME}/lib" />
+            <property name="module.dir" value="${basedir}/common" />
+        </ant>
+     </target>
+
+    <target name="compile.external" description="Compile flex-messaging-common.jar in flex-blazeds repo" unless="src.folder.exists">
+        <ant dir="${BLAZEDS_HOME}" target="common"/>
+        <copy file="${BLAZEDS_HOME}/lib/flex-messaging-common.jar" toDir="${FLEX_HOME}/lib" />
+    </target>
+    
+    <target name="clean-external" description="clean in flex-blazeds repo" unless="src.folder.exists">
+        <echo message="cleaning ${BLAZEDS_HOME}" />
+        <ant dir="${BLAZEDS_HOME}" target="clean"/>
+    </target>
+
+</project>

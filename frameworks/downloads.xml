@@ -63,7 +63,7 @@
     </target>
     
     <target name="optional-downloads" 
-        depends="blazeds-jar, font-jars, clean-adobe-flex-sdk" 
+        depends="font-jars, clean-adobe-flex-sdk"
         description="Downloads, after prompt for each, the optional thirdparty JARs"/>
 
     <target name="clean" depends="pixelbender-clean,swfobject-clean,swfobject-fabridge-clean,clean-adobe-flex-sdk"
@@ -217,22 +217,6 @@
         </delete>
     </target>
 
-    <!--
-        flex-messaging-common.jar - BlazeDS interface for -service compiler option.
-    -->
-
-    <target name="blazeds-jar" depends="get-blazeds-jar"
-            description="Downloads and copies flex-messaging-common.jar to the optional lib directory."/>
-
-    <target name="get-blazeds-jar">
-        <available file="${download.dir}/flex-messaging-common.jar" type="file"
-                   property="apache.flex.blazeds.exists"/>
-
-        <antcall target="get-apache-flex-blazeds"/>
-
-        <copy file="${download.dir}/flex-messaging-common.jar"
-              todir="${lib.dir}" verbose="true"/>
-    </target>
 
     <!--============================================================================= -->
 	<!--      Optional Jars.  Licenses are not compatible with Apache v2 license.     -->
@@ -341,13 +325,6 @@
         <delete dir="${download.dir}/${adobe.flex.dir}"/>
     </target>
 
-    <target name="get-apache-flex-blazeds" unless="apache.flex.blazeds.exists"
-            description="Downloads the Apache Flex BlazeDS libraries">
-        <mkdir dir="${download.dir}"/>
-        <get src="https://builds.apache.org/view/E-G/view/Flex/job/flex-blazeds/lastSuccessfulBuild/artifact/modules/common/target/flex-messaging-common.jar"
-             dest="${download.dir}/flex-messaging-common.jar" />
-    </target>
-    
     <target name="get_from_mirror">
         <condition property="usingmirror" value="true">
             <contains string="${server}" substring="mirrors.cgi" />

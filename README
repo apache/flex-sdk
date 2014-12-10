@@ -64,6 +64,7 @@ The following steps are all you need for a fully functional SDK:
 - Get the source code
     - flex-sdk
     - flex-tlf
+    - flex-blazeds
 - Build the SDK
 - Prepare the SDK for use with an IDE
 - Optional steps:
@@ -79,8 +80,9 @@ set the corresponding environment variables. Make sure to use absolute paths,
 relative paths will result in build errors.
 
 The environment variables PLAYERGLOBAL_HOME, AIR_HOME, FLASHPLAYER_DEBUGGER,
-TLF_HOME, and ADOBE_EXTENSION_MANAGER can also be set in a property file
-called env.properties. See the env-template.properties file for instructions.
+TLF_HOME, BLAZEDS_HOME and ADOBE_EXTENSION_MANAGER can also be set in a
+property file called env.properties. See the env-template.properties file
+for instructions.
 
 The Adobe Flash Player and Adobe AIR have excluded licenses so they can not be
 bundled with the Apache Flex SDK, i.e. they need to be installed separately.
@@ -112,6 +114,8 @@ Adobe Flash Player playerglobal swcs (* 5)    PLAYERGLOBAL_HOME
 Optional: Text Layout Framework (* 6)         TLF_HOME
 
 Optional: Adobe Extension Manager CS5 (* 7)   ADOBE_EXTENSION_MANAGER
+
+Optional: Flex Messaging Common (* 8)         BLAZEDS_HOME
 
 ---------------------------------------------------------------------
 
@@ -192,7 +196,9 @@ The build scripts assume that the source code folder containing the Apache Flex
 Text Layout Framework root folder ('flex-tlf') is at the same level as the SDK
 root folder ('flex-sdk'). See 'Getting the source code', below. If this is not
 the case on your system, then you must set the TLF_HOME environment variable to
-point to your TLF root folder.
+point to your TLF root folder.  If you are using a released artifact, the
+source should be included in the artifact so setting TLF_HOME should not be
+required.
 
 * 7)
 The Adobe Extension Manager is only required for those creating releases or
@@ -216,6 +222,15 @@ and set ADOBE_EXTENSION_MANAGER to the absolute path of
 
 On Linux, no Adobe Extension Manager exists.
 
+* 8)
+The build scripts assume that the source code folder containing the Apache Flex
+BlazeDS root folder ('flex-blazeds) is at the same level as the SDK
+root folder ('flex-sdk'). See 'Getting the source code', below. If this is not
+the case on your system, then you must set the BLAZEDS_HOME environment variable
+to point to your BLAZEDS root folder.  If you are using a released artifact, the
+source should be included in the artifact so setting BLAZEDS_HOME should not be
+required.
+
 
 Get the source code
 -------------------
@@ -235,6 +250,13 @@ following commands:
     git clone https://git-wip-us.apache.org/repos/asf/flex-tlf.git flex-tlf
     cd flex-tlf
     git checkout develop
+
+The Apache Flex SDK requires source code from Apache Flex BlazeDS. To get 
+the latest source for Apache Flex BlazeDS (‘master’ branch), use the
+following commands:
+
+    git clone https://git-wip-us.apache.org/repos/asf/flex-blazeds.git flex-blazeds
+    cd flex-blazeds
 
 For further information visit:
 
@@ -469,16 +491,6 @@ compatible with the Apache License Version 2.0. You will be prompted to read
 and agree to the license terms of the dependency before the software can be
 downloaded to your system. These are optional components which enable
 additional features. They are installed in libs/external/optional.
-
-    flex-messaging-common.jar (provides integration with Adobe BlazeDS)
-
-    This file is extracted from:
-
-        http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6/flex_sdk_4.6.0.23201B.zip
-
-    and is released under an Adobe license:
-
-        http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf
 
     adt.jar, afe.jar, aglj40.jar, flex-fontkit.jar and rideau.jar (provides embedded font support)
 
