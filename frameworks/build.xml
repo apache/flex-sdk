@@ -272,7 +272,7 @@
         <ant dir="${basedir}/projects/apache" target="doc" />
     	<ant dir="${basedir}/projects/experimental" target="doc" />
     	<ant dir="${basedir}/projects/experimental_mobile" target="doc" />
-        <ant dir="${basedir}/projects/flatspark" target="doc" />
+        <!-- ant dir="${basedir}/projects/flatspark" target="doc" / -->
     </target>
    
     <!--
