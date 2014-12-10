@@ -52,7 +52,7 @@
   
   <target name="test-run" unless="${exit}">
 
-    <property name="tests.bin" location="${FLEX_HOME}/bin-tests"/>
+    <property name="tests.bin" location="${basedir}/bin-tests"/>
 
     <taskdef resource="flexUnitTasks.tasks">
       <classpath>
