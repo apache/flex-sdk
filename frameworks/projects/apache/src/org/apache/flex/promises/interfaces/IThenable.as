@@ -23,7 +23,8 @@ package org.apache.flex.promises.interfaces
 public interface IThenable
 {
 
-	function then(onFulfilled:Function = null, onRejected:Function = null):IThenable;
+	function then(onFulfilled:Function = null,
+				  onRejected:Function = null):IThenable;
 	
 }
 

@@ -34,7 +34,8 @@ public class Promise implements IThenable
 	//
 	//--------------------------------------------------------------------------
 	
-	public function Promise(resolver:Function) {
+	public function Promise(resolver:Function) 
+	{
 		handlers_ = new Vector.<Handler>();
 		
 		state_ = PromiseState.PENDING;
@@ -68,7 +69,8 @@ public class Promise implements IThenable
 	//    doResolve_
 	//----------------------------------
 	
-	private function doResolve_(fn:Function, onFulfilled:Function, onRejected:Function):void
+	private function doResolve_(fn:Function, onFulfilled:Function, 
+								onRejected:Function):void
 	{
 		var done:Boolean = false;
 		
@@ -132,12 +134,14 @@ public class Promise implements IThenable
 		}
 		else
 		{
-			if (state_ === PromiseState.FULFILLED && handler.onFulfilled != null)
+			if (state_ === PromiseState.FULFILLED && 
+				handler.onFulfilled != null)
 			{
 				handler.onFulfilled(value_);
 			}
 			
-			if (state_ === PromiseState.REJECTED && handler.onRejected != null)
+			if (state_ === PromiseState.REJECTED && 
+				handler.onRejected != null)
 			{
 				handler.onRejected(value_);
 			}
@@ -178,7 +182,8 @@ public class Promise implements IThenable
 		try 
 		{
 			if (result && 
-				(typeof(result) === 'object' || typeof(result) === 'function') &&
+				(typeof(result) === 'object' || 
+				 typeof(result) === 'function') &&
 				result.then is Function)
 			{
 				doResolve_(result.then, resolve_, reject_);

@@ -229,15 +229,21 @@ public class PromisesBasicTests
 		
 		var anotherStep:Function = function (value:*):IThenable
 		{
-			return new Promise(function (fulfill:Function = null, reject:Function = null):*
+			return new Promise(function (fulfill:Function = null, 
+										 reject:Function = null):*
 			{
-				setTimeout(function ():void { fulfill(value + ' ... again'); }, 10);
+				setTimeout(function ():void { 
+					fulfill(value + ' ... again'); 
+				}, 10);
 			});
 		}
 		
-		promise_ = new Promise(function (fulfill:Function = null, reject:Function = null):*
+		promise_ = new Promise(function (fulfill:Function = null, 
+										 reject:Function = null):*
 		{
-			setTimeout(function ():void { fulfill('Hello world'); }, 10);
+			setTimeout(function ():void { 
+				fulfill('Hello world'); 
+			}, 10);
 		});
 		
 		expected_ = 'Hello world ... again';
@@ -257,15 +263,21 @@ public class PromisesBasicTests
 		
 		var anotherStep:Function = function (value:*):IThenable
 		{
-			return new Promise(function (fulfill:Function = null, reject:Function = null):*
+			return new Promise(function (fulfill:Function = null, 
+										 reject:Function = null):*
 			{
-				setTimeout(function ():void { reject(new Error('reject')); }, 10);
+				setTimeout(function ():void { 
+					reject(new Error('reject')); 
+				}, 10);
 			});
 		}
 		
-		promise_ = new Promise(function (fulfill:Function = null, reject:Function = null):*
+		promise_ = new Promise(function (fulfill:Function = null, 
+										 reject:Function = null):*
 		{
-			setTimeout(function ():void { fulfill('Hello world'); }, 10);
+			setTimeout(function ():void { 
+				fulfill('Hello world'); 
+			}, 10);
 		});
 		
 		expected_ = 'Error: reject';
@@ -285,15 +297,21 @@ public class PromisesBasicTests
 		
 		var anotherStep:Function = function (value:*):IThenable
 		{
-			return new Promise(function (fulfill:Function = null, reject:Function = null):*
+			return new Promise(function (fulfill:Function = null, 
+										 reject:Function = null):*
 			{
-				setTimeout(function ():void { fulfill(value + ' ... again'); }, 10);
+				setTimeout(function ():void { 
+					fulfill(value + ' ... again'); 
+				}, 10);
 			});
 		}
 		
-		promise_ = new Promise(function (fulfill:Function = null, reject:Function = null):*
+		promise_ = new Promise(function (fulfill:Function = null, 
+										 reject:Function = null):*
 		{
-			setTimeout(function ():void { reject(new Error('reject')); }, 10);
+			setTimeout(function ():void { 
+				reject(new Error('reject')); 
+			}, 10);
 		});
 		
 		expected_ = 'Error: reject';
