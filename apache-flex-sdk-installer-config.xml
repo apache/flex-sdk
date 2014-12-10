@@ -93,18 +93,6 @@
 			<zh_CN>Adobe 镶入字体库和实用程序 (可选的)</zh_CN>
 			<zh_TW>Adobe 鑲入字體庫和實用程式 (可選的)</zh_TW>
 		</step>
-		<step id="blazeds-download" property="do.blazeds.install">
-			<de_DE>Remoting Support (Optional)</de_DE>
-			<el_GR>Remoting Support (Προαιρετικό)</el_GR>
-			<en_US>Remoting Support (Optional)</en_US>
-			<es_ES>Soporte para Remoting (Opcional)</es_ES>
-			<fr_FR>Support du Remoting (Facultatif)</fr_FR>
-			<nl_NL>Remoting Support (Optioneel)</nl_NL>
-			<pt_BR>Suporte para Remoting (Opcional)</pt_BR>
-			<ko_KR>리모팅 지원 (선택)</ko_KR>
-			<zh_CN>远程支持 (可选的)</zh_CN>
-			<zh_TW>遠端支援 (可選的)</zh_TW>
-		</step>
 		<step id="fixup-config-files">
 			<de_DE>Installiere Framework Konfigurationsdateien</de_DE>
 			<el_GR>Εγκατάσταση των αρχείων ρυθμίσεων του Framework</el_GR>
@@ -342,53 +330,6 @@
 			<label>OSMF (必須的)</label>
 			<message>Flex 的一些視頻元件需要用到開源媒體框架 Open Source Media Framework (OSMF), OSMF 由 Mozilla 公共授權合約 1.1 版提供授權. 您想要安裝 OSMF 嗎?</message>
 			<license>Mozilla 公共授權合約 1.1 版</license>
-		</zh_TW>
-	</component>
-	<component id="BlazeDS (Optional)" required="false" property="do.blazeds.install">
-		<de_DE>
-			<label>Remoting Support (Optional)</label>
-			<message>Apache Flex kann optional Adobe BlazeDS einbinden. Dieses Feature benötigt flex-messaging-common.jar aus dem Adobe Flex SDK. Die Adobe SDK Lizenzvereinbarung für Adobe Flex 4.6 gilt für diese Jar-Datei. Diese Lizenz ist nicht mit der Apache V2 Lizenz vereinbar. Möchten Sie diese Jar-Datei aus dem Adobe Flex SDK installieren?</message>
-		</de_DE>
-		<el_GR>
-			<label>Remoting Support (Προαιρετικό)</label>
-			<message>Το Apache Flex μπορεί προαιρετικά να χρησιμοποιήσει το Adobe BlazeDS. Η λειτουργία αυτή απαιτεί το αρχείο flex-messaging-common.jar που βρίσκεται στο Adobe Flex SDK. Για το αρχείο αυτό ισχύει η συμφωνία χρήσης της άδειας Adobe SDK για το Adobe Flex 4.6. Η άδεια αυτή δεν είναι συμβατή με την άδεια χρήσης Apache V2. Θέλετε να εγκαταστήσετε το αρχείο αυτά απο το Adobe Flex SDK;</message>
-			<license>'Αδεια χρήσης Adobe Flex SDK</license>
-		</el_GR>
-		<en_US>
-			<label>Remoting Support (Optional)</label>
-			<message>Apache Flex can optionally integrate with remoting providers like BlazeDS, GraniteDS, WebORB, Red5, AMFPHP, RubyAMF, PyAMF and others. This feature requires flex-messaging-common.jar from the Adobe Flex SDK. The Adobe SDK license agreement for Adobe Flex 4.6 applies to this jar. This license is not compatible with the Apache V2 license. Do you want to install this jar from the Adobe Flex SDK?</message>
-			<license>Adobe Flex SDK License</license>
-			<licenseURL>http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf</licenseURL>
-		</en_US>
-		<es_ES>
-			<label>Soporte para Remoting (Opcional)</label>
-			<message>Apache Flex puede integrarse de manera opcional con Adobe BlazeDS. Esta característica necesita flex-messaging-common.jar del SDK de Adobe Flex. Este archivo se ofrecen bajo los términos de la licencia de Adobe SDK para Adobe Flex 4.6. Esta licencia no es compatible con la licencia Apache V2. ¿Quiere instalar este archivo desde el SDK de Adobe Flex?</message>
-		</es_ES>
-		<fr_FR>
-			<label>Remoting Support (Facultatif)</label>
-			<message>Apache Flex peut éventuellement s'intégrer à Adobe BlazeDS. Cette fonctionnalité nécessite flex-messaging-common.jar du SDK Adobe Flex. L'accord de licence Adobe SDK pour Adobe Flex 4.6 s'applique à ce jar. Cette licence n'est pas compatible avec la licence Apache V2. Voulez-vous installer ce jar à partir du SDK Adobe Flex?</message>
-		</fr_FR>
-		<nl_NL>
-			<label>Remoting Support (Optioneel)</label>
-			<message>Apache Flex kan optioneel integreren met remoting providers zoals BlazeDS, GraniteDS, WebORB, Red5, AMFPHP, RubyAMF, PyAMF en andere. Deze feature vereist flex-messaging-common.jar uit de Adobe Flex SDK. De Adobe SDK licentie overeenkomst voor Adobe Flex 4.6 geldt voor deze jar. Deze licentie is niet compatibel met de Apache V2 licentie. Wilt u deze jar uit de Adobe Flex SDK installeren?</message>
-		</nl_NL>
-		<pt_BR>
-			<label>Suporte para Remoting (Opcional)</label>
-			<message>Apache Flex pode, opcionalmente, integrar-se com serviços de remoting como BlazeDS, GraniteDS, WebORB, Red5, AMFPHP, RubyAMF, PyAMF e outros. Esta funcionalidade requer a biblioteca flex-messaging-common.jar do SDK Adobe Flex. A licença do SDK Adobe Flex 4.6 aplica-se a esta biblioteca. Esta licença não é compatível com a licença Apache V2. Deseja instalar a biblioteca a partir do SDK Adobe Flex</message>
-		</pt_BR>
-		<ko_KR>
-			<label>리모팅 지원 (선택)</label>
-			<message>Apache Flex에서는 선택적으로 BlazeDS, GraniteDS, WebORB, Red5, AMFPHP, RubyAMF, PyAMF 등등과 같은 리모팅 공급자(Remoting Provider) 기능을 통합할 수 있습니다. 이 기능은 Adobe Flex SDK에서 flex-messaging-common.jar 파일이 필요합니다. Adobe Flex 4.6에 대한 Adobe SDK 라이센스 계약이 jar 파일에 적용됩니다. 이 라이센스는 Apache V2 라이센스와 호환되지 않습니다. Adobe Flex SDK에서 이 jar 파일을 가져와 설치 하시겠습니까?</message>
-		</ko_KR>
-		<zh_CN>
-			<label>远程支持 (可选的)</label>
-			<message>Apache Flex 可以选择性地与 BlazeDS, GraniteDS, WebORB, Red5, AMFPHP, RubyAMF, PyAMF 和其它一些远程服务提供者进行整合. 此功能须要 Adobe Flex SDK 里的 flex-messaging-common.jar 文件, Adobe Flex 4.6 的 Adobe SDK 许可协议适用于这个 jar 文件, 此许可与 Apache V2 许可并不兼容. 您想要安装来自 Adobe Flex SDK 里的这个 jar 文件吗?</message>
-			<license>Adobe Flex SDK 许可协议</license>
-		</zh_CN>
-		<zh_TW>
-			<label>遠端支援 (可選的)</label>
-			<message>Apache Flex 可以選擇性地與 BlazeDS, GraniteDS, WebORB, Red5, AMFPHP, RubyAMF, PyAMF 和其它一些遠端服務提供者進行整合. 此功能須要 Adobe Flex SDK 裡的 flex-messaging-common.jar 檔案, Adobe Flex 4.6 的 Adobe SDK 授權合約適用於這個 jar 檔案, 此許可與 Apache V2 許可並不相容. 您想要安裝來自 Adobe Flex SDK 裡的這個 jar 檔案嗎?</message>
-			<license>Adobe Flex SDK 授權合約</license>
 		</zh_TW>
 	</component>
 	<component id="FontSWF (Optional)" required="false" property="do.fontswf.install">
