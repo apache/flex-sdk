@@ -7,11 +7,12 @@ New Features
 - new theme: FlatSpark
 - Spark RichTextEditor
 - native support for tables in TLF
+- Promises/A+
 
 AIR and Flash Player Support
 ----------------------------
- - Support Flash Player 15.0
- - Support for AIR 15.0
+- Support Flash Player 15.0
+- Support for AIR 15.0
 
 Bug Fixes
 ---------
