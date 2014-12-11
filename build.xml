@@ -620,7 +620,7 @@
         <!-- modules -->
         <antcall target="stage-modules"/>
         
-        <!-- tlf -->
+        <!-- blazeds -->
         <antcall target="stage-blazeds"/>
         
         <!-- asdoc -->
