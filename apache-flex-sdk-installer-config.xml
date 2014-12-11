@@ -332,6 +332,14 @@
 			<license>Mozilla 公共授權合約 1.1 版</license>
 		</zh_TW>
 	</component>
+    <component id="OFL Fonts (Required)" required="true" property="do.ofl.fonts.install">
+        <en_US>
+            <label>Font Awesome and Lato Fonts (Required)</label>
+            <message>The FlatSpark theme uses fonts licensed under the Open Font License.  Do you want to install the Font Awesome and Lato Fonts?</message>
+            <license>SIL Open Font License</license>
+            <licenseURL>http://scripts.sil.org/OFL</licenseURL>
+        </en_US>
+    </component>
 	<component id="FontSWF (Optional)" required="false" property="do.fontswf.install">
 		<de_DE>
 			<label>Adobe Bibliothek zur Einbettung von Schriften (Optional)</label>
