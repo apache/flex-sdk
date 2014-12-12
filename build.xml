@@ -897,7 +897,7 @@ There are no known issues.
         
         <antcall target="stage-source"/>
         
-        <!-- 
+        <!--
             Some, but not all framework sources are included.
             Need to include the sources required for build_framework.xml.
         -->
@@ -973,6 +973,7 @@ There are no known issues.
                 <include name="core.swc"/>
             	<include name="experimental.swc"/>
             	<include name="experimental_mobile.swc"/>
+                <include name="flatspark.swc"/>
                 <include name="spark.swc"/>
                 <include name="framework.swc"/>
                 <include name="mx/mx.swc"/>
