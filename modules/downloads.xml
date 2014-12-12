@@ -43,7 +43,7 @@
     <property name="velocity.zip.dir" value="velocity-1.4"/>
     <property name="velocity.dir" value="thirdparty/velocity"/>
     
-    <property name="maven.search.url" value="http://search.maven.org/remotecontent?filepath="/>
+    <property name="maven.search.url" value="https://search.maven.org/remotecontent?filepath="/>
     <property name="flexToolApi.name" value="flex-tool-api"/>
     <property name="flexToolApi.version" value="1.0.0"/>
     
