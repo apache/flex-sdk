@@ -16,6 +16,10 @@ AIR and Flash Player Support
 
 Bug Fixes
 ---------
+FLEX-34649  (partial) Fatal errors in TextBlock after pasting text of specific 
+            length in TextArea
+FLEX-34507  expected build.xml file missing from Linux binary tarball 
+            apache-flex-sdk-4.13.0-bin.tar.gz
 FLEX-34336  Strange Trace Statements When Debugging
 FLEX-34631  Cannot add source paths to a mustella test using a config file
 FLEX-34644  Datagrid - Rectangle bounds problem
