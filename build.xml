@@ -897,12 +897,6 @@ There are no known issues.
         
         <antcall target="stage-source"/>
         
-        <!-- Delete files from source distro that are not in binary distro. -->        
-        <delete dir="${basedir}/temp/">
-            <include name="**/build.xml"/>
-            <exclude name="asdoc/build.xml"/>
-        </delete>
-
         <!-- 
             Some, but not all framework sources are included.
             Need to include the sources required for build_framework.xml.
