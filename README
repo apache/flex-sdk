@@ -315,7 +315,6 @@ If you want to use the SDK you built from source in Adobe Flash Builder, you
 need to run these commands and scripts:
 
     cd <flex.dir>
-    ant main
     ant frameworks-rsls
     ./ide/constructFlexForIDE.[sh/bat]
 
