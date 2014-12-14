@@ -155,6 +155,8 @@ files=(
     "AIR SDK Readme.txt" 
     bin/adl.exe 
     bin/adt.bat 
+    bin/adl
+    bin/adt
     frameworks/libs/air
     frameworks/libs/player/11.1
     frameworks/projects/air
