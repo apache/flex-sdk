@@ -51,7 +51,7 @@ fi
 # 11.1 is the default version
 # 11.7 is a much used version?
 # 13 is the current "long term support" version
-# 15 is the current 'beta' version
+# 16 is the beta and/or current version
 # Note: the previous release and current beta versions of AIR are both '4',
 #       so to make the distinction, the beta version is '4.01' on the VM
 if [ "$FLASH_VERSION" == "11.1" ]
@@ -93,7 +93,7 @@ case "$FLASH_VERSION" in
   13.0)
     export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer13_0r0_214_win_sa_debug.exe"
   ;;
-  15.0)
+  16.0)
     export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer_16_sa_debug.exe"
   ;;
   *)
