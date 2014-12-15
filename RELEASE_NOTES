@@ -42,6 +42,8 @@ FLEX-34531  mx.charts.series.HLOCSeries excluding a style being used in example
 FLEX-34507  expected build.xml file missing from Linux binary tarball
             apache-flex-sdk-4.13.0-bin.tar.gz
 FLEX-34476  Added RichTextEditor
+FLEX-34467  Spark DataGrid performance extremely decreased since "gridView" is 
+            introduced
 FLEX-34460  adt is missing in windows install
 FLEX-34458  HierarchicalCollectionViewCursor.current returns wrong item after
             previous sibling is removed when current was "${L}"
@@ -64,6 +66,8 @@ FLEX-34336  Strange Trace Statements When Debugging
 FLEX-34323  Allow the mustella tests directory to be located anywhere
 FLEX-34318  [Mavenizer] Refactor the Mavenizer in preparation of future
             mavenized releases of flex
+FLEX-34260  s:datagrid cacheAsBitmap caches an itemRenderer for every item in 
+            the dataProvider
 FLEX-34213  Flex mobile list performance
 FLEX-34212  invalidIndex RTE in LinearLayoutVector when mouse scrolling List
 FLEX-34119  mx.collections.HierarchicalCollectionViewCursor causes CursorError
