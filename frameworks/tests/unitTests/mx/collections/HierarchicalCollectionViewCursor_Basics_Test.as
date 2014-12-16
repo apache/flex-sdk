@@ -45,13 +45,15 @@ import mx.collections.ArrayCollection;
 		[BeforeClass]
 		public static function setUpBeforeClass():void
 		{
-			(FlexGlobals.topLevelApplication as WindowedApplication).loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, handleUncaughtClientError);
+            if(FlexGlobals.topLevelApplication is WindowedApplication)
+			    (FlexGlobals.topLevelApplication as WindowedApplication).loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, handleUncaughtClientError);
 		}
 		
 		[AfterClass]
 		public static function tearDownAfterClass():void
 		{
-			(FlexGlobals.topLevelApplication as WindowedApplication).loaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, handleUncaughtClientError);
+            if(FlexGlobals.topLevelApplication is WindowedApplication)
+			    (FlexGlobals.topLevelApplication as WindowedApplication).loaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, handleUncaughtClientError);
 		}
 		
 		[Before]

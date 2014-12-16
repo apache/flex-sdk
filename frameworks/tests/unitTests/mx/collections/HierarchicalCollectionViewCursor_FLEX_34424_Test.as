@@ -53,13 +53,15 @@ public class HierarchicalCollectionViewCursor_FLEX_34424_Test
 		[BeforeClass]
 		public static function setUpBeforeClass():void
 		{
-            (FlexGlobals.topLevelApplication as WindowedApplication).loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
+            if(FlexGlobals.topLevelApplication is WindowedApplication)
+                (FlexGlobals.topLevelApplication as WindowedApplication).loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
         }
 		
 		[AfterClass]
 		public static function tearDownAfterClass():void
 		{
-			(FlexGlobals.topLevelApplication as WindowedApplication).loaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
+            if(FlexGlobals.topLevelApplication is WindowedApplication)
+                (FlexGlobals.topLevelApplication as WindowedApplication).loaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
 		}
 		
 		[Before]

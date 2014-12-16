@@ -51,13 +51,15 @@ package mx.collections
 		public static function setUpBeforeClass():void
 		{
 			_generatedHierarchy = _utils.generateOpenHierarchyFromRootList(_utils.generateHierarchySourceFromString(HIERARCHY_STRING));
-			(FlexGlobals.topLevelApplication as WindowedApplication).loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
+            if(FlexGlobals.topLevelApplication is WindowedApplication)
+                (FlexGlobals.topLevelApplication as WindowedApplication).loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
         }
 		
 		[AfterClass]
 		public static function tearDownAfterClass():void
 		{
-			(FlexGlobals.topLevelApplication as WindowedApplication).loaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
+            if(FlexGlobals.topLevelApplication is WindowedApplication)
+                (FlexGlobals.topLevelApplication as WindowedApplication).loaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
 			_generatedHierarchy = null;
 			_utils = null;
 		}
