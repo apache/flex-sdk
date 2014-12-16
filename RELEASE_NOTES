@@ -3,10 +3,10 @@ Apache Flex 4.14.0
 
 New Features
 ------------
-- iOS 7 and Android 4.x Mobile theme support
-- new theme: FlatSpark
+- iOS 7+ and Android 4.x+ mobile theme support
+- New theme: FlatSpark
 - Spark RichTextEditor
-- native support for tables in TLF
+- Native support for tables in TLF
 - Promises/A+
 
 AIR and Flash Player Support
@@ -16,6 +16,7 @@ AIR and Flash Player Support
 
 Bug Fixes
 ---------
+FLEX-34690  Skin for BusyIndicator cannot be found (legacy mobile skin)
 FLEX-34685  Allow legacy mobile theme to be used if needed
 FLEX-34649  (partial) Fatal errors in TextBlock after pasting text of specific
             length in TextArea
