@@ -90,10 +90,9 @@ bundled with the Apache Flex SDK, i.e. they need to be installed separately.
 The Adobe Flash Player ‘playerglobal.swc’ is needed to compile all the
 components with the exception of the ‘airframework’ and ‘airspark’
 components which require ‘airglobal.swc’ from the AIR Integration Kit. The
-AIR Integration kit is also needed to build and debug mobile and desktop
-applications. The Adobe Flash Player content debugger is used by the ant
-‘checkintests’ target and other pieces of the test subsystem to run compiled
-applications.
+AIR Integration kit is also needed to build and debug mobile applications. The
+Adobe Flash Player content debugger is used by the ant ‘checkintests’
+target and other pieces of the test subsystem to run compiled applications.
 
 
 ---------------------------------------------------------------------
@@ -155,7 +154,7 @@ The Adobe AIR integration kit for Linux can be downloaded from:
 Download the AIR SDK for your platform and unzip it. Set AIR_HOME to the
 absolute path of the AIR SDK directory.
 
-This version of the Apache Flex SDK was certified for use with Adobe AIR 15
+This version of the Apache Flex SDK was certified for use with Adobe AIR 3.7
 and is compatible with version 3.1 and up. It has been fully tested on AIR 3.7,
 4 and 15.
 
@@ -317,19 +316,18 @@ need to run these commands and scripts:
     cd <flex.dir>
     ant frameworks-rsls
     ./ide/constructFlexForIDE.[sh/bat]
+    (Mac only: ./ide/addAIRtoSDK.sh)
 
 This builds the RSLS for the SDK and copy some IDE related files from the Adobe
-Flex SDK 4.6.
+Flex SDK 4.6. On a Mac you will need to run the 'addAIRtoSDK.sh' script to
+complete the installation.
 
 To create an SDK for another IDE, or if you want to use a different version of
 Adobe AIR (Adobe Flex 4.6 uses Adobe AIR 3.1), run:
 
-    ./ide/flashbuilder/makeApacheFlexForIDE.bat (on Windows)
-    ./ide/flashbuilder/makeApacheFlexForIDE.sh (on Mac and Linux)
+    /ide/flashbuilder/makeApacheFlexForIDE.bat (on Windows)
+    /ide/flashbuilder/makeApacheFlexForIDE.sh (on Mac and Linux)
 
-On Mac the AIR and Flash Player version can be changed by running:
-	./ide/setFlashPlayerVersion.sh
-	./ide/addAIRtoSDK.sh
 
 
 Using the Binary Distribution
@@ -418,9 +416,9 @@ OR
 Change the playerglobal.version in the build.properties file to have a value
 other than '11.1'. For this change to take effect the SDK needs to be
 recompiled. For example to compile against the latest version of the Adobe
-Flash Player set the value of playerglobal.version to be '15.0' like so:
+Flash Player set the value of playerglobal.version to be '14.0' like so:
 
-    playerglobal.version = 15.0
+    playerglobal.version = 14.0
 
 OR
 
@@ -437,18 +435,17 @@ These can be found at:
 
 and
 
-    http://download.macromedia.com/get/flashplayer/updaters/<version.major>/playerglobal<version.major>_<version.minor>.swc
+   http://download.macromedia.com/get/flashplayer/updaters/<version.major>/playerglobal<version.major>_<version.minor>.swc
 
 (e.g. http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc)
 
 Copy the target playerglobal.swc to the directory:
 
-    frameworks/libs/player/<version.major>.<version.minor>/playerglobal.swc
-    
-On OSX runing the script:
-    ./ide/checkAllPlayerGlobals.sh 
- 
- Will download any new or missing player global swcs.
+    frameworks/libs/player/<version>/playerglobal.swc
+
+Where <version> is the major and minor version numbers of the Adobe Flash
+Player separated by a period or full stop.
+
 
 Software Dependencies
 =====================
@@ -457,6 +454,8 @@ The Apache Flex SDK uses third-party code that will be downloaded as part of
 the build. In addition, there is some optional third-party code that you can
 choose to download if you would like to take advantage of the features offered
 and you agree to the license terms.
+
+The Apache Version 2.0 license is in the LICENSE file.
 
 The following dependencies have licenses which are, or are compatible with, the
 Apache Version 2.0 license. You will not be prompted to acknowledge the
@@ -477,7 +476,7 @@ reciprocal licenses so you will be prompted to acknowledge the license before
 the software is downloaded to your system. These files are installed in
 frameworks/libs.
 
-    osmf.swc (Open Source Media Framework v2.0; used for video components)
+    osmf.swc (Open Source Media Framework v1.0; used for video components)
 
     This file is extracted from:
 

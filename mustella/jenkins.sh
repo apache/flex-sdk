@@ -51,7 +51,7 @@ fi
 # 11.1 is the default version
 # 11.7 is a much used version?
 # 13 is the current "long term support" version
-# 16 is the beta and/or current version
+# 15 is the current 'beta' version
 # Note: the previous release and current beta versions of AIR are both '4',
 #       so to make the distinction, the beta version is '4.01' on the VM
 if [ "$FLASH_VERSION" == "11.1" ]
@@ -66,9 +66,9 @@ then
   AIR_SDK_DIR=4.0
 elif [ "$FLASH_VERSION" == "13.0" ]
 then
-  FLASH_VERSION=16.0
-  AIR_VERSION=16
-  AIR_SDK_DIR=16
+  FLASH_VERSION=15.0
+  AIR_VERSION=15
+  AIR_SDK_DIR=15
 else
   FLASH_VERSION=11.1
   AIR_VERSION=3.7
@@ -93,8 +93,8 @@ case "$FLASH_VERSION" in
   13.0)
     export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer13_0r0_214_win_sa_debug.exe"
   ;;
-  16.0)
-    export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer_16_sa_debug.exe"
+  15.0)
+    export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer_15_sa_debug.exe"
   ;;
   *)
     echo "No valid Flash Player Debugger variable value could be parsed."
