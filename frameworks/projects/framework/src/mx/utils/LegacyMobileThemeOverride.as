@@ -17,11 +17,31 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
+package mx.utils
+{
+	
+	import flash.display.DisplayObject;
+	import flash.system.Capabilities;
+	
+	import mx.core.mx_internal;
 
-import mx.core.mx_internal;
-
-/**
- *  @private
- *  Version string for this class.
- */
-mx_internal static const VERSION:String = "4.15.0.0";
+	[Mixin]
+	/**
+	 * Set OS version to older values to force legacy mobile theme
+	 */
+	public class LegacyMobileThemeOverride
+	{
+		public static function init(root:DisplayObject):void
+		{
+			var c:Class = Capabilities;
+			if(c.version.indexOf("AND") > -1)
+			{
+				Platform.mx_internal::androidVersionOverride =  "2.0.0";
+			}
+			else if(c.version.indexOf("IOS") > -1)
+			{
+				Platform.mx_internal::iosVersionOverride =  "6.0.0";
+			}
+		}
+	}
+}

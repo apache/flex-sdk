@@ -65,6 +65,19 @@
 				<Pause timeout="1"/>
 			</body>
 		</TestCase>
+        
+        <TestCase frequency="all" testID="ResourceManager_getString_NO_SUCH_KEY_withLocale_FLEX25045" description="Tests that the getString() method of ResourceManager returns null when accessing a non-existent resource but a valid locale reference" keywords="[resources,ResourceManager,getString]">
+            <setup>
+                <RunCode code="application.setup()"/>
+                <RunCode code="application.doAddResourceBundle('fr_FR', 'bundle1')" />
+
+                <RunCode code="ResourceManager.getInstance().localeChain = ['fr_FR']" />
+            </setup>
+            <body>
+                <AssertMethodValue method="value=testGetString('NO_SUCH_KEY', null, null, 'fr_FR')" value="true"/>
+                <Pause timeout="1"/>
+            </body>
+        </TestCase>
 
 		<TestCase frequency="all" testID="ResourceManager_getString_STRING" description="Tests the getString() method of ResourceManager for a resource value which is a typical String" keywords="[resources,ResourceManager,getString]">
 			<setup>
