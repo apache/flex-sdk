@@ -316,7 +316,7 @@ need to run these commands and scripts:
 
     cd <flex.dir>
     ant frameworks-rsls
-    ./ide/constructFlexForIDE.[sh/bat] "[path-to-sdk]" "[path-to-unzipped-flex_sdk_4.6.0.23201B.zip-in-a-folder]"
+    ./ide/constructFlexForIDE.[sh/bat] "[path-to-sdk]" "[path-to-UNZIPPED-flex_sdk_4.6.0.23201B.zip]"
     (Mac only: ./ide/addAIRtoSDK.sh)
 
 This builds the RSLS for the SDK and copy some IDE related files from the Adobe
