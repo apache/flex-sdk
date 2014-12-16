@@ -63,6 +63,7 @@
     <property name="osmf.url.server" value="http://downloads.sourceforge.net" />
     <property name="osmf.url.folder" value="project/osmf.adobe/OSMF%202.0%20Release%20%28final%20source%2C%20ASDocs%2C%20pdf%20guides%20and%20release%20notes%29" />
     <property name="osmf.url.file" value="OSMF.swc" />
+    <property name="osmf.url.cachefile" value="OSMF.swc" />
     <property name="osmf.url.md5" value="6385228692ab982630e47422403f6890" />
 
     <property name="afe.url.server" value="https://sourceforge.net" />
@@ -665,6 +666,7 @@
             <param name="srcDomain" value="${osmf.url.server}" />
             <param name="srcFolder" value="${osmf.url.folder}" />
             <param name="srcFile" value="${osmf.url.file}" />
+            <param name="cacheFile" value="${osmf.url.cachefile}" />
             <param name="dest" value="${basedir}/frameworks/libs/osmf.swc" />
 			<param name="failmessage" value="OSMF download failed" />
 			<param name="md5" value="${osmf.url.md5}" />
