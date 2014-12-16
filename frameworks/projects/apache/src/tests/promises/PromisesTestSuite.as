@@ -17,11 +17,17 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
+package tests.promises
+{
 
-import mx.core.mx_internal;
+import tests.promises.cases.PromisesBasicTests;
 
-/**
- *  @private
- *  Version string for this class.
- */
-mx_internal static const VERSION:String = "4.15.0.0";
+[Suite]
+[RunWith("org.flexunit.runners.Suite")]
+public class PromisesTestSuite
+{
+
+	public var promisesBasic:PromisesBasicTests;
+
+}
+}

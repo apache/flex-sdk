@@ -17,11 +17,15 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
+package org.apache.flex.promises.interfaces
+{
 
-import mx.core.mx_internal;
+public interface IThenable
+{
 
-/**
- *  @private
- *  Version string for this class.
- */
-mx_internal static const VERSION:String = "4.15.0.0";
+	function then(onFulfilled:Function = null,
+				  onRejected:Function = null):IThenable;
+	
+}
+
+}

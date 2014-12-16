@@ -7,14 +7,21 @@ New Features
 - new theme: FlatSpark
 - Spark RichTextEditor
 - native support for tables in TLF
+- Promises/A+
 
 AIR and Flash Player Support
 ----------------------------
- - Support Flash Player 15.0
- - Support for AIR 15.0
+- Support Flash Player 15.0
+- Support for AIR 15.0
 
 Bug Fixes
 ---------
+FLEX-34649  (partial) Fatal errors in TextBlock after pasting text of specific 
+            length in TextArea
+FLEX-34507  expected build.xml file missing from Linux binary tarball 
+            apache-flex-sdk-4.13.0-bin.tar.gz
+FLEX-34336  Strange Trace Statements When Debugging
+FLEX-34631  Cannot add source paths to a mustella test using a config file
 FLEX-34644  Datagrid - Rectangle bounds problem
 FLEX-34454  Setting modalTransparencyBlur to 0 gives blur when Alert ist shown
             on top of modal Dialog

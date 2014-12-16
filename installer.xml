@@ -89,12 +89,6 @@
     <property name="rideau.url.cachefile" value="rideau.jar" />
     <property name="rideau.url.md5" value="3b3329c1b3de665dc116121b772c5369" />
 
-    <property name="blazeds.url.server" value="https://sourceforge.net" />
-    <property name="blazeds.url.folder" value="adobe/flexsdk/code/HEAD/tree/trunk/lib" />
-    <property name="blazeds.url.file" value="flex-messaging-common.jar?format=raw" />
-    <property name="blazeds.url.cachefile" value="flex-messaging-common.jar" />
-    <property name="blazeds.url.md5" value="f64cdca3ddfe3068b70197ddb914bb5d" />
-
     <condition property="platform" value="mac">
         <os family="mac" />
     </condition>
@@ -134,7 +128,7 @@
     <condition property="fontswf.donot.ask" value="true">
         <isset property="installer" />
     </condition>
-    <condition property="blazeds.donot.ask" value="true">
+    <condition property="ofl.donot.ask" value="true">
         <isset property="installer" />
     </condition>
     
@@ -243,7 +237,7 @@
         </fail>
     </target>
     
-    <target name="ask-licenses" depends="ask-air,ask-flash,ask-swfobject,ask-adobe-osmf,ask-adobe-fontswf,ask-adobe-blazeds" description="Ask about the various licenses">
+    <target name="ask-licenses" depends="ask-air,ask-flash,ask-swfobject,ask-ofl,ask-adobe-osmf,ask-adobe-fontswf" description="Ask about the various licenses">
 	</target>
     
     <target name="ask-air" unless="air.donot.ask"
@@ -257,6 +251,7 @@
         <condition property="do.air.install">
             <equals arg1="${yes}" arg2="${input.air.download}"/>
         </condition>
+        <fail message="${ERROR_REQUIRED_LICENSE}" unless="do.air.install" />
         <!-- Only ask once per ant run.  -->
         <property name="air.donot.ask" value="set"/>
     </target>
@@ -272,6 +267,7 @@
         <condition property="do.flash.install">
             <equals arg1="${yes}" arg2="${input.flash.download}"/>
         </condition>
+        <fail message="${ERROR_REQUIRED_LICENSE}" unless="do.flash.install" />
         <!-- Only ask once per ant run.  -->
         <property name="flash.donot.ask" value="set"/>
     </target>
@@ -287,8 +283,25 @@
         <condition property="do.swfobject.install">
             <equals arg1="${yes}" arg2="${input.swfobject.download}"/>
         </condition>
+        <fail message="${ERROR_REQUIRED_LICENSE}" unless="do.swfobject.install" />
         <!-- Only ask once per ant run.  -->
         <property name="swfobject.donot.ask" value="set"/>
+    </target>
+
+    <target name="ask-ofl" unless="ofl.donot.ask"
+        description="Prompt the user before downloading OFL Fonts">
+        
+        <input
+        message="${ofl.prompt.text}"
+        validargs="${yes.no.prompts}"
+        defaultvalue="${no}"
+        addproperty="input.ofl.download"/>
+        <condition property="do.ofl.install">
+            <equals arg1="${yes}" arg2="${input.ofl.download}"/>
+        </condition>
+        <fail message="${ERROR_REQUIRED_LICENSE}" unless="do.ofl.install" />
+        <!-- Only ask once per ant run.  -->
+        <property name="ofl.donot.ask" value="set"/>
     </target>
 
     <target name="ask-adobe-osmf" unless="osmf.donot.ask"
@@ -302,6 +315,7 @@
         <condition property="do.osmf.install">
             <equals arg1="${yes}" arg2="${input.osmf.download}"/>
         </condition>
+        <fail message="${ERROR_REQUIRED_LICENSE}" unless="do.osmf.install" />
         <!-- Only ask once per ant run.  -->
         <property name="osmf.donot.ask" value="set"/>
     </target>
@@ -321,22 +335,7 @@
         <property name="fontswf.donot.ask" value="set"/>
     </target>
 
-    <target name="ask-adobe-blazeds" unless="blazeds.donot.ask"
-        description="Prompt the user before downloading BlazeDS">
-        
-        <input
-        message="${blazeds.prompt.text}"
-        validargs="${yes.no.prompts}"
-        defaultvalue="${no}"
-        addproperty="input.blazeds.download"/>
-        <condition property="do.blazeds.install">
-            <equals arg1="${yes}" arg2="${input.blazeds.download}"/>
-        </condition>
-        <!-- Only ask once per ant run.  -->
-        <property name="blazeds.donot.ask" value="set"/>
-    </target>
-
-    <target name="get-third-party-files" depends="air-download,flash-download,swfobject-download,osmf-download,fontswf-download,blazeds-download" />
+    <target name="get-third-party-files" depends="air-download,flash-download,swfobject-download,osmf-download,fontswf-download" />
     
     <target name="air-check" description="Checks if AIR SDK has been downloaded.">
         <available file="${FLEX_HOME}/lib/adt.jar" property="skip.air.install"/>
@@ -772,40 +771,6 @@
         <!-- fontkit expects swfutils in the same folder -->
         <copy file="${basedir}/lib/swfutils.jar" tofile="${basedir}/lib/external/optional/swfutils.jar" />
     </target>
-
-    <!-- BlazeDS  -->
-    <!-- Because this requires a network connection it downloads BlazeDS only if it doesn't already exist. -->
-    <target name="blazeds-check" description="Checks if BlazeDS has been downloaded.">
-        <available file="${basedir}/external/optional/flex-messaging-common.jar" property="skip.blazeds.install"/>
-		<condition property="skip.blazeds.install" value="true">
-			<not>
-				<isset property="do.blazeds.install" />
-			</not>
-		</condition>
-    </target>
-
-    <target name="blazeds-download" depends="blazeds-check" unless="skip.blazeds.install"
-        description="Copies BlazeDS from Open@Adobe">
-        
-        <echo file="${basedir}/blaze.properties">blaze.echo=${INFO_DOWNLOADING_FILE_FROM}</echo>
-        <replace file="${basedir}/blaze.properties" token="{0}" value="${blazeds.url.file}" />
-        <replace file="${basedir}/blaze.properties" token="{1}" value="${blazeds.url.server}/${blazeds.url.folder}" />
-        <property file="${basedir}/blaze.properties" />
-        <delete file="${basedir}/blaze.properties" />
-        <echo>${blaze.echo}</echo>
-        
-        <mkdir dir="${basedir}/lib/external/optional"/>
-        <antcall target="download_using_get" >
-            <param name="srcDomain" value="${blazeds.url.server}" />
-            <param name="srcFolder" value="${blazeds.url.folder}" />
-            <param name="srcFile" value="${blazeds.url.file}" />
-            <param name="cacheFile" value="${blazeds.url.cachefile}" />
-            <param name="dest" value="${basedir}/lib/external/optional/flex-messaging-common.jar" />
-			<param name="failmessage" value="flex-messaging-common.jar download failed" />
-			<param name="md5" value="${blazeds.url.md5}" />
-        </antcall>
-    </target>
-
 
     <target name="fixup-config-files" depends="flex-sdk-description-flash,flex-sdk-description-air">
         <echo>${INFO_INSTALLING_CONFIG_FILES}</echo>

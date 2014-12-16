@@ -132,8 +132,15 @@
     	<antcall target="experimental"/>
     	<antcall target="experimental_mobile"/>
         <antcall target="compile-automation"/>
+        <antcall target="flatspark"/>
     </target>
 	
+    <target name="test" description="Runs the tests for all projects that have FlexUnit tests">
+        <delete dir="${FLEX_HOME}/test-reports"/>
+
+        <antcall target="apache-test"/>
+    </target>
+
 	<target name="flex-config" depends="playerglobal-setswfversion" description="Copy the flex/air/airmobile config templates to flex/air/airmobile-config.xml and inject version numbers">
 		<copy file="${basedir}/flex-config-template.xml" tofile="${basedir}/flex-config.xml" overwrite="true">
 			<filterset>
@@ -271,6 +278,7 @@
         <ant dir="${basedir}/projects/apache" target="doc" />
     	<ant dir="${basedir}/projects/experimental" target="doc" />
     	<ant dir="${basedir}/projects/experimental_mobile" target="doc" />
+        <!-- ant dir="${basedir}/projects/flatspark" target="doc" / -->
     </target>
    
     <!--
@@ -309,6 +317,7 @@
     	<ant dir="${basedir}/projects/apache" target="clean"/>
     	<ant dir="${basedir}/projects/experimental" target="clean"/>
     	<ant dir="${basedir}/projects/experimental_mobile" target="clean"/>
+        <ant dir="${basedir}/projects/flatspark" target="clean"/>
         <ant dir="${basedir}/javascript" target="clean"/>
     	<ant dir="${basedir}/themes/AeonGraphical" target="clean"/>
         <!-- delete the FlashBuilder executable directories -->
@@ -500,6 +509,9 @@
     <target name="apache" description="Clean build of apache.swc">
         <ant dir="${basedir}/projects/apache"/>
     </target>
+    <target name="apache-test" description="Tests for 'apache' project">
+        <ant dir="${basedir}/projects/apache" target="test"/>
+    </target>
 	
     <target name="experimental" description="Clean build of experimental.swc">
         <ant dir="${basedir}/projects/experimental"/>
@@ -507,5 +519,9 @@
 	
     <target name="experimental_mobile" description="Clean build of experimental_mobile.swc">
         <ant dir="${basedir}/projects/experimental_mobile"/>
+    </target>
+	
+    <target name="flatspark" description="Clean build of flatspark.swc">
+        <ant dir="${basedir}/projects/flatspark"/>
     </target>
 </project>

@@ -17,11 +17,52 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
+package org.apache.flex.promises.vo
+{
 
-import mx.core.mx_internal;
+public final class Handler
+{
 
-/**
- *  @private
- *  Version string for this class.
- */
-mx_internal static const VERSION:String = "4.15.0.0";
+	//--------------------------------------------------------------------------
+	//
+	//    Constructor
+	//
+	//--------------------------------------------------------------------------
+	
+	public function Handler(onFulfilled:Function = null, 
+							onRejected:Function = null) 
+	{
+		if (onFulfilled != null)
+		{
+			this.onFulfilled = onFulfilled;
+		}
+		
+		if (onRejected != null)
+		{
+			this.onRejected = onRejected;
+		}
+	}
+	
+
+
+	//--------------------------------------------------------------------------
+	//
+	//    Properties
+	//
+	//--------------------------------------------------------------------------
+	
+	//----------------------------------
+	//    onFulfilled
+	//----------------------------------
+	
+	public var onFulfilled:Function;
+	
+	//----------------------------------
+	//    onRejected
+	//----------------------------------
+	
+	public var onRejected:Function;
+	
+}
+
+}
