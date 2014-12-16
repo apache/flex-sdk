@@ -293,7 +293,7 @@ need to run these commands and scripts:
 
     cd <flex.dir>
     ant frameworks-rsls
-    ./ide/constructFlexForIDE.[sh/bat]
+    ./ide/constructFlexForIDE.[sh/bat] "[path-to-sdk]" "[path-to-unzipped-flex_sdk_4.6.0.23201B.zip-in-a-folder]"
     (Mac only: ./ide/addAIRtoSDK.sh)
 
 This builds the RSLS for the SDK and copy some IDE related files from the Adobe
@@ -303,7 +303,7 @@ complete the installation.
 To create an SDK for another IDE, or if you want to use a different version of
 Adobe AIR (Adobe Flex 4.6 uses Adobe AIR 3.1), run:
 
-    /ide/flashbuilder/makeApacheFlexForIDE.bat (on Windows)
+    cd ide/flashbuilder & call ide/flashbuilder/makeApacheFlexForIDE.bat "[path-to-sdk]" (on Windows)
     /ide/flashbuilder/makeApacheFlexForIDE.sh (on Mac and Linux)
 
 
