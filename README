@@ -311,41 +311,24 @@ To get a brief listing of all the targets type, use:
 Prepare the SDK for use with an IDE
 -----------------------------------
 
-If you want to use the SDK you built from source in Adobe Flash Builder, you
-need to run these commands and scripts:
+To create an SDK for Flash Builder or any other IDE, run:
 
     cd <flex.dir>
     ant frameworks-rsls
-    ./ide/constructFlexForIDE.[sh/bat] "[path-to-sdk]" "[path-to-UNZIPPED-flex_sdk_4.6.0.23201B.zip]"
-    (Mac only: ./ide/addAIRtoSDK.sh)
+    ant -f installer.xml -Dflash.sdk.version=15.0 -Dair.sdk.version=15.0
 
-This builds the RSLS for the SDK and copy some IDE related files from the Adobe
-Flex SDK 4.6.
+On Mac/Linux the AIR and Flash Player version can be changed by running:
 
-To create an SDK for another IDE, or if you want to use a different version of
-Adobe AIR (Adobe Flex 4.6 uses Adobe AIR 3.1), run:
+    ./ide/setFlashPlayerVersion.sh ./ 15.0
+    ./ide/addAIRtoSDK.sh 15.0 ./
 
-    cd ide/flashbuilder & call ide/flashbuilder/makeApacheFlexForIDE.bat "[path-to-sdk]" (on Windows)
-    ./ide/flashbuilder/makeApacheFlexForIDE.sh (on Mac and Linux)
-
-On Mac the AIR and Flash Player version can be changed by running:
-	./ide/setFlashPlayerVersion.sh
-	./ide/addAIRtoSDK.sh
 
 
 Using the Binary Distribution
 =============================
 
-In order to use the binary distribution of the SDK, you must first download the
-third-party dependencies. First, make sure your system is good to go: see
-'Prepare your system' above. Note: you cannot use the env.properties file to
-set the environment variables when you use the Binany Distribution. Now, use:
-
-    cd <flex-sdk>/frameworks
-    ant thirdparty-downloads
-
-To complete the setup of the SDK, follow the instructions in the
-'Prepare the SDK for use with an IDE' section above.
+In order to use the binary distribution of the SDK, follow the instructions in
+the 'Prepare the SDK for use with an IDE' section above.
 
 
 
