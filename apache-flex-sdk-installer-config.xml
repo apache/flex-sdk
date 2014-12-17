@@ -40,7 +40,7 @@
 			<es_ES>Adobe AIR SDK (Requerido)</es_ES>
 			<fr_FR>Adobe AIR SDK (Requis)</fr_FR>
 			<nl_NL>Adobe AIR SDK (Verplicht)</nl_NL>
-			<pt_BR>Adobe AIR SDK (Required)</pt_BR>
+			<pt_BR>Adobe AIR SDK (Obrigatório)</pt_BR>
 			<ko_KR>Adobe AIR SDK (필수)</ko_KR>
 			<zh_CN>Adobe AIR SDK (必须的)</zh_CN>
 			<zh_TW>Adobe AIR SDK (必須的)</zh_TW>
@@ -52,7 +52,7 @@
 			<es_ES>Adobe Flash Player playerglobal.swc (Requerido)</es_ES>
 			<fr_FR>Adobe Flash Player playerglobal.swc (Requis)</fr_FR>
 			<nl_NL>Adobe Flash Player playerglobal.swc (Verplicht)</nl_NL>
-			<pt_BR>Adobe Flash Player playerglobal.swc (Required)</pt_BR>
+			<pt_BR>Adobe Flash Player playerglobal.swc (Obrigatório)</pt_BR>
 			<ko_KR>Adobe Flash Player playerglobal.swc (필수)</ko_KR>
 			<zh_CN>Adobe Flash Player playerglobal.swc (必须的)</zh_CN>
 			<zh_TW>Adobe Flash Player playerglobal.swc (必須的)</zh_TW>
@@ -64,7 +64,7 @@
 			<es_ES>SWFObject (Requerido)</es_ES>
 			<fr_FR>SWFObject (Requis)</fr_FR>
 			<nl_NL>SWFObject (Verplicht)</nl_NL>
-			<pt_BR>SWFObject (Required)</pt_BR>
+			<pt_BR>SWFObject (Obrigatório)</pt_BR>
 			<ko_KR>SWFObject (필수)</ko_KR>
 			<zh_CN>SWFObject (必须的)</zh_CN>
 			<zh_TW>SWFObject (必須的)</zh_TW>
@@ -88,7 +88,7 @@
 			<es_ES>Librería y utilidades de fuentes embebidas de Adobe (Opcional)</es_ES>
 			<fr_FR>Bibliothèques Adobe Font embarquées et utilitaires (Facultatif)</fr_FR>
 			<nl_NL>Adobe Embedded Font Libraries en Utilities (Optioneel)</nl_NL>
-			<pt_BR>Adobe Embedded Font Libraries and Utilities (Opcional)</pt_BR>
+			<pt_BR>Bibliotecas e Utilidades de Fontes Embutidas da Adobe (Opcional)</pt_BR>
 			<ko_KR>Adobe Embedded Font 라이브러리 와 유틸리티 (선택)</ko_KR>
 			<zh_CN>Adobe 镶入字体库和实用程序 (可选的)</zh_CN>
 			<zh_TW>Adobe 鑲入字體庫和實用程式 (可選的)</zh_TW>
@@ -134,6 +134,10 @@
 			<message>De Apache License V2 geldt voor de Apache Flex SDK. Wilt u de Apache Flex SDK installeren?</message>
 		</nl_NL>
 		<pt_BR>
+			<label>Apache Flex SDK (Obrigatório)</label>
+			<message>A licença Apache V2 aplica-se ao Apache Flex SDK. Você quer instalar o Apache Flex SDK?</message>
+			<license>Apache V2 License</license>
+			<licenseURL>http://www.apache.org/licenses/LICENSE-2.0.html</licenseURL>
 		</pt_BR>
 		<ko_KR>
 			<label>Apache Flex SDK (필수)</label>
@@ -179,6 +183,10 @@
 			<message>De Adobe SDK licentie overeenkomst geldt voor de Adobe AIR SDK. Wilt u de Adobe AIR SDK installeren?</message>
 		</nl_NL>
 		<pt_BR>
+			<label>Adobe AIR SDK (Obrigatório)</label>
+			<message>Os termos de licença Adobe SDK se aplicam ao Adobe AIR SDK. Você quer instalar o Adobe AIR SDK?</message>
+			<license>Adobe AIR SDK License</license>
+			<licenseURL>http://www.adobe.com/products/air/sdk-eula.html</licenseURL>
 		</pt_BR>
 		<ko_KR>
 			<label>Adobe AIR SDK (필수)</label>
@@ -224,6 +232,10 @@
 			<message>De Adobe SDK licentie overeenkomst geldt voor de Adobe Flash Player playerglobal.swc. Wilt u de Adobe Flash Player playerglobal.swc installeren?</message>
 		</nl_NL>
 		<pt_BR>
+			<label>Adobe Flash Player playerglobal.swc (Required)</label>
+			<message>Os termos de licença Adobe SDK se aplicam ao Adobe Flash Player playerglobal.swc. Você quer instalar o Adobe Flash Player playerglobal.swc?</message>
+			<license>Adobe Flex SDK License</license>
+			<licenseURL>http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf</licenseURL>
 		</pt_BR>
 		<ko_KR>
 			<label>Adobe Flash Player playerglobal.swc (필수)</label>
@@ -268,8 +280,10 @@
 			<message>De MIT License (MIT) geldt voor de SWFObject utility. Wilt u de SWFObject utility installeren?</message>
 		</nl_NL>
 		<pt_BR>
-			<label>Apache Flex SDK (Benötigt)</label>
-			<message>Das Apache Flex SDK verwendet die Apache License V2. Möchten Sie jetzt das Apache Flex SDK installieren?</message>
+			<label>SWFObject (Obrigatório)</label>
+			<message>A MIT License (MIT) se aplica ao utilitário SWFObject. Você quer instalar o utilitário SWFObject</message>
+			<license>MIT License</license>
+			<licenseURL>http://opensource.org/licenses/mit-license.php</licenseURL>
 		</pt_BR>
 		<ko_KR>
 			<label>SWFObject (필수)</label>
@@ -315,7 +329,9 @@
 		</nl_NL>
 		<pt_BR>
 			<label>OSMF (Obrigatório)</label>
-			<message>O Open Source Media Framework (OSMF) utilizado pelos componentes de video está sob a licença Mozilla Public License Version 1.1.</message>
+			<message>O Open Source Media Framework (OSMF) utilizado pelos componentes de video está sob a licença Mozilla Public License Version 1.1. Você quer instalar o Open Source Media Framework (OSMF)?</message>
+			<license>Mozilla Public License Version 1.1</license>
+			<licenseURL>http://www.mozilla.org/MPL/</licenseURL>
 		</pt_BR>
 		<ko_KR>
 			<label>OSMF (필수)</label>
@@ -360,8 +376,10 @@
 			<message>The FlatSpark theme uses fonts licensed under the Open Font License. Do you want to install the Font Awesome and Lato Fonts?</message>
 		</nl_NL>
 		<pt_BR>
-			<label>Font Awesome and Lato Fonts (Obrigatório)</label>
-			<message>The FlatSpark theme uses fonts licensed under the Open Font License. Do you want to install the Font Awesome and Lato Fonts?</message>
+			<label>Font Awesome e Lato Fonts (Obrigatório)</label>
+			<message>O tema FlatSpark use fontes licenciadas sob a licença Open Font. Você quer instalar o Font Awesome e Lato Fonts?</message>
+			<license>SIL Open Font License</license>
+			<licenseURL>http://scripts.sil.org/OFL</licenseURL>
 		</pt_BR>
 		<ko_KR>
 			<label>Font Awesome and Lato Fonts (필수)</label>
@@ -407,6 +425,8 @@
 		<pt_BR>
 			<label>Adobe Embedded Font Libraries and Utilities (Opcional)</label>
 			<message>Apache Flex pode, opcionalmente, integrar-se com o suporte de fontes embutidas da Adobe. Este recurso requer alguns jars do Adobe Flex SDK, que estão sob o contrato de licença do Adobe Flex 4.6. Esta licença não é compatível com a licença Apache V2. Você quer instalar estes jars a partir do Adobe Flex SDK?</message>
+			<license>Adobe Flex SDK License</license>
+			<licenseURL>http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf</licenseURL>
 		</pt_BR>
 		<ko_KR>
 			<label>Adobe Embedded Font 라이브러리 와 유틸리티 (선택)</label>
