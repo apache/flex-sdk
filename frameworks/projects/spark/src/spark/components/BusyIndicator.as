@@ -68,8 +68,8 @@ package spark.components
 /**
  *  The BusyIndicator defines a component to display when a long-running 
  *  operation is in progress. 
- *  For Web, Desktop and Android, a circle is drawn that rotates.  
- *  For iOS, a spinner with twelve spoke is drawn.
+ *  For Web, Desktop and iOS, a spinner with twelve spoke is drawn.  
+ *  For Android, a circle is drawn that rotates.
  *  The color of the circle or spokes is controlled by the value of the <code>symbolColor</code> style.
  *  The transparency of this component can be modified using the <code>alpha</code> property,
  *  but the alpha value of each spoke cannot be modified.
@@ -88,10 +88,12 @@ package spark.components
  *  <p>The BusyIndicator has the following default characteristics:</p>
  *  <table class="innertable">
  *     <tr><th>Characteristic</th><th>Description</th></tr>
- *     <tr><td>Default size</td><td>160 DPI: 26x26 pixels<br>
- *                                  240 DPI: 40x40 pixels<br>
- *                                  320 DPI: 52x52 pixels<br>
- * 									380 DPI: 80x80 pixels<br></td></tr>
+ *     <tr><td>Default size</td><td>160 DPI: 36x36 pixels<br>
+ *                                  120 DPI: 27x27 pixels<br>
+ *                                  240 DPI: 54x54 pixels<br>
+ *                                  320 DPI: 72x72 pixels<br>
+ * 									480 DPI: 108x108 pixels<br>
+ * 									640 DPI: 144x144 pixels<br></td></tr>
  *     <tr><td>Minimum size</td><td>20x20 pixels</td></tr>
  *     <tr><td>Maximum size</td><td>No limit</td></tr>
  *  </table>
