@@ -30,6 +30,7 @@ FLEX-34633  HSlider track (Android4 skin) not being filled if thumb position set
 FLEX-34631  Cannot add source paths to a mustella test using a config file
 FLEX-34611  Application crash when textFlow property set to null with
             preserveSelection
+FLEX-34609  ContainerController has superfluous null checks for _container
 FLEX-34608  IOS 7 Hslider (Scrubber) skin
 FLEX-34606  Redundant variable
 FLEX-34592  Can't use optionnal importer for TLF plainTextFormat and
@@ -81,6 +82,9 @@ FLEX-33054  Cursor Seek in HierarchicalCollectionViewCursor operates on wrong
 FLEX-32541  sortable ou sortableColumns = false still shows box of sorting and
             sortItemRenderer = null throws error
 FLEX-28291  Linear Vector Layout on the ComboBox
+FLEX-26478  Runtime error occured when a TextInput's text mouse selection isn't
+            finished yet but the TextInput instance is removed or its text
+            changes
 
 Other fixes (no JIRA issue created):
 - correct case for osmf.swc so compiles on Linux work
