@@ -67,8 +67,10 @@ package spark.components
 
 /**
  *  The BusyIndicator defines a component to display when a long-running 
- *  operation is in progress. This component creates a spinner with twelve spokes.
- *  The color of the spokes is controlled by the value of the <code>symbolColor</code> style.
+ *  operation is in progress. 
+ *  For Web, Desktop and Android, a circle is drawn that rotates.  
+ *  For iOS, a spinner with twelve spoke is drawn.
+ *  The color of the circle or spokes is controlled by the value of the <code>symbolColor</code> style.
  *  The transparency of this component can be modified using the <code>alpha</code> property,
  *  but the alpha value of each spoke cannot be modified.
  *
