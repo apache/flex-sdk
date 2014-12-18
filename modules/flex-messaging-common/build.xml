@@ -83,8 +83,9 @@
      </target>
 
     <target name="compile.external" description="Compile flex-messaging-common.jar in flex-blazeds repo" unless="src.folder.exists">
-        <ant dir="${BLAZEDS_HOME}" target="common"/>
-        <copy file="${BLAZEDS_HOME}/lib/flex-messaging-common.jar" toDir="${FLEX_HOME}/lib" />
+        <ant dir="${BLAZEDS_HOME}" target="common">
+            <property name="lib.dir" value="${FLEX_HOME}/lib" />
+        </ant>
     </target>
     
     <target name="clean-external" description="clean in flex-blazeds repo" unless="src.folder.exists">
