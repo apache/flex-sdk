@@ -50,6 +50,11 @@ ButtonBar
     skinClass: ClassReference("spark.skins.spark.ButtonBarSkin");
 }
 
+BusyIndicator
+{
+	skinClass: ClassReference("spark.skins.spark.BusyIndicatorSkin");	
+}
+
 Callout
 {
     backgroundColor: #ffffff;
