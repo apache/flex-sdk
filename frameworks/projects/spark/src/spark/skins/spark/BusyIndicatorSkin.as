@@ -32,12 +32,14 @@ package spark.skins.spark
 	
 	public class BusyIndicatorSkin extends ActionScriptSkinBase
 	{
-		static private const DEFAULT_ROTATION_INTERVAL:Number = 50;
+		static private const DEFAULT_ROTATION_INTERVAL:Number = 30;
 		private var busyIndicatorClass:Class;
 		private var busyIndicator:DisplayObject;
+		private var busyIndicatorBackground:DisplayObject;
 		private var busyIndicatorDiameter:Number;
 		private var rotationTimer:Timer;
 		private var rotationInterval:Number;
+		private var rotationSpeed:Number;
 		/**
 		 *  @private
 		 * 
@@ -45,7 +47,7 @@ package spark.skins.spark
 		 */   
 		private var currentRotation:Number = 0;
 		private var symbolColor:uint;
-		private var symbolColorChanged:Boolean = false;		
+		private var symbolColorChanged:Boolean = false;
 		
 		public function BusyIndicatorSkin()
 		{
@@ -55,8 +57,9 @@ package spark.skins.spark
 			rotationInterval = getStyle("rotationInterval");
 			if (isNaN(rotationInterval))
 				rotationInterval = DEFAULT_ROTATION_INTERVAL;
-			if (rotationInterval < 16.6)
-				rotationInterval = 16.6;
+			if (rotationInterval < 30) //Spokes are at 30 degree angle to each other. 
+				rotationInterval = 30;
+			rotationSpeed = 60;
 			
 			switch(applicationDPI) 
 			{	
@@ -107,7 +110,13 @@ package spark.skins.spark
 		
 		override protected function createChildren():void
 		{
+			//This layer stays still in the background
+			busyIndicatorBackground = new busyIndicatorClass();
+			busyIndicatorBackground.width = busyIndicatorBackground.height = busyIndicatorDiameter;
+			addChild(busyIndicatorBackground);
+			//This layer rotates in the foreground to give the required effect
 			busyIndicator = new busyIndicatorClass();
+			busyIndicator.alpha = 0.3;
 			busyIndicator.width = busyIndicator.height = busyIndicatorDiameter;
 			addChild(busyIndicator);
 		}
@@ -160,11 +169,11 @@ package spark.skins.spark
 		private function colorizeSymbol():void
 		{
 			super.applyColorTransform(this.busyIndicator, 0x000000, symbolColor);
-		}		
+		}
 		
 		private function startRotation():void
 		{
-			rotationTimer = new Timer(rotationInterval);
+			rotationTimer = new Timer(rotationSpeed);
 			if (!rotationTimer.hasEventListener(TimerEvent.TIMER))
 			{
 				rotationTimer.addEventListener(TimerEvent.TIMER, timerHandler);
@@ -209,3 +218,4 @@ package spark.skins.spark
 		
 	}
 }
+
