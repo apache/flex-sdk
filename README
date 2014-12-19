@@ -89,7 +89,7 @@ bundled with the Apache Flex SDK, i.e. they need to be installed separately.
 
 The Adobe Flash Player ‘playerglobal.swc’ is needed to compile all the
 components with the exception of the ‘airframework’ and ‘airspark’
-components which require ‘airglobal.swc’ from the AIR Integration Kit. The
+components, which require ‘airglobal.swc’ from the AIR Integration Kit. The
 AIR Integration kit is also needed to build and debug mobile and desktop
 applications. The Adobe Flash Player content debugger is used by the ant
 ‘checkintests’ target and other pieces of the test subsystem to run compiled
@@ -167,12 +167,12 @@ The Adobe Flash Player content debuggers can be found here:
 This version of the Apache Flex SDK was certified for use with Adobe Flash
 Player 11.1, and is compatible with version 10.2 and up. It has been tested
 with versions 11.1, 11.7, 13.0 and 15.0 on Windows and Mac. It has been
-compiled against other Adobe Flash Player versions but has not been fully
-tested. It has not been fully tested on Linux.
+compiled, but not fully tested, against other Adobe Flash Player versions.
+It has not been fully tested on Linux.
 
 On Windows, set FLASHPLAYER_DEBUGGER to the absolute path including the
 filename of the FlashPlayerDebugger.exe. Note the filename of flash player
-debugger maybe different, e.g. C:\MyPath\FlashPlayerDebugger.exe
+debugger may be different, e.g. C:\MyPath\FlashPlayerDebugger.exe.
 
 On the Mac, set FLASHPLAYER_DEBUGGER to the absolute path of
 'Flash Player Debugger.app/Contents/MacOS/Flash Player Debugger'
@@ -197,8 +197,8 @@ The build scripts assume that the source code folder containing the Apache Flex
 Text Layout Framework root folder ('flex-tlf') is at the same level as the SDK
 root folder ('flex-sdk'). See 'Getting the source code', below. If this is not
 the case on your system, then you must set the TLF_HOME environment variable to
-point to your TLF root folder.  If you are using a released artifact, the
-source should be included in the artifact so setting TLF_HOME should not be
+point to your TLF root folder. If you are using a released artifact, the
+source should be included in the artifact, so setting TLF_HOME is not
 required.
 
 * 7)
@@ -228,8 +228,8 @@ The build scripts assume that the source code folder containing the Apache Flex
 BlazeDS root folder ('flex-blazeds) is at the same level as the SDK
 root folder ('flex-sdk'). See 'Getting the source code', below. If this is not
 the case on your system, then you must set the BLAZEDS_HOME environment variable
-to point to your BLAZEDS root folder.  If you are using a released artifact, the
-source should be included in the artifact so setting BLAZEDS_HOME should not be
+to point to your BLAZEDS root folder. If you are using a released artifact, the
+source should be included in the artifact, so setting BLAZEDS_HOME is not
 required.
 
 
@@ -276,18 +276,18 @@ use these commands:
 to download the third party dependencies and build the source. You will be
 prompted to acknowledge and/or confirm some of the downloads. Since the
 third-party dependencies take a little while to download and they don't change
-very often, they are not cleaned with the regular clean target.
+very often, they are not cleaned with the regular 'clean' target.
 
 If you would like to build the RSLs, use:
 
     ant frameworks-rsls
 
-To clean the build, of everything other than the downloaded third-party
-dependencies use:
+To clean the build of everything other than the downloaded third-party
+dependencies, use:
 
     ant clean
 
-To clean the build, of everything, including the downloaded third-party
+To clean the build of everything, including the downloaded third-party
 dependencies, use:
 
     ant super-clean
@@ -297,15 +297,16 @@ use:
 
     ant -Dbuild.number=<YYYYMMDD> -Dbuild.noprompt= release
 
-The packages can be found in the 'out' subdirectory.
+The packages can then be found in <flex-sdk>\out.
 
 To build the ASDoc package, use:
 
     ant asdoc-package
 
-To get a brief listing of all the targets type, use:
+To get a brief listing of all the targets, use:
 
     ant -projecthelp
+
 
 
 Prepare the SDK for use with an IDE
@@ -332,7 +333,7 @@ the 'Prepare the SDK for use with an IDE' section above.
 
 
 
-FlashPlayer Configuration
+Flash Player Configuration
 =========================
 
 For testing, the Adobe Flash Player's mm.cfg file must have the following
@@ -358,7 +359,7 @@ are by default displayed in American English.
 To compile the SDK for another locale either:
 
 Change the locale in the build.properties file to have a value other than
-'en_US'. For this new locale to take effect the SDK needs to be recompiled. For
+'en_US'. For this new locale to take effect, the SDK needs to be recompiled. For
 example, to use the Australian English locale change locale to have a value of
 'en_AU' like so:
 
@@ -378,8 +379,8 @@ The list of supported locales currently include:
     de_CH    en_AU    en_US    fr_CH    ja_JP    nl_NL    ru_RU    zh_TW
     de_DE    en_CA    es_ES    fr_FR    ko_KR    pt_BR    sv_SE
 
-The Apache Flex SDK has only been tested for the en_US locale, however there is
-unlikely to be any issues with a SDK compiled for another locales.
+The Apache Flex SDK has only been tested for the en_US locale. However, you are
+unlikely to run into any issues with a SDK compiled for another locales.
 
 
 Adobe Flash Player Version Support
@@ -390,7 +391,7 @@ be used with Flash Player versions 10.2 and up.
 
 It is recommended that you update to the latest version of Adobe Flash Player.
 Newer versions of the Adobe Flash player address security vulnerabilities, fix
-bugs/issues, increase stability, and implement new features.
+bugs/issues, increase stability, and support new features.
 
 To use the SDK for another version of the Adobe Flash Player either:
 
@@ -400,9 +401,9 @@ Adobe Flash Player.
 OR
 
 Change the playerglobal.version in the build.properties file to have a value
-other than '11.1'. For this change to take effect the SDK needs to be
-recompiled. For example to compile against the latest version of the Adobe
-Flash Player set the value of playerglobal.version to be '15.0' like so:
+other than '11.1'. For this change to take effect, the SDK needs to be
+recompiled. For example, to compile against the latest version of the Adobe
+Flash Player, set the value of playerglobal.version to be '15.0' like so:
 
     playerglobal.version = 15.0
 
@@ -429,18 +430,19 @@ Copy the target playerglobal.swc to the directory:
 
     frameworks/libs/player/<version.major>.<version.minor>/playerglobal.swc
     
-On OSX runing the script:
+On OSX, running the script:
     ./ide/checkAllPlayerGlobals.sh 
  
- Will download any new or missing player global swcs.
+will download any new or missing player global swcs.
+
 
 Software Dependencies
 =====================
 
 The Apache Flex SDK uses third-party code that will be downloaded as part of
-the build. In addition, there is some optional third-party code that you can
-choose to download if you would like to take advantage of the features offered
-and you agree to the license terms.
+the build. In addition, you can choose to download optional third-party code
+if you would like to take advantage of the features offered, and you agree to
+the license terms.
 
 The following dependencies have licenses which are, or are compatible with, the
 Apache Version 2.0 license. You will not be prompted to acknowledge the
@@ -457,7 +459,7 @@ download. Most of the jars are installed in lib/external.
     xerces - http://archive.apache.org/dist/xerces/j/Xerces-J-bin.2.9.1.zip
 
 The following dependencies have licenses which Apache considers to be
-reciprocal licenses so you will be prompted to acknowledge the license before
+reciprocal licenses, so you will be prompted to acknowledge the license before
 the software is downloaded to your system. These files are installed in
 frameworks/libs.
 
@@ -471,13 +473,13 @@ frameworks/libs.
 
         http://www.mozilla.org/MPL/
 
-The following dependencies have licenses which Apache considers to be not
-compatible with the Apache License Version 2.0. You will be prompted to read
+The following dependencies have licenses which Apache considers to be
+incompatible with the Apache License Version 2.0. You will be prompted to read
 and agree to the license terms of the dependency before the software can be
 downloaded to your system. These are optional components which enable
 additional features. They are installed in libs/external/optional.
 
-    adt.jar, afe.jar, aglj40.jar, flex-fontkit.jar and rideau.jar (provides embedded font support)
+    adt.jar, afe.jar, aglj40.jar, flex-fontkit.jar and rideau.jar (provide embedded font support)
 
     These jars are extracted from:
 
