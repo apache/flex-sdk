@@ -107,8 +107,14 @@ s|Application {
 	fontFamily: Lato, Helvetica, Arial, sans-serif;
 }
 
+s|Button {
+	fontSize: 14;
+}
+
 components|ButtonIcon {
 	skinClass: ClassReference("flatspark.skins.ButtonIconSkin");
+	fontSize: 14;
+	iconFontSize: 17;
 }
 
 components|TextInputIcon {

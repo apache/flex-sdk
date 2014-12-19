@@ -49,7 +49,7 @@ limitations under the License.
 		
 		/* Define the skin elements that should not be colorized. 
         For panel, border and title background are skinned, but the content area, background, border, and title text are not. */
-        static private const exclusions:Array = ["background", "titleDisplay", "contentGroup", "controlBarGroup", "border"];
+        static private const exclusions:Array = ["background", "titleDisplay", "contentGroup", "controlBarGroup"];
 			
 		/* exclusions before Flex 4.5 for backwards-compatibility purposes */
 		static private const exclusions_4_0:Array = ["background", "titleDisplay", "contentGroup", "controlBarGroup"];

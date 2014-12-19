@@ -28,7 +28,7 @@ limitations under the License.
 @playerversion AIR 1.5
 @productversion Flex 4
 -->
-<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009"
+<s:SparkButtonSkin xmlns:fx="http://ns.adobe.com/mxml/2009"
 			 xmlns:s="library://ns.adobe.com/flex/spark" 
 			 xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
 			 minWidth="21" minHeight="21" height="{ButtonSizeEnum.Normal}"
@@ -60,6 +60,8 @@ limitations under the License.
 				useChromeColor = true;
 				hostComponent.useHandCursor=true;
 				hostComponent.buttonMode=true;
+				// Set 'fontSize' here cause doing this inside the 'labelDisplay' results in an error
+				(labelDisplay as Label).setStyle("fontSize", fontSize);
 				super.initializationComplete();
 			}  
 			
@@ -79,21 +81,16 @@ limitations under the License.
 					fill_disabled.radiusX = cornerRadius;
 				}
 				
-				/*var larguraIcone:int = 0;
-				if (iconFont.text != null && iconFont.text != "")
-				{
-					larguraIcone = 60;
-				}*/
 				super.updateDisplayList(unscaledWidth, unscaledHeight);
 			}
 			
 			private var cornerRadius:Number = 2;
 			
-			private static function getFontSize(height:int):int
+			private function get fontSize():Number
 			{
-				var altura:int = 15;
+				var altura:int = 14;
 				
-				switch (height)
+				switch (hostComponent.height)
 				{
 					case ButtonSizeEnum.Large:
 						altura = 17;
@@ -107,34 +104,14 @@ limitations under the License.
 					case ButtonSizeEnum.ExtraSmall:
 						altura = 12;
 						break;
-				}
-				
-				return altura;
-			}
-			
-			private static function getIconSize(height:int):int
-			{
-				var altura:int = 17;
-				
-				switch (height)
-				{
-					case ButtonSizeEnum.Large:
-						altura = 19;
-						break;
-					case ButtonSizeEnum.Normal:
-						altura = 17;
-						break;
-					case ButtonSizeEnum.Small:
-						altura = 15;
-						break;
-					case ButtonSizeEnum.ExtraSmall:
-						altura = 12;
+					default:
+						// Make sure that an optional passed 'fontSize' inside the host componenet will be considered
+						altura = hostComponent.getStyle("fontSize");
 						break;
 				}
 				
 				return altura;
 			}
-			
 		]]>        
 	</fx:Script>
 	
@@ -176,9 +153,11 @@ limitations under the License.
 	
 	<!-- layer 8: text -->
 	<!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay  -->
+	<!--- @see initializationComplete() -->
 	<s:Label id="labelDisplay" color="0xFFFFFF" color.disabled="0xE3E3E3" right="10" left="10"
-			 textAlign="center" fontSize="{getFontSize(hostComponent.height)}" fontFamily="Lato"
+			 textAlign="center" 
+			 fontFamily="Lato"
 			 maxDisplayedLines="1"
 			 horizontalCenter="0" verticalCenter="1" verticalAlign="middle">
 	</s:Label>
-</s:SparkSkin>
+</s:SparkButtonSkin>
