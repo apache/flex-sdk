@@ -419,15 +419,6 @@ public class SkinnableComponent extends UIComponent
     /**
      *  @private
      */
-    override public function set styleName(value:Object):void
-	{
-		clearStyle("skinClass");
-		super.styleName = value;
-	}
-    
-    /**
-     *  @private
-     */
     private function validateSkinChange():void
     {
         // If our new skin Class happens to match our existing skin Class there is no
