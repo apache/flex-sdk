@@ -21,7 +21,7 @@ package flatspark.components
 	import spark.components.Button;
 	
 	import flatspark.enums.BrandColorEnum;
-
+	[Style(name="iconFontSize", type="Number", format="Length", inherit="yes", minValue="1.0", maxValue="720.0")]
 	public class ButtonIcon extends spark.components.Button
 	{
 
@@ -30,6 +30,9 @@ package flatspark.components
 		
 		[Bindable]
 		public var brand:int = BrandColorEnum.Default;
+		
+		[Bindable]
+		public var fixedHeight:Boolean = true;
 
 
 		public function ButtonIcon()

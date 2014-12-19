@@ -36,7 +36,7 @@ limitations under the License.
     <fx:Script fb:purpose="styling">
         /* Define the skin elements that should not be colorized. 
            For button, the graphics are colorized but the label is not. */
-        static private const exclusions:Array = ["labelDisplay", "dot"];
+        static private const exclusions:Array = ["labelDisplay"];
 
         /**
          * @private

@@ -66,7 +66,7 @@ limitations under the License.
         private var paddingChanged:Boolean;
         
         /* Define the skin elements that should not be colorized. */
-        static private const exclusions:Array = ["background", "background_disabled", "textDisplay", "promptDisplay", "border", "border_disabled"];
+        static private const exclusions:Array = ["background", "background_disabled", "textDisplay", "promptDisplay", "border"];
         
         /* exclusions before Flex 4.5 for backwards-compatibility purposes */
         static private const exclusions_4_0:Array = ["background", "background_disabled", "textDisplay", "promptDisplay"];
