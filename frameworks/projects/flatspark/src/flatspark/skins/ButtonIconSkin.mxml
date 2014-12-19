@@ -90,7 +90,7 @@ limitations under the License.
 			{
 				var fontHeight:int = 14;
 				
-				if (hostComponent.fixedHeight)
+				if (hostComponent.fixedAspectRatio)
 				{
 					switch (hostComponent.height)
 					{
@@ -123,7 +123,7 @@ limitations under the License.
 			{
 				var iconHeight:int = 17;				
 				
-				if (hostComponent.fixedHeight)
+				if (hostComponent.fixedAspectRatio)
 				{
 					switch (hostComponent.height)
 					{
