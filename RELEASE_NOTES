@@ -3,7 +3,8 @@ Apache Flex 4.14.0
 
 New Features
 ------------
-- iOS 7+ and Android 4.x+ mobile theme support
+- iOS 7+ and Android 4.x+ mobile theme support 
+  More info: https://cwiki.apache.org/confluence/x/7AAIAw
 - New Spark components skin: FlatSpark
 - Spark RichTextEditor
 - Native support for tables in TLF
