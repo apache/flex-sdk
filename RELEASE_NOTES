@@ -17,6 +17,9 @@ AIR and Flash Player Support
 
 Bug Fixes
 ---------
+FLEX-34694  Flatspark: Setting Applications "chromeColor" style throws error
+FLEX-34692  Flatspark ButtonSkin: Icon defined by using the 'icon' style
+            property doesn't appear
 FLEX-34690  Skin for BusyIndicator cannot be found (legacy mobile skin)
 FLEX-34685  Allow legacy mobile theme to be used if needed
 FLEX-34649  (partial) Fatal errors in TextBlock after pasting text of specific
