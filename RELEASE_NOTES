@@ -18,6 +18,8 @@ AIR and Flash Player Support
 Bug Fixes
 ---------
 FLEX-34694  Flatspark: Setting Applications "chromeColor" style throws error
+FLEX-34693  Flatspark ButtonIcon: Introduce property 'iconFontSize' to set icon
+            size directly
 FLEX-34692  Flatspark ButtonSkin: Icon defined by using the 'icon' style
             property doesn't appear
 FLEX-34690  Skin for BusyIndicator cannot be found (legacy mobile skin)
