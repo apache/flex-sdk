@@ -24,6 +24,7 @@ package spark.components
 	import mx.core.IUIComponent;
 	import mx.core.IVisualElement;
 	import mx.events.FlexEvent;
+	import mx.events.PropertyChangeEvent;
 	import mx.states.State;
 	
 	import spark.components.supportClasses.SkinnableComponent;
@@ -146,10 +147,48 @@ package spark.components
 			];
 		}
 		
+		override protected function commitProperties():void
+		{
+			if (effectiveVisibilityChanged)
+			{
+				// if visibility changed, re-compute them here
+				computeEffectiveVisibility();
+				
+				if (canRotate())
+				{
+					currentState = "rotatingState";
+				}
+				else
+				{
+					currentState = "notRotatingState";
+				}
+				
+				invalidateSkinState();
+				effectiveVisibilityChanged = false;
+			}
+			super.commitProperties();
+		}
+		
 		override protected function getCurrentSkinState():String
 		{
 			return currentState;
-		} 
+		}
+		
+		/**
+		 *  @private
+		 *  Override so we know when visibility is set. The initialized
+		 *  property calls setVisible() with noEvent == true
+		 *  so we wouldn't get a visibility event if we just listened
+		 *  for events.
+		 */
+		override public function setVisible(value:Boolean,
+											noEvent:Boolean = false):void
+		{
+			super.setVisible(value, noEvent);
+			
+			effectiveVisibilityChanged = true;
+			invalidateProperties();
+		}
 		
 		private function addedToStageHandler(event:Event):void
 		{
@@ -160,8 +199,8 @@ package spark.components
 			if (canRotate())
 				currentState = "rotatingState";
 			
-			addVisibilityListeners();
 			invalidateSkinState();
+			addVisibilityListeners();
 		}
 		
 		private function removedFromStageHandler(event:Event):void
@@ -272,6 +311,17 @@ package spark.components
 		{
 			effectiveVisibilityChanged = true;
 			invalidateProperties();
+		}
+		
+		override protected function layer_PropertyChange(event:PropertyChangeEvent):void
+		{
+			super.layer_PropertyChange(event);
+			
+			if (event.property == "effectiveVisibility")
+			{
+				effectiveVisibilityChanged = true;
+				invalidateProperties();
+			}
 		}
 		
 		
