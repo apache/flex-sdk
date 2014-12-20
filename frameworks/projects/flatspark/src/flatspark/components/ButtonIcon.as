@@ -32,7 +32,7 @@ package flatspark.components
 		public var brand:int = BrandColorEnum.Default;
 		
 		[Bindable]
-		public var fixedAspectRatio:Boolean = true;
+		public var fixedFontSize:Boolean = true;
 
 
 		public function ButtonIcon()
