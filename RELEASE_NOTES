@@ -18,6 +18,7 @@ AIR and Flash Player Support
 
 Bug Fixes
 ---------
+FLEX-34701  BusyIndicator does not spin when its container becomes visible
 FLEX-34694  Flatspark: Setting Applications "chromeColor" style throws error
 FLEX-34693  Flatspark ButtonIcon: Introduce property 'iconFontSize' to set icon
             size directly
