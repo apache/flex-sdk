@@ -57,14 +57,15 @@ The Apache Flex SDK is a large project. It requires build tools which must be
 installed on your system and it depends on some external software. The external
 software is downloaded as part of the build process.
 
+There are two ways to get the SDK source.
+1) from a git repository
+2) from a source package distribution
+
 The following steps are all you need for a fully functional SDK:
 - Prepare your system
     - install external software
     - set environment variables
 - Get the source code
-    - flex-sdk
-    - flex-tlf
-    - flex-blazeds (optional)
 - Build the SDK
 - Prepare the SDK for use with an IDE
 - Optional steps:
@@ -237,15 +238,16 @@ required.
 Get the source code
 -------------------
 
-The Apache Flex SDK source code uses git for SCM.
+You can get the source directly from the source code repository (Apache Flex
+uses git for SCM).
 
-You can get the latest source ('develop' branch) using the following commands:
+Clone the latest source ('develop' branch) using the following commands:
 
     git clone https://git-wip-us.apache.org/repos/asf/flex-sdk.git flex-sdk
     cd flex-sdk
     git checkout develop
 
-The Apache Flex SDK requires source code from the Apache Flex Text Layout
+The Apache Flex SDK also requires source code from the Apache Flex Text Layout
 Framework (TLF). To get the latest source for TLF ('develop' branch), use the
 following commands:
 
@@ -253,12 +255,14 @@ following commands:
     cd flex-tlf
     git checkout develop
 
-The Apache Flex SDK requires source code from Apache Flex BlazeDS. To get 
+The Apache Flex SDK also requires source code from Apache Flex BlazeDS. To get 
 the latest source for Apache Flex BlazeDS (‘master’ branch), use the
 following commands:
 
     git clone https://git-wip-us.apache.org/repos/asf/flex-blazeds.git flex-blazeds
     cd flex-blazeds
+
+Another option to get the source is to download a released source package.
 
 For further information visit:
 
