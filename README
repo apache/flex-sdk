@@ -3,8 +3,8 @@ The Apache Flex SDK
 
 The Apache Flex SDK is the evolution of the popular Adobe Flex SDK. The Apache
 Flex SDK is an application development framework for easily building Flash
-based applications for mobile devices, web browsers, and desktops. Currently
-supported platforms include:
+based applications for mobile devices, web browsers, and desktop platforms.
+Currently supported platforms include:
 
     Microsoft Windows
     Mac OS X
@@ -64,6 +64,7 @@ The following steps are all you need for a fully functional SDK:
 - Get the source code
     - flex-sdk
     - flex-tlf
+    - flex-blazeds (optional)
 - Build the SDK
 - Prepare the SDK for use with an IDE
 - Optional steps:
@@ -83,8 +84,9 @@ TLF_HOME, BLAZEDS_HOME and ADOBE_EXTENSION_MANAGER can also be set in a
 property file called env.properties. See the env-template.properties file
 for instructions.
 
-The Adobe Flash Player and Adobe AIR have excluded licenses so they can not be
-bundled with the Apache Flex SDK, i.e. they need to be installed separately.
+The Adobe Flash Player and Adobe AIR have non Apache compatible licenses so
+they can not be bundled with the Apache Flex SDK and need to be installed
+separately.
 
 The Adobe Flash Player ‘playerglobal.swc’ is needed to compile all the
 components with the exception of the ‘airframework’ and ‘airspark’
@@ -224,7 +226,7 @@ On Linux, no Adobe Extension Manager exists.
 
 * 8)
 The build scripts assume that the source code folder containing the Apache Flex
-BlazeDS root folder ('flex-blazeds) is at the same level as the SDK
+BlazeDS root folder ('flex-blazeds') is at the same level as the SDK
 root folder ('flex-sdk'). See 'Getting the source code', below. If this is not
 the case on your system, then you must set the BLAZEDS_HOME environment variable
 to point to your BLAZEDS root folder. If you are using a released artifact, the
@@ -296,7 +298,7 @@ use:
 
     ant -Dbuild.number=<YYYYMMDD> -Dbuild.noprompt= release
 
-The packages can then be found in <flex-sdk>\out.
+The packages can then be found in the <flex-sdk>\out directory.
 
 To build the ASDoc package, use:
 
@@ -315,9 +317,15 @@ To create an SDK for Flash Builder or any other IDE, run:
 
     cd <flex.dir>
     ant frameworks-rsls
-    ant -f installer.xml -Dflash.sdk.version=15.0 -Dair.sdk.version=15.0
+    ant -f installer.xml
+    
+If you want to set the Flash Player and AIR versions to something other
+than their defaults, pass the verisons to the ant script like so:
 
-On Mac/Linux the AIR and Flash Player version can be changed by running:
+     ant -f installer.xml -Dflash.sdk.version=15.0 -Dair.sdk.version=15.0
+
+On Mac/Linux the AIR and Flash Player version can be changed, after the SDK
+has been compiled, by running:
 
     ./ide/setFlashPlayerVersion.sh ./ 15.0
     ./ide/addAIRtoSDK.sh 15.0 ./
@@ -369,7 +377,7 @@ OR
 Compile the SDK with a -Dlocale=<locale> option, where <locale> is the new
 locale to compile the SDK against.
 
-To compile all supported locales, which may take some time, use
+To compile all supported locales, which may take some time, use:
 
     ant other.locales
 
@@ -379,7 +387,7 @@ The list of supported locales currently include:
     de_DE    en_CA    es_ES    fr_FR    ko_KR    pt_BR    sv_SE
 
 The Apache Flex SDK has only been tested for the en_US locale. However, you are
-unlikely to run into any issues with a SDK compiled for another locales.
+unlikely to run into any issues with a SDK compiled for another locale.
 
 
 Adobe Flash Player Version Support
@@ -430,6 +438,7 @@ Copy the target playerglobal.swc to the directory:
     frameworks/libs/player/<version.major>.<version.minor>/playerglobal.swc
     
 On OSX, running the script:
+
     ./ide/checkAllPlayerGlobals.sh 
  
 will download any new or missing player global swcs.
