@@ -65,32 +65,32 @@ package spark.skins.ios7
 			{	
 				case DPIClassification.DPI_640:
 				{
-					busyIndicatorDiameter = 144;
+					busyIndicatorDiameter = 104;
 					break;
 				}
 				case DPIClassification.DPI_480:
 				{
-					busyIndicatorDiameter = 108;
+					busyIndicatorDiameter = 80;
 					break;
 				}		
 				case DPIClassification.DPI_320:
 				{
-					busyIndicatorDiameter = 72;
+					busyIndicatorDiameter = 52;
 					break;
 				}
 				case DPIClassification.DPI_240:
 				{
-					busyIndicatorDiameter = 54;
+					busyIndicatorDiameter = 40;
 					break;
 				}
 				case DPIClassification.DPI_120:
 				{
-					busyIndicatorDiameter = 27;
+					busyIndicatorDiameter = 20;
 					break;
 				}
 				default://160 DPI
 				{
-					busyIndicatorDiameter = 36;
+					busyIndicatorDiameter = 20;
 					break;
 				}
 			}
