@@ -6,6 +6,7 @@ New Features
 - iOS 7+ and Android 4.x+ mobile theme support 
   More info: https://cwiki.apache.org/confluence/x/7AAIAw
 - New Spark components skin: FlatSpark
+  More info: https://cwiki.apache.org/confluence/x/wQEIAw
 - Spark RichTextEditor
 - Native support for tables in TLF
 - Promises/A+
