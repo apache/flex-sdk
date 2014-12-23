@@ -1643,7 +1643,7 @@ public class List extends ListBase implements IFocusManagerComponent
                             if (_selectedIndices[i] == index)
                                 found = true; 
                             else if (_selectedIndices[i] != index)
-                                interval.splice(0, 0, _selectedIndices[i]);
+                                interval.push(_selectedIndices[i]);
                         }
                         if (!found)
                         {
