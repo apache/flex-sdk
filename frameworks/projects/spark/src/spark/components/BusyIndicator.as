@@ -23,6 +23,7 @@ package spark.components
 	
 	import mx.core.IUIComponent;
 	import mx.core.IVisualElement;
+	import mx.core.mx_internal;
 	import mx.events.FlexEvent;
 	import mx.events.PropertyChangeEvent;
 	import mx.states.State;
@@ -139,12 +140,13 @@ package spark.components
 			// Listen to added to stage and removed from stage.
 			// Start rotating when we are on the stage and stop
 			// when we are removed from the stage.
-			addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
-			addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
+			addEventListener(Event.ADDED_TO_STAGE, addedToStageHandler,false,0,true);
+			addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler,false,0,true);
 			states = 	[
 				new State({name:"notRotatingState"}),
 				new State({name:"rotatingState"})
 			];
+			//mx_internal::skinDestructionPolicy = "auto";
 		}
 		
 		override protected function commitProperties():void
@@ -207,7 +209,10 @@ package spark.components
 		{
 			currentState = "notRotatingState";
 			
+			removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
+			removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
 			removeVisibilityListeners();
+			detachSkin();
 			invalidateSkinState();
 		}
 		

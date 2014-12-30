@@ -32,6 +32,7 @@ package
 		import spark.skins.mobile.ActionBarSkin; spark.skins.mobile.ActionBarSkin;
 		import spark.skins.mobile.BeveledActionButtonSkin; spark.skins.mobile.BeveledActionButtonSkin;
 		import spark.skins.mobile.BeveledBackButtonSkin; spark.skins.mobile.BeveledBackButtonSkin;
+		import spark.skins.mobile.BusyIndicatorSkin; spark.skins.mobile.BusyIndicatorSkin;
 		import spark.skins.mobile.ButtonBarSkin; spark.skins.mobile.ButtonBarSkin;
 		import spark.skins.mobile.ButtonSkin; spark.skins.mobile.ButtonSkin;
 		import spark.skins.mobile.CalloutSkin; spark.skins.mobile.CalloutSkin;
