@@ -101,8 +101,7 @@ ActionBar.beveled Group#actionGroup Button.emphasized
 
 BusyIndicator
 {
-	skinClass: ClassReference("spark.skins.ios7.BusyIndicatorSkin");
-	rotationInterval: 30;  /* Must be multiples of 30 */
+	skinClass: ClassReference("spark.skins.mobile.BusyIndicatorSkin");
 }
 
 Button
@@ -269,7 +268,7 @@ SpinnerList
 {
 	skinClass: ClassReference("spark.skins.mobile.SpinnerListSkin");
 	color: #000000;
-	accentColor: #000000;
+	accentColor: #0099FF;
 }
 
 SpinnerListContainer
