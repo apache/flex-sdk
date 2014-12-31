@@ -239,6 +239,12 @@ package spark.skins.mobile
 			return diameter;
 		}
 		
+		override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
+		{
+			measuredHeight = unscaledHeight;
+			measuredWidth = unscaledWidth;
+		}
+		
 		/**
 		 *   @private
 		 * 

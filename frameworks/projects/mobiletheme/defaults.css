@@ -102,6 +102,7 @@ ActionBar.beveled Group#actionGroup Button.emphasized
 BusyIndicator
 {
 	skinClass: ClassReference("spark.skins.mobile.BusyIndicatorSkin");
+	rotationInterval: 50;
 }
 
 Button
