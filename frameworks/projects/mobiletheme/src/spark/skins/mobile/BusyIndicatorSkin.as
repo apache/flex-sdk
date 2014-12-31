@@ -177,6 +177,12 @@ package spark.skins.mobile
 			}
 		}
 		
+		override protected function measure():void
+		{
+			measuredHeight = hostComponent.height;
+			measuredWidth = hostComponent.width;
+		}
+		
 		override protected function commitCurrentState():void
 		{
 			super.commitCurrentState();
@@ -188,6 +194,8 @@ package spark.skins.mobile
 			{
 				stopRotation();
 			}
+			invalidateSize();
+			invalidateDisplayList();
 		}
 		
 		/**
