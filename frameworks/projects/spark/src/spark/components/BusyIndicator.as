@@ -21,6 +21,7 @@ package spark.components
 {
 	import flash.events.Event;
 	
+	import mx.core.DesignLayer;
 	import mx.core.IUIComponent;
 	import mx.core.IVisualElement;
 	import mx.core.mx_internal;
@@ -146,7 +147,7 @@ package spark.components
 				new State({name:"notRotatingState"}),
 				new State({name:"rotatingState"})
 			];
-			//mx_internal::skinDestructionPolicy = "auto";
+			mx_internal::skinDestructionPolicy = "auto";
 		}
 		
 		override protected function commitProperties():void
@@ -192,6 +193,14 @@ package spark.components
 			invalidateProperties();
 		}
 		
+		override public function set designLayer(value:DesignLayer):void
+		{
+			super.designLayer = value;
+			
+			effectiveVisibilityChanged = true;
+			invalidateProperties();
+		}
+		
 		private function addedToStageHandler(event:Event):void
 		{
 			// Check our visibility here since we haven't added
@@ -201,8 +210,8 @@ package spark.components
 			if (canRotate())
 				currentState = "rotatingState";
 			
-			invalidateSkinState();
 			addVisibilityListeners();
+			invalidateSkinState();
 		}
 		
 		private function removedFromStageHandler(event:Event):void
@@ -212,7 +221,6 @@ package spark.components
 			removeEventListener(Event.ADDED_TO_STAGE, addedToStageHandler);
 			removeEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler);
 			removeVisibilityListeners();
-			detachSkin();
 			invalidateSkinState();
 		}
 		
