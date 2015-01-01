@@ -640,7 +640,7 @@ package spark.components {
         }
 
         override protected function partRemoved(partName:String, instance:Object):void {
-            super.partAdded(partName, instance);
+            super.partRemoved(partName, instance);
             if (partName == "buttonGroup") {
                 destroyButtons(Group(instance));
             }
