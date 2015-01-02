@@ -19,7 +19,9 @@ AIR and Flash Player Support
 
 Bug Fixes
 ---------
-FLEX-34701  BusyIndicator does not spin when its container becomes visible
+FLEX-34710  spark datagrid doubleClickMode throws Error #1009 when the 
+            application is run
+FLEX-34701  BusyIndicator does not spin when itscontainer becomes visible
 FLEX-34694  Flatspark: Setting Applications "chromeColor" style throws error
 FLEX-34693  Flatspark ButtonIcon: Introduce property 'iconFontSize' to set icon
             size directly
@@ -27,6 +29,7 @@ FLEX-34692  Flatspark ButtonSkin: Icon defined by using the 'icon' style
             property doesn't appear
 FLEX-34690  Skin for BusyIndicator cannot be found (legacy mobile skin)
 FLEX-34685  Allow legacy mobile theme to be used if needed
+FLEX-34657  SelectedIndices order is messed up
 FLEX-34649  (partial) Fatal errors in TextBlock after pasting text of specific
             length in TextArea
 FLEX-34644  Datagrid - Rectangle bounds problem
@@ -44,6 +47,7 @@ FLEX-34608  IOS 7 Hslider (Scrubber) skin
 FLEX-34606  Redundant variable
 FLEX-34592  Can't use optionnal importer for TLF plainTextFormat and
             TextLayoutFormat
+FLEX-34564  Minor changes to spelling, punctuation, grammar and logic.
 FLEX-34557  Platform.isBrowser does not work correctly
 FLEX-34556  Starting an app in portrait on an iPad results in wrong DPI
 FLEX-34543  Invalid event data when saving or cancelling grid item editor
