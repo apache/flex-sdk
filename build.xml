@@ -601,7 +601,12 @@
                 <include name="installer.properties/**"/>
                 <include name="CHANGES"/>
                 <include name="LICENSE"/>
+                <include name="LICENSE.base"/>
+                <include name="LICENSE.bin"/>
                 <include name="NOTICE"/>
+                <include name="NOTICE.asc"/>
+                <include name="NOTICE.base"/>
+                <include name="NOTICE.bin"/>
                 <include name="README"/>
                 <include name="RELEASE_NOTES"/>
             	<include name="CONTRIBUTING"/>
@@ -940,9 +945,13 @@ There are no known issues.
         <!-- these files are in addition to the remaining source files -->
         
         <!-- concat the license file with the binary license file for the 3rd party deps -->
-        <!--concat destfile="${basedir}/temp/LICENSE">
+        <concat destfile="${basedir}/temp/LICENSE">
             <filelist dir="${FLEX_HOME}" files="LICENSE,LICENSE.bin"/>
-        </concat-->
+        </concat>
+        <!-- concat the license file with the binary license file for the 3rd party deps -->
+        <concat destfile="${basedir}/temp/NOTICE">
+            <filelist dir="${FLEX_HOME}" files="NOTICE,NOTICE.bin"/>
+        </concat>
         
         <!-- use this to build frameworks -->
         <copy file="${basedir}/frameworks/build_framework.xml" 
