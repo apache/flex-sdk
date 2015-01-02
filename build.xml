@@ -761,6 +761,12 @@
                 <include name="**/**"/>
             </fileset>
         </copy>
+        <copy todir="${basedir}/temp/modules/flex-messaging-common" includeEmptyDirs="false">
+            <fileset dir="${BLAZEDS_HOME}">
+                <include name="LICENSE"/>
+                <include name="NOTICE"/>
+            </fileset>
+        </copy>
     </target>
     
     <target name="stage-bin">
