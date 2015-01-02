@@ -79,6 +79,8 @@
         <ant dir="${basedir}/common">
             <property name="lib.dir" value="${FLEX_HOME}/lib" />
             <property name="module.dir" value="${basedir}/common" />
+            <property name="license.file" value="${basedir}/LICENSE" />
+            <property name="notice.file" value="${basedir}/NOTICE" />
         </ant>
      </target>
 
