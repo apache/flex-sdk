@@ -29,14 +29,12 @@ The Batik SVG toolkit source includes images from the Tango Desktop Project
 The Batik SVG toolkit source includes images from the Pasodoble Icon Theme
 (http://www.jesusda.com/projects/pasodoble).
 
-The Xerces Patch includes software developed at
-The Apache Software Foundation (http://www.apache.org/).
-
 Portions of Xerces were originally based on the following:
   - software copyright (c) 1999, IBM Corporation., http://www.ibm.com.
   - software copyright (c) 1999, Sun Microsystems., http://www.sun.com.
   - voluntary contributions made by Paul Eng on behalf of the 
-    Apache Software Foundation that were originally developed at iClick, Inc.       software copyright (c) 1999.
+    Apache Software Foundation that were originally developed at iClick, Inc.
+    software copyright (c) 1999.
 
 Changes to Xerces sources in this product were developed by Adobe Systems Inc.
 
