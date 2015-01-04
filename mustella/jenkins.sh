@@ -275,13 +275,15 @@ END
 
 
 
+# write 'used' values to 'versions.txt' to allow 
+cat > $VERSIONS_FILE <<END 
+FLASH_VERSION=$FLASH_VERSION
+AIR_VERSION=$AIR_VERSION
+END
+
+
+
 if ! $SUCCESS
 then
   exit 1
-else
-  # write 'used' values to 'versions' file upon success
-  cat > $VERSIONS_FILE <<END 
-  FLASH_VERSION=$FLASH_VERSION
-  AIR_VERSION=$AIR_VERSION
-END
 fi
