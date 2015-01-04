@@ -91,3 +91,16 @@ This product bundles software available under a
 W3C software license. For details, see lib/external/LICENSE.dom-software.txt
 
 ------------------------------------------------------------------------------------------
+
+lib/external/xalanImpl.jar
+
+This product bundles Apache Commons BCEL available under a
+Apache Software License, Version 1.1. For details, see lib/external/BCEL.LICENSE.txt
+
+This product bundle CUP Parser Generator available under an (old style)
+MIT license. For details, see lib/external/java_cup.LICENSE.txt
+
+This product bundles jakarta regexp available under a
+Apache Software License, Version 1.1. For details, see lib/external/LICENSE.dom-software.txt
+
+------------------------------------------------------------------------------------------
