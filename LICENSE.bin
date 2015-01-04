@@ -4,17 +4,17 @@ Below are the licenses for components included in the binary distribution.
 
 lib/external/commons-collection.jar (commons-collections-3.0.tar.gz)
 
-    The Apache Software License, Version 1.1
-
-    See license file at lib/external/commons-collections-LICENSE.txt
+This product bundles Apache Commons Collections available under a
+Apache Software License, Version 1.1. For details, 
+see lib/external/commons-collections-LICENSE.txt
        
 ------------------------------------------------------------------------------------------
 
 lib/external/commons-discovery.jar (commons-discovery-0.2.tar.gz)
 
-    The Apache Software License, Version 1.1
-    
-    See license file at lib/external/commons-discovery-LICENSE
+This product bundles Apache Commons Discovery available under a
+Apache Software License, Version 1.1. For details,
+see lib/external/commons-collections-LICENSE.txt
 
 ------------------------------------------------------------------------------------------
 
@@ -100,7 +100,8 @@ Apache Software License, Version 1.1. For details, see lib/external/BCEL.LICENSE
 This product bundle CUP Parser Generator available under an (old style)
 MIT license. For details, see lib/external/java_cup.LICENSE.txt
 
-This product bundles Jakarta Regexp available under a
-Apache Software License, Version 1.1. For details, see lib/external/LICENSE.dom-software.txt
+This product bundles Jakarta egexp available under a
+Apache Software License, Version 1.1. For details,
+see lib/external/LICENSE.dom-software.txt
 
 ------------------------------------------------------------------------------------------
