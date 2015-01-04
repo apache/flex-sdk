@@ -78,7 +78,20 @@ lib/external/xercesImpl.jar (Xerces-J-bin.2.9.1.zip)
 
 ------------------------------------------------------------------------------------------
 
-lib/external/xml-apis-ext.jar (batik-1.7-src.tar.gz)
+lib/external/xml-apis.jar
+
+This product bundles documents available under a
+W3C document license. For details, see lib/external/LICENSE.dom-documentation.txt
+
+This product bundles software available under a
+W3C software license. For details, see lib/external/LICENSE.dom-software.txt
+
+This produce bundles SAX2 available under a Public Domain license.
+For more details see lib/external/LICENSE.sax.txt
+
+------------------------------------------------------------------------------------------
+
+lib/external/xml-apis-ext.jar
 
 This product bundles documents available under a
 W3C document license. For details, see lib/external/LICENSE.dom-documentation.txt
