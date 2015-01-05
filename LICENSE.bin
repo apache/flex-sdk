@@ -77,7 +77,7 @@ W3C document license. For details, see lib/external/LICENSE.dom-documentation.tx
 This product bundles software available under a
 W3C software license. For details, see lib/external/LICENSE.dom-software.txt
 
-This produce bundles SAX2 available under a Public Domain license.
+This product bundles SAX2 available under a Public Domain license.
 For more details see lib/external/LICENSE.sax.txt
 
 ------------------------------------------------------------------------------------------
@@ -100,7 +100,7 @@ Apache Software License, Version 1.1. For details, see lib/external/BCEL.LICENSE
 This product bundle CUP Parser Generator available under an (old style)
 MIT license. For details, see lib/external/java_cup.LICENSE.txt
 
-This product bundles Jakarta egexp available under a
+This product bundles Jakarta Regexp available under a
 Apache Software License, Version 1.1. For details,
 see lib/external/LICENSE.dom-software.txt
 
