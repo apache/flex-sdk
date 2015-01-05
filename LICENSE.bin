@@ -67,6 +67,23 @@ specified in an individual module.
 Portions created by other named contributors are copyright as identified in the relevant 
 module. All Rights Reserved.
 
+ Copyright 1999 CERN - European Organization for Nuclear Research.<br/><br/>
+
+Permission to use, copy, modify, distribute and sell this software and its documentation for any purpose
+is hereby granted without fee, provided that the above copyright notice appear in all copies and
+that both that copyright notice and this permission notice appear in supporting documentation.
+CERN makes no representations about the suitability of this software for any purpose.
+It is provided "as is" without expressed or implied warranty.
+
+This product bundles software available under a
+BSD software license. For details, see lib/external/THAI.txt
+
+This product bundles software available under a
+MIT software license. For details, see lib/external/UNICODE.txt
+
+This product bundles software available under a
+MIT software license. For details, see lib/external/JAMESCLARK.txt
+
 ------------------------------------------------------------------------------------------
 
 lib/external/xml-apis.jar
@@ -100,8 +117,10 @@ Apache Software License, Version 1.1. For details, see lib/external/BCEL.LICENSE
 This product bundle CUP Parser Generator available under an (old style)
 MIT license. For details, see lib/external/java_cup.LICENSE.txt
 
-This product bundles Jakarta egexp available under a
+This product bundles Jakarta Regexp available under a
 Apache Software License, Version 1.1. For details,
 see lib/external/LICENSE.dom-software.txt
 
 ------------------------------------------------------------------------------------------
+
+
