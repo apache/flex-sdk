@@ -25,6 +25,8 @@ package {
             focusManager.showFocusIndicator = true;
 
             _textInput = new TextInput();
+            _textInput.width = 0;
+            _textInput.height = 0;
             _textInput.focusManager = focusManager;
 
             _finishNotifier = new EventDispatcher();
