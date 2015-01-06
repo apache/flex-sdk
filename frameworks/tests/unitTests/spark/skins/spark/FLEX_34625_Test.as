@@ -1,4 +1,4 @@
-package spark.skins.spark {
+package {
     import flash.events.Event;
     import flash.events.EventDispatcher;
 
@@ -16,33 +16,52 @@ package spark.skins.spark {
         private static const NO_ENTER_FRAMES_TO_ALLOW:int = 4;
         private var noEnterFramesRemaining:int = NaN;
         private var _finishNotifier:EventDispatcher;
+        private var _textInput:TextInput;
 
         [Before]
         public function setUp():void
         {
+            var focusManager:FocusManager = new FocusManager(UIImpersonator.testDisplay as IFocusManagerContainer);
+            focusManager.showFocusIndicator = true;
+
+            _textInput = new TextInput();
+            _textInput.focusManager = focusManager;
+
             _finishNotifier = new EventDispatcher();
         }
 
         [After]
         public function tearDown():void
         {
+            _textInput = null;
             _finishNotifier = null;
         }
 
         [Test(async, timeout=500)]
-        public function testFocusSkinWithZeroFocusThickness():void
+        public function test_focus_skin_with_zero_focus_thickness():void
         {
             //given
-            const fm:FocusManager = new FocusManager(UIImpersonator.testDisplay as IFocusManagerContainer, false);
-            fm.showFocusIndicator = true;
-
-            const textInput:TextInput = new TextInput();
-            textInput.focusManager = fm;
-            UIImpersonator.addChild(textInput);
+            UIImpersonator.addChild(_textInput);
 
             //when
-            textInput.setStyle("focusThickness", 0);
-            textInput.setFocus();
+            _textInput.setStyle("focusThickness", 0);
+            _textInput.setFocus();
+
+            //then wait for the focus skin to show
+            noEnterFramesRemaining = NO_ENTER_FRAMES_TO_ALLOW;
+            UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, onTestComplete);
+        }
+
+        [Test(async, timeout=500)]
+        public function test_focus_skin_with_NaN_focus_thickness():void
+        {
+            //given
+            UIImpersonator.addChild(_textInput);
+
+            //when
+            _textInput.setStyle("focusThickness", NaN);
+            _textInput.setFocus();
 
             //then wait for the focus skin to show
             noEnterFramesRemaining = NO_ENTER_FRAMES_TO_ALLOW;

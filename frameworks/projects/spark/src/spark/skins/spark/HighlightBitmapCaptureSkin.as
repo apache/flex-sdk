@@ -162,7 +162,7 @@ package spark.skins.spark
             
             var bdWidth:Number = target.width + borderWeight * 2;
             var bdHeight:Number = target.height + borderWeight * 2;
-            if(bdWidth < 1 || bdHeight < 1)
+            if(bdWidth < 1 || bdHeight < 1 || isNaN(bdWidth) || isNaN(bdHeight))
                 return;
 
             var bitmapData:BitmapData = new BitmapData(bdWidth, bdHeight, true, 0);
