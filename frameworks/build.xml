@@ -139,6 +139,7 @@
         <delete dir="${FLEX_HOME}/test-reports"/>
 
         <antcall target="apache-test"/>
+        <antcall target="spark-test"/>
     </target>
 
 	<target name="flex-config" depends="playerglobal-setswfversion" description="Copy the flex/air/airmobile config templates to flex/air/airmobile-config.xml and inject version numbers">
@@ -515,7 +516,10 @@
     <target name="apache-test" description="Tests for 'apache' project">
         <ant dir="${basedir}/projects/apache" target="test"/>
     </target>
-	
+    <target name="spark-test" description="Tests for 'spark' project">
+        <ant dir="${basedir}/projects/spark" target="test"/>
+    </target>
+
     <target name="experimental" description="Clean build of experimental.swc">
         <ant dir="${basedir}/projects/experimental"/>
     </target>
