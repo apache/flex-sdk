@@ -19,7 +19,7 @@
 
 package spark.skins.spark
 {
-    
+
     import flash.display.Bitmap;
     import flash.display.BitmapData;
     import flash.display.DisplayObject;
@@ -29,15 +29,14 @@ package spark.skins.spark
     import flash.geom.Matrix;
     import flash.geom.Matrix3D;
     import flash.geom.Rectangle;
-    
+
     import mx.core.UIComponent;
     import mx.core.mx_internal;
     import mx.events.FlexEvent;
-    
-    import spark.components.supportClasses.Skin;
+
     import spark.components.supportClasses.SkinnableComponent;
     import spark.skins.IHighlightBitmapCaptureClient;
-    
+
     use namespace mx_internal;
     
     /**
@@ -161,9 +160,12 @@ package spark.skins.spark
             if (!target)
                 return;
             
-            var bitmapData:BitmapData = new BitmapData(
-                target.width + (borderWeight * 2), 
-                target.height + (borderWeight * 2), true, 0);
+            var bdWidth:Number = target.width + borderWeight * 2;
+            var bdHeight:Number = target.height + borderWeight * 2;
+            if(bdWidth < 1 || bdHeight < 1)
+                return;
+
+            var bitmapData:BitmapData = new BitmapData(bdWidth, bdHeight, true, 0);
             var m:Matrix = new Matrix();
             
             capturingBitmap = true;
@@ -199,7 +201,7 @@ package spark.skins.spark
             catch (e:SecurityError)
             {
                 // If capture fails, substitute with a Rect
-                var fillRect:Rectangle
+                var fillRect:Rectangle;
 				var skin:DisplayObject = target.skin;
 				
                 if (skin)
