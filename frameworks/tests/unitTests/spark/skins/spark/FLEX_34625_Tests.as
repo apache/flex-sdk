@@ -1,4 +1,4 @@
-package {
+package spark.skins.spark {
     import flash.events.Event;
     import flash.events.EventDispatcher;
 
@@ -11,7 +11,7 @@ package {
 
     import spark.components.TextInput;
 
-    public class FLEX_34625_Test {
+    public class FLEX_34625_Tests {
 
         private static const NO_ENTER_FRAMES_TO_ALLOW:int = 4;
         private var noEnterFramesRemaining:int = NaN;
