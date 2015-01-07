@@ -269,7 +269,7 @@ SpinnerList
 {
 	skinClass: ClassReference("spark.skins.mobile.SpinnerListSkin");
 	color: #000000;
-	accentColor: #0099FF;
+	accentColor: #000000;
 }
 
 SpinnerListContainer
