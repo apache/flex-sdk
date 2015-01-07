@@ -75,10 +75,7 @@ limitations under the License.
 				if (cornerRadius != cr)
 				{
 					cornerRadius = cr;
-					fill_up.radiusX = cornerRadius;
-					fill_over.radiusX = cornerRadius;
-					fill_down.radiusX = cornerRadius;
-					fill_disabled.radiusX = cornerRadius;
+					fill.radiusX = cornerRadius;
 				}
 				
 				super.updateDisplayList(unscaledWidth, unscaledHeight);
@@ -126,31 +123,15 @@ limitations under the License.
 	
 	<!-- layer 2: fill -->
 	<!--- @private -->
-	<s:Rect id="fill_up" left="1" right="1" top="1" bottom="1" radiusX="6" includeIn="up">
+	<s:Rect id="fill" left="1" right="1" top="1" bottom="1" radiusX="6">
 		<s:fill>
-			<s:SolidColor color="{ColorUtils.ButtonColor(BrandColorEnum.Default,stateUp)}"/>
+			<s:SolidColor color.up="{ColorUtils.ButtonColor(BrandColorEnum.Default,stateUp)}"
+						  color.over="{ColorUtils.ButtonColor(BrandColorEnum.Default,stateOver)}"
+						  color.down="{ColorUtils.ButtonColor(BrandColorEnum.Default,stateDown)}"
+						  color.disabled="{ColorUtils.ButtonColor(BrandColorEnum.Default,stateDisabled)}"/>
 		</s:fill>
 	</s:Rect>
-	
-	<s:Rect id="fill_over" left="1" right="1" top="1" bottom="1" radiusX="6" includeIn="over">
-		<s:fill>
-			<s:SolidColor color="{ColorUtils.ButtonColor(BrandColorEnum.Default,stateOver)}"/>
-		</s:fill>
-	</s:Rect>
-	
-	<s:Rect id="fill_down" left="1" right="1" top="1" bottom="1" radiusX="6" includeIn="down">
-		<s:fill>
-			<s:SolidColor color="{ColorUtils.ButtonColor(BrandColorEnum.Default,stateDown)}"/>
-		</s:fill>
-	</s:Rect>
-	
-	<s:Rect id="fill_disabled" left="1" right="1" top="1" bottom="1" radiusX="6" includeIn="disabled">
-		<s:fill>
-			<s:SolidColor color="{ColorUtils.ButtonColor(BrandColorEnum.Default,stateDisabled)}"/>
-		</s:fill>
-	</s:Rect>
-	
-	
+		
 	<!-- layer 8: text -->
 	<!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay  -->
 	<!--- @see initializationComplete() -->
