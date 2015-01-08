@@ -1,0 +1,21 @@
+<DisplayList>
+  <fxgtemplate width="940" height="700">
+    <spark.skins.spark.ApplicationSkin width="940" height="700" blendMode="auto">
+      <spark.components.Group width="940" height="700" blendMode="auto">
+        <spark.components.Group width="940" height="700" blendMode="auto">
+          <comps.MyComp width="800" height="800" blendMode="auto">
+            <fxg.fill.bitmap_fill.bitmap_matrix_fill_path_no_tiling width="257" height="257" blendMode="auto">
+              <flash.display.MovieClip width="247" height="248.95">
+                <flash.display.MovieClip width="247" height="247">
+                  <flash.display.Shape matrix="(a=8, b=3, c=5, d=10, tx=10, ty=10)" x="10" y="10" width="247" height="247"/>
+                </flash.display.MovieClip>
+                <flash.display.Shape width="165" height="71.45"/>
+                <flash.display.Shape width="166.9" height="73"/>
+              </flash.display.MovieClip>
+            </fxg.fill.bitmap_fill.bitmap_matrix_fill_path_no_tiling>
+          </comps.MyComp>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </fxgtemplate>
+</DisplayList>

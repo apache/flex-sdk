@@ -1,0 +1,18 @@
+<DisplayList>
+  <fxgtemplate width="940" height="700">
+    <spark.skins.spark.ApplicationSkin width="940" height="700" blendMode="auto">
+      <spark.components.Group width="940" height="700" blendMode="auto">
+        <spark.components.Group width="940" height="700" blendMode="auto">
+          <comps.MyComp width="800" height="800" blendMode="auto">
+            <fxg.blend_mode.ai_blendmodes.fxg_blendModes_luminosity_rotatedScaled width="800" height="600" blendMode="auto">
+              <flash.display.MovieClip x="160.4" y="114.85" width="360" height="319.45" blendMode="layer">
+                <fxg.blend_mode.ai_blendmodes.fxg_blendModes_luminosity_rotatedScaled1066945189 concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0.5, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" matrix="(a=0.70709228515625, b=0.70709228515625, c=-0.70709228515625, d=0.70709228515625, tx=199.05, ty=2)" x="199.05" y="2" width="265.2" height="265.25" blendMode="shader" cacheAsBitmap="true"/>
+                <fxg.blend_mode.ai_blendmodes.fxg_blendModes_luminosity_rotatedScaled_819607948 x="59.55" y="51.6" width="360" height="267" blendMode="shader" cacheAsBitmap="true"/>
+              </flash.display.MovieClip>
+            </fxg.blend_mode.ai_blendmodes.fxg_blendModes_luminosity_rotatedScaled>
+          </comps.MyComp>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </fxgtemplate>
+</DisplayList>
