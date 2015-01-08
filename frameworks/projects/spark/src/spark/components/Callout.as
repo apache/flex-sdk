@@ -244,6 +244,8 @@ public class Callout extends SkinnablePopUpContainer
     //--------------------------------------------------------------------------
     
     private var invalidatePositionFlag:Boolean = false;
+    
+    private var stageOrientationChangedFlag:Boolean = false;
 
     //--------------------------------------------------------------------------
     //
@@ -764,6 +766,7 @@ public class Callout extends SkinnablePopUpContainer
         // reset state
         invalidatePositionFlag = false;
         arrowDirectionAdjusted = false;
+        stageOrientationChangedFlag = false;
 
         // Add to PopUpManager, calls updatePopUpPosition(), and change state
         super.open(owner, modal);
@@ -773,6 +776,10 @@ public class Callout extends SkinnablePopUpContainer
         
         if (systemManagerParent)
             systemManagerParent.addEventListener(Event.RESIZE, systemManager_resizeHandler);
+            
+        // Detect stage orientation change and set flag
+        if (stage)
+	    stage.addEventListener(StageOrientationEvent.ORIENTATION_CHANGE, stage_orientationChangeHandler);
     }
     
     /**
@@ -787,6 +794,9 @@ public class Callout extends SkinnablePopUpContainer
         
         if (systemManagerParent)
             systemManagerParent.removeEventListener(Event.RESIZE, systemManager_resizeHandler);
+            
+        if (stage)
+            stage.removeEventListener(StageOrientationEvent.ORIENTATION_CHANGE, stage_orientationChangeHandler);
         
         super.close(commit, data);
     }
@@ -802,8 +812,17 @@ public class Callout extends SkinnablePopUpContainer
         // explicit changes to horizontalPostion and verticalPosition.
         if (isOpen && invalidatePositionFlag)
         {
-            updatePopUpPosition();
-            invalidatePositionFlag = false;
+            //check if stage orientation changed
+            if (stageOrientationChangedFlag)
+            {
+                //queue call to updatePopUpPosition
+                callLater(updatePopUpPosition);
+                stageOrientationChangedFlag = false;
+            }
+            else
+            {
+                updatePopUpPosition();
+            }
         }
 
         // Position the arrow
@@ -1683,19 +1702,29 @@ public class Callout extends SkinnablePopUpContainer
      */
     private function systemManager_resizeHandler(event:Event):void
     {
-        // Remove explicit settings if due to Resize effect
-        softKeyboardEffectResetExplicitSize();
+       	// Remove explicit settings if due to Resize effect
+       	softKeyboardEffectResetExplicitSize();
         
         // Screen resize might require a new arrow direction and callout position
         invalidatePosition();
         
-        if (!isSoftKeyboardEffectActive)
+      	if (!isSoftKeyboardEffectActive)
         {
             // Force validation and use new screen size only if the keyboard
             // effect is not active. The stage dimensions may be invalid while 
             // the soft keyboard is active. See SDK-31860.
             validateNow();
         }
+     }
+    
+    /**
+    *  @private
+    */
+    private function stage_orientationChangeHandler(event:StageOrientationEvent):void
+    {
+        //set flag to use in updateDisplayList
+        //for queuing call to updatePopUpPosition
+        stageOrientationChangedFlag = true;
     }
-}
+  }
 }
