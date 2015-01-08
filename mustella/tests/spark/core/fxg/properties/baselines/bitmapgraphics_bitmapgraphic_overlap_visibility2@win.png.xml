@@ -1,0 +1,44 @@
+<DisplayList>
+  <fxgtemplate width="940" height="700">
+    <spark.skins.spark.ApplicationSkin width="940" height="700" blendMode="auto">
+      <spark.components.Group width="940" height="700" blendMode="auto">
+        <spark.components.Group width="940" height="700" blendMode="auto">
+          <comps.MyComp width="800" height="800" blendMode="auto">
+            <fxg.bitmapgraphics.bitmapgraphic_overlap_visibility2 x="100" y="100" width="675" height="473" blendMode="auto">
+              <flash.display.MovieClip width="665.95" height="330">
+                <flash.display.MovieClip x="30" y="100" width="610" height="330">
+                  <flash.display.MovieClip x="25" y="53" width="130" height="330">
+                    <flash.display.MovieClip matrix="(a=0, b=1, c=1, d=1, tx=10, ty=-10)" x="10" y="-10" width="130" height="330">
+                      <flash.display.Shape width="200" height="130"/>
+                    </flash.display.MovieClip>
+                  </flash.display.MovieClip>
+                  <flash.display.MovieClip x="265" y="53" width="130" height="330">
+                    <flash.display.MovieClip matrix="(a=0, b=1, c=1, d=1, tx=10, ty=-10)" x="10" y="-10" width="130" height="330">
+                      <flash.display.Shape width="200" height="130"/>
+                    </flash.display.MovieClip>
+                  </flash.display.MovieClip>
+                  <flash.display.MovieClip x="505" y="53" width="130" height="330">
+                    <flash.display.MovieClip matrix="(a=0, b=1, c=1, d=1, tx=10, ty=-10)" x="10" y="-10" width="130" height="330">
+                      <flash.display.Shape width="200" height="130"/>
+                    </flash.display.MovieClip>
+                  </flash.display.MovieClip>
+                </flash.display.MovieClip>
+                <flash.display.MovieClip x="30" y="200" width="596.65" height="116.65">
+                  <flash.display.MovieClip matrix="(a=0.353546142578125, b=0.353546142578125, c=-0.353546142578125, d=0.353546142578125, tx=25, ty=53)" x="25" y="53" width="116.65" height="116.65">
+                    <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="200" height="130"/>
+                  </flash.display.MovieClip>
+                  <flash.display.MovieClip matrix="(a=0.353546142578125, b=0.353546142578125, c=-0.353546142578125, d=0.353546142578125, tx=265, ty=53)" x="265" y="53" width="116.65" height="116.65">
+                    <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="200" height="130"/>
+                  </flash.display.MovieClip>
+                  <flash.display.MovieClip matrix="(a=0.353546142578125, b=0.353546142578125, c=-0.353546142578125, d=0.353546142578125, tx=505, ty=53)" x="505" y="53" width="116.65" height="116.65">
+                    <flash.display.Shape concatenatedColorTransform="(redMultiplier=1, greenMultiplier=1, blueMultiplier=1, alphaMultiplier=0, redOffset=0, greenOffset=0, blueOffset=0, alphaOffset=0)" width="200" height="130"/>
+                  </flash.display.MovieClip>
+                </flash.display.MovieClip>
+              </flash.display.MovieClip>
+            </fxg.bitmapgraphics.bitmapgraphic_overlap_visibility2>
+          </comps.MyComp>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </fxgtemplate>
+</DisplayList>
