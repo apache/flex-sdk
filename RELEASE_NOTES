@@ -21,6 +21,7 @@ Bug Fixes
 ---------
 FLEX-34710  spark datagrid doubleClickMode throws Error #1009 when the 
             application is run
+FLEX-34707  Flatspark: Update to current version "Font Awesome 4.2"
 FLEX-34701  BusyIndicator does not spin when itscontainer becomes visible
 FLEX-34694  Flatspark: Setting Applications "chromeColor" style throws error
 FLEX-34693  Flatspark ButtonIcon: Introduce property 'iconFontSize' to set icon
