@@ -1683,19 +1683,26 @@ public class Callout extends SkinnablePopUpContainer
      */
     private function systemManager_resizeHandler(event:Event):void
     {
-        // Remove explicit settings if due to Resize effect
-        softKeyboardEffectResetExplicitSize();
+    	//callLater() solves bug FLEX-34712 only affecting device and not found on simulator
+    	//where calculatePopUpPosition()'s correct x or y may not be immediately available
+        callLater(
+            function():void
+            {
+                // Remove explicit settings if due to Resize effect
+                softKeyboardEffectResetExplicitSize();
         
-        // Screen resize might require a new arrow direction and callout position
-        invalidatePosition();
+                // Screen resize might require a new arrow direction and callout position
+                invalidatePosition();
         
-        if (!isSoftKeyboardEffectActive)
-        {
-            // Force validation and use new screen size only if the keyboard
-            // effect is not active. The stage dimensions may be invalid while 
-            // the soft keyboard is active. See SDK-31860.
-            validateNow();
-        }
+                if (!isSoftKeyboardEffectActive)
+                {
+                    // Force validation and use new screen size only if the keyboard
+                    // effect is not active. The stage dimensions may be invalid while 
+                    // the soft keyboard is active. See SDK-31860.
+                    validateNow();
+                }
+            }
+        );
     }
 }
 }
