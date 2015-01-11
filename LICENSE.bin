@@ -76,50 +76,50 @@ CERN makes no representations about the suitability of this software for any pur
 It is provided "as is" without expressed or implied warranty.
 
 This product bundles software available under a
-BSD software license. For details, see lib/external/THAI.txt
+BSD software license. For details, see lib/external/saxon9-NOTICES/THAI.txt
 
 This product bundles software available under a
-MIT software license. For details, see lib/external/UNICODE.txt
+MIT software license. For details, see lib/external/saxon9-NOTICES/UNICODE.txt
 
 This product bundles software available under a
-MIT software license. For details, see lib/external/JAMESCLARK.txt
+MIT software license. For details, see lib/external/saxon9-NOTICES/JAMESCLARK.txt
 
 ------------------------------------------------------------------------------------------
 
 lib/external/xml-apis.jar
 
 This product bundles documents available under a
-W3C document license. For details, see lib/external/LICENSE.dom-documentation.txt
+W3C document license. For details, see lib/external/xml-apis-LICENSES/LICENSE.dom-documentation.txt
 
 This product bundles software available under a
-W3C software license. For details, see lib/external/LICENSE.dom-software.txt
+W3C software license. For details, see lib/external/xml-apis-LICENSES/LICENSE.dom-software.txt
 
 This product bundles SAX2 available under a Public Domain license.
-For more details see lib/external/LICENSE.sax.txt
+For more details see lib/external/xml-apis-LICENSES/LICENSE.sax.txt
 
 ------------------------------------------------------------------------------------------
 
 lib/external/xml-apis-ext.jar
 
 This product bundles documents available under a
-W3C document license. For details, see lib/external/LICENSE.dom-documentation.txt
+W3C document license. For details, see lib/external/xml-apis-ext-LICENSES/LICENSE.dom-documentation.txt
 
 This product bundles software available under a
-W3C software license. For details, see lib/external/LICENSE.dom-software.txt
+W3C software license. For details, see lib/external/xml-apis-ext-LICENSES/LICENSE.dom-software.txt
 
 ------------------------------------------------------------------------------------------
 
-lib/external/xalanImpl.jar
+lib/external/xalan.jar
 
 This product bundles Apache Commons BCEL available under a
-Apache Software License, Version 1.1. For details, see lib/external/BCEL.LICENSE.txt
+Apache Software License, Version 1.1. For details, see lib/external/xalan-LICENSES/BCEL.LICENSE.txt
 
 This product bundle CUP Parser Generator available under an (old style)
-MIT license. For details, see lib/external/java_cup.LICENSE.txt
+MIT license. For details, see lib/external/xalan-LICENSES/java_cup.LICENSE.txt
 
 This product bundles Jakarta Regexp available under a
 Apache Software License, Version 1.1. For details,
-see lib/external/LICENSE.dom-software.txt
+see lib/external/xalan-LICENSES/LICENSE.dom-software.txt
 
 ------------------------------------------------------------------------------------------
 
