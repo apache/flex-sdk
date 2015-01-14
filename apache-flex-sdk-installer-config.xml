@@ -57,7 +57,7 @@
 			<zh_CN>Adobe Flash Player playerglobal.swc (必须的)</zh_CN>
 			<zh_TW>Adobe Flash Player playerglobal.swc (必須的)</zh_TW>
 		</step>
-		<step id="swfobject-download" property="do.swfobject.install">
+		<step id="swfobject-download">
 			<de_DE>SWFObject (Benötigt)</de_DE>
 			<el_GR>SWFObject (Απαιτούμενο)</el_GR>
 			<en_US>SWFObject (Required)</en_US>
@@ -69,7 +69,7 @@
 			<zh_CN>SWFObject (必须的)</zh_CN>
 			<zh_TW>SWFObject (必須的)</zh_TW>
 		</step>
-		<step id="osmf-download" property="do.osmf.install">
+		<step id="osmf-download">
 			<de_DE>OSMF (Benötigt)</de_DE>
 			<el_GR>OSMF (Απαιτούμενο)</el_GR>
 			<en_US>OSMF (Required)</en_US>
@@ -250,102 +250,6 @@
 			<label>Adobe Flash Player playerglobal.swc (必須的)</label>
 			<message>Adobe SDK 授權合約適用於 Adobe Flash Player 的 playerglobal.swc 檔案. 您想要安裝 Adobe Flash Player 的 playerglobal.swc 檔案嗎?</message>
 			<license>Adobe Flex SDK 授權合約</license>
-		</zh_TW>
-	</component>
-	<component id="STEP_REQUIRED_INSTALL_SWFOBJECT" required="true" property="do.swfobject.install">
-		<de_DE>
-			<label>SWFObject (Benötigt)</label>
-			<message>Das SWFObject utility verwendet die MIT License (MIT).  Möchten SIe jetzt das SWFObject utility installieren?</message>
-		</de_DE>
-		<el_GR>
-			<label>SWFObject (Απαιτούμενο)</label>
-			<message>Για το SWFObject ισχύει η συμφωνία χρήσης του MIT License (MIT). Θέλετε να εγκαταστήσετε το SWFObject;</message>
-		</el_GR>
-		<en_US>
-			<label>SWFObject (Required)</label>
-			<message>The MIT License (MIT) applies to the SWFObject utility.  Do you want to install the SWFObject utility?</message>
-			<license>MIT License</license>
-			<licenseURL>http://opensource.org/licenses/mit-license.php</licenseURL>
-		</en_US>
-		<es_ES>
-			<label>SWFObject (Requerido)</label>
-			<message>SWFObject se ofrece bajo licencia MIT (MIT). ¿Quiere instalar SWFObject?</message>
-		</es_ES>
-		<fr_FR>
-			<label>SWFObject (Requis)</label>
-			<message>La licence MIT (MIT) s'applique à l'utilitaire SWFObject. Voulez-vous installer l'utilitaire SWFObject?</message>
-		</fr_FR>
-		<nl_NL>
-			<label>SWFObject (Verplicht)</label>
-			<message>De MIT License (MIT) geldt voor de SWFObject utility. Wilt u de SWFObject utility installeren?</message>
-		</nl_NL>
-		<pt_BR>
-			<label>SWFObject (Obrigatório)</label>
-			<message>A MIT License (MIT) se aplica ao utilitário SWFObject. Você quer instalar o utilitário SWFObject</message>
-			<license>MIT License</license>
-			<licenseURL>http://opensource.org/licenses/mit-license.php</licenseURL>
-		</pt_BR>
-		<ko_KR>
-			<label>SWFObject (필수)</label>
-			<message>SWFObject 유틸리티에는 MIT License (MIT)가 적용됩니다. SWFObject 유틸리티를 설치하시겠습니까?</message>
-		</ko_KR>
-		<zh_CN>
-			<label>SWFObject (必须的)</label>
-			<message>MIT 许可协议适用于 SWFObject 实用程序. 您想要安装 SWFObject 实用程序吗?</message>
-			<license>MIT 许可协议</license>
-		</zh_CN>
-		<zh_TW>
-			<label>SWFObject (必須的)</label>
-			<message>MIT 授權合約適用於 SWFObject 實用程式. 您想要安裝 SWFObject 實用程式嗎?</message>
-			<license>MIT 授權合約</license>
-		</zh_TW>
-	</component>
-	<component id="STEP_REQUIRED_INSTALL_OSMF" required="true" property="do.osmf.install">
-		<de_DE>
-			<label>OSMF (Benötigt)</label>
-			<message>Das Open Source Media Framework (OSMF) welches von den Videokomponenten verwendet wird ist unter der Mozilla Public License Version 1.1 lizensiert. Möchten Sie das Open Source Media Framework (OSMF) jetzt installieren?</message>
-		</de_DE>
-		<el_GR>
-			<label>OSMF (Απαιτούμενο)</label>
-			<message>Για το Open Source Media Framework (OSMF) που χρησιμοποιείται απο τα αντικείμενα video ισχύει η συμφωνία χρήσης του Mozilla Public License Version 1.1. Θέλετε να εγκαταστήσετε το  Για το Open Source Media Framework (OSMF);</message>
-		</el_GR>
-		<en_US>
-			<label>OSMF (Required)</label>
-			<message>The Open Source Media Framework (OSMF) used by the video components is licensed under the Mozilla Public License Version 1.1.  Do you want to install the Open Source Media Framework (OSMF)?</message>
-			<license>Mozilla Public License Version 1.1</license>
-			<licenseURL>http://www.mozilla.org/MPL/</licenseURL>
-		</en_US>
-		<es_ES>
-			<label>OSMF (Requerido)</label>
-			<message>Open Source Media Framework (OSMF), utilizado en los componentes de video, se ofrece bajo los términos de la Mozilla Public License Version 1.1. ¿Quiere instalar Open Source Media Framework (OSMF)?</message>
-		</es_ES>
-		<fr_FR>
-			<label>OSMF (Requis)</label>
-			<message>L'Open Source Media Framework (OSMF) utilisé par les composants vidéo est sous licence Mozilla Public License Version 1.1. Voulez-vous installer le Open Source Media Framework (OSMF)?</message>
-		</fr_FR>
-		<nl_NL>
-			<label>OSMF (Verplicht)</label>
-			<message>Het Open Source Media Framework (OSMF) dat gebruikt wordt door de video componenten is gelicenseerd onder de Mozilla Public License Versie 1.1. Wilt u het Open Source Media Framework (OSMF) installeren?</message>
-		</nl_NL>
-		<pt_BR>
-			<label>OSMF (Obrigatório)</label>
-			<message>O Open Source Media Framework (OSMF) utilizado pelos componentes de video está sob a licença Mozilla Public License Version 1.1. Você quer instalar o Open Source Media Framework (OSMF)?</message>
-			<license>Mozilla Public License Version 1.1</license>
-			<licenseURL>http://www.mozilla.org/MPL/</licenseURL>
-		</pt_BR>
-		<ko_KR>
-			<label>OSMF (필수)</label>
-			<message>Video 컴포넌트에서 사용된 Open Source Media Framework (OSMF)는 Mozilla Public License Version 1.1로 라이센스 되어있습니다. Open Source Media Framework (OSMF)를 설치하시겠습니까?</message>
-		</ko_KR>
-		<zh_CN>
-			<label>OSMF (必须的)</label>
-			<message>Flex 的一些视频组件需要用到开源媒体框架 Open Source Media Framework (OSMF), OSMF 由 Mozilla 公共许可协议 1.1 版提供授权. 您想要安装 OSMF 吗?</message>
-			<license>Mozilla 公共许可协议 1.1 版</license>
-		</zh_CN>
-		<zh_TW>
-			<label>OSMF (必須的)</label>
-			<message>Flex 的一些視頻元件需要用到開源媒體框架 Open Source Media Framework (OSMF), OSMF 由 Mozilla 公共授權合約 1.1 版提供授權. 您想要安裝 OSMF 嗎?</message>
-			<license>Mozilla 公共授權合約 1.1 版</license>
 		</zh_TW>
 	</component>
 	<component id="STEP_REQUIRED_INSTALL_OFL_FONTS" required="true" property="do.ofl.fonts.install">
