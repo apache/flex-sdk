@@ -268,7 +268,7 @@ SkinnableTextBase:disabledWithPrompt
 SpinnerList
 {
 	skinClass: ClassReference("spark.skins.mobile.SpinnerListSkin");
-	accentColor: #000000;
+	useAccentColor: false;
 }
 
 SpinnerListContainer
@@ -1104,6 +1104,7 @@ global
 		skinClass: ClassReference("spark.skins.ios7.SpinnerListSkin");
 		color: #999999;
 		accentColor: #333333;
+	    useAccentColor: true;
 	}
 	
 	SpinnerListContainer
