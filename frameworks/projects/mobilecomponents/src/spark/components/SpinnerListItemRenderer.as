@@ -107,7 +107,10 @@ public class SpinnerListItemRenderer extends LabelItemRenderer
 		{
 			if(selected)
 			{
-				_colorName = "accentColor"; // highlighted item
+                if (getStyle("useAccentColor"))
+                    _colorName = "accentColor"; // highlighted item
+                else
+                    _colorName = "color";
 			}else{
 				_colorName = "color"; // reset to use standard color
 			}
