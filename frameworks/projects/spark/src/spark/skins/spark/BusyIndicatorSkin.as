@@ -33,6 +33,11 @@ package spark.skins.spark
 	public class BusyIndicatorSkin extends ActionScriptSkinBase
 	{
 		static private const DEFAULT_ROTATION_INTERVAL:Number = 30;
+        /**
+         *  @private
+         */ 
+        static private const DEFAULT_MINIMUM_SIZE:Number = 20;
+        
 		private var busyIndicatorClass:Class;
 		private var busyIndicator:DisplayObject;
 		private var busyIndicatorBackground:DisplayObject;
@@ -40,6 +45,16 @@ package spark.skins.spark
 		private var rotationTimer:Timer;
 		private var rotationInterval:Number;
 		private var rotationSpeed:Number;
+        /**
+         *  @private
+         */   
+        private var oldUnscaledHeight:Number;
+        
+        /**
+         *  @private
+         */   
+        private var oldUnscaledWidth:Number;
+        
 		/**
 		 *  @private
 		 * 
@@ -112,23 +127,63 @@ package spark.skins.spark
 		{
 			//This layer stays still in the background
 			busyIndicatorBackground = new busyIndicatorClass();
-			busyIndicatorBackground.width = busyIndicatorBackground.height = busyIndicatorDiameter;
+			//busyIndicatorBackground.width = busyIndicatorBackground.height = busyIndicatorDiameter;
 			addChild(busyIndicatorBackground);
 			//This layer rotates in the foreground to give the required effect
 			busyIndicator = new busyIndicatorClass();
 			busyIndicator.alpha = 0.3;
-			busyIndicator.width = busyIndicator.height = busyIndicatorDiameter;
+			//busyIndicator.width = busyIndicator.height = busyIndicatorDiameter;
 			addChild(busyIndicator);
 		}
 		
-		override protected function measure():void
-		{
-			measuredWidth = busyIndicatorDiameter;
-			measuredHeight = busyIndicatorDiameter;
-			
-			measuredMinHeight = busyIndicatorDiameter;
-			measuredMinWidth = busyIndicatorDiameter
-		}
+        /**
+         *  @private
+         */
+        override protected function measure():void
+        {
+            super.measure();
+            
+            // Set the default measured size depending on the
+            // applicationDPI
+            if (applicationDPI == DPIClassification.DPI_640)
+            {
+                measuredWidth = 104;
+                measuredHeight = 104;
+            }
+            else if (applicationDPI == DPIClassification.DPI_480)
+            {
+                measuredWidth = 80;
+                measuredHeight = 80;
+            }
+            else if (applicationDPI == DPIClassification.DPI_320)
+            {
+                measuredWidth = 52;
+                measuredHeight = 52;
+            }
+            else if (applicationDPI == DPIClassification.DPI_240)
+            {
+                measuredWidth = 40;
+                measuredHeight = 40;
+            }
+            else if (applicationDPI == DPIClassification.DPI_160)
+            {
+                measuredWidth = 26;
+                measuredHeight = 26;
+            }
+            else if (applicationDPI == DPIClassification.DPI_120)
+            {
+                measuredWidth = 20;
+                measuredHeight = 20;
+            }
+            else
+            {
+                measuredWidth = DEFAULT_MINIMUM_SIZE;
+                measuredHeight = DEFAULT_MINIMUM_SIZE;
+            }
+            
+            measuredMinWidth = DEFAULT_MINIMUM_SIZE;
+            measuredMinHeight = DEFAULT_MINIMUM_SIZE;
+        }
 		
 		override protected function commitCurrentState():void
 		{
@@ -164,8 +219,42 @@ package spark.skins.spark
 				colorizeSymbol();	
 				symbolColorChanged = false;
 			}
+            // If the size changed, then create a new spinner.
+            if (oldUnscaledWidth != unscaledWidth ||
+                oldUnscaledHeight != unscaledHeight)
+            {
+                var newDiameter:Number;
+                
+                newDiameter = calculateSpinnerDiameter(unscaledWidth, unscaledHeight);
+                busyIndicatorBackground.width = busyIndicatorBackground.height = newDiameter;
+                busyIndicator.width = busyIndicator.height = newDiameter;
+                
+                oldUnscaledWidth = unscaledWidth;
+                oldUnscaledHeight = unscaledHeight;
+            }
 		}
 		
+        /**
+         *   @private
+         *
+         *   Apply the rules to calculate the spinner diameter from the width
+         *   and height.
+         *  
+         *   @param width new width of this component
+         *   @param height new height of this component
+         *    
+         *   @return true if the spinner's diameter changes, false otherwise.
+         */
+        private function calculateSpinnerDiameter(width:Number, height:Number):Number
+        {
+            var diameter:Number = Math.min(width, height);
+            diameter = Math.max(DEFAULT_MINIMUM_SIZE, diameter);
+            if (diameter % 2 != 0)
+                diameter--;
+            
+            return diameter;
+        }
+        
 		private function colorizeSymbol():void
 		{
 			super.applyColorTransform(this.busyIndicator, 0x000000, symbolColor);
