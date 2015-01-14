@@ -120,12 +120,10 @@
     <condition property="flash.donot.ask" value="true">
         <isset property="installer" />
     </condition>
-    <condition property="swfobject.donot.ask" value="true">
-        <isset property="installer" />
-    </condition>
-    <condition property="osmf.donot.ask" value="true">
-        <isset property="installer" />
-    </condition>
+    <property name="swfobject.donot.ask" value="true" />
+    <property name="do.swfobject.install" value="true" />
+    <property name="osmf.donot.ask" value="true" />
+    <property name="do.osmf.install" value="true" />
     <condition property="fontswf.donot.ask" value="true">
         <isset property="installer" />
     </condition>
