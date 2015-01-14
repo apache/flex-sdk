@@ -23,6 +23,7 @@ package spark.skins.mobile
 	import flash.display.CapsStyle;
 	import flash.display.Graphics;
 	import flash.display.LineScaleMode;
+	import flash.events.Event;
 	import flash.events.TimerEvent;
 	import flash.geom.Point;
 	import flash.utils.Timer;
@@ -60,6 +61,8 @@ package spark.skins.mobile
 		{
 			super();
 			alpha = 0.60;       // default alpha
+            // component changes state when removed but it doesn't get validated in time
+            addEventListener(Event.REMOVED_FROM_STAGE, removedFromStageHandler,false,0,true);
 		}
 		
 		private var _hostComponent:spark.components.BusyIndicator;
@@ -453,5 +456,14 @@ package spark.skins.mobile
 			event.updateAfterEvent();
 		}
 		
+        /**
+         *  @private
+         */
+        private function removedFromStageHandler(event:Event):void
+        {
+            stopRotation();
+        }
+        
+
 	}
 }
