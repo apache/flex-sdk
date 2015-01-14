@@ -60,47 +60,6 @@ package spark.skins.mobile
 		{
 			super();
 			alpha = 0.60;       // default alpha
-			
-			// Set the default measured size depending on the
-			// applicationDPI
-			if (applicationDPI == DPIClassification.DPI_640)
-			{
-				measuredWidth = 104;
-				measuredHeight = 104;
-			}
-			else if (applicationDPI == DPIClassification.DPI_480)
-			{
-				measuredWidth = 80;
-				measuredHeight = 80;
-			}
-			else if (applicationDPI == DPIClassification.DPI_320)
-			{
-				measuredWidth = 52;
-				measuredHeight = 52;
-			}
-			else if (applicationDPI == DPIClassification.DPI_240)
-			{
-				measuredWidth = 40;
-				measuredHeight = 40;
-			}
-			else if (applicationDPI == DPIClassification.DPI_160)
-			{
-				measuredWidth = 26;
-				measuredHeight = 26;
-			}
-			else if (applicationDPI == DPIClassification.DPI_120)
-			{
-				measuredWidth = 20;
-				measuredHeight = 20;
-			}
-			else
-			{
-				measuredWidth = DEFAULT_MINIMUM_SIZE;
-				measuredHeight = DEFAULT_MINIMUM_SIZE;
-			}
-			
-			measuredMinWidth = DEFAULT_MINIMUM_SIZE;
-			measuredMinHeight = DEFAULT_MINIMUM_SIZE;
 		}
 		
 		private var _hostComponent:spark.components.BusyIndicator;
@@ -155,13 +114,13 @@ package spark.skins.mobile
 		{
 			super.styleChanged(styleProp);
 			
-			var allStyles:Boolean = !styleName || styleName == "styleName";
+			var allStyles:Boolean = !styleProp || styleProp == "styleName";
 			
 			// Check for skin/icon changes here.
 			// We could only throw out any skins that change,
 			// but since dynamic re-skinning is uncommon, we'll take
 			// the simpler approach of throwing out all skins.
-			if (allStyles || styleName == "rotationInterval")
+			if (allStyles || styleProp == "rotationInterval")
 			{
 				// Update the timer if the rotation interval has changed.
 				if (isRotating())
@@ -171,7 +130,7 @@ package spark.skins.mobile
 				}
 			}
 			
-			if (allStyles || styleName == "symbolColor")
+			if (allStyles || styleProp == "symbolColor")
 			{
 				updateSpinner(spinnerDiameter);
 			}
@@ -179,8 +138,46 @@ package spark.skins.mobile
 		
 		override protected function measure():void
 		{
-			measuredHeight = hostComponent.height;
-			measuredWidth = hostComponent.width;
+            // Set the default measured size depending on the
+            // applicationDPI
+            if (applicationDPI == DPIClassification.DPI_640)
+            {
+                measuredWidth = 104;
+                measuredHeight = 104;
+            }
+            else if (applicationDPI == DPIClassification.DPI_480)
+            {
+                measuredWidth = 80;
+                measuredHeight = 80;
+            }
+            else if (applicationDPI == DPIClassification.DPI_320)
+            {
+                measuredWidth = 52;
+                measuredHeight = 52;
+            }
+            else if (applicationDPI == DPIClassification.DPI_240)
+            {
+                measuredWidth = 40;
+                measuredHeight = 40;
+            }
+            else if (applicationDPI == DPIClassification.DPI_160)
+            {
+                measuredWidth = 26;
+                measuredHeight = 26;
+            }
+            else if (applicationDPI == DPIClassification.DPI_120)
+            {
+                measuredWidth = 20;
+                measuredHeight = 20;
+            }
+            else
+            {
+                measuredWidth = DEFAULT_MINIMUM_SIZE;
+                measuredHeight = DEFAULT_MINIMUM_SIZE;
+            }
+            
+            measuredMinWidth = DEFAULT_MINIMUM_SIZE;
+            measuredMinHeight = DEFAULT_MINIMUM_SIZE;
 		}
 		
 		override protected function commitCurrentState():void
@@ -204,7 +201,7 @@ package spark.skins.mobile
 		override protected function updateDisplayList(unscaledWidth:Number,
 													  unscaledHeight:Number):void
 		{
-			super.updateDisplayList(unscaledWidth, unscaledHeight);
+			//super.updateDisplayList(unscaledWidth, unscaledHeight);
 			
 			// If the size changed, then create a new spinner.
 			if (oldUnscaledWidth != unscaledWidth ||
