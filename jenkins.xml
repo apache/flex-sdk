@@ -226,10 +226,17 @@
 
     <target name="playerglobal16.0-download" if="target16.0">
     	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
-        <get src="http://labsdownload.adobe.com/pub/labs/flashruntimes/flashplayer/flashplayer16_playerglobal.swc" 
+        <get src="http://download.macromedia.com/get/flashplayer/updaters/16/playerglobal16_0.swc" 
             dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
     </target>
+
+    <!-- target name="playerglobal16.0-download" if="target16.0">
+    	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
+        <get src="http://labsdownload.adobe.com/pub/labs/flashruntimes/flashplayer/flashplayer16_playerglobal.swc" 
+            dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
+            verbose="false"/>
+    </target -->
             	
     <target name="clean" description="Cleans third party downloaded files.">
     	<delete dir="${FLEX_HOME}/temp" />

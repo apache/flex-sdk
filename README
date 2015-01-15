@@ -144,11 +144,11 @@ and you will get compile errors.
 * 3)
 The Adobe AIR integration kit for Windows can be downloaded from:
 
-   http://airdownload.adobe.com/air/win/download/15.0/AdobeAIRSDK.zip
+   http://airdownload.adobe.com/air/win/download/16.0/AdobeAIRSDK.zip
 
 The Adobe AIR integration kit for Mac can be downloaded from:
 
-    http://airdownload.adobe.com/air/mac/download/15.0/AdobeAIRSDK.tbz2
+    http://airdownload.adobe.com/air/mac/download/16.0/AdobeAIRSDK.tbz2
 
 The Adobe AIR integration kit for Linux can be downloaded from:
 
@@ -157,9 +157,9 @@ The Adobe AIR integration kit for Linux can be downloaded from:
 Download the AIR SDK for your platform and unzip it. Set AIR_HOME to the
 absolute path of the AIR SDK directory.
 
-This version of the Apache Flex SDK was certified for use with Adobe AIR 15
+This version of the Apache Flex SDK was certified for use with Adobe AIR 16
 and is compatible with version 3.1 and up. It has been fully tested on AIR 3.7,
-4 and 15.
+4 and 16.
 
 * 4)
 The Adobe Flash Player content debuggers can be found here:
@@ -168,7 +168,7 @@ The Adobe Flash Player content debuggers can be found here:
 
 This version of the Apache Flex SDK was certified for use with Adobe Flash
 Player 11.1, and is compatible with version 10.2 and up. It has been tested
-with versions 11.1, 11.7, 13.0 and 15.0 on Windows and Mac. It has been
+with versions 11.1, 11.7, 13.0 and 16.0 on Windows and Mac. It has been
 compiled, but not fully tested, against other Adobe Flash Player versions.
 It has not been fully tested on Linux.
 
@@ -326,13 +326,13 @@ To create an SDK for Flash Builder or any other IDE, run:
 If you want to set the Flash Player and AIR versions to something other
 than their defaults, pass the verisons to the ant script like so:
 
-     ant -f installer.xml -Dflash.sdk.version=15.0 -Dair.sdk.version=15.0
+     ant -f installer.xml -Dflash.sdk.version=16.0 -Dair.sdk.version=16.0
 
 On Mac/Linux the AIR and Flash Player version can be changed, after the SDK
 has been compiled, by running:
 
-    ./ide/setFlashPlayerVersion.sh ./ 15.0
-    ./ide/addAIRtoSDK.sh 15.0 ./
+    ./ide/setFlashPlayerVersion.sh ./ 16.0
+    ./ide/addAIRtoSDK.sh 16.0 ./
 
 
 
@@ -414,9 +414,9 @@ OR
 Change the playerglobal.version in the build.properties file to have a value
 other than '11.1'. For this change to take effect, the SDK needs to be
 recompiled. For example, to compile against the latest version of the Adobe
-Flash Player, set the value of playerglobal.version to be '15.0' like so:
+Flash Player, set the value of playerglobal.version to be '16.0' like so:
 
-    playerglobal.version = 15.0
+    playerglobal.version = 16.0
 
 OR
 
