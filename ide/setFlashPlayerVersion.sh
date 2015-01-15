@@ -99,15 +99,17 @@ determineVersion()
         then 
             FLASH_VERSION="11.1"
         else
-            FLASH_VERSION="15.0"
+            FLASH_VERSION="16.0"
         fi
     fi
     
     if [ ${latest} = "Y" ]
     then
-    	FLASH_VERSION="15.0"
+    	FLASH_VERSION="16.0"
     fi
     
+    # (erikdebruin) How does this work if the beta and release have the same
+    #               major.minor version?
     if [ ${useBeta} = "Y" ]
     then
     	FLASH_VERSION="16.0"
