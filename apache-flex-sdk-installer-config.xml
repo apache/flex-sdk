@@ -252,52 +252,6 @@
 			<license>Adobe Flex SDK 授權合約</license>
 		</zh_TW>
 	</component>
-	<component id="STEP_REQUIRED_INSTALL_OFL_FONTS" required="true" property="do.ofl.fonts.install">
-		<de_DE>
-			<label>Font Awesome and Lato Fonts (Benötigt)</label>
-			<message>The FlatSpark theme uses fonts licensed under the Open Font License. Do you want to install the Font Awesome and Lato Fonts?</message>
-		</de_DE>
-		<el_GR>
-			<label>Font Awesome and Lato Fonts (Απαιτούμενο)</label>
-			<message>The FlatSpark theme uses fonts licensed under the Open Font License. Do you want to install the Font Awesome and Lato Fonts?</message>
-		</el_GR>
-		<en_US>
-			<label>Font Awesome and Lato Fonts (Required)</label>
-			<message>The FlatSpark theme uses fonts licensed under the Open Font License.  Do you want to install the Font Awesome and Lato Fonts?</message>
-			<license>SIL Open Font License</license>
-			<licenseURL>http://scripts.sil.org/OFL</licenseURL>
-		</en_US>
-		<es_ES>
-			<label>Font Awesome and Lato Fonts (Requerido)</label>
-			<message>The FlatSpark theme uses fonts licensed under the Open Font License. Do you want to install the Font Awesome and Lato Fonts?</message>
-		</es_ES>
-		<fr_FR>
-			<label>Font Awesome and Lato Fonts (Requis)</label>
-			<message>The FlatSpark theme uses fonts licensed under the Open Font License. Do you want to install the Font Awesome and Lato Fonts?</message>
-		</fr_FR>
-		<nl_NL>
-			<label>Font Awesome and Lato Fonts (Verplicht)</label>
-			<message>The FlatSpark theme uses fonts licensed under the Open Font License. Do you want to install the Font Awesome and Lato Fonts?</message>
-		</nl_NL>
-		<pt_BR>
-			<label>Font Awesome e Lato Fonts (Obrigatório)</label>
-			<message>O tema FlatSpark use fontes licenciadas sob a licença Open Font. Você quer instalar o Font Awesome e Lato Fonts?</message>
-			<license>SIL Open Font License</license>
-			<licenseURL>http://scripts.sil.org/OFL</licenseURL>
-		</pt_BR>
-		<ko_KR>
-			<label>Font Awesome and Lato Fonts (필수)</label>
-			<message>The FlatSpark theme uses fonts licensed under the Open Font License. Do you want to install the Font Awesome and Lato Fonts?</message>
-		</ko_KR>
-		<zh_CN>
-			<label>Font Awesome and Lato Fonts (必须的)</label>
-			<message>The FlatSpark theme uses fonts licensed under the Open Font License. Do you want to install the Font Awesome and Lato Fonts?</message>
-		</zh_CN>
-		<zh_TW>
-			<label>Font Awesome and Lato Fonts (必須的)</label>
-			<message>The FlatSpark theme uses fonts licensed under the Open Font License. Do you want to install the Font Awesome and Lato Fonts?</message>
-		</zh_TW>
-	</component>
 	<component id="FontSWF (Optional)" required="false" property="do.fontswf.install">
 		<de_DE>
 			<label>Adobe Bibliothek zur Einbettung von Schriften (Optional)</label>
