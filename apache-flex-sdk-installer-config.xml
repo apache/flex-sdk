@@ -301,49 +301,49 @@
 	<component id="FontSWF (Optional)" required="false" property="do.fontswf.install">
 		<de_DE>
 			<label>Adobe Bibliothek zur Einbettung von Schriften (Optional)</label>
-			<message>Apache Flex kann optional das Feature \"Einbetten von Schriftarten\" einbinden. Dieses Feature benötigt verschieden Schriftarten Jar-Dateien aus dem Adobe Flex SDK. Die Adobe SDK Lizenzvereinbarung für Adobe Flex 4.6 gilt für diese Jar-Dateien. Diese Lizenz ist nicht mit der Apache V2 Lizenz vereinbar. Möchten Sie diese Jar-Dateien aus dem Adobe Flex SDK installieren?</message>
+			<message>Apache Flex kann optional das Feature \"Einbetten von Schriftarten\" einbinden. Dieses Feature benötigt verschieden Schriftarten Jar-Dateien aus dem Adobe Flex SDK. Die Adobe SDK Lizenzvereinbarung für Adobe Flex 4.6 gilt für diese Jar-Dateien. Diese Lizenz ist nicht mit der Apache V2 Lizenz vereinbar. Möchten Sie diese Jar-Dateien aus dem Adobe Flex SDK installieren?\n\nNote: the use of the FlatSpark skin and components requires embedded font support.</message>
 		</de_DE>
 		<el_GR>
 			<label>Adobe Embedded Font Libraries and Utilities (Προαιρετικό)</label>
-			<message>Το Apache Flex μπορεί προαιρετικά να χρησιμοποιήσει την υποστήριξη που παρέχει η Adobe για ενσωματωμένες γραματοσειρές. Η λειτουργία αυτή απαιτεί κάποια jar αρχεία που υπάρχουν στο Adobe Flex SDK. Για τα αρχεία αυτά ισχύει η συμφωνία χρήσης της άδειας Adobe SDK για το Adobe Flex 4.6. Η άδεια αυτή δεν είναι συμβατή με την άδεια χρήσης Apache V2. Θέλετε να εγκαταστήσετε τα αρχεία αυτά απο το Adobe Flex SDK;</message>
+			<message>Το Apache Flex μπορεί προαιρετικά να χρησιμοποιήσει την υποστήριξη που παρέχει η Adobe για ενσωματωμένες γραματοσειρές. Η λειτουργία αυτή απαιτεί κάποια jar αρχεία που υπάρχουν στο Adobe Flex SDK. Για τα αρχεία αυτά ισχύει η συμφωνία χρήσης της άδειας Adobe SDK για το Adobe Flex 4.6. Η άδεια αυτή δεν είναι συμβατή με την άδεια χρήσης Apache V2. Θέλετε να εγκαταστήσετε τα αρχεία αυτά απο το Adobe Flex SDK;\n\nNote: the use of the FlatSpark skin and components requires embedded font support.</message>
 			<license>'Αδεια χρήσης Adobe Flex SDK</license>
 		</el_GR>
 		<en_US>
 			<label>Adobe Embedded Font Libraries and Utilities (Optional)</label>
-			<message>Apache Flex can optionally integrate with Adobe's embedded font support. This feature requires a few font jars from the Adobe Flex SDK. The Adobe SDK license agreement for Adobe Flex 4.6 applies to these jars. This license is not compatible with the Apache V2 license. Do you want to install these jars from the Adobe Flex SDK?</message>
+			<message>Apache Flex can optionally integrate with Adobe's embedded font support. This feature requires a few font jars from the Adobe Flex SDK. The Adobe SDK license agreement for Adobe Flex 4.6 applies to these jars. This license is not compatible with the Apache V2 license. Do you want to install these jars from the Adobe Flex SDK?\n\nNote: the use of the FlatSpark skin and components requires embedded font support.</message>
 			<license>Adobe Flex SDK License</license>
 			<licenseURL>http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf</licenseURL>
 		</en_US>
 		<es_ES>
 			<label>Librería y utilidades de fuentes embebidas de Adobe (Opcional)</label>
-			<message>Apache Flex puede integrarse de manera opcional con el soporte para fuentes embebidas de Adobe. Esta característica necesita algunos ficheros de fuentes del SDK de Adobe Flex. Estos archivos se ofrecen bajo los términos de la licencia de Adobe SDK para Adobe Flex 4.6. Esta licencia no es compatible con la licencia Apache V2. ¿Quiere instalar estos archivos desde el SDK de Adobe Flex?</message>
+			<message>Apache Flex puede integrarse de manera opcional con el soporte para fuentes embebidas de Adobe. Esta característica necesita algunos ficheros de fuentes del SDK de Adobe Flex. Estos archivos se ofrecen bajo los términos de la licencia de Adobe SDK para Adobe Flex 4.6. Esta licencia no es compatible con la licencia Apache V2. ¿Quiere instalar estos archivos desde el SDK de Adobe Flex?\n\nNote: the use of the FlatSpark skin and components requires embedded font support.</message>
 		</es_ES>
 		<fr_FR>
 			<label>Bibliothèques Adobe Font embarquées et utilitaires (Facultatif)</label>
-			<message>Apache Flex peut éventuellement s'intégrer avec le support de polices embarquées Adobe (Adobe's embedded font support). Cette fonctionnalité nécessite quelques jars de polices du SDK Adobe Flex. L'accord de licence Adobe SDK pour Adobe Flex 4.6 s'applique à ces jars. Cette licence n'est pas compatible avec la licence Apache V2. Voulez-vous installer ces jars à partir du SDK Adobe Flex?</message>
+			<message>Apache Flex peut éventuellement s'intégrer avec le support de polices embarquées Adobe (Adobe's embedded font support). Cette fonctionnalité nécessite quelques jars de polices du SDK Adobe Flex. L'accord de licence Adobe SDK pour Adobe Flex 4.6 s'applique à ces jars. Cette licence n'est pas compatible avec la licence Apache V2. Voulez-vous installer ces jars à partir du SDK Adobe Flex?\n\nL'utilisation des habillages et composants FlatSpark requiert les bibliothèques Adobe Font embarquées (Adobe's embedded font support).</message>
 		</fr_FR>
 		<nl_NL>
 			<label>Adobe Embedded Font Libraries en Utilities (Optioneel)</label>
-			<message>Apache Flex kan optioneel integreren met Adobe's embedded font support. Deze feature vereist een aantal font jars uit de Adobe Flex SDK. De Adobe SDK licentie overeenkomst voor Adobe Flex 4.6 geldt voor deze jars. Deze licentie is niet compatibel met de Apache V2 licentie. Wilt u deze jars uit de Adobe Flex SDK installeren?</message>
+			<message>Apache Flex kan optioneel integreren met Adobe's embedded font support. Deze feature vereist een aantal font jars uit de Adobe Flex SDK. De Adobe SDK licentie overeenkomst voor Adobe Flex 4.6 geldt voor deze jars. Deze licentie is niet compatibel met de Apache V2 licentie. Wilt u deze jars uit de Adobe Flex SDK installeren?\n\nAttentie: het gebruik van de FlatSpark skin en componenten vereist embedded font support.</message>
 		</nl_NL>
 		<pt_BR>
 			<label>Adobe Embedded Font Libraries and Utilities (Opcional)</label>
-			<message>Apache Flex pode, opcionalmente, integrar-se com o suporte de fontes embutidas da Adobe. Este recurso requer alguns jars do Adobe Flex SDK, que estão sob o contrato de licença do Adobe Flex 4.6. Esta licença não é compatível com a licença Apache V2. Você quer instalar estes jars a partir do Adobe Flex SDK?</message>
+			<message>Apache Flex pode, opcionalmente, integrar-se com o suporte de fontes embutidas da Adobe. Este recurso requer alguns jars do Adobe Flex SDK, que estão sob o contrato de licença do Adobe Flex 4.6. Esta licença não é compatível com a licença Apache V2. Você quer instalar estes jars a partir do Adobe Flex SDK?\n\nNota: o uso dos skins e componentes FlatSpark requer suporte a fontes embutidas.</message>
 			<license>Adobe Flex SDK License</license>
 			<licenseURL>http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf</licenseURL>
 		</pt_BR>
 		<ko_KR>
 			<label>Adobe Embedded Font 라이브러리 와 유틸리티 (선택)</label>
-			<message>Apache Flex는 선택적으로 Adobe의 임베드 폰트지원 기능을 통합할 수 있습니다. 이 기능에는 Adobe Flex SDK에 있는 폰트 jar 파일들이 필요합니다. 이 jar 파일들에는 Adobe Flex 4.6에 대한 Adobe SDK 라이센스 계약이 적용됩니다. 이 라이센스는 Apache V2 라이센스와 호환되지 않습니다. Adobe Flex SDK에서 이 jar 파일들을 가져와 설치하시겠습니까? </message>
+			<message>Apache Flex는 선택적으로 Adobe의 임베드 폰트지원 기능을 통합할 수 있습니다. 이 기능에는 Adobe Flex SDK에 있는 폰트 jar 파일들이 필요합니다. 이 jar 파일들에는 Adobe Flex 4.6에 대한 Adobe SDK 라이센스 계약이 적용됩니다. 이 라이센스는 Apache V2 라이센스와 호환되지 않습니다. Adobe Flex SDK에서 이 jar 파일들을 가져와 설치하시겠습니까?\n\nNote: the use of the FlatSpark skin and components requires embedded font support.</message>
 		</ko_KR>
 		<zh_CN>
 			<label>Adobe 镶入字体库和实用程序 (可选的)</label>
-			<message>Apache Flex 可以选择性地与 Adobe 镶入字体支持 进行整合. 此功能须要 Adobe Flex SDK 里的一些与字体相关的 jar 文件, Adobe Flex 4.6 的 Adobe SDK 许可协议适用于这些 jar 文件, 此许可与 Apache V2 许可并不兼容. 您想要安装来自 Adobe Flex SDK 里的这些 jar 文件吗?</message>
+			<message>Apache Flex 可以选择性地与 Adobe 镶入字体支持 进行整合. 此功能须要 Adobe Flex SDK 里的一些与字体相关的 jar 文件, Adobe Flex 4.6 的 Adobe SDK 许可协议适用于这些 jar 文件, 此许可与 Apache V2 许可并不兼容. 您想要安装来自 Adobe Flex SDK 里的这些 jar 文件吗?\n\n提示: FlatSpark 主题的皮肤和组件须要 镶入字体库 的支持.</message>
 			<license>Adobe Flex SDK 许可协议</license>
 		</zh_CN>
 		<zh_TW>
 			<label>Adobe 鑲入字體庫和實用程式 (可選的)</label>
-			<message>Apache Flex 可以選擇性地與 Adobe 鑲入字體支援 進行整合. 此功能須要 Adobe Flex SDK 裡的一些與字體相關的 jar 檔案, Adobe Flex 4.6 的 Adobe SDK 授權合約適用於這些 jar 檔案, 此許可與 Apache V2 許可並不相容. 您想要安裝來自 Adobe Flex SDK 裡的這些 jar 檔案嗎?</message>
+			<message>Apache Flex 可以選擇性地與 Adobe 鑲入字體支援 進行整合. 此功能須要 Adobe Flex SDK 裡的一些與字體相關的 jar 檔案, Adobe Flex 4.6 的 Adobe SDK 授權合約適用於這些 jar 檔案, 此許可與 Apache V2 許可並不相容. 您想要安裝來自 Adobe Flex SDK 裡的這些 jar 檔案嗎?\n\n提示: FlatSpark 主題的皮膚和元件須要 鑲入字體庫 的支援.</message>
 			<license>Adobe Flex SDK 授權合約</license>
 		</zh_TW>
 	</component>
