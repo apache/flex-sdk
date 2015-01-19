@@ -127,9 +127,8 @@
     <condition property="fontswf.donot.ask" value="true">
         <isset property="installer" />
     </condition>
-    <condition property="ofl.donot.ask" value="true">
-        <isset property="installer" />
-    </condition>
+    <property name="ofl.donot.ask" value="true" />
+    <property name="do.ofl.install" value="true" />
     
     <condition property="java.home" value="${env.JAVA_HOME}">
         <and>
