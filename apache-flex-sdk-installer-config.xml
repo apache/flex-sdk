@@ -44,6 +44,7 @@
 			<ko_KR>Adobe AIR SDK (필수)</ko_KR>
 			<zh_CN>Adobe AIR SDK (必须的)</zh_CN>
 			<zh_TW>Adobe AIR SDK (必須的)</zh_TW>
+			<ru_RU>Adobe AIR SDK (Обязательно)</ru_RU>
 		</step>
 		<step id="flash-download" property="do.flash.install">
 			<de_DE>Adobe Flash Player playerglobal.swc (Benötigt)</de_DE>
@@ -56,6 +57,7 @@
 			<ko_KR>Adobe Flash Player playerglobal.swc (필수)</ko_KR>
 			<zh_CN>Adobe Flash Player playerglobal.swc (必须的)</zh_CN>
 			<zh_TW>Adobe Flash Player playerglobal.swc (必須的)</zh_TW>
+			<ru_RU>Adobe Flash Player playerglobal.swc (Обязательно)</ru_RU>
 		</step>
 		<step id="swfobject-download">
 			<de_DE>SWFObject (Benötigt)</de_DE>
@@ -68,6 +70,7 @@
 			<ko_KR>SWFObject (필수)</ko_KR>
 			<zh_CN>SWFObject (必须的)</zh_CN>
 			<zh_TW>SWFObject (必須的)</zh_TW>
+			<ru_RU>SWFObject (Обязательно)</ru_RU>
 		</step>
 		<step id="osmf-download">
 			<de_DE>OSMF (Benötigt)</de_DE>
@@ -80,6 +83,7 @@
 			<ko_KR>OSMF (필수)</ko_KR>
 			<zh_CN>OSMF (必须的)</zh_CN>
 			<zh_TW>OSMF (必須的)</zh_TW>
+			<ru_RU>OSMF (Обязательно)</ru_RU>
 		</step>
 		<step id="fontswf-download" property="do.fontswf.install">
 			<de_DE>Adobe Bibliothek zur Einbettung von Schriften (Optional)</de_DE>
@@ -92,6 +96,7 @@
 			<ko_KR>Adobe Embedded Font 라이브러리 와 유틸리티 (선택)</ko_KR>
 			<zh_CN>Adobe 镶入字体库和实用程序 (可选的)</zh_CN>
 			<zh_TW>Adobe 鑲入字體庫和實用程式 (可選的)</zh_TW>
+			<ru_RU>Встроенные Библиотеки Шрифтов и Утилиты Adobe (Не обязательно)</ru_RU>
 		</step>
 		<step id="fixup-config-files">
 			<de_DE>Installiere Framework Konfigurationsdateien</de_DE>
@@ -104,6 +109,7 @@
 			<ko_KR>프레임워크 설정파일 설치</ko_KR>
 			<zh_CN>安装框架配置文件</zh_CN>
 			<zh_TW>安裝框架設定檔案</zh_TW>
+			<ru_RU>Установить конфигурационные файлы библиотеки</ru_RU>
 		</step>
 	</steps>
 	<component id="STEP_REQUIRED_INSTALL_APACHE_FLEX_SDK" required="true" property="do.flex.install">
@@ -153,6 +159,11 @@
 			<message>Apache V2 授權合約適用於 Apache Flex SDK. 您想要安裝 Apache Flex SDK 嗎?</message>
 			<license>Apache V2 授權合約</license>
 		</zh_TW>
+		<ru_RU>
+			<label>Apache Flex SDK (Обязательно)</label>
+			<message>Apache Flex SDK распространяется под лицензией Apache V2. Вы хотите установить Apache Flex SDK?</message>
+			<license>Лицензия Apache V2</license>
+		</ru_RU>
 	</component>
 	<component id="STEP_REQUIRED_INSTALL_ADOBE_AIR_SDK" required="true" property="do.air.install">
 		<de_DE>
@@ -202,6 +213,11 @@
 			<message>Adobe SDK 授權合約適用於 Adobe AIR SDK. 您想要安裝 Adobe AIR SDK 嗎?</message>
 			<license>Adobe AIR SDK 授權合約</license>
 		</zh_TW>
+		<ru_RU>
+			<label>Adobe AIR SDK (Обязательно)</label>
+			<message>Adobe AIR SDK распространяется под лицензией Adobe AIR SDK. Вы хотите установить Adobe AIR SDK?</message>
+			<license>Лицензия Adobe AIR SDK</license>
+		</ru_RU>
 	</component>
 	<component id="STEP_REQUIRED_INSTALL_FLASH_PLAYER_GLOBAL_SWC" required="true" property="do.flash.install">
 		<de_DE>
@@ -251,6 +267,11 @@
 			<message>Adobe SDK 授權合約適用於 Adobe Flash Player 的 playerglobal.swc 檔案. 您想要安裝 Adobe Flash Player 的 playerglobal.swc 檔案嗎?</message>
 			<license>Adobe Flex SDK 授權合約</license>
 		</zh_TW>
+		<ru_RU>
+			<label>Adobe Flash Player playerglobal.swc (Обязательно)</label>
+			<message>Adobe Flash Player playerglobal.swc расространяется по лицензией Adobe SDK. Вы хотите установить Adobe Flash Player playerglobal.swc?</message>
+			<license>Лицензия Adobe Flex SDK</license>
+		</ru_RU>
 	</component>
 	<component id="FontSWF (Optional)" required="false" property="do.fontswf.install">
 		<de_DE>
@@ -300,5 +321,10 @@
 			<message>Apache Flex 可以選擇性地與 Adobe 鑲入字體支援 進行整合. 此功能須要 Adobe Flex SDK 裡的一些與字體相關的 jar 檔案, Adobe Flex 4.6 的 Adobe SDK 授權合約適用於這些 jar 檔案, 此許可與 Apache V2 許可並不相容. 您想要安裝來自 Adobe Flex SDK 裡的這些 jar 檔案嗎?\n\n提示: FlatSpark 主題的皮膚和元件須要 鑲入字體庫 的支援.</message>
 			<license>Adobe Flex SDK 授權合約</license>
 		</zh_TW>
+		<ru_RU>
+			<label>Встроенные Библиотеки Шрифтов и Утилиты Adobe (Не обязательно)</label>
+			<message>Apache Flex может быть опционально интегрирован со встроенными шрифтами Adobe. Эта опция требует установки нескольких архивов со шрифтами из Adobe Flex SDK. Лицензионное соглашение Adobe SDK для Adobe Flex 4.6 распространяется на эти архивы. Эта лицензия не совместима с лицензией Apache V2. Вы хотите установить эти архивы?\n\nУчтите: при использовании тем и компонентов FlatSpark встроенные шрифты - обязательны.</message>
+			<license>Лицензия Adobe Flex SDK</license>
+		</ru_RU>
 	</component>
 </config>
