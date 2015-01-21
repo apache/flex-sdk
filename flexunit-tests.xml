@@ -21,7 +21,7 @@
 <project name="flexunit-tests" default="test">
 
   <property name="FLEX_HOME" location="${basedir}"/>
-  <property name="FLEXUNIT_HOME" value="${FLEX_HOME}/../flexunit"/>
+  <property name="FLEXUNIT_HOME" value="${FLEX_HOME}/../flex-flexunit"/>
 
   <property name="exit" value="false"/>
   
