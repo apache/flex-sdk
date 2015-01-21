@@ -62,12 +62,9 @@ package tests.spark.skins.spark {
         {
             //from setUp(), for debugging
             assertNotNull("UIImpersonator is not available!", UIImpersonator.testDisplay);
-            assertTrue(UIImpersonator.testDisplay is Sprite);
-            assertTrue(UIImpersonator.testDisplay is Container);
-            assertTrue(UIImpersonator.testDisplay is Group);
-            assertTrue(UIImpersonator.testDisplay is IFocusManagerContainer);
-
-            trace("UIImpersonator root: " + UIImpersonator.testDisplay);
+            assertTrue("It's not a Sprite!", UIImpersonator.testDisplay is Sprite);
+            assertTrue("It's not a Group!", UIImpersonator.testDisplay is Group);
+            assertTrue("It's not an IFocusManagerContainer!", UIImpersonator.testDisplay is IFocusManagerContainer);
 
             var focusManager:FocusManager = new FocusManager(UIImpersonator.testDisplay as IFocusManagerContainer);
             focusManager.showFocusIndicator = true;
