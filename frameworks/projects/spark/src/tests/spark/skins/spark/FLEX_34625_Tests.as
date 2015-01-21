@@ -65,6 +65,9 @@ package tests.spark.skins.spark {
             assertTrue(UIImpersonator.testDisplay is Sprite);
             assertTrue(UIImpersonator.testDisplay is Container);
             assertTrue(UIImpersonator.testDisplay is Group);
+            assertTrue(UIImpersonator.testDisplay is IFocusManagerContainer);
+
+            trace("UIImpersonator root: " + UIImpersonator.testDisplay);
 
             var focusManager:FocusManager = new FocusManager(UIImpersonator.testDisplay as IFocusManagerContainer);
             focusManager.showFocusIndicator = true;
