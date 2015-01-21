@@ -108,9 +108,11 @@
     <fail message="The release version is not set.  Specify -Drelease.version=&lt;release version (e.g. 3.1, 3.2, etc)&gt;"
     unless="release.version"/>
 
-    <fail message="The release candidate number is not set.  Specify -Drc=&lt;rc number (e.g. 1, 2, 3, etc)&gt;"
-    unless="rc"/>
-        
+
+    <condition property="package.url.path" value="http://apacheflexbuild.cloudapp.net:8080/job/flex-sdk_release-candidate/lastSuccessfulBuild/artifact/out">
+        <isset property="nightly" />
+    </condition>
+    
 	<property name="package.url.path" value="https://dist.apache.org/repos/dist/dev/flex/sdk/${release.version}/rc${rc}" />
 	<property name="package.url.name" value="apache-flex-sdk-${release.version}-src" />
 	
@@ -159,7 +161,17 @@
         classpathref="anttask.classpath"/>
     </target>
 
-    <target name="main" depends="install-rat,download,check-sigs,uncompress,rat-check,check-notices,build,approve" description="Perform required release approval steps">
+    <target name="echo-mode" depends="echo-rc, echo-nightly" />
+    <target name="echo-rc" unless="nightly">
+        <fail message="The release candidate number is not set.  Specify -Drc=&lt;rc number (e.g. 1, 2, 3, etc)&gt;"
+        unless="rc"/>
+        <echo>Testing RC${rc} of release ${release.version}</echo>
+    </target>
+    <target name="echo-nightly" if="nightly">
+        <echo>Testing nightly build of release ${release.version}</echo>
+    </target>
+    
+    <target name="main" depends="install-rat,echo-mode,download,check-sigs,uncompress,rat-check,check-notices,build,approve" description="Perform required release approval steps">
     </target>
     
     <target name="main-no-download" depends="install-rat,check-sigs,uncompress,rat-check,check-notices,build,approve" description="Perform required release approval steps">
@@ -187,6 +199,9 @@
             dest="${basedir}/${package.url.name}.${package.suffix}" />
         <get src="${package.url.path}/${package.url.name}.${package.suffix}.md5"
             dest="${basedir}/${package.url.name}.${package.suffix}.md5" />
+        <antcall target="downloadasc" />
+    </target>
+    <target name="downloadasc" if="rc" >
         <get src="${package.url.path}/${package.url.name}.${package.suffix}.asc"
             dest="${basedir}/${package.url.name}.${package.suffix}.asc" />
     </target>
@@ -201,6 +216,9 @@
 			</not>
         </condition>
         <fail message="MD5 checksum did not match" if="MD5Invalid" />
+        <antcall target="checkasc" />
+    </target>
+    <target name="checkasc" if="rc" >
 		<exec executable="gpg" failonerror="true">
 			<arg value="--verify" />
 			<arg value="${basedir}/${package.url.name}.${package.suffix}.asc" />
@@ -256,6 +274,7 @@
                 <exclude name="NOTICE.base"/>
                 <exclude name="modules/thirdparty/batik/lib/**/LICENSE*.txt"/>
                 <exclude name="modules/thirdparty/batik/lib/**/README*.txt"/>
+                <exclude name="frameworks/projects/flatspark/src/flatspark/assets/fonts/**/OFL.txt"/>
                 <!-- exclude w3c sources -->
                 <exclude name="modules/thirdparty/batik/resources/org/apache/flex/forks/batik/dom/svg/resources/*.mod"/>
                 <exclude name="modules/thirdparty/batik/resources/org/apache/flex/forks/batik/dom/svg/resources/*.dtd"/>
