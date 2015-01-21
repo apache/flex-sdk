@@ -465,23 +465,19 @@ download. Most of the jars are installed in lib/external.
     commons-discovery - http://archive.apache.org/dist/commons/discovery/binaries/commons-discovery-0.2.tar.gz
     commons-logging - http://archive.apache.org/dist/commons/logging/binaries/commons-logging-1.0.4.tar.gz
     javacc - http://java.net/projects/javacc/downloads/download/javacc-5.0.tar.gz
-    saxon9 - http://sourceforge.net/projects/saxon/files/Saxon-B/9.1.0.8/saxonb9-1-0-8j.zip/download
     velocity - http://archive.apache.org/dist/velocity/engine/1.4/velocity-1.4.tar.gz
     xalan - http://archive.apache.org/dist/xml/xalan-j/binaries/xalan-j_2_6_0-bin.tar.gz
     xerces - http://archive.apache.org/dist/xerces/j/Xerces-J-bin.2.9.1.zip
 
 The following dependencies have licenses which Apache considers to be
-reciprocal licenses, so you will be prompted to acknowledge the license before
-the software is downloaded to your system. These files are installed in
-frameworks/libs.
+reciprocal licenses. These files are installed in lib/external
+frameworks/libs respectively.
 
-    osmf.swc (Open Source Media Framework v2.0; used for video components)
+    saxon9 - http://sourceforge.net/projects/saxon/files/Saxon-B/9.1.0.8/saxonb9-1-0-8j.zip/download
+    osmf.swc (Open Source Media Framework v2.0; used for video components) - http://sourceforge.net/projects/osmf.adobe/files/OSMF%201.0%20%28final%20source%2C%20ASDocs%2C%20PDF%20guides%2C%20and%20release%20notes%29/OSMF_1.0.zip/download
 
-    This file is extracted from:
-
-        http://sourceforge.net/projects/osmf.adobe/files/OSMF%201.0%20%28final%20source%2C%20ASDocs%2C%20PDF%20guides%2C%20and%20release%20notes%29/OSMF_1.0.zip/download
-
-    and is released under the Mozilla Public License Version 1.1:
+    saxon9 is released under the Mozilla Public License Version 1.0:
+    osmf.swc is released under the Mozilla Public License Version 1.1:
 
         http://www.mozilla.org/MPL/
 
