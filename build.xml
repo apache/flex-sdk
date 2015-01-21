@@ -610,6 +610,7 @@
                 <include name="README"/>
                 <include name="RELEASE_NOTES"/>
             	<include name="CONTRIBUTING"/>
+                <include name="CONTRIBUTORS"/>
             </fileset>
         </copy>
          
