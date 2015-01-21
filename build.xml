@@ -722,16 +722,10 @@
         <!-- frameworks/javascript -->
         <copy todir="${basedir}/temp/frameworks/javascript" includeEmptyDirs="false">
             <fileset dir="${basedir}/frameworks/javascript">
-                <include name="build.xml"/>
-            </fileset>
-        </copy>
-
-        <copy todir="${basedir}/temp/frameworks/javascript" includeEmptyDirs="false">
-            <fileset dir="${basedir}/frameworks/javascript">
+                <include name="**/**"
                 <exclude name="FABridge/**/swfobject.js"/>
                 <exclude name="FABridge/readme.txt"/>
             </fileset>
-            <mapper type="glob" from="FABridge/*" to="fabridge/*" />            
         </copy>
         
         <!-- frameworks/tests -->
