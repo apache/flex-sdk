@@ -765,6 +765,8 @@
         <copy todir="${basedir}/temp/modules/flex-messaging-common/common" includeEmptyDirs="false">
             <fileset dir="${BLAZEDS_HOME}/modules/common">
                 <include name="**/**"/>
+                <exclude name="target/**"/>
+                <exclude name="classes/**"/>
             </fileset>
         </copy>
         <copy todir="${basedir}/temp/modules/flex-messaging-common" includeEmptyDirs="false">
