@@ -17,7 +17,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package tests.spark.skins.spark {
+package spark.skins.spark {
     import flash.display.Sprite;
     import flash.events.Event;
     import flash.events.EventDispatcher;
