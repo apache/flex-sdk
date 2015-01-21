@@ -249,6 +249,11 @@
                 <exclude name="modules/thirdparty/batik/sources/*.mf"/>
                 <!-- exclude text files -->
                 <exclude name="CONTRIBUTING"/>
+                <exclude name="CONTRIBUTORS"/>
+                <exclude name="LICENSE.bin"/>
+                <exclude name="NOTICE.bin"/>
+                <exclude name="NOTICE.asc"/>
+                <exclude name="NOTICE.base"/>
                 <exclude name="modules/thirdparty/batik/lib/**/LICENSE*.txt"/>
                 <exclude name="modules/thirdparty/batik/lib/**/README*.txt"/>
                 <!-- exclude w3c sources -->
