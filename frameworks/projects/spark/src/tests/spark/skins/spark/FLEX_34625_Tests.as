@@ -18,15 +18,22 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 package tests.spark.skins.spark {
+    import flash.display.Sprite;
     import flash.events.Event;
     import flash.events.EventDispatcher;
+
+    import mx.core.Container;
 
     import mx.managers.FocusManager;
     import mx.managers.IFocusManagerContainer;
 
+    import org.flexunit.asserts.assertNotNull;
+
     import org.flexunit.asserts.assertTrue;
     import org.flexunit.async.Async;
     import org.fluint.uiImpersonation.UIImpersonator;
+
+    import spark.components.Group;
 
     import spark.components.TextInput;
 
@@ -40,15 +47,7 @@ package tests.spark.skins.spark {
         [Before]
         public function setUp():void
         {
-            var focusManager:FocusManager = new FocusManager(UIImpersonator.testDisplay as IFocusManagerContainer);
-            focusManager.showFocusIndicator = true;
 
-            _textInput = new TextInput();
-            _textInput.width = 0;
-            _textInput.height = 0;
-            _textInput.focusManager = focusManager;
-
-            _finishNotifier = new EventDispatcher();
         }
 
         [After]
@@ -61,6 +60,22 @@ package tests.spark.skins.spark {
         [Test(async, timeout=500)]
         public function test_focus_skin_with_zero_focus_thickness():void
         {
+            //from setUp(), for debugging
+            assertNotNull("UIImpersonator is not available!", UIImpersonator.testDisplay);
+            assertTrue(UIImpersonator.testDisplay is Sprite);
+            assertTrue(UIImpersonator.testDisplay is Container);
+            assertTrue(UIImpersonator.testDisplay is Group);
+
+            var focusManager:FocusManager = new FocusManager(UIImpersonator.testDisplay as IFocusManagerContainer);
+            focusManager.showFocusIndicator = true;
+
+            _textInput = new TextInput();
+            _textInput.width = 0;
+            _textInput.height = 0;
+            _textInput.focusManager = focusManager;
+
+            _finishNotifier = new EventDispatcher();
+
             //given
             UIImpersonator.addChild(_textInput);
 
@@ -77,6 +92,17 @@ package tests.spark.skins.spark {
         [Test(async, timeout=500)]
         public function test_focus_skin_with_NaN_focus_thickness():void
         {
+            //from setUp(), for debugging
+            var focusManager:FocusManager = new FocusManager(UIImpersonator.testDisplay as IFocusManagerContainer);
+            focusManager.showFocusIndicator = true;
+
+            _textInput = new TextInput();
+            _textInput.width = 0;
+            _textInput.height = 0;
+            _textInput.focusManager = focusManager;
+
+            _finishNotifier = new EventDispatcher();
+
             //given
             UIImpersonator.addChild(_textInput);
 
