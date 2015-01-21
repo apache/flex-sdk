@@ -83,27 +83,6 @@
         </delete>
         <delete dir="${lib.opt.dir}" failonerror="false"/>
      </target>
-
-	<!--
-        MPL 1.1 Licesense Notification
-        See http://www.apache.org/legal/3party.html#labeling-reciprocity
-        Section "Category B: Reciprocal Licenses"
-    -->
-    <target name="echo-mpl1.1-license">       
-        <input
-            message="Mozilla Public License Version 1.1:
-                ${line.separator}
-                ${line.separator}The contents of the file(s) are subject to the Mozilla Public License Version 1.1.
-                ${line.separator}You may not use the file(s) except in compliance with the License. 
-                ${line.separator}You may obtain a copy of the License here:
-                ${line.separator}    http://www.mozilla.org/MPL/. 
-                ${line.separator}By downloading, modifying, distributing, using and/or accessing the file(s), 
-                ${line.separator}you agree to the terms and conditions of the applicable license agreement.
-                ${line.separator}
-                ${line.separator}I have read the MPL1.1 license information above?"
-            validargs="y"
-            defaultvalue="y"/>
-    </target>
            
 	<!--
         osmf.swc (Version 1.0)
@@ -113,18 +92,7 @@
         <available file="${basedir}/libs/osmf.swc" property="osmf.swc.present"/>
     </target>
    
-    <!-- 
-        Notify before downloading file with MPL1.1 license.
-    -->
-    <target name="ask-osmf" unless="build.noprompt">
-        <echo message="The Open Source Media Framework (OSMF) used by the video components"/>
-        <echo message="is licensed under the Mozilla Public License Version 1.1."/>
-        <antcall target="echo-mpl1.1-license"/>
-        <property name="do.osmf.install" value="set" />
-    </target>
-    
     <target name="osmf-download" depends="osmf-check" unless="osmf.swc.present">
-        <antcall target="ask-osmf"/>     
         <available file="${download.dir}/osmf.swc" type="file" property="osmf.swc.exists"/>
         <antcall target="download-osmf-swc" />
     	<copy file="${download.dir}/osmf.swc" todir="${basedir}/libs" />
