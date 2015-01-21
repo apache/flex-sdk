@@ -1857,6 +1857,7 @@ There are no known issues.
                 <exclude name="modules/thirdparty/batik/sources/*.mf"/>
                 <!-- exclude text files -->
                 <exclude name="CONTRIBUTING"/>
+                <exclude name="CONTRIBUTORS"/>
                 <exclude name="LICENSE.bin"/>
                 <exclude name="NOTICE.bin"/>
                 <exclude name="NOTICE.asc"/>
