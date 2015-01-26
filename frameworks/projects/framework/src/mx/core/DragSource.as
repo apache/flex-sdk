@@ -183,7 +183,7 @@ public class DragSource
 	 *  for the <code>format</code> parameter. If the control that initiated the
 	 *  drag operation is a Tree, then the format is "treeItems" and the items
 	 *  implement the ITreeDataProvider interface. For all other List-based
-	 *  controls that have built-in drag and drop support, the format is "items" and the items
+	 *  controls that have built-in drag and drop support, the format is "itemsByIndex" and the items
 	 *  implement the IDataProvider interface.</p>
 	 *
 	 *  @return An Object
