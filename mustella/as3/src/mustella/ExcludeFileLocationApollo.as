@@ -41,7 +41,7 @@ public class ExcludeFileLocationApollo
 	private static var loader:URLLoader;
 
 	private static var url:String;
-	private static var mustellaDir:String;
+	private static var mustellaTestDir:String;
 
 	private static var frontURL:String;
 	private static var domain:String;
@@ -66,64 +66,79 @@ public class ExcludeFileLocationApollo
 
 		trace ("Hello from excludes at: " + new Date());
 
-		var os:String = Capabilities.os;
-
-		// This seems to be a timing issue which pops up on some machines.
-		if( UnitTester.cv == null ){
-			UnitTester.cv = new ConditionalValue();
-		}
-
-		if( (UnitTester.cv.os != null) && (UnitTester.cv.os.toLowerCase() == DeviceNames.ANDROID.toLowerCase()) ){
-			mustellaDir = "..";
-			excludeFile = UnitTester.excludeFile;
-			trace("Doing Android style exclude.  Checking in " + mustellaDir + "/" + excludeFile);
-		}else if( (UnitTester.cv.os != null) && (UnitTester.cv.os.toLowerCase() == DeviceNames.IOS.toLowerCase()) ){
-			mustellaDir = File.documentsDirectory.url;
-			excludeFile = UnitTester.excludeFile;
-		}else if (os.indexOf ("QNX") > -1) {
-			mustellaDir = "..";
-			excludeFile = UnitTester.excludeFile;
-			trace("Doing QNX style exclude.  Checking in " + mustellaDir + "/" + excludeFile);
-		}
-		else{
-
-			if (os.indexOf ("Windows") != -1) 
-			{
-				excludeFile = "ExcludeListWinAIR.txt";
-			} else if (os.indexOf ("Mac") != -1) 
-			{
-				excludeFile = "ExcludeListMacAIR.txt";
-			} else if (os.indexOf ("Linux") != -1) 
-			{
-				excludeFile = "ExcludeListLinux.txt";
-			} else 
-			{		
-				trace ("Excludes: bad: we didn't see an OS we liked: " + os);
-				excludeFile = "ExcludeListWin.txt";
-			}
-
-			_root = root;
-
-			url = root.loaderInfo.url;
-
-			if (url.indexOf("app:")!=-1) 
-			{
-				ApolloFilePath.init (root);
-							url = encodeURI2(ApolloFilePath.apolloAdjust(url));
-				trace ("Adjusting path for AIR to: " + url);
-						   // url = adjustPath(url);
-			}
-
-			mustellaDir = url.substring (0, url.indexOf ("mustella/tests")+14);
-			frontURL = url.substring (0, url.indexOf (":"));
-			domain = url.substring (url.indexOf (":")+3);		
-			domain = domain.substring (0, domain.indexOf ("/"));
-		}
-		
-		loadTryNormal();
+        _root = root;
+            
+        // set up callback to load excludes after 
+        // UnitTester has initialized.
+        UnitTester.loadExcludeFile = loadExcludeFile;   
+        
 	}
 
-	private static function apolloAdjust(url:String):String
+
+    public static function loadExcludeFile():void
+    {
+        var os:String = Capabilities.os;
+        
+        // This seems to be a timing issue which pops up on some machines.
+        if( UnitTester.cv == null ){
+            UnitTester.cv = new ConditionalValue();
+        }
+        
+        if( (UnitTester.cv.os != null) && (UnitTester.cv.os.toLowerCase() == DeviceNames.ANDROID.toLowerCase()) ){
+            mustellaTestDir = "..";
+            excludeFile = UnitTester.excludeFile;
+            trace("Doing Android style exclude.  Checking in " + mustellaTestDir + "/" + excludeFile);
+        }else if( (UnitTester.cv.os != null) && (UnitTester.cv.os.toLowerCase() == DeviceNames.IOS.toLowerCase()) ){
+            mustellaTestDir = File.documentsDirectory.url;
+            excludeFile = UnitTester.excludeFile;
+        }else if (os.indexOf ("QNX") > -1) {
+            mustellaTestDir = "..";
+            excludeFile = UnitTester.excludeFile;
+            trace("Doing QNX style exclude.  Checking in " + mustellaTestDir + "/" + excludeFile);
+        }
+        else{
+            
+            if (os.indexOf ("Windows") != -1) 
+            {
+                excludeFile = "ExcludeListWinAIR.txt";
+            } else if (os.indexOf ("Mac") != -1) 
+            {
+                excludeFile = "ExcludeListMacAIR.txt";
+            } else if (os.indexOf ("Linux") != -1) 
+            {
+                excludeFile = "ExcludeListLinux.txt";
+            } else 
+            {		
+                trace ("Excludes: bad: we didn't see an OS we liked: " + os);
+                excludeFile = "ExcludeListWin.txt";
+            }
+            
+            url = _root.loaderInfo.url;
+            
+            if (url.indexOf("app:")!=-1) 
+            {
+                ApolloFilePath.init (_root);
+                url = encodeURI2(ApolloFilePath.apolloAdjust(url));
+                trace ("Adjusting path for AIR to: " + url);
+                // url = adjustPath(url);
+            }
+            
+            // allow application to override mustella test dir
+            if (!UnitTester.mustellaTestDir)
+                mustellaTestDir = url.substring (0, url.indexOf ("mustella/tests")+14);
+            else
+                mustellaTestDir = UnitTester.mustellaTestDir;
+            
+            frontURL = url.substring (0, url.indexOf (":"));
+            domain = url.substring (url.indexOf (":")+3);		
+            domain = domain.substring (0, domain.indexOf ("/"));
+        }
+        
+        loadTryNormal();
+        
+    }
+
+    private static function apolloAdjust(url:String):String
 	{
 
 		var swf:String = _root.loaderInfo.url;
@@ -227,7 +242,7 @@ public class ExcludeFileLocationApollo
 
 		var useFile:String;
 
-		useFile = mustellaDir +"/" + excludeFile;
+		useFile = mustellaTestDir +"/" + excludeFile;
 
 		trace ("Exclude: try load from: " + useFile);
 
@@ -253,7 +268,7 @@ public class ExcludeFileLocationApollo
 
 	private static function completeHandler2(event:Event):void
 	{
-		trace ("Excludes: Reading from file system at "+mustellaDir );
+		trace ("Excludes: Reading from file system at "+mustellaTestDir );
 		postProcessData(event);
 	}
 	private static function postProcessData(event:Event):void

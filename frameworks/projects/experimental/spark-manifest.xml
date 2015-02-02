@@ -46,4 +46,6 @@
     <!-- Spark Graphics -->
     <component id="BitmapGraphic" class="spark.primitives.BitmapImage" lookupOnly="true"/>
     <component id="BitmapImage" class="spark.primitives.BitmapImage" lookupOnly="true"/>
+
+    <component id="ArrayList" class="mx.collections.ArrayList" lookupOnly="true"/>
 </componentPackage>

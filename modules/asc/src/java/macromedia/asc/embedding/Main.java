@@ -390,7 +390,7 @@ public class Main
 		{
 			System.out.println("ActionScript 3.0 for AVM+");
 			System.out.println("version " + Version.getVersion() + " build "+ Version.getBuild());
-			System.out.println("Copyright 2014 The Apache Software Foundation");
+			System.out.println("Copyright 2015 The Apache Software Foundation");
 			System.out.println("All rights reserved\n");
 			System.out.println("Usage:");
 			System.out.println("  asc {-AS3|-ES|-d|-f|-h|-i|-import <filename>|-in <filename>|-m|-p}* filespec");

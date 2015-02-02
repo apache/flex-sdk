@@ -155,6 +155,7 @@ internal class FrameworkClasses
 	import mx.styles.IStyleModule; IStyleModule;
 	import mx.styles.AdvancedStyleClient; AdvancedStyleClient;
 	import mx.utils.ArrayUtil; ArrayUtil;
+	import mx.utils.AndroidPlatformVersionOverride; AndroidPlatformVersionOverride;
 	import mx.utils.Base64Decoder; Base64Decoder;
 	import mx.utils.Base64Encoder; Base64Encoder;
 	import mx.utils.BitFlagUtil; BitFlagUtil;
@@ -163,6 +164,8 @@ internal class FrameworkClasses
 	import mx.utils.DisplayUtil; DisplayUtil;
     import mx.utils.GetTimerUtil; GetTimerUtil;
     import mx.utils.HSBColor; HSBColor;
+	import mx.utils.IOSPlatformVersionOverride; IOSPlatformVersionOverride;
+	import mx.utils.LegacyMobileThemeOverride; LegacyMobileThemeOverride;
     import mx.utils.LinkedList; LinkedList;
 	import mx.utils.LinkedListNode; LinkedListNode;
 	import mx.utils.OnDemandEventDispatcher; OnDemandEventDispatcher;

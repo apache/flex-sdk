@@ -1578,7 +1578,6 @@ public class DataGrid extends SkinnableContainerBase
     *  @playerversion AIR 3.4
     *  @productversion Flex 4.10
     */
-
     public function get doubleClickMode():String
     {
         return grid.doubleClickMode;
@@ -1589,13 +1588,10 @@ public class DataGrid extends SkinnableContainerBase
     */
     public function set doubleClickMode(newValue:String):void
     {
-        if (grid.doubleClickMode == newValue)
+        if (setGridProperty("doubleClickMode", newValue))
         {
-           return;
+            dispatchChangeEvent("doubleClickModeChanged");
         }
-
-        grid.doubleClickMode = newValue;
-        dispatchChangeEvent("doubleClickModeChanged");
     }
 
 

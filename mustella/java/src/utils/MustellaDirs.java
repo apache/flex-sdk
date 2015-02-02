@@ -284,7 +284,7 @@ public class MustellaDirs {
 				// this could get too long. We should really only add this once
 				// ie, get rid of duplicates
 					if (path != null && path.length() > 0) { 
-               			         al.add (" -source-path=" + path);
+               			         al.add (" -source-path+=" + path);
 					 // System.out.println ("genHash - Adding path: " + path);
 					} 
 					/* 

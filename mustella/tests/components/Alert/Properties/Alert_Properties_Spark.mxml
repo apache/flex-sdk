@@ -74,7 +74,7 @@
 			</setup>
 			<body>
                 <WaitForLayoutManager />
-				<CompareBitmap url="../Properties/baselines/$testID.png" target="curAlert"/>
+				<CompareBitmap url="../Properties/baselines/$testID.png" target="curAlert" numColorVariances="4" maxColorVariance="4" />
 				<DispatchKeyEvent key="SPACE" />
 			</body>
 		</TestCase>

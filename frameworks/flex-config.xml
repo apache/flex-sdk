@@ -406,7 +406,7 @@
 	    Flex Library project, FlashBuilder will allow "Link Type" to be external.
     -->
     <runtime-shared-library-path>
-		<path-element>libs/OSMF.swc</path-element>
+		<path-element>libs/osmf.swc</path-element>
 		<rsl-url>osmf_${build.number}.swf</rsl-url>
 	</runtime-shared-library-path>
 

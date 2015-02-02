@@ -95,6 +95,18 @@ public class UnitTester extends EventDispatcher
 	**/
 	public static var excludeFile:String = "";
 
+    /**
+     *  The location of the mustella test directory.
+     */
+    public static var mustellaTestDir:String = "";
+    
+    /**
+     *  Set by either ExcludeFileLocation or ExcludeFileLocationApollo so they
+     *  can be called back to load the exclude file after mustellaTestDir has 
+     *  been set in the init() method.
+     */
+    public static var loadExcludeFile:Function;
+    
 	/**
 	* This is a placeholder.  We don't do portrait and landscape runs right now
 	* and probablay won't.  Delete.
@@ -153,6 +165,9 @@ public class UnitTester extends EventDispatcher
 	public static function init(root:DisplayObject):void
 	{
 	
+        if (waitForExcludes && loadExcludeFile != null)
+            loadExcludeFile();
+        
 		// don't let child swfs override this
 		if (!_root)
 			_root = root;
@@ -351,7 +366,7 @@ public class UnitTester extends EventDispatcher
 				var q:QName = new QName(mx_internal, "hideCursor");
 				g[q] = true;
 			}
-		}		
+		}	
 	}
 
 	/**

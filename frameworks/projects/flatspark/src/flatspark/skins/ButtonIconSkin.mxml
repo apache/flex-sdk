@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+
+
+<!--- The default skin class for the Spark Button component.  
+
+@see spark.components.Button
+
+@langversion 3.0
+@playerversion Flash 10
+@playerversion AIR 1.5
+@productversion Flex 4
+-->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009"
+			 xmlns:s="library://ns.adobe.com/flex/spark" 
+			 xmlns:fb="http://ns.adobe.com/flashbuilder/2009"
+			 minWidth="21" minHeight="21" height="{ButtonSizeEnum.Normal}"
+			 alpha.disabled="0.5">
+	<fx:Metadata>[HostComponent("flatspark.components.ButtonIcon")]</fx:Metadata>
+	
+	<fx:Script fb:purpose="styling">
+		<![CDATA[         
+			import flatspark.enums.ButtonColorEnum;
+			import flatspark.enums.ButtonSizeEnum;
+			import flatspark.enums.TextInputSizeEnum;
+			import flatspark.utils.ColorUtils;
+
+			/* Define the skin elements that should not be colorized. 
+			For button, the graphics are colorized but the label is not. */
+			static private const exclusions:Array = ["labelDisplay"];
+			
+			/** 
+			 * @private
+			 */     
+			override public function get colorizeExclusions():Array {return exclusions;}
+			
+			/**
+			 * @private
+			 */
+			override protected function initializationComplete():void
+			{
+				useChromeColor = true;
+				hostComponent.useHandCursor=true;
+				hostComponent.buttonMode=true;
+				// Set 'fontSize' here cause doing this inside the 'labelDisplay' results in an error
+				(labelDisplay as Label).setStyle("fontSize", fontSize);
+				(iconFont as Label).setStyle("fontSize", iconSize);
+				super.initializationComplete();
+			}  
+			
+			/**
+			 *  @private
+			 */
+			override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number) : void
+			{
+				var cr:Number = getStyle("cornerRadius");
+				
+				if (cornerRadius != cr)
+				{
+					cornerRadius = cr;
+					fill.radiusX = cornerRadius;
+				}
+				
+				super.updateDisplayList(unscaledWidth, unscaledHeight);
+			}
+			
+			private var cornerRadius:Number = 2;
+			
+			private function get fontSize():Number
+			{
+				var fontHeight:int = 14;
+				
+				if (hostComponent.fixedFontSize)
+				{
+					switch (hostComponent.height)
+					{
+						case ButtonSizeEnum.Large:
+							fontHeight = 17;
+							break;
+						case ButtonSizeEnum.Normal:
+							fontHeight = 14;
+							break;
+						case ButtonSizeEnum.Small:
+							fontHeight = 13;
+							break;
+						case ButtonSizeEnum.ExtraSmall:
+							fontHeight = 12;
+							break;
+						default:
+							fontHeight = hostComponent.getStyle("fontSize");
+							break;
+					}
+				}
+				else
+				{
+					fontHeight = hostComponent.getStyle("fontSize");
+				}
+				
+				return fontHeight;
+			}
+			
+			private function get iconSize():Number
+			{
+				var iconHeight:int = 17;				
+				
+				if (hostComponent.fixedFontSize)
+				{
+					switch (hostComponent.height)
+					{
+						case ButtonSizeEnum.Large:
+							iconHeight = 19;
+							break;
+						case ButtonSizeEnum.Normal:
+							iconHeight = 17;
+							break;
+						case ButtonSizeEnum.Small:
+							iconHeight = 15;
+							break;
+						case ButtonSizeEnum.ExtraSmall:
+							iconHeight = 12;
+							break;
+						default:
+							iconHeight = hostComponent.getStyle("iconFontSize");
+							break;
+					}
+				}
+				else
+				{
+					iconHeight = hostComponent.getStyle("iconFontSize");
+				}
+				
+				return iconHeight;
+			}
+		]]>        
+	</fx:Script>
+	
+	<!-- states -->
+	<s:states>
+		<s:State name="up" id="stateUp"/>
+		<s:State name="over" id="stateOver"/>
+		<s:State name="down" id="stateDown"/>
+		<s:State name="disabled" id="stateDisabled"/>
+	</s:states>
+	
+	
+	<!-- layer 2: fill -->
+	<!--- @private -->
+	<s:Rect id="fill" left="1" right="1" top="1" bottom="1" radiusX="6">
+		<s:fill>
+			<s:SolidColor color.up="{ColorUtils.ButtonColor(hostComponent.brand,stateUp)}"
+						  color.over="{ColorUtils.ButtonColor(hostComponent.brand,stateOver)}"
+						  color.down="{ColorUtils.ButtonColor(hostComponent.brand,stateDown)}"
+						  color.disabled="{ColorUtils.ButtonColor(hostComponent.brand,stateDisabled)}"/>
+		</s:fill>
+	</s:Rect>
+	
+	<!-- layer 8: text -->
+	<!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay  -->
+	<s:HGroup verticalAlign="middle" verticalCenter="0" horizontalAlign="center" horizontalCenter="0" left="10" right="10" top="2" bottom="2">
+		<s:Label id="iconFont" color="0xFFFFFF" color.disabled="0xE3E3E3" text="{hostComponent.iconFont}"
+				 textAlign="left" fontFamily="FontAwesome"
+				 maxDisplayedLines="1" includeInLayout="{hostComponent.iconFont != null}"
+				 horizontalCenter="0" verticalCenter="0" verticalAlign="middle">
+		</s:Label>
+		
+		<s:Label id="labelDisplay" color="0xFFFFFF" color.disabled="0xE3E3E3"
+				 textAlign="center" fontFamily="Lato"
+				 maxDisplayedLines="1" includeInLayout="{hostComponent.label != ''}"
+				 horizontalCenter="0" verticalCenter="1" verticalAlign="middle">
+		</s:Label>
+	</s:HGroup>
+</s:SparkSkin>

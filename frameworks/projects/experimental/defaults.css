@@ -101,3 +101,7 @@ MaskedTextInput #promptDisplay {
 MaskedTextInput:disabledWithPrompt {
     color: #cccccc;
 }
+
+RichTextEditor {
+	skinClass: ClassReference("spark.skins.RichTextEditorSkin");
+}

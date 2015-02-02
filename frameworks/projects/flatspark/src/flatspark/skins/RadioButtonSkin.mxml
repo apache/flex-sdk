@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+
+<!--- The default skin class for a Spark RadioButton component.  
+
+       @see spark.components.RadioButton
+       @see spark.components.RadioButtonGroup
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:fb="http://ns.adobe.com/flashbuilder/2009" alpha.disabledStates="0.5">
+	<fx:Metadata>[HostComponent("spark.components.RadioButton")]</fx:Metadata>
+
+    <fx:Script fb:purpose="styling">
+        /* Define the skin elements that should not be colorized. 
+           For button, the graphics are colorized but the label is not. */
+        static private const exclusions:Array = ["labelDisplay"];
+
+        /**
+         * @private
+         */
+        override public function get colorizeExclusions():Array {return exclusions;}
+        
+        /* Define the symbol fill items that should be colored by the "symbolColor" style. */
+        static private const symbols:Array = [];
+        
+        /**
+         * @private
+         */
+        override public function get symbolItems():Array {return symbols};
+        
+        /**
+         * @private
+         */
+        override protected function initializationComplete():void
+        {
+            useChromeColor = true;
+            super.initializationComplete();
+        }
+    </fx:Script>
+    
+    <fx:Script>
+        <![CDATA[
+			import flatspark.utils.ColorUtils;
+        /** 
+         * @private 
+         */     
+        private static const focusExclusions:Array = ["labelDisplay"];
+
+        /**
+         *  @private
+         */
+        override public function get focusSkinExclusions():Array { return focusExclusions;};
+        ]]>
+    </fx:Script>
+    
+    <s:states>
+        <s:State name="up" />
+        <s:State name="over" stateGroups="overStates" />
+        <s:State name="down" stateGroups="downStates" />
+        <s:State name="disabled" stateGroups="disabledStates" />
+        <s:State name="upAndSelected" stateGroups="selectedStates" />
+        <s:State name="overAndSelected" stateGroups="overStates, selectedStates" />
+        <s:State name="downAndSelected" stateGroups="downStates, selectedStates" />
+        <s:State name="disabledAndSelected" stateGroups="disabledStates, selectedStates" />
+    </s:states>
+    
+	<s:Group verticalCenter="0" width="22" height="22">
+		<!-- fill -->
+		<s:Ellipse left="1" top="1" right="1" bottom="1">
+			<s:fill>
+				<s:SolidColor color="#FFFFFF" />
+			</s:fill>
+			<s:stroke>
+				<s:SolidColorStroke color="{ColorUtils.Silver}" weight="4"/>
+			</s:stroke>
+		</s:Ellipse>
+		
+		<s:Ellipse left="1" top="1" right="1" bottom="1" includeIn="overStates">
+			<s:stroke>
+				<s:SolidColorStroke color="{ColorUtils.Asbestos}" weight="4"/>
+			</s:stroke>
+		</s:Ellipse>
+		
+		<s:Ellipse left="1" top="1" right="1" bottom="1" includeIn="selectedStates">
+			<s:stroke>
+				<s:SolidColorStroke color="{ColorUtils.Turquoise}" weight="4"/>
+			</s:stroke>
+		</s:Ellipse>
+		
+		<s:Ellipse left="8" top="8" right="8" bottom="8" includeIn="selectedStates">
+			<s:fill>
+				<s:SolidColor color="{ColorUtils.Turquoise}" />
+			</s:fill>			
+		</s:Ellipse>
+		
+		
+	</s:Group>
+	
+	<!-- Label -->
+	<!---  @copy spark.components.supportClasses.ButtonBase#labelDisplay -->
+	<s:Label id="labelDisplay"
+			 textAlign="start" color="{ColorUtils.WetAsphalt}"
+			 verticalAlign="middle" fontSize="14"
+			 maxDisplayedLines="1" fontFamily="Lato" paddingLeft="30"
+			 left="0" right="0" top="3" bottom="3"/>
+</s:SparkSkin>

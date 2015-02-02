@@ -19,31 +19,25 @@
 
 package spark.components
 {
-import adobe.utils.CustomActions;
-
 import flash.display.DisplayObject;
 import flash.display.InteractiveObject;
 import flash.events.Event;
 import flash.events.FocusEvent;
 import flash.events.KeyboardEvent;
-import flash.events.MouseEvent;
 import flash.ui.Keyboard;
 
 import flashx.textLayout.operations.CompositeOperation;
 import flashx.textLayout.operations.CutOperation;
 import flashx.textLayout.operations.DeleteTextOperation;
 import flashx.textLayout.operations.FlowOperation;
-import flashx.textLayout.operations.InsertTextOperation;
 
 import mx.collections.IList;
 import mx.core.IIMESupport;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
-import mx.styles.StyleProxy;
 
 import spark.components.supportClasses.DropDownListBase;
 import spark.components.supportClasses.ListBase;
-import spark.core.NavigationUnit;
 import spark.events.DropDownEvent;
 import spark.events.TextOperationEvent;
 import spark.utils.LabelUtil;

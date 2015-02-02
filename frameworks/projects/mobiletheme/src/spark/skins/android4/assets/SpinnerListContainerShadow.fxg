@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+
+-->
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008" viewHeight= "100" viewWidth= "100"
+	scaleGridLeft="1" scaleGridTop="1" scaleGridRight="99" scaleGridBottom="99">
+	<Rect width="100" height="100">
+		<fill>
+	      <LinearGradient rotation="90">
+	        <GradientEntry ratio="0" color="#FFFFFF" alpha="1.0"/>
+	        <GradientEntry ratio="0.10" color="#FFFFFF" alpha=".7"/>
+	        <GradientEntry ratio="0.30" color="#FFFFFF" alpha=".3"/>
+	        <GradientEntry ratio="0.40" color="#FFFFFF" alpha=".05"/>
+	        <GradientEntry ratio="0.60" color="#FFFFFF" alpha=".05"/>
+	        <GradientEntry ratio="0.70" color="#FFFFFF" alpha=".3"/>
+	        <GradientEntry ratio="0.90" color="#FFFFFF" alpha=".7"/>
+	        <GradientEntry ratio="1" color="#FFFFFF" alpha="1.0"/>
+	      </LinearGradient>
+	    </fill>
+	</Rect>
+</Graphic>
+

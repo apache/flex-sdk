@@ -1,0 +1,19 @@
+<DisplayList>
+  <fxgtemplate width="940" height="700">
+    <spark.skins.spark.ApplicationSkin width="940" height="700" blendMode="auto">
+      <spark.components.Group width="940" height="700" blendMode="auto">
+        <spark.components.Group width="940" height="700" blendMode="auto">
+          <comps.MyComp width="800" height="800" blendMode="auto">
+            <fxg.blend_mode.ai_blendmodes.fxg_blendModes_colorBurn_dualOverlap width="800" height="600" blendMode="auto">
+              <flash.display.MovieClip x="160.4" y="114.85" width="419.55" height="318.6" blendMode="layer">
+                <flash.display.Shape x="199.05" y="2" width="192.3" height="182.8"/>
+                <flash.display.Shape x="2" y="82.25" width="354.35" height="186.45"/>
+                <fxg.blend_mode.ai_blendmodes.fxg_blendModes_colorBurn_dualOverlap1541330830 x="59.55" y="51.6" width="360" height="267" blendMode="shader" cacheAsBitmap="true"/>
+              </flash.display.MovieClip>
+            </fxg.blend_mode.ai_blendmodes.fxg_blendModes_colorBurn_dualOverlap>
+          </comps.MyComp>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </fxgtemplate>
+</DisplayList>

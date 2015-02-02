@@ -33,7 +33,7 @@ public class FlexSwcFileSet extends FlexFileSet
 		super(spec, dirs);
 	}
 
-	// Only accept directories, and *.swc files
+	// Only accept directories, *.swc and *.ane files
     protected void addFiles(File base, String[] files, Commandline cmdl)
     {
         FileUtils utils = FileUtils.getFileUtils();
@@ -43,7 +43,7 @@ public class FlexSwcFileSet extends FlexFileSet
             File f = utils.resolveFile(base, files[i]);
             String absolutePath = f.getAbsolutePath();
 
-            if( f.isFile() && !absolutePath.endsWith(".swc") )
+            if( f.isFile() && !absolutePath.endsWith(".swc") && !absolutePath.endsWith(".ane") )
             	continue;
 
             if (spec != null)

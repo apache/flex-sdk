@@ -1,0 +1,109 @@
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+<flex-config>
+
+    <compiler>
+
+        <accessible>true</accessible>
+        
+        <external-library-path>
+            <path-element>${env.PLAYERGLOBAL_HOME}/${playerglobal.version}/playerglobal.swc</path-element>
+            <path-element>../../libs/framework.swc</path-element>
+            <path-element>../../libs/spark.swc</path-element>
+			<path-element>../../libs/experimental.swc</path-element>
+            <path-element>../../libs/textLayout.swc</path-element>
+        </external-library-path>
+        
+        <locale/>
+        
+        <library-path/>
+
+        <namespaces>
+            <namespace>
+                <uri>library://ns.adobe.com/flex/spark</uri>
+                <manifest>../../spark-manifest.xml</manifest>
+            </namespace>
+        </namespaces>
+        
+        <source-path>
+            <path-element>src</path-element>
+        </source-path>
+        
+        <warn-no-constructor>false</warn-no-constructor>
+
+    </compiler>
+	
+	<include-classes>
+		<class>FlatSparkSkinsClasses</class>
+	</include-classes>
+	
+	<include-file>
+        <name>defaults.css</name>
+        <path>defaults.css</path>
+    </include-file>
+	<include-file>
+        <name>flatspark/assets/fonts/awesome/FontAwesome.otf</name>
+        <path>src/flatspark/assets/fonts/awesome/FontAwesome.otf</path>
+    </include-file>
+    <include-file>
+        <name>flatspark/assets/fonts/lato/Lato_Black.otf</name>
+        <path>src/flatspark/assets/fonts/lato/Lato_Black.otf</path>
+    </include-file>
+	<include-file>
+        <name>flatspark/assets/fonts/lato/Lato_Black_Italic.otf</name>
+        <path>src/flatspark/assets/fonts/lato/Lato_Black_Italic.otf</path>
+    </include-file>
+	<include-file>
+        <name>flatspark/assets/fonts/lato/Lato_Bold.otf</name>
+        <path>src/flatspark/assets/fonts/lato/Lato_Bold.otf</path>
+    </include-file>
+	<include-file>
+        <name>flatspark/assets/fonts/lato/Lato_Bold_Italic.otf</name>
+        <path>src/flatspark/assets/fonts/lato/Lato_Bold_Italic.otf</path>
+    </include-file>
+	<include-file>
+        <name>flatspark/assets/fonts/lato/Lato_Hairline.otf</name>
+        <path>src/flatspark/assets/fonts/lato/Lato_Hairline.otf</path>
+    </include-file>
+	<include-file>
+        <name>flatspark/assets/fonts/lato/Lato_Hairline_Italic.otf</name>
+        <path>src/flatspark/assets/fonts/lato/Lato_Hairline_Italic.otf</path>
+    </include-file>
+	<include-file>
+        <name>flatspark/assets/fonts/lato/Lato_Light.otf</name>
+        <path>src/flatspark/assets/fonts/lato/Lato_Light.otf</path>
+    </include-file>
+	<include-file>
+        <name>flatspark/assets/fonts/lato/Lato_Light_Italic.otf</name>
+        <path>src/flatspark/assets/fonts/lato/Lato_Light_Italic.otf</path>
+    </include-file>
+	<include-file>
+        <name>flatspark/assets/fonts/lato/Lato_Regular.otf</name>
+        <path>src/flatspark/assets/fonts/lato/Lato_Regular.otf</path>
+    </include-file>
+	<include-file>
+        <name>flatspark/assets/fonts/lato/Lato_Regular_Italic.otf</name>
+        <path>src/flatspark/assets/fonts/lato/Lato_Regular_Italic.otf</path>
+    </include-file>
+    
+    <resource-bundle-list>bundles.properties</resource-bundle-list>
+    
+    <target-player>${playerglobal.version}</target-player>
+
+</flex-config>

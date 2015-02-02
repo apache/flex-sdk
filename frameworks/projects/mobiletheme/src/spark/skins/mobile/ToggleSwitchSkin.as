@@ -86,7 +86,7 @@ public class ToggleSwitchSkin extends MobileSkin
 				layoutTextShadowOffset = -2;
 				layoutInnerPadding = 14;
 				layoutOuterPadding = 22;
-				slidingContentOverlayClass = spark.skins.mobile320.assets.ToggleSwitch_contentShadow;
+				slidingContentOverlayClass = spark.skins.mobile640.assets.ToggleSwitch_contentShadow;
 				break;
 			}
 			case DPIClassification.DPI_480:
