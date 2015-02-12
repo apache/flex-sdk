@@ -77,13 +77,14 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
  *  The color of the border for this component.
+ *  Supported in iOS7+ skins
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="borderColor", type="uint", format="Color", inherit="no", theme="spark")]
+[Style(name="borderColor", type="uint", format="Color", inherit="no", theme="spark, mobile")]
 
 /**
  *  Controls the visibility of the border for this component.
