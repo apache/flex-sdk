@@ -549,20 +549,8 @@ public class ActionBarSkin extends MobileSkin
 
         var chromeColor:uint = getStyle("chromeColor");
         var backgroundAlphaValue:Number = getStyle("backgroundAlpha");
-        var colors:Array = [];
-        
-        // apply alpha to chromeColor fill only
-        var backgroundAlphas:Array = [backgroundAlphaValue, backgroundAlphaValue];
-        
-        // exclude top and bottom 1px borders
-        colorMatrix.createGradientBox(unscaledWidth, unscaledHeight - (borderSize * 2), Math.PI / 2, 0, 0);
-        
-        colors[0] = ColorUtil.adjustBrightness2(chromeColor, 20);
-        colors[1] = chromeColor;
-        
-        graphics.beginGradientFill(GradientType.LINEAR, colors, backgroundAlphas, ACTIONBAR_CHROME_COLOR_RATIOS, colorMatrix);
-        graphics.drawRect(0, borderSize, unscaledWidth, unscaledHeight - (borderSize * 2));
-        graphics.endFill();
+		
+		applyColorTransform(this.border, 0xFFFFFF, chromeColor);
     }
     
 }
