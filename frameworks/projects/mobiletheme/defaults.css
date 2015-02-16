@@ -1408,6 +1408,61 @@ global
 	}	
 }
 
+/*
+
+A special case where we want to continue using the legacy Flex mobile skins
+but still want to specify the status bar height for iOS7+ devices
+See https://issues.apache.org/jira/browse/FLEX-34714
+
+*/
+
+@media (os-platform:"IOS") AND (application-dpi: 120) AND (min-os-version: 6.0.1) 
+{
+	Application
+	{
+		osStatusBarHeight: 15;
+	}
+}
+
+@media (os-platform:"IOS") AND (application-dpi: 160) AND (min-os-version: 6.0.1)
+{
+	Application
+	{
+		osStatusBarHeight: 20;
+	}
+}
+
+@media (os-platform:"IOS") AND (application-dpi: 240) AND (min-os-version: 6.0.1)
+{
+	Application
+	{
+		osStatusBarHeight: 30;
+	}
+}
+ 
+@media (os-platform:"IOS") AND (application-dpi: 320) AND (min-os-version: 6.0.1)
+{
+	Application
+	{
+		osStatusBarHeight: 40;
+	}
+}
+
+@media (os-platform:"IOS") AND (application-dpi: 480) AND (min-os-version: 6.0.1)
+{
+	Application
+	{
+		osStatusBarHeight: 60;
+	}
+}
+
+@media (os-platform:"IOS") AND (application-dpi: 640) AND (min-os-version: 6.0.1)
+{
+	Application
+	{
+		osStatusBarHeight: 80;
+	}
+}
 
 
 /*
