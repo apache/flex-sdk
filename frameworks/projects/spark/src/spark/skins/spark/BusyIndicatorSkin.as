@@ -291,7 +291,7 @@ package spark.skins.spark
 			if (currentRotation >= 360)
 				currentRotation = 0;
 			
-			rotate(busyIndicator,currentRotation,measuredWidth/2,measuredHeight/2);
+			rotate(busyIndicator,currentRotation,width/2,height/2);
 			event.updateAfterEvent();
 		}
 		
