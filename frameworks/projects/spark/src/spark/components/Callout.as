@@ -507,7 +507,11 @@ public class Callout extends SkinnablePopUpContainer
     {
         if (isNaN(_margin))
         {
-            var dpi:Number = FlexGlobals.topLevelApplication["applicationDPI"];
+			var dpi:Number;
+			if(FlexGlobals.topLevelApplication.hasOwnProperty("applicationDPI"))
+			{
+				dpi = FlexGlobals.topLevelApplication["applicationDPI"];
+			}
             
             if (dpi)
             {
