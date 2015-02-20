@@ -284,7 +284,7 @@ public class ButtonSkin extends ButtonSkinBase
 	override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
 	{
 		super.updateDisplayList(unscaledWidth,unscaledHeight);
-		if(currentState == "down")
+		if(currentState == "down" || currentState == "disabled")
 		{
 			this.alpha = 0.5;	
 		}
