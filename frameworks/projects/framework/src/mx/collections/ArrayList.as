@@ -410,14 +410,26 @@ public class ArrayList extends EventDispatcher
      */
     public function addItemAt(item:Object, index:int):void
     {
-        if (index < 0 || index > length) 
+        const spliceUpperBound:int = length;
+
+        if (index < spliceUpperBound && index > 0)
+        {
+            source.splice(index, 0, item);
+        }
+        else if (index == spliceUpperBound)
+        {
+            source.push(item);
+        }
+        else if (index == 0)
+        {
+            source.unshift(item);
+        }
+        else
         {
             var message:String = resourceManager.getString(
                 "collections", "outOfBounds", [ index ]);
             throw new RangeError(message);
         }
-            
-        source.splice(index, 0, item);
 
         startTrackUpdates(item);
         internalDispatchEvent(CollectionEventKind.ADD, item, index);
@@ -526,14 +538,28 @@ public class ArrayList extends EventDispatcher
      */
     public function removeItemAt(index:int):Object
     {
-        if (index < 0 || index >= length)
+        const spliceUpperBound:int = length - 1;
+        var removed:Object;
+
+        if (index > 0 && index < spliceUpperBound)
+        {
+            removed = source.splice(index, 1)[0];
+        }
+        else if (index == spliceUpperBound)
+        {
+            removed = source.pop();
+        }
+        else if (index == 0)
+        {
+            removed = source.shift();
+        }
+        else
         {
             var message:String = resourceManager.getString(
                 "collections", "outOfBounds", [ index ]);
             throw new RangeError(message);
         }
 
-        var removed:Object = source.splice(index, 1)[0];
         stopTrackUpdates(removed);
         internalDispatchEvent(CollectionEventKind.REMOVE, removed, index);
         return removed;
