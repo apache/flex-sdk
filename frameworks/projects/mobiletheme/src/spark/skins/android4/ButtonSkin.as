@@ -347,6 +347,13 @@ public class ButtonSkin extends ButtonSkinBase
         if (labelDisplay.isTruncated)
             labelDisplayShadow.text = labelDisplay.text;
     }
+	
+	override protected function drawBackground(unscaledWidth:Number, unscaledHeight:Number):void
+	{
+		super.drawBackground(unscaledWidth, unscaledHeight);
+		var chromeColor:uint = getStyle(fillColorStyleName);
+		applyColorTransform(this.border, 0xFFFFFF, chromeColor);
+	}
     
     /**
      *  Position the background of the skin. Override this function to re-position the background. 
