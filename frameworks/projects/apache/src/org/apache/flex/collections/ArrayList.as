@@ -529,7 +529,7 @@ public class ArrayList extends EventDispatcher
             throw new RangeError(message);
         }
 
-        var removed:Object = source.splice(index, 1)[0];
+        removed = source.splice(index, 1)[0];
         stopTrackUpdates(removed);
         internalDispatchEvent(CollectionEventKind.REMOVE, removed, index);
         return removed;
