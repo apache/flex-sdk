@@ -136,7 +136,8 @@ package mx.collections
 			assertEquals(secondCompany, _sut.current);
 			assertTrue(_noErrorsThrown);
 		}
-		
+
+        [Ignore]
        	[Test(dataProvider="positionAndOperation")]
         public function testReproduce_FLEX_34119_Comprehensive(selectedItemIndex:int, operationIndex:int, operation:int):void
         {
