@@ -19,12 +19,11 @@
 
 package mx.collections
 {
-    import mx.collections.*;
     import mx.utils.StringUtil;
 
     import org.flexunit.asserts.assertEquals;
 
-    public class HierarchicalCollectionView_FLEX_34775_Test
+    public class HierarchicalCollectionView_FLEX_34775_Tests
     {
         private static var _utils:HierarchicalCollectionViewTestUtils = new HierarchicalCollectionViewTestUtils();
         private static var _sut:HierarchicalCollectionView;
@@ -142,7 +141,7 @@ package mx.collections
         }
 
         private static const HIERARCHY_STRING:String = (<![CDATA[
-                Adobe
+        Adobe
         Adobe->London
         Adobe->London->FlexDept
     ]]>).toString();
