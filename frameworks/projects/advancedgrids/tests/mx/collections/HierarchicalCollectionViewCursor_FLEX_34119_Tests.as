@@ -19,24 +19,19 @@
 
 package mx.collections
 {
-	import flash.events.UncaughtErrorEvent;
-	
-	import mx.collections.ArrayCollection;
-	import mx.collections.CursorBookmark;
-	import mx.collections.HierarchicalCollectionView;
-	import mx.collections.HierarchicalCollectionViewCursor;
-	import mx.collections.IViewCursor;
-	import mx.core.FlexGlobals;
+    import flash.events.UncaughtErrorEvent;
 
-	import spark.components.WindowedApplication;
-	
-	import flexunit.framework.AssertionFailedError;
-	
-	import org.flexunit.assertThat;
-	import org.flexunit.asserts.assertEquals;
-	import org.flexunit.asserts.assertNotNull;
-	import org.flexunit.asserts.assertTrue;
-	import org.flexunit.runners.Parameterized;
+    import flexunit.framework.AssertionFailedError;
+
+    import mx.core.FlexGlobals;
+
+    import org.flexunit.assertThat;
+    import org.flexunit.asserts.assertEquals;
+    import org.flexunit.asserts.assertNotNull;
+    import org.flexunit.asserts.assertTrue;
+    import org.flexunit.runners.Parameterized;
+
+    import spark.components.Application;
 
     /**
      * README
@@ -50,7 +45,7 @@ package mx.collections
      * -To speed it up you can decrease the size of the hierarchical collection by editing HIERARCHY_STRING.
      */
 	[RunWith("org.flexunit.runners.Parameterized")]
-	public class HierarchicalCollectionViewCursor_FLEX_34119_Test
+	public class HierarchicalCollectionViewCursor_FLEX_34119_Tests
 	{
         private static const OP_ADD:int = 0;
         private static const OP_REMOVE:int = 1;
@@ -86,15 +81,15 @@ package mx.collections
 		[BeforeClass]
 		public static function setUpBeforeClass():void
 		{
-            if(FlexGlobals.topLevelApplication is WindowedApplication)
-                (FlexGlobals.topLevelApplication as WindowedApplication).loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
+            if(FlexGlobals.topLevelApplication is Application)
+                (FlexGlobals.topLevelApplication as Application).loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
         }
 		
 		[AfterClass]
 		public static function tearDownAfterClass():void
 		{
-            if(FlexGlobals.topLevelApplication is WindowedApplication)
-                (FlexGlobals.topLevelApplication as WindowedApplication).loaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
+            if(FlexGlobals.topLevelApplication is Application)
+                (FlexGlobals.topLevelApplication as Application).loaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
 		}
 		
 		[Before]
