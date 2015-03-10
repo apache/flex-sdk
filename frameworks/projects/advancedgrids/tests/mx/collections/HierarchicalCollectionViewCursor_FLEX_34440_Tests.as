@@ -19,21 +19,16 @@
 
 package mx.collections
 {
-import flash.events.UncaughtErrorEvent;
+    import flash.events.UncaughtErrorEvent;
 
-import mx.collections.ArrayCollection;
-import mx.collections.CursorBookmark;
-import mx.collections.HierarchicalCollectionView;
-import mx.collections.HierarchicalCollectionViewCursor;
-import mx.core.FlexGlobals;
+    import mx.core.FlexGlobals;
 
-import org.flexunit.asserts.assertNotNull;
-import org.flexunit.asserts.assertTrue;
-import org.flexunit.runners.Parameterized;
+    import org.flexunit.asserts.assertNotNull;
+    import org.flexunit.asserts.assertTrue;
 
-import spark.components.WindowedApplication;
+    import spark.components.Application;
 
-public class HierarchicalCollectionViewCursor_FLEX_34440_Test
+    public class HierarchicalCollectionViewCursor_FLEX_34440_Tests
 	{
         private static var _utils:HierarchicalCollectionViewTestUtils = new HierarchicalCollectionViewTestUtils();
         private static var _noErrorsThrown:Boolean = true;
@@ -44,15 +39,15 @@ public class HierarchicalCollectionViewCursor_FLEX_34440_Test
 		[BeforeClass]
 		public static function setUpBeforeClass():void
 		{
-            if(FlexGlobals.topLevelApplication is WindowedApplication)
-                (FlexGlobals.topLevelApplication as WindowedApplication).loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
+            if(FlexGlobals.topLevelApplication is Application)
+                (FlexGlobals.topLevelApplication as Application).loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
         }
 		
 		[AfterClass]
 		public static function tearDownAfterClass():void
 		{
-            if(FlexGlobals.topLevelApplication is WindowedApplication)
-                (FlexGlobals.topLevelApplication as WindowedApplication).loaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
+            if(FlexGlobals.topLevelApplication is Application)
+                (FlexGlobals.topLevelApplication as Application).loaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
 		}
 		
 		[Before]
