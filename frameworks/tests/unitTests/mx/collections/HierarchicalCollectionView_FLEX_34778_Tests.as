@@ -17,8 +17,7 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package mx.collections
-{
+package mx.collections {
     import mx.collections.ArrayCollection;
     import mx.collections.HierarchicalCollectionView;
 
@@ -55,6 +54,18 @@ package mx.collections
             _sut.openNode(company); //so that it starts listening to collection change events on its children
             _sut.closeNode(company);
             company.children.setItemAt(new DataNode("Adobe->Brussels"), 0); //makes the app hang here
+
+            //then
+            assertEquals(1, _sut.length);
+        }
+
+        //this did NOT reproduce it, but it's good to test, because the code is in a different function
+        //(collectionChangeHandler) than the previous case (nestedCollectionChangeHandler).
+        [Test]
+        public function test_replacing_inaccessible_root_node():void
+        {
+            //when
+            _level0.setItemAt(new DataNode("Microsoft"), 0);
 
             //then
             assertEquals(1, _sut.length);

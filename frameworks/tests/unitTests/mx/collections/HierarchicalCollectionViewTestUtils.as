@@ -19,6 +19,7 @@
 
 package mx.collections
 {
+    import mx.collections.*;
     import mx.utils.StringUtil;
 	import mx.collections.ArrayCollection;
 	import mx.collections.CursorBookmark;
