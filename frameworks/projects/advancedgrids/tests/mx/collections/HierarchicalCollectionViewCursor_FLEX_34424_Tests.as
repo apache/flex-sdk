@@ -19,27 +19,21 @@
 
 package mx.collections
 {
-import flash.events.UncaughtErrorEvent;
+    import flash.events.UncaughtErrorEvent;
 
-import mx.collections.ArrayCollection;
-import mx.collections.CursorBookmark;
-import mx.collections.HierarchicalCollectionView;
-import mx.collections.HierarchicalCollectionViewCursor;
-import mx.core.FlexGlobals;
-import mx.events.CollectionEvent;
-import mx.events.CollectionEventKind;
-import mx.events.PropertyChangeEvent;
+    import mx.core.FlexGlobals;
+    import mx.events.CollectionEvent;
+    import mx.events.CollectionEventKind;
 
-import org.flexunit.asserts.assertEquals;
+    import org.flexunit.asserts.assertEquals;
+    import org.flexunit.asserts.assertNotNull;
+    import org.flexunit.asserts.assertTrue;
+    import org.flexunit.runners.Parameterized;
 
-import org.flexunit.asserts.assertNotNull;
-import org.flexunit.asserts.assertTrue;
-import org.flexunit.runners.Parameterized;
+    import spark.components.Application;
 
-import spark.components.WindowedApplication;
-
-[RunWith("org.flexunit.runners.Parameterized")]
-public class HierarchicalCollectionViewCursor_FLEX_34424_Test
+    [RunWith("org.flexunit.runners.Parameterized")]
+public class HierarchicalCollectionViewCursor_FLEX_34424_Tests
 	{
         private static var _utils:HierarchicalCollectionViewTestUtils = new HierarchicalCollectionViewTestUtils();
         private static var _noErrorsThrown:Boolean = true;
@@ -53,15 +47,15 @@ public class HierarchicalCollectionViewCursor_FLEX_34424_Test
 		[BeforeClass]
 		public static function setUpBeforeClass():void
 		{
-            if(FlexGlobals.topLevelApplication is WindowedApplication)
-                (FlexGlobals.topLevelApplication as WindowedApplication).loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
+            if(FlexGlobals.topLevelApplication is Application)
+                (FlexGlobals.topLevelApplication as Application).loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
         }
 		
 		[AfterClass]
 		public static function tearDownAfterClass():void
 		{
-            if(FlexGlobals.topLevelApplication is WindowedApplication)
-                (FlexGlobals.topLevelApplication as WindowedApplication).loaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
+            if(FlexGlobals.topLevelApplication is Application)
+                (FlexGlobals.topLevelApplication as Application).loaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
 		}
 		
 		[Before]
