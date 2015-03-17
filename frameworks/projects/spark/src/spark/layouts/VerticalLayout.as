@@ -104,6 +104,7 @@ use namespace mx_internal;
  *    <strong>Properties</strong>
  *    gap="6"
  *    horizontalAlign="left"
+ *    padding="0"
  *    paddingBottom="0"
  *    paddingLeft="0"
  *    paddingRight="0"
@@ -397,6 +398,48 @@ public class VerticalLayout extends LayoutBase
         if (layoutTarget)
             layoutTarget.invalidateDisplayList();
     }
+	
+	//----------------------------------
+	//  padding
+	//----------------------------------
+	
+	private var _padding:Number = 0;
+	
+	[Inspectable(category="General")]
+	
+	/**
+	 *  The minimum number of pixels between the container's edges and
+	 *  the edges of the layout element.
+	 * 
+	 *  @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+	public function get padding():Number
+	{
+		return _padding;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set padding(value:Number):void
+	{
+		if (_padding == value)
+			return;
+		
+		_padding = value;
+		
+		paddingBottom = _padding;
+		paddingLeft = _padding;
+		paddingRight = _padding;
+		paddingTop = _padding;
+		
+		invalidateTargetSizeAndDisplayList();
+	}    
     
     //----------------------------------
     //  paddingLeft
