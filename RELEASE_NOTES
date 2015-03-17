@@ -1,6 +1,11 @@
 Apache Flex 4.14.1
 ==================
 
+New Features
+---------
+FLEX-34772 - Add padding property to VerticalLayout/VGroup, HorizontalLayout/HGroup and  
+TileLayout/TileGroup
+
 Bug Fixes
 ---------
 FLEX-34712 - Callout loses anchor to CalloutButton while callout open and screen rotates
