@@ -52,6 +52,7 @@ import spark.layouts.supportClasses.LayoutBase;
  *    <strong>Properties</strong>
  *    gap="6"
  *    horizontalAlign="left"
+ *    padding="0"
  *    paddingBottom="0"
  *    paddingLeft="0"
  *    paddingRight="0"
@@ -193,6 +194,35 @@ public class VGroup extends Group
     {
         verticalLayout.verticalAlign = value;
     }
+	
+	//----------------------------------
+	//  padding
+	//----------------------------------
+	
+	[Inspectable(category="General", defaultValue="0.0")]
+	
+	/**
+	 *  @copy spark.layouts.VerticalLayout#padding
+	 *  
+	 *  @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+	public function get padding():Number
+	{
+		return verticalLayout.padding;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set padding(value:Number):void
+	{
+		verticalLayout.padding = value;
+	} 
     
     //----------------------------------
     //  paddingLeft
