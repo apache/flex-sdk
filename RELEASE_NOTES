@@ -17,6 +17,7 @@ FLEX-34758 - IOS buttons does not look correct when disabled
 FLEX-34766 - Android Button Skin transparency issue
 FLEX-34778 - Application hangs when opening node, closing it, then replacing one of its children
 FLEX-34732 - TextInput/TextArea with borderColor style set gives compiler warnings
+FLEX-34805 - Unable to set chromeColor property on TabbedViewNavigatorApplication 
 
 Performance Improvements
 ---------
