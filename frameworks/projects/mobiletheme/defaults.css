@@ -947,7 +947,6 @@ global
 
 	global
 	{
-		fontFamily: RobotoRegular;
 		fontWeight: "normal";
 		fontSize: 24;
 		color: #000000;
@@ -1489,7 +1488,6 @@ application-dpi=240.
 	global
 	{
 		primaryAccentColor: #33B5E5;
-		fontFamily: RobotoRegular;
 		fontWeight: "normal";
 		fontSize: 24;
 		color: #000000;
