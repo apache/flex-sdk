@@ -99,20 +99,18 @@ determineVersion()
         then 
             FLASH_VERSION="11.1"
         else
-            FLASH_VERSION="16.0"
+            FLASH_VERSION="17.0"
         fi
     fi
     
     if [ ${latest} = "Y" ]
     then
-    	FLASH_VERSION="16.0"
+    	FLASH_VERSION="17.0"
     fi
     
-    # (erikdebruin) How does this work if the beta and release have the same
-    #               major.minor version?
     if [ ${useBeta} = "Y" ]
     then
-    	FLASH_VERSION="16.0"
+    	FLASH_VERSION="17.0b"
     fi
     
     echo "Setting minimum Flash Player version to ${FLASH_VERSION}"
@@ -130,9 +128,10 @@ if [[ "${FLASH_VERSION}" != "10.2" && "${FLASH_VERSION}" != "10.3"  && "${FLASH_
   && "${FLASH_VERSION}" != "11.4" && "${FLASH_VERSION}" != "11.5" && "${FLASH_VERSION}" != "11.6"
   && "${FLASH_VERSION}" != "11.7" && "${FLASH_VERSION}" != "11.8" && "${FLASH_VERSION}" != "11.9"
   && "${FLASH_VERSION}" != "12.0" && "${FLASH_VERSION}" != "13.0" && "${FLASH_VERSION}" != "14.0"
-  && "${FLASH_VERSION}" != "15.0" && "${FLASH_VERSION}" != "16.0" ]]
+  && "${FLASH_VERSION}" != "15.0" && "${FLASH_VERSION}" != "16.0" && "${FLASH_VERSION}" != "17.0"
+  && "${FLASH_VERSION}" != "17.0b" ]]
 then
-	echo Unknown version ${FLASH_VERSION} of Flash Player. Versions 10.2, 10.3, 11.0, 11.1, 11.2, 11.3, 11.4, 11.5, 11.6, 11.7, 11.8, 11.9, 12.0, 13.0, 14.0, 15.0 and 16.0 are supported.
+	echo Unknown version ${FLASH_VERSION} of Flash Player. Versions 10.2, 10.3, 11.0, 11.1, 11.2, 11.3, 11.4, 11.5, 11.6, 11.7, 11.8, 11.9, 12.0, 13.0, 14.0, 15.0, 16.0 and 17.0 are supported.
 	exit 1;
 fi
 
@@ -152,7 +151,17 @@ if [[ $useMobile = "Y" || $useDesktop = "Y" ]]
 then
 	echo Installing AIR
 	echo
-	
+
+	if [[ $FLASH_VERSION = "17.0b" ]]
+    then
+        ./addAIRtoSDK.sh 17.0b "$IDE_SDK_DIR"
+    fi
+    
+	if [[ $FLASH_VERSION = "17.0" ]]
+    then
+        ./addAIRtoSDK.sh 17.0 "$IDE_SDK_DIR"
+    fi
+    	
 	if [[ $FLASH_VERSION = "16.0" ]]
     then
         ./addAIRtoSDK.sh 16.0 "$IDE_SDK_DIR"
@@ -236,6 +245,16 @@ do
 	
 	updatePlayerVersion "${FLASH_VERSION}" "${configFile}"
 
+	if [ ${FLASH_VERSION} = "17.0b	" ]
+	then
+		updateSWFVersion 28 "${configFile}"
+	fi
+	
+	if [ ${FLASH_VERSION} = "17.0" ]
+	then
+		updateSWFVersion 28 "${configFile}"
+	fi
+	
 	if [ ${FLASH_VERSION} = "16.0" ]
 	then
 		updateSWFVersion 27 "${configFile}"
