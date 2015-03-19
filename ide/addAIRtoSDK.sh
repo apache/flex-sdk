@@ -165,7 +165,7 @@ do
 	# 17.0 beta needs FP 17 and swf version 28
 	if [ ${AIR_VERSION} = "17.0b" ]
 	then
-		updatePlayerVersion 17.0b "${configFile}"
+		updatePlayerVersion 17.0 "${configFile}"
 		updateSWFVersion 28 "${configFile}"
 	fi	
 	
