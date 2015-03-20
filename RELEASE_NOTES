@@ -16,6 +16,7 @@ FLEX-34750 - BusyIndicatorSkin does not work with mx:Application
 FLEX-34758 - IOS buttons does not look correct when disabled
 FLEX-34766 - Android Button Skin transparency issue
 FLEX-34778 - Application hangs when opening node, closing it, then replacing one of its children
+FLEX-34774 - Blur effect remains if first modal Popup closes before other modal Popups
 FLEX-34732 - TextInput/TextArea with borderColor style set gives compiler warnings
 FLEX-34805 - Unable to set chromeColor property on TabbedViewNavigatorApplication
 FLEX-34806 - Warning about font embedding on label component
