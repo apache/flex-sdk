@@ -61,9 +61,6 @@ package com.adobe.internal.fxg.dom.types;
  * <pre>
  * 		auto
  * </pre>
- *  
- * @author Peter Farland
- * @author Sujata Das
  */
 public enum BlendMode
 {

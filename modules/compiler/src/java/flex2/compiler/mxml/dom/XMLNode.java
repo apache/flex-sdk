@@ -27,8 +27,6 @@ import java.util.*;
 
 /**
  * Represents a &lt;XML&gt; tag in the MXML language namespace.
- *
- * @author Clement Wong
  */
 public class XMLNode extends Node
 {

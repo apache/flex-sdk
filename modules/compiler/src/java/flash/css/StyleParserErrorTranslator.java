@@ -27,8 +27,6 @@ import flex2.compiler.util.CompilerMessage.CompilerError;
 /**
  * A helper class used to translate some Batik error messages into
  * more friendly messages.
- *
- * @author Paul Reilly
  */
 public class StyleParserErrorTranslator
 {

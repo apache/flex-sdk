@@ -19,9 +19,6 @@
 
 package macromedia.asc.util;
 
-/**
- * @author Jeff Dyer
- */
 public class Block
 {
 	public Block() { is_terminal = false; }

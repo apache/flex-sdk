@@ -23,9 +23,6 @@ import macromedia.asc.semantics.MetaData;
 import macromedia.asc.semantics.Value;
 import macromedia.asc.util.Context;
 
-/**
- * @author Clement Wong
- */
 public class MetaDataNode extends Node
 {
 	public LiteralArrayNode data;

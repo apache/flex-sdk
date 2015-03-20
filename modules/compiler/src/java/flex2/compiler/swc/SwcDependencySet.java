@@ -28,8 +28,6 @@ import java.util.Iterator;
 /**
  * This represents the set of dependencies and their type for each
  * definition in a SWC.
- *
- * @author Roger Gonzalez
  */
 public class SwcDependencySet
 {

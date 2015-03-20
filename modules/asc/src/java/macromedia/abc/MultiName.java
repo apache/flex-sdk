@@ -19,9 +19,6 @@
 
 package macromedia.abc;
 
-/**
- * @author Clement Wong
- */
 public final class MultiName
 {
 	public MultiName(String name, String[] namespaces)

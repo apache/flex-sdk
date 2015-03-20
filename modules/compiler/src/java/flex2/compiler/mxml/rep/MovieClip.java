@@ -31,8 +31,6 @@ import java.util.*;
 /**
  * This class represents a (Halo) visual child node in a MXML
  * document.
- *
- * @author Edwin Smith
  */
 /*
  * TODO remove when you-know-what happens

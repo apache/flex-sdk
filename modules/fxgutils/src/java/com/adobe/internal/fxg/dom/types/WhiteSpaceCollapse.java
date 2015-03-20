@@ -33,8 +33,6 @@ package com.adobe.internal.fxg.dom.types;
  *   0 = preserve
  *   1 = collapse
  * </pre>
- * 
- * @author Peter Farland
  */
 public enum WhiteSpaceCollapse
 {

@@ -25,8 +25,6 @@ import flash.swf.ActionConstants;
 
 /**
  * Represents an AS2 "with" byte code.
- *
- * @author Clement Wong
  */
 public class With extends Action
 {

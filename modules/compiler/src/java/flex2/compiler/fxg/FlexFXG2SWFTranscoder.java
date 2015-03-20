@@ -67,9 +67,6 @@ import flex2.compiler.mxml.reflect.TypeTable;
  * generated include alpha masks, luminosity masks, and pixel-bender based
  * blend modes, namely: colordodge, colorburn, exclusion, softlight, hue,
  * saturation, color, and luminosity.
- * 
- * @author Peter Farland
- * @author Kaushal Kantawala
  */
 public class FlexFXG2SWFTranscoder extends FXG2SWFTranscoder
 {

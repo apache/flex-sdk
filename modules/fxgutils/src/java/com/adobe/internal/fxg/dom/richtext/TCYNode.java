@@ -37,7 +37,6 @@ import com.adobe.internal.fxg.dom.TextNode;
  * </p>
  * 
  * @since 2.0
- * @author Min Plunkett
  */
 public class TCYNode extends AbstractRichTextLeafNode
 {    

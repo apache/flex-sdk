@@ -24,8 +24,6 @@ import flash.swf.TagHandler;
 
 /**
  * This represents a ShowFrame SWF tag.
- *
- * @author Clement Wong
  */
 public class ShowFrame extends Tag
 {

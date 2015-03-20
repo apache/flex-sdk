@@ -33,7 +33,6 @@ import flash.tools.debugger.VersionException;
 
 /**
  * Thread-safe wrapper for flash.tools.debugger.SessionManager
- * @author Mike Morearty
  */
 public class ThreadSafeSessionManager extends ThreadSafeDebuggerObject implements SessionManager2 {
 

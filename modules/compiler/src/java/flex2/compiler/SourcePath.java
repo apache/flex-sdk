@@ -37,8 +37,6 @@ import java.util.*;
  * A list of paths specified by the -source-path option, where
  * dependencies, following the single public definition rule, can be
  * resolved.
- *
- * @author Clement Wong
  */
 public class SourcePath extends SourcePathBase
     implements SinglePathResolver
@@ -271,9 +269,7 @@ public class SourcePath extends SourcePathBase
     }
 }
 
-/**
- * @author Clement Wong
- */
+
 abstract class SourcePathBase
 {
 	protected final static String NO_DIR = "";

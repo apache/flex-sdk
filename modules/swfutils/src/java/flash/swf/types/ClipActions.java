@@ -23,8 +23,6 @@ import java.util.List;
 
 /**
  * A value object for clip actions.
- *
- * @author Clement Wong
  */
 public class ClipActions
 {

@@ -27,8 +27,6 @@ import macromedia.asc.util.NumberUsage;
 
 /**
  * Emitter
- *
- * @author Jeff Dyer
  */
 public class Emitter
 {

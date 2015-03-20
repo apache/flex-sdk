@@ -32,8 +32,6 @@ import flash.util.Trace;
  * The FontManager provides a common interface to locating fonts from
  * either locally (i.e. from the Operating System) or externally
  * (i.e. from URL locations).
- * 
- * @author Peter Farland
  */
 @SuppressWarnings("unchecked")
 public abstract class FontManager

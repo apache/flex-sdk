@@ -33,8 +33,6 @@ import flex2.compiler.config.ConfigurationInfo;
  * subcompiler configuration options are declared and
  * flex2.compiler.common.CompilerConfiguration, which is where
  * flex2.compiler.mxml.MxmlConfiguration is defined.
- *
- * @author Clement Wong
  */
 public class MxmlConfiguration
 {

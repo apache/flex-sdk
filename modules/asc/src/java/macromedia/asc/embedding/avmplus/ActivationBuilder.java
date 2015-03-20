@@ -22,8 +22,6 @@ import macromedia.asc.semantics.*;
 
 /**
  * Activation interface. An activation provides slot storage.
- *
- * @author Jeff Dyer
  */
 public class ActivationBuilder extends Builder
 {

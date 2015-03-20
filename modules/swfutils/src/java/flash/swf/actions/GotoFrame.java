@@ -25,8 +25,6 @@ import flash.swf.ActionConstants;
 
 /**
  * Represents an AS2 "goto frame" byte code.
- *
- * @author Clement Wong
  */
 public class GotoFrame extends Action
 {

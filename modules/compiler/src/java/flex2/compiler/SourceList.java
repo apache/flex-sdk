@@ -38,8 +38,6 @@ import java.util.*;
  * command line are put into the <code>SourceList</code>.  When
  * compiling via Flash Builder, the root or application is included in
  * the <code>SourceList</code>.
- *
- * @author Clement Wong
  */
 public final class SourceList
 {

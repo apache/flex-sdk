@@ -61,9 +61,6 @@ import java.util.Stack;
  * flex.compiler.WatcherVisitor.  Historically, there was a second
  * pass evaluator, but as it's role shrunk, it was folded into
  * DataBindingExtension.
- *
- * @author Paul Reilly
- * @author Matt Chotin
  */
 public class DataBindingFirstPassEvaluator extends EvaluatorAdapter
 {

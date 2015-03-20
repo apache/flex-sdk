@@ -34,9 +34,6 @@ import flex2.compiler.io.VirtualFile;
 /**
  *  Configuration options association with the 
  *  runtime-shared-library-path option.
- *  
- *  @author dloverin
- *
  */
 public class RuntimeSharedLibrarySettingsConfiguration
 {

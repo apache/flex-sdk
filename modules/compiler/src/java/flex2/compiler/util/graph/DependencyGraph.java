@@ -29,8 +29,6 @@ import java.util.Set;
 
 /**
  * Used by the compiler driver to represent a dependency graph.
- *
- * @author Clement Wong
  */
 public class DependencyGraph<EdgeWeight> extends Graph<String, EdgeWeight> 
 {

@@ -34,8 +34,6 @@ import macromedia.asc.util.Context;
 /**
  * A compiler extension used to report an error when Managed metadata
  * is used on a MXML component.
- *
- * @author Jason Williams
  */
 public class ManagedExtensionError implements Extension {
 

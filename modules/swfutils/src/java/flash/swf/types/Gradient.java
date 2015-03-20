@@ -23,8 +23,6 @@ import java.util.Arrays;
 
 /**
  * A value object for gradient data. 
- *
- * @author Roger Gonzalez
  */
 public class Gradient
 {

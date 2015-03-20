@@ -23,8 +23,6 @@ import java.util.Arrays;
 
 /**
  * This class represents a DefineBinaryData SWF Tag.
- *
- * @author Roger Gonzalez
  */
 public class DefineBinaryData extends DefineTag
 {

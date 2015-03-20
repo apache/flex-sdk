@@ -24,8 +24,6 @@ package flex2.compiler.util;
  * when an IDE wants to abort a compilation and start over after a
  * file has changed.
  *
- * @version 2.0.1
- * @author Clement Wong
  */
 public class CompilerControl
 {

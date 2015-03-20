@@ -20,7 +20,6 @@ import flash.tools.debugger.Isolate;
 
 /**
  * Thread-safe wrapper for flash.tools.debugger.Isolate
- * @author Anirudh Sasikumar
  */
 public class ThreadSafeIsolate extends ThreadSafeDebuggerObject implements Isolate {
 

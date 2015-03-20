@@ -21,7 +21,6 @@ import flash.tools.debugger.expression.PlayerFaultException;
 /**
  * Used to issue commands to a particular worker (isolate).
  * @see Session
- * @author anirudhs
  */
 public interface IsolateSession {
 	

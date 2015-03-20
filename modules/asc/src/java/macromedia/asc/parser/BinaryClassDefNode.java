@@ -24,8 +24,6 @@ import macromedia.asc.semantics.Value;
 
 /**
  * BinaryClassDefNode
- *
- * @author Erik Tierney
  */
 public class BinaryClassDefNode extends ClassDefinitionNode
 {

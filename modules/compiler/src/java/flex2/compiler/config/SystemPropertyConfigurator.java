@@ -29,8 +29,6 @@ import java.util.StringTokenizer;
  * A utility class, which is used to load configuration options via
  * system properties and populate a ConfigurationBuffer.  A
  * counterpart of CommandLineConfigurator and FileConfigurator.
- *
- * @author Roger Gonzalez
  */
 public class SystemPropertyConfigurator
 {

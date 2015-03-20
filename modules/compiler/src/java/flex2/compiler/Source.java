@@ -47,8 +47,6 @@ import java.util.Map.Entry;
  * <code>shortName</code>, which is often the class name, the owner,
  * which specifies where the Source came from, and whether the
  * <code>Source</code> is internal, root, and debuggable.
- *
- * @author Clement Wong
  */
 public final class Source implements Comparable<Source>
 {

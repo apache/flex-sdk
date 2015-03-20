@@ -24,8 +24,6 @@ import macromedia.asc.util.Context;
 
 /**
  * Node
- *
- * @author Erik Tierney
  */
 public class TypeIdentifierNode extends IdentifierNode {
 

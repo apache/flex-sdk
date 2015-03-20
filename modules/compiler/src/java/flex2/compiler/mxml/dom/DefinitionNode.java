@@ -32,8 +32,6 @@ import java.util.HashSet;
  * namespace.  It is commonly contained within a &lt;Library&gt; tag
  * and has one attribute 'name' as an identifier.  At most, one child
  * may be specified (enforced downstream).
- * 
- * @author Peter Farland
  */
 public class DefinitionNode extends Node
 {

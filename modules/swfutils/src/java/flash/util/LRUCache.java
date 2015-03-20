@@ -30,9 +30,6 @@ import java.util.Set;
  * be purged.
  * <p>
  * This class is thread-safe.
- *
- * @author Spike Washburn
- * @author Peter Farland (Updated to be thread-safe)
  */
 public abstract class LRUCache extends AbstractCache
 {

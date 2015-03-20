@@ -26,8 +26,6 @@ import com.adobe.internal.fxg.dom.DOMParserHelper;
 
 /**
  * The Class MatrixNode.
- * 
- * @author Peter Farland
  */
 public class MatrixNode extends AbstractTransformNode
 {

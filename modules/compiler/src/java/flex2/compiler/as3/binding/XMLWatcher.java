@@ -22,8 +22,6 @@ package flex2.compiler.as3.binding;
 /**
  * This class represents the information needed to construct the code
  * for a runtime XML watcher.
- *
- * @author Roger Gonzalez
  */
 public class XMLWatcher extends PropertyWatcher
 {

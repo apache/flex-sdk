@@ -31,8 +31,6 @@ import java.util.List;
 
 /**
  * Represents a DefineText SWF tag.
- *
- * @author Clement Wong
  */
 public class DefineText extends DefineTag
 {

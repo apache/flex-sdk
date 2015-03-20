@@ -39,8 +39,6 @@ import flash.swf.Tag;
  * DefineBits3 - includes all data plus a transparency map
  *
  * @since SWF1
- *
- * @author Clement Wong
  */
 public class DefineBits extends DefineTag
 {

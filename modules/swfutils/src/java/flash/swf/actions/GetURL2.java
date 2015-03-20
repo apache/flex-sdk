@@ -25,8 +25,6 @@ import flash.swf.ActionConstants;
 
 /**
  * Represents an AS2 "get URL 2" byte code.
- *
- * @author Clement Wong
  */
 public class GetURL2 extends Action
 {

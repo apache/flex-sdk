@@ -32,7 +32,6 @@ package com.adobe.internal.fxg.dom.types;
  *   2 = eastAsian
  * </pre>
  * 
- * @author Min Plunkett
  */
 public enum JustificationRule
 {

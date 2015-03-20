@@ -33,8 +33,6 @@ import static macromedia.asc.embedding.avmplus.ActionBlockConstants.*;
 
 /**
  * FlowAnalyzer
- *
- * @author Jeff Dyer
  */
 public final class FlowAnalyzer extends Emitter implements Evaluator, ErrorConstants
 {

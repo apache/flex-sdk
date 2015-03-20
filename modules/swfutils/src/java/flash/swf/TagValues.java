@@ -21,8 +21,6 @@ package flash.swf;
 
 /**
  * Tag values that represent actions or data in a Flash script.
- *
- * @author Edwin Smith
  */
 public interface TagValues
 {

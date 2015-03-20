@@ -33,8 +33,6 @@ import static com.adobe.fxg.FXGConstants.*;
  * FXG Library Definition. It acts as the base graphic context for a symbol
  * definition. A GroupDefinition differs from a Group instance in that it
  * cannot define a transform, filters or have an id attribute.
- * 
- * @author Peter Farland
  */
 public class GroupDefinitionNode extends AbstractFXGNode
 {

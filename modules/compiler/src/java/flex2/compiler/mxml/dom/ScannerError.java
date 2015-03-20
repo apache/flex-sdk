@@ -19,9 +19,6 @@
 
 package flex2.compiler.mxml.dom;
 
-/**
- * @author Clement Wong
- */
 public class ScannerError extends Error
 {
 	private static final long serialVersionUID = -619000486885987644L;

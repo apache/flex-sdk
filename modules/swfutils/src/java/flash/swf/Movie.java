@@ -37,8 +37,6 @@ import java.util.Map;
 /**
  * Represents a whole flash movie.  Singleton tags are represented as
  * such, and frames are as well.
- *
- * @author Edwin Smith
  */
 public class Movie
 {

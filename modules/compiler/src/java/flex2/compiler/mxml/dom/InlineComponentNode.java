@@ -28,8 +28,6 @@ import java.util.HashSet;
 /**
  * Represents a &lt;InlineComponent&gt; tag in the MXML language
  * namespace.
- *
- * @author Paul Reilly
  */
 public class InlineComponentNode extends Node
 {

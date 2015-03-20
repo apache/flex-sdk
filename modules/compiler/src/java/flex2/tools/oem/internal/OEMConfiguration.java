@@ -58,7 +58,6 @@ import flex2.tools.oem.Configuration;
  * supporting merging with configuration defaults.
  *
  * @version 2.0.1
- * @author Clement Wong
  */
 public class OEMConfiguration implements Configuration, ConfigurationConstants, Cloneable
 {

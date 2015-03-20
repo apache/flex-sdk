@@ -34,8 +34,6 @@ import java.util.ArrayList;
 /**
  * A utility class to help construct a SWF Shape from Java2D AWT Shapes. By default,
  * all co-ordinates are coverted to twips (1/20th of a pixel).
- *
- * @author Peter Farland
  */
 public final class ShapeBuilder
 {

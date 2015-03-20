@@ -21,8 +21,6 @@ import macromedia.asc.util.*;
 
 /**
  * The interface for all types.
- *
- * @author Jeff Dyer
  */
 public abstract class Type
 {

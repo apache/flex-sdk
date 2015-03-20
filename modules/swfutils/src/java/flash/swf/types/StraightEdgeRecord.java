@@ -22,8 +22,6 @@ package flash.swf.types;
 /**
  * This class extends EdgeRecord by adding support for an x and y
  * delta.
- *
- * @author Clement Wong
  */
 public class StraightEdgeRecord extends EdgeRecord
 {

@@ -27,8 +27,6 @@ import com.adobe.fxg.dom.FXGNode;
 /**
  * The mask property node is a special delegate that associates a mask with a
  * parent graphic content node. 
- * 
- * @author Peter Farland
  */
 public class MaskPropertyNode extends DelegateNode
 {

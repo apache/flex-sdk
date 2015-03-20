@@ -27,9 +27,6 @@ import java.io.IOException;
 import static macromedia.abc.Opcodes.*;
 import static macromedia.asc.embedding.avmplus.ActionBlockConstants.*;
 
-/**
- * @author Clement Wong
- */
 public class Printer
 {
 	/**

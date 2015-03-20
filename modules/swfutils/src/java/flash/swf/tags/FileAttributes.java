@@ -35,8 +35,6 @@ import flash.swf.TagHandler;
  * <p>
  * Any information that applies to the whole SWF should hopefully be
  * incorporated into the FileAttributes tag.
- *
- * @author Peter Farland
  */
 public class FileAttributes extends Tag
 {

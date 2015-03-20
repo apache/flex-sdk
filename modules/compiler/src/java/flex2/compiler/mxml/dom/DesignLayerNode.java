@@ -28,8 +28,6 @@ import flex2.compiler.util.QName;
 /**
  * Represents a &lt;DesignLayer&gt; tag in the MXML 2009 language
  * namespace.
- *
- * @author Paul Reilly
  */
 public class DesignLayerNode extends LayeredNode
 {

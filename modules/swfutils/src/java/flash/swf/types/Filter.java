@@ -21,8 +21,6 @@ package flash.swf.types;
 
 /**
  * Defines the common API for all filters.
- *
- * @author Roger Gonzalez
  */
 public abstract class Filter
 {

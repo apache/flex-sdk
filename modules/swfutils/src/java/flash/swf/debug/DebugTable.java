@@ -25,8 +25,6 @@ import flash.util.IntMap;
 
 /**
  * Info gleaned from a debuggable flash movie (SWF+SWD)
- *
- * @author Edwin Smith
  */
 public class DebugTable
         implements DebugHandler

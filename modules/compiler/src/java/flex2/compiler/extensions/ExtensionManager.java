@@ -38,8 +38,6 @@ import flex2.compiler.util.CompilerMessage.CompilerError;
 /**
  * This class manages external extensions, which can be used to add
  * additional functionality to the compiler.
- *
- * @author Andrew Westberg
  */
 public class ExtensionManager
 {

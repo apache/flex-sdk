@@ -22,8 +22,6 @@ import macromedia.asc.util.*;
 
 /**
  * Node
- *
- * @author Jeff Dyer
  */
 public class FunctionNameNode extends Node
 {

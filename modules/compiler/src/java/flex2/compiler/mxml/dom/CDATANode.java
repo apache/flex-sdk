@@ -23,8 +23,6 @@ import java.io.StringWriter;
 
 /**
  * Represents a &lt;![[CDATA]]&gt; tag.
- *
- * @author Clement Wong
  */
 public class CDATANode extends Node
 {

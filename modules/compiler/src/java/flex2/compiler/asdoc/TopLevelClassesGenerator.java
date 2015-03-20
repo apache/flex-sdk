@@ -41,8 +41,6 @@ import java.util.regex.Pattern;
  * This class converts the toplevel.xml to dita based xml files. It create one
  * file per package and one additional file (packages.dita) containing the list
  * of packages.
- * 
- * @author gauravj
  */
 public class TopLevelClassesGenerator
 {

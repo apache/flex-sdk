@@ -26,9 +26,6 @@ import java.util.*;
 import java.lang.reflect.Method;
 import java.lang.reflect.Field;
 
-/**
- * @author Clement Wong
- */
 public class Shell
 {
 	public static void main(String[] args) throws IOException

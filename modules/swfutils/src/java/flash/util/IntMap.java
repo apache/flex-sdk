@@ -28,8 +28,6 @@ import java.util.NoSuchElementException;
  * traverse from lowest to highest.  put() is O(1) if the key is
  * higher than any existing key; O(logN) if the key already exists,
  * and O(N) otherwise.  get() is an O(logN) binary search.
- *
- * @author Edwin Smith
  */
 public class IntMap
 {

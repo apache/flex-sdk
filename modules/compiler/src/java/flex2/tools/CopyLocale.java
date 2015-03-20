@@ -40,8 +40,6 @@ import java.util.HashMap;
  * <p>
  * you will then have what you need for the fr_FR locale; the resources
  * for this locale will simply be copies of those for the en_US locale.
- *
- * @author Gordon Smith
  */
 public class CopyLocale
 {

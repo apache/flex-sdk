@@ -24,8 +24,6 @@ import flash.swf.TagHandler;
 
 /**
  * Represents a DoABC SWF tag.  This is used by AS3.
- *
- * @author Clement Wong
  */
 public class DoABC extends Tag
 {

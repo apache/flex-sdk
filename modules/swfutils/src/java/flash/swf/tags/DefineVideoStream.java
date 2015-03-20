@@ -23,8 +23,6 @@ import flash.swf.TagHandler;
 
 /**
  * Represents a DefineVideoStream SWF tag.
- *
- * @author Clement Wong
  */
 public class DefineVideoStream extends DefineTag
 {

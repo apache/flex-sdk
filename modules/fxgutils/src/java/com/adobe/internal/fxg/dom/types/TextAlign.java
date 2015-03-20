@@ -35,7 +35,6 @@ package com.adobe.internal.fxg.dom.types;
  *   5 = justify
  * </pre>
  * 
- * @author Min Plunkett
  */
 public enum TextAlign
 {

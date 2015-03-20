@@ -37,8 +37,6 @@ import flex2.compiler.util.MimeMappings;
 
 /**
  * An implemenation of TranslationFormat, which works with .properties files.
- *
- * @author Brian Deitte
  */
 public class PropertyTranslationFormat implements TranslationFormat
 {

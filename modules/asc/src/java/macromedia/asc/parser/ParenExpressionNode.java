@@ -22,8 +22,6 @@ import macromedia.asc.semantics.*;
 
 /**
  * Node
- *
- * @author Jeff Dyer
  */
 public class ParenExpressionNode extends Node
 {

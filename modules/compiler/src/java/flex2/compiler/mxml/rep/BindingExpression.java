@@ -38,10 +38,6 @@ import java.util.*;
  * across them while parsing MXML.  As we go, we fill in the destination of each
  * BindingExpression, and when we're done parsing we compile the source expression
  * in order to figure out how to attach ActionScript watchers and binding objects.
- *
- * @author gdaniels
- * @author mchotin
- * @author preilly
  */
 public class BindingExpression implements Comparable<BindingExpression>
 {

@@ -32,8 +32,6 @@ import java.util.Map.Entry;
  * This is a Logger implementation, which handles mapping generated
  * line numbers and renamed variables back to the mxml line numbers
  * and variable names.
- *
- * @author Clement Wong
  */
 public final class MxmlLogAdapter extends AbstractLogAdapter
 {

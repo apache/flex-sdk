@@ -23,8 +23,6 @@ import java.util.Locale;
 
 /**
  * Defines the API for looking up localized text.
- *
- * @author Roger Gonzalez
  */
 public interface ILocalizer
 {

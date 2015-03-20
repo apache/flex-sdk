@@ -48,8 +48,6 @@ import java.util.*;
 
 /**
  * fcsh (Flex Compiler SHell)
- *
- * @author Clement Wong
  */
 public class Fcsh extends Tool
 {

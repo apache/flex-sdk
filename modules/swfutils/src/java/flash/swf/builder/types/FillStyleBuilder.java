@@ -44,8 +44,6 @@ import org.apache.flex.forks.batik.ext.awt.RadialGradientPaint;
 /**
  * This class is used to construct a FillStyle from a Paint,
  * Rectangle2D, and AffineTransform object.
- *
- * @author Peter Farland
  */
 public final class FillStyleBuilder
 {

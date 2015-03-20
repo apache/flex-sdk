@@ -25,8 +25,6 @@ import flash.swf.tags.DefineTag;
 
 /**
  * A value object for button record data.
- *
- * @author Clement Wong
  */
 public class ButtonRecord
 {

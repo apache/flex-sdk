@@ -24,8 +24,6 @@ import static macromedia.asc.parser.Tokens.*;
 
 /**
  * Package object builder.
- *
- * @author Jeff Dyer
  */
 public class PackageBuilder extends Builder
 {

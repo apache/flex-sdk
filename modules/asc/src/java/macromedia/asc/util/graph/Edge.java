@@ -19,9 +19,6 @@
 
 package macromedia.asc.util.graph;
 
-/**
- * @author Clement Wong
- */
 public final class Edge <W>
 {
 	public Edge(Vertex tail, Vertex head, W weight)

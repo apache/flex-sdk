@@ -28,9 +28,6 @@ import com.adobe.fxg.util.FXGLogger;
 /**
  * A helper class that serves as the base implementation of FXGNode. Subclasses
  * can delegate to this class to handle unknown attributes or children.
- * 
- * @author Peter Farland
- * @author Sujata Das
  */
 public abstract class AbstractFXGNode implements FXGNode
 {   

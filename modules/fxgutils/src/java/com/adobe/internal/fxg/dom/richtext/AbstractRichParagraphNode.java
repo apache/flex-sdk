@@ -34,7 +34,6 @@ import com.adobe.internal.fxg.dom.types.TextJustify;
  * An base class that represents a paragraph text.
  * 
  * @since 2.0
- * @author Min Plunkett
  */
 public abstract class AbstractRichParagraphNode extends AbstractRichTextLeafNode
 {

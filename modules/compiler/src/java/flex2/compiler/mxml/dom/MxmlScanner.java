@@ -55,9 +55,7 @@ import static flex2.compiler.mxml.lang.StandardDefs.SPARK_TEXT_TAGS;
 
 /**
  * JavaCC-compatible token manager. It uses SAXParser to do MXML parsing.
- * 
- * @author Clement Wong
- */
+*/
 public class MxmlScanner extends DefaultHandler implements TokenManager,
         MXMLNamespaces
 {

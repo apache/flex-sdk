@@ -27,7 +27,6 @@ import flash.tools.debugger.expression.ValueExp;
 
 /**
  * Thread-safe wrapper for flash.tools.debugger.expression.ValueExp
- * @author Mike Morearty
  */
 public class ThreadSafeValueExp extends ThreadSafeDebuggerObject implements ValueExp
 {

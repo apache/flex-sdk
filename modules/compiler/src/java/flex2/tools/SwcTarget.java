@@ -26,8 +26,6 @@ import java.util.Map;
 
 /**
  * Fcsh helper class.
- *
- * @author Clement Wong
  */
 public class SwcTarget extends Target
 {

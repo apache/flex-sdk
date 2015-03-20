@@ -36,7 +36,6 @@ package com.adobe.internal.fxg.dom.types;
  *   6 = ideographicBottom
  * </pre>
  * 
- * @author Min Plunkett
  */
 public enum AlignmentBaseline
 {

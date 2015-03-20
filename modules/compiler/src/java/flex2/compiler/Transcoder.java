@@ -28,8 +28,6 @@ import java.util.Map;
 
 /**
  * Interface for transcoding resources which are used in Embed.
- *
- * @author Clement Wong
  */
 public interface Transcoder
 {

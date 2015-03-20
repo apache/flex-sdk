@@ -32,8 +32,6 @@ import java.text.DateFormat;
 
 /**
  * This class handles metadata specific configuration options.
- *
- * @author Roger Gonzalez
  */
 public class MetadataConfiguration
 {

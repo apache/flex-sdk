@@ -21,8 +21,6 @@ package flex2.compiler.mxml.dom;
 
 /**
  * Represents a &lt;Boolean&gt; tag in the MXML language namespace.
- *
- * @author Clement Wong
  */
 public class BooleanNode extends PrimitiveNode
 {

@@ -27,8 +27,6 @@ import java.util.Set;
 
 /**
  * Represents an &lt;Style&gt; tag in the MXML language namespace.
- *
- * @author Clement Wong
  */
 public class StyleNode extends Node
 {

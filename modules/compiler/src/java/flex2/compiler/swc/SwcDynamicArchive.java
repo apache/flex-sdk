@@ -46,8 +46,6 @@ import flash.util.FileUtils;
  * holds a full snapshot of the archive in memory all the time, but it
  * has the ability to be used for both reading and writing.
  *
- * @author Roger Gonzalez
- * @author Paul Reilly
  */
 public class SwcDynamicArchive implements SwcArchive
 {

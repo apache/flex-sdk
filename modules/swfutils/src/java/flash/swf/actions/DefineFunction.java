@@ -28,8 +28,6 @@ import flash.swf.types.ActionList;
 
 /**
  * Represents an AS2 "define function" byte code.
- *
- * @author Clement Wong
  */
 public class DefineFunction extends Action
 {

@@ -19,10 +19,6 @@
 
 package macromedia.asc.semantics;
 
-/**
- *
- * @author Erik Tierney
- */
 public class QName
 {
     public ObjectValue ns;

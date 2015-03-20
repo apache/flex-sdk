@@ -24,8 +24,6 @@ import flex2.tools.CompcConfiguration;
 /**
  * Defines the API for extensions, which run at the end of a command
  * line library compilation.
- *
- * @author Andrew Westberg
  */
 public interface ICompcExtension
     extends IExtension

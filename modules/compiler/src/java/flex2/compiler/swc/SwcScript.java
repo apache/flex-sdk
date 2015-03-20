@@ -33,8 +33,6 @@ import flex2.compiler.util.QNameMap;
 
 /**
  * Represents one Script of ABC within a SWC.
- *
- * @author Roger Gonzalez
  */
 public class SwcScript
 {

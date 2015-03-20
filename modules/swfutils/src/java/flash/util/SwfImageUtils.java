@@ -25,8 +25,6 @@ import java.io.IOException;
 /**
  * A variety of utilities for dealing with the image formats that are
  * part of the SWF spec.
- *
- * @author Roger Gonzalez
  */
 public class SwfImageUtils
 {

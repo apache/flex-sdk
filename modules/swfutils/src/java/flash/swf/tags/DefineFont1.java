@@ -34,10 +34,6 @@ import flash.swf.types.Shape;
  * DefineText tags should be included. DefineFont tags cannot be used
  * for dynamic text.  Dynamic text requires the DefineFont2 tag.
  * DefineFont was introduced in SWF version 1.
- * 
- * @see DefineFontInfo
- * @author Clement Wong
- * @author Peter Farland
  */
 public class DefineFont1 extends DefineFont
 {

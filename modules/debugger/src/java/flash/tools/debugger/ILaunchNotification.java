@@ -24,8 +24,6 @@ import java.io.IOException;
 /**
  * Used to notify caller in case of ADL Exit Code 1: Successful invocation of an already running 
  * AIR application. ADL exits immediately.
- * 
- * @author sakkus
  */
 public interface ILaunchNotification
 {

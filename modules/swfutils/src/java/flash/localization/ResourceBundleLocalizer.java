@@ -27,8 +27,6 @@ import java.util.MissingResourceException;
 /**
  * ILocalizer implementation, which supports looking up text in
  * resource bundles.
- *
- * @author Roger Gonzalez
  */
 public class ResourceBundleLocalizer implements ILocalizer
 {

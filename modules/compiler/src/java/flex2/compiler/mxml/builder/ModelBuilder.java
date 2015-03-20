@@ -41,8 +41,6 @@ import flex2.compiler.mxml.rep.MxmlDocument;
 /**
  * This builder supports building a AnonymousObjectGraph from a
  * ModelNode and it's children.
- *
- * @author Clement Wong
  */
 class ModelBuilder extends AnonymousObjectGraphBuilder
 {

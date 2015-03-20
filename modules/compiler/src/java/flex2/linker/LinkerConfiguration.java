@@ -28,8 +28,6 @@ import flex2.compiler.common.FramesConfiguration.FrameInfo;
 /**
  * This interface is used to restrict consumers of
  * flex2.compiler.common.Configuration to linker specific options.
- *
- * @author Clement Wong
  */
 public interface LinkerConfiguration
 {

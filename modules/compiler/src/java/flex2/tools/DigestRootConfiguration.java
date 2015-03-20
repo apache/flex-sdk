@@ -24,8 +24,6 @@ import flex2.compiler.config.ConfigurationValue;
 
 /**
  * Used to setup the "digest." prefix for the optioins in DigestConfiguration.
- * 
- * @author dloverin
  */
 public class DigestRootConfiguration
 {

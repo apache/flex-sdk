@@ -31,8 +31,6 @@ import java.util.Map;
  * duplicate errors and warnings.  The second is to swallow the source
  * param.  Downstream loggers like ConsoleLogger will lookup the
  * actual line text using the path and the line number.
- *
- * @author Paul Reilly
  */
 public class AbstractSyntaxTreeLogAdapter extends AbstractLogAdapter
 {

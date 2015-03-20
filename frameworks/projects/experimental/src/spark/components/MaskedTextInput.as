@@ -77,10 +77,6 @@ package spark.components {
      * Phone: (###)###.##.##.##
      * IBAN:  ES##-####-####-##-##########
      * CCC:   ####-####-##-##########
-     *
-     * @author Carlos Rovira (http://www.carlosrovira.com)
-     * @created 05/12/13
-     * @updated 22/01/14
      */
     public class MaskedTextInput extends TextInput {
         public function MaskedTextInput() {

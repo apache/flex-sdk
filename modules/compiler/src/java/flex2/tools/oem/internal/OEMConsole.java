@@ -28,7 +28,6 @@ import flex2.tools.oem.Message;
  * System.out.
  *
  * @version 2.0.1
- * @author Clement Wong
  */
 public class OEMConsole extends ConsoleLogger implements Logger
 {

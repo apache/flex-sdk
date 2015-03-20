@@ -31,8 +31,6 @@ import java.awt.Color;
 /**
  * This class is used to construct a DefineEditText SWF tag from a
  * FontBuilder.
- *
- * @author Peter Farland
  */
 public class EditTextBuilder implements TagBuilder
 {

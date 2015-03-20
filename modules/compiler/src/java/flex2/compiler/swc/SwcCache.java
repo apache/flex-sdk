@@ -56,8 +56,6 @@ import flex2.compiler.util.ThreadLocalToolkit;
  * or export.  We could add more logic to do read/write
  * synchronization on specific SwcGroups.  From tests though it looks
  * like the two layers of caching will provide enough for performance.
- *
- * @author Brian Deitte
  */
 public class SwcCache
 {

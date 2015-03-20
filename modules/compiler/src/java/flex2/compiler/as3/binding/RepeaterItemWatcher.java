@@ -22,8 +22,6 @@ package flex2.compiler.as3.binding;
 /**
  * This class represents the information needed to construct the code
  * for a runtime Repeater item watcher.
- *
- * @author Paul Reilly
  */
 public class RepeaterItemWatcher extends Watcher
 {

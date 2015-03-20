@@ -22,8 +22,6 @@ package flex2.compiler.mxml.reflect;
 /**
  * Defines the reflection API for a property or variable, which has
  * Inspectable metadata on it.
- *
- * @author Clement Wong
  */
 public interface Inspectable
 {

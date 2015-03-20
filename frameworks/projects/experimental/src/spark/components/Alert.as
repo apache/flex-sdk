@@ -101,9 +101,8 @@ package spark.components {
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
-     */ /**
-     * @author Bogdan Dinu (http://www.badu.ro)
-     */ public class Alert extends Panel {
+     */
+	 public class Alert extends Panel {
         [SkinPart(required="false")]
         public var messageDisplay:TextBase;
 

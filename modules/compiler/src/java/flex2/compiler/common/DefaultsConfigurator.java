@@ -48,8 +48,6 @@ import java.util.ArrayList;
  * In the end, if it is too much of a pain, don't worry about it, just
  * set your local defaults inside your configuration object.  No big
  * deal.
- *
- * @author Roger Gonzalez
  */
 public class DefaultsConfigurator
 {

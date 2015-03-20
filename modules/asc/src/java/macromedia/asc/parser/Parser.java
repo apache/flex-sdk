@@ -33,8 +33,6 @@ import static macromedia.asc.parser.States.*;
 
 /**
  * Parse ECMAScript programs.
- *
- * @author Jeff Dyer
  */
 public final class Parser
 {

@@ -51,8 +51,6 @@ import java.util.HashSet;
  */
 /**
  * This class handles processing and validating Flex specific metadata.
- *
- * @author Clement Wong
  */
 public class SyntaxTreeEvaluator extends EvaluatorAdapter
 {

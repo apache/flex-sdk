@@ -31,8 +31,6 @@ import java.util.TreeMap;
  * definitions in a SWC that are resolved in other SWCs. For each
  * script, the dependency types are kept as are the SWCs that resolve
  * the dependency.
- *  
- * @author dloverin
  */
 class SwcExternalScriptInfoImpl implements SwcExternalScriptInfo
 {

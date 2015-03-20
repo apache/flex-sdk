@@ -56,8 +56,6 @@ import java.util.Map;
  * DataBindingFirstPassEvaluator during the generate phase and
  * generating watchers if the original MXML document contained one or more data
  * binding expressions.
- *
- * @author Paul Reilly
  */
 public final class DataBindingExtension implements Extension
 {

@@ -25,8 +25,6 @@ import flex2.compiler.io.VirtualFile;
  * Defines the API for path resolver implemenations.  Other than
  * PathResolver, implemenations of this interface resolve paths in a
  * single way.
- *
- * @author Brian Deitte
  */
 public interface SinglePathResolver
 {

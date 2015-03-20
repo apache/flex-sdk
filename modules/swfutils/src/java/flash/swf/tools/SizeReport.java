@@ -25,8 +25,6 @@ import java.util.*;
  * Helper class generally used by TagEncoderReporter to collect size
  * related metrics for a given SWF and to generate an optional XML
  * report of the summarized data.
- *
- * @author Corey Lucier
  */
 public class SizeReport
 {

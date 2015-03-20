@@ -29,8 +29,6 @@ import static macromedia.asc.parser.Tokens.*;
  * NodePrinter.h
  *
  * This visitor prints the parse tree
- *
- * @author Jeff Dyer
  */
 public class NodePrinter implements Evaluator
 {

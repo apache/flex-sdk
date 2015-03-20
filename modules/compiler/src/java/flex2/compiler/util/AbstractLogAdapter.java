@@ -27,8 +27,6 @@ import flex2.compiler.Logger;
  * This class is a default implementation of Logger.  It just passes
  * through each call to the wrapped Logger.  It is useful if you want
  * to filter a subset of the Logger's methods.
- *
- * @author Paul Reilly
  */
 public abstract class AbstractLogAdapter implements Logger
 {

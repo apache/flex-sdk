@@ -74,8 +74,6 @@ import java.io.File;
  * <code>
  *     &lt;doc-classes class="SparkSkinsClasses"/&gt;
  * </code>
- *
- * @author gauravj
  */
 public final class AsDocTask extends FlexTask implements DynamicConfigurator
 {

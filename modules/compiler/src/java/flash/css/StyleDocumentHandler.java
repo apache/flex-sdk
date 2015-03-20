@@ -28,8 +28,6 @@ import org.w3c.css.sac.*;
 /**
  * An implementation of DocumentHandler, which creates rules, hands
  * them off to the StyleParser, and populates them with descriptors.
- *
- * @author Paul Reilly
  */
 public class StyleDocumentHandler implements DocumentHandler
 {

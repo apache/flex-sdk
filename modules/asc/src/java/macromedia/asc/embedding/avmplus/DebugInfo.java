@@ -21,8 +21,6 @@ package macromedia.asc.embedding.avmplus;
 
 /**
  * DebugInfo
- *
- * @author Gary Grossman
  */
 public class DebugInfo
 {

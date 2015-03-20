@@ -29,8 +29,6 @@ import flash.swf.TagHandler;
  * Any frame can have a FrameLabel tag but only the main timeline may
  * have bookmark labels.  bookmark labels on sprite timelines are
  * ignored by the player.
- *
- * @author Clement Wong
  * @since SWF3
  */
 public class FrameLabel extends Tag

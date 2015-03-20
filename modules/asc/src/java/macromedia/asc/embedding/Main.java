@@ -33,9 +33,6 @@ import macromedia.asc.util.ObjectList;
 import macromedia.asc.util.Version;
 import static macromedia.asc.embedding.avmplus.Features.*;
 
-/**
- * @author Jeff Dyer
- */
 public class Main
 {
 	static boolean show_parsetrees = false;

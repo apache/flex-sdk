@@ -21,8 +21,6 @@ package flex2.compiler.mxml.rep;
 
 /**
  * This class represents a script block in a Mxml document.
- *
- * @author Edwin Smith
  */
 public class Script implements LineNumberMapped
 {

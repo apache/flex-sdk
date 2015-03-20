@@ -25,8 +25,6 @@ import flash.swf.TagHandler;
 
 /**
  * This represents a SetTabIndex SWF tag.
- *
- * @author Edwin Smith
  */
 public class SetTabIndex extends Tag
 {

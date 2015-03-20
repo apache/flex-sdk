@@ -33,9 +33,6 @@ import java.io.IOException;
 /**
  * This class is used to construct a DefineBits or DefineSprite SWF
  * tag from a JPEGImage.
- *
- * @author Paul Reilly
- * @author Peter Farland
  */
 public class DefineBitsBuilder
 {

@@ -51,8 +51,6 @@ import static macromedia.asc.parser.Tokens.*;
 
 /**
  * ActionBlockEmitter
- * 
- * @author Jeff Dyer
  */
 public class ActionBlockEmitter extends Emitter
 {

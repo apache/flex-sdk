@@ -42,9 +42,7 @@ package spark.components.itemRenderers {
      *
      */
     [States("normal", "hovered", "selected")]
-    /**
-     * @author Bogdan Dinu (http://www.badu.ro)
-     */ public class MenuCoreItemRenderer extends ItemRenderer implements IListItemRenderer {
+    public class MenuCoreItemRenderer extends ItemRenderer implements IListItemRenderer {
         /**
          * getter of the subMenu, used in keyboard navigation
          */

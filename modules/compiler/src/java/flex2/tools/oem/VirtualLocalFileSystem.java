@@ -35,7 +35,6 @@ import flex2.compiler.io.VirtualFile;
  * 
  * @see flex2.tools.oem.VirtualLocalFile
  * @version 2.0.1
- * @author Clement Wong
  */
 public class VirtualLocalFileSystem
 {

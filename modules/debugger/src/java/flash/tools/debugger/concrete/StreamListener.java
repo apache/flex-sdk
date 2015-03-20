@@ -25,7 +25,6 @@ import java.io.Writer;
 
 /**
  * Reads a stream, and sends the contents somewhere.
- * @author mmoreart
  */
 public class StreamListener extends Thread {
 	Reader fIn;

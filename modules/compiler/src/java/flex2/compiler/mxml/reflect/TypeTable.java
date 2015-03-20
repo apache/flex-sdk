@@ -44,8 +44,6 @@ import macromedia.asc.util.ContextStatics;
  * Design Note: flex2.compiler.mxml.reflect.* interface with
  * flex2.compiler.abc.*. That way, the MXML type system is not tightly
  * coupled with the player VM type system.
- *
- * @author Clement Wong
  */
 public class TypeTable
 {

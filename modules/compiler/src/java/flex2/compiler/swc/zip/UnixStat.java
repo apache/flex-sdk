@@ -20,7 +20,6 @@ package flex2.compiler.swc.zip;
 /**
  * Constants from stat.h on Unix systems.
  *
- * @author Stefan Bodewig
  * @version $Revision: 1.1 $
  */
 public interface UnixStat {

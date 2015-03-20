@@ -25,8 +25,6 @@ import flash.swf.TagHandler;
 
 /**
  * Represents a DefineFontAlignZones SWF tag.
- *
- * @author Brian Deitte
  */
 public class DefineFontAlignZones extends DefineTag
 {

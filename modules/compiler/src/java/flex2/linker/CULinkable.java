@@ -31,8 +31,6 @@ import java.util.HashSet;
 /**
  * Represents a CompilationUnit wrapper, which exposes only the
  * information used during dependency traversal.
- *
- * @author Roger Gonzalez
  */
 public class CULinkable implements Linkable
 {

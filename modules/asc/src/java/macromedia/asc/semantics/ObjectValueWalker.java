@@ -24,8 +24,7 @@ import java.util.Iterator;
 /** ObjectValueWalker<P>
  * Takes a starting ObjectValue and returns an interator that walks up the prototype/interface chain.<BR> 
  * All the next() are on demand, so we don't waste too much time preloading more than we may need.
- * 
- * @author Jono Spiro */
+ */
 public abstract class ObjectValueWalker implements Iterator<ObjectValue>
 {
 	/** Doesn't do anything (needed to implement Iterator) */

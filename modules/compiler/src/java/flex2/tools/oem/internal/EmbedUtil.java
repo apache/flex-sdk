@@ -29,7 +29,6 @@ import flex2.tools.oem.Logger;
  * should have wrappers added here and FB should switch to using them.
  *
  * @version 3.0
- * @author Paul Reilly
  */
 public class EmbedUtil
 {

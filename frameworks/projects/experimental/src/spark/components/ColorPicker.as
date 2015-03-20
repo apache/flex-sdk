@@ -67,9 +67,8 @@ package spark.components {
      */ /**
      *  Subclass DropDownList and make it work like a ColorPicker
      *
-     */ /**
-     * @author Bogdan Dinu (http://www.badu.ro)
-     */ public class ColorPicker extends ComboBox {
+     */
+	 public class ColorPicker extends ComboBox {
         /**
          *  @langversion 3.0
          *  @playerversion Flash 10.1

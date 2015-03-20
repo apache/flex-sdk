@@ -22,8 +22,6 @@ package flex2.compiler.config;
 /**
  * A convenient ConfigurationInfo extension which returns true from
  * isAdvanced().
- *
- * @author Roger Gonzalez
  */
 public class AdvancedConfigurationInfo extends ConfigurationInfo
 {

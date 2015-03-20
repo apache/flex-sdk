@@ -23,8 +23,6 @@ import java.util.Arrays;
 
 /**
  * This represents a ZoneRecord SWF tag.
- *
- * @author Brian Deitte
  */
 public class ZoneRecord
 {

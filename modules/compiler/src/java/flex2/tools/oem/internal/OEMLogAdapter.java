@@ -28,7 +28,6 @@ import flex2.tools.oem.*;
  * Extends AbstractLogger to support logging to an OEM API logger.
  *
  * @version 2.0.1
- * @author Clement Wong
  */
 public class OEMLogAdapter extends AbstractLogger
 {

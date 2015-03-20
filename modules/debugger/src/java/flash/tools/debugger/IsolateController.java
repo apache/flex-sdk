@@ -26,8 +26,6 @@ import flash.tools.debugger.expression.PlayerFaultException;
  * 
  * @see flash.tools.debugger.IsolateSession,
  *      flash.tools.debugger.Session#getWorkerSession(int)
- * @author anirudhs
- * 
  */
 public interface IsolateController {
 	

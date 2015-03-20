@@ -33,8 +33,6 @@ import flex2.compiler.util.QName;
 /**
  * This builder handles building a Model instance from an
  * InlineComponentNode.  The Model instance is used as an rvalue.
- *
- * @author Paul Reilly
  */
 class InlineComponentBuilder extends AbstractBuilder
 {

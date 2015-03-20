@@ -50,10 +50,6 @@ import java.util.*;
  * Loads and merges all the SWC specified by the
  * external-library-path, rsl-library-path, and library-path, then
  * supports various queries, like getSource() and getResourceBundle().
- * Most of the work is handled by SwcGroup.
- *
- * @author Roger Gonzalez
- * @author Brian Deitte
  * @see flex2.compiler.swc.SwcGroup
  */
 public class CompilerSwcContext

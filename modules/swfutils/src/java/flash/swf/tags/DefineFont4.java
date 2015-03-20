@@ -25,8 +25,6 @@ import flash.swf.TagHandler;
 
 /**
  * Represents a DefineFont4 SWF tag.
- * 
- * @author Peter Farland
  */
 public class DefineFont4 extends DefineFont implements Cloneable
 {

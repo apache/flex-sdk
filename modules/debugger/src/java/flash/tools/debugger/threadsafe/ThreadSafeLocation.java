@@ -22,7 +22,6 @@ import flash.tools.debugger.SourceFile;
 
 /**
  * Thread-safe wrapper for flash.tools.debugger.Location
- * @author Mike Morearty
  */
 public class ThreadSafeLocation extends ThreadSafeDebuggerObject implements Location {
 

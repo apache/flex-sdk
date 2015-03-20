@@ -24,7 +24,6 @@ import flash.tools.debugger.SourceFile;
 
 /**
  * Thread-safe wrapper for flash.tools.debugger.SourceFile
- * @author Mike Morearty
  */
 public class ThreadSafeSourceFile extends ThreadSafeDebuggerObject implements SourceFile {
 	

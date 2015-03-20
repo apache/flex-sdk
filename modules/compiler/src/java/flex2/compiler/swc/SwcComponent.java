@@ -21,8 +21,6 @@ package flex2.compiler.swc;
 
 /**
  * This represents a component within a SWC.
- *
- * @author Brian Deitte
  */
 public class SwcComponent implements flex2.tools.oem.Component
 {

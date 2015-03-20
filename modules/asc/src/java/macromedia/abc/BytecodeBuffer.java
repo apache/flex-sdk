@@ -24,9 +24,6 @@ import macromedia.asc.util.IntegerPool;
 import java.io.*;
 import java.util.*;
 
-/**
- * @author Clement Wong
- */
 public class BytecodeBuffer
 {
 	public BytecodeBuffer(byte[] bytecodes)

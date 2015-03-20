@@ -24,7 +24,6 @@ package flex2.compiler.mxml;
  * <p>
  * Note that prior to Flex 4, language and component namespaces overlapped.
  * </p>
- * @author Pete Farland
  */
 public interface MXMLNamespaces
 {

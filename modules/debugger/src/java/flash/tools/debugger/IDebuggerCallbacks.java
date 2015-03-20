@@ -22,8 +22,6 @@ import java.io.IOException;
 
 /**
  * Miscellaneous callbacks from the DJAPI to the debugger which is using it.
- * 
- * @author mmorearty
  */
 public interface IDebuggerCallbacks
 {

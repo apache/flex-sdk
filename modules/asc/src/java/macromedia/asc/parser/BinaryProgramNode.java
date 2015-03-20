@@ -25,12 +25,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 /**
- * @author Erik Tierney
- */
-/**
  * Node
- *
- * @author Jeff Dyer
  */
 public class BinaryProgramNode extends ProgramNode
 {

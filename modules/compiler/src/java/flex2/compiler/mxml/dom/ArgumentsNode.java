@@ -26,8 +26,6 @@ import flex2.compiler.util.QName;
 
 /**
  * Represents an &lt;arguments&gt; tag in the MXML language namespace.
- *
- * @author Clement Wong
  */
 public class ArgumentsNode extends Node
 {

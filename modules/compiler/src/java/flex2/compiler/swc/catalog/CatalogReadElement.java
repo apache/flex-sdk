@@ -23,8 +23,6 @@ package flex2.compiler.swc.catalog;
  * An element within catalog.xml.  This is used to provide context
  * when reading the catalog.xml (that is, we automatically know where
  * to parse next).  See CatalogReader for its usage
- *
- * @author Brian Deitte
  */
 public abstract class CatalogReadElement
 {

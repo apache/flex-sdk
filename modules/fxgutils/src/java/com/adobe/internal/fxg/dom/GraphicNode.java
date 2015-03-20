@@ -33,9 +33,6 @@ import com.adobe.internal.fxg.dom.types.ScalingGrid;
 
 /**
  * Represents the root &lt;Graphic&gt; element of an FXG Document.
- * 
- * @author Peter Farland
- * @author Sujata Das
  */
 public class GraphicNode extends AbstractFXGNode implements MaskableNode
 {

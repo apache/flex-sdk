@@ -25,7 +25,6 @@ import flex2.tools.oem.ProgressMeter;
  * A ProgressMeter implementation that outputs to System.out.
  *
  * @version 2.0.1
- * @author Clement Wong
  */
 public class OEMProgressMeter implements ProgressMeter
 {

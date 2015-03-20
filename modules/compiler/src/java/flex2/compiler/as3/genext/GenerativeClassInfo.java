@@ -39,8 +39,6 @@ import java.util.*;
  * A base class for data common to Bindable and Managed metadata
  * processing.
  *
- * @author Basil Hosmer
- * @author Paul Reilly
  */
 public abstract class GenerativeClassInfo
 {
