@@ -56,9 +56,6 @@ import flash.util.StringUtils;
 /**
  * Transforms translation files (usually .properties files) into
  * classes that extend ResourceBundle.
- *
- * @author Clement Wong
- * @author Brian Deitte
  */
 public class I18nCompiler extends AbstractSubCompiler implements flex2.compiler.SubCompiler
 {

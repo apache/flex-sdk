@@ -26,8 +26,6 @@ import flash.swf.TagHandler;
 
 /**
  * This represents a VideoFrame SWF tag.
- *
- * @author Clement Wong
  */
 public class VideoFrame extends Tag
 {

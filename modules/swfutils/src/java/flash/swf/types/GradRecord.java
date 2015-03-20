@@ -21,8 +21,6 @@ package flash.swf.types;
 
 /**
  * A value object for gradient record data.
- *
- * @author Clement Wong
  */
 public class GradRecord
 {

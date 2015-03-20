@@ -21,8 +21,6 @@ package flash.css;
 
 /**
  * Represents a CSS class, id, or pseudo condition.
- *
- * @author Peter Farland
  */
 public class StyleCondition
 {

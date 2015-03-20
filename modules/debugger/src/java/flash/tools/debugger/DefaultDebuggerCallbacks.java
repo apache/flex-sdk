@@ -29,9 +29,6 @@ import java.util.regex.Pattern;
 
 import flash.util.Trace;
 
-/**
- * @author mmorearty
- */
 public class DefaultDebuggerCallbacks implements IDebuggerCallbacks
 {
 	private boolean m_computedExeLocations;

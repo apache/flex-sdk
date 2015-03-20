@@ -23,8 +23,6 @@ import java.util.Iterator;
 
 /**
  * Defines the API of a unit that supports linking.
- *
- * @author Roger Gonzalez
  */
 public interface Linkable
 {

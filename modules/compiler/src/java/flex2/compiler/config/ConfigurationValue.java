@@ -25,8 +25,6 @@ import java.util.LinkedList;
 /**
  * This class represents an instance of a configuration option.  For
  * example, "-debug=true".
- *
- * @author Roger Gonzalez
  */
 public class ConfigurationValue
 {

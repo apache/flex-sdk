@@ -25,7 +25,6 @@ import flex2.tools.oem.Message;
  * A generic implementation of Message.
  *
  * @version 2.0.1
- * @author Clement Wong
  */
 class GenericMessage implements Message
 {

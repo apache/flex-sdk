@@ -23,8 +23,6 @@ import flash.swf.types.Rect;
 
 /**
  * Represents a SWF header.
- *
- * @author Clement Wong
  */
 public class Header
 {

@@ -21,8 +21,6 @@ package flex2.compiler.mxml.reflect;
 
 /**
  * Defines the reflection API for a property or variable.
- *
- * @author Clement Wong
  */
 public interface Property extends Assignable
 {

@@ -40,8 +40,6 @@ import java.util.Iterator;
 /**
  * This class contains utility methods used to transcode embedded
  * assets.
- *
- * @author Brian Deitte
  */
 public class EmbedUtil
 {

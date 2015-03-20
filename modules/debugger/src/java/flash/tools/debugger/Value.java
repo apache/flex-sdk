@@ -21,8 +21,6 @@ import flash.tools.debugger.concrete.DVariable;
 
 /**
  * An ActionScript value, for example, the value of a variable or constant.
- * 
- * @author mmorearty
  */
 public interface Value
 {

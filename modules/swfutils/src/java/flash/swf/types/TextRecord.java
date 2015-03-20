@@ -27,8 +27,6 @@ import java.util.List;
 
 /**
  * A value object for text record data.
- *
- * @author Clement Wong
  */
 public class TextRecord
 {

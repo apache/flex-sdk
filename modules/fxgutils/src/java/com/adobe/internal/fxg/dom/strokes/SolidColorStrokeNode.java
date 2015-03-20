@@ -26,8 +26,6 @@ import com.adobe.internal.fxg.dom.DOMParserHelper;
 
 /**
  * The Class SolidColorStrokeNode.
- * 
- * @author Peter Farland
  */
 public class SolidColorStrokeNode extends AbstractStrokeNode
 {

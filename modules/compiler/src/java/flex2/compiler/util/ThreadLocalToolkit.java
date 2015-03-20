@@ -39,8 +39,6 @@ import java.util.Map;
  * leaks, though.  All the variables should be cleared at the end of a
  * compilation.  Otherwise, if the thread used for compilation
  * changes, lots of memory will be leaked with the old thread.
- *
- * @author Clement Wong
  */
 public final class ThreadLocalToolkit
 {

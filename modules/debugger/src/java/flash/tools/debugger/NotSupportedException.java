@@ -24,9 +24,7 @@ package flash.tools.debugger;
  * player that is being targeted.  For example, newer players
  * support the ability to have the debugger call arbitrary
  * functions, but older ones do not.
- * 
- * @author Mike Morearty
- */
+*/
 public class NotSupportedException extends PlayerDebugException {
 	private static final long serialVersionUID = -8873935118857320824L;
 

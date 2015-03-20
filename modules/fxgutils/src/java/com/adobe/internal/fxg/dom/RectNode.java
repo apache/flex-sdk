@@ -30,10 +30,6 @@ import flash.swf.types.LineStyle;
 import flash.swf.types.Rect;
 import flash.swf.types.ShapeRecord;
 
-/**
- * @author Peter Farland
- * @author Sujata Das
- */
 public class RectNode extends AbstractShapeNode
 {
     //--------------------------------------------------------------------------

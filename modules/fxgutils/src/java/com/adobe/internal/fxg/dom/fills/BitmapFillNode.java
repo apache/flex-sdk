@@ -28,10 +28,6 @@ import com.adobe.internal.fxg.dom.DOMParserHelper;
 import com.adobe.internal.fxg.dom.transforms.MatrixNode;
 import com.adobe.internal.fxg.dom.types.FillMode;
 
-/**
- * @author Peter Farland
- * @author Sujata Das
- */
 public class BitmapFillNode extends AbstractFillNode
 {
     //--------------------------------------------------------------------------

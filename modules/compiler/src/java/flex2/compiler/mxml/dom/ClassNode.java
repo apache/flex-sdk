@@ -21,8 +21,6 @@ package flex2.compiler.mxml.dom;
 
 /**
  * Represents a &lt;class&gt; tag in the MXML language namespace.
- *
- * @author Clement Wong
  */
 public class ClassNode extends PrimitiveNode
 {

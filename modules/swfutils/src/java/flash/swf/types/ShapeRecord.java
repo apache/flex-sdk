@@ -25,8 +25,6 @@ import java.util.List;
 
 /**
  * Defines the API for shape records.
- *
- * @author Clement Wong
  */
 public abstract class ShapeRecord
 {

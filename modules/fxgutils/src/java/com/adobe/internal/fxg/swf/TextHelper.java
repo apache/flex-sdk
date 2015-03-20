@@ -25,7 +25,6 @@ import java.util.regex.Pattern;
 /**
  * Utilities to help create Text.
  * 
- * @author Min Plunkett
  */
 public class TextHelper
 {

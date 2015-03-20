@@ -34,9 +34,6 @@ import com.adobe.internal.fxg.dom.transforms.MatrixNode;
 import com.adobe.internal.fxg.dom.types.InterpolationMethod;
 import com.adobe.internal.fxg.dom.types.SpreadMethod;
 
-/**
- * @author Peter Farland
- */
 public class RadialGradientFillNode extends AbstractFillNode implements ScalableGradientNode
 {
     private static final double FOCAL_MIN_INCLUSIVE = -1.0;

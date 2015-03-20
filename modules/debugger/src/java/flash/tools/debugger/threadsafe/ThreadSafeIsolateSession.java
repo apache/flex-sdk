@@ -34,7 +34,6 @@ import flash.tools.debugger.expression.PlayerFaultException;
 
 /**
  * Thread-safe wrapper for flash.tools.debugger.IsolateSession
- * @author Anirudh Sasikumar
  */
 public class ThreadSafeIsolateSession extends ThreadSafeDebuggerObject
 		implements IsolateSession {

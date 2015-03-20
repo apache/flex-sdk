@@ -30,8 +30,6 @@ import flash.swf.TagValues;
  * any number of times.
  *
  * @since SWF7
- *
- * @author Paul Reilly
  */
 
 public class ScriptLimits extends Tag

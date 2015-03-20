@@ -25,9 +25,6 @@ import macromedia.asc.parser.NodeFactory;
  * Package object builder.
  */
 
-/**
- * @author Jeff Dyer
- */
 public class ImportBuilder extends Builder
 {
 	public ImportBuilder(QName name)

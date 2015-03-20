@@ -27,8 +27,6 @@ import macromedia.asc.parser.ArgumentListNode;
  * array element watcher.  For example, for the data binding
  * expression, "{foo[bar, baz]}", we need watchers for "bar" and
  * "baz", so when they change, the destination will update.
- *
- * @author Paul Reilly
  */
 public class ArrayElementWatcher extends EvaluationWatcher
 {

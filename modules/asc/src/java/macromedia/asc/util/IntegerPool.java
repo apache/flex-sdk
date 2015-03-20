@@ -19,9 +19,7 @@
 
 package macromedia.asc.util;
 
-/**
- * @author Clement Wong
- */
+
 public final class IntegerPool
 {
 	private static final Integer[] constants;

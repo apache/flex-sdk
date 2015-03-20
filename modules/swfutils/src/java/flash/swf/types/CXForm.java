@@ -23,8 +23,6 @@ import flash.swf.SwfEncoder;
 
 /**
  * A value object for CXForm data.
- *
- * @author Clement Wong
  */
 public class CXForm
 {

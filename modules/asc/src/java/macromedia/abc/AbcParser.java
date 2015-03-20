@@ -34,9 +34,6 @@ import java.util.Map;
 import java.util.HashMap;
 import java.util.Set;
 
-/**
- * @author Erik Tierney
- */
 @SuppressWarnings("nls") // TODO: Remove
 public final class AbcParser
 {

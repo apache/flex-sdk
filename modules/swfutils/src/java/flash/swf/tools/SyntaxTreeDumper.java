@@ -30,8 +30,6 @@ import macromedia.asc.util.Context;
 
 /**
  * Utility for dumping an ASC AST in XML format.
- *
- * @author Paul Reilly
  */
 public class SyntaxTreeDumper implements Evaluator
 {

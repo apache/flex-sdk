@@ -26,8 +26,6 @@ import java.util.Set;
 
 /**
  * Represents a &lt;Binding&gt; tag in the MXML language namespace.
- *
- * @author Clement Wong
  */
 public class BindingNode extends Node
 {

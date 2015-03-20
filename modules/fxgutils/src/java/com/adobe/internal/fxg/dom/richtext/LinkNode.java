@@ -33,7 +33,6 @@ import com.adobe.internal.fxg.dom.TextNode;
  * Represents a &lt;p /&gt; FXG link node.
  * 
  * @since 2.0
- * @author Min Plunkett
  */
 public class LinkNode extends AbstractRichTextLeafNode
 {

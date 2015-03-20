@@ -183,7 +183,6 @@ Exception {
     U16 type_index                      // Type matched by this exception handler
 }
  *
- * @author Clement Wong
  */
 public final class Decoder
 {

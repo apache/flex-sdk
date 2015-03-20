@@ -43,8 +43,6 @@ import java.util.Iterator;
 /**
  * This builder handles building an Vector instance from an VectorNode
  * and it's children.
- *
- * @author Paul Reilly
  */
 class VectorBuilder extends AbstractBuilder
 {

@@ -35,8 +35,6 @@ import java.net.MalformedURLException;
 /**
  * Represents a GIF/PNG image.  PixelGrabber is used to lookup the
  * width and height.
- *
- * @author Peter Farland
  */
 public class LosslessImage extends BitmapImage
 {

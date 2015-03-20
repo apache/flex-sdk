@@ -49,7 +49,6 @@ import com.adobe.internal.fxg.dom.types.NumberInherit.NumberInheritAsEnum;
  * A base text left node class that have character formatting.
  * 
  * @since 2.0
- * @author Min Plunkett
  */
 public abstract class AbstractRichTextLeafNode extends AbstractRichTextNode
 {

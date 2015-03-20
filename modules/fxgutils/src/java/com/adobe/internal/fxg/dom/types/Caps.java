@@ -31,8 +31,6 @@ package com.adobe.internal.fxg.dom.types;
  *   1 = none
  *   2 = square
  * </pre>
- * 
- * @author Peter Farland
  */
 public enum Caps
 {

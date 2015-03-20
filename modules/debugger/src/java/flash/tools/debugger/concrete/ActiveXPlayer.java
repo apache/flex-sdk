@@ -21,9 +21,6 @@ package flash.tools.debugger.concrete;
 
 import java.io.File;
 
-/**
- * @author mmorearty
- */
 public class ActiveXPlayer extends AbstractPlayer
 {
 	public ActiveXPlayer(File iexploreExe, File path)

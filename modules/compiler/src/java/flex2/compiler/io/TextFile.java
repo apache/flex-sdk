@@ -24,8 +24,6 @@ import java.io.InputStream;
 
 /**
  * Represents a VirtualFile implementation backed by a String object.
- *
- * @author Clement Wong
  */
 public class TextFile implements VirtualFile
 {

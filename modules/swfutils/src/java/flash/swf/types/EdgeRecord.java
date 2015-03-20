@@ -21,8 +21,6 @@ package flash.swf.types;
 
 /**
  * A common base class for edge record data and logic.
- *
- * @author Clement Wong
  */
 public abstract class EdgeRecord extends ShapeRecord
 {

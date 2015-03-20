@@ -77,8 +77,6 @@ import java.util.Iterator;
  * This class handles the AST manipulation of wrapping properties and
  * variables, with getter/setter pairs, which handle change detection
  * and the dispatching of mx.events.PropertyChangeEvent's.
- *
- * @author Paul Reilly
  */
 public class BindableSecondPassEvaluator extends GenerativeSecondPassEvaluator
 {

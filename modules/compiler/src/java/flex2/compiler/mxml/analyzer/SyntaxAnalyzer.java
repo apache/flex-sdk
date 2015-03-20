@@ -44,8 +44,6 @@ import java.util.Set;
  * This analyzer serves two purposes:
  * a) verify syntax tree, e.g. checking language tag attributes
  * b) register includes and dependencies
- *
- * @author Clement Wong
  */
 public class SyntaxAnalyzer extends AnalyzerAdapter
 {

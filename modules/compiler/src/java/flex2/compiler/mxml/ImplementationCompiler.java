@@ -58,8 +58,6 @@ import java.util.Set;
 /**
  * This class handles the second pass of the mxml subcompiler.  It
  * generates a full implementation and generates byte code.
- *
- * @author Clement Wong
  * 
  * Changed to extend AbstractSubCompiler to clean up benchmarking code and enable 
  * embedded compiler benchmarking - bfrazer

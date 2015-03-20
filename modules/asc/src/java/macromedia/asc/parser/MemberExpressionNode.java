@@ -24,8 +24,6 @@ import static macromedia.asc.parser.Tokens.*;
 
 /**
  * Node
- *
- * @author Jeff Dyer
  */
 public class MemberExpressionNode extends Node
 {

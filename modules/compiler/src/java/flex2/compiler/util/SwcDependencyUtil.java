@@ -45,8 +45,6 @@ import flex2.compiler.util.graph.Vertex;
 
 /**
  * Utility to find the dependency between a given set of SWCs.
- * 
- * @author dloverin
  */
 public class SwcDependencyUtil
 {

@@ -25,8 +25,6 @@ import flash.swf.tags.DefineTag;
 
 /**
  * A value object for morph fill style data.
- *
- * @author Clement Wong
  */
 public class MorphFillStyle
 {

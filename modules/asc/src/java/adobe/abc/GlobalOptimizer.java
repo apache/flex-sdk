@@ -134,9 +134,6 @@ import static java.lang.Boolean.FALSE;
  */
 
 
-/**
- * @author Edwin Smith
- */
 public class GlobalOptimizer
 {
 	// default configuration flags
@@ -2043,8 +2040,6 @@ public class GlobalOptimizer
 	 * have the lowest indexes.
 	 * 
 	 * TODO - remove dup namespaces from nssets & remove dup nssets
-	 * 
-	 * @author edwsmith
 	 */
 	class Abc
 	{

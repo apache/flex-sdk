@@ -23,8 +23,6 @@ import flash.swf.tags.DefineTag;
 
 /**
  * Defines the API for building a SWF tag.
- *
- * @author Peter Farland
  */
 public interface TagBuilder
 {

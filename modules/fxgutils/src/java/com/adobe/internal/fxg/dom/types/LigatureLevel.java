@@ -42,7 +42,6 @@ package com.adobe.internal.fxg.dom.types;
  *   3 = exotic
  * </pre>
  * 
- * @author Min Plunkett
  */
 public enum LigatureLevel
 {

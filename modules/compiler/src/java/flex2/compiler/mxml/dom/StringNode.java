@@ -21,8 +21,6 @@ package flex2.compiler.mxml.dom;
 
 /**
  * Represents an &lt;String&gt; tag in the MXML language namespace.
- *
- * @author Clement Wong
  */
 public class StringNode extends PrimitiveNode
 {

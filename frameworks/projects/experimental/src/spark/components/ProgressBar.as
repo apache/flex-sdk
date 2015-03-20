@@ -34,10 +34,8 @@ package spark.components {
     // for asdoc
     [Experimental]
 
-/**
+	/**
      * Plain and simple progress bar
-     *
-     * @author Bogdan Dinu (http://www.badu.ro)
      */
     public class ProgressBar extends SkinnableComponent {
         [SkinPart(required="false")]

@@ -38,8 +38,6 @@ import flash.util.Trace;
  * This SwcArchive works like the default SwcDynamicArchive except in
  * its loading, which is done lazily.
  *
- * @author Brian Deitte
- * @author Paul Reilly
  */
 public class SwcLazyReadArchive extends SwcDynamicArchive
 {

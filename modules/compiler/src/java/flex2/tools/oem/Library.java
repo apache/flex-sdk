@@ -214,7 +214,6 @@ import macromedia.asc.util.ContextStatics;
  * @see flex2.tools.oem.Configuration
  * @see flex2.tools.oem.Project
  * @version 2.0.1
- * @author Clement Wong
  */
 public class Library implements Builder, Cloneable
 {

@@ -37,7 +37,6 @@ package com.adobe.internal.fxg.dom.types;
  *   4 = lowercaseToSmallCaps
  * </pre>
  * 
- * @author Min Plunkett
  */
 public enum TypographicCase
 {

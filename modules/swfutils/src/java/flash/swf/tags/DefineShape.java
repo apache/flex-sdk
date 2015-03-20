@@ -29,8 +29,6 @@ import java.util.LinkedList;
 
 /**
  * Represents a DefineShape SWF tag.
- *
- * @author Clement Wong
  */
 public class DefineShape extends DefineTag
 {

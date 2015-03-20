@@ -32,11 +32,6 @@ package com.adobe.internal.fxg.dom.types;
  *   1 = alpha
  *   2 = luminosity
  * </pre>
- * 
- * 
- * 
- * @author Peter Farland
- * @author Sujata Das
  */
 public enum MaskType
 {

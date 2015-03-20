@@ -49,8 +49,6 @@ import flex2.compiler.util.ThreadLocalToolkit;
  * 
  * This tool accepts all the command line options that mxmlc does but only uses the options to gather SWCs, it does 
  * not modify the file system in any way.
- * 
- * @author dloverin
  *
  */
 public class SwcDependencies extends Tool

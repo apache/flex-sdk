@@ -26,8 +26,6 @@ import static macromedia.asc.parser.Tokens.*;
 
 /**
  * Instance builder.
- *
- * @author Jeff Dyer
  */
 public class InstanceBuilder extends Builder
 {

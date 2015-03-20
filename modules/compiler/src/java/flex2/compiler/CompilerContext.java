@@ -28,9 +28,6 @@ import macromedia.asc.util.Context;
  * subsystem to another and for reusing objects in multiple phases.
  * Each CompilationUnit is paired with it's own CompilerContext.  This
  * class also facilitates passing around and reusing ASC's context.
- *
- * @author Clement Wong
- * @author Cathy Murphy
  * @see flex2.compiler.CompilationUnit
  * @see macromedia.asc.util.Context
  */

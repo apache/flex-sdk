@@ -27,7 +27,6 @@ import flex2.compiler.swc.SwcCache;
  * library path elements.
  *
  * @since 3.0
- * @author dloverin
  */
 public class LibraryCache extends CacheBase
 {

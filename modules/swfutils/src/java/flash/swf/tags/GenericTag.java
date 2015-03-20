@@ -23,8 +23,6 @@ package flash.swf.tags;
  * Tag that just contains a byte[] payload.  We can use this to hold
  * any tag in its packed format, and also to hold tags that don't need
  * any unpacking.
- *
- * @author Clement Wong
  */
 public class GenericTag extends flash.swf.Tag
 {

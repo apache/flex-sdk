@@ -28,7 +28,6 @@ import flex2.compiler.swc.SwcException;
  * java.util.zip.ZipOutputStream java.util.zip.ZipOutputStream} will
  * only use the local file data in both places.</p>
  *
- * @author Stefan Bodewig
  * @version $Revision: 1.1 $
  */
 public interface ZipExtraField {

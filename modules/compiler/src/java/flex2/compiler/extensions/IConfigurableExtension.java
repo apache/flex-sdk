@@ -23,8 +23,6 @@ import java.util.List;
 
 /**
  * Defines the API for extensions, which support parameters.
- *
- * @author Andrew Westberg
  */
 public interface IConfigurableExtension
 {

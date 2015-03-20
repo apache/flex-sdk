@@ -27,7 +27,6 @@ package com.adobe.internal.fxg.dom.types;
  *   0 = auto
  * </pre>
  * 
- * @author Min Plunkett
  */
 public class NumberPercentAuto
 {

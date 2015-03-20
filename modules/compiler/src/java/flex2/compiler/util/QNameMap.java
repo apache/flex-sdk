@@ -25,8 +25,6 @@ import java.util.HashMap;
  * This class represents a map of QName to Objects.  It includes handy
  * methods, like containsKey(String, String), which allow performing
  * collection operations without having to create a new QName.
- *
- * @author Clement Wong
  */
 public class QNameMap<V extends Object> extends HashMap<QName, V>
 {

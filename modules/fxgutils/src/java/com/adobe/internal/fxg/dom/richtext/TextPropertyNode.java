@@ -28,8 +28,6 @@ import com.adobe.internal.fxg.dom.TextNode;
  * A FXG node represents complex property values.
  * 
  * @since 2.0
- * @author Peter Farland
- * @author Min Punkett
  */
 public class TextPropertyNode extends DelegateNode
 {

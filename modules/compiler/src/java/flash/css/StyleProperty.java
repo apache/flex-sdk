@@ -22,8 +22,6 @@ package flash.css;
 /**
  * A simpler version of <code>Descriptor</code>, which doesn't
  * have any W3C SAC dependencies.
- *
- * @author Pete Farland
  */
 public class StyleProperty
 {

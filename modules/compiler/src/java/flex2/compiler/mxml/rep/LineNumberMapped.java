@@ -23,8 +23,6 @@ package flex2.compiler.mxml.rep;
  * This interface defines the API for getting and setting an XML line
  * number.  This interface isn't used directly, but keeps implementers
  * consistent.
- *
- * @author Paul Reilly
  */
 interface LineNumberMapped
 {

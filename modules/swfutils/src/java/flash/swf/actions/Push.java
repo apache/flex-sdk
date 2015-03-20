@@ -26,8 +26,6 @@ import flash.swf.ActionConstants;
 
 /**
  * Represents an AS2 "push" byte code.
- *
- * @author Clement Wong
  */
 public class Push extends Action
 {

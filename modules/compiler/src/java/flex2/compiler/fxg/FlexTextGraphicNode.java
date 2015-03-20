@@ -33,8 +33,6 @@ import com.adobe.internal.fxg.dom.TextGraphicNode;
 /**
  * A Flex specific override for TextGraphicNode used to capture the 
  * attributes specified on a &lt;TextGraphic&gt; node in FXG 1.0.
- * 
- * @author Peter Farland
  * @since FXG 1.0
  */
 public class FlexTextGraphicNode extends TextGraphicNode

@@ -22,9 +22,6 @@ package macromedia.asc.parser;
 import macromedia.asc.util.Context;
 import macromedia.asc.semantics.Value;
 
-/**
- * @author Erik Tierney
- */
 public class BinaryInterfaceDefinitionNode extends BinaryClassDefNode
 {
 	public BinaryInterfaceDefinitionNode(Context cx, PackageDefinitionNode pkgdef, AttributeListNode attrs, IdentifierNode name, ListNode interfaces, StatementListNode statements)

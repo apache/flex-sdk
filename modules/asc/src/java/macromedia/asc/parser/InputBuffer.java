@@ -28,8 +28,6 @@ import static macromedia.asc.embedding.avmplus.Features.*;
 
 /**
  * InputBuffer.h
- *
- * @author Jeff Dyer
  * 
  * Notes on current restructuring:
  *  This is taking a lot of time. The existing use of this module is complex and fragile,

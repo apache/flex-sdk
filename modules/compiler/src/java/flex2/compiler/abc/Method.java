@@ -25,7 +25,6 @@ import java.util.List;
 /**
  * This interface defines the TypeTable API for a function.
  *
- * @author Clement Wong
  * @see flex2.compiler.as3.reflect.TypeTable
  * @see flex2.compiler.abc.AbcClass#getGetter(String[], String, boolean)
  * @see flex2.compiler.abc.AbcClass#getMethod(String[], String, boolean)

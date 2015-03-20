@@ -34,8 +34,6 @@ import java.util.Map;
  * <code>Source</code> objects.  For example, when compiling an MXML
  * document, which includes data binding expressions, we create a new
  * <code>Source</code> for the <code>WatcherSetupUtil</code> class.
- *
- * @author Clement Wong
  */
 public final class ResourceContainer
 {

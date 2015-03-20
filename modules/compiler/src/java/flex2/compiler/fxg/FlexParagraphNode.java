@@ -24,8 +24,6 @@ import com.adobe.internal.fxg.dom.text.ParagraphNode;
 /**
  * A Flex specific override for ParagraphNode used catch attributes that need to
  * be renamed on a &lt;p&gt; tag.
- * 
- * @author Peter Farland
  * @since 1.0
  */
 public class FlexParagraphNode extends ParagraphNode

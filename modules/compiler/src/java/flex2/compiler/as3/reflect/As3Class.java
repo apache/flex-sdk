@@ -31,8 +31,6 @@ import java.util.*;
 /**
  * TypeTable implementation based on type information extracted from
  * ASC's ClassDefinitionNode.
- *
- * @author Clement Wong
  */
 public final class As3Class implements AbcClass
 {

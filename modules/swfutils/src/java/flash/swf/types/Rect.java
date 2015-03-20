@@ -24,8 +24,6 @@ import flash.swf.tags.DefineTag;
 
 /**
  * A value object for rect data.
- *
- * @author Clement Wong
  */
 public class Rect
 {

@@ -34,8 +34,6 @@ import org.apache.flex.tools.FlexTool;
 /**
  * The entry-point for ASDoc.
  *
- * @see flex2.compiler.asdoc.AsDocAPI
- * @author Brian Deitte
  */
 public class ASDoc extends Tool implements FlexTool
 {

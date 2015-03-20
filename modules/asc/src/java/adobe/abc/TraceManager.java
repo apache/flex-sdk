@@ -29,7 +29,6 @@ import java.util.Stack;
  *    entries can be manually indented; the trace
  *    files get very large and difficult to read
  *    using a browser or other ready-to-hand viewer. 
- * @author Tom Harwood
  *
  */
 public class TraceManager

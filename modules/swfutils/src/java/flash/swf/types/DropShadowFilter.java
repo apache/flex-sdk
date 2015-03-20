@@ -21,8 +21,6 @@ package flash.swf.types;
 
 /**
  * A value object for drop shadow filter data.
- *
- * @author Roger Gonzalez
  */
 public class DropShadowFilter extends Filter
 {

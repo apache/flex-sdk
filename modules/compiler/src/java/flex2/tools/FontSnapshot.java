@@ -45,8 +45,6 @@ import flash.fonts.LocalFont;
  *
  * This is done as a separate tool and not as part of a compilation because of speed.  Reading all of
  * the fonts on a system takes a non-trivial amount of time. 
- *
- * @author Brian Deitte
  */
 public class FontSnapshot
 {

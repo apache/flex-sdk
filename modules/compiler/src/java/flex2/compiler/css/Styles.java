@@ -42,9 +42,6 @@ import java.util.Set;
  * Note: both old [Style] and new [StyleProperty] metadata formats may
  * be stored.
  * <p/>
- *
- * @author Paul Reilly
- * @author Pete Farland
  */
 public class Styles
 {

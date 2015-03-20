@@ -24,8 +24,6 @@ import com.adobe.internal.fxg.dom.GraphicNode;
 /**
  * A Flex specific override for GraphicNode used to record whether the
  * FXG document includes any &lt;TextGraphic&gt; child nodes.
- * 
- * @author Peter Farland
  */
 public class FlexGraphicNode extends GraphicNode
 {

@@ -34,8 +34,6 @@ import macromedia.asc.util.Context;
  * A base class for compiler extension logic common to Bindable and
  * Managed metadata processing.
  *
- * @author Basil Hosmer
- * @author Paul Reilly
  */
 public abstract class GenerativeExtension implements Extension
 {

@@ -43,8 +43,6 @@ import java.util.ArrayList;
 /**
  * A simple test for Cubic to Quadratic conversion of beziers that is required for
  * non-True Type Fonts. This sample uses a simple circle from Java AWT's Ellipse2D.
- *
- * @author Peter Farland
  */
 public class CubicCurveTest extends TestCase
 {

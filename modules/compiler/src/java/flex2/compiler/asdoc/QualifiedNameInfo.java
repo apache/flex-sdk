@@ -23,8 +23,6 @@ import java.util.ArrayList;
 
 /**
  * Stores the info for the class related to a method/field/class and parent classes.
- * 
- * @author gauravj
  */
 public class QualifiedNameInfo
 {

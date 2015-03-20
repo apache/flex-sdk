@@ -33,8 +33,6 @@ import static macromedia.asc.semantics.Slot.CALL_Method;
 
 /**
  * ReferenceValue
- *
- * @author Jeff Dyer
  */
 public final class ReferenceValue extends Value implements ErrorConstants
 {

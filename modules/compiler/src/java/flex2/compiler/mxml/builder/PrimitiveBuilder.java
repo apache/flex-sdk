@@ -44,8 +44,6 @@ import flex2.compiler.mxml.rep.Primitive;
  * This builder handles building a Primitive instance from a primitive
  * Node.  Primitives being a String, Number, int, uint, Boolean,
  * class, or function.
- *
- * @author Clement Wong
  */
 class PrimitiveBuilder extends AbstractBuilder
 {

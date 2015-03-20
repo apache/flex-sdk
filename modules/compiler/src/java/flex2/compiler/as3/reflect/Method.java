@@ -25,8 +25,6 @@ import macromedia.asc.util.ObjectList;
 /**
  * TypeTable implementation based on type information extracted from
  * ASC's FunctionDefinitionNode.
- *
- * @author Clement Wong
  */
 public final class Method extends SlotReflect implements flex2.compiler.abc.Method
 {

@@ -21,8 +21,6 @@ package com.adobe.fxg.dom;
 
 /**
  * Implementations of FXGNode represent a node in the DOM of an FXG document.
- * 
- * @author Peter Farland
  */
 public interface FXGNode
 {

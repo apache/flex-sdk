@@ -54,7 +54,6 @@ import com.adobe.internal.fxg.dom.types.WhiteSpaceCollapse;
  * Utilities to help create Text.
  * 
  * @since 2.0
- * @author Min Plunkett
  */
 public class TextHelper
 {

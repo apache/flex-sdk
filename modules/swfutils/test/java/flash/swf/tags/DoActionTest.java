@@ -27,9 +27,6 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
-/**
- * @author Paul Reilly
- */
 public class DoActionTest extends TestCase
 {
     public DoActionTest()

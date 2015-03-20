@@ -25,8 +25,6 @@ package flex2.compiler.mxml.reflect;
  * <code>
  * [Style(name="...",format="...")]
  * </code>
- *
- * @author Clement Wong
  */
 public interface Style extends Assignable
 {

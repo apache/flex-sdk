@@ -25,8 +25,6 @@ package flash.tools.debugger.expression;
  * because the functions in the <code>Evaluator</code> interface don't
  * throw anything, but our <code>DebuggerEvaluator</code> has many
  * places where it needs to bail out.
- * 
- * @author Mike Morearty
  */
 public class ExpressionEvaluatorException extends RuntimeException {
 	private static final long serialVersionUID = -7005526599250035578L;

@@ -31,8 +31,6 @@ package com.adobe.internal.fxg.dom.types;
  *   1 = bevel
  *   2 = miter
  * </pre>
- * 
- * @author Peter Farland
  */
 public enum Joints
 {

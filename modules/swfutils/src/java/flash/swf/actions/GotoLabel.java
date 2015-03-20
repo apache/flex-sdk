@@ -25,8 +25,6 @@ import flash.swf.ActionConstants;
 
 /**
  * Represents an AS2 "goto label" byte code.
- *
- * @author Clement Wong
  */
 public class GotoLabel extends Action
 {

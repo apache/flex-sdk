@@ -36,8 +36,6 @@ import com.adobe.fxg.dom.FXGNode;
  *     &lt;/fill&gt;
  * &lt;/Rect&gt;
  * </pre>
- * 
- * @author Peter Farland
  */
 public class DelegateNode implements FXGNode
 {

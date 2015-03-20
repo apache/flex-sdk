@@ -21,8 +21,6 @@ package flex2.compiler.swc;
 
 /**
  * The features enabled for a SWC.
- *
- * @author Brian Deitte
  */
 public class SwcFeatures
 {

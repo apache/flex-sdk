@@ -39,8 +39,6 @@ import flash.util.Trace;
 /**
  * This SWC archive type leaves the SWC as an exploded directory on
  * disk, and does not support real-time updates of its contents.
- *
- * @author Roger Gonzalez
  */
 public class SwcDirectoryArchive implements SwcArchive
 {

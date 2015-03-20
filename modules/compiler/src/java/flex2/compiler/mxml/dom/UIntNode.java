@@ -21,8 +21,6 @@ package flex2.compiler.mxml.dom;
 
 /**
  * Represents an &lt;uint&gt; tag in the MXML language namespace.
- *
- * @author Roger Gonzalez
  */
 public class UIntNode extends PrimitiveNode
 {

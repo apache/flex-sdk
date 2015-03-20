@@ -22,9 +22,6 @@ import java.io.IOException;
  * A ILauncher which handles the launching of the URI or the command.
  * 
  * ILauncher is to provide more flexibility to handle the Player launch in different platforms.
- * 
- * @author ugs
- *
  */
 public interface ILauncher {
 

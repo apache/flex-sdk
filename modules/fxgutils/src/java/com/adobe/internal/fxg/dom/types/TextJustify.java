@@ -29,7 +29,6 @@ package com.adobe.internal.fxg.dom.types;
  *   1 = distribute
  * </pre>
  * 
- * @author Min Plunkett
  */
 public enum TextJustify
 {

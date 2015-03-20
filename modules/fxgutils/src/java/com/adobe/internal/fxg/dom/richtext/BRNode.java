@@ -31,7 +31,6 @@ import com.adobe.fxg.dom.FXGNode;
  * This is an empty tag - text content or child tags are not expected.
  * </p>
  * @since 2.0
- * @author Min Plunkett
  */
 public class BRNode extends AbstractRichTextLeafNode
 {    

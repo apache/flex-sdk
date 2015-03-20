@@ -23,8 +23,6 @@ import java.util.Set;
 
 /**
  * Defines the API for translation related information.
- *
- * @author Brian Deitte
  */
 public interface TranslationInfo
 {

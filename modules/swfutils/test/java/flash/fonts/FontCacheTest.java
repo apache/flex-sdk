@@ -28,8 +28,6 @@ import java.awt.GraphicsEnvironment;
 /**
  * A simple test to check that the FontManager is caching font loading and glyph generation by
  * checking that a second call takes less than 10% of the initial load time.
- *
- * @author Peter Farland
  */
 public class FontCacheTest extends TestCase
 {

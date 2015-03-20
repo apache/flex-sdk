@@ -35,7 +35,6 @@ import java.util.*;
 /**
  * The reflection API exposed to As3Compiler extensions.
  *
- * @author Clement Wong
  * @see flex2.compiler.as3.Extension
  * @see flex2.compiler.as3.As3Compiler
  */

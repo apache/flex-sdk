@@ -26,7 +26,6 @@ import flash.tools.debugger.Player;
 
 /**
  * Thread-safe wrapper for flash.tools.debugger.Player
- * @author Mike Morearty
  */
 public class ThreadSafePlayer extends ThreadSafeDebuggerObject implements Player {
 

@@ -31,7 +31,6 @@ import com.adobe.fxg.dom.FXGNode;
  * by swapping different FXGVersionHandlers at runtime depending on the fxg
  * version of the input file.
  * 
- * @author Sujata Das
  */
 public interface FXGVersionHandler
 {

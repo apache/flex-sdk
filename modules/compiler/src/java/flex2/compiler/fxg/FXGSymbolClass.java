@@ -29,8 +29,6 @@ import flash.swf.tags.DefineTag;
  * an ActionScript class. This association links a tag primitive to more
  * complex assets, such as the ActionScript implementation of a TextGraphic
  * node (which does not have a tag primitive equivalent).
- *
- * @author Pete Farland
  */
 public class FXGSymbolClass
 {

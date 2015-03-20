@@ -27,8 +27,6 @@ import static macromedia.asc.embedding.avmplus.RuntimeConstants.*;
 
 /**
  * Constructs global objects
- *
- * @author Jeff Dyer
  */
 public class GlobalBuilder extends PackageBuilder
 {

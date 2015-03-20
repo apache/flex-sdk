@@ -52,8 +52,6 @@ import java.util.zip.Deflater;
  * uncompressed size information is required before {@link
  * #putNextEntry putNextEntry} can be called.</p>
  *
- * @author Stefan Bodewig
- * @author Richard Evans
  * @version $Revision: 1.1 $
  */
 public class ZipOutputStream extends FilterOutputStream {

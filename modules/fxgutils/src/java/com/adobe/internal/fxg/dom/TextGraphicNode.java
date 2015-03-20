@@ -40,8 +40,6 @@ import com.adobe.internal.fxg.dom.types.WhiteSpaceCollapse;
 
 /**
  * The Class TextGraphicNode.
- * 
- * @author Peter Farland
  */
 public class TextGraphicNode extends GraphicContentNode implements TextNode
 {

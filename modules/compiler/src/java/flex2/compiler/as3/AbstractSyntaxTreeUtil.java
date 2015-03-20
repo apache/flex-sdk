@@ -45,8 +45,6 @@ import macromedia.asc.util.ObjectList;
  * This class contains a collection of utility methods used during
  * direct AST generation, which allows the compiler to go from MXML
  * straight to an ASC AST, skipping the .as intermediate state.
- *
- * @author Paul Reilly
  * @see flex2.copmiler.as3.binding.BindableSecondPassEvaluator
  * @see flex2.copmiler.as3.binding.DataBindingExtension
  * @see flex2.compiler.mxml.ImplementationGenerator

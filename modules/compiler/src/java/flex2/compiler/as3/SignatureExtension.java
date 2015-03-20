@@ -54,8 +54,6 @@ import flex2.compiler.util.CompilerMessage.CompilerWarning;
  *      compiler.signature-directory [default: generated-signatures]
  * 
  * This class is NOT thread-safe. Not that this matters...
- *      
- * @author Jono Spiro
  */
 public final class SignatureExtension implements Extension
 {

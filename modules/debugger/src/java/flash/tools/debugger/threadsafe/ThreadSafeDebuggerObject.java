@@ -21,9 +21,7 @@ package flash.tools.debugger.threadsafe;
 
 /**
  * Intended to be subclassed.
- * 
- * @author Mike Morearty
- */
+*/
 class ThreadSafeDebuggerObject {
 
 	private Object fSyncObj;

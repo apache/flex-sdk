@@ -42,8 +42,6 @@ import java.util.Iterator;
 /**
  * This builder handles building an Array instance from an ArrayNode
  * and it's children.
- *
- * @author Clement Wong
  */
 class ArrayBuilder extends AbstractBuilder
 {

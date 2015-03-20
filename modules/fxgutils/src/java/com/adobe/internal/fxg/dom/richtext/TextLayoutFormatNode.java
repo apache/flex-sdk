@@ -25,7 +25,6 @@ import static com.adobe.fxg.FXGConstants.*;
  * TextLayoutFormat applied to a link.
  * 
  * @since 2.0
- * @author Min Plunkett
  */
 public class TextLayoutFormatNode extends AbstractRichTextLeafNode
 {

@@ -23,9 +23,6 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-/**
- * @author Clement Wong
- */
 public class ObjectList<E> extends ArrayList<E>
 {
 	public ObjectList()

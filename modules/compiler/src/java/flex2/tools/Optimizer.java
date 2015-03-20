@@ -49,9 +49,7 @@ import org.apache.flex.tools.FlexTool;
 
 /**
  * The post-link optimizer as a command-line tool...
- * 
- * @author Clement Wong
- */
+*/
 public class Optimizer implements FlexTool
 {
 

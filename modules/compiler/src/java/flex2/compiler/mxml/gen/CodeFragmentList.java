@@ -30,8 +30,6 @@ import java.util.ArrayList;
  * generated code with the associated line number in the MXML
  * document.  Later on, this mapping is used when reporting errors and
  * warnings.
- *
- * @author Basil Hosmer
  */
 public class CodeFragmentList extends ArrayList<Script>
 {

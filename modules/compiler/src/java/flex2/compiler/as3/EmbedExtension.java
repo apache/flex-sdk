@@ -36,8 +36,6 @@ import java.util.Map;
 
 /**
  * Compiler extension, which handles [Embed] metadata.
- *  
- * @author Paul Reilly
  */
 public final class EmbedExtension implements Extension
 {

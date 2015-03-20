@@ -22,8 +22,6 @@ import macromedia.asc.util.*;
 
 /**
  * Node
- *
- * @author Gary Grossman
  */
 public class HasNextNode extends Node
 {

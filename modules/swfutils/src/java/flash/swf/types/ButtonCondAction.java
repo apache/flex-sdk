@@ -21,8 +21,6 @@ package flash.swf.types;
 
 /**
  * This class represents a AS2 "button conditional action" byte code.
- *
- * @author Clement Wong
  */
 public class ButtonCondAction
 {

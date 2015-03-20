@@ -36,8 +36,6 @@ import flex2.compiler.util.ThreadLocalToolkit;
 /**
  * This class handles extension specific configuration options.
  * Currently, there is only one, -compiler.extensions.extension.
- *
- * @author Andrew Westberg
  */
 public class ExtensionsConfiguration
 {

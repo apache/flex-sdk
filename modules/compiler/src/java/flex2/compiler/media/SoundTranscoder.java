@@ -35,8 +35,6 @@ import java.util.Map;
 
 /**
  * Transcodes sounds into DefineSounds for embedding.
- *
- * @author Clement Wong
  */
 public class SoundTranscoder extends AbstractTranscoder
 {

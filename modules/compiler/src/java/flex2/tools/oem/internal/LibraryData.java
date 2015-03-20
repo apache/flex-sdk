@@ -31,7 +31,6 @@ import flex2.compiler.swc.SwcComponent;
  * compilations of a library.
  *
  * @version 2.0.1
- * @author Clement Wong
  */
 public class LibraryData extends ApplicationData
 {

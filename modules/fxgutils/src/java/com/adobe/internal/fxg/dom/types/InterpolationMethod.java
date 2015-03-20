@@ -30,8 +30,6 @@ package com.adobe.internal.fxg.dom.types;
  *   0 = rgb
  *   1 = linearRGB
  * </pre>
- * 
- * @author Peter Farland
  */
 public enum InterpolationMethod
 {

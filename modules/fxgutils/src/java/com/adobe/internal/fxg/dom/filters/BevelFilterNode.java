@@ -27,8 +27,6 @@ import com.adobe.internal.fxg.dom.types.BevelType;
 
 /**
  * The Class BevelFilterNode.
- * 
- * @author Peter Farland
  */
 public class BevelFilterNode extends AbstractFilterNode
 {

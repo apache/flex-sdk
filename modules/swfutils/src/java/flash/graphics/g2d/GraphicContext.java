@@ -39,9 +39,6 @@ import java.lang.ref.WeakReference;
  * A modified version of Apache Batik's GraphicsContext, used to store
  * state between successive Graphics2D calls.
  *
- * @author <a href="mailto:cjolif@ilog.fr">Christophe Jolif</a>
- * @author <a href="mailto:vincent.hardy@eng.sun.com">Vincent Hardy</a>
- * @author Peter Farland
  * @version 1.0
  */
 public final class GraphicContext implements Cloneable

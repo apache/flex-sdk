@@ -73,13 +73,6 @@ import java.util.*;
 /**
  * A flex2.compiler.PreLink implementation, which creates the FlexInit
  * and SystemManager subclass.
- *
- * @author Clement Wong
- * @author Roger Gonzalez (mixin, flexinit, bootstrap)
- * @author Basil Hosmer (service config)
- * @author Brian Deitte (font)
- * @author Cathy Murphy (accessibility)
- * @author Gordon Smith (i18n)
  */
 public class PreLink implements flex2.compiler.PreLink
 {

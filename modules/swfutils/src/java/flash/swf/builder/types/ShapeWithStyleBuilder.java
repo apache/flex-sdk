@@ -33,8 +33,6 @@ import flash.graphics.g2d.GraphicContext;
 /**
  * This class is used to construct a ShapeWithStyle from a
  * ShapeBuilder and a list of FillStyle and LineStyle objects.
- *
- * @author Peter Farland
  */
 public final class ShapeWithStyleBuilder
 {

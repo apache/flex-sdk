@@ -29,8 +29,6 @@ import java.io.Serializable;
  * <p>
  * If you override fetchSerial(), only one thread will enter fetch()
  * at the same time.
- *
- * @author Edwin Smith
  */
 public abstract class AbstractCache implements Serializable
 {

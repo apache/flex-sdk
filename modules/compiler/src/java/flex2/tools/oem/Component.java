@@ -20,10 +20,6 @@
 package flex2.tools.oem;
 
 /**
- * Defines the API for component information.
- * 
- * @author Clement Wong
- * @author Brian Deitte
  * @version 3.0
  */
 public interface Component

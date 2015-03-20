@@ -25,8 +25,6 @@ import flash.swf.TagHandler;
 /**
  * This represents a SetBackgroundColor SWF tag.  It is used to set
  * the background color of the SWF.
- *
- * @author Clement Wong
  */
 public class SetBackgroundColor extends Tag
 {

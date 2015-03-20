@@ -27,7 +27,6 @@ package com.adobe.internal.fxg.dom.types;
  *   1 = bold
  * </pre>
  * 
- * @author Min Plunkett
  */
 public enum FontWeight
 {

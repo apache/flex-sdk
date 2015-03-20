@@ -24,8 +24,6 @@ package flex2.compiler;
  * by the compiler.  It can be used in catch statements, but it
  * shouldn't be constructed directly.  A subclass of CompilerMessage
  * should be used when reporting an error or warning.
- *
- * @author Clement Wong
  * @see flex2.compiler.util.CompilerMessage
  */
 public class CompilerException extends Exception

@@ -23,8 +23,6 @@ import static macromedia.asc.util.BitSet.*;
 
 /**
  * Node
- *
- * @author Jeff Dyer
  */
 public class SetExpressionNode extends SelectorNode
 {

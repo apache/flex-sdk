@@ -37,8 +37,6 @@ import java.util.*;
  *
  * The rule must be initialized with a StyleParser before it can be
  * used to turn the Rule into a DefineFont2 SWF tag.
- *
- * @author Peter Farland
  */
 public class FontFaceRule extends Rule
 {

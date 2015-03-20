@@ -24,8 +24,6 @@ import flash.util.IntMapLRUCache;
 
 /**
  * Provides a simple LRU cache layer to a FontFace.
- *
- * @author Peter Farland
  */
 public abstract class CachedFontFace extends FontFace
 {

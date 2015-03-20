@@ -25,9 +25,6 @@ import com.adobe.internal.fxg.dom.AbstractFXGNode;
 import com.adobe.internal.fxg.dom.FilterNode;
 import com.adobe.internal.fxg.dom.types.BevelType;
 
-/**
- * @author Peter Farland
- */
 public abstract class AbstractFilterNode extends AbstractFXGNode implements FilterNode
 {
     protected static final int QUALITY_MIN_INCLUSIVE = 1;

@@ -51,9 +51,6 @@ import flash.util.FileUtils;
 
 /**
  * Utilities to help create SWF DefineBits and DefineBitsLossess image tags.
- * 
- * @author Peter Farland
- * @author Sujata Das
  */
 public class ImageHelper
 {

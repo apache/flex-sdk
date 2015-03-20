@@ -44,8 +44,6 @@ import java.util.Map;
 
 /**
  * Transcodes a whole SWF or a font or symbol from a SWF.
- *
- * @author Clement Wong
  */
 public class MovieTranscoder extends AbstractTranscoder
 {

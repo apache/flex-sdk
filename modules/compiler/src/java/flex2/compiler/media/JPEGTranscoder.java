@@ -33,8 +33,6 @@ import flex2.compiler.TranscoderException;
 
 /**
  * Transcodes jpeg images into DefineBits tags for embedding.
- *
- * @author Roger Gonzalez
  */
 public class JPEGTranscoder extends ImageTranscoder
 {

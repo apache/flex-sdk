@@ -21,8 +21,6 @@ package flex2.compiler.mxml.dom;
 
 /**
  * Represents a &lt;int&gt; tag in the MXML language namespace.
- *
- * @author Roger Gonzalez
  */
 public class IntNode extends PrimitiveNode
 {

@@ -127,8 +127,6 @@ import com.adobe.fxg.util.FXGResourceResolver;
  * primitives to draw the document.
  * Note that in this implementation, since FTE based text
  * has no equivalent in SWF tags, text nodes are ignored.
- * 
- * @author Peter Farland
  */
 public class FXG2SWFTranscoder implements FXGTranscoder
 {

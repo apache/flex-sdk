@@ -22,8 +22,6 @@ package flex2.compiler;
 /**
  * This is a marker interface for all localizable messages.  All
  * localized errors and exceptions should implement this.
- *
- * @author Roger Gonzalez
  */
 public interface ILocalizableMessage extends flex2.tools.oem.Message
 {

@@ -27,8 +27,6 @@ import macromedia.asc.parser.ArgumentListNode;
  * function return value watcher.  For example, for the data binding
  * expression, "{foo(bar, baz)}", we need watchers for "bar" and
  * "baz", so when they change, the destination will update.
- *
- * @author Paul Reilly
  */
 public class FunctionReturnWatcher extends EvaluationWatcher
 {

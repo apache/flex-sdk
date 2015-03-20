@@ -24,8 +24,6 @@ import flash.swf.TagHandler;
 
 /**
  * This represents a RemoveObject SWF tag.
- *
- * @author Clement Wong
  */
 public class RemoveObject extends Tag
 {

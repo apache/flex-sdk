@@ -23,9 +23,7 @@ import java.util.*;
 
 /**
  * Map MIME types to file extensions
- * 
- * @author Clement Wong
- */
+*/
 public final class MimeMappings
 {
 	public static final String MXML = "text/mxml";

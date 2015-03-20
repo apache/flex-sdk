@@ -31,8 +31,6 @@ import java.awt.Stroke;
 /**
  * This class is used to construct a LineStyle from a Paint and Stroke
  * object.
- *
- * @author Peter Farland
  */
 public final class LineStyleBuilder
 {

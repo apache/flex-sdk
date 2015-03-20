@@ -53,8 +53,6 @@ import java.util.Iterator;
  * static function get y() {}   // adds a global get accessor
  * static function set y(v) {}  // adds a global set accessor
  * }
- *
- * @author Jeff Dyer
  */
 public class ClassBuilder extends Builder
 {

@@ -54,8 +54,6 @@ import java.util.HashMap;
  * manager can derive available styles from a single
  * <code>FontFace</code> through its reference to a
  * <code>java.awt.Font</code> object.
- *
- * @author Peter Farland
  */
 @SuppressWarnings("unchecked")
 public class JREFontManager extends CachedFontManager

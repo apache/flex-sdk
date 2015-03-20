@@ -41,8 +41,6 @@ import java.util.Iterator;
 
 /**
  * This class is used to construct a DefineShape SWF tag from a Shape.
- *
- * @author Peter Farland
  */
 public final class DefineShapeBuilder implements TagBuilder
 {

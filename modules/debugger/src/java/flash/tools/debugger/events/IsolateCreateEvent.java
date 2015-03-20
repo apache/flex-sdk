@@ -21,7 +21,6 @@ import flash.tools.debugger.Isolate;
 /**
  * IsolateCreateEvent is received when the player
  * creates a worker.
- * @author anirudhs
  */
 public class IsolateCreateEvent extends DebugEvent {
 	

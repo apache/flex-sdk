@@ -26,8 +26,6 @@ import macromedia.asc.semantics.*;
  * This is a visitor that is used by the compiler for various forms for
  * evaluation of a parse tree (e.g. a type evaluator might compute the
  * static type of an expression.)
- *
- * @author Jeff Dyer
  */
 public interface Evaluator
 {

@@ -33,8 +33,6 @@ package com.adobe.internal.fxg.dom.types;
  *   1 = explicit
  *   2 = inherit
  * </pre>
- * 
- * @author Peter Farland
  */
 public enum LineBreak
 {

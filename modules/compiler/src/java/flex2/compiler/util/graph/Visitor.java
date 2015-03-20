@@ -23,8 +23,6 @@ package flex2.compiler.util.graph;
 
 /**
  * Defines the visitor API for the graphs in this package.
- *
- * @author Clement Wong
  */
 public interface Visitor<T>
 {

@@ -30,8 +30,6 @@ import java.util.*;
  * A list of files, which are not required to follow the single public
  * definition rule.  This is used by compc's include-sources option
  * and by Flash Builder.  It's similar to ASC's include option.
- *
- * @author Clement Wong
  */
 public final class FileSpec
 {

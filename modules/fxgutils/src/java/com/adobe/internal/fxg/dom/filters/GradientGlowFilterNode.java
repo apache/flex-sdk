@@ -31,9 +31,6 @@ import com.adobe.fxg.util.FXGLogger;
 import com.adobe.internal.fxg.dom.DOMParserHelper;
 import com.adobe.internal.fxg.dom.GradientEntryNode;
 
-/**
- * @author Peter Farland
- */
 public class GradientGlowFilterNode extends AbstractFilterNode
 {
     //--------------------------------------------------------------------------

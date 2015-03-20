@@ -97,8 +97,6 @@ import macromedia.asc.util.IntList;
  * kind=17,18 // CONSTANT_RTQnameL + CONSTANT_RTQnameLA
  * }
  * }
- *
- * @author Clement Wong
  */
 public class ConstantPool
 {

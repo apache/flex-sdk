@@ -25,8 +25,6 @@ import flash.swf.types.Rect;
 
 /**
  * Represents a DefineScalingGrid SWF tag.
- *
- * @author Roger Gonzalez
  */
 public class DefineScalingGrid extends Tag
 {

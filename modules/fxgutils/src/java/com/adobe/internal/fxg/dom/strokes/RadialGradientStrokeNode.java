@@ -36,8 +36,6 @@ import com.adobe.internal.fxg.dom.types.SpreadMethod;
 
 /**
  * The Class RadialGradientStrokeNode.
- * 
- * @author Peter Farland
  */
 public class RadialGradientStrokeNode extends AbstractStrokeNode implements ScalableGradientNode
 {

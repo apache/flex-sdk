@@ -24,7 +24,6 @@ import java.util.Map;
 /**
  * This interface defines the TypeTable API for metadata.
  *
- * @author Clement Wong
  * @see flex2.compiler.abc.AbcClass#getMetaData(String, boolean)
  * @see flex2.compiler.abc.Method#getMetaData()
  * @see flex2.compiler.abc.Method#getMetaData(String)

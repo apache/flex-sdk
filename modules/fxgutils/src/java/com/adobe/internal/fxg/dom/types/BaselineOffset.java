@@ -29,7 +29,6 @@ package com.adobe.internal.fxg.dom.types;
  *   2 = lineHeight 
  * </pre>
  * 
- * @author Min Plunkett
  */
 public class BaselineOffset
 {

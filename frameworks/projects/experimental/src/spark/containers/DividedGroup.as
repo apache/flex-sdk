@@ -34,9 +34,6 @@ package spark.containers
 [Exclude(name="layout", kind="property")]
 	[DefaultProperty("children")]
 	[ResourceBundle("dividers")]
-	/**
-	 * @author Bogdan Dinu (http://www.badu.ro)
-	 */
 	public class DividedGroup extends Group
 	{
 		public var dividers : Array;

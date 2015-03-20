@@ -72,8 +72,6 @@ import flex2.tools.oem.internal.OEMUtil;
  * A utility class, which supports querying for Application, Library,
  * Component, and Script information, loading properties, optimizing,
  * and querying dependency info.
- * 
- * @author Clement Wong
  * @version 3.0
  */
 public class Toolkit

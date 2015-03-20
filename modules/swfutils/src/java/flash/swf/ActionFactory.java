@@ -36,7 +36,6 @@ import java.util.Iterator;
  * This is a factory for decoding ActionScript bytecode.  It keeps
  * track of temporary information we need while decoding but can
  * discard once we are done.
- * @author Edwin Smith
  */
 final public class ActionFactory
 {
