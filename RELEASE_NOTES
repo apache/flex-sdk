@@ -2,31 +2,41 @@ Apache Flex 4.14.1
 ==================
 
 New Features
----------
-FLEX-34772 - Add padding property to VerticalLayout/VGroup, HorizontalLayout/HGroup and  
-TileLayout/TileGroup
+------------
+FLEX-34772  Add padding property to VerticalLayout/VGroup,
+            HorizontalLayout/HGroup and TileLayout/TileGroup
+
+AIR and Flash Player Support
+----------------------------
+- Support Flash Player 17.0
 
 Bug Fixes
 ---------
-FLEX-34712 - Callout loses anchor to CalloutButton while callout open and screen rotates
-FLEX-34714 - Fix to continue using legacy mobile theme removes iOS status bar padding
-FLEX-34746 - Upscaling BusyIndicator leads to wrong rotation centre
-FLEX-34748 - Spark ActionBar chromeColor is ignored in Flex 14
-FLEX-34750 - BusyIndicatorSkin does not work with mx:Application
-FLEX-34758 - IOS buttons does not look correct when disabled
-FLEX-34766 - Android Button Skin transparency issue
-FLEX-34778 - Application hangs when opening node, closing it, then replacing one of its children
-FLEX-34774 - Blur effect remains if first modal Popup closes before other modal Popups
-FLEX-34732 - TextInput/TextArea with borderColor style set gives compiler warnings
-FLEX-34805 - Unable to set chromeColor property on TabbedViewNavigatorApplication
-FLEX-34806 - Warning about font embedding on label component
+FLEX-34712  Callout loses anchor to CalloutButton while callout open and screen 
+            rotates
+FLEX-34714  Fix to continue using legacy mobile theme removes iOS status bar 
+            padding
+FLEX-34746  Upscaling BusyIndicator leads to wrong rotation centre
+FLEX-34748  Spark ActionBar chromeColor is ignored in Flex 14
+FLEX-34750  BusyIndicatorSkin does not work with mx:Application
+FLEX-34758  IOS buttons does not look correct when disabled
+FLEX-34766  Android Button Skin transparency issue
+FLEX-34778  Application hangs when opening node, closing it, then replacing one 
+            of its children
+FLEX-34774  Blur effect remains if first modal Popup closes before other modal 
+            Popups
+FLEX-34732  TextInput/TextArea with borderColor style set gives compiler 
+            warnings
+FLEX-34805  Unable to set chromeColor property on TabbedViewNavigatorApplication
+FLEX-34806  Warning about font embedding on label component
 
 Performance Improvements
 ---------
-FLEX-34759 - ArrayList/ArrayCollection performance improvements
+FLEX-34759  ArrayList/ArrayCollection performance improvements
  
 Known Issues
 ------------
+
 Adobe Flash Builder Integration
 
 Adobe Flash Builder 4.7 and Adobe Flash Builder 4.6 both contain a bug where,
