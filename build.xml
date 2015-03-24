@@ -465,7 +465,7 @@
             </unzip>
             <!-- optimize out metadata but keep debug info for the unsigned RSL -->
             <java jar="${basedir}/lib/optimizer.jar" fork="true" failonerror="true">
-                <jvmarg line="-ea -DAS3 -DAVMPLUS -Dflexlib=${basedir}/frameworks -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false"/>
+                <jvmarg line="-ea -DAS3 -DAVMPLUS -Dflexlib='${basedir}/frameworks' -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false"/>
                 <arg line="'@{rsl-dir}/library.swf' --output '@{rsl-dir}/@{swc-name}_@{build-number}.swf' --keep-as3-metadata='Bindable,Managed,ChangeEvent,NonCommittingChangeEvent,Transient,SkinPart' --debug='true' "/>	
             </java>
             <delete file="@{rsl-dir}/library.swf"/>
