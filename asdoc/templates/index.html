@@ -20,6 +20,17 @@
     <script language="javascript" type="text/javascript">
     	<!--
         window.onload=function(){
+            "use strict";
+            var d2=decodeURIComponent(document.location.search).toLowerCase();
+            if(
+                    d2.indexOf('javascript:') > -1 ||
+                    d2.indexOf('//') > -1 ||
+                    d2.indexOf('..') > -1 ||
+                    d2.indexOf(':') > -1
+            ){
+                    return;
+            }
+
             var d=document.location.search;
 			var args=d.substring(d.lastIndexOf('?')+1,d.length);
 			var classFrameContent=args;
