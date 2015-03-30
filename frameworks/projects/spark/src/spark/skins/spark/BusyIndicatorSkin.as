@@ -25,6 +25,7 @@ package spark.skins.spark
 	import flash.utils.Timer;
 	
 	import mx.core.DPIClassification;
+	import mx.core.FlexGlobals;
 	
 	import spark.components.BusyIndicator;
 	import spark.skins.ActionScriptSkinBase;
@@ -76,41 +77,56 @@ package spark.skins.spark
 				rotationInterval = 30;
 			rotationSpeed = 60;
 			
-			switch(applicationDPI) 
-			{	
-				case DPIClassification.DPI_640:
-				{
-					busyIndicatorDiameter = 144;
-					break;
-				}
-				case DPIClassification.DPI_480:
-				{
-					busyIndicatorDiameter = 108;
-					break;
-				}		
-				case DPIClassification.DPI_320:
-				{
-					busyIndicatorDiameter = 72;
-					break;
-				}
-				case DPIClassification.DPI_240:
-				{
-					busyIndicatorDiameter = 54;
-					break;
-				}
-				case DPIClassification.DPI_120:
-				{
-					busyIndicatorDiameter = 27;
-					break;
-				}
-				default://160 DPI
-				{
-					busyIndicatorDiameter = 36;
-					break;
+			//mx:Application does not have an applicationDPI property
+			//In that case, use a default value
+			var dpi:Number;
+			if(FlexGlobals.topLevelApplication.hasOwnProperty("applicationDPI"))
+			{
+				dpi = FlexGlobals.topLevelApplication["applicationDPI"];
+			}
+			
+			if(dpi)
+			{
+				switch(dpi) 
+				{	
+					case DPIClassification.DPI_640:
+					{
+						busyIndicatorDiameter = 144;
+						break;
+					}
+					case DPIClassification.DPI_480:
+					{
+						busyIndicatorDiameter = 108;
+						break;
+					}		
+					case DPIClassification.DPI_320:
+					{
+						busyIndicatorDiameter = 72;
+						break;
+					}
+					case DPIClassification.DPI_240:
+					{
+						busyIndicatorDiameter = 54;
+						break;
+					}
+					case DPIClassification.DPI_120:
+					{
+						busyIndicatorDiameter = 27;
+						break;
+					}
+					default://160 DPI
+					{
+						busyIndicatorDiameter = 36;
+						break;
+					}
 				}
 			}
+			else
+			{
+				busyIndicatorDiameter = 27;
+			}
 		}
-		
+
 		private var _hostComponent:spark.components.BusyIndicator;
 		
 		public function get hostComponent():spark.components.BusyIndicator
@@ -145,41 +161,56 @@ package spark.skins.spark
             
             // Set the default measured size depending on the
             // applicationDPI
-            if (applicationDPI == DPIClassification.DPI_640)
-            {
-                measuredWidth = 104;
-                measuredHeight = 104;
-            }
-            else if (applicationDPI == DPIClassification.DPI_480)
-            {
-                measuredWidth = 80;
-                measuredHeight = 80;
-            }
-            else if (applicationDPI == DPIClassification.DPI_320)
-            {
-                measuredWidth = 52;
-                measuredHeight = 52;
-            }
-            else if (applicationDPI == DPIClassification.DPI_240)
-            {
-                measuredWidth = 40;
-                measuredHeight = 40;
-            }
-            else if (applicationDPI == DPIClassification.DPI_160)
-            {
-                measuredWidth = 26;
-                measuredHeight = 26;
-            }
-            else if (applicationDPI == DPIClassification.DPI_120)
-            {
-                measuredWidth = 20;
-                measuredHeight = 20;
-            }
-            else
-            {
-                measuredWidth = DEFAULT_MINIMUM_SIZE;
-                measuredHeight = DEFAULT_MINIMUM_SIZE;
-            }
+			//mx:Application does not have an applicationDPI property
+			//In that case, use a default value
+			var dpi:Number;
+			if(FlexGlobals.topLevelApplication.hasOwnProperty("applicationDPI"))
+			{
+				dpi = FlexGlobals.topLevelApplication["applicationDPI"];
+			}
+			if(dpi)
+			{
+				if (dpi == DPIClassification.DPI_640)
+				{
+					measuredWidth = 104;
+					measuredHeight = 104;
+				}
+				else if (dpi == DPIClassification.DPI_480)
+				{
+					measuredWidth = 80;
+					measuredHeight = 80;
+				}
+				else if (dpi == DPIClassification.DPI_320)
+				{
+					measuredWidth = 52;
+					measuredHeight = 52;
+				}
+				else if (dpi == DPIClassification.DPI_240)
+				{
+					measuredWidth = 40;
+					measuredHeight = 40;
+				}
+				else if (dpi == DPIClassification.DPI_160)
+				{
+					measuredWidth = 26;
+					measuredHeight = 26;
+				}
+				else if (dpi == DPIClassification.DPI_120)
+				{
+					measuredWidth = 20;
+					measuredHeight = 20;
+				}
+				else
+				{
+					measuredWidth = DEFAULT_MINIMUM_SIZE;
+					measuredHeight = DEFAULT_MINIMUM_SIZE;
+				}
+			}
+			else
+			{
+				measuredWidth = 20;
+				measuredHeight = 20;
+			}
             
             measuredMinWidth = DEFAULT_MINIMUM_SIZE;
             measuredMinHeight = DEFAULT_MINIMUM_SIZE;
@@ -291,7 +322,7 @@ package spark.skins.spark
 			if (currentRotation >= 360)
 				currentRotation = 0;
 			
-			rotate(busyIndicator,currentRotation,measuredWidth/2,measuredHeight/2);
+			rotate(busyIndicator,currentRotation,width/2,height/2);
 			event.updateAfterEvent();
 		}
 		

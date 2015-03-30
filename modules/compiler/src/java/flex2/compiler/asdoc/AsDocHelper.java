@@ -30,8 +30,6 @@ import org.w3c.dom.Document;
  * This class reads the toplevel.xml and passes the Dom tree to classes
  * responsible for generating
  * dita based xml files.
- * 
- * @author gauravj
  */
 public class AsDocHelper
 {

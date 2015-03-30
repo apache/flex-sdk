@@ -30,8 +30,6 @@ import static macromedia.asc.embedding.avmplus.ActionBlockConstants.*;
  * ByteCodeFactory.java
  *
  * Emits byte code for a particular component of the classfile.
- *
- * @author Jeff Dyer
  */
 public class ByteCodeFactory
 {

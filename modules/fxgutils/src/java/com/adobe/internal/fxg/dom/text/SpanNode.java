@@ -30,8 +30,6 @@ import com.adobe.internal.fxg.dom.TextNode;
 /**
  * Represents a &lt;span /&gt; child tag of FXG text content. A &lt;span&gt;
  * tag starts a new section of formatting in a paragraph of text content.
- * 
- * @author Peter Farland
  */
 public class SpanNode extends AbstractCharacterTextNode
 {

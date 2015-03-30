@@ -44,9 +44,6 @@ import java.util.*;
  * Evaluator that transcodes Embed resources, adds assets to the
  * CompilationUnit, and turns variable level Embeds into class level
  * Embeds.
- *
- * @author Paul Reilly
- * @author Brian Deitte
  */
 class EmbedEvaluator extends EvaluatorAdapter
 {

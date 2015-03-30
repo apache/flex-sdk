@@ -35,8 +35,6 @@ import java.io.File;
  * Roger, points out, this could be renamed RelativePathResolver or
  * something, since it just resolves things relative to a root
  * directory.
- *
- * @author Brian Deitte
  */
 public class ConfigurationPathResolver implements SinglePathResolver
 {

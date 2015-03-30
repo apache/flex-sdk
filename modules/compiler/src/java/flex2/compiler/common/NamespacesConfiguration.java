@@ -33,8 +33,6 @@ import java.util.Iterator;
 
 /**
  * This class handles namespace specific configuration options.
- *
- * @author Clement Wong
  */
 public class NamespacesConfiguration
 {

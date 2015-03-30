@@ -34,7 +34,6 @@ import java.util.Map;
  * @see flex2.tools.oem.Application
  * @see flex2.tools.oem.Library
  * @version 2.0.1
- * @author Clement Wong
  */
 public interface Builder
 {

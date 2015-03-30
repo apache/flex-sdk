@@ -23,8 +23,6 @@ import org.w3c.css.sac.SelectorList;
 
 /**
  * Represents a CSS style rule.
- *
- * @author Pete Farland
  */
 public class StyleRule extends Rule
 {

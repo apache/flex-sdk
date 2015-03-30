@@ -30,7 +30,6 @@ package flex2.tools.oem;
  * <code>Library.setProgressMeter()</code> methods.
  * 
  * @version 2.0.1
- * @author Clement Wong
  */
 public interface ProgressMeter
 {

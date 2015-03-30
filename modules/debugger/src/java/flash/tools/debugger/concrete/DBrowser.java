@@ -23,9 +23,6 @@ import java.io.File;
 
 import flash.tools.debugger.Browser;
 
-/**
- * @author mmorearty
- */
 public class DBrowser implements Browser
 {
 	private File m_path;

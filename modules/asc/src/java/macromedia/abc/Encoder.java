@@ -30,8 +30,6 @@ import java.util.*;
 
 /**
  * abc encoder. If the encoder is provided with multiple constant pools, it will use do merging.
- *
- * @author Clement Wong
  */
 public class Encoder implements Visitor
 {

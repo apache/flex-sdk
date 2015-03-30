@@ -36,7 +36,6 @@ import flex2.tools.ToolsConfiguration;
  * specific options.
  *
  * @version 2.0.1
- * @author Clement Wong
  */
 /*
  * TODO Jono: this should really *implement* flex2.linker.Configuration

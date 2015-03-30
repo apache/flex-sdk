@@ -24,8 +24,6 @@ import static macromedia.asc.parser.Tokens.*;
  *
  * This file implements the class Token that is used to carry
  * information from the Scanner to the Parser.
- *
- * @author Jeff Dyer
  */
 
 public final class Token

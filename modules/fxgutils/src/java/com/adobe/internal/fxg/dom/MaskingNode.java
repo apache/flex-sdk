@@ -23,8 +23,6 @@ import com.adobe.fxg.dom.FXGNode;
 
 /**
  * Marker interface to imply node can be used to create a mask.
- * 
- * @author Peter Farland
  */
 public interface MaskingNode extends FXGNode
 {

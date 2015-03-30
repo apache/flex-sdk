@@ -26,7 +26,6 @@ import macromedia.asc.util.ObjectList;
  * This interface is used to restrict consumers of
  * CompilerConfiguration to as3 compiler specific options.
  *
- * @author Clement Wong
  * @see flex2.compiler.common.CompilerConfiguration
  */
 public interface As3Configuration

@@ -32,8 +32,6 @@ import java.util.List;
 
 /**
  * Represents a DefineMorphShape SWF tag.
- *
- * @author Clement Wong
  */
 public class DefineMorphShape extends DefineTag
 {

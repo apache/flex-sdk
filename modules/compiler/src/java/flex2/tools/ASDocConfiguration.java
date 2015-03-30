@@ -38,8 +38,6 @@ import java.util.Map;
 
 /**
  * asdoc specific configuration.
- *
- * @author Brian Deitte
  */
 public class ASDocConfiguration extends ToolsConfiguration
 {

@@ -25,7 +25,6 @@ import java.util.Vector;
 /**
  * ZipExtraField related methods
  *
- * @author Stefan Bodewig
  * @version $Revision: 1.1 $
  */
 public class ExtraFieldUtils {

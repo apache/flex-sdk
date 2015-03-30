@@ -1152,7 +1152,7 @@ public class HierarchicalCollectionView extends EventDispatcher
     private function internalRefresh(dispatch:Boolean):Boolean
     {
         var obj:Object;
-        var coll:ICollectionView
+        var coll:ICollectionView;
         var needUpdate:Boolean = false;
         
         // apply filter function to all the collections including the child collections
@@ -1531,9 +1531,9 @@ public class HierarchicalCollectionView extends EventDispatcher
                 for (i = 0; i < n; i++)
                 {
                     node = ce.items[i].oldValue;
-                    while (convertedEvent.items[j] != node)
-                        j++;
-                    convertedEvent.items.splice(j, 1);
+                    var replacedNodePosition:int = convertedEvent.items.indexOf(node);
+                    if(replacedNodePosition != -1)
+                        convertedEvent.items.splice(replacedNodePosition, 1);
                 }
                 if (convertedEvent.items.length)
                 {
@@ -1654,9 +1654,10 @@ public class HierarchicalCollectionView extends EventDispatcher
                     changingNode = ce.items[i].oldValue;
                     if (changingNode is XML)
                         stopTrackUpdates(changingNode);
-                    while (convertedEvent.items[j] != changingNode)
-                        j++;
-                    convertedEvent.items.splice(j, 1);
+
+                    var replacedNodePosition:int = convertedEvent.items.indexOf(changingNode);
+                    if(replacedNodePosition != -1)
+                        convertedEvent.items.splice(replacedNodePosition, 1);
                 }
                 if (convertedEvent.items.length)
                 {

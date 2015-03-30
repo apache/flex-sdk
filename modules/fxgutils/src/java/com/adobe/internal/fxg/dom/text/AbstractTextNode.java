@@ -33,8 +33,6 @@ import com.adobe.internal.fxg.dom.richtext.TextHelper;
 
 /**
  * A base class for all FXG nodes concerned with formatted text.
- * 
- * @author Peter Farland
  */
 public abstract class AbstractTextNode extends AbstractFXGNode implements TextNode
 {

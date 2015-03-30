@@ -54,8 +54,6 @@ import java.util.Set;
  * in other places in the compiler and it should really be moved to
  * another package to reflect is more general use, something like
  * flex2.compiler.type. or flex2.compiler.as3.type.
- *
- * @author Paul Reilly
  */
 public class TypeAnalyzer extends EvaluatorAdapter
 {

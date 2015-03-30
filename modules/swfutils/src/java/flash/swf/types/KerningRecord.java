@@ -21,8 +21,6 @@ package flash.swf.types;
 
 /**
  * A value object for kerning record data.
- *
- * @author Clement Wong
  */
 public class KerningRecord
 {

@@ -21,8 +21,6 @@ package flash.swf.types;
 
 /**
  * A value object for glow filter data.
- *
- * @author Roger Gonzalez
  */
 public class GlowFilter extends Filter
 {

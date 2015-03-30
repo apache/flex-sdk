@@ -25,8 +25,6 @@ import flex2.tools.oem.Library;
 /**
  * Defines the API for extensions, which run at the end of an OEM API
  * library compilation.
- *
- * @author Andrew Westberg
  */
 public interface ILibraryExtension
     extends IExtension

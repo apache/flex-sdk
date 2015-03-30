@@ -29,8 +29,6 @@ package macromedia.asc.parser;
  * identifiers to identify instances of these token classes so that
  * the instance data can be stored in an array, or set of arrays with
  * the token value specifying its index.
- *
- * @author Jeff Dyer
  */
 public interface Tokens
 {

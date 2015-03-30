@@ -30,8 +30,6 @@ import java.lang.reflect.InvocationTargetException;
 
 /**
  * A utility for wrapping exceptions.
- *
- * @author Nick Tsivranidis
  */
 public class ExceptionUtil 
 {

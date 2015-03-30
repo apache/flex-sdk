@@ -21,8 +21,6 @@ package flash.swf.types;
 
 /**
  * A value object for morph grad record data.
- *
- * @author Clement Wong
  */
 public class MorphGradRecord
 {

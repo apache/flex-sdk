@@ -25,8 +25,6 @@ import com.adobe.internal.fxg.dom.TransformNode;
 
 /**
  * A base class for all FXG nodes that represent a transform.
- * 
- * @author Peter Farland
  */
 public abstract class AbstractTransformNode extends AbstractFXGNode implements TransformNode 
 {

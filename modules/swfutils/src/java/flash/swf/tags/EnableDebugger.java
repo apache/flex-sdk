@@ -22,8 +22,6 @@ package flash.swf.tags;
 /**
  * This represents a EnableDebugger SWF tag.  This supports AS2 and
  * AS3.
- *
- * @author Clement Wong
  */
 public class EnableDebugger extends flash.swf.Tag
 {

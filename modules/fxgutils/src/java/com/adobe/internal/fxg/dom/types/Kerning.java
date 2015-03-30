@@ -36,8 +36,6 @@ package com.adobe.internal.fxg.dom.types;
  *   1 = off
  *   2 = auto
  * </pre>
- * 
- * @author Peter Farland
  */
 public enum Kerning
 {

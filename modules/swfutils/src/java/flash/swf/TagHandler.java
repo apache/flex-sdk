@@ -23,8 +23,6 @@ import flash.swf.tags.*;
 
 /**
  * Defines the API for SWF tag handlers.
- *
- * @author Clement Wong
  */
 public class TagHandler
 {

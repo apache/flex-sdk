@@ -26,9 +26,6 @@ import com.adobe.internal.fxg.dom.DOMParserHelper;
 
 import static com.adobe.fxg.FXGConstants.*;
 
-/**
- * @author Peter Farland
- */
 public class ColorMatrixFilterNode extends AbstractFilterNode
 {
     //--------------------------------------------------------------------------

@@ -28,8 +28,6 @@ import java.util.ArrayList;
 
 /**
  * This class represents a DefineButtonSound SWF tag.
- *
- * @author Clement Wong
  */
 public class DefineButtonSound extends Tag
 {

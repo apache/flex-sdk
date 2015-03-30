@@ -50,9 +50,7 @@ import flash.swf.tags.DoABC;
 /**
  * Command line tool for dumping all the classes, their functions, and
  * the location of each class.
- * 
- * @author Clement Wong
- */
+*/
 public class MovieMetaDataPrinter
 {
 	/**

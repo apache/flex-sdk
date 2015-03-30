@@ -20,7 +20,6 @@ import flash.tools.debugger.Isolate;
 
 /**
  * Concrete implementation of an Isolate.
- * @author anirudhs
  */
 public class DIsolate implements Isolate {
 

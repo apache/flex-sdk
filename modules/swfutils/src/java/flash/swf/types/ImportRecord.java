@@ -27,8 +27,6 @@ import flash.swf.tags.DefineTag;
  * of an ImportAssets tag.  We subclass DefineTag because definitions
  * are the things that get imported; any tag that refers to a
  * definition can also refer to an import of another definition.
- *
- * @author Edwin Smith
  */
 public class ImportRecord extends DefineTag
 {

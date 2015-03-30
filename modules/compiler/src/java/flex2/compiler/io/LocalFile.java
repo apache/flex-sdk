@@ -31,8 +31,6 @@ import java.net.MalformedURLException;
 /**
  * A VirtualFile implemenation, which is backed by a file on a local
  * disk.
- *
- * @author Clement Wong
  */
 public class LocalFile implements VirtualFile
 {

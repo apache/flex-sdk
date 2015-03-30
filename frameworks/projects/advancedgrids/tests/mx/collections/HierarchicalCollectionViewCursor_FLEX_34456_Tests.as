@@ -19,19 +19,19 @@
 
 package mx.collections
 {
-	import flash.events.UncaughtErrorEvent;
-	
-	import mx.core.FlexGlobals;
-	
-	import spark.components.WindowedApplication;
-	
-	import org.flexunit.asserts.assertEquals;
-	import org.flexunit.asserts.assertNotNull;
-	import org.flexunit.asserts.assertTrue;
-	import org.flexunit.runners.Parameterized;
+    import flash.events.UncaughtErrorEvent;
 
-	[RunWith("org.flexunit.runners.Parameterized")]
-	public class HierarchicalCollectionViewCursor_FLEX_34456_Test
+    import mx.core.FlexGlobals;
+
+    import org.flexunit.asserts.assertEquals;
+    import org.flexunit.asserts.assertNotNull;
+    import org.flexunit.asserts.assertTrue;
+    import org.flexunit.runners.Parameterized;
+
+    import spark.components.Application;
+
+    [RunWith("org.flexunit.runners.Parameterized")]
+	public class HierarchicalCollectionViewCursor_FLEX_34456_Tests
 	{
         public static var positionAndOperation:Array = [[11, 5, 0], [11, 5, 1]];
 		
@@ -51,13 +51,15 @@ package mx.collections
 		public static function setUpBeforeClass():void
 		{
 			_generatedHierarchy = _utils.generateOpenHierarchyFromRootList(_utils.generateHierarchySourceFromString(HIERARCHY_STRING));
-			(FlexGlobals.topLevelApplication as WindowedApplication).loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
+            if(FlexGlobals.topLevelApplication is Application)
+                (FlexGlobals.topLevelApplication as Application).loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
         }
 		
 		[AfterClass]
 		public static function tearDownAfterClass():void
 		{
-			(FlexGlobals.topLevelApplication as WindowedApplication).loaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
+            if(FlexGlobals.topLevelApplication is Application)
+                (FlexGlobals.topLevelApplication as Application).loaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onUncaughtClientError);
 			_generatedHierarchy = null;
 			_utils = null;
 		}

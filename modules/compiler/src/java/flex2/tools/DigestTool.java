@@ -42,8 +42,6 @@ import org.apache.flex.tools.FlexTool;
 /**
  * Given the path to a file and a swc, update the digest xml in catalog.xml of the swc
  * with the new digest of the file.
- * 
- * @author dloverin
  *
  */
 public class DigestTool extends Tool implements FlexTool

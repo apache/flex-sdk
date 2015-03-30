@@ -29,8 +29,6 @@ import macromedia.asc.util.Context;
  * used by data binding when generating watchers for Array elements
  * and function return values.  We use a PrettyPrinter to recreate the
  * AS3 for the watcher args.
- *
- * @author Paul Reilly
  */
 public class PrettyPrinter extends EvaluatorAdapter
     implements Tokens

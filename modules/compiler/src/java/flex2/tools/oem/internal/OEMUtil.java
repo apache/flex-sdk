@@ -67,7 +67,6 @@ import flex2.tools.oem.*;
  * A collection of utility methods used by classes in flex2.tools.oem.
  *
  * @version 2.0.1
- * @author Clement Wong
  */
 public class OEMUtil
 {

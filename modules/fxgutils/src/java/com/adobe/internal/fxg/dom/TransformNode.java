@@ -23,8 +23,6 @@ import com.adobe.fxg.dom.FXGNode;
 
 /**
  * A marker interface to denote that an FXG node represents a type of transform. 
- * 
- * @author Peter Farland
  */
 public interface TransformNode extends FXGNode
 {

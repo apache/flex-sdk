@@ -25,8 +25,6 @@ import flash.swf.ActionConstants;
 
 /**
  * Represents an AS2 "wait for frame" byte code.
- *
- * @author Clement Wong
  */
 public class WaitForFrame extends Action
 {

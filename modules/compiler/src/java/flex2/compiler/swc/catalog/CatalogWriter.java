@@ -35,8 +35,6 @@ import java.util.Set;
 /**
  * Used to write out a catalog.xml within a SWC.  Uses various pieces
  * of a SWC to figure out what needs to be written out.
- * 
- * @author Brian Deitte
  */
 public class CatalogWriter
 {

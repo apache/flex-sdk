@@ -25,8 +25,6 @@ package flash.tools.debugger.concrete;
  * 
  * These values must be kept in sync with 'enum OutGetVariableFlags' in
  * the player's playerdebugger.h file.
- *
- * @author mmorearty
  */
 public interface GetVariableFlag
 {

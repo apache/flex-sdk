@@ -31,8 +31,6 @@ import flash.tools.debugger.events.ExceptionFault;
  * be 100% accurate; they handle all the cases the debugger's expression
  * evaluator is likely to run into, but there are some edge cases that
  * fall through the cracks.
- * 
- * @author Mike Morearty
  */
 public class ECMA
 {

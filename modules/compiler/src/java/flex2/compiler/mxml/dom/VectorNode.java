@@ -28,8 +28,6 @@ import java.util.Set;
 /**
  * Represents a &lt;Vector&gt; tag in the MXML 2009 language
  * namespace.
- *
- * @author Paul Reilly
  */
 public class VectorNode extends Node
 {

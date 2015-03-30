@@ -61,8 +61,6 @@ import java.util.Map;
 /**
  * This class is used externally by the webtier compiler and
  * internally by some of the other flex tools, like fcsh and mxmlc.
- *
- * @author Clement Wong
  */
 public final class WebTierAPI extends Tool
 {

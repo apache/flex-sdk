@@ -39,10 +39,6 @@ import java.util.zip.GZIPInputStream;
 
 /**
  * Transcodes SVGs into DefineSprites for embedding.
- *
- * @author Pete Farland
- * @author Roger Gonzalez
- * @author Clement Wong
  */
 public class SVGTranscoder extends AbstractTranscoder
 {

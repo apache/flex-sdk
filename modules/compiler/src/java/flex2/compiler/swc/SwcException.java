@@ -26,8 +26,6 @@ import flex2.compiler.util.ThreadLocalToolkit;
 
 /**
  * General exception for SWC problems.
- *
- * @author Brian Deitte
  */
 public class SwcException extends RuntimeException implements ILocalizableMessage
 {

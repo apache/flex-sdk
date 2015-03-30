@@ -1279,7 +1279,19 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
                 }
 
                 if (blurOwners[sm] == o.owner)
+                {
                     blurOwners[sm] = null;
+                    // FLEX-34774 Assign new blurOwner if stack of modals
+                    // is programmatically manipulated and owner goes away
+                    // before others
+                    for (var j:int = 0; j < n; j++)
+                    {
+                        var p:PopUpData               = popupInfo[j];
+                        if (p != o && p.systemManager == sm && p.modalWindow != null)
+                            blurOwners[sm] = p.owner;
+                    }
+
+                }
                 popupInfo.splice(i, 1);
                 break;
             }

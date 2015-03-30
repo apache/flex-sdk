@@ -25,8 +25,6 @@ import flex2.compiler.util.ThreadLocalToolkit;
 
 /**
  * A common base class for configuration related exceptions.
- *
- * @author Roger Gonzalez
  */
 public class ConfigurationException extends Exception implements ILocalizableMessage
 {

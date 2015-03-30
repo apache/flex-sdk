@@ -40,8 +40,6 @@ import macromedia.asc.util.Context;
  * This class is a helper used to generate the code that implements a
  * stateful model, when state-specific nodes or attributes were
  * declared within a component/document instance.
- * 
- * @author Corey Lucier
  */
 public class StatesGenerator {
 

@@ -28,8 +28,6 @@ import java.util.Set;
 
 /**
  * A collection of graph sorting and utility methods.
- *
- * @author Clement Wong
  */
 public final class Algorithms
 {

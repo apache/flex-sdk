@@ -23,8 +23,6 @@ package flex2.compiler.css;
  * This value object represents a ClassReference() or
  * PropertyReference() CSS function.  It is used as a
  * flash.css.StyleProperty value.
- *
- * @author Paul Reilly
  */
 public class Reference
 {

@@ -100,8 +100,6 @@ import java.util.regex.Matcher;
  * <p>At the end of the InterfaceCompiler phases, the workflow switches to ImplementationCompiler for generation of the
  * complete AS code. (As noted above, the additional dependencies outside those needed purely for the document's
  * component tags, are detected and registered during that phase.)
- *
- * @author Clement Wong
  * 
  * Changed to extend AbstractSubCompiler to clean up benchmarking code and enble 
  * embedded compiler benchmarking - bfrazer

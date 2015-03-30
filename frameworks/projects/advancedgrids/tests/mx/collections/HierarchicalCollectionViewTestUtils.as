@@ -19,8 +19,8 @@
 
 package mx.collections
 {
-	import com.adobe.utils.StringUtil;
-	
+    import mx.collections.*;
+    import mx.utils.StringUtil;
 	import mx.collections.ArrayCollection;
 	import mx.collections.CursorBookmark;
 	import mx.collections.HierarchicalCollectionView;

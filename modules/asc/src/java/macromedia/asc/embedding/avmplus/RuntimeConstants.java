@@ -19,8 +19,6 @@ package macromedia.asc.embedding.avmplus;
 
 /**
  * RuntimeConstants
- *
- * @author Jeff Dyer
  */
 
 // ISSUE: This file needs to be renamed since everything

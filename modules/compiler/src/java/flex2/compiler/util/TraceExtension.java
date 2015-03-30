@@ -28,8 +28,6 @@ import flex2.compiler.as3.reflect.TypeTable;
  * through each of the phases for each CompilationUnit.  The
  * differences between the batch algorithms can be seen using this
  * class.
- *
- * @author Clement Wong
  */
 public class TraceExtension implements Extension
 {

@@ -137,8 +137,6 @@ import flex2.compiler.util.QName;
  * Evaluates an AS3 syntax tree and emits a file signature.
  *
  * This class is not meant to be reused -- always create a new instance when you need it.
- *
- * @author Jono Spiro
  */
 public class SignatureEvaluator extends EvaluatorAdapter implements Tokens
 {

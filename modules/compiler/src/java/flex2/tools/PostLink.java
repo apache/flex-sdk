@@ -42,8 +42,6 @@ import java.util.Set;
 /**
  * Implementation of flex2.linker.PostLink which merges ABC blocks and
  * runs a peephole optimizer on the byte code.
- *
- * @author Clement Wong
  */
 public class PostLink implements flex2.linker.PostLink
 {

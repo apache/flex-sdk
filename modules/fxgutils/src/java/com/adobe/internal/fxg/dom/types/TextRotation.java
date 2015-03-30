@@ -32,7 +32,6 @@ package com.adobe.internal.fxg.dom.types;
  *   4 = rotate270
  * </pre>
  * 
- * @author Min Plunkett
  */
 public enum TextRotation
 {

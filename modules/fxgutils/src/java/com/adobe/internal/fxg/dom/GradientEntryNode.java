@@ -23,9 +23,6 @@ import static com.adobe.fxg.FXGConstants.*;
 
 import com.adobe.fxg.FXGException;
 
-/**
- * @author Peter Farland
- */
 public class GradientEntryNode extends AbstractFXGNode
 {
     private static final double RATIO_MIN_INCLUSIVE = 0.0;

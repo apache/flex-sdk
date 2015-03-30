@@ -34,8 +34,6 @@ import java.util.*;
 /**
  * Represents SWF metadata, which should not be confuses with AS3
  * metadata.
- *
- * @author Clement Wong
  */
 public final class MovieMetaData extends TagHandler
 {

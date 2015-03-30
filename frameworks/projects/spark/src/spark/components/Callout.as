@@ -507,7 +507,11 @@ public class Callout extends SkinnablePopUpContainer
     {
         if (isNaN(_margin))
         {
-            var dpi:Number = FlexGlobals.topLevelApplication["applicationDPI"];
+			var dpi:Number;
+			if(FlexGlobals.topLevelApplication.hasOwnProperty("applicationDPI"))
+			{
+				dpi = FlexGlobals.topLevelApplication["applicationDPI"];
+			}
             
             if (dpi)
             {
@@ -1682,6 +1686,16 @@ public class Callout extends SkinnablePopUpContainer
      *  @private
      */
     private function systemManager_resizeHandler(event:Event):void
+    {
+    	//callLater() solves bug FLEX-34712 only affecting android device and not affecting ios device or simulator
+    	//where calculatePopUpPosition()'s correct x or y may not be immediately available
+        callLater(queued_systemManager_resizeHandler, [event]);
+    }
+    
+    /**
+     *  @private
+     */
+    private function queued_systemManager_resizeHandler(event:Event):void
     {
         // Remove explicit settings if due to Resize effect
         softKeyboardEffectResetExplicitSize();

@@ -36,8 +36,6 @@ import java.util.*;
 /**
  * This evaluator handles processing class, function, property and
  * variable level Bindable metadata.
- *
- * @author Paul Reilly
  */
 public class BindableFirstPassEvaluator extends GenerativeFirstPassEvaluator
 {

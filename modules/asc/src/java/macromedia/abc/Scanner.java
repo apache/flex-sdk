@@ -21,9 +21,6 @@ package macromedia.abc;
 
 import static macromedia.asc.embedding.avmplus.ActionBlockConstants.*;
 
-/**
- * @author Clement Wong
- */
 public final class Scanner
 {
 	public static int scanMinorVersion(BytecodeBuffer in)

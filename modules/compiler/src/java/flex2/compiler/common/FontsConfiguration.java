@@ -38,9 +38,6 @@ import java.util.HashMap;
 /**
  * This class defines the fonts related configuration options.  These
  * options are typically set via flex-config.xml.
- *
- * @author Kyle Quevillon
- * @author Peter Farland
  */
 @SuppressWarnings("unchecked")
 public class FontsConfiguration

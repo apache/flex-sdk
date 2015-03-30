@@ -34,7 +34,6 @@ import flex2.tools.CompcConfiguration;
  * for -loadConfig and -compute-digest.
  *
  * @version 2.0.1
- * @author Clement Wong
  */
 public class LibraryCompilerConfiguration extends CompcConfiguration
 {

@@ -25,9 +25,6 @@ import java.util.SortedMap;
 import java.util.TreeMap;
 import java.util.Map.Entry;
 
-/**
- * @author Jeff Dyer
- */
 public final class Multinames extends TreeMap<String, Namespaces>
 {
 	private Multinames delegate;

@@ -26,7 +26,6 @@ import flash.swf.types.Matrix;
 /**
  * Utility class to help with matrix transformation for coordinate transformation.
  * 
- * @author Sujata Das
  */
 public class FXGMatrix
 {

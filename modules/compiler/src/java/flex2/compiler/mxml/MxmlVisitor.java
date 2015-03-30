@@ -23,8 +23,6 @@ import java.util.List;
 
 /**
  * Parse tree visitors must implement this interface.
- *
- * @author Clement Wong
  */
 public interface MxmlVisitor
 {

@@ -48,8 +48,6 @@ import java.util.*;
 /**
  * This subcompiler is used to process ABC (Actionscript Byte Code)
  * blocks and to extract type information.
- *
- * @author Clement Wong
  */
 public class AbcCompiler extends AbstractSubCompiler implements flex2.compiler.SubCompiler
 {

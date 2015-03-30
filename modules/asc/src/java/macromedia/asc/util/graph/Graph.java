@@ -21,9 +21,6 @@ package macromedia.asc.util.graph;
 
 import java.util.*;
 
-/**
- * @author Clement Wong
- */
 public class Graph <V,E>
 {
 	public Graph()

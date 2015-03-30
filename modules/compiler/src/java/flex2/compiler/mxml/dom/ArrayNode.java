@@ -27,8 +27,6 @@ import java.util.Set;
 
 /**
  * Represents an &lt;Array&gt; tag in the MXML language namespace.
- *
- * @author Clement Wong
  */
 public class ArrayNode extends Node
 {

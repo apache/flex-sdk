@@ -49,8 +49,6 @@ import java.io.File;
  *
  * When the current working directory is C:/, we don't want resolve() to return
  * C:/image.jpg.
- * 
- * @author Brian Deitte
  */
 public class LocalFilePathResolver implements SinglePathResolver
 {

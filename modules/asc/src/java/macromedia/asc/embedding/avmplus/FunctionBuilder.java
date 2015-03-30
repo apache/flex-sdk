@@ -23,9 +23,6 @@ import macromedia.asc.semantics.Builder;
 import macromedia.asc.semantics.ObjectValue;
 import macromedia.asc.util.Context;
 
-/**
- * @author Jeff Dyer
- */
 public class FunctionBuilder extends Builder
 {
 

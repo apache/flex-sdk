@@ -29,7 +29,6 @@ import java.util.HashSet;
 
 /**
  * This class is stores the package info classes for all packages in the source paths.
- * @author Brian Deitte
  */
 public class PackagesConfiguration
 {

@@ -23,8 +23,6 @@ package macromedia.asc.embedding.avmplus;
  * All special features turned off. All of the features
  * described below are non-standard, and so are turned
  * off by default.
- *
- * @author Jeff Dyer
  */
 public class Features
 {

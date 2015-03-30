@@ -35,8 +35,6 @@ import java.net.URLConnection;
 /**
  * Represents a JPEG image.  PixelGrabber is used to lookup the width
  * and height.
- *
- * @author Peter Farland
  */
 public class JPEGImage extends BitmapImage
 {

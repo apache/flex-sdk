@@ -17,10 +17,10 @@
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-package tests.promises
+package promises
 {
 
-import tests.promises.cases.PromisesBasicTests;
+import promises.cases.PromisesBasicTests;
 
 [Suite]
 [RunWith("org.flexunit.runners.Suite")]

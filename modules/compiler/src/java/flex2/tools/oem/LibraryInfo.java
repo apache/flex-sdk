@@ -23,8 +23,6 @@ import java.util.Iterator;
 
 /**
  * Defines the API for library information. 
- * 
- * @author Clement Wong
  * @version 3.0
  */
 public interface LibraryInfo

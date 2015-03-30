@@ -28,8 +28,6 @@ import java.util.HashSet;
 /**
  * Stores the mappings of name and uri to classname.
  *
- * @author Brian Deitte
- * @author Clement Wong
  */
 public class NameMappings
 {

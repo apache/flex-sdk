@@ -30,8 +30,6 @@ import flash.util.FileUtils;
  * A file within a SWC.  Only grabs the file from the archive when
  * absolutely necessary.  It uses the values from catalog.xml for name
  * and lastModified.
- *
- * @author Brian Deitte
  */
 public class SwcFile implements VirtualFile
 {

@@ -23,7 +23,6 @@ import macromedia.asc.parser.MetaDataNode;
 
 /**
  * Class to store metadata info, so that Slots don't have pointers back into the AST
- * @author Erik Tierney
  */
 public class MetaData
 {

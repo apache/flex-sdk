@@ -23,8 +23,6 @@ import java.util.Map;
 
 /**
  * Defines the API for formatting localized text.
- *
- * @author Roger Gonzalez
  */
 public interface ILocalizedText
 {

@@ -38,9 +38,6 @@ import java.util.Map;
  * Base class for transcoding images.  For images with Slice 9 or
  * smoothing, we use a DefineSprite tags, which wraps a DefineShape
  * tag.  Otherwise, we use a DefineBits tag.
- *
- * @author Paul Reilly
- * @author Clement Wong
  */
 public abstract class ImageTranscoder extends AbstractTranscoder
 {

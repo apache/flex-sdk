@@ -23,8 +23,6 @@ package flex2.compiler.mxml.dom;
  * Represents a generic tag, which is a child of a &lt;DesignLayer&gt;
  * tag.  The MxmlScanner creates these instead of generic Node
  * instances when inside the scope of a DesignLayer tag.
- *
- * @author Corey Lucier
  */
 public class LayeredNode extends Node
 {

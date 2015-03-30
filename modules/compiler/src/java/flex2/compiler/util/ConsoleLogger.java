@@ -27,8 +27,6 @@ import flex2.compiler.io.FileUtil;
 /**
  * A Logger implementation that uses System.err and System.out to
  * output messages.
- *
- * @author Clement Wong
  */
 public class ConsoleLogger extends AbstractLogger implements Logger
 {

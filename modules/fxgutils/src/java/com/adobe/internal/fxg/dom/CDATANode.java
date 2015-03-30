@@ -29,7 +29,6 @@ import java.util.Map;
  * A class to determine whether a node constitutes an CData in
  * a text flow.
  * 
- * @author Min Plunkett
  */
 public class CDATANode extends AbstractFXGNode implements TextNode
 {

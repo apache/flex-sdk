@@ -19,9 +19,6 @@
 
 package macromedia.abc;
 
-/**
- * @author Clement Wong
- */
 public class OpcodeVisitor implements Visitor
 {
 	public final void methodInfo(int returnType, int[] paramTypes, int nativeName, int flags, int[] values, int[] value_kinds, int[] param_names) {}

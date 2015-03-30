@@ -35,8 +35,6 @@ import java.util.*;
 /**
  * Extends SimpleMovie by adding support for multiple frames and
  * keeping AS3 metadata.
- *
- * @author Roger Gonzalez
  */
 public class FlexMovie extends SimpleMovie
 {

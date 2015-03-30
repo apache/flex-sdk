@@ -27,7 +27,6 @@ package com.adobe.internal.fxg.dom.types;
  *   1 = italic
  * </pre>
  * 
- * @author Min Plunkett
  */
 public enum FontStyle
 {

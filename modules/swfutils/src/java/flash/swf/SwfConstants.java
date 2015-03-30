@@ -21,8 +21,6 @@ package flash.swf;
 
 /**
  * SWF related constants.
- *
- * @author Peter Farland
  */
 public interface SwfConstants
 {

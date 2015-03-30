@@ -24,8 +24,6 @@ import flash.swf.TagHandler;
 
 /**
  * This represents a SoundStreamHead SWF tag.
- *
- * @author Clement Wong
  */
 public class SoundStreamHead extends Tag
 {

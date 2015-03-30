@@ -26,8 +26,6 @@ import java.util.ResourceBundle;
 
 /**
  * Utility class to help create localized message for exceptions and logs.
- * 
- * @author Min Plunkett
  */
 public class FXGLocalizationUtil
 {

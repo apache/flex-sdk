@@ -30,8 +30,6 @@ import com.adobe.internal.fxg.dom.types.WhiteSpaceCollapse;
 
 /**
  * A base class for text nodes that have character formatting.
- * 
- * @author Peter Farland
  */
 public abstract class AbstractCharacterTextNode extends AbstractTextNode
 {

@@ -88,8 +88,6 @@ import flex2.tools.VersionInfo;
  *  - The SWC should be entirely rewritten to a temporary location,
  *    then copied atomically to the new location.
  *
- * @author Brian Deitte
- * @author Roger Gonzalez
  */
 public class Swc
 {

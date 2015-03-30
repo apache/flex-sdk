@@ -23,8 +23,6 @@ package flex2.compiler.util.graph;
 
 /**
  * Represents an edge in a graph.
- *
- * @author Clement Wong
  */
 public final class Edge<VertexWeight,EdgeWeight>
 {

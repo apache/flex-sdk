@@ -29,8 +29,6 @@ import flash.util.Trace;
 /**
  * A helper class used by VirtualZipFile to open and hold a ZipFile
  * upon request.
- *
- * @author Brian Deitte
  */
 public class ZipFileHolder
 {

@@ -26,8 +26,6 @@ import com.adobe.fxg.dom.FXGNode;
 /**
  * A &lt;Definition&gt; is a special template node that is not itself rendered
  * but rather can be referenced by name in an FXG document.
- * 
- * @author Peter Farland
  */
 public class DefinitionNode extends AbstractFXGNode
 {

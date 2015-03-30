@@ -77,9 +77,6 @@ import org.apache.flex.forks.velocity.VelocityContext;
  * This class is an MXML document specific override of StyleModule. It provides
  * a context that manages style declarations for both default styles/themes
  * and document style nodes. 
- *
- * @author Paul Reilly
- * @author Pete Farland
  */
 public class StylesContainer extends StyleModule
 {

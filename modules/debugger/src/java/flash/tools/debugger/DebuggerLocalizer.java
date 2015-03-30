@@ -34,8 +34,6 @@ import flash.localization.ResourceBundleLocalizer;
  *      return a default string, to avoid a crash. </li>
  * <li> We replace any "\n" with the current platform's newline sequence. </li>
  * </ol>
- * 
- * @author mmorearty
  */
 public class DebuggerLocalizer implements ILocalizer
 {

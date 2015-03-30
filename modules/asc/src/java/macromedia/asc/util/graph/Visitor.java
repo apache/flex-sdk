@@ -19,9 +19,6 @@
 
 package macromedia.asc.util.graph;
 
-/**
- * @author Clement Wong
- */
 public interface Visitor <T>
 {
 	void visit(Vertex<T> object);

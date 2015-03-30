@@ -41,8 +41,6 @@ import java.net.URL;
 /**
  * ILocalizer implementation, which supports looking up text in XLR
  * files..
- *
- * @author Roger Gonzalez
  */
 public class XLRLocalizer implements ILocalizer
 {

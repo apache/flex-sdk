@@ -23,8 +23,6 @@ import flex2.compiler.util.CompilerMessage;
 
 /**
  * This error is reported when a state value is not valid.
- *
- * @author Corey Lucier
  */
 public class InvalidStateSpecificValue extends CompilerMessage.CompilerError
 {

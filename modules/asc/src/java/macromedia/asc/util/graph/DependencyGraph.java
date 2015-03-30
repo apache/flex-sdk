@@ -21,9 +21,6 @@ package macromedia.asc.util.graph;
 
 import java.util.*;
 
-/**
- * @author Clement Wong
- */
 public final class DependencyGraph<T> extends Graph<String, Object>
 {
 	public DependencyGraph()

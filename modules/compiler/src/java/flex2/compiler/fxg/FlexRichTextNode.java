@@ -26,8 +26,6 @@ import com.adobe.internal.fxg.dom.RichTextNode;
 /**
  * A Flex specific override for RichTextNode used to capture the 
  * attributes specified on a &lt;RichText&gt; node in FXG 2.0.
- * 
- * @author Peter Farland
  * @since FXG 2.0
  */
 public class FlexRichTextNode extends RichTextNode

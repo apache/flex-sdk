@@ -39,8 +39,6 @@ import java.net.URL;
  * The swd file format is as follows
  *
  * swd(header) (tag)*
- *
- * @author Edwin Smith
  */
 public class DebugDecoder
 {

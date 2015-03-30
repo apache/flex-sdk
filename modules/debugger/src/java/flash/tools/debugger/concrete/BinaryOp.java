@@ -19,9 +19,6 @@
 
 package flash.tools.debugger.concrete;
 
-/**
- * @author Mike Morearty
- */
 public enum BinaryOp {
 	// These correspond to the values in the player, in playerdebugger.h,
 	// enum BinaryOp.  These values must be kept synchronized with those

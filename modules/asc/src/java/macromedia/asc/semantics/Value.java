@@ -22,8 +22,6 @@ import macromedia.asc.util.*;
 /**
  * The value class from which all other values derive. Immediate
  * children are ObjectValue, and ReferenceValue.
- *
- * @author Jeff Dyer
  */
 public abstract class Value
 {

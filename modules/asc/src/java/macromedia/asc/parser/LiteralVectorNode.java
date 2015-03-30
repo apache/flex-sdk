@@ -24,7 +24,6 @@ import macromedia.asc.util.Context;
 
 /**
  * LiteralVectorNode represents a vector literal, e.g., Vector.<int>.[1,2,3]
- * @author tharwood
  */
 public class LiteralVectorNode extends Node 
 {

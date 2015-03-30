@@ -64,8 +64,6 @@ import org.apache.commons.collections.iterators.FilterIterator;
 /**
  * This class handles direct AST generation for the second pass full
  * implemenation.
- *
- * @author Paul Reilly
  */
 public class ImplementationGenerator extends AbstractGenerator
 {

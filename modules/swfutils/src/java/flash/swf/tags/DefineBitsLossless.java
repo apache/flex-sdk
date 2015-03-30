@@ -26,8 +26,6 @@ import flash.swf.TagHandler;
 /**
  * This class extends DefineBits by adding support for an array of
  * color data.
- *
- * @author Clement Wong
  */
 public class DefineBitsLossless extends DefineBits
 {

@@ -25,8 +25,6 @@ import flash.swf.ActionConstants;
 
 /**
  * Represents an AS2 "branch" byte code.
- *
- * @author Clement Wong
  */
 public class Branch extends Action
 {

@@ -25,8 +25,6 @@ import macromedia.asc.parser.InputBuffer;
  * This class extends InputBuffer by offsetting the initial position
  * to reflect the relative position of a code fragment in an MXML
  * document.
- *
- * @author Paul Reilly
  */
 class OffsetInputBuffer extends InputBuffer
 {   

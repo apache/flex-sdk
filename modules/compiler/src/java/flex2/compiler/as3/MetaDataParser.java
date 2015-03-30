@@ -30,8 +30,6 @@ import macromedia.asc.util.ContextStatics;
 
 /**
  * This utility class is used to parse metadata.
- *
- * @author Paul Reilly
  */
 public class MetaDataParser
 {

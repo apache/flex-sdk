@@ -48,8 +48,6 @@ import java.util.Map;
 /**
  * This implementation of FontManager uses Apache Batik to process
  * TrueTypeFont Files.
- *
- * @author Peter Farland
  */
 @SuppressWarnings("unchecked")
 public class BatikFontManager extends CachedFontManager

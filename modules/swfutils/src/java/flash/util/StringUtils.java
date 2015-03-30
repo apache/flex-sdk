@@ -26,8 +26,6 @@ import java.io.File;
  * String utilities which exist in JDK 1.4 but are unavailable in JDK 1.3
  * <p>
  * The jakarta oro package is used for regular expressions support.
- *
- * @author Cathy Murphy
  */
 public class StringUtils
 {

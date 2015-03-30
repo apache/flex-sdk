@@ -22,8 +22,6 @@ package macromedia.asc.util;
 /**
  * The methods in java.util.BitSet modify the internal values. The class does not offer methods
  * that return new values as BitSet. This simple class does that.
- * 
- * @author Clement Wong
  */
 public final class BitSet
 {

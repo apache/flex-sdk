@@ -25,8 +25,6 @@ import flash.swf.types.ActionList;
 
 /**
  * Represents a DefineAction SWF tag.  This is used by AS2.
- *
- * @author Clement Wong
  */
 public class DoAction extends Tag
 {

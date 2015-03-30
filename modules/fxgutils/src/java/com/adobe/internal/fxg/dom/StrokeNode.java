@@ -23,8 +23,6 @@ import com.adobe.fxg.dom.FXGNode;
 
 /**
  * A marker interface to denote that an FXG node represents a type of stroke. 
- * 
- * @author Peter Farland
  */
 public interface StrokeNode extends FXGNode
 {

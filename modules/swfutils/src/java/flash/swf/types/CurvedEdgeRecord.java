@@ -21,8 +21,6 @@ package flash.swf.types;
 
 /**
  * This class extends EdgeRecord by adding support for curve data.
- *
- * @author Clement Wong
  */
 public class CurvedEdgeRecord extends EdgeRecord
 {

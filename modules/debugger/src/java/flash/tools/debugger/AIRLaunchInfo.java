@@ -21,9 +21,6 @@ package flash.tools.debugger;
 
 import java.io.File;
 
-/**
- * @author mmorearty
- */
 public class AIRLaunchInfo
 {
 	/**

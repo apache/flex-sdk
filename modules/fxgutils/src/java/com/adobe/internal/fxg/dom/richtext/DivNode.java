@@ -34,7 +34,6 @@ import com.adobe.internal.fxg.dom.TextNode;
  * &lt;p&gt; tag starts a new division in text content.
  * 
  * @since 2.0
- * @author Min Plunkett
  */
 public class DivNode extends AbstractRichBlockTextNode
 {    

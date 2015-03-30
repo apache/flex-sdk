@@ -27,8 +27,6 @@ import flex2.compiler.mxml.Token;
 /**
  * Represents a generic tag not necessarily in the MXML language
  * namespace.
- *
- * @author Clement Wong
  */
 public class Node extends Element
 {

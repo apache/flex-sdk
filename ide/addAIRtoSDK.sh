@@ -30,14 +30,15 @@
 AIR_VERSION="$1"
 OS=`uname`
 
-if [[ "${AIR_VERSION}" != "16.0" && "${AIR_VERSION}" != "15.0" 
+if [[ "${AIR_VERSION}" != "17.0b"
+  && "${AIR_VERSION}" != "17.0" && "${AIR_VERSION}" != "16.0" && "${AIR_VERSION}" != "15.0" 
   && "${AIR_VERSION}" != "14.0" && "${AIR_VERSION}" != "13.0" && "${AIR_VERSION}" != "4.0" 
   && "${AIR_VERSION}" != "3.9" && "${AIR_VERSION}" != "3.8" && "${AIR_VERSION}" != "3.7" 
   && "${AIR_VERSION}" != "3.6" && "${AIR_VERSION}" != "3.5" && "${AIR_VERSION}" != "3.4" 
   && "${AIR_VERSION}" != "3.3" && "${AIR_VERSION}" != "3.2" && "${AIR_VERSION}" != "3.1" 
   && "${AIR_VERSION}" != "3.0" && "${AIR_VERSION}" != "2.7" && "${AIR_VERSION}" != "2.6" ]]
 then
-	echo Unknown version ${AIR_VERISON} of AIR. Versions 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4.0, 13.0, 14.0, 15.0 and 16.0 are supported.
+	echo Unknown version ${AIR_VERISON} of AIR. Versions 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4.0, 13.0, 14.0, 15.0, 16.0 and 17.0 are supported.
 	exit 1;
 fi
 
@@ -98,11 +99,6 @@ downloadAIR()
    	airTempDir="${IDE_SDK_DIR}/frameworks/temp"
 	mkdir -p "${airTempDir}"
 
-	if [ ${AIR_VERSION} = "16.0" ]
-	then
-		airDownload="http://labsdownload.adobe.com/pub/labs/flashruntimes/air/air16_sdk_sa_mac.tbz2"
-	fi	
-	
     if [[ "${OS}" == "Darwin" ]]
     then
         airDownload="http://airdownload.adobe.com/air/mac/download/${version}/AdobeAIRSDK.tbz2"
@@ -110,6 +106,11 @@ downloadAIR()
         airDownload="http://airdownload.adobe.com/air/lin/download/${version}/AdobeAIRSDK.tbz2"
     fi
     
+    if [ ${AIR_VERSION} = "17.0b" ]
+	then
+		airDownload="http://labsdownload.adobe.com/pub/labs/flashruntimes/air/air17_sdk_sa_mac.tbz2"
+	fi	
+	
 	echo Downloading AIR ${version}
 	curl ${airDownload} > "${airTempDir}/air.tbz2"
 	
@@ -161,6 +162,20 @@ for configFile in "${configFiles[@]}"
 do
 	echo Updating ${configFile}
 
+	# 17.0 beta needs FP 17 and swf version 28
+	if [ ${AIR_VERSION} = "17.0b" ]
+	then
+		updatePlayerVersion 17.0 "${configFile}"
+		updateSWFVersion 28 "${configFile}"
+	fi	
+	
+	# 17.0 needs FP 17 and swf version 28
+	if [ ${AIR_VERSION} = "17.0" ]
+	then
+		updatePlayerVersion 17.0 "${configFile}"
+		updateSWFVersion 28 "${configFile}"
+	fi	
+	
 	# 16.0 needs FP 16 and swf version 27
 	if [ ${AIR_VERSION} = "16.0" ]
 	then

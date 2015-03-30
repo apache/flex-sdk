@@ -34,8 +34,6 @@ import flash.fonts.FSType;
  * Prints out a report on what fonts can and can't be used in the given directory and its subdirectories.
  * We check the fsType of the fonts found.  More information on this can be found here:
  * http://partners.adobe.com/public/developer/en/acrobat/sdk/FontPolicies.pdf
- *
- * @author Brian Deitte
  */
 public class FontLicenseChecker
 {

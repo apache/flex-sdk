@@ -22,8 +22,6 @@ package flex2.compiler.util;
 /**
  * A common base class for MultiName and QName to enable putting them
  * in Map's and Set's together.
- *
- * @author Paul Reilly
  */
 public abstract class Name
 {

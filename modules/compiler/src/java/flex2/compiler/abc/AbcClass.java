@@ -28,7 +28,6 @@ import java.util.List;
 /**
  * This interface defines the TypeTable API for a class.
  *
- * @author Clement Wong
  * @see flex2.compiler.as3.reflect.TypeTable
  */
 public interface AbcClass

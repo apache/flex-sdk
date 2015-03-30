@@ -25,8 +25,6 @@ import java.io.File;
  * Defines the API for path resolution.
  *
  * @version 3.0
- * @author Clement Wong
- * @author Brian Deitte
  */
 public interface PathResolver
 {

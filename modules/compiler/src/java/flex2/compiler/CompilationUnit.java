@@ -35,8 +35,6 @@ import java.util.*;
 /**
  * This class hold all the information related to compiling a single
  * <code>Source</code> object.
- *
- * @author Clement Wong
  * @see flex2.compiler.Source
  */
 public final class CompilationUnit

@@ -33,8 +33,6 @@ import org.apache.flex.forks.batik.svggen.font.table.Os2Table;
  * And if we start using OpenType, we should follow this:
  * <p>
  * http://www.microsoft.com/typography/otspec/os2.htm
- *
- * @author Brian Deitte
  */
 public class FSType
 {

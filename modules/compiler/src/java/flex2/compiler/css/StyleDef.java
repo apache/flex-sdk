@@ -77,9 +77,6 @@ import org.w3c.css.sac.LexicalUnit;
  * 
  * This class is complicated by the fact that it supports both Flex 3 and
  * Flex 4 style subsystems independently.
- *
- * @author Paul Reilly
- * @author Pete Farland
  */
 public class StyleDef
 {

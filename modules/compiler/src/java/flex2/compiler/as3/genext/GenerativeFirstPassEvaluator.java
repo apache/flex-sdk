@@ -30,8 +30,6 @@ import java.util.Map;
  * A common base class for Bindable and Managed metadata first pass
  * evaluators.
  *
- * @author Basil Hosmer
- * @author Paul Reilly
  */
 public abstract class GenerativeFirstPassEvaluator extends EvaluatorAdapter
 {

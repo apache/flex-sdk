@@ -23,8 +23,6 @@ import static macromedia.asc.embedding.avmplus.ActionBlockConstants.*;
 
 /**
  * High-level visitor interface
- * 
- * @author Clement Wong
  */
 public abstract class DefaultVisitor implements Visitor
 {

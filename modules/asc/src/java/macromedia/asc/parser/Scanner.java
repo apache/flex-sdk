@@ -29,8 +29,6 @@ import static macromedia.asc.embedding.avmplus.Features.*;
 
 /**
  * Partitions input character stream into tokens.
- *
- * @author Jeff Dyer
  */
 public final class Scanner implements ErrorConstants
 {

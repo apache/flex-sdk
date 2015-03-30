@@ -28,7 +28,6 @@ import com.adobe.fxg.FXGVersion;
 /**
  * Maintains a registry of FXGVersionHandlers
  * 
- * @author Sujata Das
  */
 public class FXGVersionHandlerRegistry
 {

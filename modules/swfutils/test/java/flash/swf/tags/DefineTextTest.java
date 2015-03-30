@@ -24,9 +24,6 @@ import junit.framework.TestCase;
 import junit.framework.Test;
 import junit.framework.TestSuite;
 
-/**
- * @author Paul Reilly
- */
 public class DefineTextTest extends TestCase
 {
     public DefineTextTest()

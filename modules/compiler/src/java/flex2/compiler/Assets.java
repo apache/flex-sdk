@@ -28,8 +28,6 @@ import java.util.Map.Entry;
 
 /**
  * Value object used to contain a collection of AssetInfo objects.
- *
- * @author Clement Wong
  * @see flex2.compiler.AssetInfo
  * @see flex2.compiler.CompilationUnit
  */

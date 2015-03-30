@@ -30,8 +30,6 @@ import macromedia.asc.parser.InputBuffer;
  * This class extends InputBuffer by adding support for mapping a line
  * number in a code fragment back to the line number in the MXML
  * document.
- *
- * @author Paul Reilly
  */
 public class CodeFragmentsInputBuffer extends InputBuffer
 {

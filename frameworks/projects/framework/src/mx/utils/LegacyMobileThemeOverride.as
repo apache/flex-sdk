@@ -40,7 +40,15 @@ package mx.utils
 			}
 			else if(c.version.indexOf("IOS") > -1)
 			{
-				Platform.mx_internal::iosVersionOverride =  "6.0.0";
+				/**
+				 * Setting OS version to a very specific value here so
+				 * that we can target it to specify the iOS osStatusBarHeight value
+				 * that fixes the iOS7+ status bar issue.
+				 * At the same time, setting it below 7.0 allows usage of the 
+				 * legacy Flex Mobile theme.
+				 * See https://issues.apache.org/jira/browse/FLEX-34714
+				 */
+				Platform.mx_internal::iosVersionOverride =  "6.0.1";
 			}
 		}
 	}

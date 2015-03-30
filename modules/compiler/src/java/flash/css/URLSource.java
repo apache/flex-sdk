@@ -21,8 +21,6 @@ package flash.css;
 
 /**
  * Represents a URL font location.
- *
- * @author Peter Farland
  */
 public class URLSource
 {

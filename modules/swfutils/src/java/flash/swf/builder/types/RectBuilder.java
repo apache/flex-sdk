@@ -26,8 +26,6 @@ import java.awt.geom.Rectangle2D;
 
 /**
  * This class is used to construct a Rect object from a Rectangle2D object.
- *
- * @author Peter Farland
  */
 public final class RectBuilder
 {

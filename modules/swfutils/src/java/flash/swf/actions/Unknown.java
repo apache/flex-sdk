@@ -26,8 +26,6 @@ import flash.swf.ActionHandler;
 
 /**
  * Represents an AS2 "unknown" byte code.
- *
- * @author Clement Wong
  */
 public class Unknown extends Action
 {

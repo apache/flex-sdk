@@ -41,8 +41,6 @@ import flash.swf.debug.RegisterRecord;
 
 /**
  * Defines the AS2 visitor API.
- *
- * @author Clement Wong
  */
 public class ActionHandler
 {

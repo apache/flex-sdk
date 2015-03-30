@@ -29,8 +29,6 @@ import flex2.compiler.util.CompilerMessage;
 /**
  * This analyzer is used to check that HTTPService tags have Request
  * child tags without attributes.
- *
- * @author Clement Wong
  */
 public class HTTPServiceAnalyzer extends AnalyzerAdapter
 {

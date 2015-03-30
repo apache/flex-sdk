@@ -36,8 +36,6 @@ import flash.tools.debugger.expression.PlayerFaultException;
 /**
  * Concrete implementation of IsolateSession. Re-routes
  * calls to the *worker() method equivalents.
- * @author anirudhs
- *
  */
 public class IsolatePlayerSession implements IsolateSession {
 

@@ -24,8 +24,6 @@ import java.util.NoSuchElementException;
 
 /**
  * Base class for all SWF tags.
- *
- * @author Clement Wong
  */
 public abstract class Tag
         implements TagValues

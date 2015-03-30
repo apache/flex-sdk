@@ -36,8 +36,6 @@ import java.io.InputStream;
 /**
  * Parses a manifest into a NameMappings.
  *
- * @author Brian Deitte
- * @author Clement Wong
  */
 public class ManifestParser
 {

@@ -23,9 +23,6 @@ import macromedia.asc.util.Context;
 import macromedia.asc.semantics.*;
 import static macromedia.asc.parser.Tokens.*;
 
-/**
- * @author Jeff Dyer
- */
 public class DocCommentNode extends MetaDataNode
 {
     MetaDataNode metaData; // some comments are associated with other metadata (in addition to a definition)

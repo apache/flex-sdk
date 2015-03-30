@@ -32,8 +32,6 @@ import java.util.List;
 /**
  * Flex Linker API.
  *
- * @author Roger Gonzalez
- * @author Clement Wong
  */
 public final class LinkerAPI
 {

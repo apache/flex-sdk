@@ -27,7 +27,6 @@ import flash.tools.debugger.Variable;
 
 /**
  * Thread-safe wrapper for flash.tools.debugger.Frame
- * @author Mike Morearty
  */
 public class ThreadSafeFrame extends ThreadSafeDebuggerObject implements Frame {
 	

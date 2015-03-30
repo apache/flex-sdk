@@ -110,6 +110,9 @@
 		<condition property="target16.0">
 			<equals arg1="${playerglobal.version}" arg2="16.0" />
 		</condition>
+		<condition property="target17.0">
+			<equals arg1="${playerglobal.version}" arg2="17.0" />
+		</condition>
 	 </target>
 
     <target name="playerglobal10.2-download" if="target10.2">
@@ -231,6 +234,13 @@
             verbose="false"/>
     </target>
 
+    <target name="playerglobal17.0-download" if="target17.0">
+    	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
+        <get src="http://download.macromedia.com/get/flashplayer/updaters/17/playerglobal17_0.swc" 
+            dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
+            verbose="false"/>
+    </target>
+    	
     <!-- target name="playerglobal16.0-download" if="target16.0">
     	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
         <get src="http://labsdownload.adobe.com/pub/labs/flashruntimes/flashplayer/flashplayer16_playerglobal.swc" 

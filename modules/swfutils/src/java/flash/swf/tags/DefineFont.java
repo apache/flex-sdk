@@ -46,9 +46,6 @@ package flash.swf.tags;
  * @see DefineFont2
  * @see DefineFont3
  * @see DefineFont4
- * 
- * @author Clement Wong
- * @author Peter Farland
  */
 public abstract class DefineFont extends DefineTag
 {

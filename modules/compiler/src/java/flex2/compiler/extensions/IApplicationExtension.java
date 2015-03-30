@@ -24,8 +24,6 @@ import flex2.tools.oem.Configuration;
 /**
  * Defines the API for extensions, which run at the end of a OEM API
  * application compilation.
- *
- * @author Andrew Westberg
  */
 public interface IApplicationExtension
     extends IExtension

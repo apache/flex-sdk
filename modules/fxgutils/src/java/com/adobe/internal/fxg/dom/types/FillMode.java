@@ -27,9 +27,6 @@ package com.adobe.internal.fxg.dom.types;
  *   1 = repeat
  *   2 = scale
  * </pre>
- * 
- * @author Min Plunkett
- * @author Sujata Das
  */
 public enum FillMode
 {

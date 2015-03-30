@@ -32,8 +32,6 @@ import com.adobe.internal.fxg.dom.TextNode;
 /**
  * Represents a &lt;p /&gt; child tag of FXG &lt;TextGraphic&gt; content. A
  * &lt;p&gt; tag starts a new paragraph in text content.
- * 
- * @author Peter Farland
  */
 public class ParagraphNode extends AbstractCharacterTextNode
 {

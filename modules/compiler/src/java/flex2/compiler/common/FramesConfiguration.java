@@ -43,8 +43,6 @@ import java.util.Iterator;
  *   </frame>
  * </frames>
  * </PRE>
- *
- * @author Roger Gonzalez
  */
 public class FramesConfiguration
 {

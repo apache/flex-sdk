@@ -27,8 +27,6 @@ import java.awt.image.ImageObserver;
 
 /**
  * Utility methods for getting images.
- *
- * @author Brian Deitte
  */
 // FIXME: there is more duplication in JPEGImage/LosslessImage that could be added here
 public class ImageUtil

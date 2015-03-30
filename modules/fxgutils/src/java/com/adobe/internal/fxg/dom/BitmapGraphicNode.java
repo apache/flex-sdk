@@ -25,10 +25,6 @@ import com.adobe.fxg.FXGException;
 import com.adobe.fxg.FXGVersion;
 import com.adobe.internal.fxg.dom.types.FillMode;
 
-/**
- * @author Peter Farland
- * @author Sujata Das
- */
 public class BitmapGraphicNode extends GraphicContentNode
 {
     //--------------------------------------------------------------------------

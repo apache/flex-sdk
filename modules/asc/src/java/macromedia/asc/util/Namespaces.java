@@ -21,9 +21,6 @@ package macromedia.asc.util;
 
 import macromedia.asc.semantics.*;
 
-/**
- * @author Jeff Dyer
- */
 public final class Namespaces extends ObjectList<ObjectValue>
 {
 	public Namespaces()

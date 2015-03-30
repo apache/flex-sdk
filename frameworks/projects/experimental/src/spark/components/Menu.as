@@ -60,9 +60,6 @@ package spark.components
 	 *  @playerversion AIR 2.5
 	 *  @productversion Flex 4.5
 	 */
-	/**
-	 * @author Bogdan Dinu (http://www.badu.ro)
-	 */
 	public class Menu extends List
 	{
 		protected var _storedSelectedIndex : int = -1;

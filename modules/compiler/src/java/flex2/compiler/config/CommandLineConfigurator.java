@@ -37,8 +37,6 @@ import java.io.File;
  * args and populate a ConfigurationBuffer.  It also contains some
  * associated methods like brief() and usage().  A counterpart of
  * FileConfigurator and SystemPropertyConfigurator.
- *
- * @author Roger Gonzalez
  */
 public class CommandLineConfigurator
 {

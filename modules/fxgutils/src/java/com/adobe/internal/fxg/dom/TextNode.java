@@ -27,8 +27,6 @@ import com.adobe.fxg.dom.FXGNode;
 /**
  * A marker interface to determine whether a node constitutes an element
  * of a text flow.
- * 
- * @author Peter Farland
  */
 public interface TextNode extends FXGNode, PreserveWhiteSpaceNode
 {

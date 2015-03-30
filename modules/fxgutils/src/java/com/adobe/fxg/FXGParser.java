@@ -27,8 +27,6 @@ import com.adobe.fxg.dom.FXGNode;
  * A FXGParser parses an InputStream for an FXG document and builds a custom
  * DOM. Custom FXGNodes can be registered to represent specific elements and
  * elements can also be marked as skipped prior to parsing .
- * 
- * @author Sujata Das
  */
 public interface FXGParser
 {

@@ -26,9 +26,6 @@ import java.text.ParseException;
 import flash.tools.debugger.expression.IASTBuilder;
 import flash.tools.debugger.expression.ValueExp;
 
-/**
- * @author Mike Morearty
- */
 public class ThreadSafeASTBuilder extends ThreadSafeDebuggerObject implements IASTBuilder
 {
 	private final IASTBuilder m_astBuilder;
