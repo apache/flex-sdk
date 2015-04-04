@@ -21,6 +21,7 @@ package promises
 {
 
 import promises.cases.PromisesBasicTests;
+import promises.cases.PromisesJIRATests;
 
 [Suite]
 [RunWith("org.flexunit.runners.Suite")]
@@ -28,6 +29,8 @@ public class PromisesTestSuite
 {
 
 	public var promisesBasic:PromisesBasicTests;
+	
+	public var promisesJIRA:PromisesJIRATests;
 
 }
 }
