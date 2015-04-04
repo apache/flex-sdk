@@ -182,8 +182,7 @@ public class Promise implements IThenable
 		try 
 		{
 			if (result && 
-				(typeof(result) === 'object' || 
-				 typeof(result) === 'function') &&
+				result.hasOwnProperty("then") &&
 				result.then is Function)
 			{
 				doResolve_(result.then, resolve_, reject_);
