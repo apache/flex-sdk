@@ -24,8 +24,6 @@ import flash.events.TimerEvent;
 import flash.net.URLRequest;
 import flash.utils.Timer;
 
-import flashx.textLayout.debug.assert;
-
 import org.apache.flex.promises.Promise;
 import org.apache.flex.promises.interfaces.IThenable;
 import org.flexunit.asserts.assertEquals;
@@ -95,7 +93,7 @@ public class PromisesJIRATests
 	//----------------------------------
 	
 	private function verifyGotType_(event:TimerEvent, result:*):void {
-		assertEquals(typeof this.expected_, this.got_);
+		assertEquals(this.expected_, this.got_.toString());
 	}
 	
 
