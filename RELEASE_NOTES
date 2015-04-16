@@ -194,6 +194,8 @@ FLEX-28291  Linear Vector Layout on the ComboBox
 FLEX-26478  Runtime error occured when a TextInput's text mouse selection isn't
             finished yet but the TextInput instance is removed or its text
             changes
+FLEX-34625  Setting focus with a zero size component and focusThickness causes
+            RTE
 
 Other fixes (no JIRA issue created):
 - correct case for osmf.swc so compiles on Linux work
