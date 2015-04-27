@@ -953,7 +953,7 @@ public class DataGridEditor
             return true;
         }
         
-        // this happens if the renderer is removed asynchronously ususally with FDS
+        // this happens if the renderer is removed asynchronously usually with FDS
         if (!itemEditorInstance)
             return false;
         
