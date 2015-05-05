@@ -53,7 +53,7 @@
 			@see spark.skins.spark.ButtonBarFirstButtonSkin
 		-->
 		<fx:Component id="firstButton">
-			<s:ButtonBarButton skinClass="spark.skins.spark.ButtonBarFirstButtonSkin" toolTip="{data.toolTip}"/>
+			<s:ButtonBarButton skinClass="spark.skins.spark.ButtonBarFirstButtonSkin" dataChange="toolTip=data.toolTip"/>
 		</fx:Component>
 
 		<!---
@@ -62,7 +62,7 @@
 			@see spark.skins.spark.ButtonBarMiddleButtonSkin
 		-->
 		<fx:Component id="middleButton">
-			<s:ButtonBarButton skinClass="spark.skins.spark.ButtonBarMiddleButtonSkin" toolTip="{data.toolTip}"/>
+			<s:ButtonBarButton skinClass="spark.skins.spark.ButtonBarMiddleButtonSkin" dataChange="toolTip=data.toolTip"/>
 		</fx:Component>
 
 		<!---
@@ -71,7 +71,7 @@
 			@see spark.skins.spark.ButtonBarLastButtonSkin
 		-->
 		<fx:Component id="lastButton">
-			<s:ButtonBarButton skinClass="spark.skins.spark.ButtonBarLastButtonSkin" toolTip="{data.toolTip}"/>
+			<s:ButtonBarButton skinClass="spark.skins.spark.ButtonBarLastButtonSkin" dataChange="toolTip=data.toolTip"/>
 		</fx:Component>
 
 	</fx:Declarations>
