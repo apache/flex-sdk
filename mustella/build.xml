@@ -1855,6 +1855,7 @@
             <arg value="TypeInfo"/>
             <arg value="UnitTester"/>
             <arg value="VerboseMode"/>
+            <arg value="WaitForCondition"/>
             <arg value="WaitForEffectsToEnd"/>
             <arg value="WaitForEvent"/>
             <arg value="WaitForLayoutManager"/>
