@@ -4903,7 +4903,7 @@ public class DataGrid extends SkinnableContainerBase
      *  @see spark.components.gridClasses.GridColumn#sortCompareFunction
      *  @see spark.components.gridClasses.GridColumn#sortDescending
      *  @see spark.components.gridClasses.GridColumn#sortField
-     *  @see spark.components.gridClasses.GridColumnHeaderGroup#visibleSortIndicatorIndices
+     *  @see spark.components.GridColumnHeaderGroup#visibleSortIndicatorIndices
      *  @see spark.events.GridSortEvent
      * 
      *  @langversion 3.0

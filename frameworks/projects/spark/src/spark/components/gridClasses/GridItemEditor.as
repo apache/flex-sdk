@@ -391,7 +391,7 @@ public class GridItemEditor extends Group implements IGridItemEditor
     {
         if (newValue != value)
         {
-            _value = newValue
+            _value = newValue;
             
             if (hasEventListener("valueChanged"))
             {
@@ -513,7 +513,7 @@ public class GridItemEditor extends Group implements IGridItemEditor
                 var strNewData:String = newData.toString();
                 if (strNewData)
                 {
-                    newData = (strNewData.toLowerCase() == "true") ? true : false;
+                    newData = strNewData.toLowerCase() == "true";
                 }
             }
         }

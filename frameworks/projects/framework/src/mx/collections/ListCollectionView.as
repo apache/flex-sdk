@@ -20,29 +20,25 @@
 package mx.collections
 {
 
-import flash.events.Event;
-import flash.events.EventDispatcher;
-import flash.utils.Proxy;
-import flash.utils.flash_proxy;
-import flash.utils.getQualifiedClassName;
+    import flash.events.Event;
+    import flash.events.EventDispatcher;
+    import flash.utils.Proxy;
+    import flash.utils.flash_proxy;
+    import flash.utils.getQualifiedClassName;
 
-import mx.collections.errors.CollectionViewError;
-import mx.collections.errors.CursorError;
-import mx.collections.errors.ItemPendingError;
-import mx.collections.errors.SortError;
-import mx.core.IMXMLObject;
-import mx.core.mx_internal;
-import mx.events.CollectionEvent;
-import mx.events.CollectionEventKind;
-import mx.events.FlexEvent;
-import mx.events.PropertyChangeEvent;
-import mx.managers.ISystemManager;
-import mx.managers.SystemManager;
-import mx.resources.IResourceManager;
-import mx.resources.ResourceManager;
-import mx.utils.ObjectUtil;
+    import mx.collections.errors.CollectionViewError;
+    import mx.collections.errors.ItemPendingError;
+    import mx.collections.errors.SortError;
+    import mx.core.IMXMLObject;
+    import mx.core.mx_internal;
+    import mx.events.CollectionEvent;
+    import mx.events.CollectionEventKind;
+    import mx.events.PropertyChangeEvent;
+    import mx.resources.IResourceManager;
+    import mx.resources.ResourceManager;
+    import mx.utils.ObjectUtil;
 
-use namespace mx_internal;
+    use namespace mx_internal;
 
 /**
  *  Dispatched when the ICollectionView has been updated in some way.
@@ -622,7 +618,7 @@ public class ListCollectionView extends Proxy
      *  Adds a list of items to the current list, placing them at the end of
      *  the list in the order they are passed.
      * 
-     *  @param IList The list of items to add to the current list
+     *  @param addList IList The list of items to add to the current list
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -642,7 +638,7 @@ public class ListCollectionView extends Proxy
      *  index passed in to the function.  The items are placed at the index location
      *  and placed in the order they are recieved.
      * 
-     *  @param IList The list of items to add to the current list
+     *  @param addList IList The list of items to add to the current list
      *  @param index The location of the current list to place the new items.
      *  @throws RangeError if index is less than 0 or greater than the length of the list. 
      *  
@@ -1052,13 +1048,13 @@ public class ListCollectionView extends Proxy
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function addEventListener(type:String,
+    public function addEventListener(eventType:String,
                                      listener:Function,
                                      useCapture:Boolean = false,
                                      priority:int = 0,
                                      useWeakReference:Boolean = false):void
     {
-        eventDispatcher.addEventListener(type, listener, useCapture,
+        eventDispatcher.addEventListener(eventType, listener, useCapture,
                                          priority, useWeakReference);
     }
 
@@ -1070,11 +1066,11 @@ public class ListCollectionView extends Proxy
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function removeEventListener(type:String,
+    public function removeEventListener(eventType:String,
                                         listener:Function,
                                         useCapture:Boolean = false):void
     {
-        eventDispatcher.removeEventListener(type, listener, useCapture);
+        eventDispatcher.removeEventListener(eventType, listener, useCapture);
     }
 
     /**
@@ -1098,9 +1094,9 @@ public class ListCollectionView extends Proxy
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function hasEventListener(type:String):Boolean
+    public function hasEventListener(eventType:String):Boolean
     {
-        return eventDispatcher.hasEventListener(type);
+        return eventDispatcher.hasEventListener(eventType);
     }
 
     /**
@@ -1111,9 +1107,9 @@ public class ListCollectionView extends Proxy
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function willTrigger(type:String):Boolean
+    public function willTrigger(eventType:String):Boolean
     {
-        return eventDispatcher.willTrigger(type);
+        return eventDispatcher.willTrigger(eventType);
     }
 
     //--------------------------------------------------------------------------
@@ -1129,8 +1125,6 @@ public class ListCollectionView extends Proxy
      *
      *  @param items the items to add into the view
      *  @param sourceLocation the location within the list where the items were added
-     *  @param extendedInfo Object reference to any additional event information
-     *         that needs to be preserved.
      *  @param dispatch true if the view should dispatch a corresponding
      *                 CollectionEvent with kind ADD (default is true)
      *  
@@ -1260,7 +1254,7 @@ public class ListCollectionView extends Proxy
         }
         catch (e:SortError)
         {
-            // usually because the find critieria is not compatible with the sort.
+            // usually because the find criteria is not compatible with the sort.
         }
         
         return -1;
@@ -1844,14 +1838,11 @@ public class ListCollectionView extends Proxy
 }
 
 import flash.events.EventDispatcher;
-import flash.events.Event;
-import flash.events.IEventDispatcher;
 
-import mx.events.*;
 import mx.collections.*;
 import mx.collections.errors.*;
 import mx.core.mx_internal;
-import mx.managers.*;
+import mx.events.*;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 
@@ -2300,7 +2291,6 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      *  @see mx.collections.IViewCursor#current
      *  @see mx.collections.IViewCursor#movePrevious
      *  @see mx.collections.errors.ItemPendingError
-     *  @see mx.collectoins.events.ItemAvailableEvent
      *  @example
      *  <pre>
      *    var myArrayCollection:ICollectionView = new ArrayCollection(["Bobby", "Mark", "Trevor", "Jacey", "Tyler"]);
@@ -2353,7 +2343,6 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      *  @see mx.collections.IViewCursor#current
      *  @see mx.collections.IViewCursor#moveNext
      *  @see mx.collections.errors.ItemPendingError
-     *  @see mx.collectoins.events.ItemAvailableEvent
      *  @example
      *  <pre>
      *     var myArrayCollection:ICollectionView = new ArrayCollection(["Bobby", "Mark", "Trevor", "Jacey", "Tyler"]);

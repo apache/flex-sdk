@@ -204,8 +204,8 @@ public class ObjectUtil
      */
     public static function isSimple(value:Object):Boolean
     {
-        var type:String = typeof(value);
-        switch (type)
+        var objectType:String = typeof(value);
+        switch (objectType)
         {
             case "number":
             case "string":
@@ -394,7 +394,7 @@ public class ObjectUtil
      *   (somepackage::MyCustomClass)#0
      *      clazz = (Date)</pre>
      *
-     *  @param obj Object to be pretty printed.
+     *  @param value Object to be pretty printed.
      * 
      *  @param namespaceURIs Array of namespace URIs for properties 
      *  that should be included in the output.
@@ -567,8 +567,8 @@ public class ObjectUtil
                                              exclude:Array = null):String
     {
         var str:String;
-        var type:String = value == null ? "null" : typeof(value);
-        switch (type)
+        var objectType:String = value == null ? "null" : typeof(value);
+        switch (objectType)
         {
             case "boolean":
             case "number":
@@ -710,7 +710,7 @@ public class ObjectUtil
 
             default:
             {
-                return "(" + type + ")";
+                return "(" + objectType + ")";
             }
         }
         
@@ -791,7 +791,7 @@ public class ObjectUtil
                     if (aRef == bRef)
                         return 0;
                     // the cool thing about our dictionary is that if 
-                    // we've seen objects and determined that they are inequal, then 
+                    // we've seen objects and determined that they are unequal, then
                     // we would've already exited out of this compare() call.  So the 
                     // only info in the dictionary are sets of equal items
                     
@@ -831,10 +831,10 @@ public class ObjectUtil
                         
                         // if the objects are dynamic they could have different 
                         // # of properties and should be treated on that basis first
-                        var isDynamicObject:Boolean = isDynamicObject(a);
+                        var isObjectDynamic:Boolean = isDynamicObject(a);
                         
                         // if it's dynamic, check to see that they have all the same properties
-                        if (isDynamicObject)
+                        if (isObjectDynamic)
                         {
                             bProps = getClassInfo(b).properties;
                             result = arrayCompare(aProps, bProps, currentDepth, newDepth, refs);
@@ -860,7 +860,7 @@ public class ObjectUtil
                     }
                     else
                     {
-                        // We must be inequal, so return 1
+                        // We must be unequal, so return 1
                         return 1;
                     }
                     break;
@@ -881,7 +881,7 @@ public class ObjectUtil
      *
      *  @param obj The Object to inspect.
      *
-     *  @param exclude Array of Strings specifying the property names that should be 
+     *  @param excludes Array of Strings specifying the property names that should be
      *  excluded from the returned result. For example, you could specify 
      *  <code>["currentTarget", "target"]</code> for an Event object since these properties 
      *  can cause the returned result to become large.
@@ -938,7 +938,7 @@ public class ObjectUtil
         var classAlias:String;
         var properties:XMLList;
         var prop:XML;
-        var dynamic:Boolean = false;
+        var isDynamic:Boolean = false;
         var metadataInfo:Object;
 
         if (typeof(obj) == "xml")
@@ -954,7 +954,7 @@ public class ObjectUtil
             var classInfo:XML = DescribeTypeCache.describeType(obj).typeDescription;
             className = classInfo.@name.toString();
             classAlias = classInfo.@alias.toString();
-            dynamic = (classInfo.@isDynamic.toString() == "true");
+            isDynamic = classInfo.@isDynamic.toString() == "true";
 
             if (options.includeReadOnly)
                 properties = classInfo..accessor.(@access != "writeonly") + classInfo..variable;
@@ -965,7 +965,7 @@ public class ObjectUtil
         }
 
         // If type is not dynamic, check our cache for class info...
-        if (!dynamic)
+        if (!isDynamic)
         {
             cacheKey = getCacheKey(obj, excludes, options);
             result = CLASS_INFO_CACHE[cacheKey];
@@ -977,7 +977,7 @@ public class ObjectUtil
         result["name"] = className;
         result["alias"] = classAlias;
         result["properties"] = propertyNames;
-        result["dynamic"] = dynamic;
+        result["dynamic"] = isDynamic;
         result["metadata"] = metadataInfo = recordMetadata(properties);
         
         var excludeObject:Object = {};
@@ -1003,7 +1003,7 @@ public class ObjectUtil
                 propertyNames.push(key);
             }
         }
-        else if (dynamic)
+        else if (isDynamic)
         {
             for (var p:String in obj)
             {
@@ -1134,7 +1134,7 @@ public class ObjectUtil
 
         // For normal, non-dynamic classes we cache the class info
 		// Don't cache XML as it can be dynamic
-        if (!dynamic && className != "XML")
+        if (!isDynamic && className != "XML")
         {
             cacheKey = getCacheKey(obj, excludes, options);
             CLASS_INFO_CACHE[cacheKey] = result;

@@ -800,7 +800,6 @@ public class Sort extends AdvancedStyleClient implements ISort
             var fields:Array = this.fields;
             if (fields && fields.length > 0)
             {
-                var i:int;
                 //doing the init value each time may be a little inefficient
                 //but allows for the data to change and the comparators
                 //to update correctly

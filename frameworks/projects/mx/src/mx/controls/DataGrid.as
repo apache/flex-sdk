@@ -3973,7 +3973,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
                         if (sf[i].name == c.dataField)
                         {
                             // we're part of the current sort
-                            f = sf[i]
+                            f = sf[i];
                             // flip the logic so desc is new desired order
                             desc = !f.descending;
                             break;
