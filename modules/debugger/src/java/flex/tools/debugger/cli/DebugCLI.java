@@ -2952,8 +2952,6 @@ public class DebugCLI implements Runnable, SourceLocator {
             args.put("filename", filename); //$NON-NLS-1$
             args.put("line", Integer.toString(line)); //$NON-NLS-1$
             err(getLocalizationManager().getLocalizedTextString("breakpointNotSetNoCode", args)); //$NON-NLS-1$
-
-            continueAndSwapActiveWorkerBack(savedIsolateId, wasAlreadySuspended);
         } catch (InProgressException e) {
             e.printStackTrace();
         } finally {
