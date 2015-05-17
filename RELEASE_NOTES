@@ -4,6 +4,7 @@ Apache Flex 4.15.0
 Bug Fixes
 ---------
 FLEX-34753  Returning strongly typed object in Promise fails
+FLEX-15159  For each loop is unable to iterate through ArrayList
  
 Known Issues
 ------------

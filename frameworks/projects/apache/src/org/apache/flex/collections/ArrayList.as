@@ -19,9 +19,12 @@
 
 package org.apache.flex.collections 
 {
-    
+
+import flash.events.Event;
 import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
+import flash.utils.Proxy;
+import flash.utils.flash_proxy;
 import flash.utils.IDataInput;
 import flash.utils.IDataOutput;
 import flash.utils.IExternalizable;
@@ -69,6 +72,12 @@ import mx.utils.UIDUtil;
  *  The ArrayList class is a simple implementation of IList 
  *  that uses a backing Array as the source of the data. 
  * 
+ * <p>This class also lets you use [ ] array notation to access
+ * the <code>getItemAt()</code> and <code>setItemAt()</code> methods.
+ * If you use code such as <code>myArrayList[index]</code> Flex calls
+ * the <code>myArrayList</code> object's <code>getItemAt()</code> or
+ * <code>setItemAt()</code> method.</p>
+ *
  *  Items in the backing Array can be accessed and manipulated 
  *  using the methods and properties of the <code>IList</code>
  *  interface. Operations on an ArrayList instance modify the 
@@ -91,7 +100,7 @@ import mx.utils.UIDUtil;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-public class ArrayList extends EventDispatcher
+public class ArrayList extends Proxy
        implements IList, IExternalizable, IPropertyChangeNotifier
 {
     //include "../core/Version.as";
@@ -118,6 +127,7 @@ public class ArrayList extends EventDispatcher
         super();
 
         disableEvents();
+        this.eventDispatcher = new EventDispatcher(this);
         this.source = source;
         enableEvents();
     }
@@ -134,7 +144,13 @@ public class ArrayList extends EventDispatcher
      */
     private var resourceManager:IResourceManager =
         ResourceManager.getInstance();
-                                    
+                  
+    /**
+     *  @private
+     *  Internal event dispatcher.
+     */
+    private var eventDispatcher:EventDispatcher;
+                      
     /**
      *  @private 
      *  Indicates if events should be dispatched.
@@ -659,14 +675,222 @@ public class ArrayList extends EventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    override public function toString():String
+    public function toString():String
     {
         if (source)
             return source.toString();
         else
             return getQualifiedClassName(this); 
-    }   
+    }
     
+    //--------------------------------------------------------------------------
+    //
+    // Proxy methods
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Attempts to call getItemAt(), converting the property name into an int.
+     */
+    override flash_proxy function getProperty(name:*):*
+    {
+        if (name is QName)
+            name = name.localName;
+
+        try
+        {
+            var n:Number = parseInt(String(name));
+		}
+		catch(e:Error) // localName was not a number
+		{
+		}
+		
+        if (isNaN(n))
+		{
+			var message:String = resourceManager.getString(
+				"collections", "unknownProperty", [ name ]);
+			throw new Error(message);
+		}
+        else
+        {
+			// If caller passed in a number such as 5.5, it will be floored.
+            return getItemAt(int(n));
+        }
+    }
+    
+    /**
+     *  @private
+     *  Attempts to call setItemAt(), converting the property name into an int.
+     */
+    override flash_proxy function setProperty(name:*, value:*):void
+    {	
+		if (name is QName)
+			name = name.localName;
+		
+		try
+		{
+			var n:Number = parseInt(String(name));
+		}
+		catch(e:Error) // localName was not a number
+		{
+		}
+		
+		if (isNaN(n))
+		{
+			var message:String = resourceManager.getString(
+				"collections", "unknownProperty", [ name ]);
+			throw new Error(message);
+		}
+		else
+		{
+			// If caller passed in a number such as 5.5, it will be floored.
+			setItemAt(value, int(n));
+		}
+    }
+    
+    /**
+     *  @private
+     *  This is an internal function.
+     *  The VM will call this method for code like <code>"foo" in bar</code>
+     *  
+     *  @param name The property name that should be tested for existence.
+     */
+    override flash_proxy function hasProperty(name:*):Boolean
+    {
+        if (name is QName)
+            name = name.localName;
+
+        var index:int = -1;
+        try
+        {
+            // If caller passed in a number such as 5.5, it will be floored.
+            var n:Number = parseInt(String(name));
+            if (!isNaN(n))
+                index = int(n);
+        }
+        catch(e:Error) // localName was not a number
+        {
+        }
+
+        if (index == -1)
+            return false;
+
+        return index >= 0 && index < length;
+    }
+
+    /**
+     *  @private
+     */
+    override flash_proxy function nextNameIndex(index:int):int
+    {
+        return index < length ? index + 1 : 0;
+    }
+    
+    /**
+     *  @private
+     */
+    override flash_proxy function nextName(index:int):String
+    {
+        return (index - 1).toString();
+    }
+    
+    /**
+     *  @private
+     */
+    override flash_proxy function nextValue(index:int):*
+    {
+        return getItemAt(index - 1);
+    }
+
+    /**
+     *  @private
+     *  Any methods that can't be found on this class shouldn't be called,
+     *  so return null
+     */
+    override flash_proxy function callProperty(name:*, ... rest):*
+    {
+        return null;
+    }
+    
+    //--------------------------------------------------------------------------
+    //
+    // EventDispatcher methods
+    //
+    //--------------------------------------------------------------------------
+
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function addEventListener(type:String,
+                                     listener:Function,
+                                     useCapture:Boolean = false,
+                                     priority:int = 0,
+                                     useWeakReference:Boolean = false):void
+    {
+        eventDispatcher.addEventListener(type, listener, useCapture,
+                                         priority, useWeakReference);
+    }
+
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function removeEventListener(type:String,
+                                        listener:Function,
+                                        useCapture:Boolean = false):void
+    {
+        eventDispatcher.removeEventListener(type, listener, useCapture);
+    }
+
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function dispatchEvent(event:Event):Boolean
+    {
+        return eventDispatcher.dispatchEvent(event);
+    }
+
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function hasEventListener(type:String):Boolean
+    {
+        return eventDispatcher.hasEventListener(type);
+    }
+
+    /**
+     *  @inheritDoc
+     *  
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public function willTrigger(type:String):Boolean
+    {
+        return eventDispatcher.willTrigger(type);
+    }
+
     //--------------------------------------------------------------------------
     //
     // Internal Methods
