@@ -19,25 +19,22 @@
 
 package spark.components.gridClasses
 {
-import flash.events.Event;
-import flash.events.EventDispatcher;
+    import flash.events.Event;
+    import flash.events.EventDispatcher;
 
-import mx.core.ClassFactory;
-import mx.core.IFactory;
-import mx.core.mx_internal;
-import mx.events.CollectionEvent;
-import mx.events.CollectionEventKind;
-import mx.events.PropertyChangeEvent;
-import mx.formatters.IFormatter;
-import mx.styles.IAdvancedStyleClient;
-import mx.utils.ObjectUtil;
+    import mx.core.ClassFactory;
+    import mx.core.IFactory;
+    import mx.events.CollectionEvent;
+    import mx.events.CollectionEventKind;
+    import mx.events.PropertyChangeEvent;
+    import mx.formatters.IFormatter;
+    import mx.styles.IAdvancedStyleClient;
+    import mx.utils.ObjectUtil;
 
-import spark.collections.SortField;
-import spark.components.Grid;
-import spark.components.gridClasses.DefaultGridItemEditor;
-import spark.components.gridClasses.GridSortField;
+    import spark.collections.SortField;
+    import spark.components.Grid;
 
-use namespace mx_internal;
+    use namespace mx_internal;
 
 /**
  *  The GridColumn class defines a column of a Spark grid control,
@@ -160,13 +157,7 @@ public class GridColumn extends EventDispatcher
         const obj1String:String = column.itemToString(obj1, dataFieldPath, null, formatter);
         const obj2String:String = column.itemToString(obj2, dataFieldPath, null, formatter);
         
-        if ( obj1String < obj2String )
-            return -1;
-        
-        if ( obj1String > obj2String )
-            return 1;
-        
-        return 0;
+        return ObjectUtil.stringCompare(obj1String, obj2String);
     }
 
     //--------------------------------------------------------------------------
@@ -1856,10 +1847,10 @@ public class GridColumn extends EventDispatcher
     /**
      *  @private
      */
-    private function dispatchChangeEvent(type:String):void
+    private function dispatchChangeEvent(eventType:String):void
     {
-        if (hasEventListener(type))
-            dispatchEvent(new Event(type));
+        if (hasEventListener(eventType))
+            dispatchEvent(new Event(eventType));
     }
     
     /**
