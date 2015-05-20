@@ -5396,7 +5396,10 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
                 {
                     const oldLocation:int = event.oldLocation;
                     if ((oldCaretRowIndex >= oldLocation) && (oldCaretRowIndex < (oldLocation + itemsLength)))
+                    {
                         caretRowIndex += location - oldLocation;
+                        ensureCellIsVisible(caretRowIndex, -1);
+                    }
                 }
                 break;                        
                 

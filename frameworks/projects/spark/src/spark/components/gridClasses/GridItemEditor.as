@@ -520,18 +520,6 @@ public class GridItemEditor extends Group implements IGridItemEditor
 
         if (property && data[property] !== newData)
         {
-            // If the data is sorted, turn off the sort for the edited data.
-            var sort:ISort = null;
-            if (dataGrid.dataProvider is ICollectionView)
-            {
-                var dataProvider:ICollectionView = ICollectionView(dataGrid.dataProvider);
-                if (dataProvider.sort)
-                {
-                    sort = dataProvider.sort;
-                    dataProvider.sort = null;
-                }
-            }
-
             var oldData:Object = data[property];
             data[property] = newData;
             
@@ -539,10 +527,6 @@ public class GridItemEditor extends Group implements IGridItemEditor
             // no longer point to the top-level data object and the complete path to the property
             // so use the original values.
             dataGrid.dataProvider.itemUpdated(this.data, column.dataField, oldData, newData);
-            
-            // Restore the sort. The data will not be sorted due to this change.
-            if (sort)
-                ICollectionView(dataGrid.dataProvider).sort = sort;
         }
 
         return true;
