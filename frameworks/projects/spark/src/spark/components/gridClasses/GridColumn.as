@@ -24,6 +24,7 @@ package spark.components.gridClasses
 
     import mx.core.ClassFactory;
     import mx.core.IFactory;
+    import mx.core.mx_internal;
     import mx.events.CollectionEvent;
     import mx.events.CollectionEventKind;
     import mx.events.PropertyChangeEvent;
@@ -165,7 +166,7 @@ public class GridColumn extends EventDispatcher
     //  Constructor
     //
     //--------------------------------------------------------------------------
-    
+
     /**
      *  Constructor. 
      * 
