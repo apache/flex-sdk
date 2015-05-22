@@ -22,6 +22,8 @@ package {
     import mx.collections.IList;
     import mx.collections.ListCollectionView;
 
+    import org.flexunit.assertThat;
+
     import org.flexunit.asserts.assertEquals;
 
     import mx.collections.Sort;
@@ -58,6 +60,7 @@ package {
 
             //then
             assertItemsAre([4, 3, 2, 1, 0]);
+            assertRemoveAll();
         }
 
         [Test]
@@ -77,6 +80,7 @@ package {
 
             //then
             assertItemsAre([5, 4, 3, 2, 1, 0]);
+            assertRemoveAll();
         }
 
         [Test]
@@ -96,6 +100,7 @@ package {
 
             //then
             assertItemsAre([4, 2, 1, 0]);
+            assertRemoveAll();
         }
 
         [Test]
@@ -115,6 +120,7 @@ package {
 
             //then
             assertItemsAre([4, 3, 2, 0]);
+            assertRemoveAll();
         }
 
         [Test]
@@ -134,6 +140,7 @@ package {
 
             //then
             assertItemsAre([100, 4, 3, 2, 0]);
+            assertRemoveAll();
         }
 
         [Test]
@@ -153,6 +160,7 @@ package {
 
             //then
             assertItemsAre([4, 3, 3, 2, 1, 0]);
+            assertRemoveAll();
         }
 
         [Test]
@@ -172,6 +180,7 @@ package {
 
             //then
             assertItemsAre([4, 3, 3, 2, 1, 0]);
+            assertRemoveAll();
         }
 
 
@@ -191,6 +200,8 @@ package {
 
             //then
             assertIndexesAre([4, 3, 2, 1, 0]);
+            assertGetItemIndex(from0To4);
+            assertRemoveAll();
         }
 
         [Test]
@@ -199,7 +210,8 @@ package {
             //given
             var from0To4:IList = generateVOs(5);
             _sut.addAll(from0To4); //values["name"]: Object0, Object1, Object2, Object3, Object4
-            _sut.addItem(generateOneObject(2, "ABC")); //values["name"]: Object0, Object1, Object2, Object3, Object4, ABC2
+            const abc2:ListCollectionView_Sort_VO = generateOneObject(2, "ABC");
+            _sut.addItem(abc2); //values["name"]: Object0, Object1, Object2, Object3, Object4, ABC2
 
             const sortByIndexDescending:Sort = new Sort();
             sortByIndexDescending.fields = [new SortField("index", false, true, true), new SortField("name", false, false, false)];
@@ -211,6 +223,13 @@ package {
             //then
             assertIndexesAre([4, 3, 2, 2, 1, 0]);
             assertNamesAre(["Object4", "Object3", "ABC2", "Object2", "Object1", "Object0"]);
+
+            const itemsInSUT:ListCollectionView = new ListCollectionView(new ArrayList());
+            itemsInSUT.addAll(from0To4);
+            itemsInSUT.addItem(abc2);
+            assertGetItemIndex(itemsInSUT);
+
+            assertRemoveAll();
         }
 
         [Test]
@@ -226,11 +245,21 @@ package {
             _sut.refresh(); //values["name"]: Object4, Object3, Object2, Object1, Object0
 
             //when
-            _sut.addItem(generateOneObject(6));
-            _sut.addItem(generateOneObject(3.5));
+            const item6:ListCollectionView_Sort_VO = generateOneObject(6);
+            _sut.addItem(item6);
+            const item3_5:ListCollectionView_Sort_VO = generateOneObject(3.5);
+            _sut.addItem(item3_5);
 
             //then
             assertIndexesAre([6, 4, 3.5, 3, 2, 1, 0]);
+
+            const itemsInSUT:ListCollectionView = new ListCollectionView(new ArrayList());
+            itemsInSUT.addAll(from0To4);
+            itemsInSUT.addItem(item6);
+            itemsInSUT.addItem(item3_5);
+            assertGetItemIndex(itemsInSUT);
+
+            assertRemoveAll();
         }
 
         [Test]
@@ -246,10 +275,17 @@ package {
             _sut.refresh(); //values["name"]: Object4, Object3, Object2, Object1, Object0
 
             //when
-            _sut.setItemAt(generateOneObject(6), 1);
+            const addedItem:ListCollectionView_Sort_VO = generateOneObject(6);
+            _sut.setItemAt(addedItem, 1);
 
             //then
             assertIndexesAre([6, 4, 2, 1, 0]);
+            const itemsInSUT:ListCollectionView = new ListCollectionView(new ArrayList());
+            itemsInSUT.addAll(from0To4);
+            itemsInSUT.setItemAt(addedItem, 3);
+            assertGetItemIndex(itemsInSUT);
+
+            assertRemoveAll();
         }
 
         [Test]
@@ -268,7 +304,11 @@ package {
 
             //then
             assertIndexesAre([0, 1, 2, 3, 4]);
+            assertGetItemIndex(from4To0);
+
+            assertRemoveAll();
         }
+
 
         [Test(description="Testing that changing the properties of the Sort doesn't impact the actual sort order")]
         public function test_sort_fields_on_complex_objects_dont_change_unless_sort_reapplied():void
@@ -287,6 +327,8 @@ package {
 
             //then
             assertIndexesAre([0, 1, 2, 3, 4]);
+            assertGetItemIndex(from4To0);
+            assertRemoveAll();
         }
 
         private function assertIndexesAre(indexes:Array):void
@@ -309,8 +351,6 @@ package {
             }
         }
 
-
-
         private function assertItemsAre(indexes:Array):void
         {
             assertEquals(indexes.length, _sut.length);
@@ -319,6 +359,21 @@ package {
             {
                 assertEquals(indexes[i], _sut.getItemAt(i));
             }
+        }
+
+        private function assertGetItemIndex(items:IList):void
+        {
+            for(var i:int = 0; i < items.length; i++)
+            {
+                var target:ListCollectionView_Sort_VO = items.getItemAt(i) as ListCollectionView_Sort_VO;
+                assertThat("could not find " + target.name, _sut.getItemIndex(target) != -1); //in some bugs, an RTE is thrown here
+            }
+        }
+
+        private function assertRemoveAll():void
+        {
+            _sut.removeAll(); //in some bugs, an RTE is thrown here
+            assertEquals(0, _sut.length);
         }
 
 
