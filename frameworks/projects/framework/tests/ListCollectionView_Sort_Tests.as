@@ -309,6 +309,33 @@ package {
             assertRemoveAll();
         }
 
+        [Test]
+        public function test_simple_numeric_ascending_sort_on_complex_objects_with_dot_in_property_name():void
+        {
+            //given
+            var from4To0:IList = generateVOs(5, true);
+
+            const fieldName:String = "property.with.dot";
+            for(var i:int = 0; i < from4To0.length; i++)
+            {
+                var object:ListCollectionView_Sort_VO = from4To0.getItemAt(i) as ListCollectionView_Sort_VO;
+                object[fieldName] = object.index;
+            }
+            _sut.addAll(from4To0); //values["name"]: Object4, Object3, Object2, Object1, Object0
+
+            const sortByIndexAscending:Sort = new Sort();
+            sortByIndexAscending.fields = [new SortField(fieldName, false, false, true)];
+            _sut.sort = sortByIndexAscending;
+
+            //when
+            _sut.refresh(); //should be: Object0, Object1, Object2, Object3, Object4
+
+            //then
+            assertIndexesAre([0, 1, 2, 3, 4]);
+            assertGetItemIndex(from4To0);
+            assertRemoveAll();
+        }
+
 
         [Test(description="Testing that changing the properties of the Sort doesn't impact the actual sort order")]
         public function test_sort_fields_on_complex_objects_dont_change_unless_sort_reapplied():void
@@ -413,7 +440,7 @@ package {
     }
 }
 
-class ListCollectionView_Sort_VO
+dynamic class ListCollectionView_Sort_VO
 {
     [Bindable]
     public var name:String;
