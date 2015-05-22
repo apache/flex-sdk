@@ -21,11 +21,10 @@ package {
     import mx.collections.ArrayList;
     import mx.collections.IList;
     import mx.collections.ListCollectionView;
+    import mx.collections.Sort;
+    import mx.collections.SortField;
 
     import org.flexunit.asserts.assertEquals;
-
-    import spark.collections.Sort;
-    import spark.collections.SortField;
 
     public class ListCollectionView_FLEX_34837_Tests {
         private var _sut:ListCollectionView;
@@ -43,10 +42,28 @@ package {
         }
 
         [Test]
-        public function test_changing_sort_field_value_places_it_correctly_according_to_collection_sort():void
+        public function test_simple_ascending_sort_by_complex_fields():void
         {
             //given
-            var from1To4:IList = generateObjects(5);
+            var from4To0:IList = generateVOs(5, true);
+            _sut.addAll(from4To0); //values["address.street"]: Street4, Street3, Street2, Street1, Street0
+
+            const sortByIndexAscending:Sort = new Sort();
+            sortByIndexAscending.fields = [new SortField("address.street", false, false, false)];
+            _sut.sort = sortByIndexAscending;
+
+            //when
+            _sut.refresh(); //should be: Street0, Street1, Street2, Street3, Street4
+
+            //then
+            assertIndexesAre([0, 1, 2, 3, 4]);
+        }
+
+        [Test]
+        public function test_changing_simple_sort_field_value_places_it_correctly_according_to_collection_sort():void
+        {
+            //given
+            var from1To4:IList = generateVOs(5);
             from1To4.removeItemAt(0);
             _sut.addAll(from1To4);
 
@@ -69,7 +86,7 @@ package {
         public function test_changing_complex_sort_field_value_places_it_correctly_according_to_collection_sort():void
         {
             //given
-            var from1To4:IList = generateObjects(5);
+            var from1To4:IList = generateVOs(5);
             from1To4.removeItemAt(0);
             _sut.addAll(from1To4);
 
@@ -85,24 +102,43 @@ package {
 
             //then
             const newItemIndex:int = _sut.getItemIndex(newItem);
-            assertEquals("the new item should have been placed at the beginning of the list as soon as its name was changed", 0, newItemIndex);
+            assertEquals("the new item should have been placed at the beginning of the list as soon as its address's street name was changed", 0, newItemIndex);
             _sut.removeItemAt(_sut.getItemIndex(newItem)); //if the bug is present, this will throw an RTE
         }
 
-        private function generateObjects(no:int):IList
+        private function assertIndexesAre(indexes:Array):void
         {
-            var result:ArrayList = new ArrayList();
-            for(var i:int = 0; i < no; i++)
-            {
-                result.addItem(generateOneObject(i));
-            }
+            assertEquals(indexes.length, _sut.length);
 
-            return result;
+            for(var i:int = 0; i < _sut.length; i++)
+            {
+                assertEquals(ListCollectionView_FLEX_34837_VO(_sut.getItemAt(i)).index, indexes[i]);
+            }
         }
 
-        private static function generateOneObject(i:int):ListCollectionView_FLEX_34837_VO
+
+        private static function generateVOs(no:int, reverse:Boolean = false):IList
         {
-            return new ListCollectionView_FLEX_34837_VO("Object"+i, "Street"+i);
+            return generateObjects(no, reverse, generateOneObject);
+        }
+
+        private static function generateObjects(no:int, reverse:Boolean, generator:Function):IList
+        {
+            var result:Array = [];
+            for(var i:int = 0; i < no; i++)
+            {
+                result.push(generator(i));
+            }
+
+            if(reverse)
+                result.reverse();
+
+            return new ArrayList(result);
+        }
+
+        private static function generateOneObject(index:Number):ListCollectionView_FLEX_34837_VO
+        {
+            return new ListCollectionView_FLEX_34837_VO(index, "Object", "Street");
         }
     }
 }
@@ -115,10 +151,14 @@ class ListCollectionView_FLEX_34837_VO
     [Bindable]
     public var address:ListCollectionView_FLEX_34837_AddressVO;
 
-    public function ListCollectionView_FLEX_34837_VO(name:String, street:String)
+    [Bindable]
+    public var index:Number;
+
+    public function ListCollectionView_FLEX_34837_VO(index:Number, namePrefix:String, streetPrefix:String)
     {
-        this.name = name;
-        this.address = new ListCollectionView_FLEX_34837_AddressVO(street);
+        this.index = index;
+        this.name = namePrefix + index;
+        this.address = new ListCollectionView_FLEX_34837_AddressVO(streetPrefix + index);
     }
 }
 
