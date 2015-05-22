@@ -56,7 +56,7 @@ package {
             _sut.refresh(); //values: Object1, Object2, Object3, Object4
 
             //when
-            const newItem:ListCollectionViewTestVO = generateOneObject(5);
+            const newItem:ListCollectionView_FLEX_34837_VO = generateOneObject(5);
             _sut.addItem(newItem); //values: Object1, Object2, Object3, Object4, Object5
             newItem.name = "Object0"; //this should immediately place the newItem at position 0
 
@@ -79,7 +79,7 @@ package {
             _sut.refresh(); //values: Object1, Object2, Object3, Object4
 
             //when
-            const newItem:ListCollectionViewTestVO = generateOneObject(5);
+            const newItem:ListCollectionView_FLEX_34837_VO = generateOneObject(5);
             _sut.addItem(newItem); //values: Object1, Object2, Object3, Object4, Object5
             newItem.address.street = "Street0"; //this should immediately place the newItem at position 0
 
@@ -100,34 +100,34 @@ package {
             return result;
         }
 
-        private static function generateOneObject(i:int):ListCollectionViewTestVO
+        private static function generateOneObject(i:int):ListCollectionView_FLEX_34837_VO
         {
-            return new ListCollectionViewTestVO("Object"+i, "Street"+i);
+            return new ListCollectionView_FLEX_34837_VO("Object"+i, "Street"+i);
         }
     }
 }
 
-class ListCollectionViewTestVO
+class ListCollectionView_FLEX_34837_VO
 {
     [Bindable]
     public var name:String;
 
     [Bindable]
-    public var address:ListCollectionViewTestAddressVO;
+    public var address:ListCollectionView_FLEX_34837_AddressVO;
 
-    public function ListCollectionViewTestVO(name:String, street:String)
+    public function ListCollectionView_FLEX_34837_VO(name:String, street:String)
     {
         this.name = name;
-        this.address = new ListCollectionViewTestAddressVO(street);
+        this.address = new ListCollectionView_FLEX_34837_AddressVO(street);
     }
 }
 
-class ListCollectionViewTestAddressVO
+class ListCollectionView_FLEX_34837_AddressVO
 {
     [Bindable]
     public var street:String;
 
-    public function ListCollectionViewTestAddressVO(street:String)
+    public function ListCollectionView_FLEX_34837_AddressVO(street:String)
     {
         this.street = street;
     }
