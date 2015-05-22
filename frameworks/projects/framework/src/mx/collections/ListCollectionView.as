@@ -1450,7 +1450,7 @@ public class ListCollectionView extends Proxy
 					if (updatedItems[j].item == item)
 					{
 						// even if it is, if a different property changed, track that too.
-						var evts:Array = updatedItems[j].events;
+						var evts:Array = updatedItems[j].events as Array;
 						var l:int = evts.length;
 						for (var k:int = 0; k < l; k++)
 						{

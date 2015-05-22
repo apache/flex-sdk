@@ -20,8 +20,6 @@
 package mx.binding.utils
 {
 
-import mx.binding.utils.ChangeWatcher;
-
 /**
  *  The BindingUtils class defines utility methods
  *  for performing data binding from ActionScript.
@@ -158,7 +156,7 @@ public class BindingUtils
      *  The <code>host</code> maintains a list of <code>setters</code> to update 
      *  when <code>prop</code> changes.
      *
-     *  @param name The name of the property, or property chain. 
+     *  @param chain The name of the property, or property chain.
      *  See the <code>bindProperty()</code> method for more information.
      *
      *  @param commitOnly Set to <code>true</code> if the handler should be

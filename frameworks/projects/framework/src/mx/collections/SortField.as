@@ -20,17 +20,15 @@
 package mx.collections
 {
 
-import flash.events.Event;
-import flash.events.EventDispatcher;
-import mx.collections.errors.SortError;
-import mx.managers.ISystemManager;
-import mx.managers.SystemManager;
-import mx.resources.IResourceManager;
-import mx.resources.ResourceManager;
-import mx.utils.ObjectUtil;
-import mx.collections.SortFieldCompareTypes;
+    import flash.events.Event;
+    import flash.events.EventDispatcher;
 
-[ResourceBundle("collections")]
+    import mx.collections.errors.SortError;
+    import mx.resources.IResourceManager;
+    import mx.resources.ResourceManager;
+    import mx.utils.ObjectUtil;
+
+    [ResourceBundle("collections")]
 [Alternative(replacement="spark.collections.SortField", since="4.5")]
 
 /**
@@ -659,7 +657,6 @@ public class SortField extends EventDispatcher implements ISortField
 
     private function nullCompare(a:Object, b:Object):int
     {
-        var value:Object;
         var left:Object;
         var right:Object;
 
