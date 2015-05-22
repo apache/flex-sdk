@@ -246,7 +246,7 @@ public class ChangeWatcher
     /**
      *  Lets you determine if an Object has any properties.
      *
-     *  @param Object to inspect.
+     *  @param obj to inspect.
      *
      *  @return <code>true</code> if Object has no properties.
      *  

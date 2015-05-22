@@ -280,7 +280,7 @@ public interface ISort
      *  The function cannot determine a definitive answer if the sort uses a
      *  custom comparator; it always returns <code>true</code> in this case.
      *
-     *  @param property The name of the field that to test.
+     *  @param property The name of the field to test.
      *  @return Whether the property value might affect the sort outcome.
      *  If the sort uses the default compareFunction, returns
      *  <code>true</code> if the
