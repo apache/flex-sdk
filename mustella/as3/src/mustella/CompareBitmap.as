@@ -396,7 +396,10 @@ public class CompareBitmap extends Assert
         trace("getTargetSize: height: ", target.height);
         trace("getTargetSize: root.height: ", target.root.height);
         trace("getTargetSize: stageHeight: ", target.stage.stageHeight);
+        try {
         trace("getTargetSize: loaderInfo.height: ", target.loaderInfo.height);
+        } catch (e:Error) {};
+        
 		return new Point(width, height);
 	}
 
