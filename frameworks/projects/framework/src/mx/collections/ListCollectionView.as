@@ -60,11 +60,12 @@ package mx.collections
  * <code>IList</code> interface. As a result, you can pass an object of this class
  * to anything that requires an <code>IList</code> or <code>ICollectionView</code>.
  *
- * <p>This class also lets you use [ ] array notation
- * to access the <code>getItemAt()</code> and <code>setItemAt()</code> methods.
- * If you use code such as <code>myListCollectionView[index]</code>
- * Flex calls the <code>myListCollectionView</code> object's
- * <code>getItemAt()</code> or <code>setItemAt()</code> method.</p>
+ * <p>This class also lets you use [ ] array notation to access
+ * the <code>getItemAt()</code> and <code>setItemAt()</code> methods.
+ * If you use code such as <code>myListCollectionView[index]</code> Flex calls
+ * the <code>myListCollectionView</code> object's <code>getItemAt()</code> or
+ * <code>setItemAt()</code> method. Note that using array notation
+ * can be up to 10 times slower than using explicit method calls.</p>
  * 
  * @mxml
  *

@@ -72,11 +72,12 @@ import mx.utils.UIDUtil;
  *  The ArrayList class is a simple implementation of IList 
  *  that uses a backing Array as the source of the data. 
  * 
- * <p>This class also lets you use [ ] array notation to access
- * the <code>getItemAt()</code> and <code>setItemAt()</code> methods.
- * If you use code such as <code>myArrayList[index]</code> Flex calls
- * the <code>myArrayList</code> object's <code>getItemAt()</code> or
- * <code>setItemAt()</code> method.</p>
+ *  <p>This class also lets you use [ ] array notation to access
+ *  the <code>getItemAt()</code> and <code>setItemAt()</code> methods.
+ *  If you use code such as <code>myArrayList[index]</code> Flex calls
+ *  the <code>myArrayList</code> object's <code>getItemAt()</code> or
+ *  <code>setItemAt()</code> method. Note that using array notation
+ *  can be up to 10 times slower than using explicit method calls.</p>
  *
  *  Items in the backing Array can be accessed and manipulated 
  *  using the methods and properties of the <code>IList</code>
