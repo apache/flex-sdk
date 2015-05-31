@@ -83,6 +83,7 @@ public class ArrayList_FLEX_15159_Tests
         assertFalse(-1 in list);
         assertFalse('a' in list);
     }
+    
 }
 
 }
