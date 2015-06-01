@@ -1980,13 +1980,13 @@ public class ListBase extends SkinnableDataContainer implements IDataProviderEnh
 
     /**
      *  @private
-     *  Called when an item has been removed from this component.
+     *  Called on rollover or roll out.
      */
     private function item_mouseEventHandler(event:MouseEvent):void
     {
         var type:String = event.type;
         type = TYPE_MAP[type];
-        if (hasEventListener(type))
+        if (hasEventListener(type) && dataProvider != null)
         {
             var itemRenderer:IItemRenderer = event.currentTarget as IItemRenderer;
             
@@ -1995,7 +1995,11 @@ public class ListBase extends SkinnableDataContainer implements IDataProviderEnh
                 itemIndex = itemRenderer.itemIndex;
             else
                 itemIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);
-            
+			// The event can be called by an item renderer which has already been removed from the dataProvider.
+			// In that case, bail out.
+            if(itemIndex < 0 || itemIndex >= dataProvider.length)
+				return;
+			
             var listEvent:ListEvent = new ListEvent(type, false, false,
                                                     event.localX,
                                                     event.localY,
