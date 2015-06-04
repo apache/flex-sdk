@@ -239,15 +239,6 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     public function set localeChain(value:Array /* of String */):void
     {
         _localeChain = value;
-		
-		for each (var locale:String in value)
-		{
-			if (!localeMap.hasOwnProperty(locale))
-			{
-				throw new Error(
-					"Could not find compiled locale '" + locale + "'.");	
-			}
-		}
         
         update();
     }
