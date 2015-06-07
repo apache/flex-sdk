@@ -19,10 +19,10 @@
 
 package {
     import mx.collections.ArrayList;
+    import mx.collections.ComplexSortField;
     import mx.collections.IList;
     import mx.collections.ListCollectionView;
     import mx.collections.Sort;
-    import mx.collections.SortField;
 
     import org.flexunit.asserts.assertEquals;
 
@@ -49,7 +49,7 @@ package {
             _sut.addAll(from4To0); //values["address.street"]: Street4, Street3, Street2, Street1, Street0
 
             const sortByIndexAscending:Sort = new Sort();
-            sortByIndexAscending.fields = [new SortField("address.street", false, false, false)];
+            sortByIndexAscending.fields = [new ComplexSortField("address.street", false, false, false)];
             _sut.sort = sortByIndexAscending;
 
             //when
