@@ -20,24 +20,18 @@
 package spark.collections
 {
 
-import flash.errors.IllegalOperationError;
-import flash.events.Event;
-import flash.events.EventDispatcher;
+    import flash.events.Event;
 
-import mx.collections.ISort;
-import mx.collections.ISortField;
-import mx.collections.errors.SortError;
-import mx.core.FlexGlobals;
-import mx.core.UIComponent;
-import mx.managers.ISystemManager;
-import mx.managers.SystemManager;
-import mx.resources.IResourceManager;
-import mx.resources.ResourceManager;
-import mx.styles.AdvancedStyleClient;
-import mx.styles.IAdvancedStyleClient;
-import mx.utils.ObjectUtil;
+    import mx.collections.ISort;
+    import mx.collections.ISortField;
+    import mx.collections.errors.SortError;
+    import mx.core.FlexGlobals;
+    import mx.resources.IResourceManager;
+    import mx.resources.ResourceManager;
+    import mx.styles.AdvancedStyleClient;
+    import mx.utils.ObjectUtil;
 
-[DefaultProperty("fields")]
+    [DefaultProperty("fields")]
 [ResourceBundle("collections")]
 
 //--------------------------------------
@@ -250,14 +244,24 @@ public class Sort extends AdvancedStyleClient implements ISort
      *
      *  <p>Creates a new Sort with no fields set and no custom comparator.</p>
      *
+     *  @param fields An <code>Array</code> of <code>ISortField</code> objects that
+     *  specifies the fields to compare.
+     *  @param customCompareFunction Use a custom function to compare the
+     *  objects in the collection to which this sort will be applied.
+     *  @param unique Indicates if the sort should be unique.
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function Sort()
+    public function Sort(fields:Array = null, customCompareFunction:Function = null, unique:Boolean = false)
     {
         super();
+
+        this.fields = fields;
+        this.compareFunction = customCompareFunction;
+        this.unique = unique;
     }
 
     //--------------------------------------------------------------------------
@@ -342,7 +346,7 @@ public class Sort extends AdvancedStyleClient implements ISort
      */
     private var fieldList:Array = [];
 
-    [Inspectable(category="General", arrayType="spark.globalization.ISortField")]
+    [Inspectable(category="General", arrayType="mx.collections.ISortField")]
     [Bindable("fieldsChanged")]
 
     /**
@@ -992,12 +996,12 @@ public class Sort extends AdvancedStyleClient implements ISort
      */
     private function localeChanged():void
     {
-        const newlocaleStyle:* = super.getStyle("locale");
+        const newLocaleStyle:* = super.getStyle("locale");
 
-        if (localeStyle === newlocaleStyle)
+        if (localeStyle === newLocaleStyle)
             return;
 
-        localeStyle = newlocaleStyle;
+        localeStyle = newLocaleStyle;
         if (defaultEmptyField)
             defaultEmptyField.setStyle("locale", localeStyle);
 

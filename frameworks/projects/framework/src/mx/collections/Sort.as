@@ -20,18 +20,15 @@
 package mx.collections
 {
 
-import flash.events.Event;
-import flash.events.EventDispatcher;
-import mx.collections.ISort;
-import mx.collections.ISortField;
-import mx.collections.errors.SortError;
-import mx.managers.ISystemManager;
-import mx.managers.SystemManager;
-import mx.resources.IResourceManager;
-import mx.resources.ResourceManager;
-import mx.utils.ObjectUtil;
+    import flash.events.Event;
+    import flash.events.EventDispatcher;
 
-[DefaultProperty("fields")]
+    import mx.collections.errors.SortError;
+    import mx.resources.IResourceManager;
+    import mx.resources.ResourceManager;
+    import mx.utils.ObjectUtil;
+
+    [DefaultProperty("fields")]
 [ResourceBundle("collections")]
 [Alternative(replacement="spark.collections.Sort", since="4.5")]
 
@@ -180,14 +177,24 @@ public class Sort extends EventDispatcher implements ISort
      *
      *  <p>Creates a new Sort with no fields set and no custom comparator.</p>
      *
+     *  @param fields An <code>Array</code> of <code>ISortField</code> objects that
+     *  specifies the fields to compare.
+     *  @param customCompareFunction Use a custom function to compare the
+     *  objects in the collection to which this sort will be applied.
+     *  @param unique Indicates if the sort should be unique.
+     *
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function Sort()
+    public function Sort(fields:Array = null, customCompareFunction:Function = null, unique:Boolean = false)
     {
         super();
+
+        this.fields = fields;
+        this.compareFunction = customCompareFunction;
+        this.unique = unique;
     }
 
     //--------------------------------------------------------------------------

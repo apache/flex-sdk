@@ -20,26 +20,19 @@
 package spark.collections
 {
 
-import flash.errors.IllegalOperationError;
-import flash.events.Event;
-import flash.events.EventDispatcher;
+    import flash.events.Event;
 
-import mx.collections.ISortField;
-import mx.collections.errors.SortError;
-import mx.core.FlexGlobals;
-import mx.core.UIComponent;
-import mx.managers.ISystemManager;
-import mx.managers.SystemManager;
-import mx.resources.IResourceManager;
-import mx.resources.ResourceManager;
-import mx.styles.AdvancedStyleClient;
-import mx.utils.ObjectUtil;
+    import mx.collections.ISortField;
+    import mx.collections.errors.SortError;
+    import mx.core.FlexGlobals;
+    import mx.resources.IResourceManager;
+    import mx.resources.ResourceManager;
+    import mx.styles.AdvancedStyleClient;
+    import mx.utils.ObjectUtil;
 
-import spark.globalization.SortingCollator;
-import spark.collections.SortFieldCompareTypes;
+    import spark.globalization.SortingCollator;
 
-
-[ResourceBundle("collections")]
+    [ResourceBundle("collections")]
 
 //--------------------------------------
 //  Styles
@@ -184,6 +177,10 @@ public class SortField extends AdvancedStyleClient implements ISortField
      *              descending order.
      *  @param numeric Tells the comparator whether to compare sort items as
      *              numbers, instead of alphabetically.
+     *  @param sortCompareType Gives an indication to SortField which of the
+     *              default compare functions to use.
+     *  @param customCompareFunction Use a custom function to compare the
+     *              objects based on this SortField.
      *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
@@ -192,15 +189,22 @@ public class SortField extends AdvancedStyleClient implements ISortField
      */
     public function SortField(name:String = null,
                               descending:Boolean = false,
-                              numeric:Object = null)
+                              numeric:Object = null,
+                              sortCompareType:String = null,
+                              customCompareFunction:Function = null)
     {
         super();
 
         _name = name;
         _descending = descending;
         _numeric = numeric;
+        _sortCompareType = sortCompareType;
 
-        if (updateSortCompareType() == false)
+        if(customCompareFunction != null)
+        {
+            compareFunction = customCompareFunction;
+        }
+        else if (updateSortCompareType() == false)
         {
             _compareFunction = stringCompare;
         }
@@ -312,7 +316,8 @@ public class SortField extends AdvancedStyleClient implements ISortField
     }
 
     /**
-     *  @private
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
      */
     public function set compareFunction(c:Function):void
     {
@@ -347,7 +352,8 @@ public class SortField extends AdvancedStyleClient implements ISortField
     }
 
     /**
-     *  @private
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
      */
     public function set descending(value:Boolean):void
     {
@@ -387,7 +393,8 @@ public class SortField extends AdvancedStyleClient implements ISortField
     }
 
     /**
-     *  @private
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
      */
     public function set name(n:String):void
     {
@@ -424,7 +431,8 @@ public class SortField extends AdvancedStyleClient implements ISortField
     }
 
     /**
-     *  @private
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
      */
     public function set numeric(value:Object):void
     {
@@ -461,7 +469,8 @@ public class SortField extends AdvancedStyleClient implements ISortField
     }
 
     /**
-     *  @private
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
      */
     public function set sortCompareType(value:String):void
     {
@@ -822,7 +831,6 @@ public class SortField extends AdvancedStyleClient implements ISortField
 
     private function nullCompare(a:Object, b:Object):int
     {
-        var value:Object;
         var left:Object;
         var right:Object;
 

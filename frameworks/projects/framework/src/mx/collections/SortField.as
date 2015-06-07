@@ -24,6 +24,7 @@ package mx.collections
     import flash.events.EventDispatcher;
 
     import mx.collections.errors.SortError;
+    import mx.core.mx_internal;
     import mx.resources.IResourceManager;
     import mx.resources.ResourceManager;
     import mx.utils.ObjectUtil;
@@ -67,10 +68,10 @@ package mx.collections
  *
  *  <p>By default the comparison provided by the SortField class does
  *  not provide correct language specific
- *  sorting for strings.  For this type of sorting please see the 
- *  <code>spark.collections.Sort</code> and 
+ *  sorting for strings.  For this type of sorting please see the
+ *  <code>spark.collections.Sort</code> and
  *  <code>spark.collections.SortField</code> classes.</p>
- * 
+ *
  *  @mxml
  *
  *  <p>The <code>&lt;mx:SortField&gt;</code> tag has the following attributes:</p>
@@ -118,6 +119,10 @@ public class SortField extends EventDispatcher implements ISortField
      *              descending order.
      *  @param numeric Tells the comparator whether to compare sort items as
      *              numbers, instead of alphabetically.
+     *  @param sortCompareType Gives an indication to SortField which of the
+     *              default compare functions to use.
+     *  @param customCompareFunction Use a custom function to compare the
+     *              objects based on this SortField.
      *
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -127,7 +132,9 @@ public class SortField extends EventDispatcher implements ISortField
     public function SortField(name:String = null,
                               caseInsensitive:Boolean = false,
                               descending:Boolean = false,
-                              numeric:Object = null)
+                              numeric:Object = null,
+                              sortCompareType:String = null,
+                              customCompareFunction:Function = null)
     {
         super();
 
@@ -135,8 +142,13 @@ public class SortField extends EventDispatcher implements ISortField
         _caseInsensitive = caseInsensitive;
         _descending = descending;
         _numeric = numeric;
+        _sortCompareType = sortCompareType;
 
-        if (updateSortCompareType() == false)
+        if(customCompareFunction != null)
+        {
+            compareFunction = customCompareFunction;
+        }
+        else if (updateSortCompareType() == false)
         {
             _compareFunction = stringCompare;
         }
@@ -218,9 +230,10 @@ public class SortField extends EventDispatcher implements ISortField
     }
 
     /**
-     *  @private
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
      */
-    public function set caseInsensitive(value:Boolean):void
+    mx_internal function setCaseInsensitive(value:Boolean):void
     {
         if (value != _caseInsensitive)
         {
@@ -244,7 +257,7 @@ public class SortField extends EventDispatcher implements ISortField
     /**
      *  The function that compares two items during a sort of items for the
      *  associated collection. If you specify a <code>compareFunction</code>
-     *  property in an ISort object, Flex ignores any 
+     *  property in an ISort object, Flex ignores any
      *  <code>compareFunction</code> properties of the ISort's SortField
      *  objects.
      *  <p>The compare function must have the following signature:</p>
@@ -260,19 +273,19 @@ public class SortField extends EventDispatcher implements ISortField
      *        <li>1, if <code>a</code> should appear after <code>b</code> in the
      *        sorted sequence</li>
      *  </ul>
-     * 
+     *
      *  <p>The default value is an internal compare function that can perform
      *  a string, numeric, or date comparison in ascending or descending order,
      *  with case-sensitive or case-insensitive string comparisons.
      *  Specify your own function only if you need a need a custom comparison
      *  algorithm. This is normally only the case if a calculated field is
      *  used in a display.</p>
-     *  
-     *  Note if you need, language specific sorting then consider using the
+     *
+     *  Note if you need language-specific sorting then consider using the
      *  <code>spark.collections.SortField</code> class.
-     * 
+     *
      *  @see spark.collections.SortField
-     * 
+     *
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
@@ -284,7 +297,8 @@ public class SortField extends EventDispatcher implements ISortField
     }
 
     /**
-     *  @private
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
      */
     public function set compareFunction(c:Function):void
     {
@@ -319,7 +333,8 @@ public class SortField extends EventDispatcher implements ISortField
     }
 
     /**
-     *  @private
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
      */
     public function set descending(value:Boolean):void
     {
@@ -359,7 +374,8 @@ public class SortField extends EventDispatcher implements ISortField
     }
 
     /**
-     *  @private
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
      */
     public function set name(n:String):void
     {
@@ -396,7 +412,8 @@ public class SortField extends EventDispatcher implements ISortField
     }
 
     /**
-     *  @private
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
      */
     public function set numeric(value:Object):void
     {
@@ -432,7 +449,8 @@ public class SortField extends EventDispatcher implements ISortField
     }
 
     /**
-     *  @private
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
      */
     public function set sortCompareType(value:String):void
     {
@@ -441,7 +459,6 @@ public class SortField extends EventDispatcher implements ISortField
             _sortCompareType = value;
             dispatchEvent(new Event("sortCompareTypeChanged"));
         }
-
 
         updateSortCompareType();
     }
@@ -585,7 +602,7 @@ public class SortField extends EventDispatcher implements ISortField
 
     /**
      *  @inheritDoc
-     * 
+     *
      *  @langversion 3.0
      *  @playerversion Flash 11.8
      *  @playerversion AIR 3.8
