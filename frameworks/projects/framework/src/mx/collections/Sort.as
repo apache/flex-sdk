@@ -244,8 +244,8 @@ public class Sort extends EventDispatcher implements ISort
      */
     public function set compareFunction(value:Function):void
     {
-        _compareFunction = value;
-        usingCustomCompareFunction = _compareFunction != null;
+            _compareFunction = value;
+            usingCustomCompareFunction = _compareFunction != null;
     }
 
     //----------------------------------
@@ -334,7 +334,7 @@ public class Sort extends EventDispatcher implements ISort
      */
     public function set unique(value:Boolean):void
     {
-        _unique = value;
+            _unique = value;
     }
 
     //--------------------------------------------------------------------------
@@ -650,10 +650,8 @@ public class Sort extends EventDispatcher implements ISort
         }
         else
         {
-            var fields:Array = this.fields;
             if (fields && fields.length > 0)
             {
-                var i:int;
                 //doing the init value each time may be a little inefficient
                 //but allows for the data to change and the comparators
                 //to update correctly
