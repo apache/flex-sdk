@@ -1199,7 +1199,39 @@ public class ObjectUtil
         }
         return true;
     }
-    
+
+    /**
+     *  Returns the value at the end of the property chain <code>path</code>.
+     *  If the value cannot be reached due to null links on the chain,
+     *  <code>undefined</code>  is returned.
+     *
+     *  @param obj The object at the beginning of the property chain
+     *  @param path The path to inspect (e.g. "address.street")
+     *
+     *  @return the value at the end of the property chain, <code>undefined</code>
+     *  if it cannot be reached, or the object itself when <code>path</code> is empty.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function getValue(obj:Object, path:Array):*
+    {
+        if(!obj)
+            return undefined;
+
+        if(!path || !path.length)
+            return obj;
+
+        var result:* = obj;
+        var i:int = -1;
+        while(++i < path.length && result)
+            result = result.hasOwnProperty(path[i]) ? result[path[i]] : undefined;
+
+        return result;
+    }
+
     /**
      *  @private
      */
