@@ -651,6 +651,27 @@ public class SortField extends EventDispatcher implements ISortField
 
     //--------------------------------------------------------------------------
     //
+    //  Protected Methods
+    //
+    //--------------------------------------------------------------------------
+
+    protected function getSortFieldValue(obj:Object):Object
+    {
+        var result:Object = null;
+
+        try
+        {
+            result = obj[_name];
+        }
+        catch(error:Error)
+        {
+        }
+
+        return result;
+    }
+
+    //--------------------------------------------------------------------------
+    //
     //  Private Methods
     //
     //--------------------------------------------------------------------------
@@ -671,21 +692,8 @@ public class SortField extends EventDispatcher implements ISortField
         // we need to introspect the data a little bit
         if (_name)
         {
-            try
-            {
-                left = a[_name];
-            }
-            catch(error:Error)
-            {
-            }
-
-            try
-            {
-                right = b[_name];
-            }
-            catch(error:Error)
-            {
-            }
+            left = getSortFieldValue(a);
+            right = getSortFieldValue(b);
         }
 
         // return 0 (ie equal) if both are null
@@ -750,23 +758,8 @@ public class SortField extends EventDispatcher implements ISortField
      */
     private function numericCompare(a:Object, b:Object):int
     {
-        var fa:Number;
-        try
-        {
-            fa = _name == null ? Number(a) : Number(a[_name]);
-        }
-        catch(error:Error)
-        {
-        }
-
-        var fb:Number;
-        try
-        {
-            fb = _name == null ? Number(b) : Number(b[_name]);
-        }
-        catch(error:Error)
-        {
-        }
+        var fa:Number = _name == null ? Number(a) : Number(getSortFieldValue(a));
+        var fb:Number = _name == null ? Number(b) : Number(getSortFieldValue(b));
 
         return ObjectUtil.numericCompare(fa, fb);
     }
@@ -781,23 +774,8 @@ public class SortField extends EventDispatcher implements ISortField
      */
     private function dateCompare(a:Object, b:Object):int
     {
-        var fa:Date;
-        try
-        {
-            fa = _name == null ? a as Date : a[_name] as Date;
-        }
-        catch(error:Error)
-        {
-        }
-
-        var fb:Date;
-        try
-        {
-            fb = _name == null ? b as Date : b[_name] as Date;
-        }
-        catch(error:Error)
-        {
-        }
+        var fa:Date = _name == null ? a as Date : getSortFieldValue(a) as Date;
+        var fb:Date = _name == null ? b as Date : getSortFieldValue(b) as Date;
 
         return ObjectUtil.dateCompare(fa, fb);
     }
@@ -812,23 +790,8 @@ public class SortField extends EventDispatcher implements ISortField
      */
     private function stringCompare(a:Object, b:Object):int
     {
-        var fa:String;
-        try
-        {
-            fa = _name == null ? String(a) : String(a[_name]);
-        }
-        catch(error:Error)
-        {
-        }
-
-        var fb:String;
-        try
-        {
-            fb = _name == null ? String(b) : String(b[_name]);
-        }
-        catch(error:Error)
-        {
-        }
+        var fa:String = _name == null ? String(a) : String(getSortFieldValue(a));
+        var fb:String = _name == null ? String(b) : String(getSortFieldValue(b));
 
         return ObjectUtil.stringCompare(fa, fb, _caseInsensitive);
     }
@@ -845,23 +808,8 @@ public class SortField extends EventDispatcher implements ISortField
      */
     private function xmlCompare(a:Object, b:Object):int
     {
-        var sa:String;
-        try
-        {
-            sa = _name == null ? a.toString() : a[_name].toString();
-        }
-        catch(error:Error)
-        {
-        }
-
-        var sb:String;
-        try
-        {
-            sb = _name == null ? b.toString() : b[_name].toString();
-        }
-        catch(error:Error)
-        {
-        }
+        var sa:String = _name == null ? a.toString() : getSortFieldValue(a).toString();
+        var sb:String = _name == null ? b.toString() : getSortFieldValue(b).toString();
 
         if (numeric == true)
         {

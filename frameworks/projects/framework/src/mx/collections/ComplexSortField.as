@@ -33,5 +33,15 @@ package mx.collections {
             super(name, caseInsensitive, descending, numeric);
             _nameParts = name.split(".");
         }
+
+        override protected function getSortFieldValue(obj:Object):Object
+        {
+            return ObjectUtil.getValue(obj, _nameParts);
+        }
+
+        override public function get arraySortOnOptions():int
+        {
+            return -1;
+        }
     }
 }
