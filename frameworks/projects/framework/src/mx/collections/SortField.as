@@ -520,13 +520,7 @@ public class SortField extends EventDispatcher implements ISortField
                 var value:Object;
                 if (_name)
                 {
-                    try
-                    {
-                        value = obj[_name];
-                    }
-                    catch(error:Error)
-                    {
-                    }
+                    value = getSortFieldValue(obj);
                 }
                 //this needs to be an == null check because !value will return true
                 //where value == 0 or value == false

@@ -26,6 +26,7 @@ package {
     import mx.collections.SortFieldCompareTypes;
 
     import org.flexunit.asserts.assertEquals;
+    import org.flexunit.asserts.assertTrue;
 
     public class FLEX_34852_Tests {
         private var _sut:ListCollectionView;
@@ -76,6 +77,42 @@ package {
 
             //then
             assertIndexesAre([4, 3, 2, 1, 0]);
+        }
+
+        [Test]
+        public function test_simple_ascending_sort_by_complex_string_fields_with_unique_field():void
+        {
+            //given
+            var from4To0:IList = generateVOs(5, true);
+            _sut.addAll(from4To0); //values["address.street"]: Street4, Street3, Street2, Street1, Street0
+
+            const sortByStreetAscending:Sort = new Sort();
+            sortByStreetAscending.fields = [new ComplexSortField("address.street", false, false, false)];
+            sortByStreetAscending.unique = true;
+            _sut.sort = sortByStreetAscending;
+
+            //when
+            _sut.refresh(); //should be: Street0, Street1, Street2, Street3, Street4
+
+            //then
+            assertIndexesAre([0, 1, 2, 3, 4]);
+        }
+
+        [Test(expects="Error")]
+        public function test_simple_ascending_sort_by_complex_string_fields_with_unique_flag_and_duplicating_field_throws_error():void
+        {
+            //given
+            var from4To0:IList = generateVOs(5, true);
+            _sut.addAll(from4To0); //values["address.street"]: Street4, Street3, Street2, Street1, Street0
+            FLEX_34852_VO(_sut.getItemAt(0)).address.street = "Street0"; //making sure there's a duplicate
+
+            const sortByStreetAscending:Sort = new Sort();
+            sortByStreetAscending.fields = [new ComplexSortField("address.street", false, false, false)];
+            sortByStreetAscending.unique = true;
+            _sut.sort = sortByStreetAscending;
+
+            //when
+            _sut.refresh(); //should throw an error about there being a duplicate value
         }
 
         [Test]
@@ -153,6 +190,45 @@ package {
             //then
             assertIndexesAre([4, 3, 2, 1, 0]);
         }
+
+        [Test]
+        public function test_simple_ascending_sort_with_empty_field_name_should_not_throw_error():void
+        {
+            //given
+            var from4To0:IList = generateVOs(5, true);
+            _sut.addAll(from4To0); //values["index"]: 4, 3, 2, 1, 0
+
+            const sortByNothingAscending:Sort = new Sort();
+            sortByNothingAscending.fields = [new ComplexSortField("", false, false)];
+            _sut.sort = sortByNothingAscending;
+
+            //when
+            _sut.refresh(); //just make sure it doesn't throw an error.
+
+            //then - we cannot guarantee the order of the items because SortField.nullCompare returns 0 in this
+            // situation, so we just make sure there's no error
+            assertTrue(true);
+        }
+
+        [Test]
+        public function test_simple_ascending_sort_with_erroneous_field_name_should_not_throw_error():void
+        {
+            //given
+            var from4To0:IList = generateVOs(5, true);
+            _sut.addAll(from4To0); //values["index"]: 4, 3, 2, 1, 0
+
+            const sortByNothingAscending:Sort = new Sort();
+            sortByNothingAscending.fields = [new ComplexSortField("aFieldThatDoesntExist", false, false)];
+            _sut.sort = sortByNothingAscending;
+
+            //when
+            _sut.refresh(); //just make sure it doesn't throw an error.
+
+            //then - we cannot guarantee the order of the items because SortField.nullCompare returns 0 in this
+            // situation, so we just make sure there's no error
+            assertTrue(true);
+        }
+
 
 
 

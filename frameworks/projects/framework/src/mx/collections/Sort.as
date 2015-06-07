@@ -672,8 +672,7 @@ public class Sort extends EventDispatcher implements ISort
                     }
                     else
                     {
-                        uniqueRet2 = items.sort(internalCompare,
-                                                Array.UNIQUESORT);
+                        uniqueRet2 = items.sort(internalCompare, Array.UNIQUESORT);
                     }
                     if (uniqueRet2 == 0)
                     {
