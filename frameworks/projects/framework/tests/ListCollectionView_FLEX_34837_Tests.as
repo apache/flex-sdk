@@ -43,24 +43,6 @@ package {
         }
 
         [Test]
-        public function test_simple_ascending_sort_by_complex_fields():void
-        {
-            //given
-            var from4To0:IList = generateVOs(5, true);
-            _sut.addAll(from4To0); //values["address.street"]: Street4, Street3, Street2, Street1, Street0
-
-            const sortByIndexAscending:Sort = new Sort();
-            sortByIndexAscending.fields = [new SortField("address.street", false, false, false)];
-            _sut.sort = sortByIndexAscending;
-
-            //when
-            _sut.refresh(); //should be: Street0, Street1, Street2, Street3, Street4
-
-            //then
-            assertIndexesAre([0, 1, 2, 3, 4]);
-        }
-
-        [Test]
         public function test_simple_sort_by_complex_fields_with_custom_compare_function_for_sort():void
         {
             function compareByStreet(a:ListCollectionView_FLEX_34837_VO, b:ListCollectionView_FLEX_34837_VO, fields:Array):int
