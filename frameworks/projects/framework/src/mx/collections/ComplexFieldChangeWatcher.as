@@ -19,6 +19,7 @@
 
 package mx.collections {
     import flash.events.EventDispatcher;
+    import flash.utils.Dictionary;
 
     import mx.binding.utils.ChangeWatcher;
     import mx.core.mx_internal;
@@ -26,28 +27,49 @@ package mx.collections {
     import mx.events.CollectionEventKind;
     import mx.events.PropertyChangeEvent;
 
-    public class ComplexFieldChangeWatcher extends EventDispatcher {
-
-        private var _complexFieldWatchers:Vector.<ChangeWatcher> = new Vector.<ChangeWatcher>();
+    public class ComplexFieldChangeWatcher extends EventDispatcher
+    {
+        private var _complexFieldWatchers:Dictionary = new Dictionary(true);
         private var _list:IList;
         private var _listCollection:ICollectionView;
 
         public function stopWatchingForComplexFieldChanges():void
         {
             unwatchListForChanges();
+            unwatchAllItems();
+        }
 
-            for each(var watcher:ChangeWatcher in _complexFieldWatchers)
+        private function unwatchAllItems():void
+        {
+            for each(var item:Object in _complexFieldWatchers)
             {
-                watcher.unwatch();
+                unwatchItem(item);
+                delete _complexFieldWatchers[item];
             }
+        }
 
-            _complexFieldWatchers.length = 0;
+        private function unwatchArrayOfItems(items:Array):void
+        {
+            for(var i:int = 0; i < items.length; i++)
+            {
+                unwatchItem(items[i]);
+            }
+        }
+
+        private function unwatchItem(item:Object):void
+        {
+            var watchersForItem:Array = _complexFieldWatchers[item] as Array;
+            while(watchersForItem && watchersForItem.length)
+            {
+                var watcher:ChangeWatcher = watchersForItem.pop() as ChangeWatcher;
+                if(watcher)
+                    watcher.unwatch();
+            }
         }
 
         public function startWatchingForComplexFieldChanges():void
         {
             watchListForChanges();
-
             watchItems(list);
         }
 
@@ -93,19 +115,15 @@ package mx.collections {
             var watcher:ChangeWatcher = ChangeWatcher.watch(item, chain, new Closure(item, onComplexValueChanged).callFunctionOnObject, false, true);
             if(watcher)
             {
-                _complexFieldWatchers.push(watcher);
+                addWatcher(watcher, item);
             }
         }
 
-        private function onCollectionChanged(event:CollectionEvent):void
+        private function addWatcher(watcher:ChangeWatcher, forItem:Object):void
         {
-            switch(event.kind)
-            {
-                case CollectionEventKind.ADD: {
-                    watchArrayOfItems(event.items);
-                    break;
-                }
-            }
+            if(!_complexFieldWatchers[forItem])
+                _complexFieldWatchers[forItem] = [];
+            (_complexFieldWatchers[forItem] as Array).push(watcher);
         }
 
         private function onComplexValueChanged(item:Object):void
@@ -144,6 +162,21 @@ package mx.collections {
         {
             if(list)
                 list.removeEventListener(CollectionEvent.COLLECTION_CHANGE, onCollectionChanged);
+        }
+
+        private function onCollectionChanged(event:CollectionEvent):void
+        {
+            switch(event.kind)
+            {
+                case CollectionEventKind.ADD: {
+                    watchArrayOfItems(event.items);
+                    break;
+                }
+                case CollectionEventKind.REMOVE: {
+                    unwatchArrayOfItems(event.items);
+                    break;
+                }
+            }
         }
     }
 }
