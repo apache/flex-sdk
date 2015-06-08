@@ -44,7 +44,7 @@ package {
         }
 
         [Test]
-        public function test_simple_ascending_sort_by_complex_string_fields():void
+        public function test_ascending_sort_by_complex_string_fields():void
         {
             //given
             var from4To0:IList = generateVOs(5, true);
@@ -59,6 +59,28 @@ package {
 
             //then
             assertIndexesAre([0, 1, 2, 3, 4]);
+        }
+
+        [Test]
+        public function test_finding_items_works_after_ascending_sort_by_complex_string_fields():void
+        {
+            //given
+            var from4To0:IList = generateVOs(5, true);
+            _sut.addAll(from4To0); //values["address.street"]: Street4, Street3, Street2, Street1, Street0
+
+            const sortByStreetAscending:Sort = new Sort();
+            sortByStreetAscending.fields = [new ComplexSortField("address.street", false, false, false)];
+            _sut.sort = sortByStreetAscending;
+
+            //when
+            _sut.refresh(); //should be: Street0, Street1, Street2, Street3, Street4
+
+            //then
+            for(var i:int = 0; i < from4To0.length; i++)
+            {
+                var vo:FLEX_34852_VO = from4To0.getItemAt(i) as FLEX_34852_VO;
+                assertEquals(vo.index, _sut.getItemIndex(vo));
+            }
         }
 
         [Test]
