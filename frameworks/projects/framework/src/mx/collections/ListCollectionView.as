@@ -379,28 +379,21 @@ public class ListCollectionView extends Proxy
     /**
      *  @private
      */
-    public function set sort(s:ISort):void
+    public function set sort(value:ISort):void
     {
-        if(_sort && _sort != s && complexFieldWatcher)
-            complexFieldWatcher.stopWatchingForComplexFieldChanges();
-
-        _sort = s;
-
-        if(_sort && _sort.fields && complexFieldWatcher)
-            complexFieldWatcher.startWatchingForComplexFieldChanges(this, _sort.fields);
-
-        dispatchEvent(new Event("sortChanged"));
-    }
-
-
-
-    private function onComplexFieldValueChanged(changeEvent:PropertyChangeEvent):void
-    {
-        if(sort)
+        if(_sort != value)
         {
-            moveItemInView(changeEvent.source);
+            stopWatchingForComplexFieldsChanges();
+
+            _sort = value;
+
+            startWatchingForComplexFieldsChanges();
+
+            dispatchEvent(new Event("sortChanged"));
         }
     }
+
+
 
     //--------------------------------------------------------------------------
     //
@@ -1866,20 +1859,38 @@ public class ListCollectionView extends Proxy
     {
         if(_complexFieldWatcher != value)
         {
-            if(_complexFieldWatcher)
-            {
-                _complexFieldWatcher.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, onComplexFieldValueChanged);
-                _complexFieldWatcher.stopWatchingForComplexFieldChanges();
-            }
+            stopWatchingForComplexFieldsChanges();
 
             _complexFieldWatcher = value;
+            _complexFieldWatcher.mx_internal::list = this;
 
-            if(_complexFieldWatcher)
-            {
-                _complexFieldWatcher.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, onComplexFieldValueChanged, false, 0, true);
-                if(sort)
-                    _complexFieldWatcher.startWatchingForComplexFieldChanges(this, sort.fields);
-            }
+            startWatchingForComplexFieldsChanges();
+        }
+    }
+
+    private function startWatchingForComplexFieldsChanges():void
+    {
+        if(complexFieldWatcher && sort && sort.fields)
+        {
+            _complexFieldWatcher.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, onComplexFieldValueChanged, false, 0, true);
+            _complexFieldWatcher.startWatchingForComplexFieldChanges();
+        }
+    }
+
+    private function stopWatchingForComplexFieldsChanges():void
+    {
+        if(complexFieldWatcher)
+        {
+            _complexFieldWatcher.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, onComplexFieldValueChanged);
+            _complexFieldWatcher.stopWatchingForComplexFieldChanges();
+        }
+    }
+
+    private function onComplexFieldValueChanged(changeEvent:PropertyChangeEvent):void
+    {
+        if(sort)
+        {
+            moveItemInView(changeEvent.source);
         }
     }
 }

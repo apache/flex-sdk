@@ -20,17 +20,22 @@
 package mx.collections {
     import flash.events.EventDispatcher;
 
-    import mx.binding.utils.BindingUtils;
     import mx.binding.utils.ChangeWatcher;
+    import mx.core.mx_internal;
+    import mx.events.CollectionEvent;
+    import mx.events.CollectionEventKind;
     import mx.events.PropertyChangeEvent;
 
     public class ComplexFieldChangeWatcher extends EventDispatcher {
 
         private var _complexFieldWatchers:Vector.<ChangeWatcher> = new Vector.<ChangeWatcher>();
         private var _list:IList;
+        private var _listCollection:ICollectionView;
 
         public function stopWatchingForComplexFieldChanges():void
         {
+            unwatchListForChanges();
+
             for each(var watcher:ChangeWatcher in _complexFieldWatchers)
             {
                 watcher.unwatch();
@@ -39,35 +44,106 @@ package mx.collections {
             _complexFieldWatchers.length = 0;
         }
 
-        public function startWatchingForComplexFieldChanges(list:IList, fields:Array):void
+        public function startWatchingForComplexFieldChanges():void
         {
-            _list = list;
+            watchListForChanges();
 
-            for(var i:int = 0; i < fields.length; i++)
+            watchItems(list);
+        }
+
+        private function watchItems(items:IList):void
+        {
+            if(sortFields)
             {
-                var sortField:IComplexSortField = fields[i] as IComplexSortField;
-                if(sortField && sortField.nameParts)
+                for(var i:int = 0; i < items.length; i++)
                 {
-                    for(var j:int = 0; j < _list.length; j++)
+                    watchItem(items.getItemAt(i), sortFields);
+                }
+            }
+        }
+
+        private function watchArrayOfItems(items:Array):void
+        {
+            if(sortFields)
+            {
+                for(var i:int = 0; i < items.length; i++)
+                {
+                    watchItem(items[i], sortFields);
+                }
+            }
+        }
+
+        private function watchItem(item:Object, sortFields:Array):void
+        {
+            if(item)
+            {
+                for(var i:int = 0; i < sortFields.length; i++)
+                {
+                    var sortField:IComplexSortField = sortFields[i] as IComplexSortField;
+                    if(sortField && sortField.nameParts)
                     {
-                        var item:Object = _list.getItemAt(j);
-                        if(item)
-                        {
-                            var watcher:ChangeWatcher = BindingUtils.bindSetter(function(value:Object):void {}, item, sortField.nameParts);
-                            if(watcher)
-                            {
-                                watcher.setHandler(new Closure(item, complexValueChanged).callFunctionOnObject);
-                                _complexFieldWatchers.push(watcher);
-                            }
-                        }
+                        watchItemForField(item, sortField.nameParts);
                     }
                 }
             }
         }
 
-        private function complexValueChanged(item:Object):void
+        private function watchItemForField(item:Object, chain:Array):void
+        {
+            var watcher:ChangeWatcher = ChangeWatcher.watch(item, chain, new Closure(item, onComplexValueChanged).callFunctionOnObject, false, true);
+            if(watcher)
+            {
+                _complexFieldWatchers.push(watcher);
+            }
+        }
+
+        private function onCollectionChanged(event:CollectionEvent):void
+        {
+            switch(event.kind)
+            {
+                case CollectionEventKind.ADD: {
+                    watchArrayOfItems(event.items);
+                    break;
+                }
+            }
+        }
+
+        private function onComplexValueChanged(item:Object):void
         {
             dispatchEvent(PropertyChangeEvent.createUpdateEvent(item, null, null, null));
+        }
+
+        private function get sortFields():Array
+        {
+            return _listCollection && _listCollection.sort ? _listCollection.sort.fields : null;
+        }
+
+        mx_internal function set list(value:IList):void
+        {
+            if(_list != value)
+            {
+                stopWatchingForComplexFieldChanges();
+
+                _list = value;
+                _listCollection = value as ICollectionView;
+            }
+        }
+
+        protected function get list():IList
+        {
+            return _list;
+        }
+
+        private function watchListForChanges():void
+        {
+            if(list)
+                list.addEventListener(CollectionEvent.COLLECTION_CHANGE, onCollectionChanged, false, 0, true);
+        }
+
+        private function unwatchListForChanges():void
+        {
+            if(list)
+                list.removeEventListener(CollectionEvent.COLLECTION_CHANGE, onCollectionChanged);
         }
     }
 }
