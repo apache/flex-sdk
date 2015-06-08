@@ -26,6 +26,8 @@ package mx.collections
     import flash.utils.flash_proxy;
     import flash.utils.getQualifiedClassName;
 
+    import mx.binding.utils.BindingUtils;
+    import mx.binding.utils.ChangeWatcher;
     import mx.collections.errors.CollectionViewError;
     import mx.collections.errors.ItemPendingError;
     import mx.collections.errors.SortError;
@@ -97,6 +99,8 @@ public class ListCollectionView extends Proxy
     // Private variables
     //
     //--------------------------------------------------------------------------
+
+    private var _complexFieldWatchers:Vector.<ChangeWatcher> = new Vector.<ChangeWatcher>();
 
     /**
      *  @private
@@ -373,9 +377,57 @@ public class ListCollectionView extends Proxy
      */
     public function set sort(s:ISort):void
     {
+        if(_sort && _sort != s)
+            stopWatchingForComplexFieldChanges();
+
         _sort = s;
-		
+
+        if(_sort && _sort.fields)
+            startWatchingForComplexFieldChanges(_sort.fields);
+
         dispatchEvent(new Event("sortChanged"));
+    }
+
+    private function stopWatchingForComplexFieldChanges():void
+    {
+        for each(var watcher:ChangeWatcher in _complexFieldWatchers)
+        {
+            watcher.unwatch();
+        }
+
+        _complexFieldWatchers.length = 0;
+    }
+
+    private function startWatchingForComplexFieldChanges(fields:Array):void
+    {
+        for(var i:int = 0; i < fields.length; i++)
+        {
+            var sortField:IComplexSortField = fields[i] as IComplexSortField;
+            if(sortField && sortField.nameParts)
+            {
+                for(var j:int = 0; j < this.length; j++)
+                {
+                    var item:Object = this.getItemAt(j);
+                    if(item)
+                    {
+                        var watcher:ChangeWatcher = BindingUtils.bindSetter(function(value:Object):void {}, item, sortField.nameParts);
+                        if(watcher)
+                        {
+                            watcher.setHandler(new Closure(item, complexValueChanged).callFunctionOnObject);
+                            _complexFieldWatchers.push(watcher);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private function complexValueChanged(item:Object):void
+    {
+        if(filterFunction != null || sort)
+        {
+            moveItemInView(item);
+        }
     }
 
     //--------------------------------------------------------------------------
@@ -1837,6 +1889,7 @@ public class ListCollectionView extends Proxy
 
 }
 
+import flash.events.Event;
 import flash.events.EventDispatcher;
 
 import mx.collections.*;
@@ -2699,5 +2752,22 @@ class ListCollectionViewBookmark extends CursorBookmark
     override public function getViewIndex():int
     {
         return view.getBookmarkIndex(this);
+    }
+}
+
+class Closure
+{
+    private var _object:Object;
+    private var _function:Function;
+
+    public function Closure(cachedObject:Object, cachedFunction:Function)
+    {
+        _object = cachedObject;
+        _function = cachedFunction;
+    }
+
+    public function callFunctionOnObject(event:Event):void
+    {
+        _function.apply(null, [_object]);
     }
 }

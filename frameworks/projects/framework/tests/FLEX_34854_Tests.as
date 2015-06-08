@@ -55,6 +55,28 @@ package {
             _sut.refresh(); //values: Object1, Object2, Object3, Object4
 
             //when
+            const first:ListCollectionView_FLEX_34854_VO = _sut.getItemAt(0) as ListCollectionView_FLEX_34854_VO;
+            first.address.street = "Street9"; //this should immediately place the newItem at the end
+
+            //then
+            const newItemIndex:int = _sut.getItemIndex(first);
+            assertEquals("the new item should have been placed at the end of the list as soon as its address's street name was changed", _sut.length - 1, newItemIndex);
+        }
+
+        [Test]
+        public function test_adding_and_changing_complex_sort_field_value_places_it_correctly_according_to_collection_sort():void
+        {
+            //given
+            var from1To4:IList = generateVOs(5);
+            from1To4.removeItemAt(0);
+            _sut.addAll(from1To4);
+
+            const sortByNameAscending:Sort = new Sort();
+            sortByNameAscending.fields = [new ComplexSortField("address.street", false, false, false)];
+            _sut.sort = sortByNameAscending;
+            _sut.refresh(); //values: Object1, Object2, Object3, Object4
+
+            //when
             const newItem:ListCollectionView_FLEX_34854_VO = generateOneObject(5);
             _sut.addItem(newItem); //values: Object1, Object2, Object3, Object4, Object5
             newItem.address.street = "Street0"; //this should immediately place the newItem at position 0

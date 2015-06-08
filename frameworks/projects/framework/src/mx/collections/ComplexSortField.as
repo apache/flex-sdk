@@ -20,7 +20,7 @@
 package mx.collections {
     import mx.utils.ObjectUtil;
 
-    public class ComplexSortField extends SortField
+    public class ComplexSortField extends SortField implements IComplexSortField
     {
         private var _nameParts:Array;
 
@@ -30,12 +30,17 @@ package mx.collections {
                                          numeric:Object = null)
         {
             super(name, caseInsensitive, descending, numeric);
-            _nameParts = name.split(".");
+            _nameParts = name ? name.split(".") : [];
+        }
+
+        public function get nameParts():Array
+        {
+            return _nameParts;
         }
 
         override public function objectHasSortField(object:Object):Boolean
         {
-            return object && _nameParts && _nameParts.length && object.hasOwnProperty(_nameParts[0]);
+            return object && nameParts && nameParts.length && object.hasOwnProperty(nameParts[0]);
         }
 
         override protected function getSortFieldValue(obj:Object):*
