@@ -755,6 +755,32 @@ public class SortField extends AdvancedStyleClient implements ISortField
         return false;
     }
 
+    public function objectHasSortField(object:Object):Boolean
+    {
+        return getSortFieldValue(object) !== undefined;
+    }
+
+
+    //--------------------------------------------------------------------------
+    //
+    // Protected Functions
+    //
+    //--------------------------------------------------------------------------
+
+    protected function getSortFieldValue(obj:Object):*
+    {
+        var result:Object = undefined;
+
+        try
+        {
+            result = obj[_name];
+        }
+        catch(error:Error)
+        {
+        }
+
+        return result;
+    }
 
     //--------------------------------------------------------------------------
     //

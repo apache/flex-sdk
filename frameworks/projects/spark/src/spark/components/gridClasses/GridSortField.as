@@ -53,8 +53,14 @@ public class GridSortField extends SortField
     {
         super(name, descending, numeric);
     }
-    
-    
+
+    override public function objectHasSortField(object:Object):Boolean
+    {
+        if(name && name.indexOf(".") != -1)
+            return object && object.hasOwnProperty(name.split(".")[0]);
+        else
+            return super.objectHasSortField(object);
+    }
     //--------------------------------------------------------------------------
     //
     //  Properties
