@@ -660,15 +660,21 @@ public class SortField extends EventDispatcher implements ISortField
     }
 
 
+    public function objectHasSortField(object:Object):Boolean
+    {
+        return getSortFieldValue(object) !== undefined;
+    }
+
+
     //--------------------------------------------------------------------------
     //
     //  Protected Methods
     //
     //--------------------------------------------------------------------------
 
-    protected function getSortFieldValue(obj:Object):Object
+    protected function getSortFieldValue(obj:Object):*
     {
-        var result:Object = null;
+        var result:Object = undefined;
 
         try
         {

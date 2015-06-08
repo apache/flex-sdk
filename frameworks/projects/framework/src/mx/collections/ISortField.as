@@ -254,5 +254,19 @@ public interface ISortField
      *  @productversion Flex 4.11
      */
     function updateSortCompareType():Boolean;
+
+    /**
+     *  Returns true if the object has the field required by this <code>ISortField</code> instance.
+     *  In  the case of <code>ComplexSortField</code>, returns true if the object has a field with
+     *  an identical name to the first part of the <code>namePath</code>.
+     *
+     *  @return true if the object has the field required by this <code>ISortField</code> instance.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 11.8
+     *  @playerversion AIR 3.8
+     *  @productversion Flex 4.15
+     */
+    function objectHasSortField(object:Object):Boolean;
 }
 }

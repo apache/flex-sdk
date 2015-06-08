@@ -22,7 +22,6 @@ package mx.collections {
 
     public class ComplexSortField extends SortField
     {
-
         private var _nameParts:Array;
 
         public function ComplexSortField(name:String = null,
@@ -34,7 +33,12 @@ package mx.collections {
             _nameParts = name.split(".");
         }
 
-        override protected function getSortFieldValue(obj:Object):Object
+        override public function objectHasSortField(object:Object):Boolean
+        {
+            return object && _nameParts && _nameParts.length && object.hasOwnProperty(_nameParts[0]);
+        }
+
+        override protected function getSortFieldValue(obj:Object):*
         {
             return ObjectUtil.getValue(obj, _nameParts);
         }
