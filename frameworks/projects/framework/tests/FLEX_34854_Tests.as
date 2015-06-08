@@ -19,6 +19,7 @@
 
 package {
     import mx.collections.ArrayList;
+    import mx.collections.ComplexFieldChangeWatcher;
     import mx.collections.ComplexSortField;
     import mx.collections.IList;
     import mx.collections.ListCollectionView;
@@ -54,6 +55,8 @@ package {
             _sut.sort = sortByNameAscending;
             _sut.refresh(); //values: Object1, Object2, Object3, Object4
 
+            _sut.complexFieldWatcher = new ComplexFieldChangeWatcher();
+
             //when
             const first:ListCollectionView_FLEX_34854_VO = _sut.getItemAt(0) as ListCollectionView_FLEX_34854_VO;
             first.address.street = "Street9"; //this should immediately place the newItem at the end
@@ -75,6 +78,8 @@ package {
             sortByNameAscending.fields = [new ComplexSortField("address.street", false, false, false)];
             _sut.sort = sortByNameAscending;
             _sut.refresh(); //values: Object1, Object2, Object3, Object4
+
+            _sut.complexFieldWatcher = new ComplexFieldChangeWatcher();
 
             //when
             const newItem:ListCollectionView_FLEX_34854_VO = generateOneObject(5);

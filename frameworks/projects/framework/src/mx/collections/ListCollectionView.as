@@ -100,7 +100,11 @@ public class ListCollectionView extends Proxy
     //
     //--------------------------------------------------------------------------
 
-    private var _complexFieldWatchers:Vector.<ChangeWatcher> = new Vector.<ChangeWatcher>();
+    /**
+     *  @private
+     *  Change watcher for complex sort fields.
+     */
+    private var _complexFieldWatcher:ComplexFieldChangeWatcher;
 
     /**
      *  @private
@@ -377,56 +381,24 @@ public class ListCollectionView extends Proxy
      */
     public function set sort(s:ISort):void
     {
-        if(_sort && _sort != s)
-            stopWatchingForComplexFieldChanges();
+        if(_sort && _sort != s && complexFieldWatcher)
+            complexFieldWatcher.stopWatchingForComplexFieldChanges();
 
         _sort = s;
 
-        if(_sort && _sort.fields)
-            startWatchingForComplexFieldChanges(_sort.fields);
+        if(_sort && _sort.fields && complexFieldWatcher)
+            complexFieldWatcher.startWatchingForComplexFieldChanges(this, _sort.fields);
 
         dispatchEvent(new Event("sortChanged"));
     }
 
-    private function stopWatchingForComplexFieldChanges():void
-    {
-        for each(var watcher:ChangeWatcher in _complexFieldWatchers)
-        {
-            watcher.unwatch();
-        }
 
-        _complexFieldWatchers.length = 0;
-    }
 
-    private function startWatchingForComplexFieldChanges(fields:Array):void
+    private function onComplexFieldValueChanged(changeEvent:PropertyChangeEvent):void
     {
-        for(var i:int = 0; i < fields.length; i++)
+        if(sort)
         {
-            var sortField:IComplexSortField = fields[i] as IComplexSortField;
-            if(sortField && sortField.nameParts)
-            {
-                for(var j:int = 0; j < this.length; j++)
-                {
-                    var item:Object = this.getItemAt(j);
-                    if(item)
-                    {
-                        var watcher:ChangeWatcher = BindingUtils.bindSetter(function(value:Object):void {}, item, sortField.nameParts);
-                        if(watcher)
-                        {
-                            watcher.setHandler(new Closure(item, complexValueChanged).callFunctionOnObject);
-                            _complexFieldWatchers.push(watcher);
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private function complexValueChanged(item:Object):void
-    {
-        if(filterFunction != null || sort)
-        {
-            moveItemInView(item);
+            moveItemInView(changeEvent.source);
         }
     }
 
@@ -1885,6 +1857,31 @@ public class ListCollectionView extends Proxy
         }
     }
 
+    public function get complexFieldWatcher():ComplexFieldChangeWatcher
+    {
+        return _complexFieldWatcher;
+    }
+
+    public function set complexFieldWatcher(value:ComplexFieldChangeWatcher):void
+    {
+        if(_complexFieldWatcher != value)
+        {
+            if(_complexFieldWatcher)
+            {
+                _complexFieldWatcher.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, onComplexFieldValueChanged);
+                _complexFieldWatcher.stopWatchingForComplexFieldChanges();
+            }
+
+            _complexFieldWatcher = value;
+
+            if(_complexFieldWatcher)
+            {
+                _complexFieldWatcher.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, onComplexFieldValueChanged, false, 0, true);
+                if(sort)
+                    _complexFieldWatcher.startWatchingForComplexFieldChanges(this, sort.fields);
+            }
+        }
+    }
 }
 
 }
@@ -2752,22 +2749,5 @@ class ListCollectionViewBookmark extends CursorBookmark
     override public function getViewIndex():int
     {
         return view.getBookmarkIndex(this);
-    }
-}
-
-class Closure
-{
-    private var _object:Object;
-    private var _function:Function;
-
-    public function Closure(cachedObject:Object, cachedFunction:Function)
-    {
-        _object = cachedObject;
-        _function = cachedFunction;
-    }
-
-    public function callFunctionOnObject(event:Event):void
-    {
-        _function.apply(null, [_object]);
     }
 }
