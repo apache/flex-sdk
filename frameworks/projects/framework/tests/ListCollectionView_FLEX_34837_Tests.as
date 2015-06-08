@@ -19,6 +19,7 @@
 
 package {
     import mx.collections.ArrayList;
+    import mx.collections.ComplexSortField;
     import mx.collections.IList;
     import mx.collections.ListCollectionView;
     import mx.collections.Sort;
@@ -43,7 +44,7 @@ package {
         }
 
         [Test]
-        public function test_simple_sort_by_complex_fields_with_custom_compare_function_for_sort():void
+        public function test_sort_by_complex_fields_with_custom_compare_function_for_sort():void
         {
             function compareByStreet(a:ListCollectionView_FLEX_34837_VO, b:ListCollectionView_FLEX_34837_VO, fields:Array):int
             {
@@ -58,7 +59,7 @@ package {
             _sut.addAll(from4To0); //values["address.street"]: Street4, Street3, Street2, Street1, Street0
 
             const sortByStreetAscending:Sort = new Sort();
-            sortByStreetAscending.fields = [new SortField("address.street", false, false, false)]; //should make no difference
+            sortByStreetAscending.fields = [new ComplexSortField("address.street", false, false, false)]; //should make no difference
             sortByStreetAscending.compareFunction = compareByStreet;
             _sut.sort = sortByStreetAscending;
 
@@ -70,7 +71,7 @@ package {
         }
 
         [Test]
-        public function test_simple_sort_by_complex_fields_with_custom_compare_function_for_sort_field():void
+        public function test_sort_by_complex_fields_with_custom_compare_function_for_sort_field():void
         {
             function compareByStreet(a:ListCollectionView_FLEX_34837_VO, b:ListCollectionView_FLEX_34837_VO):int
             {
@@ -85,7 +86,7 @@ package {
             _sut.addAll(from4To0); //values["address.street"]: Street4, Street3, Street2, Street1, Street0
 
             const sortByStreetAscending:Sort = new Sort();
-            var sortField:SortField = new SortField("address.street", false, false, false);
+            var sortField:SortField = new ComplexSortField("address.street", false, false, false);
             sortField.compareFunction = compareByStreet;
             sortByStreetAscending.fields = [sortField];
             _sut.sort = sortByStreetAscending;
@@ -129,7 +130,7 @@ package {
             _sut.addAll(from1To4);
 
             const sortByNameAscending:Sort = new Sort();
-            sortByNameAscending.fields = [new SortField("address.street", false, false, false)];
+            sortByNameAscending.fields = [new ComplexSortField("address.street", false, false, false)];
             _sut.sort = sortByNameAscending;
             _sut.refresh(); //values: Object1, Object2, Object3, Object4
 
@@ -181,15 +182,11 @@ package {
     }
 }
 
+[Bindable]
 class ListCollectionView_FLEX_34837_VO
 {
-    [Bindable]
     public var name:String;
-
-    [Bindable]
     public var address:ListCollectionView_FLEX_34837_AddressVO;
-
-    [Bindable]
     public var index:Number;
 
     public function ListCollectionView_FLEX_34837_VO(index:Number, namePrefix:String, streetPrefix:String)
@@ -200,9 +197,9 @@ class ListCollectionView_FLEX_34837_VO
     }
 }
 
+[Bindable]
 class ListCollectionView_FLEX_34837_AddressVO
 {
-    [Bindable]
     public var street:String;
 
     public function ListCollectionView_FLEX_34837_AddressVO(street:String)
