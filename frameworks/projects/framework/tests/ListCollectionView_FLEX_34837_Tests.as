@@ -152,9 +152,9 @@ package {
             return new ArrayList(result);
         }
 
-        private static function generateOneObject(i:Number):ListCollectionView_FLEX_34837_VO
+        private static function generateOneObject(index:Number):ListCollectionView_FLEX_34837_VO
         {
-            return new ListCollectionView_FLEX_34837_VO(i, "Object"+i, "Street"+i);
+            return new ListCollectionView_FLEX_34837_VO(index, "Object", "Street");
         }
     }
 }

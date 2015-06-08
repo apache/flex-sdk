@@ -41,7 +41,7 @@ package mx.collections {
 
         private function unwatchAllItems():void
         {
-            for each(var item:Object in _complexFieldWatchers)
+            for(var item:Object in _complexFieldWatchers)
             {
                 unwatchItem(item);
                 delete _complexFieldWatchers[item];
@@ -70,6 +70,11 @@ package mx.collections {
         public function startWatchingForComplexFieldChanges():void
         {
             watchListForChanges();
+            watchAllItems();
+        }
+
+        private function watchAllItems():void
+        {
             watchItems(list);
         }
 
@@ -95,13 +100,13 @@ package mx.collections {
             }
         }
 
-        private function watchItem(item:Object, sortFields:Array):void
+        private function watchItem(item:Object, fieldsToWatch:Array):void
         {
             if(item)
             {
-                for(var i:int = 0; i < sortFields.length; i++)
+                for(var i:int = 0; i < fieldsToWatch.length; i++)
                 {
-                    var sortField:IComplexSortField = sortFields[i] as IComplexSortField;
+                    var sortField:IComplexSortField = fieldsToWatch[i] as IComplexSortField;
                     if(sortField && sortField.nameParts)
                     {
                         watchItemForField(item, sortField.nameParts);
@@ -176,7 +181,19 @@ package mx.collections {
                     unwatchArrayOfItems(event.items);
                     break;
                 }
+                case CollectionEventKind.REFRESH:
+                case CollectionEventKind.RESET:
+                {
+                    reset();
+                    break;
+                }
             }
+        }
+
+        private function reset():void
+        {
+            unwatchAllItems();
+            watchAllItems();
         }
     }
 }

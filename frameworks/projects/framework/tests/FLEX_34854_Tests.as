@@ -119,9 +119,72 @@ package {
             assertEquals("the item should have been removed form the list", -1, newItemIndex);
             for(var i:int = 0; i < _sut.length; i++)
             {
-                var vo:ListCollectionView_FLEX_34854_VO = _sut.getItemAt(i) as ListCollectionView_FLEX_34854_VO;
-                assertThat(vo != removedItem);
+                assertThat(_sut.getItemAt(i) != removedItem);
             }
+        }
+
+        [Test]
+        public function test_replacing_and_changing_complex_sort_field_value_keeps_it_away_from_collection():void
+        {
+            //given
+            var from1To4:IList = generateVOs(5);
+            from1To4.removeItemAt(0);
+            _sut.addAll(from1To4);
+
+            const sortByNameAscending:Sort = new Sort();
+            sortByNameAscending.fields = [new ComplexSortField("address.street", false, false, false)];
+            _sut.sort = sortByNameAscending;
+            _sut.refresh(); //values["address.street"]: Street1, Street2, Street3, Street4
+
+            _sut.complexFieldWatcher = new ComplexFieldChangeWatcher();
+
+            //when
+            const replacedItem:ListCollectionView_FLEX_34854_VO = _sut.getItemAt(0) as ListCollectionView_FLEX_34854_VO;
+            const newItem:ListCollectionView_FLEX_34854_VO = generateOneObject(9);
+            _sut.setItemAt(newItem, 0);
+            replacedItem.address.street = "Street9"; //should make no difference
+            newItem.address.street = "Street5"; //should move it to the end of the list
+
+            //then
+            const indexOfRemovedItem:int = _sut.getItemIndex(replacedItem);
+            assertEquals("the item should have been removed form the list", -1, indexOfRemovedItem);
+            for(var i:int = 0; i < _sut.length; i++)
+            {
+                assertThat(_sut.getItemAt(i) != replacedItem);
+            }
+            assertEquals("the new item should have been moved to the end of the list", _sut.length - 1, _sut.getItemIndex(newItem));
+        }
+
+        [Test]
+        public function test_replacing_list_and_changing_old_items_does_not_influence_current_list():void
+        {
+            //given
+            var from0To4:IList = generateVOs(5);
+            _sut.addAll(from0To4);
+
+            _sut.complexFieldWatcher = new ComplexFieldChangeWatcher();
+
+            const sortByNameAscending:Sort = new Sort();
+            sortByNameAscending.fields = [new ComplexSortField("address.street", false, false, false)];
+            _sut.sort = sortByNameAscending;
+            _sut.refresh(); //values["address.street"]: Street0, Street1, Street2, Street3, Street4
+
+            //when
+            const firstItemFromOldList:ListCollectionView_FLEX_34854_VO = _sut.getItemAt(0) as ListCollectionView_FLEX_34854_VO;
+            _sut.list = generateVOs(3); //values["address.street"]: Street0, Street1, Street2
+            const firstItemFromNewList:ListCollectionView_FLEX_34854_VO = _sut.getItemAt(0) as ListCollectionView_FLEX_34854_VO;
+
+            firstItemFromOldList.address.street = "Street9"; //should make no difference
+            firstItemFromNewList.address.street = "Street9"; //should move it to the end of the list
+
+            //then
+            const indexOfRemovedItem:int = _sut.getItemIndex(firstItemFromOldList);
+            assertEquals("the item should have been removed form the list", -1, indexOfRemovedItem);
+            for(var i:int = 0; i < _sut.length; i++)
+            {
+                assertThat(_sut.getItemAt(i) != firstItemFromOldList);
+            }
+            assertEquals("the new item should have been moved to the end of the list", _sut.length - 1, _sut.getItemIndex(firstItemFromNewList));
         }
 
         private function assertIndexesAre(indexes:Array):void
