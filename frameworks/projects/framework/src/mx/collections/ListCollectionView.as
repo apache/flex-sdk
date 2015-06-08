@@ -1805,18 +1805,18 @@ public class ListCollectionView extends Proxy
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    private function replaceItemsInView(items:Array,
+    private function replaceItemsInView(changeEvents:Array,
                                           location:int,
                                           dispatch:Boolean = true):void
     {
         if (localIndex)
         {
-            var len:int = items.length;
+            var len:int = changeEvents.length;
             var oldItems:Array = [];
             var newItems:Array = [];
             for (var i:int = 0; i < len; i++)
             {
-                var propertyEvent:PropertyChangeEvent = items[i];
+                var propertyEvent:PropertyChangeEvent = changeEvents[i];
                 oldItems.push(propertyEvent.oldValue);
                 newItems.push(propertyEvent.newValue);
             }
@@ -1829,7 +1829,7 @@ public class ListCollectionView extends Proxy
                 new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
             event.kind = CollectionEventKind.REPLACE;
             event.location = location;
-            event.items = items;
+            event.items = changeEvents;
             dispatchEvent(event);
         }
     }
