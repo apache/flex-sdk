@@ -121,29 +121,6 @@ package {
             assertEquals("the new item should have been placed at the beginning of the list as soon as its name was changed", 0, newItemIndex);
         }
 
-        [Test]
-        public function test_changing_complex_sort_field_value_places_it_correctly_according_to_collection_sort():void
-        {
-            //given
-            var from1To4:IList = generateVOs(5);
-            from1To4.removeItemAt(0);
-            _sut.addAll(from1To4);
-
-            const sortByNameAscending:Sort = new Sort();
-            sortByNameAscending.fields = [new ComplexSortField("address.street", false, false, false)];
-            _sut.sort = sortByNameAscending;
-            _sut.refresh(); //values: Object1, Object2, Object3, Object4
-
-            //when
-            const newItem:ListCollectionView_FLEX_34837_VO = generateOneObject(5);
-            _sut.addItem(newItem); //values: Object1, Object2, Object3, Object4, Object5
-            newItem.address.street = "Street0"; //this should immediately place the newItem at position 0
-
-            //then
-            const newItemIndex:int = _sut.getItemIndex(newItem);
-            assertEquals("the new item should have been placed at the beginning of the list as soon as its address's street name was changed", 0, newItemIndex);
-            _sut.removeItemAt(_sut.getItemIndex(newItem)); //if the bug is present, this will throw an RTE
-        }
 
         private function assertIndexesAre(indexes:Array):void
         {
