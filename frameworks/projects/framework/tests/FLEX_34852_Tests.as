@@ -269,15 +269,11 @@ package {
     }
 }
 
+[Bindable]
 class FLEX_34852_VO
 {
-    [Bindable]
     public var name:String;
-
-    [Bindable]
     public var address:FLEX_34852_AddressVO;
-
-    [Bindable]
     public var index:Number;
 
     public function FLEX_34852_VO(index:Number, namePrefix:String, streetPrefix:String)
@@ -288,15 +284,11 @@ class FLEX_34852_VO
     }
 }
 
+[Bindable]
 class FLEX_34852_AddressVO
 {
-    [Bindable]
     public var street:String;
-
-    [Bindable]
     public var houseNumber:int;
-
-    [Bindable]
     public var dateMovedIn:Date;
 
     public function FLEX_34852_AddressVO(street:String, houseNumber:int, dateMovedIn:Date)
