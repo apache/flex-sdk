@@ -25,6 +25,8 @@ package {
     import mx.collections.ListCollectionView;
     import mx.collections.Sort;
 
+    import org.flexunit.assertThat;
+
     import org.flexunit.asserts.assertEquals;
 
     public class FLEX_34854_Tests {
@@ -90,6 +92,36 @@ package {
             const newItemIndex:int = _sut.getItemIndex(newItem);
             assertEquals("the new item should have been placed at the beginning of the list as soon as its address's street name was changed", 0, newItemIndex);
             _sut.removeItemAt(_sut.getItemIndex(newItem)); //if the bug is present, this will throw an RTE
+        }
+
+        [Test]
+        public function test_removing_and_changing_complex_sort_field_value_keeps_it_away_from_collection():void
+        {
+            //given
+            var from1To4:IList = generateVOs(5);
+            from1To4.removeItemAt(0);
+            _sut.addAll(from1To4);
+
+            const sortByNameAscending:Sort = new Sort();
+            sortByNameAscending.fields = [new ComplexSortField("address.street", false, false, false)];
+            _sut.sort = sortByNameAscending;
+            _sut.refresh(); //values: Object1, Object2, Object3, Object4
+
+            _sut.complexFieldWatcher = new ComplexFieldChangeWatcher();
+
+            //when
+            const removedItem:ListCollectionView_FLEX_34854_VO = _sut.getItemAt(0) as ListCollectionView_FLEX_34854_VO;
+            _sut.removeItemAt(0);
+            removedItem.address.street = "Street22";
+
+            //then
+            const newItemIndex:int = _sut.getItemIndex(removedItem);
+            assertEquals("the item should have been removed form the list", -1, newItemIndex);
+            for(var i:int = 0; i < _sut.length; i++)
+            {
+                var vo:ListCollectionView_FLEX_34854_VO = _sut.getItemAt(i) as ListCollectionView_FLEX_34854_VO;
+                assertThat(vo != removedItem);
+            }
         }
 
         private function assertIndexesAre(indexes:Array):void
