@@ -360,6 +360,37 @@ package {
             assertRemoveAll();
         }
 
+        [Test]
+        public function test_marking_entire_item_as_updated_gets_the_old_object_out_of_the_list():void
+        {
+            //given
+            var from0To4:IList = generateVOs(5);
+            _sut.addAll(from0To4);
+
+            const sortByNameAscending:Sort = new Sort();
+            sortByNameAscending.fields = [new SortField("name", false, false, false)];
+            _sut.sort = sortByNameAscending;
+            _sut.refresh(); //values["name"]: Object0, Object1, Object2, Object3, Object4
+
+            //when
+            const removedItem:ListCollectionView_Sort_VO = _sut.getItemAt(0) as ListCollectionView_Sort_VO;
+            const newItem:ListCollectionView_Sort_VO = generateOneObject(0);
+            (_sut.list as ArrayList).source[0] = newItem;
+            _sut.itemUpdated(newItem, null, removedItem, newItem);
+
+            removedItem.name = "Object7"; //should make no difference
+            newItem.name = "Object9"; //should place it at the end of the list
+
+            //then
+            const indexOfRemovedItem:int = _sut.getItemIndex(removedItem);
+            assertEquals("the item should have been removed from the list", -1, indexOfRemovedItem);
+            for(var i:int = 0; i < _sut.length; i++)
+            {
+                assertThat(_sut.getItemAt(i) != removedItem);
+            }
+            assertEquals("the new item should have been moved to the end of the list", _sut.length - 1, _sut.getItemIndex(newItem));
+        }
+
         private function assertIndexesAre(indexes:Array):void
         {
             assertFieldValuesAre("index", indexes);
@@ -442,15 +473,11 @@ package {
     }
 }
 
+[Bindable]
 dynamic class ListCollectionView_Sort_VO
 {
-    [Bindable]
     public var name:String;
-
-    [Bindable]
     public var address:ListCollectionView_Sort_AddressVO;
-
-    [Bindable]
     public var index:Number;
 
     public function ListCollectionView_Sort_VO(index:Number, namePrefix:String, streetPrefix:String)
@@ -461,9 +488,9 @@ dynamic class ListCollectionView_Sort_VO
     }
 }
 
+[Bindable]
 class ListCollectionView_Sort_AddressVO
 {
-    [Bindable]
     public var street:String;
 
     public function ListCollectionView_Sort_AddressVO(street:String)
