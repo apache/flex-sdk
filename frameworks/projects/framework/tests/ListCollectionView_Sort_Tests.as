@@ -345,7 +345,8 @@ package {
             _sut.addAll(from4To0); //values["name"]: Object4, Object3, Object2, Object1, Object0
 
             const sortByIndexAscending:Sort = new Sort();
-            sortByIndexAscending.fields = [new SortField("index", false, false, true)];
+            var originalSortField:SortField = new SortField("index", false, false, true);
+            sortByIndexAscending.fields = [originalSortField];
             _sut.sort = sortByIndexAscending;
             _sut.refresh(); //should be: Object0, Object1, Object2, Object3, Object4
 
@@ -354,6 +355,7 @@ package {
 
             //then
             assertIndexesAre([0, 1, 2, 3, 4]);
+            sortByIndexAscending.fields = [originalSortField]; //TODO remove once FLEX-34853 is fixed
             assertGetItemIndex(from4To0);
             assertRemoveAll();
         }
