@@ -187,6 +187,39 @@ package {
             assertEquals("the new item should have been moved to the end of the list", _sut.length - 1, _sut.getItemIndex(firstItemFromNewList));
         }
 
+        [Test]
+        public function test_marking_entire_item_as_updated_gets_the_old_object_out_of_the_list():void
+        {
+            //given
+            var from0To4:IList = generateVOs(5, true); //values["address.street"]: Street4, Street3, Street2, Street1, Street0
+            _sut.addAll(from0To4);
+
+            _sut.complexFieldWatcher = new ComplexFieldChangeWatcher();
+
+            const sortByNameAscending:Sort = new Sort();
+            sortByNameAscending.fields = [new ComplexSortField("address.street", false, false, false)];
+            _sut.sort = sortByNameAscending;
+            _sut.refresh(); //values["name"]: Street0, Street1, Street2, Street3, Street4
+
+            //when
+            const removedItem:ListCollectionView_FLEX_34854_VO = (_sut.list as ArrayList).source[0] as ListCollectionView_FLEX_34854_VO;
+            var newItem:ListCollectionView_FLEX_34854_VO = generateOneObject(-1);
+            (_sut.list as ArrayList).source[0] = newItem;
+            _sut.itemUpdated(newItem, null, removedItem, newItem);
+
+            removedItem.address.street = "Street7"; //should make no difference
+            newItem.address.street = "Street8"; //should place it at the end of the list
+
+            //then
+            const indexOfRemovedItem:int = _sut.getItemIndex(removedItem);
+            assertEquals("the item should have been removed from the list", -1, indexOfRemovedItem);
+            for(var i:int = 0; i < _sut.length; i++)
+            {
+                assertThat(_sut.getItemAt(i) != removedItem);
+            }
+            assertEquals("the new item should have been moved to the end of the list", _sut.length - 1, _sut.getItemIndex(newItem));
+        }
+
         private function assertIndexesAre(indexes:Array):void
         {
             assertEquals(indexes.length, _sut.length);
