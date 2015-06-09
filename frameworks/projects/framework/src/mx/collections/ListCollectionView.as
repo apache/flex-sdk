@@ -1419,7 +1419,7 @@ public class ListCollectionView extends Proxy
     }
 
     /**
-     * Given a set of PropertyChangeEvents go through and update the view.
+     * Given a set of <code>PropertyChangeEvent</code>s go through and update the view.
      * This is currently not optimized.
      *  
      *  @langversion 3.0
@@ -1490,7 +1490,8 @@ public class ListCollectionView extends Proxy
                 }
                 else
                 {
-                    updateEntry = { item: item, move: defaultMove, events: [ updateInfo ] };
+                    updateEntry = {item: item, move: defaultMove, events: [updateInfo],
+                        entireObjectChanged: updateInfo.property == null, oldItem: updateInfo.property == null ? updateInfo.oldValue : null};
                     updatedItems.push(updateEntry);
                 }
 
@@ -1502,7 +1503,7 @@ public class ListCollectionView extends Proxy
                 updateEntry.move =
                     updateEntry.move
                     || filterFunction != null
-                    || !updateInfo.property
+                    || updateEntry.entireObjectChanged
                     || (sort && sort.propertyAffectsSort(String(updateInfo.property)));
             }
 
@@ -1514,6 +1515,10 @@ public class ListCollectionView extends Proxy
                 updateEntry = updatedItems[i];
                 if (updateEntry.move)
                 {
+                    if(updateEntry.entireObjectChanged)
+                    {
+                        removeItemsFromView([updateEntry.oldItem], -1, true);
+                    }
                     moveItemInView(updateEntry.item, updateEntry.item, eventItems);
                 }
                 else
@@ -1665,8 +1670,7 @@ public class ListCollectionView extends Proxy
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    private function moveItemInView(item:Object,
-                                      dispatch:Boolean = true, updateEventItems:Array = null):void
+    private function moveItemInView(item:Object, dispatch:Boolean = true, updateEventItems:Array = null):void
     {
         if (localIndex)
         {

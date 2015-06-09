@@ -630,7 +630,13 @@ public class ArrayList extends EventDispatcher
         event.oldValue = oldValue;
         event.newValue = newValue;
         
-        itemUpdateHandler(event);        
+        if(!property)
+        {
+            stopTrackUpdates(oldValue);
+            startTrackUpdates(newValue);
+        }
+
+        itemUpdateHandler(event);
     }    
     
     /**
@@ -768,11 +774,11 @@ public class ArrayList extends EventDispatcher
     }
     
     /**
-     *  Called when any of the contained items in the list dispatch an
-     *  ObjectChange event.  
+     *  Called when any of the contained items in the list dispatches a
+     *  <code>PropertyChangeEvent</code>.
      *  Wraps it in a <code>CollectionEventKind.UPDATE</code> object.
      *
-     *  @param event The event object for the ObjectChange event.
+     *  @param event The event object for the <code>PropertyChangeEvent</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
