@@ -364,7 +364,7 @@ package {
         public function test_marking_entire_item_as_updated_gets_the_old_object_out_of_the_list():void
         {
             //given
-            var from0To4:IList = generateVOs(5);
+            var from0To4:IList = generateVOs(5, true); //values["name"]: Object4, Object3, Object2, Object1, Object0
             _sut.addAll(from0To4);
 
             const sortByNameAscending:Sort = new Sort();
@@ -373,8 +373,8 @@ package {
             _sut.refresh(); //values["name"]: Object0, Object1, Object2, Object3, Object4
 
             //when
-            const removedItem:ListCollectionView_Sort_VO = _sut.getItemAt(0) as ListCollectionView_Sort_VO;
-            const newItem:ListCollectionView_Sort_VO = generateOneObject(0);
+            const removedItem:ListCollectionView_Sort_VO = (_sut.list as ArrayList).source[0] as ListCollectionView_Sort_VO;
+            const newItem:ListCollectionView_Sort_VO = generateOneObject(-1);
             (_sut.list as ArrayList).source[0] = newItem;
             _sut.itemUpdated(newItem, null, removedItem, newItem);
 
