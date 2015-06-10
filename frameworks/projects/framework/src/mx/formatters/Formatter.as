@@ -117,9 +117,13 @@ public class Formatter implements IFormatter
 
 	/**
 	 *  Error message for an invalid format string specified to the formatter.
+	 *  The localeChain property of the ResourceManager is used to resolve
+	 *  the default error message. If it is unable to find a value, it will
+	 *  return <code>null</code>. This can happen if none of the locales
+	 *  specified in the localeChain are compiled into the application.
 	 * 
 	 *  @default "Invalid format"
-	 *  
+	 *
 	 *  @langversion 3.0
 	 *  @playerversion Flash 9
 	 *  @playerversion AIR 1.1
@@ -162,7 +166,11 @@ public class Formatter implements IFormatter
 	private static var defaultInvalidValueErrorOverride:String
 
 	/**
-	 *  Error messages for an invalid value specified to the formatter.
+	 *  Error messages for an invalid value specified to the formatter. The
+	 *  localeChain property of the ResourceManager is used to resolve the
+	 *  default error message. If it is unable to find a value, it will return
+	 *  <code>null</code>. This can happen if none of the locales specified in
+	 *  the localeChain are compiled into the application.
 	 * 
 	 *  @default "Invalid value"
 	 *  
