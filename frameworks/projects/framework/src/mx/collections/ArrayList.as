@@ -752,7 +752,8 @@ public class ArrayList extends EventDispatcher
                 var event:CollectionEvent =
                     new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
                 event.kind = kind;
-                event.items.push(item);
+				if(item != null)
+				    event.items.push(item);
                 event.location = location;
                 dispatchEvent(event);
             }
