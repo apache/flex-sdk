@@ -130,8 +130,8 @@ package spark.collections
  *  </p>
  *
  *  <p>The default comparison provided by the <code>SortField</code> class 
- *  provides correct language specific
- *  sorting for strings. The language is selected by the setting the locale
+ *  provides correct language-specific
+ *  sorting for strings. The language is selected by setting the locale
  *  style on an instance of the class in one of the following ways:
  *  </p>
  *  <ul>
@@ -178,9 +178,9 @@ package spark.collections
  *  /&gt;
  *  </pre>
  *
- *  <p>In case items have inconsistent data types or items have complex data types, use of default
- *  built-in compare functions is not desired. Inconsistent sort result may occur in such cases.
- *  To avoid such problem, provide custom compare function and/or make item types consistent.</p>
+ *  <p>In case items have inconsistent data types or items have complex data types, the use of the default
+ *  built-in compare functions is not recommended. Inconsistent sorting results may occur in such cases.
+ *  To avoid such problem, provide a custom compare function and/or make the item types consistent.</p>
  *
  *  @includeExample examples/SortExample1.mxml
  *  @includeExample examples/SortExample2.mxml

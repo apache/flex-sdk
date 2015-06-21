@@ -34,26 +34,29 @@ package mx.collections
 
 /**
  *  Provides the sorting information required to establish a sort on an
- *  existing view (ICollectionView interface or class that implements the
- *  interface). After you assign a Sort instance to the view's
+ *  existing view (<code>ICollectionView</code> interface or class that
+ *  implements the interface). After you assign a <code>Sort</code> instance to the view's
  *  <code>sort</code> property, you must call the view's
  *  <code>refresh()</code> method to apply the sort criteria.
  *
- *  Typically the sort is defined for collections of complex items, that is 
+ *  <p>Typically the sort is defined for collections of complex items, that is
  *  collections in which the sort is performed on one or more properties of 
  *  the objects in the collection.
- *  The following example shows this use:
+ *  The following example shows this use:</p>
  *  <pre><code>
  *     var col:ICollectionView = new ArrayCollection();
  *     // In the real world, the collection would have more than one item.
  *     col.addItem({first:"Anders", last:"Dickerson"});
+ *
  *     // Create the Sort instance.
- *     var sort:Sort = new Sort();
+ *     var sort:ISort = new Sort();
+ *
  *     // Set the sort field; sort on the last name first, first name second.
  *     // Both fields are case-insensitive.
  *     sort.fields = [new SortField("last",true), new SortField("first",true)];
  *       // Assign the Sort object to the view.
  *     col.sort = sort;
+ *
  *     // Apply the sort to the collection.
  *     col.refresh();
  *  </code></pre>
@@ -70,7 +73,8 @@ package mx.collections
  *     col.addItem("California");
  *     col.addItem("Arizona");
  *     var sort:Sort = new Sort();
- *     // There is only one sort field, so use a <code>null</code> 
+ *
+ *     // There is only one sort field, so use a <code>null</code>
  *     // first parameter.
  *     sort.fields = [new SortField(null, true)];
  *     col.sort = sort;
@@ -78,8 +82,8 @@ package mx.collections
  *  </code></pre>
  *  </p>
  *
- *  <p>The Flex implementations of the ICollectionView interface retrieve 
- *  all items from a remote location before executing a sort.
+ *  <p>The Flex implementations of the <code>ICollectionView</code> interface
+ *  retrieve all items from a remote location before executing a sort.
  *  If you use paging with a sorted list, apply the sort to the remote
  *  collection before you retrieve the data.
  *  </p>
