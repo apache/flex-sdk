@@ -801,7 +801,6 @@ public class Sort extends AdvancedStyleClient implements ISort
         }
         else
         {
-            var fields:Array = this.fields;
             if (fields && fields.length > 0)
             {
                 //doing the init value each time may be a little inefficient
@@ -813,7 +812,7 @@ public class Sort extends AdvancedStyleClient implements ISort
                 //if the Sort is supposed to be unique and fields.length > 1
                 //we cannot use sortOn since it only tests uniqueness
                 //on the first field
-                var sortArgs:Object = initSortFields(items[0], true);
+                initSortFields(items[0], true);
 
                 if (unique)
                 {
