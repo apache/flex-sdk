@@ -257,9 +257,10 @@ public class SortField extends EventDispatcher implements ISortField
     /**
      *  The function that compares two items during a sort of items for the
      *  associated collection. If you specify a <code>compareFunction</code>
-     *  property in an ISort object, Flex ignores any
-     *  <code>compareFunction</code> properties of the ISort's SortField
-     *  objects.
+     *  property in an <code>ISort</code> object, Flex ignores any
+     *  <code>compareFunction</code> properties of the ISort's
+     *  <code>SortField</code> objects.
+     *
      *  <p>The compare function must have the following signature:</p>
      *
      *  <p><code>function myCompare(a:Object, b:Object):int</code></p>
@@ -267,11 +268,12 @@ public class SortField extends EventDispatcher implements ISortField
      *  <p>This function must return the following values:</p>
      *
      *   <ul>
-     *        <li>-1, if <code>a</code> should appear before <code>b</code> in
-     *        the sorted sequence</li>
-     *        <li>0, if <code>a</code> equals <code>b</code></li>
-     *        <li>1, if <code>a</code> should appear after <code>b</code> in the
-     *        sorted sequence</li>
+     *        <li>-1, if the <code>Object a</code> should appear before the
+     *        <code>Object b</code> in the sorted sequence</li>
+     *        <li>0, if the <code>Object a</code> equals the
+     *        <code>Object b</code></li>
+     *        <li>1, if the <code>Object a</code> should appear after the
+     *        <code>Object b</code> in the sorted sequence</li>
      *  </ul>
      *
      *  <p>The default value is an internal compare function that can perform
@@ -491,7 +493,7 @@ public class SortField extends EventDispatcher implements ISortField
 
     /**
      *  @private
-     *  A pretty printer for Sort that lists the sort fields and their
+     *  A pretty printer for SortField that lists the sort fields and their
      *  options.
      */
     override public function toString():String
@@ -805,7 +807,7 @@ public class SortField extends EventDispatcher implements ISortField
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    private function stringCompare(a:Object, b:Object):int
+    protected function stringCompare(a:Object, b:Object):int
     {
         var fa:String = _name == null ? String(a) : String(getSortFieldValue(a));
         var fb:String = _name == null ? String(b) : String(getSortFieldValue(b));
@@ -823,7 +825,7 @@ public class SortField extends EventDispatcher implements ISortField
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    private function xmlCompare(a:Object, b:Object):int
+    protected function xmlCompare(a:Object, b:Object):int
     {
         var sa:String = _name == null ? a.toString() : getSortFieldValue(a).toString();
         var sb:String = _name == null ? b.toString() : getSortFieldValue(b).toString();

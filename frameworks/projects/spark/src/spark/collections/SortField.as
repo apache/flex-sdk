@@ -21,13 +21,9 @@ package spark.collections
 {
 
     import flash.events.Event;
-
+    import mx.styles.IAdvancedStyleClient;
     import mx.collections.ISortField;
-    import mx.collections.errors.SortError;
     import mx.core.FlexGlobals;
-    import mx.resources.IResourceManager;
-    import mx.resources.ResourceManager;
-    import mx.styles.AdvancedStyleClient;
     import mx.utils.ObjectUtil;
 
     import spark.globalization.SortingCollator;
@@ -62,7 +58,7 @@ package spark.collections
  *  Provides the sorting information required to establish a sort on a field
  *  or property in a collection view.
  *
- *  SortField class is meant to be used with Sort class.
+ *  The SortField class is meant to be used with the Sort class.
  *
  *  Typically the sort is defined for collections of complex items, that
  *  is items in which the sort is performed on properties of those objects.
@@ -157,7 +153,7 @@ package spark.collections
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-public class SortField extends AdvancedStyleClient implements ISortField
+public class SortField extends mx.collections.SortField implements IAdvancedStyleClient
 {
     include "../core/Version.as";
 
@@ -193,35 +189,16 @@ public class SortField extends AdvancedStyleClient implements ISortField
                               sortCompareType:String = null,
                               customCompareFunction:Function = null)
     {
-        super();
-
-        _name = name;
-        _descending = descending;
-        _numeric = numeric;
-        _sortCompareType = sortCompareType;
-
-        if(customCompareFunction != null)
-        {
-            compareFunction = customCompareFunction;
-        }
-        else if (updateSortCompareType() == false)
-        {
-            _compareFunction = stringCompare;
-        }
+        super(name, false, descending, numeric, sortCompareType, customCompareFunction);
     }
+	
+	include "AdvancedStyleClientImplementation.as";
 
     //--------------------------------------------------------------------------
     //
     //  Variables
     //
     //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  Used for accessing localized Error messages.
-     */
-    private var resourceManager:IResourceManager =
-                                    ResourceManager.getInstance();
 
     /**
      *  @private
@@ -237,39 +214,6 @@ public class SortField extends AdvancedStyleClient implements ISortField
     //  Properties
     //
     //--------------------------------------------------------------------------
-
-    /**
-    *  @inheritDoc
-    * 
-    *  @langversion 3.0
-    *  @playerversion Flash 10.1
-    *  @playerversion AIR 2.5
-    *  @productversion Flex 4.5
-    */
-    public function get arraySortOnOptions():int
-    {
-        if (usingCustomCompareFunction
-            || name == null
-            || _compareFunction == xmlCompare
-            || _compareFunction == dateCompare)
-        {
-            return -1;
-        }
-        var options:int = 0;
-        if (descending) options |= Array.DESCENDING;
-        if (numeric == true || _compareFunction == numericCompare) options |= Array.NUMERIC;
-        return options;
-    }
-
-    //---------------------------------
-    //  compareFunction
-    //---------------------------------
-
-    /**
-     *  @private
-     *  Storage for the compareFunction property.
-     */
-    private var _compareFunction:Function;
 
     [Inspectable(category="General")]
 
@@ -300,7 +244,7 @@ public class SortField extends AdvancedStyleClient implements ISortField
      *  The string comparison is performed using the locale (language,
      *  region and script) specific comparison method from the
      *  <code>SortingCollator</code> class.
-     *  This class uses the locale style to determine a locale
+     *  This class uses the locale style to determine a locale.
      *  Specify your own function only if you need a need a custom comparison
      *  algorithm. This is normally only the case if a calculated field is
      *  used in a display.</p>
@@ -310,201 +254,21 @@ public class SortField extends AdvancedStyleClient implements ISortField
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get compareFunction():Function
+    override public function get compareFunction():Function
     {
-        return _compareFunction;
+        return super.compareFunction;
     }
 
     /**
      *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
      *  argument instead.
      */
-    public function set compareFunction(c:Function):void
+    override public function set compareFunction(c:Function):void
     {
-        _compareFunction = c;
-        _usingCustomCompareFunction = (c != null);
-    }
-
-    //---------------------------------
-    //  descending
-    //---------------------------------
-
-    /**
-     *  @private
-     *  Storage for the descending property.
-     */
-    private var _descending:Boolean;
-
-    [Inspectable(category="General")]
-    [Bindable("descendingChanged")]
-
-    /**
-     *  @inheritDoc
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function get descending():Boolean
-    {
-        return _descending;
-    }
-
-    /**
-     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
-     *  argument instead.
-     */
-    public function set descending(value:Boolean):void
-    {
-        if (_descending != value)
-        {
-            _descending = value;
-            dispatchEvent(new Event("descendingChanged"));
-        }
-    }
-
-    //---------------------------------
-    //  name
-    //---------------------------------
-
-    /**
-     *  @private
-     *  Storage for the name property.
-     */
-    private var _name:String;
-
-    [Inspectable(category="General")]
-    [Bindable("nameChanged")]
-
-    /**
-     *  @inheritDoc
-     *
-     *  @default null
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function get name():String
-    {
-        return _name;
-    }
-
-    /**
-     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
-     *  argument instead.
-     */
-    public function set name(n:String):void
-    {
-        _name = n;
-        dispatchEvent(new Event("nameChanged"));
-    }
-
-    //---------------------------------
-    //  numeric
-    //---------------------------------
-
-    /**
-     *  @private
-     *  Storage for the numeric property.
-     */
-    private var _numeric:Object;
-
-    [Inspectable(category="General")]
-    [Bindable("numericChanged")]
-
-    /**
-     *  @inheritDoc
-     *
-     *  @default null
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function get numeric():Object
-    {
-        return _numeric;
-    }
-
-    /**
-     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
-     *  argument instead.
-     */
-    public function set numeric(value:Object):void
-    {
-        if (_numeric != value)
-        {
-            _numeric = value;
-            dispatchEvent(new Event("numericChanged"));
-        }
+        super.compareFunction = c;
     }
 
 
-    //---------------------------------
-    //  sortCompareType
-    //---------------------------------
-
-    // TODO: Currently the sortfield is independant of the column. Add in way to check when column._sortCompareType changes.
-    /**
-     *  @private
-     */
-    private var _sortCompareType:String = null;
-
-    /**
-     *  @inheritDoc
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 11.8
-     *  @playerversion AIR 3.8
-     *  @productversion Flex 4.11
-     */
-    [Bindable("sortCompareTypeChanged")]
-    public function get sortCompareType():String
-    {
-        return _sortCompareType;
-    }
-
-    /**
-     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
-     *  argument instead.
-     */
-    public function set sortCompareType(value:String):void
-    {
-        if (_sortCompareType != value)
-        {
-            _sortCompareType = value;
-            dispatchEvent(new Event("sortCompareTypeChanged"));
-        }
-
-
-        updateSortCompareType();
-    }
-
-
-    //---------------------------------
-    //  usingCustomCompareFunction
-    //---------------------------------
-
-    private var _usingCustomCompareFunction:Boolean;
-
-    /**
-     *  @inheritDoc
-     *
-     *  @see @compareFunction
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function get usingCustomCompareFunction():Boolean
-    {
-        return _usingCustomCompareFunction;
-    }
 
     //--------------------------------------------------------------------------
     //
@@ -514,11 +278,13 @@ public class SortField extends AdvancedStyleClient implements ISortField
 
     /**
     *  @private
+     *
+     *  Called by AdvancedStyleClientImplementation.as
     */
-    override public function getStyle(styleProp:String):*
+    private function _getStyle(styleProp:String):*
     {
         if (styleProp != "locale")
-            return super.getStyle(styleProp);
+            return _advancedStyleClient.getStyle(styleProp);
 
         if ((localeStyle !== undefined) && (localeStyle !== null))
             return localeStyle;
@@ -537,15 +303,17 @@ public class SortField extends AdvancedStyleClient implements ISortField
      *  Intercept style change for "locale".
      *
      *  In the case that there is no associated UI component or the
-     *  module factory of the UIComponent has not yet been intialized
+     *  module factory of the UIComponent has not yet been initialized
      *  style changes are only recorded but the styleChanged method
      *  is not called.  Overriding the setStyle method allows
      *  the class to be updated immediately when the locale style is
      *  set directly on this class instance.
+     *
+     *  Called by AdvancedStyleClientImplementation.as
      */
-    override public function setStyle(styleProp:String, newValue:*):void
+    private function _setStyle(styleProp:String, newValue:*):void
     {
-        super.setStyle(styleProp, newValue);
+        _advancedStyleClient.setStyle(styleProp, newValue);
 
         if (styleProp != "locale")
             return;
@@ -565,6 +333,8 @@ public class SortField extends AdvancedStyleClient implements ISortField
      *  updated the <code>change</code> event will be dispatched and
      *  uses of the bindable methods or properties will be updated.
      *
+     *  Called by AdvancedStyleClientImplementation.as
+     *
      *  @param styleProp The name of the style property, or null if
      *  all styles for this component have changed.
      *
@@ -573,214 +343,12 @@ public class SortField extends AdvancedStyleClient implements ISortField
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    override public function styleChanged(styleProp:String):void
+    private function _styleChanged(styleProp:String):void
     {
         localeChanged();
-        super.styleChanged(styleProp);
+        _advancedStyleClient.styleChanged(styleProp);
     }
 
-    /**
-     *  @private
-     *  A pretty printer for Sort that lists the sort fields and their
-     *  options.
-     */
-    override public function toString():String
-    {
-        return ObjectUtil.toString(this);
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Methods
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @inheritDoc
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function initializeDefaultCompareFunction(obj:Object):void
-    {
-        // if the compare function is not already set then we can set it
-        if (!usingCustomCompareFunction)
-        {
-            if (_sortCompareType)
-            {
-                //Attempt to set the compare function based on the sortCompareType
-                if (updateSortCompareType() == true)
-                {
-                    return;
-                }
-            }
-
-            if (numeric == true)
-                _compareFunction = numericCompare;
-            else if (numeric == false)
-                _compareFunction = stringCompare;
-            else
-            {
-                // we need to introspect the data a little bit
-                var value:Object;
-                if (_name)
-                {
-                    try
-                    {
-                        value = obj[_name];
-                    }
-                    catch(error:Error)
-                    {
-                    }
-                }
-                //this needs to be an == null check because !value will return true
-                //where value == 0 or value == false
-                if (value == null)
-                {
-                    value = obj;
-                }
-
-                var typ:String = typeof(value);
-                switch (typ)
-                {
-                    case "string":
-                        _compareFunction = stringCompare;
-                    break;
-                    case "object":
-                        if (value is Date)
-                        {
-                            _compareFunction = dateCompare;
-                        }
-                        else
-                        {
-                            _compareFunction = stringCompare;
-                            var test:String;
-                            try
-                            {
-                                test = value.toString();
-                            }
-                            catch(error2:Error)
-                            {
-                            }
-                            if (!test || test == "[object Object]")
-                            {
-                                _compareFunction = nullCompare;
-                            }
-                        }
-                    break;
-                    case "xml":
-                        _compareFunction = xmlCompare;
-                    break;
-                    case "boolean":
-                    case "number":
-                        _compareFunction = numericCompare;
-                    break;
-                }
-            }  // else
-        } // if
-    }
-
-    /**
-     *  @inheritDoc
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function reverse():void
-    {
-        descending = !descending;
-    }
-
-
-    /**
-     *  @inheritDoc
-     * 
-     *  @langversion 3.0
-     *  @playerversion Flash 11.8
-     *  @playerversion AIR 3.8
-     *  @productversion Flex 4.11
-     */
-    public function updateSortCompareType():Boolean
-    {
-        if (!_sortCompareType)
-        {
-            return false;
-        }
-
-
-        //Lookup the sortCompareType by its SortFieldCompareTypes value and set the associated compare method.
-        switch(_sortCompareType)
-        {
-            case SortFieldCompareTypes.DATE:
-            {
-                _compareFunction = dateCompare;
-
-                return true;
-            }
-
-            case SortFieldCompareTypes.NULL:
-            {
-                _compareFunction = nullCompare;
-
-                return true;
-            }
-
-            case SortFieldCompareTypes.NUMERIC:
-            {
-                _compareFunction = numericCompare;
-
-                return true;
-            }
-
-            case SortFieldCompareTypes.STRING:
-            {
-                _compareFunction = stringCompare;
-
-                return true;
-            }
-
-            case SortFieldCompareTypes.XML:
-            {
-                _compareFunction = xmlCompare;
-
-                return true;
-            }
-        }
-
-
-        return false;
-    }
-
-    public function objectHasSortField(object:Object):Boolean
-    {
-        return getSortFieldValue(object) !== undefined;
-    }
-
-
-    //--------------------------------------------------------------------------
-    //
-    // Protected Functions
-    //
-    //--------------------------------------------------------------------------
-
-    protected function getSortFieldValue(obj:Object):*
-    {
-        var result:Object = undefined;
-
-        try
-        {
-            result = obj[_name];
-        }
-        catch(error:Error)
-        {
-        }
-
-        return result;
-    }
 
     //--------------------------------------------------------------------------
     //
@@ -855,152 +423,9 @@ public class SortField extends AdvancedStyleClient implements ISortField
         }
     }
 
-    private function nullCompare(a:Object, b:Object):int
-    {
-        var left:Object;
-        var right:Object;
-
-        var found:Boolean = false;
-
-        // return 0 (ie equal) if both are null
-        if (a == null && b == null)
-        {
-            return 0;
-        }
-
-        // we need to introspect the data a little bit
-        if (_name)
-        {
-            try
-            {
-                left = a[_name];
-            }
-            catch(error:Error)
-            {
-            }
-
-            try
-            {
-                right = b[_name];
-            }
-            catch(error:Error)
-            {
-            }
-        }
-
-        // return 0 (ie equal) if both are null
-        if (left == null && right == null)
-            return 0;
-
-        if (left == null && !_name)
-            left = a;
-
-        if (right == null && !_name)
-            right = b;
 
 
-        var typeLeft:String = typeof(left);
-        var typeRight:String = typeof(right);
 
-
-        if (typeLeft == "string" || typeRight == "string")
-        {
-                found = true;
-                _compareFunction = stringCompare;
-        }
-        else if (typeLeft == "object" || typeRight == "object")
-        {
-            if (left is Date || right is Date)
-            {
-                found = true;
-                _compareFunction = dateCompare
-            }
-        }
-        else if (typeLeft == "xml" || typeRight == "xml")
-        {
-                found = true;
-                _compareFunction = xmlCompare;
-        }
-        else if (typeLeft == "number" || typeRight == "number"
-                 || typeLeft == "boolean" || typeRight == "boolean")
-        {
-                found = true;
-                _compareFunction = numericCompare;
-        }
-
-        if (found)
-        {
-            return _compareFunction(left, right);
-        }
-        else
-        {
-            var message:String = resourceManager.getString(
-                "collections", "noComparatorSortField", [ name ]);
-            throw new SortError(message);
-        }
-    }
-
-    /**
-     *  Pull the numbers from the objects and call the implementation.
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    private function numericCompare(a:Object, b:Object):int
-    {
-        var fa:Number;
-        try
-        {
-            fa = _name == null ? Number(a) : Number(a[_name]);
-        }
-        catch(error:Error)
-        {
-        }
-
-        var fb:Number;
-        try
-        {
-            fb = _name == null ? Number(b) : Number(b[_name]);
-        }
-        catch(error:Error)
-        {
-        }
-
-        return ObjectUtil.numericCompare(fa, fb);
-    }
-
-    /**
-     *  Pull the date objects from the values and compare them.
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    private function dateCompare(a:Object, b:Object):int
-    {
-        var fa:Date;
-        try
-        {
-            fa = _name == null ? a as Date : a[_name] as Date;
-        }
-        catch(error:Error)
-        {
-        }
-
-        var fb:Date;
-        try
-        {
-            fb = _name == null ? b as Date : b[_name] as Date;
-        }
-        catch(error:Error)
-        {
-        }
-
-        return ObjectUtil.dateCompare(fa, fb);
-    }
 
     /**
      *  Pull the strings from the objects and call the implementation.
@@ -1010,25 +435,10 @@ public class SortField extends AdvancedStyleClient implements ISortField
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private function stringCompare(a:Object, b:Object):int
+    override protected function stringCompare(a:Object, b:Object):int
     {
-        var fa:String;
-        try
-        {
-            fa = _name == null ? String(a) : String(a[_name]);
-        }
-        catch(error:Error)
-        {
-        }
-
-        var fb:String;
-        try
-        {
-            fb = _name == null ? String(b) : String(b[_name]);
-        }
-        catch(error:Error)
-        {
-        }
+        var fa:String = name == null ? String(a) : String(getSortFieldValue(a));
+        var fb:String = name == null ? String(b) : String(getSortFieldValue(b));
 
         return stringCollator.compare(fa, fb);
     }
@@ -1043,25 +453,10 @@ public class SortField extends AdvancedStyleClient implements ISortField
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    private function xmlCompare(a:Object, b:Object):int
+    override protected function xmlCompare(a:Object, b:Object):int
     {
-        var sa:String;
-        try
-        {
-            sa = _name == null ? a.toString() : a[_name].toString();
-        }
-        catch(error:Error)
-        {
-        }
-
-        var sb:String;
-        try
-        {
-            sb = _name == null ? b.toString() : b[_name].toString();
-        }
-        catch(error:Error)
-        {
-        }
+        var sa:String = name == null ? a.toString() : getSortFieldValue(a).toString();
+        var sb:String = name == null ? b.toString() : getSortFieldValue(b).toString();
 
         if (numeric == true)
         {
@@ -1086,12 +481,12 @@ public class SortField extends AdvancedStyleClient implements ISortField
      */
     private function localeChanged():void
     {
-        const newlocaleStyle:* = super.getStyle("locale");
+        const newLocaleStyle:* = _advancedStyleClient.getStyle("locale");
 
-        if (localeStyle === newlocaleStyle)
+        if (localeStyle === newLocaleStyle)
             return;
 
-        localeStyle = newlocaleStyle;
+        localeStyle = newLocaleStyle;
 
         if (internalStringCollator)
         {

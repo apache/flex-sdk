@@ -19,72 +19,70 @@
 
 package spark.components
 {
-import flash.display.DisplayObject;
-import flash.display.Graphics;
-import flash.events.Event;
-import flash.events.FocusEvent;
-import flash.events.KeyboardEvent;
-import flash.events.MouseEvent;
-import flash.geom.Point;
-import flash.geom.Rectangle;
-import flash.ui.Keyboard;
+    import flash.display.DisplayObject;
+    import flash.display.Graphics;
+    import flash.events.Event;
+    import flash.events.FocusEvent;
+    import flash.events.KeyboardEvent;
+    import flash.events.MouseEvent;
+    import flash.geom.Point;
+    import flash.geom.Rectangle;
+    import flash.ui.Keyboard;
 
-import mx.collections.ArrayCollection;
-import mx.collections.ICollectionView;
-import mx.collections.IList;
-import mx.collections.ISort;
-import mx.collections.ISortField;
-import mx.core.DragSource;
-import mx.core.EventPriority;
-import mx.core.IFactory;
-import mx.core.IFlexDisplayObject;
-import mx.core.IIMESupport;
-import mx.core.IUID;
-import mx.core.IVisualElement;
-import mx.core.InteractionMode;
-import mx.core.LayoutDirection;
-import mx.core.ScrollPolicy;
-import mx.core.UIComponent;
-import mx.core.mx_internal;
-import mx.events.DragEvent;
-import mx.events.FlexEvent;
-import mx.events.SandboxMouseEvent;
-import mx.events.TouchInteractionEvent;
-import mx.managers.CursorManager;
-import mx.managers.CursorManagerPriority;
-import mx.managers.DragManager;
-import mx.managers.IFocusManagerComponent;
-import mx.styles.AdvancedStyleClient;
-import mx.utils.ObjectUtil;
-import mx.utils.UIDUtil;
+    import mx.collections.ArrayCollection;
+    import mx.collections.ICollectionView;
+    import mx.collections.IList;
+    import mx.collections.ISort;
+    import mx.collections.ISortField;
+    import mx.core.DragSource;
+    import mx.core.EventPriority;
+    import mx.core.IFactory;
+    import mx.core.IFlexDisplayObject;
+    import mx.core.IIMESupport;
+    import mx.core.IUID;
+    import mx.core.IVisualElement;
+    import mx.core.InteractionMode;
+    import mx.core.LayoutDirection;
+    import mx.core.ScrollPolicy;
+    import mx.core.UIComponent;
+    import mx.core.mx_internal;
+    import mx.events.DragEvent;
+    import mx.events.FlexEvent;
+    import mx.events.SandboxMouseEvent;
+    import mx.events.TouchInteractionEvent;
+    import mx.managers.CursorManager;
+    import mx.managers.CursorManagerPriority;
+    import mx.managers.DragManager;
+    import mx.managers.IFocusManagerComponent;
+    import mx.styles.IAdvancedStyleClient;
+    import mx.utils.ObjectUtil;
+    import mx.utils.UIDUtil;
 
-import spark.collections.Sort;
-import spark.components.gridClasses.CellPosition;
-import spark.components.gridClasses.CellRegion;
-import spark.components.gridClasses.DataGridEditor;
-import spark.components.gridClasses.GridDoubleClickMode;
-import spark.components.gridClasses.GridColumn;
-import spark.components.gridClasses.GridHeaderLayout;
-import spark.components.gridClasses.GridItemEditorActivationMouseEvent;
-import spark.components.gridClasses.GridLayout;
-import spark.components.gridClasses.GridSelection;
-import spark.components.gridClasses.GridSelectionMode;
-import spark.components.gridClasses.GridSortField;
-import spark.components.gridClasses.GridView;
-import spark.components.gridClasses.IDataGridElement;
-import spark.components.gridClasses.IGridItemEditor;
-import spark.components.supportClasses.IDataProviderEnhance;
-import spark.components.supportClasses.RegExPatterns;
-import spark.components.supportClasses.SkinnableContainerBase;
-import spark.core.NavigationUnit;
-import spark.events.GridCaretEvent;
-import spark.events.GridEvent;
-import spark.events.GridSelectionEvent;
-import spark.events.GridSelectionEventKind;
-import spark.events.GridSortEvent;
-import spark.layouts.supportClasses.DropLocation;
+    import spark.collections.Sort;
+    import spark.components.gridClasses.CellPosition;
+    import spark.components.gridClasses.CellRegion;
+    import spark.components.gridClasses.DataGridEditor;
+    import spark.components.gridClasses.GridColumn;
+    import spark.components.gridClasses.GridItemEditorActivationMouseEvent;
+    import spark.components.gridClasses.GridLayout;
+    import spark.components.gridClasses.GridSelection;
+    import spark.components.gridClasses.GridSelectionMode;
+    import spark.components.gridClasses.GridSortField;
+    import spark.components.gridClasses.GridView;
+    import spark.components.gridClasses.IDataGridElement;
+    import spark.components.gridClasses.IGridItemEditor;
+    import spark.components.supportClasses.IDataProviderEnhance;
+    import spark.components.supportClasses.RegExPatterns;
+    import spark.components.supportClasses.SkinnableContainerBase;
+    import spark.core.NavigationUnit;
+    import spark.events.GridCaretEvent;
+    import spark.events.GridEvent;
+    import spark.events.GridSelectionEvent;
+    import spark.events.GridSelectionEventKind;
+    import spark.events.GridSortEvent;
+    import spark.layouts.supportClasses.DropLocation;
 
-use namespace mx_internal;
+    use namespace mx_internal;
 
 //--------------------------------------
 //  Styles
@@ -1022,7 +1020,7 @@ public class DataGrid extends SkinnableContainerBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public var grid:spark.components.Grid;    
+    public var grid:Grid;
     
     //----------------------------------
     //  hoverIndicator
@@ -4971,7 +4969,7 @@ public class DataGrid extends SkinnableContainerBase
         {
             for each (var oldSortField:ISortField in oldSortFields)
             {
-                var oldASC:AdvancedStyleClient = oldSortField as AdvancedStyleClient;
+                var oldASC:IAdvancedStyleClient = oldSortField as IAdvancedStyleClient;
                 if (!oldASC || (oldASC.styleParent != this) || (sortFields.indexOf(oldASC) != -1))
                     continue;
                 removeStyleClient(oldASC);
@@ -4983,7 +4981,7 @@ public class DataGrid extends SkinnableContainerBase
         
         for each (var newSortField:ISortField in sortFields)
         {
-            var newASC:AdvancedStyleClient = newSortField as AdvancedStyleClient;
+            var newASC:IAdvancedStyleClient = newSortField as IAdvancedStyleClient;
             if (!newASC || (newASC.styleParent == this))
                 continue;
             addStyleClient(newASC);
