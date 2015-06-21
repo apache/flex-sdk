@@ -211,7 +211,7 @@ public class Sort extends EventDispatcher implements ISort
      *  @private
      *  Used for accessing localized Error messages.
      */
-    private var resourceManager:IResourceManager =
+    protected var resourceManager:IResourceManager =
                                     ResourceManager.getInstance();
 
     //--------------------------------------------------------------------------
@@ -233,7 +233,7 @@ public class Sort extends EventDispatcher implements ISort
     /**
      *  @private
      */
-    private var usingCustomCompareFunction:Boolean;
+    protected var usingCustomCompareFunction:Boolean;
 
     [Inspectable(category="General")]
 
@@ -699,7 +699,7 @@ public class Sort extends EventDispatcher implements ISort
      *  @private
      *  Make sure all SortFields are ready to execute their comparators.
      */
-    private function initSortFields(item:Object, buildArraySortArgs:Boolean = false):Object
+    protected function initSortFields(item:Object, buildArraySortArgs:Boolean = false):Object
     {
         var arraySortArgs:Object = null;
         var i:int;
@@ -736,7 +736,7 @@ public class Sort extends EventDispatcher implements ISort
      *  number of fields to check.  We don't look at the actual values
      *  to see if they match the actual sort.
      */
-    private function internalCompare(a:Object, b:Object, fields:Array = null):int
+    protected function internalCompare(a:Object, b:Object, fields:Array = null):int
     {
         var result:int = 0;
         if (!_fields)
@@ -777,7 +777,7 @@ public class Sort extends EventDispatcher implements ISort
     {
         if (!defaultEmptyField)
         {
-            defaultEmptyField = new SortField();
+            defaultEmptyField = createEmptySortField();
             try
             {
                 defaultEmptyField.initializeDefaultCompareFunction(a);
@@ -799,6 +799,11 @@ public class Sort extends EventDispatcher implements ISort
         }
 
         return result;
+    }
+
+    protected function createEmptySortField():ISortField
+    {
+        return new SortField();
     }
 }
 }
