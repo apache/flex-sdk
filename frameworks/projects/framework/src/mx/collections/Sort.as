@@ -24,9 +24,12 @@ package mx.collections
     import flash.events.EventDispatcher;
 
     import mx.collections.errors.SortError;
+    import mx.core.mx_internal;
     import mx.resources.IResourceManager;
     import mx.resources.ResourceManager;
     import mx.utils.ObjectUtil;
+
+    use namespace mx_internal;
 
     [DefaultProperty("fields")]
 [ResourceBundle("collections")]
@@ -211,8 +214,14 @@ public class Sort extends EventDispatcher implements ISort
      *  @private
      *  Used for accessing localized Error messages.
      */
-    protected var resourceManager:IResourceManager =
+    private var resourceManager:IResourceManager =
                                     ResourceManager.getInstance();
+
+    /**
+     *  @private
+     *  True if we should attempt to use Array.sortOn when possible.
+     */
+    mx_internal var useSortOn:Boolean = true;
 
     //--------------------------------------------------------------------------
     //
@@ -233,7 +242,7 @@ public class Sort extends EventDispatcher implements ISort
     /**
      *  @private
      */
-    protected var usingCustomCompareFunction:Boolean;
+    private var usingCustomCompareFunction:Boolean;
 
     [Inspectable(category="General")]
 
@@ -655,7 +664,7 @@ public class Sort extends EventDispatcher implements ISort
                 if (unique)
                 {
                     var uniqueRet2:Object;
-                    if (sortArgs && fields.length == 1)
+                    if (useSortOn && sortArgs && fields.length == 1)
                     {
                         uniqueRet2 = items.sortOn(sortArgs.fields[0], sortArgs.options[0] | Array.UNIQUESORT);
                     }
@@ -672,7 +681,7 @@ public class Sort extends EventDispatcher implements ISort
                 }
                 else
                 {
-                    if (sortArgs)
+                    if (useSortOn && sortArgs)
                     {
                         items.sortOn(sortArgs.fields, sortArgs.options);
                     }
@@ -699,7 +708,7 @@ public class Sort extends EventDispatcher implements ISort
      *  @private
      *  Make sure all SortFields are ready to execute their comparators.
      */
-    protected function initSortFields(item:Object, buildArraySortArgs:Boolean = false):Object
+    private function initSortFields(item:Object, buildArraySortArgs:Boolean = false):Object
     {
         var arraySortArgs:Object = null;
         var i:int;
@@ -736,7 +745,7 @@ public class Sort extends EventDispatcher implements ISort
      *  number of fields to check.  We don't look at the actual values
      *  to see if they match the actual sort.
      */
-    protected function internalCompare(a:Object, b:Object, fields:Array = null):int
+    private function internalCompare(a:Object, b:Object, fields:Array = null):int
     {
         var result:int = 0;
         if (!_fields)

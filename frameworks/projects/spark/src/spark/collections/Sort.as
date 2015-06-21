@@ -21,6 +21,8 @@ package spark.collections
 {
 
     import flash.events.Event;
+
+    import mx.core.mx_internal;
     import mx.styles.IAdvancedStyleClient;
     import mx.collections.ISortField;
     import mx.collections.errors.SortError;
@@ -254,6 +256,7 @@ public class Sort extends mx.collections.Sort implements IAdvancedStyleClient
     public function Sort(fields:Array = null, customCompareFunction:Function = null, unique:Boolean = false)
     {
         super(fields, customCompareFunction, unique);
+        mx_internal::useSortOn = false;
     }
 
     //--------------------------------------------------------------------------
@@ -350,97 +353,6 @@ public class Sort extends mx.collections.Sort implements IAdvancedStyleClient
     {
         localeChanged();
         _advancedStyleClient.styleChanged(styleProp);
-    }
-
-
-    //--------------------------------------------------------------------------
-    //
-    //  Methods
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @inheritDoc
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    override public function sort(items:Array):void
-    {
-        if (!items || items.length <= 1)
-        {
-            return;
-        }
-
-        if (usingCustomCompareFunction)
-        {
-            // bug 185872
-            // the Sort.internalCompare function knows to use Sort._fields; that same logic
-            // needs to be part of calling a custom compareFunction. Of course, a user shouldn't
-            // be doing this -- so I wrap calls to compareFunction with _fields as the last parameter
-            const fixedCompareFunction:Function =
-                function (a:Object, b:Object):int
-                {
-                    // append our fields to the call, since items.sort() won't
-                    return compareFunction(a, b, fields);
-                };
-
-            var message:String;
-
-            if (unique)
-            {
-                var uniqueRet1:Object = items.sort(fixedCompareFunction, Array.UNIQUESORT);
-                if (uniqueRet1 == 0)
-                {
-                    message = resourceManager.getString(
-                        "collections", "nonUnique");
-                    throw new SortError(message);
-                }
-            }
-            else
-            {
-                items.sort(fixedCompareFunction);
-            }
-        }
-        else
-        {
-            if (fields && fields.length > 0)
-            {
-                //doing the init value each time may be a little inefficient
-                //but allows for the data to change and the comparators
-                //to update correctly
-                //the sortArgs is an object that if non-null means
-                //we can use Array.sortOn which will be much faster
-                //than going through internalCompare.  However
-                //if the Sort is supposed to be unique and fields.length > 1
-                //we cannot use sortOn since it only tests uniqueness
-                //on the first field
-                initSortFields(items[0], true);
-
-                if (unique)
-                {
-                    var uniqueRet2:Object;
-                    uniqueRet2 = items.sort(internalCompare,
-                                            Array.UNIQUESORT);
-                    if (uniqueRet2 == 0)
-                    {
-                        message = resourceManager.getString(
-                            "collections", "nonUnique");
-                        throw new SortError(message);
-                    }
-                }
-                else
-                {
-                    items.sort(internalCompare);
-                }
-            }
-            else
-            {
-                items.sort(internalCompare);
-            }
-        }
     }
 
     //--------------------------------------------------------------------------
