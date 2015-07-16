@@ -421,7 +421,7 @@ package {
 
             //when
             var newItem:FLEX_34884_VO = generateOneObject(9);
-            newItem.address.street = "Street 4";
+            newItem.address.street = "Street4";
             _sut.addItemAt(newItem, _sut.length - 1); //values[address.street/index]: Street4/4, Street4/9, Street3/3, Street2/2, Street1/1, Street0/0
 
             //then
