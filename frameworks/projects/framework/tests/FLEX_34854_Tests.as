@@ -220,15 +220,6 @@ package {
             assertEquals("the new item should have been moved to the end of the list", _sut.length - 1, _sut.getItemIndex(newItem));
         }
 
-        private function assertIndexesAre(indexes:Array):void
-        {
-            assertEquals(indexes.length, _sut.length);
-
-            for(var i:int = 0; i < _sut.length; i++)
-            {
-                assertEquals(ListCollectionView_FLEX_34854_VO(_sut.getItemAt(i)).index, indexes[i]);
-            }
-        }
 
 
         private static function generateVOs(no:int, reverse:Boolean = false):IList
