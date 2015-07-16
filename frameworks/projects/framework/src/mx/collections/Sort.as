@@ -264,8 +264,8 @@ public class Sort extends EventDispatcher implements ISort
      */
     public function set compareFunction(value:Function):void
     {
-            _compareFunction = value;
-            usingCustomCompareFunction = _compareFunction != null;
+        _compareFunction = value;
+        usingCustomCompareFunction = _compareFunction != null;
     }
 
     //----------------------------------
@@ -402,8 +402,7 @@ public class Sort extends EventDispatcher implements ISort
             {
                 fieldsForCompare = [];
                 //build up the fields we can compare, if we skip a field in the
-                //middle throw an error.  it is ok to not have all the fields
-                //though
+                //middle throw an error. It is ok to not have all the fields though
                 var field:ISortField;
                 var hadPreviousFieldName:Boolean = true;
                 for (var i:int = 0; i < fields.length; i++)
@@ -431,7 +430,7 @@ public class Sort extends EventDispatcher implements ISort
                     }
                     else
                     {
-                        //this is ok because sometimes a sortfield might
+                        //this is ok because sometimes a SortField might
                         //have a custom comparator
                         fieldsForCompare.push(null);
                     }

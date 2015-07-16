@@ -59,7 +59,7 @@
 
     private function triggerMissingCardNumberRTE():void{
         var ccv:CreditCardValidator = new CreditCardValidator();
-        var obj:Object = new Object();
+        var obj:Object = {};
         obj.cardType=CreditCardValidatorCardType.MASTER_CARD;
         obj.cardNumber=null;
         CreditCardValidator.validateCreditCard(ccv, obj, "");
@@ -145,40 +145,45 @@
     	s.findItem(null, null, null);
     }
 
-    private function cmpFn(o1:Object, o2:Object):void{
+    private function cmpFn(o1:Object, o2:Object):void
+    {
     	
     }
 
     private function triggerFindConditionRTE():void{
-    	var a:Array = new Array();
-    	var s:Sort = new Sort();
-    	a.push("a");
+    	var a:Array = [];
+        a.push("a");
+
+        var s:Sort = new Sort();
     	s.compareFunction = cmpFn;
-    	var sfArray:Array = new Array();
+
+        var sfArray:Array = [];
     	sfArray.push(new SortField("0"));
     	sfArray.push(new SortField("field1"));
-    	var o:Object = new Object();
+
+    	var o:Object = {};
     	o["0"] = undefined;
     	o["field1"] = 2;
+
     	s.fields = sfArray;
     	s.findItem(a, o, null);
     }
 
     private function triggerFindRestrictionRTE():void{
-    	var a:Array = new Array();
+    	var a:Array = [];
     	var s:Sort = new Sort();
     	a.push("a");
     	s.compareFunction = cmpFn;
-    	var sfArray:Array = new Array();
+    	var sfArray:Array = [];
     	sfArray.push(new SortField("0"));
-    	var o:Object = new Object();
+    	var o:Object = {};
     	o["0"] = undefined;
     	s.fields = sfArray;
     	s.findItem(a, o, null);
     }
 
     private function triggerUnknownModeRTE():void{
-    	var a:Array = new Array();
+    	var a:Array = [];
     	var s:Sort = new Sort();
     	a.push(new Object());
     	s.compareFunction = cmpFn;
@@ -186,11 +191,11 @@
     }
 
     private function triggerNonUniqueRTE():void{
-    	var a:Array = new Array();
+    	var a:Array = [];
     	var s:Sort = new Sort();
     	a.push("a");
     	a.push("b");
-    	var sfArray:Array = new Array();
+    	var sfArray:Array = [];
     	sfArray.push(new SortField("0"));
     	s.fields = sfArray;
     	s.unique = true;
@@ -198,13 +203,13 @@
     }
 
     private function triggerNoComparatorSortFieldRTE():void{
-    	var a:Array = new Array();
+    	var a:Array = [];
     	var s:Sort = new Sort();
     	var o2:Object = new Object();
     	o2["0"] = new Bitmap();
     	a.push(null);
     	a.push(o2);
-    	var sfArray:Array = new Array();
+    	var sfArray:Array = [];
     	sfArray.push(new SortField("0"));
     	sfArray.push(new SortField("1"));
     	s.fields = sfArray;
@@ -214,7 +219,7 @@
 
     private function triggerInvalidTypeRTE():void{
     	var x:XMLListAdapter = new XMLListAdapter();
-    	x.addItemAt(new Object(), 0);
+    	x.addItemAt({}, 0);
     }
 
     private function triggerColumnNotFoundRTE():void{
