@@ -23,8 +23,8 @@ package {
     import mx.collections.ComplexSortField;
     import mx.collections.IList;
     import mx.collections.ListCollectionView;
-    import mx.collections.Sort;
-    import mx.collections.SortField;
+    import spark.collections.Sort;
+    import spark.collections.SortField;
 
     import org.flexunit.assertThat;
 
@@ -58,7 +58,7 @@ package {
             _sut.addAll(from0To4); //values: Object0, Object1, Object2, Object3, Object4
 
             const sortByIndexAscending:Sort = new Sort();
-            sortByIndexAscending.fields = [new SortField("index", false, false, true)];
+            sortByIndexAscending.fields = [new SortField("index", false, true)];
             _sut.sort = sortByIndexAscending;
             _sut.refresh(); //values (unchanged): Object0, Object1, Object2, Object3, Object4
 
@@ -78,7 +78,7 @@ package {
             _sut.addAll(from0To4); //values: Object0, Object1, Object2, Object3, Object4
 
             const sortByIndexDescending:Sort = new Sort();
-            sortByIndexDescending.fields = [new SortField("index", false, true, true)];
+            sortByIndexDescending.fields = [new SortField("index", true, true)];
             _sut.sort = sortByIndexDescending;
             _sut.refresh(); //values: Object4, Object3, Object2, Object1, Object0
 
@@ -98,7 +98,7 @@ package {
             _sut.addAll(from0To4); //values: Object0, Object1, Object2, Object3, Object4
 
             const sortByIndexDescending:Sort = new Sort();
-            sortByIndexDescending.fields = [new SortField("index", false, true, true)];
+            sortByIndexDescending.fields = [new SortField("index", true, true)];
             _sut.sort = sortByIndexDescending;
             _sut.refresh(); //values: Object4, Object3, Object2, Object1, Object0
 
@@ -212,7 +212,7 @@ package {
             _sut.addAll(from0To4); //values[address.street]: Street0, Street1, Street2, Street3, Street4
 
             const sortByIndexAscending:Sort = new Sort();
-            sortByIndexAscending.fields = [new ComplexSortField("address.street", false, false, false)];
+            sortByIndexAscending.fields = [new ComplexSortField("address.street", false, false)];
             _sut.sort = sortByIndexAscending;
             _sut.refresh(); //values[address.street] (unchanged): Street0, Street1, Street2, Street3, Street4
 
