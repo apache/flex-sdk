@@ -676,7 +676,7 @@ public class SortField extends EventDispatcher implements ISortField
 
     protected function getSortFieldValue(obj:Object):*
     {
-        var result:Object = undefined;
+        var result:* = undefined;
 
         try
         {
