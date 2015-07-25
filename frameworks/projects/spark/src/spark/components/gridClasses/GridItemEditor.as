@@ -520,13 +520,7 @@ public class GridItemEditor extends Group implements IGridItemEditor
 
         if (property && data[property] !== newData)
         {
-            var oldData:Object = data[property];
             data[property] = newData;
-            
-            // If a complex field reference then the data and property local vars were modified and
-            // no longer point to the top-level data object and the complete path to the property
-            // so use the original values.
-            dataGrid.dataProvider.itemUpdated(this.data, column.dataField, oldData, newData);
         }
 
         return true;

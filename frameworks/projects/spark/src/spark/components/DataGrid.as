@@ -30,10 +30,13 @@ package spark.components
     import flash.ui.Keyboard;
 
     import mx.collections.ArrayCollection;
+    import mx.collections.ComplexFieldChangeWatcher;
     import mx.collections.ICollectionView;
+    import mx.collections.IComplexSortField;
     import mx.collections.IList;
     import mx.collections.ISort;
     import mx.collections.ISortField;
+    import mx.collections.ListCollectionView;
     import mx.core.DragSource;
     import mx.core.EventPriority;
     import mx.core.IFactory;
@@ -67,7 +70,6 @@ package spark.components
     import spark.components.gridClasses.GridLayout;
     import spark.components.gridClasses.GridSelection;
     import spark.components.gridClasses.GridSelectionMode;
-    import spark.components.gridClasses.GridSortField;
     import spark.components.gridClasses.GridView;
     import spark.components.gridClasses.IDataGridElement;
     import spark.components.gridClasses.IGridItemEditor;
@@ -1852,7 +1854,7 @@ public class DataGrid extends SkinnableContainerBase
      * 
      *  @default false
      * 
-     *  @see #sortable 
+     *  @see #sortableColumns
      *  @see spark.components.gridClasses.GridColumn#sortable
 
      *  @langversion 3.0
@@ -3797,7 +3799,7 @@ public class DataGrid extends SkinnableContainerBase
             var f:Function = function(g:Grid):void
             {
                 g.selectedIndex = value;
-            }
+            };
             deferredGridOperations.push(f);
         }
     }
@@ -4481,11 +4483,7 @@ public class DataGrid extends SkinnableContainerBase
      *  @param columnCount If <code>selectionEventKind</code> is for a cell region, 
      *  the number  of columns in the cell region.  The default is -1 to 
      *  indicate this parameter is not being used.
-     * 
-     *  @param indices If <code>selectionEventKind</code> is for multiple rows,
-     *  the 0-based row indices of the rows in the selection.  The default is 
-     *  null to indicate this parameter is not being used.
-     * 
+     *
      *  @return <code>true</code> if the selection was committed or did not change, or 
      *  <code>false</code> if the selection was canceled or could not be committed due to 
      *  an error, such as index out of range or the <code>selectionEventKind</code> is not 
@@ -4782,7 +4780,7 @@ public class DataGrid extends SkinnableContainerBase
 	}
 	
 	/**
-	 *  Override to make a datagrid cell editabe based on the data item.
+	 *  Override to make a datagrid cell editable based on the data item.
 	 * 
 	 *  @langversion 3.0
 	 *  @playerversion Flash 10
@@ -4864,46 +4862,67 @@ public class DataGrid extends SkinnableContainerBase
     {
         return new DataGridEditor(this);    
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Sorting Methods
     //
     //--------------------------------------------------------------------------
 
+    private function ensureComplexFieldsMonitoring(sortFields:Array):void
+    {
+        if(!(dataProvider is ListCollectionView))
+            return;
+
+        for (var i:int = 0; i < sortFields.length; i++)
+        {
+            var sortField:ISortField = sortFields[i];
+            if(sortField is IComplexSortField)
+                break;
+        }
+
+        if(i < sortFields.length)
+        {
+            if(!ListCollectionView(dataProvider).complexFieldWatcher)
+                ListCollectionView(dataProvider).complexFieldWatcher = new ComplexFieldChangeWatcher();
+        }
+        else
+            ListCollectionView(dataProvider).complexFieldWatcher = null;
+    }
+
     /**
      *  Sort the DataGrid by one or more columns, and refresh the display.
-     * 
+     *
      *  <p>If the <code>dataProvider</code> is an ICollectionView, then it's <code>sort</code> property is
      *  set to a value based on each column's <code>dataField</code>, <code>sortCompareFunction</code>,
      *  and <code>sortDescending</code> flag.
      *  Then, the data provider's <code>refresh()</code> method is called. </p>
-     *  
+     *
      *  <p>If the <code>dataProvider</code> is not an ICollectionView, then this method has no effect.</p>
-     * 
-     *  <p>If isInteractive is true then a <code>GridSortEvent.SORT_CHANGING</code> is dispatched before the 
+     *
+     *  <p>If isInteractive is true then a <code>GridSortEvent.SORT_CHANGING</code> is dispatched before the
      *  sort is applied.  Listeners can change modify the event to change the sort or cancel
      *  the event to cancel the sort.   If isInteractive is true and the sort is not cancelled, then a
      *  <code>GridSortEvent.SORT_CHANGE</code> event is dispatched after the dataProvider's sort has been
      *  updated.</p>
-     * 
+     *
      *  <p>If the sort has not be cancelled, the columnHeaderGroup's <code>visibleSortIndicatorIndices</code> is updated.</p>
-     * 
+     *
      *  @param columnIndices The indices of the columns by which to sort the <code>dataProvider</code>.
-     * 
+     *
      *  @param isInteractive If true, <code>GridSortEvent.SORT_CHANGING</code> and
      *  <code>GridSortEvent.SORT_CHANGE</code> events are dispatched.
-     * 
+     *
      *  @return <code>true</code> if the <code>dataProvider</code> was sorted with the provided
      *  column indicies.
-     * 
+     *
      *  @see spark.components.DataGrid#dataProvider
      *  @see spark.components.gridClasses.GridColumn#sortCompareFunction
      *  @see spark.components.gridClasses.GridColumn#sortDescending
      *  @see spark.components.gridClasses.GridColumn#sortField
      *  @see spark.components.GridColumnHeaderGroup#visibleSortIndicatorIndices
      *  @see spark.events.GridSortEvent
-     * 
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -4914,19 +4933,19 @@ public class DataGrid extends SkinnableContainerBase
        const dataProvider:ICollectionView = this.dataProvider as ICollectionView;
         if (!dataProvider)
             return false;
-        
+
         var sort:ISort = dataProvider.sort;
         if (sort)
             sort.compareFunction = null;
         else
             sort = new Sort();
-        
+
         var sortFields:Array = createSortFields(columnIndices, sort.fields);
-        if (!sortFields || (sortFields.length == 0)) 
+        if (!sortFields || (sortFields.length == 0))
             return false;
-        
+
         var oldSortFields:Array = (dataProvider.sort) ? dataProvider.sort.fields : null;
-        
+
         // Dispatch the "changing" event. If preventDefault() is called
         // on this event, the sort operation will be cancelled.  If columnIndices or
         // sortFields are changed, the new values will be used.
@@ -4936,35 +4955,35 @@ public class DataGrid extends SkinnableContainerBase
             // are copied to the new Array, not the ISortField objects themselves.
             if (oldSortFields)
                 oldSortFields = oldSortFields.concat();
-            
+
             if (hasEventListener(GridSortEvent.SORT_CHANGING))
             {
-                const changingEvent:GridSortEvent = 
+                const changingEvent:GridSortEvent =
                     new GridSortEvent(GridSortEvent.SORT_CHANGING,
-                        false, true, 
-                        columnIndices, 
+                        false, true,
+                        columnIndices,
                         oldSortFields,  /* intended to be read-only but no way to enforce this */
-                        sortFields); 
-                
+                        sortFields);
+
                 // The event was cancelled so don't sort.
                 if (!dispatchEvent(changingEvent))
                     return false;
-                
+
                 // Update the sort columns since they might have changed.
                 columnIndices = changingEvent.columnIndices;
                 if (!columnIndices)
                     return false;
-                
+
                 // Update the new sort fields since they might have changed.
                 sortFields = changingEvent.newSortFields;
                 if (!sortFields)
                     return false;
             }
         }
-        
+
         // Remove each old SortField that's not a member of the new sortFields Array
         // as a "styleClient" of this DataGrid.
-        
+
         if (oldSortFields)
         {
             for each (var oldSortField:ISortField in oldSortFields)
@@ -4975,10 +4994,10 @@ public class DataGrid extends SkinnableContainerBase
                 removeStyleClient(oldASC);
             }
         }
-        
+
         // Add new SortFields as "styleClients" of this DataGrid so that they
-        // inherit this DataGrid's locale style. 
-        
+        // inherit this DataGrid's locale style.
+
         for each (var newSortField:ISortField in sortFields)
         {
             var newASC:IAdvancedStyleClient = newSortField as IAdvancedStyleClient;
@@ -4986,33 +5005,35 @@ public class DataGrid extends SkinnableContainerBase
                 continue;
             addStyleClient(newASC);
         }
-        
+
+        ensureComplexFieldsMonitoring(sortFields);
+
         sort.fields = sortFields;
-        
+
         dataProvider.sort = sort;
         dataProvider.refresh();
-        
+
         if (isInteractive)
         {
             // Dispatch the "change" event.
             if (hasEventListener(GridSortEvent.SORT_CHANGE))
             {
-                const changeEvent:GridSortEvent = 
+                const changeEvent:GridSortEvent =
                     new GridSortEvent(GridSortEvent.SORT_CHANGE,
-                        false, true, 
-                        columnIndices, 
-                        oldSortFields, sortFields); 
+                        false, true,
+                        columnIndices,
+                        oldSortFields, sortFields);
                 dispatchEvent(changeEvent);
             }
-            
+
             // Update the visible sort indicators.
             if (columnHeaderGroup)
-                columnHeaderGroup.visibleSortIndicatorIndices = columnIndices;            
-        }           
-        
+                columnHeaderGroup.visibleSortIndicatorIndices = columnIndices;
+        }
+
         return true;
     }
-    
+
     /**
      *  @private
      *  Return an array of ISortFields, one per column.   If a matching sort field is found in 
@@ -5030,9 +5051,7 @@ public class DataGrid extends SkinnableContainerBase
             if (!col || (!col.dataField && (col.labelFunction == null) && (col.sortCompareFunction == null)))
                 return null;
 
-            var dataField:String = col.dataField;
-            var isComplexDataField:Boolean = (dataField && (dataField.indexOf(".") != -1));
-            var sortField:ISortField = findSortField(dataField, previousFields, isComplexDataField);
+            var sortField:ISortField = findSortField(col.dataField, previousFields);
             
             if (!sortField)
             {
@@ -5053,27 +5072,18 @@ public class DataGrid extends SkinnableContainerBase
     /**
      *  @private
      *  Finds a SortField using the provided dataField and returns it.
-     *  If the dataField is complex, it tries to find a GridSortField
-     *  with a matching dataFieldPath.
-     * 
+     *
      *  @param dataField The dataField of the column.
      *  @param fields The array of SortFields to search through.
-     *  @param isComplexDataField true if the dataField is a path.
      */
-    private static function findSortField(dataField:String, fields:Array, isComplexDataField:Boolean):ISortField
+    private static function findSortField(dataField:String, fields:Array):ISortField
     {
         if (dataField == null)
             return null;
         
         for each (var field:ISortField in fields)
         {
-            var name:String = field.name;
-            if (isComplexDataField && (field is GridSortField))
-            {
-                name = GridSortField(field).dataFieldPath;
-            }
-            
-            if (name == dataField)
+            if (field.name == dataField)
                 return field;
         }
         

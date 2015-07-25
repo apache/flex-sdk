@@ -1866,7 +1866,8 @@ public class ListCollectionView extends Proxy
             stopWatchingForComplexFieldsChanges();
 
             _complexFieldWatcher = value;
-            _complexFieldWatcher.mx_internal::list = this;
+            if(_complexFieldWatcher)
+                _complexFieldWatcher.mx_internal::list = this;
 
             startWatchingForComplexFieldsChanges();
         }

@@ -89,6 +89,8 @@
     <component id="SolidColorStroke" class="mx.graphics.SolidColorStroke"/>
     <component id="Sort" class="mx.collections.Sort"/>
     <component id="SortField" class="mx.collections.SortField"/>
+    <component id="ComplexSortField" class="mx.collections.ComplexSortField"/>
+    <component id="ComplexFieldChangeWatcher" class="mx.collections.ComplexFieldChangeWatcher"/>
     <component id="SoundEffect" class="mx.effects.SoundEffect"/>
     <component id="Spacer" class="mx.controls.Spacer"/>
     <component id="Sprite" class="flash.display.Sprite" lookupOnly="true"/>
