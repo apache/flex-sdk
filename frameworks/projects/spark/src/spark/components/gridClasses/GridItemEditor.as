@@ -19,26 +19,21 @@
 
 package spark.components.gridClasses
 {
-import flash.events.Event;
-import flash.events.MouseEvent;
-import flash.geom.Point;
-import flash.utils.describeType;
+    import flash.events.Event;
+    import flash.events.MouseEvent;
+    import flash.geom.Point;
+    import flash.utils.describeType;
 
-import mx.collections.ICollectionView;
-import mx.collections.ISort;
-import mx.core.IIMESupport;
-import mx.core.IInvalidating;
-import mx.core.IVisualElement;
-import mx.core.IVisualElementContainer;
-import mx.core.mx_internal;
-import mx.validators.IValidatorListener;
+    import mx.core.IIMESupport;
+    import mx.core.IInvalidating;
+    import mx.core.IVisualElement;
+    import mx.core.IVisualElementContainer;
+    import mx.validators.IValidatorListener;
+    import mx.core.mx_internal;
+    import spark.components.DataGrid;
+    import spark.components.Group;
 
-import spark.components.DataGrid;
-import spark.components.Group;
-import spark.components.gridClasses.GridColumn;
-
-
-use namespace mx_internal;
+    use namespace mx_internal;
 
 /**
  *  The GridItemEditor class defines the base class for custom item editors
@@ -149,7 +144,7 @@ public class GridItemEditor extends Group implements IGridItemEditor
      */
     public function get columnIndex():int
     {
-        return column.columnIndex;;
+        return column.columnIndex;
     }
 
     //----------------------------------
@@ -562,7 +557,7 @@ public class GridItemEditor extends Group implements IGridItemEditor
      *  @param container container to verify, may not be null.
      *  @return true if the container and its children are valid, false otherwise. 
      */
-    private function validateContainer(container:IVisualElementContainer):Boolean
+    private static function validateContainer(container:IVisualElementContainer):Boolean
     {
         if (container is IValidatorListener && IValidatorListener(container).errorString)
             return false;
@@ -596,14 +591,14 @@ public class GridItemEditor extends Group implements IGridItemEditor
      * 
      *  @param container container to verify, may not be null.
      */
-    private function clearErrorStringFromContainer(container:IVisualElementContainer):void
+    private static function clearErrorStringFromContainer(container:IVisualElementContainer):void
     {
         if (container is IValidatorListener && IValidatorListener(container).errorString)
         {
             clearErrorString(IValidatorListener(container));
         }
         
-        // loop thru the children, looking for errors to clear.
+        // loop through the children, looking for errors to clear.
         var n:int = container.numElements;
         for (var i:int = 0; i < n; i++)
         {
@@ -635,7 +630,7 @@ public class GridItemEditor extends Group implements IGridItemEditor
      * 
      *  @param validatorListener listener to clear error message in.
      */
-    private function clearErrorString(validatorListener:IValidatorListener):void
+    private static function clearErrorString(validatorListener:IValidatorListener):void
     {
         validatorListener.errorString = "";
         if (validatorListener is IInvalidating)
@@ -648,7 +643,7 @@ public class GridItemEditor extends Group implements IGridItemEditor
      *   @private
      *   Stop the item renderer from getting the click.
      */ 
-    private function mouseUpDownMoveHandler(event:MouseEvent):void
+    private static function mouseUpDownMoveHandler(event:MouseEvent):void
     {
         if (event.cancelable)
             event.preventDefault();
