@@ -6133,13 +6133,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         }
 
         column.sortDescending = desc;
-        var field:ISortField = new SortField(columnName);
-        field.sortCompareType = column.sortCompareType;
-        field.descending = desc;
-        
-        if (column.sortCompareFunction != null)
-            field.compareFunction = column.sortCompareFunction;
-		
+        var field:ISortField = new SortField(columnName, false, desc, null, column.sortCompareType, column.sortCompareFunction);
+
 		fields = collection.sort.fields;
 		if (fields == null)
 			fields = [];
@@ -6892,7 +6887,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
      *  @private
      *  Catches any events from the model. Optimized for editing one item.
      *  Creates columns when there are none. Inherited from list.
-     *  @param eventObj
+     *  @param event
      */
     override protected function collectionChangeHandler(event:Event):void
     {
