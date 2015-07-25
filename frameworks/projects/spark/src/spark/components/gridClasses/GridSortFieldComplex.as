@@ -19,7 +19,7 @@
 
 package spark.components.gridClasses {
 
-    import mx.collections.ComplexSortField;
+    import spark.collections.ComplexSortField;
     import mx.utils.ObjectUtil;
 
     [ExcludeClass]
@@ -45,10 +45,10 @@ package spark.components.gridClasses {
          *  @productversion Flex 4.5
          */
 
-        public function GridSortFieldComplex(column:GridColumn, name:String = null, descending:Boolean = false, numeric:Object = null)
+        public function GridSortFieldComplex(column:GridColumn, name:String = null, descending:Boolean = false, numeric:Object = null, sortCompareType:String = null, customCompareFunction:Function = null)
         {
             _column = column;
-            super(name, false, descending, numeric)
+            super(name, descending, numeric, sortCompareType, customCompareFunction);
         }
 
 
