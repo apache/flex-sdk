@@ -71,6 +71,7 @@ package spark.components
     import spark.components.gridClasses.GridSelection;
     import spark.components.gridClasses.GridSelectionMode;
     import spark.components.gridClasses.GridView;
+    import spark.components.gridClasses.GridViewLayout;
     import spark.components.gridClasses.IDataGridElement;
     import spark.components.gridClasses.IGridItemEditor;
     import spark.components.supportClasses.IDataProviderEnhance;
@@ -6272,20 +6273,13 @@ public class DataGrid extends SkinnableContainerBase
     //
     //--------------------------------------------------------------------------
     
-    private function calculateDropLocation(event:DragEvent):DropLocation
-    {
-        // Verify data format
-        if (!enabled || !event.dragSource.hasFormat("itemsByIndex"))
-            return null;
-        
-        // Calculate the drop location
-        var location:DropLocation = grid.layout.calculateDropLocation(event);
-		if (location.dropIndex > dataProvider.length) 
-			location.dropIndex = dataProvider.length;
-		
-		return location;
-    }
-    
+    /**
+    *  @private
+    *  Used in drag n drop methods for drop location / drop indicators.
+    */
+    private var _gridViewLayout:GridViewLayout = null;
+
+
     /**
      *  Creates and instance of the dropIndicator class that is used to
      *  display the visuals of the drop location during a drag and drop
@@ -6308,10 +6302,12 @@ public class DataGrid extends SkinnableContainerBase
     public function createDropIndicator():DisplayObject
     {
         // Do we have a drop indicator already?
-        if (grid.layout.dropIndicator)
-            return grid.layout.dropIndicator;
-        
+        if (_gridViewLayout.dropIndicator)
+            return _gridViewLayout.dropIndicator;
+
+
         var dropIndicatorInstance:DisplayObject;
+
         if (dropIndicator)
         {
             dropIndicatorInstance = DisplayObject(createDynamicPartInstance("dropIndicator"));
@@ -6322,11 +6318,13 @@ public class DataGrid extends SkinnableContainerBase
             if (dropIndicatorClass)
                 dropIndicatorInstance = new dropIndicatorClass();
         }
+
         if (dropIndicatorInstance is IVisualElement)
             IVisualElement(dropIndicatorInstance).owner = this;
         
         // Set it in the layout
-        grid.layout.dropIndicator = dropIndicatorInstance;
+        _gridViewLayout.dropIndicator = dropIndicatorInstance;
+
         return dropIndicatorInstance;
     }
     
@@ -6348,15 +6346,17 @@ public class DataGrid extends SkinnableContainerBase
      */
     public function destroyDropIndicator():DisplayObject
     {
-        var dropIndicatorInstance:DisplayObject = grid.layout.dropIndicator;
+        var dropIndicatorInstance:DisplayObject = _gridViewLayout.dropIndicator;
+
         if (!dropIndicatorInstance)
             return null;
         
         // Release the reference from the layout
-        grid.layout.dropIndicator = null;
+        _gridViewLayout.dropIndicator = null;
         
         // Release it if it's a dynamic skin part
         var count:int = numDynamicParts("dropIndicator");
+
         for (var i:int = 0; i < count; i++)
         {
             if (dropIndicatorInstance == getDynamicPartAt("dropIndicator", i))
@@ -6366,6 +6366,7 @@ public class DataGrid extends SkinnableContainerBase
                 break;
             }
         }
+
         return dropIndicatorInstance;
     }
     
@@ -6391,8 +6392,17 @@ public class DataGrid extends SkinnableContainerBase
     {
         if (event.isDefaultPrevented())
             return;
-        
-        var dropLocation:DropLocation = calculateDropLocation(event); 
+
+
+        if (!_gridViewLayout)
+        {
+            //Store a current gridview layout.
+            _gridViewLayout = (grid.layout as GridLayout).centerGridView.layout as GridViewLayout;
+        }
+
+
+        var dropLocation:DropLocation = _gridViewLayout.calculateDropLocation(event);
+
         if (dropLocation)
         {
             DragManager.acceptDragDrop(this);
@@ -6409,7 +6419,7 @@ public class DataGrid extends SkinnableContainerBase
             DragManager.showFeedback(event.ctrlKey ? DragManager.COPY : DragManager.MOVE);
             
             // Show drop indicator
-            grid.layout.showDropIndicator(dropLocation);
+            _gridViewLayout.showDropIndicator(dropLocation);
         }
         else
         {
@@ -6439,8 +6449,10 @@ public class DataGrid extends SkinnableContainerBase
     {
         if (event.isDefaultPrevented())
             return;
-        
-        var dropLocation:DropLocation = calculateDropLocation(event);
+
+
+        var dropLocation:DropLocation = _gridViewLayout.calculateDropLocation(event);
+
         if (dropLocation)
         {
             // Show focus
@@ -6451,12 +6463,12 @@ public class DataGrid extends SkinnableContainerBase
             DragManager.showFeedback(event.ctrlKey ? DragManager.COPY : DragManager.MOVE);
             
             // Show drop indicator
-            grid.layout.showDropIndicator(dropLocation);
+            _gridViewLayout.showDropIndicator(dropLocation);
         }
         else
         {
             // Hide if previously showing
-            grid.layout.hideDropIndicator();
+            _gridViewLayout.hideDropIndicator();
             
             // Hide focus
             drawFocus(false);
@@ -6488,9 +6500,9 @@ public class DataGrid extends SkinnableContainerBase
     {
         if (event.isDefaultPrevented())
             return;
-        
+
         // Hide if previously showing
-        grid.layout.hideDropIndicator();
+        _gridViewLayout.hideDropIndicator();
         
         // Hide focus
         drawFocus(false);
@@ -6543,9 +6555,10 @@ public class DataGrid extends SkinnableContainerBase
     {
         if (event.isDefaultPrevented())
             return;
-        
+
+
         // Hide the drop indicator
-        grid.layout.hideDropIndicator();
+		_gridViewLayout.hideDropIndicator();
         destroyDropIndicator();
         
         // Hide focus
@@ -6553,7 +6566,8 @@ public class DataGrid extends SkinnableContainerBase
         drawFocusAnyway = false;
         
         // Get the dropLocation
-        var dropLocation:DropLocation = calculateDropLocation(event);
+		var dropLocation:DropLocation = _gridViewLayout.calculateDropLocation(event);
+
         if (!dropLocation)
             return;
         
