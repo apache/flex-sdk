@@ -5629,7 +5629,7 @@ public class DataGrid extends SkinnableContainerBase
         if (rowIndex == -1 || isCellSelection && columnIndex == -1)
             return;
         
-        if (dragEnabled && isRowSelectionMode() && selectionContainsIndex(rowIndex))
+        if (event.ctrlKey == false && dragEnabled && isRowSelectionMode() && selectionContainsIndex(rowIndex))
         {
             pendingSelectionOnMouseUp = true;
             pendingSelectionShiftKey = event.shiftKey;
