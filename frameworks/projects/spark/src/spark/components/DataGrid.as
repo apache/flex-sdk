@@ -862,16 +862,7 @@ public class DataGrid extends SkinnableContainerBase
      *  comitting the selection until mouse up.
      */
     private var pendingSelectionOnMouseUp:Boolean = false;
-    
-    /**
-     *  @private
-     */
-    private var pendingSelectionShiftKey:Boolean;
-    
-    /**
-     *  @private
-     */
-    private var pendingSelectionCtrlKey:Boolean;
+
     
     //--------------------------------------------------------------------------
     //
@@ -5628,29 +5619,23 @@ public class DataGrid extends SkinnableContainerBase
         // position.
         if (rowIndex == -1 || isCellSelection && columnIndex == -1)
             return;
-        
-        if (event.ctrlKey == false && dragEnabled && isRowSelectionMode() && selectionContainsIndex(rowIndex))
+
+
+        if (event.ctrlKey)
         {
-            pendingSelectionOnMouseUp = true;
-            pendingSelectionShiftKey = event.shiftKey;
-            pendingSelectionCtrlKey = event.ctrlKey;            
+            // ctrl-click toggles the selection and updates caret and anchor.
+            if (!toggleSelection(rowIndex, columnIndex))
+                return;
+            
+            grid.anchorRowIndex = rowIndex;
+            grid.anchorColumnIndex = columnIndex;
         }
         else
         {
-            if (event.ctrlKey)
-            {
-                // ctrl-click toggles the selection and updates caret and anchor.
-                if (!toggleSelection(rowIndex, columnIndex))
-                    return;
-                
-                grid.anchorRowIndex = rowIndex;
-                grid.anchorColumnIndex = columnIndex;
-            }
-            else if (event.shiftKey)
+            if (event.shiftKey)
             {
                 // shift-click extends the selection and updates the caret.
-                if  (grid.selectionMode == GridSelectionMode.MULTIPLE_ROWS || 
-                    grid.selectionMode == GridSelectionMode.MULTIPLE_CELLS)
+                if  (grid.selectionMode == GridSelectionMode.MULTIPLE_ROWS || grid.selectionMode == GridSelectionMode.MULTIPLE_CELLS)
                 {    
                     if (!extendSelection(rowIndex, columnIndex))
                         return;
@@ -5661,6 +5646,12 @@ public class DataGrid extends SkinnableContainerBase
                 // click sets the selection and updates the caret and anchor positions.
                 setSelectionAnchorCaret(rowIndex, columnIndex);
             }
+        }
+
+
+        if (dragEnabled && isRowSelectionMode() && selectionContainsIndex(rowIndex))
+        {
+            pendingSelectionOnMouseUp = true;
         }
         
         // If selection is pending on mouse up then we have just moused down on
