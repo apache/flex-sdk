@@ -1203,7 +1203,7 @@ public class ObjectUtil
     /**
      *  Returns the value at the end of the property chain <code>path</code>.
      *  If the value cannot be reached due to null links on the chain,
-     *  <code>undefined</code>  is returned.
+     *  <code>undefined</code> is returned.
      *
      *  @param obj The object at the beginning of the property chain
      *  @param path The path to inspect (e.g. "address.street")
@@ -1230,6 +1230,42 @@ public class ObjectUtil
             result = result.hasOwnProperty(path[i]) ? result[path[i]] : undefined;
 
         return result;
+    }
+
+
+    /**
+     *  Sets a new value at the end of the property chain <code>path</code>.
+     *  If the value cannot be reached due to null links on the chain,
+     *  <code>false</code> is returned.
+     *
+     *  @param obj The object at the beginning of the property chain
+     *  @param path The path to traverse (e.g. "address.street")
+     *  @param newValue The value to set (e.g. "Fleet Street")
+     *
+     *  @return <code>true</code> if the value is successfully set,
+     *  <code>false</code> otherwise. Note that the function does not
+     *  use a try/catch block. You can implement one in the calling
+     *  function if there's a risk of type mismatch or other errors during
+     *  the assignment.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function setValue(obj:Object, path:Array, newValue:*):Boolean
+    {
+        if(!obj || !path || !path.length)
+            return false;
+
+        var secondToLastLink:* = getValue(obj, path.slice(0, -1));
+        if(secondToLastLink && secondToLastLink.hasOwnProperty(path[path.length - 1]))
+        {
+            secondToLastLink[path[path.length - 1]] = newValue;
+            return true;
+        }
+
+        return false;
     }
 
     /**
