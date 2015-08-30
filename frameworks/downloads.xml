@@ -153,8 +153,8 @@
         
         <unzip src="${download.dir}/swfobject_2_2.zip" dest="${FLEX_HOME}/templates/swfobject">
             <patternset>
-                <include name="swfobject/expressInstall.swf"/>
-                <include name="swfobject/swfobject.js"/>
+                <include name="swfobject-2.2/swfobject/expressInstall.swf"/>
+                <include name="swfobject-2.2/swfobject/swfobject.js"/>
             </patternset>
             <flattenmapper />
         </unzip>
