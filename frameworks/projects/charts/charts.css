@@ -211,7 +211,7 @@ PieChart
 
 AxisRenderer
 {
-	labelClass: ClassReference("spark.components.Label");
+	labelClass: ClassReference("mx.controls.Label");
 	canDropLabels : ClassReference(null);
 	canStagger : true;
 	labelGap : 3;

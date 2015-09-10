@@ -280,15 +280,8 @@ public class BarSeries extends Series implements IStackable2, IBar
         var labelClass:Class = getStyle("labelClass");
         if(labelClass == null)
         {
-            try{
-                labelClass = Class(ApplicationDomain.currentDomain.
-                    getDefinition("spark.components::Label"));
-            }
-            catch(e:Error)
-            {
-                labelClass = Class(ApplicationDomain.currentDomain.
-                    getDefinition("mx.controls::Label"));
-            }
+			labelClass = Class(ApplicationDomain.currentDomain.
+				getDefinition("mx.controls::Label"));
         }
         return labelClass;
     }
