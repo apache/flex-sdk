@@ -75,6 +75,11 @@
             property="BLAZEDS_HOME"
             value="${FLEX_HOME}/../flex-blazeds" />
 
+    <available file="${FLEX_HOME}/../flex-blazeds/remoting"
+               type="dir"
+               property="BLAZEDS_HOME"
+               value="${FLEX_HOME}/../flex-blazeds" />
+
     <available file="${FLEX_HOME}/../blazeds/modules/remoting"
             type="dir"
             property="BLAZEDS_HOME"
