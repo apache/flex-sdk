@@ -223,6 +223,15 @@
 		<condition property="playerglobal.swfversion" value="28">
 			<equals arg1="${playerglobal.version}" arg2="17.0" />
 		</condition>
+		<condition property="playerglobal.swfversion" value="29">
+			<equals arg1="${playerglobal.version}" arg2="18.0" />
+		</condition>
+		<condition property="playerglobal.swfversion" value="30">
+			<equals arg1="${playerglobal.version}" arg2="19.0" />
+		</condition>
+		<condition property="playerglobal.swfversion" value="31">
+			<equals arg1="${playerglobal.version}" arg2="20.0" />
+		</condition>
 	</target>	
 
     <!--
