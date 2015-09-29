@@ -46,7 +46,9 @@
     <property name="maven.search.url" value="https://search.maven.org/remotecontent?filepath="/>
     <property name="flexToolApi.name" value="flex-tool-api"/>
     <property name="flexToolApi.version" value="1.0.0"/>
-    
+    <property name="blazeds.name" value="flex-messaging-common"/>
+    <property name="blazeds.version" value="4.7.1"/>
+
 	<!--
 	   Notes:
 	       For Apache, the JARS must be removed from the repository.
@@ -86,7 +88,7 @@
         they are each downloaded only if they don't already exist. 
     -->
     
-	<target name="main" depends="batik-jars, commons-jars, javacc-jar, saxon9-jar, velocity-jars, xalan-jar, xerces-jars, flex-tool-api-jar"
+	<target name="main" depends="batik-jars, commons-jars, javacc-jar, saxon9-jar, velocity-jars, xalan-jar, xerces-jars, flex-tool-api-jar, blazeds-jar"
 		description="Downloads all the required thirdparty JARs"/>
 
     <!--
@@ -606,6 +608,24 @@
              verbose="false"/>
 
         <copy file="${download.dir}/flex-tool-api.jar" toDir="${lib.ext.dir}" verbose="true"/>
+    </target>
+
+    <!--
+        blazeds
+    -->
+
+    <target name="blazeds-jar-check" description="Checks if flex-messaging-common.jar is in lib directory.">
+        <available file="${lib.ext.dir}/flex-messaging-common.jar" property="blazeds.jar.exists"/>
+    </target>
+
+    <target name="blazeds-jar" depends="blazeds-jar-check" unless="blazeds.jar.exists"
+            description="Downloads and copies flex-messaging.jar to the lib directory.">
+
+        <get src="${maven.search.url}/org/apache/flex/blazeds/${blazeds.name}/${blazeds.version}/${blazeds.name}-${blazeds.version}.jar"
+             dest="${download.dir}/flex-messaging-common.jar"
+             verbose="false"/>
+
+        <copy file="${download.dir}/flex-messaging-common.jar" toDir="${lib.ext.dir}" verbose="true"/>
     </target>
 
 </project>

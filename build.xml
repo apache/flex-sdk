@@ -70,31 +70,6 @@
             property="TLF_HOME"
             value="${FLEX_HOME}/frameworks/projects" />
 
-    <available file="${FLEX_HOME}/../flex-blazeds/modules/remoting"
-            type="dir"
-            property="BLAZEDS_HOME"
-            value="${FLEX_HOME}/../flex-blazeds" />
-
-    <available file="${FLEX_HOME}/../flex-blazeds/remoting"
-               type="dir"
-               property="BLAZEDS_HOME"
-               value="${FLEX_HOME}/../flex-blazeds" />
-
-    <available file="${FLEX_HOME}/../blazeds/modules/remoting"
-            type="dir"
-            property="BLAZEDS_HOME"
-            value="${FLEX_HOME}/../blazeds" />
-
-    <available file="${env.BLAZEDS_HOME}"
-            type="dir"
-            property="BLAZEDS_HOME"
-            value="${env.BLAZEDS_HOME}"/>
-
-    <available file="${FLEX_HOME}/modules/flex-messaging-common/common/src"
-            type="dir"
-            property="BLAZEDS_HOME"
-            value="${FLEX_HOME}/modules/flex-messaging-common/common/src" />
-
     <tstamp>
         <format property="build.number.date" pattern="yyyyMMdd" />
     </tstamp>
@@ -188,7 +163,7 @@
     <target name="prebuild" depends="check-compile-env,thirdparty-downloads,create-description" 
         description="Stuff that needs to be done before any builds." />
 
-    <target name="check-compile-env" depends="check-playerglobal-home,check-air-home,check-tlf-home,check-blazeds-home"
+    <target name="check-compile-env" depends="check-playerglobal-home,check-air-home,check-tlf-home"
         description="Check for the required environment variables for compilation.">
             <echo>OS: ${os.name} / ${os.version} / ${os.arch}</echo>
             <echo>VM: ${java.vm.name} / ${java.vm.version}</echo>
@@ -252,21 +227,6 @@
         <fail message="TLF_HOME must be set correctly for a release build" 
             unless="TLF_HOME"/>
     	
-    </target>
-
-    <target name="check-blazeds-home" unless="BLAZEDS_HOME"
-        description="Check BLAZEDS_HOME is a directory.">
-        
-        <echo message="BLAZEDS_HOME is ${env.BLAZEDS_HOME}"/>
-        
-        <available file="${env.BLAZEDS_HOME}"
-            type="dir"
-            property="BLAZEDS_HOME"
-            value="${env.BLAZEDS_HOME}"/>
-        
-        <fail message="BLAZEDS_HOME must be set correctly for a release build"
-            unless="BLAZEDS_HOME"/>
-        
     </target>
 
     <target name="check-adobe-extension-manager-env" unless="ADOBE_EXTENSION_MANAGER.set"
@@ -631,9 +591,6 @@
         <!-- modules -->
         <antcall target="stage-modules"/>
         
-        <!-- blazeds -->
-        <antcall target="stage-blazeds"/>
-        
         <!-- asdoc -->
         <copy todir="${basedir}/temp/asdoc" includeEmptyDirs="false">
             <fileset dir="${basedir}/asdoc">
@@ -755,23 +712,6 @@
             <fileset dir="${TLF_HOME}/textLayout">
                 <include name="src/**"/>
                 <include name="manifest.xml"/>
-            </fileset>
-        </copy>
-    </target>
-    
-    <!-- blazeds -->
-    <target name="stage-blazeds">
-        <copy todir="${basedir}/temp/modules/flex-messaging-common/common" includeEmptyDirs="false">
-            <fileset dir="${BLAZEDS_HOME}/modules/common">
-                <include name="**/**"/>
-                <exclude name="target/**"/>
-                <exclude name="classes/**"/>
-            </fileset>
-        </copy>
-        <copy todir="${basedir}/temp/modules/flex-messaging-common" includeEmptyDirs="false">
-            <fileset dir="${BLAZEDS_HOME}">
-                <include name="LICENSE"/>
-                <include name="NOTICE"/>
             </fileset>
         </copy>
     </target>
