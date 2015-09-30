@@ -411,19 +411,11 @@
         unless="javacc.jar.exists" 
         description="Downloads and copies javacc.jar to the lib directory.">
 
-        <antcall target="download-zip">
-          <param name="srcUrl" value="https://java.net/downloads/javacc"/>
-          <param name="zipFile" value="javacc-5.0.tar.gz"/>
-          <param name="srcJarPath" value="javacc-5.0/bin/lib/javacc.jar"/>
+        <antcall target="download-jar">
+          <param name="srcUrl" value="http://search.maven.org/remotecontent?filepath=net/java/dev/javacc/javacc/5.0"/>
+          <param name="srcJarFile" value="javacc-5.0.jar"/>
           <param name="destJarFile" value="${lib.ext.dir}/javacc.jar"/>
         </antcall>
-        <copy todir="${lib.ext.dir}">
-            <fileset dir="${download.dir}/javacc-5.0">
-                <include name="LICENSE"/>
-            </fileset>            
-            <globmapper from="*" to="javacc-*"/>
-        </copy>
-        <delete dir="${download.dir}/javacc-5.0"/>
     </target>
 
 	<!--
