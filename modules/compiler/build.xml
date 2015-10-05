@@ -170,6 +170,9 @@
         <!-- Copy the flex-tool-api jar -->
         <copy file="${lib.in.dir}/flex-tool-api.jar" todir="${lib.dir}"/>
 
+        <!-- Copy the blazeds jar -->
+        <copy file="${lib.in.dir}/flex-messaging-common.jar" todir="${lib.dir}"/>
+
         <echo message="Building lib/mxmlc.jar"/>
         <jar file="${module.jar}" basedir="${module.classes}"
             includes="**/*.properties,flex2/compiler/**/*,flex2/license/**/*,flex2/linker/**/*,flex2/tools/*,flex2/tools/oem/Message.class,flex2/tools/oem/ProgressMeter.class,flex2/tools/oem/Component.class,flex2/tools/oem/Script.class,flash/**/*,flex/**/*"

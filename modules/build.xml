@@ -83,7 +83,6 @@
 		<ant dir="${basedir}/antTasks" target="clean"/>
         <ant dir="${basedir}/asc/build/java" target="clean"/>
         <ant dir="${basedir}/thirdparty/xerces-patch" target="clean"/>
-        <ant dir="${basedir}/flex-messaging-common" target="clean"/>
         <delete includeemptydirs="true" failonerror="false">
             <fileset dir="${FLEX_LIB}">
                 <include name="*" />
@@ -96,7 +95,7 @@
 		Build Java module JARs.
 	-->
 
-	<target name="modules" depends="thirdparty,asc,swfutils,fxgutils,compiler,debugger,antTasks,flex-messaging-common" description="Full build of all JARs"/>
+	<target name="modules" depends="thirdparty,asc,swfutils,fxgutils,compiler,debugger,antTasks" description="Full build of all JARs"/>
 
 	<!--
 	   dev does not do a clean first and the batik and velocity libraries are not rebuilt.
@@ -152,10 +151,6 @@
 	<target name="antTasks-dev" description="Build src.depend antTasks" >
 		<ant dir="${basedir}/antTasks" target="dev"/>
 	</target>
-
-    <target name="flex-messaging-common" description="build BlazeDS flex-messaging-common.jar">
-        <ant dir="${basedir}/flex-messaging-common"/>
-    </target>
 
     <target name="thirdparty" depends="xerces-patch,batik,velocity" />
     
