@@ -242,11 +242,6 @@ public class TraceManager
 		boolean hasBody   = false;
 		boolean popOnNext = false;
 
-		TraceElement(String phaseName)
-		{
-			this.phaseName = phaseName;
-		}
-		
 		TraceElement(String entryName, boolean popOnNext)
 		{
 			this.phaseName = entryName;

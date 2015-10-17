@@ -37,10 +37,7 @@ public class DocCommentNode extends MetaDataNode
      
 	public Value evaluate( Context cx, Evaluator evaluator )
 	{
-		if( evaluator.checkFeature(cx,this) )
-			return evaluator.evaluate( cx, this );
-		else
-			return null;
+        return evaluator.checkFeature(cx, this) ? evaluator.evaluate(cx, this) : null;
 	    }
 
     private StringBuilder emitMetaDataComment(StringBuilder buf, String debugName, MetaDataNode meta, boolean isAttributeOfDefinition)
@@ -82,7 +79,7 @@ public class DocCommentNode extends MetaDataNode
             {
                 for( Value v : meta.getValues())
                 {
-                    if (v instanceof MetaDataEvaluator.KeylessValue && has_name == false)
+                    if (v instanceof MetaDataEvaluator.KeylessValue && !has_name)
                     {
                         MetaDataEvaluator.KeylessValue ov = (MetaDataEvaluator.KeylessValue)v;
                         buf.append("name='").append(ov.obj).append("' ");
@@ -93,7 +90,6 @@ public class DocCommentNode extends MetaDataNode
                     {
                         MetaDataEvaluator.KeyValuePair kv = (MetaDataEvaluator.KeyValuePair)v;
                         buf.append(kv.key).append("='").append(kv.obj).append("' ");
-                        continue;
                     }
                 }
             }
@@ -109,7 +105,7 @@ public class DocCommentNode extends MetaDataNode
 		// [Event], [Style], and [Effect] are documented as seperate entities, rather than
 		//   as elements of other entities.  In that case, we need to write out the asDoc
 		//   comment here 
-		if ( isAttributeOfDefinition == false)
+		if (!isAttributeOfDefinition)
 		{
 
 			if (getValues() != null)
@@ -127,8 +123,7 @@ public class DocCommentNode extends MetaDataNode
 					{
 						MetaDataEvaluator.KeyValuePair kv = (MetaDataEvaluator.KeyValuePair)v;
 						buf.append("\n\t<").append(kv.key).append(">").append(kv.obj).append("</").append(kv.key).append(">");
-						continue;
-					}
+                    }
 				}
 			}
             else if( getId() != null )
@@ -146,16 +141,14 @@ public class DocCommentNode extends MetaDataNode
 	public StringBuilder emit(Context cx,StringBuilder buf)
 	{
 		String tagname = "";
-		StatementListNode metaData = null;
-		String debug_name = "";
+        String debug_name = "";
 
 		if( this.def instanceof FunctionDefinitionNode )
 		{
 			FunctionDefinitionNode fd = (FunctionDefinitionNode)this.def;
 				
 			debug_name = fd.fexpr.debug_name;
-			metaData = fd.metaData;
-			tagname = "method";
+            tagname = "method";
 
 			buf.append("\n<method name='");
 			buf.append(fd.name.identifier.name);
@@ -197,9 +190,8 @@ public class DocCommentNode extends MetaDataNode
 			VariableBindingNode    vb = (VariableBindingNode)(vd.list.items.get(0));
 
 			debug_name = vb.debug_name;
-			metaData = vd.metaData;
 
-			tagname = "field";
+            tagname = "field";
 			buf.append("\n<");
 			buf.append(tagname);
 			buf.append(" name='");
@@ -279,9 +271,8 @@ public class DocCommentNode extends MetaDataNode
 			PackageDefinitionNode pd = (PackageDefinitionNode)(this.def);
 			tagname = "packageRec";
 			debug_name = "";
-			metaData = null;
 
-			buf.append("\n<");
+            buf.append("\n<");
 			buf.append(tagname);
 			buf.append(" name='");
 		  	buf.append((pd.name.id != null ? pd.name.id.pkg_part : ""));
@@ -317,9 +308,8 @@ public class DocCommentNode extends MetaDataNode
 
 
 			debug_name = cd.debug_name;
-			metaData = cd.metaData;
 
-			InterfaceDefinitionNode id = null;
+            InterfaceDefinitionNode id = null;
 			if( this.def instanceof InterfaceDefinitionNode )
 			{
 				tagname = "interfaceRec";
@@ -439,7 +429,6 @@ public class DocCommentNode extends MetaDataNode
                 {
                     MetaDataEvaluator.KeyValuePair kv = (MetaDataEvaluator.KeyValuePair)v;
                     buf.append("\n<").append(kv.key).append(">").append(kv.obj).append("</").append(kv.key).append(">");
-                    continue;
                 }
             }
         }

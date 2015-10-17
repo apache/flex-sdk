@@ -44,14 +44,7 @@ public class UnaryExpressionNode extends Node
 
 	public Value evaluate(Context cx, Evaluator evaluator)
 	{
-		if (evaluator.checkFeature(cx, this))
-		{
-			return evaluator.evaluate(cx, this);
-		}
-		else
-		{
-			return null;
-		}
+		return evaluator.checkFeature(cx, this) ? evaluator.evaluate(cx, this) : null;
 	}
 
 	public boolean void_result;
@@ -64,7 +57,7 @@ public class UnaryExpressionNode extends Node
 
 	boolean isbooleaneanExpression()
 	{
-		return op == NOT_TOKEN ? true : false;
+		return op == NOT_TOKEN;
 	}
 
 	public String toString()

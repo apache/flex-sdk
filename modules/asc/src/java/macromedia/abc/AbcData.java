@@ -402,18 +402,8 @@ public class AbcData implements java.io.Externalizable
 		
 		Set<Integer> getVersions()
 		{
-			Namespace ns = null;
-			
-			// If the name's a multiname, get the first namespace
-			// since they all share the same base URI.
-			if ( ActionBlockConstants.CONSTANT_Multiname == kind || ActionBlockConstants.CONSTANT_MultinameA == kind )
-			{
-				int[] nss = AbcData.this.namespaceSets[this.params[1]].namespaceIds;
-				ns = (nss.length > 0)? namespaces[nss[0]]: null;
-			}
-			else
-				ns = namespaces[params[0]];
-			
+			Namespace ns;
+
 			switch ( kind )
     		{
             case ActionBlockConstants.CONSTANT_Qname:
@@ -513,18 +503,16 @@ public class AbcData implements java.io.Externalizable
         if ( null == this.binaryMultinames[idx] )
         {
             NameData nd = this.nameData[idx];
-            int name_index = 0;
-            int name_space = 0;
-            boolean ns_is_set = false;
-            
-            switch ( nd.kind )
+            int name_index;
+            int name_space;
+
+			switch ( nd.kind )
             {
             case ActionBlockConstants.CONSTANT_Qname:
             case ActionBlockConstants.CONSTANT_QnameA:
                 name_space = nd.params[0];
                 name_index = nd.params[1];
-                ns_is_set  = false;
-                this.binaryMultinames[idx] = new BinaryMN(nd.kind, name_index, name_space, ns_is_set, nd.getVersions());
+				this.binaryMultinames[idx] = new BinaryMN(nd.kind, name_index, name_space, false, nd.getVersions());
                 break;
             case ActionBlockConstants.CONSTANT_TypeName:
                 name_index = nd.params[0];
@@ -539,8 +527,7 @@ public class AbcData implements java.io.Externalizable
             case ActionBlockConstants.CONSTANT_MultinameA:
                     name_index = nd.params[0];
                     name_space = nd.params[1];
-                    ns_is_set  = true;
-                    this.binaryMultinames[idx] = new BinaryMN(nd.kind, name_index, name_space, ns_is_set, nd.getVersions());
+				this.binaryMultinames[idx] = new BinaryMN(nd.kind, name_index, name_space, true, nd.getVersions());
                 break;
             default:
                 throw new IllegalArgumentException("Unexpected multiname type: " + nd.kind); //$NON-NLS-1$

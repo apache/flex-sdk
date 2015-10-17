@@ -216,7 +216,8 @@ public class Compiler implements ErrorConstants
         	ConfigurationEvaluator ce = new ConfigurationEvaluator();
         	node.evaluate(cx, ce);
         }
-        if (cx.errorCount() == 0)
+        if (
+                cx.errorCount() == 0)
         {
             FlowGraphEmitter flowem = new FlowGraphEmitter(cx, filename, show_flow);
             FlowAnalyzer flower = new FlowAnalyzer(flowem);
@@ -251,12 +252,10 @@ public class Compiler implements ErrorConstants
 
 			ObjectList<DocCommentNode> comments = printer.doccomments;
 			int numComments = comments.size();
-            Node prev = null;
             for(int x = 0; x < numComments; x++)
 			{
                 DocCommentNode d = comments.get(x);
                 d.emit(cx,out);
-                prev = d.def;
             }
 			out.append(newline).append("</asdoc>").append(newline);
 
@@ -369,7 +368,7 @@ public class Compiler implements ErrorConstants
         // don't allow decimal on 1.4
         {
         	String ver = System.getProperty("java.version", "noVersion");
-        	if (ver.indexOf("1.4") >= 0)
+        	if (ver.contains("1.4"))
         		statics.es4_numerics = false;
         }
 
@@ -417,14 +416,14 @@ public class Compiler implements ErrorConstants
         	System.err.println();
             System.err.println(error_count + " errors found");
         }
-        else if (show_parsetrees == false && emit_doc_info == false)
+        else if (!show_parsetrees && !emit_doc_info)
 		{
 			if (show_instructions)
 			{
 				printIL(cx, scriptname, emitter);
 			}
 
-			if (error_count == 0 && !show_parsetrees)
+			if (error_count == 0)
 			{
 				ByteList bytes = new ByteList();
 				emitter.emit(bytes);            // Emit it
@@ -573,9 +572,7 @@ public class Compiler implements ErrorConstants
                 in = new ByteArrayInputStream(buf);
             }
 
-            if(in != null) {
-                mainplug.in = in;
-            }
+            mainplug.in = in;
         }
 
         Iterator<CompilerPlug> plug_it = plugs.iterator();
@@ -595,16 +592,10 @@ public class Compiler implements ErrorConstants
                 in = new ByteArrayInputStream(buf);
             }
 
-            if(in != null) {
-                plug.in = in;
-            }
+            plug.in = in;
         }
 
-        CompilerHandler handler = null;
-
-        if(handler == null) {
-            handler = mainplug.handler;
-        }
+        CompilerHandler handler = mainplug.handler;
 
         return doCompile(
                 mainplug.in,

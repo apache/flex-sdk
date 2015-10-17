@@ -986,13 +986,13 @@ public class ByteCodeFactory
             {
                 defns_out.write(" optional_count=" + param_values.size());
                 defns_out.write(" optional_indexes={ ");
-                for (int i = 0, size = param_values == null ? 0 : param_values.size(); i < size; i++)
+                for (int i = 0, size = param_values.size(); i < size; i++)
                 {
                     defns_out.write(" " + param_values.get(i));
                 }
                 defns_out.write(" }");
                 defns_out.write(" optional_kinds={ ");
-                for (int i = 0, size = param_values == null ? 0 : param_values.size(); i < size; i++)
+                for (int i = 0, size = param_values.size(); i < size; i++)
                 {
                     defns_out.write(" " + param_kinds.get(i));
                 }

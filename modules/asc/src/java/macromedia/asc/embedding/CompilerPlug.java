@@ -19,9 +19,9 @@
 
 package macromedia.asc.embedding;
 
-import java.io.InputStream;
-
 import macromedia.asc.util.ObjectList;
+
+import java.io.InputStream;
 
 /*
 
@@ -83,7 +83,6 @@ public class CompilerPlug
         optimize = false;
         optimizer_configs = null;
         in = null;
-
-		filename = new String();
+		filename = "";
 	}
 }

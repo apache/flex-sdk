@@ -183,7 +183,7 @@ public class InputBuffer
             bb = ByteBuffer.wrap(b);
         }
         
-        Charset cs = null;
+        Charset cs;
         
         try
         {
@@ -354,7 +354,7 @@ public class InputBuffer
 	// utility for java branch only to convert a Character.getType() unicode type specifier to one of the enums
 	//  defined in CharacterClasses.java.  In the c++ branch, we use the character as an index to a table defined
 	//  in CharacterClasses.h
-	final private char javaTypeOfToCharacterClass(int javaClassOf)
+	private char javaTypeOfToCharacterClass(int javaClassOf)
 	{
 		switch(javaClassOf)
 		{
@@ -500,7 +500,7 @@ public class InputBuffer
     private String escapeUnicode(String src, int from, int to)
     {
         
-        if (has_u_escape(src,from,to)==false)
+        if (!has_u_escape(src, from, to))
         {
             return src.substring(from,to);
         }
@@ -525,7 +525,7 @@ public class InputBuffer
                             break;
                         thisChar = (thisChar << 4) + digit;
                     }
-                    if ( y != i+6 || Character.isDefined((char)thisChar) == false )  // if there was a problem or the char is invalid just escape the '\''u' with 'u'
+                    if ( y != i+6 || !Character.isDefined((char) thisChar))  // if there was a problem or the char is invalid just escape the '\''u' with 'u'
                     {
                         c = src.charAt(++i);
                     }
@@ -551,7 +551,7 @@ public class InputBuffer
 		// C: only 1 string in 1000 needs escaping and the lengths of these strings are usually small,
 		//    so we can cut StringBuilder usage if we check '\\' up front.
 
-		if (has_escape(src,from,to)==false)
+		if (!has_escape(src, from, to))
 		{
             return src.substring(from,to);
 		}
@@ -599,7 +599,7 @@ public class InputBuffer
                                 break;
                             thisChar = (thisChar << 4) + digit;
                         }
-                        if ( y != i+6 || Character.isDefined((char)thisChar) == false )  // if there was a problem or the char is invalid just escape the '\''u' with 'u'
+                        if ( y != i+6 || !Character.isDefined((char) thisChar))  // if there was a problem or the char is invalid just escape the '\''u' with 'u'
                         {
                             c = src.charAt(++i);
                         }

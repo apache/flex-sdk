@@ -17,35 +17,19 @@
 
 package macromedia.asc.embedding.avmplus;
 
-import static java.lang.System.*;
 import macromedia.abc.BytecodeBuffer;
 import macromedia.asc.parser.LiteralNumberNode;
 import macromedia.asc.parser.MetaDataEvaluator;
-import macromedia.asc.parser.MetaDataNode;
 import macromedia.asc.semantics.*;
-import macromedia.asc.util.ByteList;
-import macromedia.asc.util.Context;
-import macromedia.asc.util.IntList;
-import macromedia.asc.util.Names;
-import macromedia.asc.util.Namespaces;
-import macromedia.asc.util.ObjectList;
-import macromedia.asc.util.Qualifiers;
-import macromedia.asc.util.Slots;
-import macromedia.asc.util.IntegerPool;
-import macromedia.asc.util.Decimal128;
-import macromedia.asc.util.NumberUsage;
-import macromedia.asc.util.NumberConstant;
-import macromedia.asc.util.DoubleNumberConstant;
-import macromedia.asc.util.DecimalNumberConstant;
-import macromedia.asc.util.IntNumberConstant;
-import macromedia.asc.util.UintNumberConstant;
+import macromedia.asc.util.*;
 
 import java.io.PrintWriter;
 import java.util.*;
 
-import static macromedia.asc.embedding.avmplus.RuntimeConstants.*;
 import static macromedia.asc.embedding.avmplus.ActionBlockConstants.*;
+import static macromedia.asc.embedding.avmplus.ByteCodeFactory.Byte;
 import static macromedia.asc.embedding.avmplus.ByteCodeFactory.*;
+import static macromedia.asc.embedding.avmplus.RuntimeConstants.*;
 import static macromedia.asc.parser.Tokens.*;
 
 
@@ -168,7 +152,7 @@ public class ActionBlockEmitter extends Emitter
 
             if (mapcheck != null)
             {
-                return mapcheck.intValue() + 1;
+                return mapcheck + 1;
             }
 
             // Add it to map for fast lookups
@@ -191,8 +175,7 @@ public class ActionBlockEmitter extends Emitter
 
             if (mapcheck != null)
             {
-                int constant_index = mapcheck.intValue();
-                return constant_index + 1;
+                return mapcheck + 1;
             }
 
             // Add it to map for fast lookups
@@ -218,8 +201,7 @@ public class ActionBlockEmitter extends Emitter
 
             if (mapcheck != null)
             {
-                int constant_index = mapcheck.intValue();
-                return constant_index + 1;
+                return mapcheck + 1;
             }
 
             // Add it to map for fast lookups
@@ -245,8 +227,7 @@ public class ActionBlockEmitter extends Emitter
 
             if (mapcheck != null)
             {
-                int constant_index = mapcheck.intValue();
-                return constant_index + 1;
+                return mapcheck + 1;
             }
 
             // Add it to map for fast lookups
@@ -272,8 +253,7 @@ public class ActionBlockEmitter extends Emitter
 
             if (mapcheck != null)
             {
-                int constant_index = mapcheck.intValue();
-                return constant_index + 1;
+                return mapcheck + 1;
             }
 
             // Add it to map for fast lookups
@@ -299,8 +279,7 @@ public class ActionBlockEmitter extends Emitter
 
             if (mapcheck != null)
             {
-                int constant_index = mapcheck.intValue();
-                return constant_index + 1;
+                return mapcheck + 1;
             }
 
             // Add it to map for fast lookups
@@ -326,8 +305,7 @@ public class ActionBlockEmitter extends Emitter
 
             if (mapcheck != null)
             {
-                int constant_index = mapcheck.intValue();
-                return constant_index + 1;
+                return mapcheck + 1;
             }
 
             // Add it to map for fast lookups
@@ -353,8 +331,7 @@ public class ActionBlockEmitter extends Emitter
 
             if (mapcheck != null)
             {
-                int constant_index = mapcheck.intValue();
-                return constant_index + 1;
+                return mapcheck + 1;
             }
 
             // Add it to map for fast lookups
@@ -384,8 +361,7 @@ public class ActionBlockEmitter extends Emitter
 
             if (mapcheck != null)
             {
-                int constant_index = mapcheck.intValue();
-                return constant_index + 1;
+                return mapcheck + 1;
             }
 
             // Add it to map for fast lookups
@@ -464,7 +440,8 @@ public class ActionBlockEmitter extends Emitter
         public boolean hasFinally = false;           // set if try block has a finally
         public int cur_locals = 0;
         public int loop_index = -1;
-    };
+    }
+
     protected ObjectList<ExceptionBlock> exceptionBlocks = new ObjectList<ExceptionBlock>();
 
     protected IntList if_addrs = new IntList();
@@ -641,7 +618,7 @@ public class ActionBlockEmitter extends Emitter
         {
             if( ns != null )
             {
-                int ns_index = addNamespace(ns, v.intValue());
+                int ns_index = addNamespace(ns, v);
                 namespace_set.add(IntegerPool.getNumber(ns_index));
             }
             else
@@ -965,8 +942,7 @@ public class ActionBlockEmitter extends Emitter
         // Reset debug line number for new method
         debug_info.debug_file_dirty = true;
         debug_info.debug_linenum_dirty = true;
-        debug_info.suppress_debug_method = (name.indexOf("$iinit") != -1 ||
-                                            name.indexOf("$cinit") != -1);
+        debug_info.suppress_debug_method = (name.contains("$iinit") || name.contains("$cinit"));
         sets_dxns = false;
     }
 
@@ -988,8 +964,7 @@ public class ActionBlockEmitter extends Emitter
 
         if( activation != null )
         {
-            ObjectValue obj = activation;
-            FinishTraits(obj, traits);
+            FinishTraits(activation, traits);
        }
 
         int flags = 0;
@@ -1174,7 +1149,7 @@ public class ActionBlockEmitter extends Emitter
     {
         Integer id = method_infos_map.get(name);
         if (id != null)
-            return id.intValue();
+            return id;
         id = method_infos.size();
         method_infos_map.put(name,id);
 
@@ -1184,7 +1159,7 @@ public class ActionBlockEmitter extends Emitter
         {
             cx.internalError("internal error: internal method name and info out of sync");
         }
-        return id.intValue();
+        return id;
     }
 
     protected ObjectList<String> metadata_infos = new ObjectList<String>();
@@ -1196,7 +1171,7 @@ public class ActionBlockEmitter extends Emitter
 
         Integer id = metadata_infos_map.get(name);
         if (id != null)
-            return id.intValue();
+            return id;
         id = metadata_infos_map.size();
         metadata_infos_map.put(name,id);
 
@@ -1219,7 +1194,7 @@ public class ActionBlockEmitter extends Emitter
         {
             cx.internalError("internal error: internal metadata name and info out of sync");
         }
-        return id.intValue();
+        return id;
     }
 
     protected ObjectList<QName> class_infos = new ObjectList<QName>();
@@ -1413,7 +1388,7 @@ public class ActionBlockEmitter extends Emitter
     }
 
     // utility used by getValueOfNumberLiteral
-    final private int unHex(char c)
+    private int unHex(char c)
     {
         return Character.digit(c,16);
     }
@@ -1452,9 +1427,9 @@ public class ActionBlockEmitter extends Emitter
         }
              
         boolean isInt = false;
-        if ((str.indexOf(".") > -1 || str.indexOf("e") > -1 || 
-             str.indexOf("E") > -1 || str.length() > 10) &&
-            !(str.indexOf("x") > -1 || str.indexOf("X") > -1)) {
+        if ((str.contains(".") || str.contains("e") ||
+                str.contains("E") || str.length() > 10) &&
+            !(str.contains("x") || str.contains("X"))) {
             // looks like floating, and not hex
             dval = new Decimal128(str);
         }
@@ -1561,12 +1536,12 @@ public class ActionBlockEmitter extends Emitter
         }
 
         boolean isInt = false;
-        if ((str.indexOf(".") > -1 || str.indexOf("e") > -1 || 
-             str.indexOf("E") > -1 || str.length() > 10) &&
-            !(str.indexOf("x") > -1 || str.indexOf("X") > -1)) {
+        if ((str.contains(".") || str.contains("e") ||
+                str.contains("E") || str.length() > 10) &&
+            !(str.contains("x") || str.contains("X"))) {
             // looks like floating, and not hex
             d = Double.valueOf(str);
-            sum = d.doubleValue();
+            sum = d;
         }
         else {
             // looks like an integral value. It could be hex
@@ -1601,7 +1576,7 @@ public class ActionBlockEmitter extends Emitter
             startIndex = 0;     //  than 53 bits worth of mantissa data (where roundoff error occurs).
             int        newDigit = 0;
             int        end;
-            boolean    roundUp = false;
+            boolean    roundUp;
             switch(base)
             {
             case 10:
@@ -1613,7 +1588,7 @@ public class ActionBlockEmitter extends Emitter
                 if (sum > 2147483647) // i.e. biggest integer possible.  After that, error creeps into the above calculation.
                 {
                     d = Double.valueOf(str2);
-                    sum = d.doubleValue();
+                    sum = d;
                 }
                 break;
             case 16:
@@ -1648,7 +1623,7 @@ public class ActionBlockEmitter extends Emitter
             if (negative) {
                 if (sum == 0.0) {
                     d = Double.valueOf("-0");
-                    sum = d.doubleValue();
+                    sum = d;
                     isInt = false; // can't represent -0 as an int
                 }
                 else
@@ -1671,7 +1646,7 @@ public class ActionBlockEmitter extends Emitter
         // either not integral or not small enough to fit in uint or int                                 
         ppType[0] = cx.doubleType();
         // canonicalize NaN and Infinity
-        d = Double.valueOf(sum);
+        d = sum;
         if (d.isNaN())
             d = Double.NaN;
         else if (d.isInfinite()) {
@@ -1680,7 +1655,7 @@ public class ActionBlockEmitter extends Emitter
             else
                 d = Double.POSITIVE_INFINITY;
         }
-        return new DoubleNumberConstant(d.doubleValue());
+        return new DoubleNumberConstant(d);
     }
         
         
@@ -2083,9 +2058,9 @@ public class ActionBlockEmitter extends Emitter
          node.numericValue = getValueOfNumberLiteral(node.value, nuType, node.numberUsage);
 
         // but, if decimal or the format was scientific, force type to be Number
-         if ((node.value.indexOf(".") > -1) ||
-              (((node.value.indexOf("e") > -1) || (node.value.indexOf("E") > -1)) && 
-               !((node.value.indexOf("x") > -1) || (node.value.indexOf("X") > -1))) )
+         if ((node.value.contains(".")) ||
+              (((node.value.contains("e")) || (node.value.contains("E"))) &&
+               !((node.value.contains("x")) || (node.value.contains("X")))) )
         {
         	if (cx.statics.es4_numerics && (node.numberUsage != null && node.numberUsage.get_floating_usage() == NumberUsage.use_decimal))
         		node.type = cx.decimalType();
@@ -2513,10 +2488,9 @@ public class ActionBlockEmitter extends Emitter
 
         IntList namespaces = new IntList(quals.size());  // will be (*it)->namespaces
 
-        int prev_var_index = -1;
-        int var_index = -1;
-        int flags = 0;
-        Slot prev_slot = null;
+        int prev_var_index;
+        int var_index;
+        Slot prev_slot;
 
         Iterator<Map.Entry<ObjectValue, Integer>> i = quals.entrySet().iterator();        
         Map.Entry<ObjectValue, Integer> qual_it = i.hasNext() ? i.next() : null;
@@ -2528,8 +2502,6 @@ public class ActionBlockEmitter extends Emitter
             int slot_index;
             Slot slot;
             namespaces.clear();  // new multiname
-
-            var_index = -1;
 
             ObjectValue ns = qual_it.getKey();
             slot_index = obj.getSlotIndex(cx,GET_TOKEN,name,ns);
@@ -2583,8 +2555,6 @@ public class ActionBlockEmitter extends Emitter
                 	continue;
                 slot  = obj.getSlot(cx,slot_index);
                 var_index = slot.getVarIndex()+bui.var_offset+1;  // zero is special
-                flags &= slot.isFinal() ?TRAIT_FLAG_final:0/*virtual*/;
-                flags &= slot.isOverride() ?TRAIT_FLAG_override:0/*new*/;
 
                 if( var_index < 0 || var_index != prev_var_index || slot.declaredBy != prev_slot.declaredBy )
                 {
@@ -6384,13 +6354,10 @@ public class ActionBlockEmitter extends Emitter
             code_out.print("ToString");
         }
 
-        flushDebugInfo();        
+        flushDebugInfo();
 
-        if (true)
-        {
-            last_in = IKIND_other;
-            Convert_s(ab.code);
-        }
+        last_in = IKIND_other;
+        Convert_s(ab.code);
 
         if (show_instructions)
         {
