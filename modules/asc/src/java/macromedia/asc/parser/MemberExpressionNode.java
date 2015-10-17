@@ -50,14 +50,7 @@ public class MemberExpressionNode extends Node
 
     public Value evaluate(Context cx, Evaluator evaluator)
     {
-        if (evaluator.checkFeature(cx, this))
-        {
-            return evaluator.evaluate(cx, this);
-        }
-        else
-        {
-            return null;
-        }
+        return evaluator.checkFeature(cx, this) ? evaluator.evaluate(cx, this) : null;
     }
 
     public void voidResult()
@@ -104,25 +97,14 @@ public class MemberExpressionNode extends Node
 
     public boolean isLabel()
     {
-        if (this.base == null &&
-            this.selector.isGetExpression() &&
-            !(this.selector.expr instanceof QualifiedIdentifierNode))
-        {
-            return true;
-        }
-        return false;
+        return this.base == null && this.selector.isGetExpression() && !(this.selector.expr instanceof QualifiedIdentifierNode);
     }
 
     public boolean isAny() { return selector.isAny(); }
 
     public boolean hasAttribute(String name)
     {
-        if (this.base == null &&
-            this.selector.hasAttribute(name))
-        {
-            return true;
-        }
-        return false;
+        return this.base == null && this.selector.hasAttribute(name);
     }
 
     public StringBuilder toCanonicalString(Context cx, StringBuilder buf)

@@ -34,14 +34,7 @@ public class UseNumericNode extends UsePragmaNode {
 
 	public Value evaluate(Context cx, Evaluator evaluator)
 	{
-		if (evaluator.checkFeature(cx, this))
-		{
-			return evaluator.evaluate(cx, this);
-		}
-		else
-		{
-			return null;
-		}
+		return evaluator.checkFeature(cx, this) ? evaluator.evaluate(cx, this) : null;
 	}
 
 	// keep the names below in sync with the numeric usage constants (NU_MUMBLE) is Context.java

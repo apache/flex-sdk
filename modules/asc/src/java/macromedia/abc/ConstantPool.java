@@ -19,41 +19,15 @@
 
 package macromedia.abc;
 
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_Decimal;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_Double;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_ExplicitNamespace;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_False;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_Integer;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_Multiname;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_MultinameA;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_MultinameL;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_MultinameLA;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_TypeName;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_Namespace;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_Namespace_Set;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_Null;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_PackageInternalNs;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_PackageNamespace;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_PrivateNamespace;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_ProtectedNamespace;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_Qname;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_QnameA;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_RTQname;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_RTQnameA;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_RTQnameL;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_RTQnameLA;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_StaticProtectedNs;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_True;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_UInteger;
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_Utf8;
+import macromedia.asc.util.Decimal128;
+import macromedia.asc.util.IntList;
+import macromedia.asc.util.IntegerPool;
 
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 
-import macromedia.asc.util.Decimal128;
-import macromedia.asc.util.IntegerPool;
-import macromedia.asc.util.IntList;
+import static macromedia.asc.embedding.avmplus.ActionBlockConstants.*;
 
 
 /**
@@ -291,7 +265,7 @@ public class ConstantPool
         int originalPos = in.pos();
         in.seek(pos);
         int kind = in.readU8();
-        String value = "";
+        String value;
         switch(kind)
         {
             case CONSTANT_PrivateNamespace:
@@ -327,14 +301,7 @@ public class ConstantPool
             value[j] = getNamespaceName(in.readU32());
         }
         in.seek(originalPos);
-        if (value != null)
-        {
-            return value;
-        }
-        else
-        {
-            throw new DecoderException("abc Decoder Erro: problem reading namespace set.");
-        }
+        return value;
     }
 
     public int getNamespaceIndexForQName(int index) throws DecoderException {
@@ -554,14 +521,11 @@ public class ConstantPool
                 value = getMultiName(index);
                 return value;
             case CONSTANT_False:
-                value = Boolean.FALSE;
-                return value;
+                return Boolean.FALSE;
             case CONSTANT_True:
-                value = Boolean.TRUE ;
-                return value;
+                return Boolean.TRUE;
             case CONSTANT_Null:
-                value = NULL;
-                return value;
+                return NULL;
             case CONSTANT_RTQname:
             case CONSTANT_RTQnameA:
                 value = getGeneralMultiname(index);
@@ -773,7 +737,7 @@ final class IndexHistory
 		return index;
 	}
 
-	private final void decodeOnDemand(final int poolIndex, final int kind, final int j, final int j2)
+	private void decodeOnDemand(final int poolIndex, final int kind, final int j, final int j2)
     {
 	    ConstantPool pool = pools[poolIndex];
 	    ByteArrayPool baPool = null;

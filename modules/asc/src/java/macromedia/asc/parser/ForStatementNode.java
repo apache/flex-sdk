@@ -43,14 +43,7 @@ public class ForStatementNode extends Node
 
 	public Value evaluate(Context cx, Evaluator evaluator)
 	{
-		if (evaluator.checkFeature(cx, this))
-		{
-			return evaluator.evaluate(cx, this);
-		}
-		else
-		{
-			return null;
-		}
+		return evaluator.checkFeature(cx, this) ? evaluator.evaluate(cx, this) : null;
 	}
 
 	public void expectedType(TypeValue type)
@@ -67,7 +60,7 @@ public class ForStatementNode extends Node
 
 	public boolean isDefinition()
 	{
-		return initialize != null ? initialize.isDefinition() : false;
+		return initialize != null && initialize.isDefinition();
 	}
 
 	public int countVars()

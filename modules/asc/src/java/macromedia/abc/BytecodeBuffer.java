@@ -404,7 +404,7 @@ class ByteArrayPool
 		Integer index = IntegerPool.getNumber(map.size() + 1);
 		map.put(a, index);
 
-		return index.intValue();
+		return index;
 	}
 
 	int contains(BytecodeBuffer b, int start, int end)
@@ -417,7 +417,7 @@ class ByteArrayPool
 		key.init();
 
 		Integer index = (Integer) map.get(key);
-		return (index != null) ? index.intValue() : -1;
+		return (index != null) ? index : -1;
 	}
 
 	void clear()

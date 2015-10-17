@@ -41,23 +41,12 @@ public class VariableDefinitionNode extends DefinitionNode
 
 	public Value evaluate(Context cx, Evaluator evaluator)
 	{
-		if (evaluator.checkFeature(cx, this))
-		{
-			return evaluator.evaluate(cx, this);
-		}
-		else
-		{
-			return null;
-		}
+		return evaluator.checkFeature(cx, this) ? evaluator.evaluate(cx, this) : null;
 	}
 
 	public boolean hasAttribute(String name)
 	{
-		if (attrs != null && attrs.hasAttribute(name))
-		{
-			return true;
-		}
-		return false;
+		return attrs != null && attrs.hasAttribute(name);
 	}
 
 	public Node initializerStatement(Context cx)
@@ -78,17 +67,16 @@ public class VariableDefinitionNode extends DefinitionNode
 //			if( n instanceof VariableBindingNode )
 			{
 				VariableBindingNode binding = (VariableBindingNode) n;
-	
+
 	            // If its a simple var declaration, then hoist to the regional namespace ("public")
-	
+
 	            if( binding.attrs == null && binding.variable.type == null )
 	            {
 	                NodeFactory nf = cx.getNodeFactory();
-	                AttributeListNode aln = null; // This will get filled in correctly when FA evaluates the VariableBindingNode
-	                binding.variable.identifier = nf.qualifiedIdentifier(aln,binding.variable.identifier.name, binding.variable.identifier.pos());
+					binding.variable.identifier = nf.qualifiedIdentifier(null, binding.variable.identifier.name, binding.variable.identifier.pos());
 	            }
-	
-	
+
+
 	            if (binding.initializer != null)
 				{
 	            	Node assign_node = nodeFactory.assignmentExpression(binding.variable.identifier,binding.kind==CONST_TOKEN?CONST_TOKEN:ASSIGN_TOKEN,binding.initializer);
@@ -98,9 +86,6 @@ public class VariableDefinitionNode extends DefinitionNode
 	            	}
 					init_list = nodeFactory.list(init_list,assign_node);
 				}
-	            else
-	            {
-	            }
 			}
 		}
 
@@ -131,9 +116,6 @@ public class VariableDefinitionNode extends DefinitionNode
 
 	public String toString()
 	{
-		if(Node.useDebugToStrings)
-         return "VarDefinition@" + pos();
-      else
-         return "VarDefinition";
+		return Node.useDebugToStrings ? "VarDefinition@" + pos() : "VarDefinition";
 	}
 }

@@ -61,14 +61,7 @@ public class ArgumentListNode extends Node
 
 	public boolean isLiteralInteger()
 	{
-		if (items.size() == 1 && items.first().isLiteralInteger())
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+		return items.size() == 1 && items.first().isLiteralInteger();
 	}
 
 	public String toString()

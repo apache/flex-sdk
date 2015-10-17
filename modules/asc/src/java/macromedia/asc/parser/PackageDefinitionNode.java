@@ -67,14 +67,7 @@ public class PackageDefinitionNode extends DefinitionNode
 
 	public Value evaluate(Context cx, Evaluator evaluator)
 	{
-		if (evaluator.checkFeature(cx, this))
-		{
-			return evaluator.evaluate(cx, this);
-		}
-		else
-		{
-			return null;
-		}
+		return evaluator.checkFeature(cx, this) ? evaluator.evaluate(cx, this) : null;
 	}
 
 	public Node initializerStatement(Context cx)
@@ -94,9 +87,6 @@ public class PackageDefinitionNode extends DefinitionNode
 
 	public String toString()
 	{
-		if(Node.useDebugToStrings)
-         return "PackageDefinition@" + pos();
-      else
-         return "PackageDefinition";
+		return Node.useDebugToStrings ? "PackageDefinition@" + pos() : "PackageDefinition";
 	}
 }

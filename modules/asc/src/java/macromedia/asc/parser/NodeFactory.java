@@ -1336,7 +1336,7 @@ public final class NodeFactory implements ErrorConstants
 					// Finish this
 					if (selector.isGetExpression() )
 					{
-						IdentifierNode pname = ((GetExpressionNode) selector).getIdentifier();
+						IdentifierNode pname = selector.getIdentifier();
 						IdentifierNode bname = null;
 
                         // calculate the dotted base name, walk up the MemberExpressionNodes and add each identifier
@@ -1564,7 +1564,7 @@ public final class NodeFactory implements ErrorConstants
         
         if( statements == null )
         {
-            statements = statementList(null,(StatementListNode)null);
+            statements = statementList(null, null);
         }
         
         statements.items.add(0,node);
@@ -1669,7 +1669,7 @@ public final class NodeFactory implements ErrorConstants
 		else
 		{
 			node = new ParameterListNode(null,item,0);
-			node.setPositionNonterminal(list!=null?(Node)list:(Node)item,pos);
+			node.setPositionNonterminal(item, pos);
 		}
 		return node;
 	}
@@ -1979,7 +1979,7 @@ public final class NodeFactory implements ErrorConstants
                         break;
                     }
                 }
-                if (has_doc == false && create_default_doc_comments)
+                if (!has_doc && create_default_doc_comments)
                 {
                     DocCommentNode dcn = docComment(literalArray(null),pos);
                     DefinitionNode def = (DefinitionNode) item;
@@ -2021,13 +2021,13 @@ public final class NodeFactory implements ErrorConstants
                 def.addMetaDataNode(dcn);
 
                 node = new StatementListNode(dcn);
-                node.setPositionNonterminal(list != null ? list : item, item != null ? item.pos() : -1);
+                node.setPositionNonterminal(item, item.pos());
                 node.items.add(item);
             }
             else
             {
                 node = new StatementListNode(item);
-                node.setPositionNonterminal(list != null ? list : item, item != null ? item.pos() : -1);
+                node.setPositionNonterminal(item, item != null ? item.pos() : -1);
             }
 
             if(!cx.scriptAssistParsing && item instanceof IncludeDirectiveNode )
@@ -2370,7 +2370,7 @@ public final class NodeFactory implements ErrorConstants
             StatementListNode stmtlist = (stmt instanceof StatementListNode)?(StatementListNode) stmt : null;
             if( stmtlist == null )
             {
-                stmt = stmtlist = this.statementList(null,stmt);
+                stmt = this.statementList(null,stmt);
             }
         }
         WithStatementNode node = new WithStatementNode(expr, stmt);
@@ -2391,7 +2391,7 @@ public final class NodeFactory implements ErrorConstants
             StatementListNode stmtlist = (stmt instanceof StatementListNode)?(StatementListNode) stmt : null;
             if( stmtlist == null )
             {
-                stmt = stmtlist = this.statementList(null,stmt);
+                stmt = this.statementList(null,stmt);
             }
         }
         WhileStatementNode node = new WhileStatementNode(expr, stmt);
@@ -2530,8 +2530,7 @@ public final class NodeFactory implements ErrorConstants
     Node filterOperator( Node expr1, Node expr2, int pos )
     {
     	 if (cx.scriptAssistParsing){
-    		Node result = memberExpression(expr1, getExpression(expr2));
-    		return result;
+			 return memberExpression(expr1, getExpression(expr2));
     	 } else {
 	        RegisterNode var_reg = register(pos);    // p in for each ( var p in o ) { }
 	        RegisterNode tmp_reg = register(pos);    // holds the XMLList result

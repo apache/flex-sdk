@@ -49,31 +49,23 @@ public class BinaryExpressionNode extends Node
 
 	public Value evaluate(Context cx, Evaluator evaluator)
 	{
-		if (evaluator.checkFeature(cx, this))
-		{
-			return evaluator.evaluate(cx, this);
-		}
-		else
-		{
-			return null;
-		}
+		return evaluator.checkFeature(cx, this) ? evaluator.evaluate(cx, this) : null;
 	}
 
 	public boolean isBooleanExpression()
 	{
-		return
-			op == NOTEQUALS_TOKEN ? true :
-			op == STRICTNOTEQUALS_TOKEN ? true :
-			op == LOGICALAND_TOKEN ? true :
-			op == LOGICALXOR_TOKEN ? true :
-			op == LOGICALXORASSIGN_TOKEN ? true :
-			op == LOGICALOR_TOKEN ? true :
-			op == LESSTHAN_TOKEN ? true :
-			op == LESSTHANOREQUALS_TOKEN ? true :
-			op == EQUALS_TOKEN ? true :
-			op == STRICTEQUALS_TOKEN ? true :
-			op == GREATERTHAN_TOKEN ? true :
-			op == GREATERTHANOREQUALS_TOKEN ? true : false;
+		return op == NOTEQUALS_TOKEN
+			|| op == STRICTNOTEQUALS_TOKEN
+			|| op == LOGICALAND_TOKEN
+			|| op == LOGICALXOR_TOKEN
+			|| op == LOGICALXORASSIGN_TOKEN
+			|| op == LOGICALOR_TOKEN
+			|| op == LESSTHAN_TOKEN
+			|| op == LESSTHANOREQUALS_TOKEN
+			|| op == EQUALS_TOKEN
+			|| op == STRICTEQUALS_TOKEN
+			|| op == GREATERTHAN_TOKEN
+			|| op == GREATERTHANOREQUALS_TOKEN;
 	}
 
 	public String toString()

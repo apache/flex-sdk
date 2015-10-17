@@ -27,21 +27,11 @@ public class ThisExpressionNode extends Node
 {
 	public Value evaluate(Context cx, Evaluator evaluator)
 	{
-		if (evaluator.checkFeature(cx, this))
-		{
-			return evaluator.evaluate(cx, this);
-		}
-		else
-		{
-			return null;
-		}
+		return evaluator.checkFeature(cx, this) ? evaluator.evaluate(cx, this) : null;
 	}
 
 	public String toString()
 	{
-		if(Node.useDebugToStrings)
-         return "ThisExpression@" + pos();
-      else
-         return "ThisExpression";
+		return Node.useDebugToStrings ? "ThisExpression@" + pos() : "ThisExpression";
 	}
 }

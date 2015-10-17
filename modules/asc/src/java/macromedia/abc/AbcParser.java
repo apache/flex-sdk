@@ -18,21 +18,21 @@
  */
 
 package macromedia.abc;
-import static macromedia.asc.parser.Tokens.EMPTY_TOKEN;
-import static macromedia.asc.semantics.Slot.*;
-
 import macromedia.asc.embedding.avmplus.*;
-import macromedia.asc.util.*;
 import macromedia.asc.parser.*;
 import macromedia.asc.semantics.*;
 import macromedia.asc.semantics.QName;
+import macromedia.asc.util.*;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 import java.util.Set;
+
+import static macromedia.asc.parser.Tokens.EMPTY_TOKEN;
+import static macromedia.asc.semantics.Slot.CALL_Method;
 
 @SuppressWarnings("nls") // TODO: Remove
 public final class AbcParser
@@ -83,7 +83,7 @@ public final class AbcParser
             // It won't actually be a parse tree, but it will contain the correct builder
             // objects which are usually built up by the FlowAnalyzer
             
-            BinaryProgramNode program = ctx.getNodeFactory().binaryProgram(ctx, ctx.getNodeFactory().statementList(null, (StatementListNode)null));
+            BinaryProgramNode program = ctx.getNodeFactory().binaryProgram(ctx, ctx.getNodeFactory().statementList(null, null));
             GlobalBuilder b = new GlobalBuilder();
             b.is_in_package = true; // cn: necessary for proper slot creation for top level functions
             program.frame = new ObjectValue(ctx, b, ctx.noType());
@@ -227,14 +227,15 @@ public final class AbcParser
 	            bind.typeref = typeExpr.ref;
 	        }
 
-	        ret.def = (DefinitionNode) ctx.getNodeFactory().variableDefinition(attr, tok, ctx.getNodeFactory().list(null, bind));
+	        ret.def = ctx.getNodeFactory().variableDefinition(attr, tok, ctx.getNodeFactory().list(null, bind));
         }
         return ret;
     }
 
     private MemberExpressionNode memberExprFromMN(AbcData.BinaryMN mn)
     {
-        MemberExpressionNode typeExpr = null;
+        MemberExpressionNode typeExpr;
+        typeExpr = null;
         QName typeName = getFullName(mn);
         NodeFactory nf = ctx.getNodeFactory();
         
@@ -578,8 +579,7 @@ public final class AbcParser
                 break;
 
             case ActionBlockConstants.CONSTANT_Namespace:
-                ObjectValue ns = getNamespace(valueID);
-                ov = ns;
+                ov = getNamespace(valueID);
                 break;
 
             default:
@@ -701,7 +701,7 @@ public final class AbcParser
         }
         else
         {
-            assert (mn.nsIsSet != true):"expected a single namespace";
+            assert (!mn.nsIsSet):"expected a single namespace";
 
             String fullName = getStringFromCPool(mn.nameID);
             ObjectValue ns = getNamespace(mn.nsID);
@@ -742,7 +742,7 @@ public final class AbcParser
         {
             AbcData.BinaryMN superMN = getBinaryMNFromCPool(superID);
             
-            assert (superMN.nsIsSet != true):"expected a single namespace";
+            assert (!superMN.nsIsSet):"expected a single namespace";
             
             superNamespace = getNamespace(superMN.nsID);
             superName = getFullName(superMN);
@@ -781,12 +781,12 @@ public final class AbcParser
         boolean isDynamic = ( flags & ActionBlockConstants.CLASS_FLAG_sealed ) == 0;
         boolean isInterface = (flags & ActionBlockConstants.CLASS_FLAG_interface) != 0;
  
-        ClassDefinitionNode cdn = null;
+        ClassDefinitionNode cdn;
         IdentifierNode idNode = nf.identifier(className);
         idNode.ref = new ReferenceValue(ctx, null, idNode.name, ns);
         
         AttributeListNode attr = attributeList(isFinal, false, isDynamic, ns, current_scope.builder);
-        StatementListNode stmtList = nf.statementList(null, (StatementListNode)null);
+        StatementListNode stmtList = nf.statementList(null, null);
         
         if (isInterface)
         {
@@ -855,7 +855,7 @@ public final class AbcParser
                 cdn.baseref = new ReferenceValue(ctx, null, simpleSuperName, superNamespace);
                 cdn.baseref.getSlot(ctx);
 
-                cframe.baseclass = getTypeFromQName((int)superID) ;
+                cframe.baseclass = getTypeFromQName(superID) ;
             }
         }
         else if (cdn.cframe != ctx.objectType())
@@ -895,7 +895,7 @@ public final class AbcParser
         {
         	ctx.pushScope(iframe); // instance
         	{
-        		StatementListNode instance_stmts = nf.statementList(null, (StatementListNode)null);
+        		StatementListNode instance_stmts = nf.statementList(null, null);
         		parseTraits(iinfo.getITraits(), instance_stmts, build_ast, null, build_ast); // Traits for the instance
         		cdn.instanceinits = new ObjectList<Node>(instance_stmts.items.size());
         		if( instance_stmts.items.size() > 0)
@@ -1117,7 +1117,7 @@ public final class AbcParser
 
     ObjectValue getNamespace(int namespaceID)
     {
-        ObjectValue ns = null;
+        ObjectValue ns;
         if( namespaceID == 0 )
         {
             ns = ctx.anyNamespace();
@@ -1133,12 +1133,10 @@ public final class AbcParser
             {
             case ActionBlockConstants.CONSTANT_Namespace:
                 //vers.add(getVersion(uri));
-                ns_kind = Context.NS_PUBLIC;
                 ns = ctx.getNamespace(uri);
                 break;
             case ActionBlockConstants.CONSTANT_PackageNamespace:
                 //vers.add(getVersion(uri));
-                ns_kind = Context.NS_PUBLIC;
                 ns = ctx.getNamespace(uri);
                 ns.setPackage(true);
                 break;
@@ -1354,7 +1352,7 @@ public final class AbcParser
      
          // Read in the bytes
          int offset = 0;
-         int numRead = 0;
+         int numRead;
          while (offset < bytes.length
                 && (numRead=is.read(bytes, offset, bytes.length-offset)) >= 0) 
          {

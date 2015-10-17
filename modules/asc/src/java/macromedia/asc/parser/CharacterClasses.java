@@ -22,43 +22,43 @@ package macromedia.asc.parser;
  */
 public interface CharacterClasses
 {
-	public static final int nu = 0x00;        // Not used. (Not a general category.)
+	int nu = 0x00;        // Not used. (Not a general category.)
 
 // Normative classes.
 
-	public static final int Lu = 0x01;        // Letter, Uppercase
-	public static final int Ll = 0x02;        // Letter, Lowercase
-	public static final int Lt = 0x03;        // Letter, Titlecase
-	public static final int Mn = 0x04;        // Mark, Non-Spacing
-	public static final int Mc = 0x05;        // Mark, Spacing Combining
-	public static final int Me = 0x06;        // Mark, Enclosing
-	public static final int Nd = 0x07;        // Number, Decimal Digit
-	public static final int Nl = 0x08;        // Number, Letter
-	public static final int No = 0x09;        // Number, Other
-	public static final int Zs = 0x0a;        // Separator, Space
-	public static final int Zl = 0x0b;        // Separator, Line
-	public static final int Zp = 0x0c;        // Separator, Paragraph
-	public static final int Cc = 0x0d;        // Other, Control
-	public static final int Cf = 0x0e;        // Other, Format
-	public static final int Cs = 0x0f;        // Other, Surrogate
-	public static final int Co = 0x10;        // Other, Private Use
-	public static final int Cn = 0x11;        // Other, Not Assigned (no characters in the file have this property)
+	int Lu = 0x01;        // Letter, Uppercase
+	int Ll = 0x02;        // Letter, Lowercase
+	int Lt = 0x03;        // Letter, Titlecase
+	int Mn = 0x04;        // Mark, Non-Spacing
+	int Mc = 0x05;        // Mark, Spacing Combining
+	int Me = 0x06;        // Mark, Enclosing
+	int Nd = 0x07;        // Number, Decimal Digit
+	int Nl = 0x08;        // Number, Letter
+	int No = 0x09;        // Number, Other
+	int Zs = 0x0a;        // Separator, Space
+	int Zl = 0x0b;        // Separator, Line
+	int Zp = 0x0c;        // Separator, Paragraph
+	int Cc = 0x0d;        // Other, Control
+	int Cf = 0x0e;        // Other, Format
+	int Cs = 0x0f;        // Other, Surrogate
+	int Co = 0x10;        // Other, Private Use
+	int Cn = 0x11;        // Other, Not Assigned (no characters in the file have this property)
 
 // Non-normative classes.
 
-	public static final int Lm = 0x12;        // Letter, Modifier
-	public static final int Lo = 0x13;        // Letter, Other
-	public static final int Pc = 0x14;        // Punctuation, Connector
-	public static final int Pd = 0x15;        // Punctuation, Dash
-	public static final int Ps = 0x16;        // Punctuation, Open
-	public static final int Pe = 0x17;        // Punctuation, Close
-	public static final int Pi = 0x18;        // Punctuation, Initial quote (may behave like Ps or Pe depending on usage)
-	public static final int Pf = 0x19;        // Punctuation, Final quote (may behave like Ps or Pe depending on usage)
-	public static final int Po = 0x1a;        // Punctuation, Other
-	public static final int Sm = 0x1b;        // Symbol, Math
-	public static final int Sc = 0x1c;        // Symbol, Currency
-	public static final int Sk = 0x1d;        // Symbol, Modifier
-	public static final int So = 0x1e;        // Symbol, Other
+	int Lm = 0x12;        // Letter, Modifier
+	int Lo = 0x13;        // Letter, Other
+	int Pc = 0x14;        // Punctuation, Connector
+	int Pd = 0x15;        // Punctuation, Dash
+	int Ps = 0x16;        // Punctuation, Open
+	int Pe = 0x17;        // Punctuation, Close
+	int Pi = 0x18;        // Punctuation, Initial quote (may behave like Ps or Pe depending on usage)
+	int Pf = 0x19;        // Punctuation, Final quote (may behave like Ps or Pe depending on usage)
+	int Po = 0x1a;        // Punctuation, Other
+	int Sm = 0x1b;        // Symbol, Math
+	int Sc = 0x1c;        // Symbol, Currency
+	int Sk = 0x1d;        // Symbol, Modifier
+	int So = 0x1e;        // Symbol, Other
 
 	/*
 	const char data[] = {

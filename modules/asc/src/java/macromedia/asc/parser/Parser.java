@@ -17,19 +17,24 @@
 
 package macromedia.asc.parser;
 
+import macromedia.asc.embedding.CompilerHandler;
+import macromedia.asc.semantics.ReferenceValue;
+import macromedia.asc.util.Context;
+import macromedia.asc.util.ContextStatics;
+import macromedia.asc.util.IntList;
+import macromedia.asc.util.ObjectList;
+
 import java.io.*;
+import java.util.BitSet;
 import java.util.HashSet;
 import java.util.ListIterator;
-import java.util.BitSet;
 
-import macromedia.asc.semantics.ReferenceValue;
-import macromedia.asc.util.*;
-import static macromedia.asc.parser.Tokens.*;
-import static macromedia.asc.embedding.avmplus.RuntimeConstants.*;
-import static macromedia.asc.embedding.avmplus.Features.*;
 import static macromedia.asc.embedding.ErrorConstants.*;
-import macromedia.asc.embedding.CompilerHandler;
-import static macromedia.asc.parser.States.*;
+import static macromedia.asc.embedding.avmplus.Features.*;
+import static macromedia.asc.embedding.avmplus.RuntimeConstants.AVMPLUS;
+import static macromedia.asc.parser.States.start_state;
+import static macromedia.asc.parser.States.xmltext_state;
+import static macromedia.asc.parser.Tokens.*;
 
 /**
  * Parse ECMAScript programs.
@@ -171,12 +176,12 @@ public final class Parser
 		XMLTokenSet.set(-WITH_TOKEN);
 	}
     
-    private final boolean inXMLTokenSet( int id)
+    private boolean inXMLTokenSet(int id)
     {
     	return XMLTokenSet.get(-id);
     }
     
-    private final boolean inStatementTokenSet( int id)
+    private boolean inStatementTokenSet(int id)
     {
     	return StatementTokenSet.get(-id);
     }
@@ -489,7 +494,7 @@ public final class Parser
      * shift: -- like match, but we already know the token
      */
     
-    private final void shift()
+    private void shift()
     {
     	nextToken = EMPTY_TOKEN;
     }
@@ -550,18 +555,17 @@ public final class Parser
      * Handle optional semicolon recognition.
      */
 
-    private final boolean lookaheadSemicolon(int mode)
+    private boolean lookaheadSemicolon(int mode)
     {
         final int lt = lookahead();
-        
-        if (lt==SEMICOLON_TOKEN || lt==EOS_TOKEN || lt==RIGHTBRACE_TOKEN || lt==mode || scanner.followsLineTerminator())
-        {
-        	return true;
-        }
-        return false;
-    }
+		return lt == SEMICOLON_TOKEN
+            || lt == EOS_TOKEN
+            || lt == RIGHTBRACE_TOKEN
+            || lt == mode
+            || scanner.followsLineTerminator();
+	}
 
-    private final int matchSemicolon(int mode)
+    private int matchSemicolon(int mode)
     {
 
         int result = ERROR_TOKEN;
@@ -602,7 +606,7 @@ public final class Parser
      * that the EMPTY_TOKEN is equivalent to a semicolon.
      */
 
-    private final int matchNoninsertableSemicolon(int mode)
+    private int matchNoninsertableSemicolon(int mode)
     {
 
         switch ( lookahead() )
@@ -633,7 +637,7 @@ public final class Parser
      *  comments are located in the source while walking the parse-tree.
      */
     
-    private final void getNextToken()
+    private void getNextToken()
     {
         int tok = scanner.nexttoken(true);
         
@@ -660,7 +664,7 @@ public final class Parser
      * Change the lookahead token.
      */
     
-    private final void changeLookahead(int tok)
+    private void changeLookahead(int tok)
     {
         nextToken = tok;
     }
@@ -669,7 +673,7 @@ public final class Parser
      * Lookahead (simpler version)
      */
 
-    private final int lookahead()
+    private int lookahead()
     {
          if (nextToken == EMPTY_TOKEN)
          {
@@ -717,7 +721,7 @@ public final class Parser
             System.err.println("begin parseIdentifierString");
         }
 
-        String result = null;
+        String result;
         final int lt = lookahead();
         
         switch ( lt ) 
@@ -792,7 +796,7 @@ public final class Parser
             System.err.println("begin parsePropertyIdentifierString");
         }
 
-        String result = null;
+        String result;
         final int lt = lookahead();
         
         switch(lt)
@@ -914,7 +918,7 @@ public final class Parser
             System.err.println("begin parseSimpleQualifiedIdentifier");
         }
 
-        IdentifierNode result = null;
+        IdentifierNode result;
         IdentifierNode first;
         boolean is_attr = false;
         
@@ -2073,7 +2077,7 @@ XMLElementContent
      * precedence:
      */
     
-    private final int precedence( int token, int mode )
+    private int precedence(int token, int mode )
     {
  
 		/*
@@ -2724,7 +2728,7 @@ XMLElementContent
 
         while (true)
         {
-            Node t = null;
+            Node t;
 
             /*
              * RestOrAssigmentExpression ->
@@ -2774,7 +2778,7 @@ XMLElementContent
             System.err.println("begin parseUnaryExpression");
         }
 
-        Node result = null;
+        Node result;
         int pos;
         final int op = lookahead();
         
@@ -3104,7 +3108,7 @@ XMLElementContent
      * Complicated by possible follow tokens >>>, >>>=, >>, >>=, >=
      */
     
- 	private final Node parseTemplatizedTypeExpression(Node first)
+ 	private Node parseTemplatizedTypeExpression(Node first)
  	{	
  		shift(); // match(DOTLESSTHAN_TOKEN);
  		Node result = nodeFactory.applyTypeExpr(first, parseTypeExpressionList(),scanner.input.positionOfMark());
@@ -4197,7 +4201,7 @@ XMLElementContent
             System.err.println("begin parseDirective");
         }
 
-        Node result = null;
+        Node result;
 
         try
         {
@@ -4563,7 +4567,7 @@ XMLElementContent
             System.err.println("begin parseDirectives");
         }
 
-        StatementListNode result = null;
+        StatementListNode result;
         int lt;
 
         while ((lt=lookahead())!=RIGHTBRACE_TOKEN && lt!=EOS_TOKEN)
@@ -4788,7 +4792,7 @@ XMLElementContent
         InputStream in = null;
 	    String text = null;
 
-        String fixed_filespec = null, parentPath = null;
+        String fixed_filespec, parentPath;
         if (incl == null)
         {
             filespec = filespec.replace('/', File.separatorChar);
@@ -4867,7 +4871,7 @@ XMLElementContent
     			// cx.setEmitter(ctx.getEmitter());
     			// cx.statics.nodeFactory = ctx.statics.nodeFactory;
     			// cx.statics.global = ctx.statics.global;
-    			Parser p = null;
+    			Parser p;
     			if (in != null)
     			{
     				p = new Parser(cx, in, fixed_filespec, encoding, create_doc_info, save_comment_nodes,block_kind_stack, true);
@@ -5014,7 +5018,7 @@ XMLElementContent
         while (true)
         {
             int lt = lookahead();
-            Node t = null;
+            Node t;
             int pos = scanner.input.positionOfMark();
             
             switch ( lt )
@@ -5586,7 +5590,7 @@ XMLElementContent
         
         shift(); //match(SUPER_TOKEN);
         
-        Node result = null;
+        Node result;
         Node first = nodeFactory.superExpression(null, scanner.input.positionOfMark());
         Node n = parseArguments(first);
         
@@ -5654,7 +5658,7 @@ XMLElementContent
             System.err.println("begin parseInitializer");
         }
 
-        Node result = null;
+        Node result;
 
         // Todo: this should be parsePattern();
         Node first = parseIdentifier();
@@ -6246,7 +6250,7 @@ XMLElementContent
         PackageNameNode first = null;
         final boolean has_packagename = (lookahead()!=LEFTBRACE_TOKEN);
         
-        if (has_packagename==true)
+        if (has_packagename)
         {
             first = parsePackageName(false);
         }
@@ -6296,7 +6300,7 @@ XMLElementContent
             
         // Add importDirective AFTER useDirectives...if there is no packagename...
 
-        if (has_packagename == false && ctx.statics.es4_vectors && result != null)
+        if (!has_packagename && ctx.statics.es4_vectors && result != null)
         {
         	result.statements.items.add(1, importDirective);
         }
@@ -6311,7 +6315,7 @@ XMLElementContent
 
         // Or add the importDirective BEFORE, why? who knows...
 
-        if (has_packagename == true && ctx.statics.es4_vectors && result != null)
+        if (has_packagename && ctx.statics.es4_vectors && result != null)
         {
         	result.statements.items.add(1, importDirective);
         }
