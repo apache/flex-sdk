@@ -193,7 +193,7 @@ public class ScriptCompiler
             else if (args[i].equals("-import"))
 			{
 				filespecs.add(args[++i]);
-				imported.add(new Boolean(true));
+				imported.add(Boolean.TRUE);
 			}
             else if(args[i].equals("-config"))
             {
@@ -248,7 +248,7 @@ public class ScriptCompiler
             else
 			{
 				filespecs.add(args[i]);
-				imported.add(new Boolean(false));
+				imported.add(Boolean.FALSE);
 			}
 		}
 

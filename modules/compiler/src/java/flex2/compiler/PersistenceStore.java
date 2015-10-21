@@ -1905,7 +1905,7 @@ final class PersistenceStore
 				String preLoader = (String) pool[readU32(in)];
 				u.auxGenerateInfo.put("preloaderClass", preLoader.length() > 0 ? preLoader : null);
 
-				u.auxGenerateInfo.put("usePreloader", new Boolean(readU8(in) == 1));
+				u.auxGenerateInfo.put("usePreloader", Boolean.valueOf(readU8(in) == 1));
 
 				Map<String, Object> rootAttributeMap = new HashMap<String, Object>();
 				u.auxGenerateInfo.put("rootAttributes", rootAttributeMap);

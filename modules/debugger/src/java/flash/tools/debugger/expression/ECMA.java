@@ -297,7 +297,7 @@ public class ECMA
 		{
 			String sx = px.getValueAsString();
 			String sy = py.getValueAsString();
-			return DValue.forPrimitive(new Boolean(sx.compareTo(sy) < 0), x.getIsolateId());
+			return DValue.forPrimitive(Boolean.valueOf(sx.compareTo(sy) < 0), x.getIsolateId());
 		}
 		else
 		{
@@ -305,7 +305,7 @@ public class ECMA
 			double dy = toNumber(session, py);
 			if (Double.isNaN(dx) || Double.isNaN(dy))
 				return DValue.forPrimitive(Value.UNDEFINED, x.getIsolateId());
-			return DValue.forPrimitive(new Boolean(dx < dy), x.getIsolateId());
+			return DValue.forPrimitive(Boolean.valueOf(dx < dy), x.getIsolateId());
 		}
 	}
 
