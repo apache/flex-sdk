@@ -793,7 +793,7 @@ public class BindingExpression implements Comparable<BindingExpression>
 
     public String getRepeaterId(int level)
     {
-        Model repeater = (Model) destination.getRepeaterParents().get(level);
+        Model repeater = destination.getRepeaterParents().get(level);
         return repeater.getId();
     }
 

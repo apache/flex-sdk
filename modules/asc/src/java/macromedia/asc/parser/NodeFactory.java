@@ -1336,7 +1336,7 @@ public final class NodeFactory implements ErrorConstants
 					// Finish this
 					if (selector.isGetExpression() )
 					{
-						IdentifierNode pname = ((GetExpressionNode) selector).getIdentifier();
+						IdentifierNode pname = selector.getIdentifier();
 						IdentifierNode bname = null;
 
                         // calculate the dotted base name, walk up the MemberExpressionNodes and add each identifier
@@ -1564,7 +1564,7 @@ public final class NodeFactory implements ErrorConstants
         
         if( statements == null )
         {
-            statements = statementList(null,(StatementListNode)null);
+            statements = statementList(null, null);
         }
         
         statements.items.add(0,node);
@@ -1669,7 +1669,7 @@ public final class NodeFactory implements ErrorConstants
 		else
 		{
 			node = new ParameterListNode(null,item,0);
-			node.setPositionNonterminal(list!=null?(Node)list:(Node)item,pos);
+			node.setPositionNonterminal(list!=null? list : item,pos);
 		}
 		return node;
 	}

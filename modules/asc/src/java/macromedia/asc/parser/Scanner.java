@@ -462,7 +462,7 @@ public final class Scanner implements ErrorConstants
                             case '\'':
                             case '\"':
                             {
-                                char startquote = (char) c;
+                                char startquote = c;
                                 boolean needs_escape = false;
 
                                 while ( (c=nextchar()) != startquote )
@@ -718,7 +718,7 @@ public final class Scanner implements ErrorConstants
                                 return makeToken( EOS_TOKEN );
                                 
                             default:
-                                switch (input.nextcharClass((char)c,true))
+                                switch (input.nextcharClass(c,true))
                                 {
                                 case Lu: case Ll: case Lt: case Lm: case Lo: case Nl:
                                     maybe_reserved = false;
@@ -792,7 +792,7 @@ public final class Scanner implements ErrorConstants
                     {
                         Integer i = reservedWord.get(s); 
                         if ( i != null )
-                            return makeToken( (int) i );
+                            return makeToken(i);
                     }
                     return makeToken(IDENTIFIER_TOKEN,s);
                 }
@@ -1460,7 +1460,7 @@ public final class Scanner implements ErrorConstants
                     default:
                         if (doctextbuf == null) 
                             doctextbuf = getDocTextBuffer(doctagname);
-                        doctextbuf.append((char)(c));  
+                        doctextbuf.append(c);
                         continue;
                     }
                 }

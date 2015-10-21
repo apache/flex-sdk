@@ -171,7 +171,7 @@ public class UpdateManager  {
         // primary document also need to have their scripting
         // environments initialized.
         secondaryBridgeContexts =
-            (BridgeContext[]) ctx.getChildContexts().clone();
+                ctx.getChildContexts().clone();
         secondaryScriptingEnvironments =
             new ScriptingEnvironment[secondaryBridgeContexts.length];
         for (int i = 0; i < secondaryBridgeContexts.length; i++) {

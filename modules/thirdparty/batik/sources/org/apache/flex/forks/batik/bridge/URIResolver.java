@@ -143,7 +143,7 @@ public class URIResolver {
      * Returns the base URI of the referer element.
      */
     protected String getRefererBaseURI(Element ref) {
-        return ((AbstractNode) ref).getBaseURI();
+        return ref.getBaseURI();
     }
 
     /**

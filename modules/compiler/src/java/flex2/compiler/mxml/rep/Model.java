@@ -391,7 +391,7 @@ public class Model implements LineNumberMapped
      */
     public boolean hasDataBoundProperty(String name) 
     {
-        Initializer initializer = (Initializer) getProperties().get(name);
+        Initializer initializer = getProperties().get(name);
         return initializer != null ? initializer.isBinding() : false;
     }
     
@@ -400,7 +400,7 @@ public class Model implements LineNumberMapped
      */
     public boolean hasDataBoundStyle(String name) 
     {
-        Initializer initializer = (Initializer) getStyles().get(name);
+        Initializer initializer = getStyles().get(name);
         return initializer != null ? initializer.isBinding() : false;
     }
     
@@ -409,7 +409,7 @@ public class Model implements LineNumberMapped
      */
     public boolean hasDataBoundEvent(String name) 
     {
-        Initializer initializer = (Initializer) getEvents().get(name);
+        Initializer initializer = getEvents().get(name);
         return initializer != null ? initializer.isBinding() : false;
     }
     
@@ -418,7 +418,7 @@ public class Model implements LineNumberMapped
      */
     public boolean hasDataBoundEffect(String name) 
     {
-        Initializer initializer = (Initializer) getEffects().get(name);
+        Initializer initializer = getEffects().get(name);
         return initializer != null ? initializer.isBinding() : false;
     }
     

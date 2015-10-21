@@ -33,6 +33,6 @@ public class DesignLayer extends Model
     
     public DesignLayer(MxmlDocument document, Type type, DesignLayer parent, int line)
     {
-        super(document, type, (Model) parent, line);
+        super(document, type, parent, line);
     }
 }

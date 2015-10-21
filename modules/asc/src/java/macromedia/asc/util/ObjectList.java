@@ -42,17 +42,17 @@ public class ObjectList<E> extends ArrayList<E>
 
 	final public E first()
 	{
-		return (size() == 0) ? null : (E) get(0);
+		return (size() == 0) ? null : get(0);
 	}
 
 	final public E last()
 	{
-		return (size() == 0) ? null : (E) get(size() - 1);
+		return (size() == 0) ? null : get(size() - 1);
 	}
 
 	final public E removeLast()
 	{
-		return (size() == 0) ? null : (E) remove(size() - 1);
+		return (size() == 0) ? null : remove(size() - 1);
 	}
 
     final public void push_back(E e)

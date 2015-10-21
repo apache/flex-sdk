@@ -306,15 +306,15 @@ public class DependencyWalker
             
             for (Iterator defs = l.getDefinitions(); defs.hasNext();)
             {
-                buf.append( "      <def id=\"" + (String) defs.next() + "\" />\n" );
+                buf.append( "      <def id=\"" + defs.next() + "\" />\n" );
             }
             for (Iterator pre = l.getPrerequisites(); pre.hasNext();)
             {
-                buf.append( "      <pre id=\"" + (String) pre.next() + "\" />\n" );
+                buf.append( "      <pre id=\"" + pre.next() + "\" />\n" );
             }
             for (Iterator dep = l.getDependencies(); dep.hasNext();)
             {
-                buf.append( "      <dep id=\"" + (String) dep.next() + "\" />\n" );
+                buf.append( "      <dep id=\"" + dep.next() + "\" />\n" );
             }
             buf.append( "    </script>\n" );
         }

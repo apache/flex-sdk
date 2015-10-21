@@ -1648,8 +1648,8 @@ public class AsDocUtil
                         	Element toApiReturn = getElementByTagName(apiOperationDef2, "apiReturn");
                             if (toApiReturn != null)
                             {
-                            	Element toReturnDesc = getElementByTagName((Element)toApiReturn, "apiDesc");
-                            	Element fromReturnDesc = getElementByTagName((Element)fromApiReturn, "apiDesc");
+                            	Element toReturnDesc = getElementByTagName(toApiReturn, "apiDesc");
+                            	Element fromReturnDesc = getElementByTagName(fromApiReturn, "apiDesc");
                             	
                             	if(toReturnDesc != null )
                             	{

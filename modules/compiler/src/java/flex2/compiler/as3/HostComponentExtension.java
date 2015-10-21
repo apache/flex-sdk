@@ -99,7 +99,7 @@ public final class HostComponentExtension implements Extension
         if (unit.hostComponentMetaData != null)
         {
             CompilerContext context = unit.getContext();
-            Context cx = (Context) context.getAscContext();
+            Context cx = context.getAscContext();
             TypeAnalyzer typeAnalyzer = typeTable.getSymbolTable().getTypeAnalyzer();
             generateHostComponentVariable(cx, unit, typeAnalyzer);
         }
@@ -126,7 +126,7 @@ public final class HostComponentExtension implements Extension
         if (unit.hostComponentMetaData != null)
         {
             CompilerContext context = unit.getContext();
-            Context cx = (Context) context.getAscContext();
+            Context cx = context.getAscContext();
             validateRequiredSkinPartsAndStates(cx, unit, typeTable);
         }
     }

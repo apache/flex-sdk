@@ -1087,7 +1087,7 @@ public class ScriptingEnvironment extends BaseScriptingEnvironment {
                     public void run() {
                         try {
                             String base =
-                                ((SVGOMDocument)document).getDocumentURI();
+                                document.getDocumentURI();
                             URL url;
                             if (base == null) {
                                 url = new URL(uri);

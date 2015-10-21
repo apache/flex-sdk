@@ -133,7 +133,7 @@ public class ApplicationCompilerConfiguration extends ToolsConfiguration
             return resourceModulePath;
         }
         
-        return (fileSpecs.size() > 0) ? (String) fileSpecs.get( fileSpecs.size() - 1 ) : null;
+        return (fileSpecs.size() > 0) ? fileSpecs.get( fileSpecs.size() - 1 ) : null;
 	}
 
     //

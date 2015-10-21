@@ -153,7 +153,7 @@ public class XMLListBuilder extends AbstractBuilder
                 }
                 else
                 {
-                    PrefixMapping pm = (PrefixMapping) namespaces.peek();
+                    PrefixMapping pm = namespaces.peek();
                     nsUri = pm.getUri();
                     nsId = pm.getNs();
                 }

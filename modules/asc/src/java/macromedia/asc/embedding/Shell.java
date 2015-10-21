@@ -198,7 +198,7 @@ public class Shell
 			Set<String> names = new HashSet<String>(targets.keySet());
 			for (Iterator i = names.iterator(); i.hasNext();)
 			{
-				process("clear " + (String) i.next());
+				process("clear " + i.next());
 			}
 
 			exit = true;

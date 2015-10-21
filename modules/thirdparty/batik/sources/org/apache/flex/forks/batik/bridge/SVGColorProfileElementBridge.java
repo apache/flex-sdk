@@ -100,7 +100,7 @@ public class SVGColorProfileElementBridge extends AbstractSVGBridge
         String href = XLinkSupport.getXLinkHref(profile);
         ICC_Profile p = null;
         if (href != null) {
-            String baseURI = ((AbstractNode) profile).getBaseURI();
+            String baseURI = profile.getBaseURI();
             ParsedURL pDocURL = null;
             if (baseURI != null) {
                 pDocURL = new ParsedURL(baseURI);

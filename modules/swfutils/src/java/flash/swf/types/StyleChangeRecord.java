@@ -148,7 +148,7 @@ public class StyleChangeRecord extends ShapeRecord
             Iterator<FillStyle> it = fillstyles.iterator();
             while (it.hasNext())
             {
-                FillStyle style = (FillStyle) it.next();
+                FillStyle style = it.next();
                 if (style.hasBitmapId() && style.bitmap != null)
                     list.add( style.bitmap );
             }

@@ -2639,7 +2639,7 @@ public final class ConstantEvaluator extends Emitter implements Evaluator, Error
         		cx.scope().setInitOnly(false);
         	}
             val = val != null ? val.getValue(cx) : null;
-            if( val instanceof ObjectValue && ((ObjectValue)val).hasValue())
+            if( val instanceof ObjectValue && val.hasValue())
             {
                 ObjectValue ov = (ObjectValue)val;
                 ObjectValue checked = checkDefaultValue(cx, type, ov);
@@ -3212,7 +3212,7 @@ public final class ConstantEvaluator extends Emitter implements Evaluator, Error
             Value v = node.init.evaluate(cx, this);
 
             if (v instanceof ReferenceValue)
-                v = ((ReferenceValue)(v)).getValue(cx);
+                v = v.getValue(cx);
 
             ObjectValue ov = v instanceof ObjectValue ? (ObjectValue)v : null;
 

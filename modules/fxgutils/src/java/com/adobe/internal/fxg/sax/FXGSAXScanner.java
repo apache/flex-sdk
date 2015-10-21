@@ -486,7 +486,7 @@ public class FXGSAXScanner extends DefaultHandler
                 Class<? extends FXGNode> nodeClass = elementNodes.get(localName);
                 if (nodeClass != null)
                 {
-                    node = (FXGNode)nodeClass.newInstance();
+                    node = nodeClass.newInstance();
                 }
                 else if (root != null)
                 {

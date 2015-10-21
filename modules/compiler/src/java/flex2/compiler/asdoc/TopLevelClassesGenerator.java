@@ -480,7 +480,7 @@ public class TopLevelClassesGenerator
                 packageTable.put(packageName, apiPackageElement);
             }
 
-            String description = ((Element)packageRec.getElementsByTagName("description").item(0)).getTextContent();
+            String description = packageRec.getElementsByTagName("description").item(0).getTextContent();
             Element shortDescElement = outputObject.createElement("shortdesc");
             String textContent = asDocUtil.descToShortDesc(description);
             shortDescElement.setTextContent(textContent);
@@ -1584,14 +1584,14 @@ public class TopLevelClassesGenerator
         int classNameSize = result.getClassNames().size();
         if (classNameSize != 0)
         {
-            result.setMethodName((String)result.getClassNames().get(classNameSize - 1));
+            result.setMethodName(result.getClassNames().get(classNameSize - 1));
             result.getClassNames().remove(classNameSize - 1);
         }
 
         int classNameSpacesSize = result.getClassNameSpaces().size();
         if (classNameSpacesSize != 0)
         {
-            result.setMethodNameSpace((String)result.getClassNameSpaces().get(classNameSpacesSize - 1));
+            result.setMethodNameSpace(result.getClassNameSpaces().get(classNameSpacesSize - 1));
             result.getClassNameSpaces().remove(classNameSpacesSize - 1);
         }
 
@@ -1602,12 +1602,12 @@ public class TopLevelClassesGenerator
         if (result.getMethodName().equals("get") && classNameSize > 1)
         {
             result.setGetterSetter("Get");
-            result.setMethodName((String)result.getClassNames().get(classNameSize - 1));
+            result.setMethodName(result.getClassNames().get(classNameSize - 1));
             result.getClassNames().remove(classNameSize - 1);
 
             if (classNameSpacesSize != 0)
             {
-                result.setMethodNameSpace((String)result.getClassNameSpaces().get(classNameSpacesSize - 1));
+                result.setMethodNameSpace(result.getClassNameSpaces().get(classNameSpacesSize - 1));
                 result.getClassNameSpaces().remove(classNameSpacesSize - 1);
             }
         }
@@ -1615,12 +1615,12 @@ public class TopLevelClassesGenerator
         {
             result.setGetterSetter("Set");
 
-            result.setMethodName((String)result.getClassNames().get(classNameSize - 1));
+            result.setMethodName(result.getClassNames().get(classNameSize - 1));
             result.getClassNames().remove(classNameSize - 1);
 
             if (classNameSpacesSize != 0)
             {
-                result.setMethodNameSpace((String)result.getClassNameSpaces().get(classNameSpacesSize - 1));
+                result.setMethodNameSpace(result.getClassNameSpaces().get(classNameSpacesSize - 1));
                 result.getClassNameSpaces().remove(classNameSpacesSize - 1);
             }
         }
@@ -1672,7 +1672,7 @@ public class TopLevelClassesGenerator
             if (fakeClass == null)
             {
                 fakeClass = new AsClass();
-                fakeClass.setName((String)result.getClassNames().get(0));
+                fakeClass.setName(result.getClassNames().get(0));
                 fakeClass.setDecompName(result);
                 fakeClass.setBaseName(""); // don't use Object, else it shows
                 // up in Object's decendants
@@ -1689,7 +1689,7 @@ public class TopLevelClassesGenerator
                     packageContents = new HashMap<String, AsClass>();
                     packageContentsTable.put(result.getPackageName(), packageContents);
                 }
-                packageContents.put((String)result.getClassNames().get(0), fakeClass);
+                packageContents.put(result.getClassNames().get(0), fakeClass);
             }
         }
 
@@ -1801,7 +1801,7 @@ public class TopLevelClassesGenerator
                         {
                             if (qualifiedName.getClassNames().size() != 0)
                             {
-                                className = (String)qualifiedName.getClassNames().get(qualifiedName.getClassNames().size() - 1);
+                                className = qualifiedName.getClassNames().get(qualifiedName.getClassNames().size() - 1);
                             }
                         }
 
@@ -1871,7 +1871,7 @@ public class TopLevelClassesGenerator
                     {
                         if (qualifiedName.getClassNames().size() != 0)
                         {
-                            className = (String)qualifiedName.getClassNames().get(qualifiedName.getClassNames().size() - 1);
+                            className = qualifiedName.getClassNames().get(qualifiedName.getClassNames().size() - 1);
                         }
                     }
 

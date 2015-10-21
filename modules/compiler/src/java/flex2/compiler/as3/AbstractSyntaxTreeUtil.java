@@ -1050,7 +1050,7 @@ public class AbstractSyntaxTreeUtil
                                                                           typedIdentifier,
                                                                           null);
         ListNode list = nodeFactory.list(null, variableBinding);
-        return (VariableDefinitionNode) nodeFactory.variableDefinition(null, kind, list);
+        return nodeFactory.variableDefinition(null, kind, list);
     }
 
     /**
@@ -1087,7 +1087,7 @@ public class AbstractSyntaxTreeUtil
                                                                           typedIdentifier,
                                                                           rvalue);
         ListNode list = nodeFactory.list(null, variableBinding);
-        return (VariableDefinitionNode) nodeFactory.variableDefinition(null, kind, list);
+        return nodeFactory.variableDefinition(null, kind, list);
     }
 
     /**
@@ -1111,7 +1111,7 @@ public class AbstractSyntaxTreeUtil
                                                                           typedIdentifier,
                                                                           rvalue);
         ListNode list = nodeFactory.list(null, variableBinding);
-        return (VariableDefinitionNode) nodeFactory.variableDefinition(null, kind, list);
+        return nodeFactory.variableDefinition(null, kind, list);
     }
 
     /**
@@ -1133,7 +1133,7 @@ public class AbstractSyntaxTreeUtil
                                                                           typedIdentifier,
                                                                           rvalue);
         ListNode list = nodeFactory.list(null, variableBinding);
-        return (VariableDefinitionNode) nodeFactory.variableDefinition(attributeList, kind, list);
+        return nodeFactory.variableDefinition(attributeList, kind, list);
     }
 
     /**
@@ -1157,7 +1157,7 @@ public class AbstractSyntaxTreeUtil
                                                                           typedIdentifier,
                                                                           rvalue);
         ListNode list = nodeFactory.list(null, variableBinding);
-        return (VariableDefinitionNode) nodeFactory.variableDefinition(attributeList, kind, list);
+        return nodeFactory.variableDefinition(attributeList, kind, list);
     }
 
     /**
@@ -1209,7 +1209,7 @@ public class AbstractSyntaxTreeUtil
                                                                           typedIdentifier,
                                                                           initializer);
         ListNode list = nodeFactory.list(null, variableBinding);
-        return (VariableDefinitionNode) nodeFactory.variableDefinition(null, kind, list);
+        return nodeFactory.variableDefinition(null, kind, list);
     }
 
     /**

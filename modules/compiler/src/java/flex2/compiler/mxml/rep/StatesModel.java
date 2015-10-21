@@ -479,7 +479,7 @@ public final class StatesModel
             // Now ensure this reparent node isn't conflicting with another.
             for (Iterator<ReparentInfo> listIter = list.iterator(); listIter.hasNext(); )
             {
-                ReparentInfo node = (ReparentInfo) listIter.next();
+                ReparentInfo node = listIter.next();
                 if ((node != reparentNode) && node.states.contains(currentState))
                 {
                     ThreadLocalToolkit.log(new ConflictingReparentTags(currentState, target.getId()), document.getSourcePath(), reparentNode.model.getXmlLineNumber());
@@ -1002,7 +1002,7 @@ public final class StatesModel
         Set<String> states = info.getStateNames();
         for (Iterator<String> iter = states.iterator(); iter.hasNext();  )
         {
-            State state = (State) stateByName(iter.next());
+            State state = stateByName(iter.next());
             if (state != null)
             {
                 // State event initializers
@@ -1046,7 +1046,7 @@ public final class StatesModel
         Set<String> states = info.getStateNames();
         for (Iterator<String> iter = states.iterator(); iter.hasNext();  )
         {
-            State state = (State) stateByName(iter.next());
+            State state = stateByName(iter.next());
             if (state != null)
             {
                 // State event initializers
@@ -1478,7 +1478,7 @@ public final class StatesModel
             
             // itemsFactory
             IdentifierNode itemsIdentifier = nodeFactory.identifier(ITEMSFACTORY, false);
-            String factorySymbol = ((String)factory + _FACTORY).intern();
+            String factorySymbol = (factory + _FACTORY).intern();
             IdentifierNode factoryIdentifier = nodeFactory.identifier(factorySymbol, false);
             GetExpressionNode factoryExpression = nodeFactory.getExpression(factoryIdentifier);
             MemberExpressionNode factory = nodeFactory.memberExpression(null, factoryExpression);
@@ -1736,7 +1736,7 @@ public final class StatesModel
                 {
                     // valueFactory
                     IdentifierNode itemsIdentifier = nodeFactory.identifier(VALUEFACTORY, false);
-                    String factorySymbol = ((String)factory + _FACTORY).intern();
+                    String factorySymbol = (factory + _FACTORY).intern();
                     IdentifierNode factoryIdentifier = nodeFactory.identifier(factorySymbol, false);
                     GetExpressionNode factoryExpression = nodeFactory.getExpression(factoryIdentifier);
                     MemberExpressionNode factory = nodeFactory.memberExpression(null, factoryExpression);

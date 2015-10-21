@@ -808,7 +808,7 @@ public class DManager implements DProtocolNotifierIF, SourceLocator {
 	public DIsolate getIsolate(int at) {
 
 		if (at == Isolate.DEFAULT_ID)
-			return (DIsolate) DEFAULT_ISOLATE;
+			return DEFAULT_ISOLATE;
 
 		synchronized (m_isolates) {
 			return m_isolates.get(at);
@@ -964,7 +964,7 @@ public class DManager implements DProtocolNotifierIF, SourceLocator {
 		// discard all old frames (we will restore some of them below)
 		DValue[] oldFrames = new DValue[oldSize];
 		for (int depth = 0; depth < oldSize; depth++) {
-			oldFrames[depth] = (DValue) previousValues.remove(Value.BASE_ID
+			oldFrames[depth] = previousValues.remove(Value.BASE_ID
 					- depth);
 		}
 

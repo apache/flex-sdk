@@ -524,7 +524,7 @@ public class Application implements Builder
             {
                 if (ThreadLocalToolkit.errorCount() == 0)
                 {
-                    extension.run( (Configuration) oemConfiguration.clone() );
+                    extension.run(oemConfiguration.clone());
                 }
             }
         }
@@ -674,7 +674,7 @@ public class Application implements Builder
                 I18nUtils.regenerateResourceModule((ApplicationCompilerConfiguration)localOEMConfiguration.configuration);
             }
 
-            VirtualFile targetFile = (VirtualFile) files.get(files.size() - 1);
+            VirtualFile targetFile = files.get(files.size() - 1);
 
             WebTierAPI.checkSupportedTargetMimeType(targetFile);
 

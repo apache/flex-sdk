@@ -166,7 +166,7 @@ public final class TypeValue extends ObjectValue
 
     private TypeValue(Context cx, QName name)
     {
-        super((TypeValue)null);
+        super(null);
         this.name = name;
         this.resolved = false;
     }

@@ -56,7 +56,7 @@ public class MetaDataParser
 			// not possible...
 		}*/
 
-		Context context = new Context((ContextStatics) perCompileData);
+		Context context = new Context(perCompileData);
 		context.setPath(file.getParent());
 		context.setScriptName(file.getName());
 		context.setHandler(new flex2.compiler.as3.As3Compiler.CompilerHandler()
@@ -96,7 +96,7 @@ public class MetaDataParser
 				return null;
 			}			
 		});
-		((ContextStatics) perCompileData).handler = context.getHandler();
+		perCompileData.handler = context.getHandler();
 
 		Parser parser = new Parser(context, stringBuffer.toString(), file.getName());
 		MetaDataNode metaDataNode = parser.parseMetaData();

@@ -797,7 +797,7 @@ class TIFFFaxDecoder {
                     entry = nextLesserThan8Bits(7);
 
                     // Run these through the 2DCodes table
-                    entry = (int)(twoDCodes[entry] & 0xff);
+                    entry = twoDCodes[entry] & 0xff;
 
                     // Get the code and the number of bits used up
                     code = (entry & 0x78) >>> 3;
@@ -942,7 +942,7 @@ class TIFFFaxDecoder {
                 // Get the next seven bits
                 entry = nextLesserThan8Bits(7);
                 // Run these through the 2DCodes table
-                entry = (int)(twoDCodes[entry] & 0xff);
+                entry = twoDCodes[entry] & 0xff;
 
                 // Get the code and the number of bits used up
                 code = (entry & 0x78) >>> 3;

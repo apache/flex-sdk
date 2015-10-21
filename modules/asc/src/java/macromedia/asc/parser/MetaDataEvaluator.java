@@ -254,7 +254,7 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
 		if (node.expr != null)
 		{
 			KeylessValue val = (KeylessValue) node.expr.evaluate(cx, this);
-			name = (val != null) ? (String) val.obj : name;
+			name = (val != null) ? val.obj : name;
 		}
 		if (node.args != null)
 		{

@@ -120,12 +120,12 @@ public class QNameList extends ArrayList<QName>
 
 	public QName first()
 	{
-		return size() == 0 ? null : (QName) get(0);
+		return size() == 0 ? null : get(0);
 	}
 
 	public QName last()
 	{
-		return size() == 0 ? null : (QName) get(size() - 1);
+		return size() == 0 ? null : get(size() - 1);
 	}
 
     public Set<String> getStringSet()

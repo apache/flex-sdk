@@ -319,7 +319,7 @@ public class I18nUtils
     	{
     		public String itemToString(Object obj)
     		{
-    			return "[ResourceBundle(\"" + (String)obj + "\")]";
+    			return "[ResourceBundle(\"" + obj + "\")]";
     		}
     	};
     	return StringJoiner.join(bundleNames, lineSep, itemStringer) + lineSep;
