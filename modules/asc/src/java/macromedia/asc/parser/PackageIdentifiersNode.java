@@ -86,7 +86,7 @@ public class PackageIdentifiersNode extends Node
         }
     }
 
-    private static final String ASTERISK = "*".intern();
+    private static final String ASTERISK = "*";
 
     public String toIdentifierString()
     {

@@ -25,11 +25,12 @@ import flex2.compiler.mxml.lang.StandardDefs;
 import flex2.compiler.mxml.rep.Script;
 import flex2.compiler.util.CompilerMessage;
 import flex2.compiler.util.ThreadLocalToolkit;
+import macromedia.asc.parser.*;
+import macromedia.asc.util.Context;
+
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import macromedia.asc.parser.*;
-import macromedia.asc.util.Context;
 
 /**
  * This base class all the common data and logic of the two direct AST
@@ -38,7 +39,7 @@ import macromedia.asc.util.Context;
 public abstract class AbstractGenerator
 {
     // intern all identifier constants
-    protected static final String BINDABLE = "Bindable".intern();
+    protected static final String BINDABLE = "Bindable";
     protected static final String MX_INTERNAL = StandardDefs.NAMESPACE_MX_INTERNAL_LOCALNAME;
 
     protected final StandardDefs standardDefs;

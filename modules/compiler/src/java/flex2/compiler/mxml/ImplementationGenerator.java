@@ -70,85 +70,85 @@ public class ImplementationGenerator extends AbstractGenerator
     private static final String ASTERISK = "*";
 
     // intern all identifier constants
-    private static final String __MODULE_FACTORY_INITIALIZED = "__moduleFactoryInitialized".intern();
-    private static final String ACCEPT_MEDIA_LIST = "acceptMediaList".intern();
-    private static final String ADD_EVENT_LISTENER = "addEventListener".intern();    
-    private static final String ADDED_TO_STAGE = "ADDED_TO_STAGE".intern();    
-    private static final String ARRAY = "Array".intern();
-    private static final String BINDINGS = "bindings".intern();
-    private static final String BOOLEAN = "Boolean".intern();
-    private static final String CAPITAL_BINDING = "Binding".intern();
-    private static final String CHILD_DESCRIPTORS = "childDescriptors".intern();
-    private static final String CONCAT = "concat".intern();
-    private static final String CONDITION = "condition".intern();
-    private static final String CONDITIONS = "conditions".intern();
-    private static final String CSS_CONDITION = "CSSCondition".intern();
-    private static final String CSS_SELECTOR = "CSSSelector".intern();
-    private static final String CSS_STYLE_DECLARATION = "CSSStyleDeclaration".intern();
-    private static final String DEFAULT_FACTORY = "defaultFactory".intern();
-    private static final String DESIGN_LAYER = "designLayer".intern();
-    private static final String DESTINATION = "destination".intern();
-    private static final String EFFECTS = "effects".intern();
-    private static final String EMBED = "Embed".intern();
-    private static final String EVENT_NAME = "event".intern();
-    private static final String EVENT_TYPE = "Event".intern();
-    private static final String EVENTS = "events".intern();
-    private static final String EXECUTE = "execute".intern();
-    private static final String FACTORY = "factory".intern();
-    private static final String GET_DEFINITION_BY_NAME = "getDefinitionByName".intern();
-    private static final String GET_STYLE_DECLARATION = "getStyleDeclaration".intern();
-    private static final String GET_STYLE_MANAGER = "getStyleManager".intern();
-    private static final String I = "i".intern();
-    private static final String ID = "id".intern();
-    private static final String IFLEX_MODULE_FACTORY = "IFlexModuleFactory".intern();
-    private static final String INIT = "init".intern();
-    private static final String INITIALIZE = "initialize".intern();
-    private static final String INIT_PROTO_CHAIN_ROOTS = "initProtoChainRoots".intern();
-    private static final String INSPECTABLE = "Inspectable".intern();
-    private static final String INSTANCE_INDICES = "instanceIndices".intern();
-    private static final String IS_TWO_WAY_PRIMARY = "isTwoWayPrimary".intern();
-    private static final String ISTYLE_MANAGER2 = "IStyleManager2".intern();
-    private static final String IWATCHER_SETUP_UTIL2 = "IWatcherSetupUtil2".intern();
-    private static final String LENGTH = "length".intern();
-    private static final String LOWERCASE_BINDING = "binding".intern();
-    private static final String MODULE_FACTORY = "moduleFactory".intern();
-    private static final String OBJECT = "Object".intern();
-    private static final String PROXY = "Proxy".intern();
-    private static final String PROPERTIES_FACTORY = "propertiesFactory".intern();
-    private static final String PROPERTY_NAME = "propertyName".intern();
-    private static final String PUSH = "push".intern();
-    private static final String REGISTER_EFFECTS = "registerEffects".intern();
-    private static final String REMOVE_EVENT_LISTENER = "removeEventListener".intern();    
-    private static final String REPEATABLE_BINDING = "RepeatableBinding".intern();
-    private static final String REPEATER_INDICES = "repeaterIndices".intern();
-    private static final String RESOURCE_BUNDLE = "ResourceBundle".intern();
-    private static final String RESULT = "result".intern();
-    private static final String SELECTOR = "selector".intern();
-    private static final String SETUP = "setup".intern();
-    private static final String SET_DOCUMENT_DESCRIPTOR = "setDocumentDescriptor".intern();
-    private static final String SET_STYLE_DECLARATION = "setStyleDeclaration".intern();
-    private static final String STATIC = "static".intern();
-    private static final String STRING = "String".intern();
-    private static final String STYLE = "style".intern();
-    private static final String STYLES_FACTORY = "stylesFactory".intern();
-    private static final String STYLE_DECLARATION = "styleDeclaration".intern();
-    private static final String STYLE_MANAGER_INSTANCE = "styleManager".intern();
-    private static final String STYLE_MANAGER = "StyleManager".intern();
-    private static final String TARGET = "target".intern();
-    private static final String TWO_WAY_COUNTERPART = "twoWayCounterpart".intern();
-    private static final String TYPE = "type".intern();
-    private static final String UINT = "uint".intern();
-    private static final String UI_COMPONENT_DESCRIPTOR = "UIComponentDescriptor".intern();
-    private static final String UNDEFINED = "undefined".intern();
-    private static final String WATCHERS = "watchers".intern();
-    private static final String WATCHER_SETUP_UTIL = "watcherSetupUtil".intern();
-    private static final String WATCHER_SETUP_UTIL_CLASS = "watcherSetupUtilClass".intern();
-    private static final String _BINDINGS = "_bindings".intern();
-    private static final String _DOCUMENT = "_document".intern();
-    private static final String _DOCUMENT_DESCRIPTOR_ = "_documentDescriptor_".intern();
-    private static final String _SOURCE_FUNCTION_RETURN_VALUE = "_sourceFunctionReturnValue".intern();
-    private static final String _WATCHERS = "_watchers".intern();
-    private static final String _WATCHER_SETUP_UTIL = "_watcherSetupUtil".intern();
+    private static final String __MODULE_FACTORY_INITIALIZED = "__moduleFactoryInitialized";
+    private static final String ACCEPT_MEDIA_LIST = "acceptMediaList";
+    private static final String ADD_EVENT_LISTENER = "addEventListener";
+    private static final String ADDED_TO_STAGE = "ADDED_TO_STAGE";
+    private static final String ARRAY = "Array";
+    private static final String BINDINGS = "bindings";
+    private static final String BOOLEAN = "Boolean";
+    private static final String CAPITAL_BINDING = "Binding";
+    private static final String CHILD_DESCRIPTORS = "childDescriptors";
+    private static final String CONCAT = "concat";
+    private static final String CONDITION = "condition";
+    private static final String CONDITIONS = "conditions";
+    private static final String CSS_CONDITION = "CSSCondition";
+    private static final String CSS_SELECTOR = "CSSSelector";
+    private static final String CSS_STYLE_DECLARATION = "CSSStyleDeclaration";
+    private static final String DEFAULT_FACTORY = "defaultFactory";
+    private static final String DESIGN_LAYER = "designLayer";
+    private static final String DESTINATION = "destination";
+    private static final String EFFECTS = "effects";
+    private static final String EMBED = "Embed";
+    private static final String EVENT_NAME = "event";
+    private static final String EVENT_TYPE = "Event";
+    private static final String EVENTS = "events";
+    private static final String EXECUTE = "execute";
+    private static final String FACTORY = "factory";
+    private static final String GET_DEFINITION_BY_NAME = "getDefinitionByName";
+    private static final String GET_STYLE_DECLARATION = "getStyleDeclaration";
+    private static final String GET_STYLE_MANAGER = "getStyleManager";
+    private static final String I = "i";
+    private static final String ID = "id";
+    private static final String IFLEX_MODULE_FACTORY = "IFlexModuleFactory";
+    private static final String INIT = "init";
+    private static final String INITIALIZE = "initialize";
+    private static final String INIT_PROTO_CHAIN_ROOTS = "initProtoChainRoots";
+    private static final String INSPECTABLE = "Inspectable";
+    private static final String INSTANCE_INDICES = "instanceIndices";
+    private static final String IS_TWO_WAY_PRIMARY = "isTwoWayPrimary";
+    private static final String ISTYLE_MANAGER2 = "IStyleManager2";
+    private static final String IWATCHER_SETUP_UTIL2 = "IWatcherSetupUtil2";
+    private static final String LENGTH = "length";
+    private static final String LOWERCASE_BINDING = "binding";
+    private static final String MODULE_FACTORY = "moduleFactory";
+    private static final String OBJECT = "Object";
+    private static final String PROXY = "Proxy";
+    private static final String PROPERTIES_FACTORY = "propertiesFactory";
+    private static final String PROPERTY_NAME = "propertyName";
+    private static final String PUSH = "push";
+    private static final String REGISTER_EFFECTS = "registerEffects";
+    private static final String REMOVE_EVENT_LISTENER = "removeEventListener";
+    private static final String REPEATABLE_BINDING = "RepeatableBinding";
+    private static final String REPEATER_INDICES = "repeaterIndices";
+    private static final String RESOURCE_BUNDLE = "ResourceBundle";
+    private static final String RESULT = "result";
+    private static final String SELECTOR = "selector";
+    private static final String SETUP = "setup";
+    private static final String SET_DOCUMENT_DESCRIPTOR = "setDocumentDescriptor";
+    private static final String SET_STYLE_DECLARATION = "setStyleDeclaration";
+    private static final String STATIC = "static";
+    private static final String STRING = "String";
+    private static final String STYLE = "style";
+    private static final String STYLES_FACTORY = "stylesFactory";
+    private static final String STYLE_DECLARATION = "styleDeclaration";
+    private static final String STYLE_MANAGER_INSTANCE = "styleManager";
+    private static final String STYLE_MANAGER = "StyleManager";
+    private static final String TARGET = "target";
+    private static final String TWO_WAY_COUNTERPART = "twoWayCounterpart";
+    private static final String TYPE = "type";
+    private static final String UINT = "uint";
+    private static final String UI_COMPONENT_DESCRIPTOR = "UIComponentDescriptor";
+    private static final String UNDEFINED = "undefined";
+    private static final String WATCHERS = "watchers";
+    private static final String WATCHER_SETUP_UTIL = "watcherSetupUtil";
+    private static final String WATCHER_SETUP_UTIL_CLASS = "watcherSetupUtilClass";
+    private static final String _BINDINGS = "_bindings";
+    private static final String _DOCUMENT = "_document";
+    private static final String _DOCUMENT_DESCRIPTOR_ = "_documentDescriptor_";
+    private static final String _SOURCE_FUNCTION_RETURN_VALUE = "_sourceFunctionReturnValue";
+    private static final String _WATCHERS = "_watchers";
+    private static final String _WATCHER_SETUP_UTIL = "_watcherSetupUtil";
 
     private MxmlDocument mxmlDocument;
 
@@ -205,7 +205,7 @@ public class ImplementationGenerator extends AbstractGenerator
             } 
             else
             {
-                classDocComment = AbstractSyntaxTreeUtil.generateDocComment(nodeFactory, "<description><![CDATA[]]></description>".intern());
+                classDocComment = AbstractSyntaxTreeUtil.generateDocComment(nodeFactory, "<description><![CDATA[]]></description>");
             }
             
             if (classDocComment != null)
@@ -1471,7 +1471,7 @@ public class ImplementationGenerator extends AbstractGenerator
         if(processComments) // in some cases *not* having a private comment is not enough. So adding a blank comment to the c'tor
         {
             DocCommentNode docComment =
-                AbstractSyntaxTreeUtil.generateDocComment(nodeFactory, "<description><![CDATA[]]></description>".intern());
+                AbstractSyntaxTreeUtil.generateDocComment(nodeFactory, "<description><![CDATA[]]></description>");
             result = nodeFactory.statementList(result, docComment);
         }
 
@@ -2047,7 +2047,7 @@ public class ImplementationGenerator extends AbstractGenerator
                     {
                         // when individual classes are listed using doc-classes, properties with id but no comment are not visible. So adding a blank comment.
                         DocCommentNode docComment =
-                            AbstractSyntaxTreeUtil.generateDocComment(nodeFactory, "<description><![CDATA[]]></description>".intern());
+                            AbstractSyntaxTreeUtil.generateDocComment(nodeFactory, "<description><![CDATA[]]></description>");
                         result = nodeFactory.statementList(result, docComment);
                     }
                 }

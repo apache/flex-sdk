@@ -60,7 +60,7 @@ import java.util.Comparator;
 
 public class ObjectValue extends Value implements Comparable
 {
-    static final String EMPTY_STRING = "".intern();
+    static final String EMPTY_STRING = "";
 
     public static void NamespacesFromQualifiers(Qualifiers quals,Namespaces namespaces)
     {

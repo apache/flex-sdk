@@ -41,7 +41,7 @@ import java.util.Set;
  */
 public class DescriptorGenerator
 {
-    private final static String INDENT = "  ".intern();
+    private final static String INDENT = "  ";
 
     /**
      * wrapper for generating entire descriptor tree. See notes on includePropNames param below.

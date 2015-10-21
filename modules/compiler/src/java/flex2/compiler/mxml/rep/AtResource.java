@@ -72,8 +72,8 @@ public class AtResource implements LineNumberMapped
     }
 
     // intern, because it's used as an identifier
-    private static final String RESOURCE_MANAGER = "ResourceManager".intern();
-    private static final String GET_INSTANCE = "getInstance".intern();
+    private static final String RESOURCE_MANAGER = "ResourceManager";
+    private static final String GET_INSTANCE = "getInstance";
 
     public MemberExpressionNode getValueExpression(NodeFactory nodeFactory)
     {

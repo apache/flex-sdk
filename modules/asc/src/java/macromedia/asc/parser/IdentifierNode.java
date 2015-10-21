@@ -25,7 +25,7 @@ import macromedia.asc.util.*;
  */
 public class IdentifierNode extends Node
 {
-	private static final String ASTERISK = "*".intern();
+	private static final String ASTERISK = "*";
 
 	public String name;
     public ReferenceValue ref;

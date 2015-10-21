@@ -36,13 +36,13 @@ import static macromedia.asc.embedding.avmplus.ActionBlockConstants.*;
  */
 public final class FlowAnalyzer extends Emitter implements Evaluator, ErrorConstants
 {
-    private static final String INTRINSIC = "intrinsic".intern();
-    private static final String INTERNAL = "internal".intern();
-    private static final String PUBLIC = "public".intern();
-    private static final String PRIVATE = "private".intern();
-    private static final String PROTECTED = "protected".intern();
-    private static final String PROTOTYPE = "prototype".intern();
-    private static final String STATIC = "static".intern();
+    private static final String INTRINSIC = "intrinsic";
+    private static final String INTERNAL = "internal";
+    private static final String PUBLIC = "public";
+    private static final String PRIVATE = "private";
+    private static final String PROTECTED = "protected";
+    private static final String PROTOTYPE = "prototype";
+    private static final String STATIC = "static";
 
     private Names interfaceMethods = null;
     private boolean define_cv;

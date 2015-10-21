@@ -39,7 +39,7 @@ import java.util.List;
  */
 public class EventInitializer implements Initializer
 {
-    private static final String EVENT = "event".intern();
+    private static final String EVENT = "event";
 
 	private final EventHandler handler;
 
@@ -99,7 +99,7 @@ public class EventInitializer implements Initializer
 	}
 
     // intern all identifier constants
-    private static final String ADD_EVENT_LISTENER = "addEventListener".intern();
+    private static final String ADD_EVENT_LISTENER = "addEventListener";
 
 	public StatementListNode generateAssignExpr(NodeFactory nodeFactory, HashSet<String> configNamespaces,
                                                 boolean generateDocComments, StatementListNode statementList,
