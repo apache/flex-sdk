@@ -1073,7 +1073,7 @@ public class FlexFXG2SWFTranscoder extends FXG2SWFTranscoder
     /**
      * An enumeration that specifies the base type of a SymbolClass.
      */
-    private static enum SymbolClassType
+    private enum SymbolClassType
     {
         SPRITE,
         SHAPE
@@ -1082,7 +1082,7 @@ public class FlexFXG2SWFTranscoder extends FXG2SWFTranscoder
     /**
      * Text node type enumeration.
      */
-    private static enum NodeType
+    private enum NodeType
     {
         DIV,
         FORMAT,

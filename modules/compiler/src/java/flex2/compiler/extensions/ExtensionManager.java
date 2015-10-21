@@ -42,14 +42,14 @@ import flex2.compiler.util.CompilerMessage.CompilerError;
 public class ExtensionManager
 {
 
-    public static enum ExtensionType
+    public enum ExtensionType
     {
         PRELINK( "extensions-prelink" ), MXMLC( "extensions-mxmlc" ), COMPC( "extensions-compc" ), APPLICATION(
             "extensions-application" ), LIBRARY( "extensions-library" ), PRE_COMPILE( "extensions-pre-compile" );
 
         private String extensionTag;
 
-        private ExtensionType( String extensionTag )
+        ExtensionType(String extensionTag)
         {
             this.extensionTag = extensionTag;
         }

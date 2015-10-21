@@ -31,7 +31,7 @@ public enum BinaryOp {
 	private int m_value;
 	private String m_name;
 
-	private BinaryOp(int value, String name) {
+	BinaryOp(int value, String name) {
 		m_value = value;
 		m_name = name;
 	}

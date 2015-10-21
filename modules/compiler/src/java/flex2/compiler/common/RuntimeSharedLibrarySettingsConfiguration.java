@@ -152,7 +152,7 @@ public class RuntimeSharedLibrarySettingsConfiguration
      *  values represent the valid values that may specified for the 
      *  application-domain option.
      */
-    public static enum ApplicationDomainTarget 
+    public enum ApplicationDomainTarget
     {
         DEFAULT("default"),
         CURRENT("current"),
@@ -161,7 +161,7 @@ public class RuntimeSharedLibrarySettingsConfiguration
  
         private String applicationDomainValue;
 
-        private ApplicationDomainTarget( String applicationDomainValue )
+        ApplicationDomainTarget(String applicationDomainValue)
         {
             this.applicationDomainValue = applicationDomainValue;
         }
