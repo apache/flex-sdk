@@ -27,6 +27,7 @@ package spark.components.gridClasses
     import mx.core.IToolTip;
     import mx.core.IUIComponent;
     import mx.core.LayoutDirection;
+    import mx.core.mx_internal;
     import mx.events.FlexEvent;
     import mx.events.ToolTipEvent;
     import mx.managers.IToolTipManagerClient;
