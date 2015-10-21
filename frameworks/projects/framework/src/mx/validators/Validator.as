@@ -1171,7 +1171,7 @@ public class Validator extends EventDispatcher implements IMXMLObject,IValidator
     /**
      *  @private
      */
-    private function triggerHandler(event:Event):void
+    protected function triggerHandler(event:Event):void
     {
         validate();
     }
