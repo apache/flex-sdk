@@ -72,11 +72,9 @@ public final class BitSet
 		for (int i=0; i < minlen; i++)
 			t.bits[i] = a.bits[i] | b.bits[i];
 		if (a.bits != null && a.bits.length > minlen)
-			for (int i = a.bits.length-1; i >= minlen; i--)
-				t.bits[i] = a.bits[i];
+			System.arraycopy(a.bits, minlen, t.bits, minlen, a.bits.length - minlen);
 		else if (b.bits != null && b.bits.length > minlen)
-			for (int i = b.bits.length-1; i >= minlen; i--)
-				t.bits[i] = b.bits[i];
+			System.arraycopy(b.bits, minlen, t.bits, minlen, b.bits.length - minlen);
 		return t;
 	}
 	
@@ -130,11 +128,9 @@ public final class BitSet
 		for (int i=0; i < minlen; i++)
 			t.bits[i] = a.bits[i] ^ b.bits[i];
 		if (a.bits != null && a.bits.length > minlen)
-			for (int i = a.bits.length-1; i >= minlen; i--)
-				t.bits[i] = a.bits[i];
+			System.arraycopy(a.bits, minlen, t.bits, minlen, a.bits.length - minlen);
 		else if (b.bits != null && b.bits.length > minlen)
-			for (int i = b.bits.length-1; i >= minlen; i--)
-				t.bits[i] = b.bits[i];
+			System.arraycopy(b.bits, minlen, t.bits, minlen, b.bits.length - minlen);
 		return t;
 	}
 	

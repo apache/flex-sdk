@@ -115,9 +115,7 @@ public class ColorMatrixRable8Bit
                 throw new IllegalArgumentException();
             }
             newMatrix[i] = new float[5];
-            for(int j=0; j<5; j++){
-                newMatrix[i][j] = m[j];
-            }
+            System.arraycopy(m, 0, newMatrix[i], 0, 5);
         }
 
         /*for(int i=0; i<4; i++){

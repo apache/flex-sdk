@@ -56,9 +56,7 @@ public class CSSSACMediaQuery {
         if (numExpressions == expressions.length) {
         	CSSSACMediaExpression[] tmp = expressions;
         	expressions = new CSSSACMediaExpression[Math.max(expressions.length * 3 / 2, expressions.length + 1)];
-            for (int i = 0; i < tmp.length; i++) {
-            	expressions[i] = tmp[i];
-            }
+			System.arraycopy(tmp, 0, expressions, 0, tmp.length);
         }
         expressions[numExpressions++] = expr;
 	}
