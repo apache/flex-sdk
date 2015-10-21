@@ -363,7 +363,7 @@ public class AsDocUtil
         catch (Exception ex)
         {
             String msg = "Text for " + elementName + " in " + ownerName + " is not valid.\n";
-            if(ex.getMessage().indexOf("matching end-tag \"</test>\"") == -1 )
+            if(!ex.getMessage().contains("matching end-tag \"</test>\""))
             {
                 msg += ex.getMessage();
             } 
@@ -885,8 +885,8 @@ public class AsDocUtil
     {
         if (packageName == null || packageName.equals(""))
             return false;
-        else if (hiddenPackages.indexOf(":" + packageName + ":") != -1)
-            return (hiddenPackages.indexOf(":" + packageName + ":true:") != -1);
+        else if (hiddenPackages.contains(":" + packageName + ":"))
+            return (hiddenPackages.contains(":" + packageName + ":true:"));
         else
             return false;
     }
@@ -1037,9 +1037,9 @@ public class AsDocUtil
         {
             return false;
         }
-        else if (namespaces.indexOf(":" + namespace + ":") != -1)
+        else if (namespaces.contains(":" + namespace + ":"))
         {
-            return (namespaces.indexOf(":" + namespace + ":true:") != -1);
+            return (namespaces.contains(":" + namespace + ":true:"));
         }
         else if (namespace.equals("public"))
         {

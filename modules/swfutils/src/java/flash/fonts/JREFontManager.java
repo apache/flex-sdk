@@ -87,7 +87,7 @@ public class JREFontManager extends CachedFontManager
             {
                 URL url = (URL)location;
 
-                if (url.getProtocol().toLowerCase().indexOf("file") > -1)
+                if (url.getProtocol().toLowerCase().contains("file"))
                 {
                     File f = new File(url.getFile());
                     // Do NOT buffer this stream, Font.createFont() does it for us.

@@ -397,7 +397,7 @@ public class DebugDecoder
 		{
 			try
 			{
-				if (token2.indexOf("..") != -1 || token2.indexOf(".") != -1)
+				if (token2.contains("..") || token2.contains("."))
 				{
 					f = FileUtils.getCanonicalFile(f);
 				}

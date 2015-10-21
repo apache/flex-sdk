@@ -369,7 +369,7 @@ public class Compiler implements ErrorConstants
         // don't allow decimal on 1.4
         {
         	String ver = System.getProperty("java.version", "noVersion");
-        	if (ver.indexOf("1.4") >= 0)
+        	if (ver.contains("1.4"))
         		statics.es4_numerics = false;
         }
 

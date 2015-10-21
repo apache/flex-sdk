@@ -216,7 +216,7 @@ public class BindingExpression implements Comparable<BindingExpression>
 
         boolean result = false;
 
-        if (potentialProperty.indexOf(":") == -1)
+        if (!potentialProperty.contains(":"))
         {
             Property property = skeletonClass.getProperty(SymbolTable.publicNamespace, potentialProperty);
 
@@ -690,7 +690,7 @@ public class BindingExpression implements Comparable<BindingExpression>
                 !isDestinationObjectProxy() &&
                 getNamespaceDeclarations().equals("") &&
                 (twoWayCounterpart == null) &&
-                (getDestinationPath(false).indexOf("[") == -1));
+                (!getDestinationPath(false).contains("[")));
     }
 
     public boolean isStyle()
@@ -765,7 +765,7 @@ public class BindingExpression implements Comparable<BindingExpression>
 
     public int getRepeaterLevel(String var)
     {
-        if (var.indexOf("[repeaterIndices") > -1)
+        if (var.contains("[repeaterIndices"))
         {
             var = var.substring(0, var.indexOf("["));
         }

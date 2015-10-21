@@ -65,7 +65,7 @@ public class BatikFontManager extends CachedFontManager
             if (location instanceof URL)
             {
                 URL url = (URL)location;
-                if (url.getProtocol().toLowerCase().indexOf("file") > -1)
+                if (url.getProtocol().toLowerCase().contains("file"))
                 {
                     path = url.getFile();
                 }

@@ -2813,7 +2813,7 @@ public class GlobalOptimizer
 		for (int n=m.getParams().length; i < n; i++)
 		{
 			String argname = (i == 0) ? 
-								((m.getParams()[i].toString().indexOf("$") >= 0) ? "classself" : "self") : 
+								((m.getParams()[i].toString().contains("$")) ? "classself" : "self") :
 								m.paramNames[i].name;
 			if (m.getParams()[i].t==NUMBER())
 			{

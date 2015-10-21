@@ -74,9 +74,9 @@ public class RhinoClassShutter implements ClassShutter {
             // Don't let them get Scripting stuff from bridge.
             if (batikPkg.startsWith("bridge.")) {
                 
-                if (batikPkg.indexOf(".BaseScriptingEnvironment")!=-1)
+                if (batikPkg.contains(".BaseScriptingEnvironment"))
                     return false;
-                if (batikPkg.indexOf(".ScriptingEnvironment")!=-1)
+                if (batikPkg.contains(".ScriptingEnvironment"))
                     return false;
             }
         }

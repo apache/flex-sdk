@@ -120,18 +120,18 @@ public abstract class CachedFontFace extends FontFace
         {
             subFamilyName = subFamilyName.toLowerCase();
 
-            if (subFamilyName.indexOf("regular") != -1)
+            if (subFamilyName.contains("regular"))
             {
                 style = PLAIN;
             }
 
-            if (subFamilyName.indexOf("bold") != -1)
+            if (subFamilyName.contains("bold"))
             {
                 style += BOLD;
             }
 
-            if (subFamilyName.indexOf("italic") != -1 ||
-                    subFamilyName.indexOf("oblique") != -1)
+            if (subFamilyName.contains("italic") ||
+                    subFamilyName.contains("oblique"))
             {
                 style += ITALIC;
             }

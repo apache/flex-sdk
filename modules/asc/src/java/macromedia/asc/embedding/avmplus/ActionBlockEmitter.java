@@ -17,35 +17,19 @@
 
 package macromedia.asc.embedding.avmplus;
 
-import static java.lang.System.*;
 import macromedia.abc.BytecodeBuffer;
 import macromedia.asc.parser.LiteralNumberNode;
 import macromedia.asc.parser.MetaDataEvaluator;
-import macromedia.asc.parser.MetaDataNode;
 import macromedia.asc.semantics.*;
-import macromedia.asc.util.ByteList;
-import macromedia.asc.util.Context;
-import macromedia.asc.util.IntList;
-import macromedia.asc.util.Names;
-import macromedia.asc.util.Namespaces;
-import macromedia.asc.util.ObjectList;
-import macromedia.asc.util.Qualifiers;
-import macromedia.asc.util.Slots;
-import macromedia.asc.util.IntegerPool;
-import macromedia.asc.util.Decimal128;
-import macromedia.asc.util.NumberUsage;
-import macromedia.asc.util.NumberConstant;
-import macromedia.asc.util.DoubleNumberConstant;
-import macromedia.asc.util.DecimalNumberConstant;
-import macromedia.asc.util.IntNumberConstant;
-import macromedia.asc.util.UintNumberConstant;
+import macromedia.asc.util.*;
 
 import java.io.PrintWriter;
 import java.util.*;
 
-import static macromedia.asc.embedding.avmplus.RuntimeConstants.*;
 import static macromedia.asc.embedding.avmplus.ActionBlockConstants.*;
+import static macromedia.asc.embedding.avmplus.ByteCodeFactory.Byte;
 import static macromedia.asc.embedding.avmplus.ByteCodeFactory.*;
+import static macromedia.asc.embedding.avmplus.RuntimeConstants.*;
 import static macromedia.asc.parser.Tokens.*;
 
 
@@ -965,8 +949,8 @@ public class ActionBlockEmitter extends Emitter
         // Reset debug line number for new method
         debug_info.debug_file_dirty = true;
         debug_info.debug_linenum_dirty = true;
-        debug_info.suppress_debug_method = (name.indexOf("$iinit") != -1 ||
-                                            name.indexOf("$cinit") != -1);
+        debug_info.suppress_debug_method = (name.contains("$iinit") ||
+                name.contains("$cinit"));
         sets_dxns = false;
     }
 
@@ -1452,9 +1436,9 @@ public class ActionBlockEmitter extends Emitter
         }
              
         boolean isInt = false;
-        if ((str.indexOf(".") > -1 || str.indexOf("e") > -1 || 
-             str.indexOf("E") > -1 || str.length() > 10) &&
-            !(str.indexOf("x") > -1 || str.indexOf("X") > -1)) {
+        if ((str.contains(".") || str.contains("e") ||
+                str.contains("E") || str.length() > 10) &&
+            !(str.contains("x") || str.contains("X"))) {
             // looks like floating, and not hex
             dval = new Decimal128(str);
         }
@@ -1561,9 +1545,9 @@ public class ActionBlockEmitter extends Emitter
         }
 
         boolean isInt = false;
-        if ((str.indexOf(".") > -1 || str.indexOf("e") > -1 || 
-             str.indexOf("E") > -1 || str.length() > 10) &&
-            !(str.indexOf("x") > -1 || str.indexOf("X") > -1)) {
+        if ((str.contains(".") || str.contains("e") ||
+                str.contains("E") || str.length() > 10) &&
+            !(str.contains("x") || str.contains("X"))) {
             // looks like floating, and not hex
             d = Double.valueOf(str);
             sum = d.doubleValue();
@@ -2083,9 +2067,9 @@ public class ActionBlockEmitter extends Emitter
          node.numericValue = getValueOfNumberLiteral(node.value, nuType, node.numberUsage);
 
         // but, if decimal or the format was scientific, force type to be Number
-         if ((node.value.indexOf(".") > -1) ||
-              (((node.value.indexOf("e") > -1) || (node.value.indexOf("E") > -1)) && 
-               !((node.value.indexOf("x") > -1) || (node.value.indexOf("X") > -1))) )
+         if ((node.value.contains(".")) ||
+              (((node.value.contains("e")) || (node.value.contains("E"))) &&
+               !((node.value.contains("x")) || (node.value.contains("X")))) )
         {
         	if (cx.statics.es4_numerics && (node.numberUsage != null && node.numberUsage.get_floating_usage() == NumberUsage.use_decimal))
         		node.type = cx.decimalType();
