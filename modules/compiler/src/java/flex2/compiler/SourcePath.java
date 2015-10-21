@@ -592,7 +592,7 @@ abstract class SourcePathBase
         while (iterator.hasNext())
 		{
             Source source = iterator.next();
-            buffer.append("\tsource = " + source + ", cu = " + source.getCompilationUnit() + "\n");
+            buffer.append("\tsource = ").append(source).append(", cu = ").append(source.getCompilationUnit()).append("\n");
 		}
 
         return buffer.toString();

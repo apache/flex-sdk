@@ -306,15 +306,15 @@ public class DependencyWalker
             
             for (Iterator defs = l.getDefinitions(); defs.hasNext();)
             {
-                buf.append( "      <def id=\"" + (String) defs.next() + "\" />\n" );
+                buf.append("      <def id=\"").append((String) defs.next()).append("\" />\n");
             }
             for (Iterator pre = l.getPrerequisites(); pre.hasNext();)
             {
-                buf.append( "      <pre id=\"" + (String) pre.next() + "\" />\n" );
+                buf.append("      <pre id=\"").append((String) pre.next()).append("\" />\n");
             }
             for (Iterator dep = l.getDependencies(); dep.hasNext();)
             {
-                buf.append( "      <dep id=\"" + (String) dep.next() + "\" />\n" );
+                buf.append("      <dep id=\"").append((String) dep.next()).append("\" />\n");
             }
             buf.append( "    </script>\n" );
         }
@@ -329,14 +329,14 @@ public class DependencyWalker
                 if (!state.getUnresolved().contains( ext ))    // only print exts we actually depended on
                     continue;
 
-                buf.append( "    <ext id=\"" + ext + "\" />\n" );
+                buf.append("    <ext id=\"").append(ext).append("\" />\n");
             }
             for (Iterator<String> unresolved = state.getUnresolved().iterator(); unresolved.hasNext();)
             {
                 String unr = unresolved.next();
                 if (state.getExternal().contains( unr ))
                     continue;
-                buf.append( "    <missing id=\"" + unr + "\" />\n" );
+                buf.append("    <missing id=\"").append(unr).append("\" />\n");
             }
             buf.append( "  </external-defs>\n");
         }

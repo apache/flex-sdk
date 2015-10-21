@@ -410,12 +410,12 @@ public class SwcDependencyUtil
       for (Vertex<String, SwcExternalScriptInfo> vertexEntry : vertexSet)
       {
           String message = i10n.getLocalizedTextString(new DependsOn(vertexEntry.getWeight()));
-          dependencyMessage.append(message + lineSeparator);
+          dependencyMessage.append(message).append(lineSeparator);
           Set<Vertex<String, SwcExternalScriptInfo>> predSet = vertexEntry.getPredecessors();
 
           for (Vertex<String, SwcExternalScriptInfo> predEntry : predSet)
           {
-              dependencyMessage.append("\t" + predEntry.getWeight() + lineSeparator);
+              dependencyMessage.append("\t").append(predEntry.getWeight()).append(lineSeparator);
           }
           
       }

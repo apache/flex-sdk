@@ -95,7 +95,7 @@ public class ButtonCondAction
 		// return the flags as a string
 		StringBuilder b = new StringBuilder();
 
-        if (keyPress != 0)      b.append("keyPress<"+keyPress+">,");
+        if (keyPress != 0)      b.append("keyPress<").append(keyPress).append(">,");
 		if (overDownToIdle)		b.append("overDownToIdle,");
 		if (idleToOverDown)		b.append("idleToOverDown,");
 		if (outDownToIdle)		b.append("outDownToIdle,");

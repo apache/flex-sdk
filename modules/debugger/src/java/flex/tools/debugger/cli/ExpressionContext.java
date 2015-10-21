@@ -17,17 +17,7 @@
 
 package flex.tools.debugger.cli;
 
-import java.util.StringTokenizer;
-import java.util.Vector;
-
-import flash.tools.debugger.Isolate;
-import flash.tools.debugger.PlayerDebugException;
-import flash.tools.debugger.Session;
-import flash.tools.debugger.SessionManager;
-import flash.tools.debugger.Value;
-import flash.tools.debugger.ValueAttribute;
-import flash.tools.debugger.Variable;
-import flash.tools.debugger.VariableType;
+import flash.tools.debugger.*;
 import flash.tools.debugger.concrete.DValue;
 import flash.tools.debugger.events.ExceptionFault;
 import flash.tools.debugger.events.FaultEvent;
@@ -35,6 +25,9 @@ import flash.tools.debugger.expression.Context;
 import flash.tools.debugger.expression.ExpressionEvaluatorException;
 import flash.tools.debugger.expression.NoSuchVariableException;
 import flash.tools.debugger.expression.PlayerFaultException;
+
+import java.util.StringTokenizer;
+import java.util.Vector;
 
 public class ExpressionContext implements Context
 {
@@ -263,12 +256,12 @@ public class ExpressionContext implements Context
 			for (int c=0; c<classHierarchy.length; ++c)
 			{
 				String classname = classHierarchy[c];
-				sb.append(m_newline + "(Members of " + classname + ")"); //$NON-NLS-1$ //$NON-NLS-2$
+				sb.append(m_newline).append("(Members of ").append(classname).append(")"); //$NON-NLS-1$ //$NON-NLS-2$
 				for (int i=0; i<mems.length; ++i)
 				{
 					if (classname.equals(mems[i].getDefiningClass()))
 					{
-			  			sb.append(m_newline + " "); //$NON-NLS-1$
+			  			sb.append(m_newline).append(" "); //$NON-NLS-1$
                         m_cache.appendVariable(sb, mems[i], m_isolateId);
 						if (attrs)
 							ExpressionCache.appendVariableAttributes(sb, mems[i]);
@@ -280,7 +273,7 @@ public class ExpressionContext implements Context
 		{
 	  		for(int i=0; i<mems.length; i++)
 	  		{
-	  			sb.append(m_newline + " "); //$NON-NLS-1$
+	  			sb.append(m_newline).append(" "); //$NON-NLS-1$
                 m_cache.appendVariable(sb, mems[i], m_isolateId);
 				if (attrs)
 					ExpressionCache.appendVariableAttributes(sb, mems[i]);

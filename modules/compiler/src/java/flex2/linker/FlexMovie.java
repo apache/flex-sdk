@@ -291,7 +291,7 @@ public class FlexMovie extends SimpleMovie
 	    for (Iterator<String> iterator = bundles.iterator(); iterator.hasNext();)
 	    {
 		    String str = iterator.next();
-		    b.append(str + " ");
+		    b.append(str).append(" ");
 	    }		
 	    return b.toString();
 	}

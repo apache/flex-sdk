@@ -8726,7 +8726,7 @@ public class GlobalOptimizer
 	String formatExprAsAbc(Expr e)
 	{	
 		StringBuilder s = new StringBuilder();
-		s.append("    " + opNames[e.op]);
+		s.append("    ").append(opNames[e.op]);
 		if (e.imm != null)
 		{
 			s.append('<');
@@ -8771,7 +8771,7 @@ public class GlobalOptimizer
 			outBuffer.append("  ");
 			
 		if (e.value == null)
-			outBuffer.append(" "+opNames[e.op]);
+			outBuffer.append(" ").append(opNames[e.op]);
 		if (e.imm != null)
 		{
 			outBuffer.append('<');
@@ -8792,7 +8792,7 @@ public class GlobalOptimizer
 		if (e.value != null)
 			outBuffer.append(formatObject(e.value));
 		if (e.ref != null)
-			outBuffer.append(" "+e.ref);//.format()); // full name
+			outBuffer.append(" ").append(e.ref);//.format()); // full name
 	
 		return outBuffer.toString();
 	}

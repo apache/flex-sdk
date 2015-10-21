@@ -951,7 +951,7 @@ public class DebugCLI implements Runnable, SourceLocator {
 
     void doShowLocations() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Num Type           Disp Enb Address    What" + m_newline); //$NON-NLS-1$
+        sb.append("Num Type           Disp Enb Address    What").append(m_newline); //$NON-NLS-1$
 
         // our list of breakpoints
         int count = breakpointCount();
@@ -1198,7 +1198,7 @@ public class DebugCLI implements Runnable, SourceLocator {
                 workArgs.put("worker", (t.getId() - 1)); //$NON-NLS-1$
                 sb.append(getLocalizationManager().getLocalizedTextString("inWorker", workArgs)); //$NON-NLS-1$
             }
-            sb.append(" - " + status + m_newline); //$NON-NLS-1$
+            sb.append(" - ").append(status).append(m_newline); //$NON-NLS-1$
         }
         out(sb.toString());
     }
@@ -1335,7 +1335,7 @@ public class DebugCLI implements Runnable, SourceLocator {
 
     void doInfoDisplay() {
         StringBuilder sb = new StringBuilder();
-        sb.append("Num Enb Expression" + m_newline); //$NON-NLS-1$
+        sb.append("Num Enb Expression").append(m_newline); //$NON-NLS-1$
 
         // our list of displays
         int count = displayCount();
@@ -1586,16 +1586,16 @@ public class DebugCLI implements Runnable, SourceLocator {
             }
 
             if (frameworkFiles.size() > 0) {
-                sb.append("---" + m_newline); //$NON-NLS-1$
+                sb.append("---").append(m_newline); //$NON-NLS-1$
                 appendStrings(sb, frameworkFiles, (frameworkFiles.size() > wrapAt));
             }
 
             if (syntheticFiles.size() > 0) {
-                sb.append("---" + m_newline); //$NON-NLS-1$
+                sb.append("---").append(m_newline); //$NON-NLS-1$
                 appendStrings(sb, syntheticFiles, (syntheticFiles.size() > wrapAt));
             }
 
-            sb.append("---" + m_newline); //$NON-NLS-1$
+            sb.append("---").append(m_newline); //$NON-NLS-1$
         }
 
         appendStrings(sb, authoredFiles, (authoredFiles.size() > wrapAt));
@@ -1758,7 +1758,7 @@ public class DebugCLI implements Runnable, SourceLocator {
 //		waitTilHalted();
 
         StringBuilder sb = new StringBuilder();
-        sb.append("Num Type           Disp Enb Address    What" + m_newline); //$NON-NLS-1$
+        sb.append("Num Type           Disp Enb Address    What").append(m_newline); //$NON-NLS-1$
 
         // our list of breakpoints
         int count = breakpointCount();
@@ -1885,7 +1885,7 @@ public class DebugCLI implements Runnable, SourceLocator {
             // silent?
             if (silent) {
                 sb.append(INDENT);
-                sb.append(getLocalizationManager().getLocalizedTextString("silentBreakpoint") + m_newline); //$NON-NLS-1$
+                sb.append(getLocalizationManager().getLocalizedTextString("silentBreakpoint")).append(m_newline); //$NON-NLS-1$
             }
 
             // now if any commands are trailing then we pump them out
@@ -2054,20 +2054,20 @@ public class DebugCLI implements Runnable, SourceLocator {
             propertyPut(LIST_MODULE, 1);
             sb.append(getLocalizationManager().getLocalizedTextString("additionalCodeLoaded")); //$NON-NLS-1$
             if (activeIsolateChanged) {
-                sb.append(m_newline + getLocalizationManager().getLocalizedTextString("workerChanged") + " " + (targetIsolate - 1) + m_newline); //$NON-NLS-1$ //$NON-NLS-2$
+                sb.append(m_newline).append(getLocalizationManager().getLocalizedTextString("workerChanged")).append(" ").append(targetIsolate - 1).append(m_newline); //$NON-NLS-1$ //$NON-NLS-2$
             }
             sb.append(m_newline);
 
             if (resolveBreakpoints(sb))
-                sb.append(getLocalizationManager().getLocalizedTextString("setAdditionalBreakpoints") + m_newline); //$NON-NLS-1$
+                sb.append(getLocalizationManager().getLocalizedTextString("setAdditionalBreakpoints")).append(m_newline); //$NON-NLS-1$
             else
-                sb.append(getLocalizationManager().getLocalizedTextString("fixBreakpoints") + m_newline); //$NON-NLS-1$
+                sb.append(getLocalizationManager().getLocalizedTextString("fixBreakpoints")).append(m_newline); //$NON-NLS-1$
 
             setPromptState(InitialPromptState.SHOWN_ONCE, targetIsolate);
         } else if (l == null || l.getFile() == null) {
 
             if (activeIsolateChanged) {
-                sb.append(m_newline + getLocalizationManager().getLocalizedTextString("workerChanged") + " " + (targetIsolate - 1) + m_newline);
+                sb.append(m_newline).append(getLocalizationManager().getLocalizedTextString("workerChanged")).append(" ").append(targetIsolate - 1).append(m_newline);
             }
 
             // no idea where we are ?!?
@@ -2088,7 +2088,7 @@ public class DebugCLI implements Runnable, SourceLocator {
             // in between, I comment my changes.
         }*/ else {
             if (activeIsolateChanged) {
-                sb.append(m_newline + getLocalizationManager().getLocalizedTextString("workerChanged") + " " + (targetIsolate - 1) + m_newline);
+                sb.append(m_newline).append(getLocalizationManager().getLocalizedTextString("workerChanged")).append(" ").append(targetIsolate - 1).append(m_newline);
             }
 
             SourceFile file = l.getFile();
@@ -2569,15 +2569,15 @@ public class DebugCLI implements Runnable, SourceLocator {
         StringBuilder sb = new StringBuilder();
         if (getPromptState(targetIsolate) == InitialPromptState.NEVER_SHOWN) {
             sb.append(getLocalizationManager().getLocalizedTextString("additionalCodeLoaded")); //$NON-NLS-1$
-            sb.append(m_newline + getLocalizationManager().getLocalizedTextString("workerChanged") + " " + (targetIsolate - 1) + m_newline); //$NON-NLS-1$ //$NON-NLS-2$
+            sb.append(m_newline).append(getLocalizationManager().getLocalizedTextString("workerChanged")).append(" ").append(targetIsolate - 1).append(m_newline); //$NON-NLS-1$ //$NON-NLS-2$
             sb.append(m_newline);
             setPromptState(InitialPromptState.SHOWN_ONCE, targetIsolate);
         }
 
         if (resolveBreakpoints(sb))
-            sb.append(getLocalizationManager().getLocalizedTextString("setAdditionalBreakpoints") + m_newline); //$NON-NLS-1$
+            sb.append(getLocalizationManager().getLocalizedTextString("setAdditionalBreakpoints")).append(m_newline); //$NON-NLS-1$
         else
-            sb.append(getLocalizationManager().getLocalizedTextString("fixBreakpoints") + m_newline); //$NON-NLS-1$
+            sb.append(getLocalizationManager().getLocalizedTextString("fixBreakpoints")).append(m_newline); //$NON-NLS-1$
 
         // output whatever has to be
         if (sb.length() > 0)
@@ -4759,8 +4759,8 @@ public class DebugCLI implements Runnable, SourceLocator {
     }
 
     void appendFaultTitles(StringBuilder sb) {
-        sb.append("Fault                         Stop    Print     Description" + m_newline); //$NON-NLS-1$
-        sb.append("-----                         ----    -----     -----------" + m_newline); //$NON-NLS-1$
+        sb.append("Fault                         Stop    Print     Description").append(m_newline); //$NON-NLS-1$
+        sb.append("-----                         ----    -----     -----------").append(m_newline); //$NON-NLS-1$
     }
 
     /**
@@ -5961,9 +5961,9 @@ public class DebugCLI implements Runnable, SourceLocator {
                     sb.append(getLocalizationManager().getLocalizedTextString("couldNotConvertToNumber", args)); //$NON-NLS-1$
                     sb.append(m_newline);
                 } catch (PlayerFaultException pfe) {
-                    sb.append(pfe.getMessage() + m_newline);
+                    sb.append(pfe.getMessage()).append(m_newline);
                 } catch (PlayerDebugException e) {
-                    sb.append(e.getMessage() + m_newline);
+                    sb.append(e.getMessage()).append(m_newline);
                 } catch (NullPointerException npe) {
                     sb.append(getLocalizationManager().getLocalizedTextString("couldNotEvaluate")); //$NON-NLS-1$
                 }
@@ -6490,7 +6490,7 @@ public class DebugCLI implements Runnable, SourceLocator {
                 propertyPut(DISPLAY_FRAME_NUMBER, 0);
 
                 if (doOutput) {
-                    sb.append(getLocalizationManager().getLocalizedTextString("workerChanged") + " "); //$NON-NLS-1$ //$NON-NLS-2$
+                    sb.append(getLocalizationManager().getLocalizedTextString("workerChanged")).append(" "); //$NON-NLS-1$ //$NON-NLS-2$
                     if (id == Isolate.DEFAULT_ID) {
                         sb.append(getLocalizationManager().getLocalizedTextString("mainThread")); //$NON-NLS-1$
                     } else
@@ -6499,7 +6499,7 @@ public class DebugCLI implements Runnable, SourceLocator {
                 }
             } else {
                 if (doOutput) {
-                    sb.append(getLocalizationManager().getLocalizedTextString("workerNotFound") + " " + (id - 1)); //$NON-NLS-1$ //$NON-NLS-2$
+                    sb.append(getLocalizationManager().getLocalizedTextString("workerNotFound")).append(" ").append(id - 1); //$NON-NLS-1$ //$NON-NLS-2$
                     sb.append(m_newline);
                 }
             }

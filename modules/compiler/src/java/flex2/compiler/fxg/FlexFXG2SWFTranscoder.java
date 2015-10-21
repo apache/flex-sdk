@@ -1044,7 +1044,7 @@ public class FlexFXG2SWFTranscoder extends FXG2SWFTranscoder
                 }
 
                 if (thisAttrib != null)
-                    buf.append("        " + variableName + '.' + thisAttrib + ";\r\n");
+                    buf.append("        ").append(variableName).append('.').append(thisAttrib).append(";\r\n");
             }
         }
     }

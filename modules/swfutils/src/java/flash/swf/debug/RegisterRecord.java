@@ -77,7 +77,7 @@ public class RegisterRecord extends Action
 		sb.append(offset);
 		sb.append(" ");
 		for(int i=0; i<registerNumbers.length; i++)
-			sb.append("$"+registerNumbers[i]+"='"+variableNames[i]+"' ");
+			sb.append("$").append(registerNumbers[i]).append("='").append(variableNames[i]).append("' ");
 		return ( sb.toString() ); 
     }
 

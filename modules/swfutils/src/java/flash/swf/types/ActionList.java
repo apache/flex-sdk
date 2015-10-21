@@ -228,7 +228,7 @@ public class ActionList extends ActionHandler
     {
         StringBuilder stringBuffer = new StringBuilder();
 
-        stringBuffer.append("ActionList: count = " + actions.length);
+        stringBuffer.append("ActionList: count = ").append(actions.length);
         stringBuffer.append(", actions = ");
 
         for (int i = 0; i < size; i++)
