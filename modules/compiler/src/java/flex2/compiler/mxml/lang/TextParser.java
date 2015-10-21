@@ -678,7 +678,7 @@ public abstract class TextParser
             else
             {
                 Long l = Long.decode(s);
-                long val = l.longValue();
+                long val = l;
                 return (val == java.lang.Math.abs(val) && val <= 0xffffffffL) ? l : null;
             }
         }
@@ -821,7 +821,7 @@ public abstract class TextParser
     {
         // If we get false, make sure its because the user specified 'false'
         Boolean b = Boolean.valueOf(StringUtils.collapseWhitespace(text, ' '));
-        return b.booleanValue() || text.equalsIgnoreCase("false") ? b : null;
+        return b || text.equalsIgnoreCase("false") ? b : null;
     }
 
     /**

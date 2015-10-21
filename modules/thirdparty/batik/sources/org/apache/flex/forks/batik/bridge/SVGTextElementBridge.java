@@ -1483,7 +1483,7 @@ public class SVGTextElementBridge extends AbstractGraphicsNodeBridge
         result.put(TEXT_COMPOUND_ID, new SoftReference(element));
 
         Float fsFloat = TextUtilities.convertFontSize(element);
-        float fontSize = fsFloat.floatValue();
+        float fontSize = fsFloat;
         // Font size.
         result.put(TextAttribute.SIZE, fsFloat);
 
@@ -1640,7 +1640,7 @@ public class SVGTextElementBridge extends AbstractGraphicsNodeBridge
                 (element, SVGCSSEngine.DIRECTION_INDEX);
             String rs = val.getStringValue();
             int cbidi = 0;
-            if (bidiLevel != null) cbidi = bidiLevel.intValue();
+            if (bidiLevel != null) cbidi = bidiLevel;
 
             // We don't care if it was embed or override we just want
             // it's level here. So map override to positive value.

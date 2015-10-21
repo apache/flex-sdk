@@ -527,7 +527,7 @@ public class ActionEncoder extends ActionHandler
 				writer.writeString(value.toString());
 				break;
 			case 1: // float
-				int bits = Float.floatToIntBits(((Float) value).floatValue());
+				int bits = Float.floatToIntBits((Float) value);
 				writer.write32(bits);
 				break;
 			case 2: // null
@@ -538,16 +538,16 @@ public class ActionEncoder extends ActionHandler
 				writer.writeUI8(((Byte) value).intValue() & 0xFF);
 				break;
 			case 5: // boolean
-				writer.writeUI8(((Boolean) value).booleanValue() ? 1 : 0);
+				writer.writeUI8((Boolean) value ? 1 : 0);
 				break;
 			case 6: // double
-				double d = ((Double) value).doubleValue();
+				double d = (Double) value;
 				long num = Double.doubleToLongBits(d);
 				writer.write32((int)(num>>32));
                 writer.write32((int)num);
 				break;
 			case 7: // integer
-				writer.write32(((Integer) value).intValue());
+				writer.write32((Integer) value);
 				break;
 			case 8: // const8
 				writer.writeUI8(((Short) value).intValue());

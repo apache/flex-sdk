@@ -591,7 +591,7 @@ public class PreferenceManager
     {
         int defaultValue = 0;
         if (getDefault(key) != null)
-            defaultValue = ((Integer)getDefault(key)).intValue();
+            defaultValue = (Integer) getDefault(key);
         String sp = internal.getProperty(key);
         if (sp == null) {
             return defaultValue;
@@ -613,7 +613,7 @@ public class PreferenceManager
     {
         float defaultValue = 0;
         if (getDefault(key) != null)
-            defaultValue = ((Float)getDefault(key)).floatValue();
+            defaultValue = (Float) getDefault(key);
         String sp = internal.getProperty(key);
         if (sp == null) {
             return defaultValue;
@@ -637,7 +637,7 @@ public class PreferenceManager
             return internal.getProperty(key).equals("true");
         else
             if (getDefault(key) != null)
-                return ((Boolean)getDefault(key)).booleanValue();
+                return (Boolean) getDefault(key);
             else
                 return false;
     }
@@ -815,7 +815,7 @@ public class PreferenceManager
     public void setInteger(String key, int value)
     {
         if (getDefault(key) != null &&
-            ((Integer)getDefault(key)).intValue() != value)
+                (Integer) getDefault(key) != value)
             internal.setProperty(key, Integer.toString(value));
         else
             internal.remove(key);
@@ -827,7 +827,7 @@ public class PreferenceManager
     public void setFloat(String key, float value)
     {
         if (getDefault(key) != null &&
-            ((Float)getDefault(key)).floatValue() != value)
+                (Float) getDefault(key) != value)
             internal.setProperty(key, Float.toString(value));
         else
             internal.remove(key);
@@ -839,7 +839,7 @@ public class PreferenceManager
     public void setBoolean(String key, boolean value)
     {
         if (getDefault(key) != null &&
-            ((Boolean)getDefault(key)).booleanValue() != value) {
+                (Boolean) getDefault(key) != value) {
             internal.setProperty(key, value?"true":"false");
         } else {
             internal.remove(key);

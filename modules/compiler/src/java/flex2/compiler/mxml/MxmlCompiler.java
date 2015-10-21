@@ -379,7 +379,7 @@ public class MxmlCompiler extends AbstractSubCompiler
 	private int getState(CompilationUnit unit)
 	{
 		assert unit.getContext().getAttribute(ATTR_STATE) != null : "unit lacks " + ATTR_STATE + " attribute";
-		return ((Integer)unit.getContext().getAttribute(ATTR_STATE)).intValue();
+		return (Integer) unit.getContext().getAttribute(ATTR_STATE);
 	}
 
 	private void setState(CompilationUnit unit, int state)

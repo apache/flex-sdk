@@ -56,7 +56,7 @@ public class StringIntArray extends AbstractList<Object>
 	public Object[]		getElement(int at)		{ return (Object[])get(at);	}
 	public String		getString(int at)		{ return (String)getElement(at)[0]; }
 	public Integer		getInteger(int at)		{ return (Integer)getElement(at)[1]; }
-	public int			getInt(int at)			{ return getInteger(at).intValue(); }
+	public int			getInt(int at)			{ return getInteger(at); }
 
 	/**
 	 * Sequentially walk through the entire list 

@@ -350,7 +350,7 @@ public class CatalogReader
             if ("script".equals(current))
             {
                 name = readAttribute("name", context.getCurrentAttributes(), true);
-                modtime = readAttributeLong("mod", context.getCurrentAttributes(), true).longValue();
+                modtime = readAttributeLong("mod", context.getCurrentAttributes(), true);
                 signatureChecksum = readAttributeLong("signatureChecksum", context.getCurrentAttributes(), false);
             }
             else if ("def".equals(current))
@@ -422,7 +422,7 @@ public class CatalogReader
                 //    is there but actually it does not.
                 if (!(archive instanceof SwcDirectoryArchive) || ((SwcDirectoryArchive) archive).exists(path))
                 {
-                    SwcFile file = new SwcFile(path, mod.longValue(), swc, archive);
+                    SwcFile file = new SwcFile(path, mod, swc, archive);
                     files.put(path, file);
                 }
                 return this;
@@ -616,6 +616,6 @@ public class CatalogReader
     		isNewerLibVersion = new Boolean(VersionInfo.IsNewerLibVersion(libVersion, false));
     	}
     	
-    	return isNewerLibVersion.booleanValue();
+    	return isNewerLibVersion;
     }
 }

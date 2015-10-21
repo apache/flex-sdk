@@ -246,11 +246,11 @@ public class Shell
 		        Long used = (Long)getUsedMeth.invoke(memUsageObj, emptyObj);
 		        if (heapField.get(typeCls) == memTypeObj)
 		        {
-		            heapUsed += used.longValue();
+		            heapUsed += used;
 		        }
 		        else
 		        {
-			        nonHeapUsed += used.longValue();
+			        nonHeapUsed += used;
 		        }
 		        resetPeakUsageMeth.invoke(memPoolObj, emptyObj);
 	        }

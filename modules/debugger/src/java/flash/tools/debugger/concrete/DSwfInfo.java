@@ -250,7 +250,7 @@ public class DSwfInfo implements SwfInfo
 	{
 		Integer g = m_local2Global.get(id);
 		if (g != null)
-			id = g.intValue();
+			id = g;
 
 		return (int) id;
 	}

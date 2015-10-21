@@ -219,7 +219,7 @@ public class DValue implements Value
 	{
 		// see if we support an id concept
 		if (m_value instanceof Long)
-			return ((Long)m_value).longValue();
+			return (Long) m_value;
 		else
 			return Value.UNKNOWN_ID;
 	}
@@ -454,7 +454,7 @@ public class DValue implements Value
 			// the number 12345678 might be formatted as "1.2345678E7" !
 			// So, if the number has no fractional part, then we override
 			// the default display behavior.
-			double doubleValue = ((Double)value).doubleValue();
+			double doubleValue = (Double) value;
 			long longValue = (long) doubleValue;
 			if (doubleValue == longValue)
 				return Long.toString(longValue);

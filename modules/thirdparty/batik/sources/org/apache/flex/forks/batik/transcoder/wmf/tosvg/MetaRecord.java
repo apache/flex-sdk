@@ -77,7 +77,7 @@ public class MetaRecord /*implements Serializable*/ {
      * @return the intValue of the element at offset
      */
     public final int elementAt( int offset ){
-        return ((Integer)ptVector.get( offset )).intValue();
+        return (Integer) ptVector.get(offset);
     }
 
     /** A record that contain byte arrays elements.

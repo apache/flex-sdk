@@ -137,7 +137,7 @@ public class Benchmark
 
             if (duration != null)
             {
-                result = duration.longValue();
+                result = duration;
             }
         }
 
@@ -155,7 +155,7 @@ public class Benchmark
         Long startTimeObject = startTimes.remove(id);
         if (startTimeObject == null)
             throw new IllegalStateException("Call startTime before calling stopTime");
-        long startTime = startTimeObject.longValue();
+        long startTime = startTimeObject;
         long duration = currentTime - startTime;
         ThreadLocalToolkit.log(new BenchmarkID(id, duration));
 
@@ -255,11 +255,11 @@ public class Benchmark
 		        Long used = (Long)getUsedMeth.invoke(memUsageObj, emptyObj);
 		        if (heapField.get(typeCls) == memTypeObj)
 		        {
-		            heapUsed += used.longValue();
+		            heapUsed += used;
 		        }
 		        else
 		        {
-			        nonHeapUsed += used.longValue();
+			        nonHeapUsed += used;
 		        }
 	        }
 

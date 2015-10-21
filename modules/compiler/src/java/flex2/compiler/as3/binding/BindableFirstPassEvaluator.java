@@ -572,7 +572,7 @@ public class BindableFirstPassEvaluator extends GenerativeFirstPassEvaluator
 	private int getVisitedGetterSetterBindType(String name)
 	{
         return visitedProps == null || !visitedProps.containsKey(name) ? BINDABLE_NONE
-                : visitedProps.get(name).intValue();
+                : visitedProps.get(name);
 	}
 
 	/**

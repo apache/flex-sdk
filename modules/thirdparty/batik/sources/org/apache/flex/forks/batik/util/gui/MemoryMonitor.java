@@ -580,11 +580,11 @@ public class MemoryMonitor extends JFrame implements ActionMap {
             // Create the path that match the data
             Iterator it = data.iterator();
             GeneralPath p = new GeneralPath();
-            long l = ((Long)it.next()).longValue();
+            long l = (Long) it.next();
             p.moveTo(5, ((float)(totalMemory - l) / totalMemory) * 80 + 10);
             int i = 6;
             while (it.hasNext()) {
-                l = ((Long)it.next()).longValue();
+                l = (Long) it.next();
                 p.lineTo(i, ((float)(totalMemory - l) / totalMemory) * 80 + 10);
                 i++;
             }

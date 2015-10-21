@@ -130,7 +130,7 @@ public abstract class Slot
 		{
 			for (int i=0; i<auxDataItems.length; i+=2)
 			{
-				if (((Integer)auxDataItems[i]).intValue() == type)
+				if ((Integer) auxDataItems[i] == type)
 				{
 					auxDataItems[i+1] = value;
 					return;
@@ -159,7 +159,7 @@ public abstract class Slot
 		{
 			for (int i=0; i<auxDataItems.length; i+=2)
 			{
-				if (((Integer)auxDataItems[i]).intValue() == type)
+				if ((Integer) auxDataItems[i] == type)
 				{
 					return auxDataItems[i+1];
 				}
@@ -238,7 +238,7 @@ public abstract class Slot
 			assert false;
 			break;
 		}
-		return (value != null) ? value.intValue() : 0;
+		return (value != null) ? value : 0;
 	}
 
 	public final void overload(TypeValue t1, int slot_index)

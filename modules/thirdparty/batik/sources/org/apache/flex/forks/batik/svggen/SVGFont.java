@@ -44,32 +44,32 @@ import org.w3c.dom.NodeList;
  */
 public class SVGFont extends AbstractSVGConverter {
     public static final float EXTRA_LIGHT =
-        TextAttribute.WEIGHT_EXTRA_LIGHT.floatValue();
+            TextAttribute.WEIGHT_EXTRA_LIGHT;
     public static final float LIGHT =
-        TextAttribute.WEIGHT_LIGHT.floatValue();
+            TextAttribute.WEIGHT_LIGHT;
     public static final float DEMILIGHT =
-        TextAttribute.WEIGHT_DEMILIGHT.floatValue();
+            TextAttribute.WEIGHT_DEMILIGHT;
     public static final float REGULAR =
-        TextAttribute.WEIGHT_REGULAR.floatValue();
+            TextAttribute.WEIGHT_REGULAR;
     public static final float SEMIBOLD =
-        TextAttribute.WEIGHT_SEMIBOLD.floatValue();
+            TextAttribute.WEIGHT_SEMIBOLD;
     public static final float MEDIUM =
-        TextAttribute.WEIGHT_MEDIUM.floatValue();
+            TextAttribute.WEIGHT_MEDIUM;
     public static final float DEMIBOLD =
-        TextAttribute.WEIGHT_DEMIBOLD.floatValue();
+            TextAttribute.WEIGHT_DEMIBOLD;
     public static final float BOLD =
-        TextAttribute.WEIGHT_BOLD.floatValue();
+            TextAttribute.WEIGHT_BOLD;
     public static final float HEAVY =
-        TextAttribute.WEIGHT_HEAVY.floatValue();
+            TextAttribute.WEIGHT_HEAVY;
     public static final float EXTRABOLD =
-        TextAttribute.WEIGHT_EXTRABOLD.floatValue();
+            TextAttribute.WEIGHT_EXTRABOLD;
     public static final float ULTRABOLD =
-        TextAttribute.WEIGHT_ULTRABOLD.floatValue();
+            TextAttribute.WEIGHT_ULTRABOLD;
 
     public static final float POSTURE_REGULAR =
-        TextAttribute.POSTURE_REGULAR.floatValue();
+            TextAttribute.POSTURE_REGULAR;
     public static final float POSTURE_OBLIQUE =
-        TextAttribute.POSTURE_OBLIQUE.floatValue();
+            TextAttribute.POSTURE_OBLIQUE;
 
     /**
      * Contains threshold value for the various Font styles. If a given
@@ -436,7 +436,7 @@ public class SVGFont extends AbstractSVGConverter {
                 styleValue = TextAttribute.POSTURE_REGULAR;
         }
 
-        float style = styleValue.floatValue();
+        float style = styleValue;
 
         int i = 0;
         for (i=0; i< fontStyles.length; i++) {
@@ -462,7 +462,7 @@ public class SVGFont extends AbstractSVGConverter {
                 weightValue = TextAttribute.WEIGHT_REGULAR;
         }
 
-        float weight = weightValue.floatValue();
+        float weight = weightValue;
 
         int i = 0;
         for (i=0; i<fontWeights.length; i++) {

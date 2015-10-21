@@ -185,7 +185,7 @@ public abstract class ToSVGAbstractTranscoder extends AbstractTranscoder
         try {
             boolean escaped = false;
             if (hints.containsKey(KEY_ESCAPED))
-                escaped = ((Boolean)hints.get(KEY_ESCAPED)).booleanValue();
+                escaped = (Boolean) hints.get(KEY_ESCAPED);
             // Output stream
             OutputStream os = output.getOutputStream();
             if (os != null) {

@@ -1997,8 +1997,8 @@ public abstract class AbstractDocument
                      "domconfig.param.type",
                      new Object[] { name });
             }
-            int index = i.intValue();
-            boolean val = ((Boolean) value).booleanValue();
+            int index = i;
+            boolean val = (Boolean) value;
             if (booleanParamReadOnly[index]
                     && booleanParamValues[index] != val) {
                 throw createDOMException
@@ -2033,7 +2033,7 @@ public abstract class AbstractDocument
                      "domconfig.param.not.found",
                      new Object[] { name });
             }
-            return booleanParamValues[index.intValue()] ? Boolean.TRUE
+            return booleanParamValues[index] ? Boolean.TRUE
                                                         : Boolean.FALSE;
         }
 
@@ -2042,7 +2042,7 @@ public abstract class AbstractDocument
          */
         public boolean getBooleanParameter(String name) {
             Boolean b = (Boolean) getParameter(name);
-            return b.booleanValue();
+            return b;
         }
 
         /**
@@ -2056,8 +2056,8 @@ public abstract class AbstractDocument
             if (i == null || value == null || !(value instanceof Boolean)) {
                 return false;
             }
-            int index = i.intValue();
-            boolean val = ((Boolean) value).booleanValue();
+            int index = i;
+            boolean val = (Boolean) value;
             return !booleanParamReadOnly[index]
                 || booleanParamValues[index] == val;
         }

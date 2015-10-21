@@ -486,7 +486,7 @@ public class OEMUtil
 		{
 			Object[] a = positions.get(i);
 			String var = (String) a[0];
-			int iStart = ((Integer) a[1]).intValue(), iEnd = ((Integer) a[2]).intValue();
+			int iStart = (Integer) a[1], iEnd = (Integer) a[2];
 			if (!excludes.contains(var))
 			{
 				for (int j = iStart; j < iEnd; j++)

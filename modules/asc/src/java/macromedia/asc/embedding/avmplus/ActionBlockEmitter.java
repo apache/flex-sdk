@@ -168,7 +168,7 @@ public class ActionBlockEmitter extends Emitter
 
             if (mapcheck != null)
             {
-                return mapcheck.intValue() + 1;
+                return mapcheck + 1;
             }
 
             // Add it to map for fast lookups
@@ -191,7 +191,7 @@ public class ActionBlockEmitter extends Emitter
 
             if (mapcheck != null)
             {
-                int constant_index = mapcheck.intValue();
+                int constant_index = mapcheck;
                 return constant_index + 1;
             }
 
@@ -218,7 +218,7 @@ public class ActionBlockEmitter extends Emitter
 
             if (mapcheck != null)
             {
-                int constant_index = mapcheck.intValue();
+                int constant_index = mapcheck;
                 return constant_index + 1;
             }
 
@@ -245,7 +245,7 @@ public class ActionBlockEmitter extends Emitter
 
             if (mapcheck != null)
             {
-                int constant_index = mapcheck.intValue();
+                int constant_index = mapcheck;
                 return constant_index + 1;
             }
 
@@ -272,7 +272,7 @@ public class ActionBlockEmitter extends Emitter
 
             if (mapcheck != null)
             {
-                int constant_index = mapcheck.intValue();
+                int constant_index = mapcheck;
                 return constant_index + 1;
             }
 
@@ -299,7 +299,7 @@ public class ActionBlockEmitter extends Emitter
 
             if (mapcheck != null)
             {
-                int constant_index = mapcheck.intValue();
+                int constant_index = mapcheck;
                 return constant_index + 1;
             }
 
@@ -326,7 +326,7 @@ public class ActionBlockEmitter extends Emitter
 
             if (mapcheck != null)
             {
-                int constant_index = mapcheck.intValue();
+                int constant_index = mapcheck;
                 return constant_index + 1;
             }
 
@@ -353,7 +353,7 @@ public class ActionBlockEmitter extends Emitter
 
             if (mapcheck != null)
             {
-                int constant_index = mapcheck.intValue();
+                int constant_index = mapcheck;
                 return constant_index + 1;
             }
 
@@ -384,7 +384,7 @@ public class ActionBlockEmitter extends Emitter
 
             if (mapcheck != null)
             {
-                int constant_index = mapcheck.intValue();
+                int constant_index = mapcheck;
                 return constant_index + 1;
             }
 

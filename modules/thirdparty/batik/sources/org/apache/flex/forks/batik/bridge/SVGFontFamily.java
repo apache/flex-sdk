@@ -120,7 +120,7 @@ public class SVGFontFamily implements GVTFontFamily {
      * it does not need CSS treatment.
      */
     public boolean isComplex() {
-        if (complex != null) return complex.booleanValue();
+        if (complex != null) return complex;
         boolean ret = isComplex(fontElement, ctx);
         complex = ret ? Boolean.TRUE : Boolean.FALSE;
         return ret;

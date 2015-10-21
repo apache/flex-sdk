@@ -407,7 +407,7 @@ public class FXGCompiler extends AbstractSubCompiler
     private int getCompileState(CompilationUnit unit)
     {
         assert unit.getContext().getAttribute(COMPILATION_STATE) != null : "FXGCompiler: CompilationUnit lacks " + COMPILATION_STATE + " attribute.";
-        return ((Integer)unit.getContext().getAttribute(COMPILATION_STATE)).intValue();
+        return (Integer) unit.getContext().getAttribute(COMPILATION_STATE);
     }
 
     /**

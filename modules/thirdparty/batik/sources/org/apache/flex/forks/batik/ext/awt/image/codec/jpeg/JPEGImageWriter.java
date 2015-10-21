@@ -65,8 +65,8 @@ public class JPEGImageWriter implements ImageWriter {
             JPEGEncodeParam param = encoder.getDefaultJPEGEncodeParam(bi);
             if (params.getJPEGQuality() != null) {
                 param.setQuality(
-                        params.getJPEGQuality().floatValue(),
-                        params.getJPEGForceBaseline().booleanValue());
+                        params.getJPEGQuality(),
+                        params.getJPEGForceBaseline());
             }
             encoder.encode(bi, param);
         } else {

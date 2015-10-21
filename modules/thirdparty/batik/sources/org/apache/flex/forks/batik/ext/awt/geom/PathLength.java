@@ -189,7 +189,7 @@ public class PathLength {
         }
         segmentIndexes = new int[indexes.size()];
         for (int i = 0; i < segmentIndexes.length; i++) {
-            segmentIndexes[i] = ((Integer) indexes.get(i)).intValue();
+            segmentIndexes[i] = (Integer) indexes.get(i);
         }
         initialised = true;
     }

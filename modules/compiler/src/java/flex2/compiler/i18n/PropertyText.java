@@ -207,7 +207,7 @@ public class PropertyText extends OrderedProperties
     private ClassReference processClassReference(String key, String value)
     {
         ClassReference classReference = null;
-        int lineNumber = (lines.get(key)).intValue();
+        int lineNumber = lines.get(key);
         
         String parameter = value.substring(CLASS_REFERENCE.length(), value.length() - 1).trim();
         if ((parameter.charAt(0) == '"') && (parameter.indexOf('"', 1) == parameter.length() - 1))
@@ -240,7 +240,7 @@ public class PropertyText extends OrderedProperties
      */
 	private AtEmbed processEmbed(String key, String value)
 	{
-        int lineNumber = (lines.get(key)).intValue();
+        int lineNumber = lines.get(key);
         String propertiesPath = getPropertyFileName();
         AtEmbed atEmbed = AtEmbed.create(symbolTable.perCompileData, source, value,
                                          propertiesPath, lineNumber, "_embed_properties_");

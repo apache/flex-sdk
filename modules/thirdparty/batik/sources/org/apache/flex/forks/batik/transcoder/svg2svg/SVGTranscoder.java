@@ -199,15 +199,15 @@ public class SVGTranscoder extends AbstractTranscoder {
             }
             Boolean b = (Boolean)hints.get(KEY_FORMAT);
             if (b != null) {
-                pp.setFormat(b.booleanValue());
+                pp.setFormat(b);
             }
             Integer i = (Integer)hints.get(KEY_TABULATION_WIDTH);
             if (i != null) {
-                pp.setTabulationWidth(i.intValue());
+                pp.setTabulationWidth(i);
             }
             i = (Integer)hints.get(KEY_DOCUMENT_WIDTH);
             if (i != null) {
-                pp.setDocumentWidth(i.intValue());
+                pp.setDocumentWidth(i);
             }
             DoctypeValue dtv = (DoctypeValue)hints.get(KEY_DOCTYPE);
             if (dtv != null) {

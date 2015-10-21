@@ -148,7 +148,7 @@ public class ClassFileUtilities {
                     if (n == null) {
                         fromJar.deps.put(toJar, new Integer(1));
                     } else {
-                        fromJar.deps.put(toJar, new Integer(n.intValue() + 1));
+                        fromJar.deps.put(toJar, new Integer(n + 1));
                     }
                 }
             }
@@ -163,7 +163,7 @@ public class ClassFileUtilities {
                     Triple t = new Triple();
                     t.from = fromJar;
                     t.to = toJar;
-                    t.count = ((Integer) fromJar.deps.get(toJar)).intValue();
+                    t.count = (Integer) fromJar.deps.get(toJar);
                     triples.add(t);
                 }
             }
@@ -387,12 +387,12 @@ public class ClassFileUtilities {
 
         Iterator it = classes.iterator();
         while (it.hasNext()) {
-            result.add(strs[((Integer)it.next()).intValue()]);
+            result.add(strs[((Integer) it.next())]);
         }
 
         it = desc.iterator();
         while (it.hasNext()) {
-            result.addAll(getDescriptorClasses(strs[((Integer)it.next()).intValue()]));
+            result.addAll(getDescriptorClasses(strs[((Integer) it.next())]));
         }
 
         return result;

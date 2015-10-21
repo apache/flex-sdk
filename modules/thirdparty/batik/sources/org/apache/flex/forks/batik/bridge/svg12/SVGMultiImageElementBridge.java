@@ -392,10 +392,10 @@ public class SVGMultiImageElementBridge extends SVGImageElementBridge {
 
         if (vals[0] == null) return null;
 
-        float xPixSz = vals[0].floatValue();
+        float xPixSz = vals[0];
         float yPixSz = xPixSz;
         if (vals[1] != null)
-            yPixSz = vals[1].floatValue();
+            yPixSz = vals[1];
         
         return new Dimension((int)(bounds.getWidth()/xPixSz+0.5), 
                              (int)(bounds.getHeight()/yPixSz+0.5)); 

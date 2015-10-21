@@ -166,10 +166,10 @@ public class ECMA
 		case VariableType.NULL:
 			return false;
 		case VariableType.BOOLEAN:
-			return ((Boolean) v.getValueAsObject()).booleanValue();
+			return (Boolean) v.getValueAsObject();
 		case VariableType.NUMBER:
 		{
-			double d = ((Double) v.getValueAsObject()).doubleValue();
+			double d = (Double) v.getValueAsObject();
 			if (d == 0 || Double.isNaN(d))
 			{
 				return false;
@@ -197,9 +197,9 @@ public class ECMA
 		case VariableType.NULL:
 			return 0;
 		case VariableType.BOOLEAN:
-			return ((Boolean) v.getValueAsObject()).booleanValue() ? 1 : 0;
+			return (Boolean) v.getValueAsObject() ? 1 : 0;
 		case VariableType.NUMBER:
-			return ((Double) v.getValueAsObject()).doubleValue();
+			return (Double) v.getValueAsObject();
 		case VariableType.STRING:
 		{
 			String s = (String) v.getValueAsObject();
@@ -270,7 +270,7 @@ public class ECMA
 			return v.getValueAsString();
 		case VariableType.NUMBER:
 		{
-			double d = ((Double) v.getValueAsObject()).doubleValue();
+			double d = (Double) v.getValueAsObject();
 			if (d == (long) d)
 			{
 				return Long.toString((long) d); // avoid the ".0" on the end
@@ -326,8 +326,8 @@ public class ECMA
 				return true;
 			if (x instanceof Double)
 			{
-				double dx = ((Double) x).doubleValue();
-				double dy = ((Double) y).doubleValue();
+				double dx = (Double) x;
+				double dy = (Double) y;
 				return dx == dy;
 			}
 			if (x instanceof String || x instanceof Boolean)
@@ -346,14 +346,14 @@ public class ECMA
 				return true;
 			if (x instanceof Double && y instanceof String)
 			{
-				double dx = ((Double) x).doubleValue();
+				double dx = (Double) x;
 				double dy = toNumber(session, yv);
 				return dx == dy;
 			}
 			if (x instanceof String && y instanceof Double)
 			{
 				double dx = toNumber(session, xv);
-				double dy = ((Double) y).doubleValue();
+				double dy = (Double) y;
 				return dx == dy;
 			}
 			if (x instanceof Boolean)
@@ -389,8 +389,8 @@ public class ECMA
 				return true;
 			if (x instanceof Double)
 			{
-				double dx = ((Double) x).doubleValue();
-				double dy = ((Double) y).doubleValue();
+				double dx = (Double) x;
+				double dy = (Double) y;
 				return dx == dy;
 			}
 			if (x instanceof String || x instanceof Boolean)

@@ -191,7 +191,7 @@ public class ZipFile {
             return null;
         }
         BoundedInputStream bis =
-            new BoundedInputStream(start.longValue(), ze.getCompressedSize());
+            new BoundedInputStream(start, ze.getCompressedSize());
         switch (ze.getMethod()) {
             case ZipEntry.STORED:
                 return bis;
@@ -397,7 +397,7 @@ public class ZipFile {
         Enumeration<ZipEntry> e = getEntries();
         while (e.hasMoreElements()) {
             ZipEntry ze = e.nextElement();
-            long offset = entries.get(ze).longValue();
+            long offset = entries.get(ze);
             archive.seek(offset + LFH_OFFSET_FOR_FILENAME_LENGTH);
             byte[] b = new byte[2];
             archive.readFully(b);

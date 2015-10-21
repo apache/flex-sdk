@@ -52,7 +52,7 @@ public class FontLicenseChecker
 			Map.Entry entry = (Map.Entry)iterator.next();
 			Integer integ = (Integer)entry.getKey();
 			ArrayList list = (ArrayList)entry.getValue();
-			FSType type = FSType.getFSType(integ.intValue());
+			FSType type = FSType.getFSType(integ);
 			String licenseType = type.description + ", fsType = '" + type.fsType + "'";
 			System.out.println("");
 			System.out.println("---------");

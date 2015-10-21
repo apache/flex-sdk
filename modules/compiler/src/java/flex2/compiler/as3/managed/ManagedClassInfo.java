@@ -76,7 +76,7 @@ public class ManagedClassInfo extends GenerativeClassInfo
     public int getPropertyMode(QName propertyQName)
     {
         Integer propertyMode = propertyModes.get(propertyQName);
-        return propertyMode != null ? propertyMode.intValue() : MODE_HIER;
+        return propertyMode != null ? propertyMode : MODE_HIER;
     }
 
     public boolean hasExplicitMode(QName propertyQName)

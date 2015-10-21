@@ -77,7 +77,7 @@ public class JPEGTranscoder extends ImageTranscoder {
         try {
             float quality;
             if (hints.containsKey(KEY_QUALITY)) {
-                quality = ((Float)hints.get(KEY_QUALITY)).floatValue();
+                quality = (Float) hints.get(KEY_QUALITY);
             } else {
                 TranscoderException te;
                 te = new TranscoderException
@@ -133,7 +133,7 @@ public class JPEGTranscoder extends ImageTranscoder {
     private static class QualityKey extends TranscodingHints.Key {
         public boolean isCompatibleValue(Object v) {
             if (v instanceof Float) {
-                float q = ((Float)v).floatValue();
+                float q = (Float) v;
                 return (q > 0 && q <= 1.0f);
             } else {
                 return false;

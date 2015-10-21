@@ -131,7 +131,7 @@ public class ManifestParser
                 }
 
                 String lookupOnlyStr = attributes.getValue("lookupOnly");
-                boolean lookupOnly = lookupOnlyStr == null ? false : Boolean.valueOf(lookupOnlyStr).booleanValue();
+                boolean lookupOnly = lookupOnlyStr == null ? false : Boolean.valueOf(lookupOnlyStr);
 
                 boolean added = mappings.addClass(namespaceURI, id, className);
 

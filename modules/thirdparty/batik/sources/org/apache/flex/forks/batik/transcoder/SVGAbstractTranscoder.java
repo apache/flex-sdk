@@ -184,9 +184,9 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
         }
 
         if (hints.containsKey(KEY_WIDTH))
-            width = ((Float)hints.get(KEY_WIDTH)).floatValue();
+            width = (Float) hints.get(KEY_WIDTH);
         if (hints.containsKey(KEY_HEIGHT))
-            height = ((Float)hints.get(KEY_HEIGHT)).floatValue();
+            height = (Float) hints.get(KEY_HEIGHT);
 
 
         SVGOMDocument svgDoc = (SVGOMDocument)document;
@@ -198,7 +198,7 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
         // flag that indicates if the document is dynamic
         boolean isDynamic =
             hints.containsKey(KEY_EXECUTE_ONLOAD) &&
-             ((Boolean)hints.get(KEY_EXECUTE_ONLOAD)).booleanValue();
+                    (Boolean) hints.get(KEY_EXECUTE_ONLOAD);
 
         GraphicsNode gvtRoot;
         try {
@@ -215,7 +215,7 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
                 se.dispatchSVGLoadEvent();
                 if (hints.containsKey(KEY_SNAPSHOT_TIME)) {
                     float t =
-                        ((Float) hints.get(KEY_SNAPSHOT_TIME)).floatValue();
+                            (Float) hints.get(KEY_SNAPSHOT_TIME);
                     ctx.getAnimationEngine().setCurrentTime(t);
                 } else if (ctx.isSVG12()) {
                     float t = SVGUtilities.convertSnapshotTime(root, null);
@@ -350,11 +350,11 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
         // Compute the image's width and height according the hints
         float imgWidth = -1;
         if (hints.containsKey(KEY_WIDTH)) {
-            imgWidth = ((Float)hints.get(KEY_WIDTH)).floatValue();
+            imgWidth = (Float) hints.get(KEY_WIDTH);
         }
         float imgHeight = -1;
         if (hints.containsKey(KEY_HEIGHT)) {
-            imgHeight = ((Float)hints.get(KEY_HEIGHT)).floatValue();
+            imgHeight = (Float) hints.get(KEY_HEIGHT);
         }
 
         if (imgWidth > 0 && imgHeight > 0) {
@@ -374,11 +374,11 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
         // Limit image size according to the maximuxm size hints.
         float imgMaxWidth = -1;
         if (hints.containsKey(KEY_MAX_WIDTH)) {
-            imgMaxWidth = ((Float)hints.get(KEY_MAX_WIDTH)).floatValue();
+            imgMaxWidth = (Float) hints.get(KEY_MAX_WIDTH);
         }
         float imgMaxHeight = -1;
         if (hints.containsKey(KEY_MAX_HEIGHT)) {
-            imgMaxHeight = ((Float)hints.get(KEY_MAX_HEIGHT)).floatValue();
+            imgMaxHeight = (Float) hints.get(KEY_MAX_HEIGHT);
         }
 
         if ((imgMaxHeight > 0) && (height > imgMaxHeight)) {
@@ -887,7 +887,7 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
             Object obj = SVGAbstractTranscoder.this.hints.get
                 (KEY_PIXEL_UNIT_TO_MILLIMETER);
             if (obj != null) {
-                return ((Float)obj).floatValue();
+                return (Float) obj;
             }
 
             return super.getPixelUnitToMillimeter();
@@ -970,7 +970,7 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
             Boolean b = (Boolean)SVGAbstractTranscoder.this.hints.get
                 (KEY_XML_PARSER_VALIDATING);
             if (b != null)
-                return b.booleanValue();
+                return b;
 
             return super.isXMLParserValidating();
         }
@@ -1005,8 +1005,8 @@ public abstract class SVGAbstractTranscoder extends XMLAbstractTranscoder {
             if (SVGAbstractTranscoder.this.hints.containsKey
                 (KEY_CONSTRAIN_SCRIPT_ORIGIN)) {
                 constrainOrigin =
-                    ((Boolean)SVGAbstractTranscoder.this.hints.get
-                     (KEY_CONSTRAIN_SCRIPT_ORIGIN)).booleanValue();
+                        (Boolean) SVGAbstractTranscoder.this.hints.get
+                                (KEY_CONSTRAIN_SCRIPT_ORIGIN);
             }
 
             if (constrainOrigin) {

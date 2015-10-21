@@ -860,7 +860,7 @@ public class BindingExpression implements Comparable<BindingExpression>
             StringBuilder b = new StringBuilder();
             for (Integer key : namespaceMap.keySet())
             {
-                int k = key.intValue();
+                int k = key;
                 String uri = namespaceMap.get(key);
                 b.append("var ns").append(k).append(":Namespace = new Namespace(\"").append(uri).append("\");\n");
             }
@@ -903,7 +903,7 @@ public class BindingExpression implements Comparable<BindingExpression>
                 callExpression.is_new = true;
                 callExpression.setRValue(false);
                 MemberExpressionNode initializer = nodeFactory.memberExpression(null, callExpression);
-                int k = key.intValue();
+                int k = key;
                 VariableDefinitionNode variableDefinition = AbstractSyntaxTreeUtil.generateVariable(nodeFactory, ("ns" + k).intern(), NAMESPACE, false, initializer);
                 result = nodeFactory.statementList(result, variableDefinition);
             }

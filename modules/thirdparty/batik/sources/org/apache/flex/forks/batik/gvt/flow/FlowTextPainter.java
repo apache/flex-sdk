@@ -307,7 +307,7 @@ public class FlowTextPainter extends StrokingTextPainter {
             int cnt = gv.getCharacterCount(i,i);
             aci.setIndex(aciIdx);
             Integer integer = (Integer)aci.getAttribute(WORD_LIMIT);
-            int minWord = integer.intValue()-numWords;
+            int minWord = integer -numWords;
             if (minWord > maxWord) {
                 maxWord = minWord;
                 wordMap = allocWordMap(wordMap, maxWord+1);
@@ -316,7 +316,7 @@ public class FlowTextPainter extends StrokingTextPainter {
             for (int c=1; c<cnt; c++) {
                 aci.setIndex(aciIdx);
                 integer = (Integer)aci.getAttribute(WORD_LIMIT);
-                int cWord = integer.intValue()-numWords;
+                int cWord = integer -numWords;
                 if (cWord > maxWord) {
                     maxWord = cWord;
                     wordMap = allocWordMap(wordMap, maxWord+1);
@@ -367,7 +367,7 @@ public class FlowTextPainter extends StrokingTextPainter {
         float lineHeight = 1.0f;
         Float lineHeightFloat = (Float)aci.getAttribute(LINE_HEIGHT);
         if (lineHeightFloat != null)
-            lineHeight = lineHeightFloat.floatValue();
+            lineHeight = lineHeightFloat;
         int runLimit = aci.getRunLimit(szAtts);
         WordInfo prevWI = null;
         float   [] lastAdvAdj = new float  [numGlyphs];
@@ -380,7 +380,7 @@ public class FlowTextPainter extends StrokingTextPainter {
             char pch = ch;
             ch = aci.setIndex(aciIdx);
             Integer integer = (Integer)aci.getAttribute(WORD_LIMIT);
-            WordInfo theWI = cWordMap[integer.intValue()-numWords];
+            WordInfo theWI = cWordMap[integer -numWords];
             if (theWI.getFlowLine() == null)
                 theWI.setFlowLine(aci.getAttribute(FLOW_LINE_BREAK));
 
@@ -434,7 +434,7 @@ public class FlowTextPainter extends StrokingTextPainter {
                 aci.setIndex(aciIdx);
                 gvtFont = (GVTFont)aci.getAttribute(GVT_FONT);
                 Float f = (Float)aci.getAttribute(LINE_HEIGHT);
-                lineHeight = f.floatValue();
+                lineHeight = f;
                 runLimit = aci.getRunLimit(szAtts);
             }
         }

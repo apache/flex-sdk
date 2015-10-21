@@ -315,7 +315,7 @@ public final class Source implements Comparable<Source>
 		{
 			for (Entry<VirtualFile, Long> entry : fileIncludeTimes.entrySet())
 			{
-				if (entry.getKey().getLastModified() != entry.getValue().longValue())
+				if (entry.getKey().getLastModified() != entry.getValue())
 				{
 					return true;
 				}
@@ -583,7 +583,7 @@ public final class Source implements Comparable<Source>
 
 		for (VirtualFile f : fileIncludeTimes.keySet())
 		{
-			long ts = fileIncludeTimes.get(f).longValue();
+			long ts = fileIncludeTimes.get(f);
 			if (f.getLastModified() != ts)
 			{
 				if (updated == null)
@@ -604,7 +604,7 @@ public final class Source implements Comparable<Source>
 
 	long getFileIncludeTime(VirtualFile f)
 	{
-		return fileIncludeTimes.get(f).longValue();
+		return fileIncludeTimes.get(f);
 	}
 
 	public long getFileTime()
