@@ -32,7 +32,7 @@ public interface FXGTranscoder
      * 
      * @param resolver
      */
-    public void setResourceResolver(FXGResourceResolver resolver);
+    void setResourceResolver(FXGResourceResolver resolver);
 
 
     /**
@@ -42,5 +42,5 @@ public interface FXGTranscoder
      * 
      * @return the object
      */
-	public Object transcode(FXGNode node);
+    Object transcode(FXGNode node);
 }

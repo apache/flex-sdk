@@ -30,18 +30,18 @@ import macromedia.asc.semantics.*;
 public interface Evaluator
 {
 
-    static final int global_this = 0;
-    static final int instance_this = 1;
-    static final int error_this = 2;
-    static final int cinit_this = 3;
-    static final int package_this = 4;
-    static final int init_this = 5; // We're in a property initializer so we can't use this
+    int global_this = 0;
+    int instance_this = 1;
+    int error_this = 2;
+    int cinit_this = 3;
+    int package_this = 4;
+    int init_this = 5; // We're in a property initializer so we can't use this
 
-    static final int super_statement = 0;
-    static final int super_expression = 1;
-    static final int super_error = 2;
-    static final int super_error2 = 3;  // means we have already hit a this/super/return/throw
-    static final int super_error_es4 = 4;  // means super can not occurr in the ctor body, it must be in the initializer list 
+    int super_statement = 0;
+    int super_expression = 1;
+    int super_error = 2;
+    int super_error2 = 3;  // means we have already hit a this/super/return/throw
+    int super_error_es4 = 4;  // means super can not occurr in the ctor body, it must be in the initializer list
 
     boolean checkFeature(Context cx, Node node); // return true;
 

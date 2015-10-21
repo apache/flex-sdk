@@ -28,8 +28,8 @@ package flash.tools.debugger;
 public interface WatchKind
 {
 	/* kind of a watchpoint (one of) */
-    public static final int NONE					=  0;
-    public static final int READ					=  1;
-    public static final int WRITE					=  2;
-    public static final int READWRITE				=  3;
+    int NONE					=  0;
+    int READ					=  1;
+    int WRITE					=  2;
+    int READWRITE				=  3;
 }

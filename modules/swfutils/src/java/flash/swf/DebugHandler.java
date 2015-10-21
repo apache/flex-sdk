@@ -30,14 +30,14 @@ import flash.swf.types.FlashUUID;
 public interface DebugHandler
         extends DebugTags
 {
-    public void header(int version);
+    void header(int version);
 
-    public void uuid(FlashUUID id);
-    public void module(DebugModule dm);
-    public void offset(int offset, LineRecord lr);
-	public void registers(int offset, RegisterRecord r);
+    void uuid(FlashUUID id);
+    void module(DebugModule dm);
+    void offset(int offset, LineRecord lr);
+	void registers(int offset, RegisterRecord r);
 
-    public void breakpoint(int offset);
+    void breakpoint(int offset);
 
-	public void error(String message);
+	void error(String message);
 }

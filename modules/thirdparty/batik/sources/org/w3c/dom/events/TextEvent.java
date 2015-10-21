@@ -32,7 +32,7 @@ public interface TextEvent extends UIEvent {
      * normalization form NFC, defined in [<a href='http://www.unicode.org/reports/tr15/'>UAX #15</a>]. This attribute 
      * cannot be null or contain the empty string. 
      */
-    public String getData();
+    String getData();
 
     /**
      *  The <code>initTextEvent</code> method is used to initialize the value 
@@ -49,11 +49,11 @@ public interface TextEvent extends UIEvent {
      *   for a description of this parameter. 
      * @param dataArg  Specifies <code>TextEvent.data</code>. 
      */
-    public void initTextEvent(String typeArg, 
-                              boolean canBubbleArg, 
-                              boolean cancelableArg, 
-                              AbstractView viewArg, 
-                              String dataArg);
+    void initTextEvent(String typeArg,
+                       boolean canBubbleArg,
+                       boolean cancelableArg,
+                       AbstractView viewArg,
+                       String dataArg);
 
     /**
      *  The <code>initTextEventNS</code> method is used to initialize the 
@@ -73,11 +73,11 @@ public interface TextEvent extends UIEvent {
      * @param dataArg  Refer to the <code>TextEvent.initTextEvent()</code> 
      *   method for a description of this parameter. 
      */
-    public void initTextEventNS(String namespaceURI, 
-                                String type, 
-                                boolean canBubbleArg, 
-                                boolean cancelableArg, 
-                                AbstractView viewArg, 
-                                String dataArg);
+    void initTextEventNS(String namespaceURI,
+                         String type,
+                         boolean canBubbleArg,
+                         boolean cancelableArg,
+                         AbstractView viewArg,
+                         String dataArg);
 
 }

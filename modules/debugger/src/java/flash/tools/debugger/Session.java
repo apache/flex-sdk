@@ -37,14 +37,14 @@ public interface Session
 	 * @return URI received from the connected Player.
 	 * It identifies the debugging session
 	 */
-	public String getURI();
+	String getURI();
 
 	/**
 	 * Returns the Process object, if any, that triggered this Session.
 	 * @return the Process object that was used to create this Session.
 	 * If SessionManager.launch() was not used, then null is returned.
 	 */
-	public Process getLaunchProcess();
+	Process getLaunchProcess();
 
 	/**
 	 * Adjust the preferences for this session; see SessionManager
@@ -54,7 +54,7 @@ public interface Session
 	 * @param pref preference name, one of the strings listed above
 	 * @param value value to set for preference
 	 */
-	public void setPreference(String pref, int value);
+	void setPreference(String pref, int value);
 
 	/**
 	 * Return the value of a particular preference item
@@ -63,7 +63,7 @@ public interface Session
 	 * @throws NullPointerException if pref does not exist
 	 * @see SessionManager
 	 */
-	public int getPreference(String pref) throws NullPointerException;
+	int getPreference(String pref) throws NullPointerException;
 
 	/**
 	 * Is the Player currently connected for this session.  This function
@@ -71,7 +71,7 @@ public interface Session
 	 *
 	 * @return true if connection is alive
 	 */
-	public boolean isConnected();
+	boolean isConnected();
 
 	/**
 	 * Allow the session to start communicating with the player.  This
@@ -79,7 +79,7 @@ public interface Session
 	 * @return true if bind was successful.
 	 * @throws VersionException connected to Player which does not support all API completely
 	 */
-	public boolean bind() throws VersionException;
+	boolean bind() throws VersionException;
 
 	/**
 	 * Permanently stops the debugging session and breaks the
@@ -96,7 +96,7 @@ public interface Session
 	 * actions of disconnecting from the Player and destroying
 	 * the Player process.
 	 */
-	public void unbind();
+	void unbind();
 
 	/**
 	 * Permanently stops the debugging session and breaks the connection. If
@@ -128,7 +128,7 @@ public interface Session
 	 * <p>
 	 * Note: this method first calls unbind() if needed.
 	 */
-	public void terminate();
+	void terminate();
 
 	/**
 	 * Continue a halted session.  Execution of the ActionScript
@@ -143,7 +143,7 @@ public interface Session
 	 * @throws NotSuspendedException if Player is already running
 	 * @throws NotConnectedException if Player is disconnected from Session
 	 */
-	public void resume() throws NotSuspendedException, NotConnectedException, NoResponseException;
+	void resume() throws NotSuspendedException, NotConnectedException, NoResponseException;
 
 	/**
 	 * Halt a running session.  Execution of the ActionScript
@@ -157,7 +157,7 @@ public interface Session
 	 * @throws SuspendedException if Player is already suspended
 	 * @throws NotConnectedException if Player is disconnected from Session
 	 */
-	public void suspend() throws SuspendedException, NotConnectedException, NoResponseException;
+	void suspend() throws SuspendedException, NotConnectedException, NoResponseException;
 
 	/**
 	 * Is the Player currently halted awaiting requests, such as continue,
@@ -167,7 +167,7 @@ public interface Session
 	 * @throws NotConnectedException
 	 *             if Player is disconnected from Session
 	 */
-	public boolean isSuspended() throws NotConnectedException;
+	boolean isSuspended() throws NotConnectedException;
 
 	/**
 	 * Returns a SuspendReason integer which indicates
@@ -175,7 +175,7 @@ public interface Session
 	 * @return see SuspendReason
 	 * @throws NotConnectedException if Player is disconnected from Session
 	 */
-	public int suspendReason() throws NotConnectedException;
+	int suspendReason() throws NotConnectedException;
 
 	/**
 	 * Returns an array of frames that identify the location and contain
@@ -187,7 +187,7 @@ public interface Session
 	 * @return array of call frames with 0th element representing the current frame.
 	 * @throws NotConnectedException if Player is disconnected from Session
 	 */
-	public Frame[] getFrames() throws NotConnectedException;
+	Frame[] getFrames() throws NotConnectedException;
 
 	/**
 	 * Step to the next executable source line within the
@@ -201,7 +201,7 @@ public interface Session
 	 * @throws NotSuspendedException if Player is running
 	 * @throws NotConnectedException if Player is disconnected from Session
 	 */
-	public void stepInto() throws NotSuspendedException, NoResponseException, NotConnectedException;
+	void stepInto() throws NotSuspendedException, NoResponseException, NotConnectedException;
 
 	/**
 	 * Step out of the current method/function onto the
@@ -215,7 +215,7 @@ public interface Session
 	 * @throws NotSuspendedException if Player is running
 	 * @throws NotConnectedException if Player is disconnected from Session
 	 */
-	public void stepOut()  throws NotSuspendedException, NoResponseException, NotConnectedException;
+	void stepOut()  throws NotSuspendedException, NoResponseException, NotConnectedException;
 
 	/**
 	 * Step to the next executable source line within
@@ -229,7 +229,7 @@ public interface Session
 	 * @throws NotSuspendedException if Player is running
 	 * @throws NotConnectedException if Player is disconnected from Session
 	 */
-	public void stepOver() throws NotSuspendedException, NoResponseException, NotConnectedException;
+	void stepOver() throws NotSuspendedException, NoResponseException, NotConnectedException;
 
 	/**
 	 * Continue the process of stepping.
@@ -243,7 +243,7 @@ public interface Session
 	 * @throws NotSuspendedException if Player is running
 	 * @throws NotConnectedException if Player is disconnected from Session
 	 */
-	public void stepContinue() throws NotSuspendedException, NoResponseException, NotConnectedException;
+	void stepContinue() throws NotSuspendedException, NoResponseException, NotConnectedException;
 
 	/**
 	 * Obtain information about the various SWF(s) that have been
@@ -256,7 +256,7 @@ public interface Session
 	 * @return array of records describing the SWFs
 	 * @throws NoResponseException if times out
 	 */
-	public SwfInfo[] getSwfs() throws NoResponseException;
+	SwfInfo[] getSwfs() throws NoResponseException;
 
 	/**
 	 * Get a list of the current breakpoints.  No specific ordering
@@ -265,7 +265,7 @@ public interface Session
 	 * @throws NoResponseException if times out
 	 * @throws NotConnectedException if Player is disconnected from Session
 	 */
-	public Location[] getBreakpointList() throws NoResponseException, NotConnectedException;
+	Location[] getBreakpointList() throws NoResponseException, NotConnectedException;
 
 	/**
 	 * Set a breakpoint on a line within the given file.
@@ -283,7 +283,7 @@ public interface Session
 	 * @throws NoResponseException if times out
 	 * @throws NotConnectedException if Player is disconnected from Session
 	 */
-	public Location setBreakpoint(int fileId, int lineNum) throws NoResponseException, NotConnectedException;
+	Location setBreakpoint(int fileId, int lineNum) throws NoResponseException, NotConnectedException;
 
 	/**
 	 * Remove a breakpoint at given location. The Location obtain can be a
@@ -304,7 +304,7 @@ public interface Session
 	 * @throws NotConnectedException
 	 *             if Player is disconnected from Session
 	 */
-	public Location clearBreakpoint(Location location) throws NoResponseException, NotConnectedException;
+	Location clearBreakpoint(Location location) throws NoResponseException, NotConnectedException;
 
 	/**
 	 * Get a list of the current watchpoint.  No specific ordering
@@ -316,7 +316,7 @@ public interface Session
 	 * @throws NotConnectedException if Player is disconnected from Session
 	 * @since Version 2
 	 */
-	public Watch[] getWatchList() throws NoResponseException, NotConnectedException;
+	Watch[] getWatchList() throws NoResponseException, NotConnectedException;
 
 	/**
 	 * Set a watchpoint on a given variable.  A watchpoint is used
@@ -360,7 +360,7 @@ public interface Session
 	 * @since Version 2
 	 * @see WatchKind
 	 */
-	public Watch setWatch(Value v, String memberName, int kind) throws NoResponseException, NotConnectedException, NotSupportedException;
+	Watch setWatch(Value v, String memberName, int kind) throws NoResponseException, NotConnectedException, NotSupportedException;
 
 	/**
 	 * Enables or disables a watchpoint.
@@ -371,7 +371,7 @@ public interface Session
 	 * @throws NotConnectedException
 	 * @throws NoResponseException
 	 */
-	public Watch setWatch(Watch watch) throws NoResponseException, NotConnectedException, NotSupportedException;
+	Watch setWatch(Watch watch) throws NoResponseException, NotConnectedException, NotSupportedException;
 
 	/**
 	 * Remove a previously created watchpoint.  The watchpoint
@@ -381,7 +381,7 @@ public interface Session
 	 * @throws NotConnectedException if Player is disconnected from Session
 	 * @since Version 2
 	 */
-	public Watch clearWatch(Watch watch) throws NoResponseException, NotConnectedException;
+	Watch clearWatch(Watch watch) throws NoResponseException, NotConnectedException;
 
 	/**
 	 * Obtains a list of variables that are local to the current
@@ -389,7 +389,7 @@ public interface Session
 	 * @deprecated As of version 2.
 	 * @see Frame#getLocals
 	 */
-	public Variable[] getVariableList() throws NotSuspendedException, NoResponseException, NotConnectedException, VersionException;
+	Variable[] getVariableList() throws NotSuspendedException, NoResponseException, NotConnectedException, VersionException;
 
 	/**
 	 * From a given value identifier return a Value.  This call
@@ -412,14 +412,14 @@ public interface Session
 	 * @throws NotSuspendedException if Player is running
 	 * @throws NotConnectedException if Player is disconnected from Session
 	 */
-	public Value getValue(long valueId) throws NotSuspendedException, NoResponseException, NotConnectedException;
+	Value getValue(long valueId) throws NotSuspendedException, NoResponseException, NotConnectedException;
 
 	/**
 	 * Looks up a global name, like "MyClass", "String", etc.
 	 *
 	 * @return its value, or <code>null</code> if the global does not exist.
 	 */
-	public Value getGlobal(String name) throws NotSuspendedException, NoResponseException, NotConnectedException;
+	Value getGlobal(String name) throws NotSuspendedException, NoResponseException, NotConnectedException;
 
 	/**
 	 * Events provide a mechanism whereby status information is provided from
@@ -433,30 +433,30 @@ public interface Session
 	 *             if Session is disconnected from Player
 	 * @throws InterruptedException
 	 */
-	public void waitForEvent() throws NotConnectedException, InterruptedException;
+	void waitForEvent() throws NotConnectedException, InterruptedException;
 
 	/**
 	 * Returns the number of events currently in the queue.  This function
 	 * is guaranteed to be thread-safe.
 	 */
-	public int getEventCount();
+	int getEventCount();
 
 	/**
 	 * Removes and returns the next event from queue
 	 */
-	public DebugEvent nextEvent();
+	DebugEvent nextEvent();
 
 	/**
 	 * Gets the SourceLocator for this session.  If none has been
 	 * specified, returns null.
 	 */
-    public SourceLocator getSourceLocator();
+	SourceLocator getSourceLocator();
 
 	/**
 	 * Sets the SourceLocator for this session.  This can be used in order
 	 * to override the default rules used for finding source files.
 	 */
-	public void setSourceLocator(SourceLocator sourceLocator);
+	void setSourceLocator(SourceLocator sourceLocator);
 
 	/**
 	 * Invokes a constructor in the player. Returns the newly created object.
@@ -464,7 +464,7 @@ public interface Session
 	 * player to which you are connected doesn't support this feature, this will
 	 * throw a PlayerDebugException.
 	 */
-	public Value callConstructor(String classname, Value[] args) throws PlayerDebugException;
+	Value callConstructor(String classname, Value[] args) throws PlayerDebugException;
 
 	/**
 	 * Invokes a function. For example, calling
@@ -473,7 +473,7 @@ public interface Session
 	 * If you call this function and the player to which you are connected
 	 * doesn't support this feature, this will throw a PlayerDebugException.
 	 */
-	public Value callFunction(Value thisObject, String functionName, Value[] args) throws PlayerDebugException;
+	Value callFunction(Value thisObject, String functionName, Value[] args) throws PlayerDebugException;
 
 	/**
 	 * The player always halts on exceptions that are not going to be caught;
@@ -484,7 +484,7 @@ public interface Session
 	 *             thrown by older players that don't support this feature.
 	 * @throws NoResponseException
 	 */
-	public void breakOnCaughtExceptions(boolean b) throws NotSupportedException, NoResponseException;
+	void breakOnCaughtExceptions(boolean b) throws NotSupportedException, NoResponseException;
 
 	/**
 	 * Evaluate the ActionScript expression "value is type"
@@ -492,7 +492,7 @@ public interface Session
 	 * @throws PlayerDebugException
 	 * @throws PlayerFaultException
 	 */
-	public boolean evalIs(Value value, Value type) throws PlayerDebugException, PlayerFaultException;
+	boolean evalIs(Value value, Value type) throws PlayerDebugException, PlayerFaultException;
 
 	/**
 	 * Evaluate the ActionScript expression "value is type"
@@ -500,7 +500,7 @@ public interface Session
 	 * @throws PlayerDebugException
 	 * @throws PlayerFaultException
 	 */
-	public boolean evalIs(Value value, String type) throws PlayerDebugException, PlayerFaultException;
+	boolean evalIs(Value value, String type) throws PlayerDebugException, PlayerFaultException;
 
 	/**
 	 * Evaluate the ActionScript expression "value instanceof type"
@@ -508,7 +508,7 @@ public interface Session
 	 * @throws PlayerFaultException
 	 * @throws PlayerDebugException
 	 */
-	public boolean evalInstanceof(Value value, Value type) throws PlayerDebugException, PlayerFaultException;
+	boolean evalInstanceof(Value value, Value type) throws PlayerDebugException, PlayerFaultException;
 
 	/**
 	 * Evaluate the ActionScript expression "value instanceof type"
@@ -516,7 +516,7 @@ public interface Session
 	 * @throws PlayerFaultException
 	 * @throws PlayerDebugException
 	 */
-	public boolean evalInstanceof(Value value, String type) throws PlayerDebugException, PlayerFaultException;
+	boolean evalInstanceof(Value value, String type) throws PlayerDebugException, PlayerFaultException;
 
 	/**
 	 * Evaluate the ActionScript expression "property in object"
@@ -524,7 +524,7 @@ public interface Session
 	 * @throws PlayerFaultException
 	 * @throws PlayerDebugException
 	 */
-	public boolean evalIn(Value property, Value object) throws PlayerDebugException, PlayerFaultException;
+	boolean evalIn(Value property, Value object) throws PlayerDebugException, PlayerFaultException;
 
 	/**
 	 * Evaluate the ActionScript expression "value as type"
@@ -532,20 +532,20 @@ public interface Session
 	 * @throws PlayerDebugException
 	 * @throws PlayerFaultException
 	 */
-	public Value evalAs(Value value, Value type) throws PlayerDebugException, PlayerFaultException;
+	Value evalAs(Value value, Value type) throws PlayerDebugException, PlayerFaultException;
 
 	/**
 	 * Returns whether the target player supports watchpoints.
 	 * @see #setWatch(Value, String, int)
 	 */
-	public boolean supportsWatchpoints();
+	boolean supportsWatchpoints();
 	
 	/**
 	 * Returns the root SocketException that caused the rxMessage()
 	 * thread to shut down. This works in conjunction with 
 	 * PREF_SOCKET_TIMEOUT and helps in detecting broken connections.
 	 */
-	public Exception getDisconnectCause();
+	Exception getDisconnectCause();
 
 	/**
 	 * Set an exception breakpoint. Returns true if succeeded.
@@ -554,7 +554,7 @@ public interface Session
 	 * @throws NoResponseException
 	 * @throws NotConnectedException
 	 */
-	public boolean setExceptionBreakpoint(String exceptionClass) throws NoResponseException, NotConnectedException;
+	boolean setExceptionBreakpoint(String exceptionClass) throws NoResponseException, NotConnectedException;
 
 	/**
 	 * Clears an exception breakpoint. Returns true if succeeded.
@@ -563,7 +563,7 @@ public interface Session
 	 * @throws NoResponseException
 	 * @throws NotConnectedException
 	 */
-	public boolean clearExceptionBreakpoint(String exceptionClass) throws NoResponseException, NotConnectedException;
+	boolean clearExceptionBreakpoint(String exceptionClass) throws NoResponseException, NotConnectedException;
 
 	// Concurrency begin
 
@@ -571,25 +571,25 @@ public interface Session
 	 * Returns whether the target player supports concurrency.
 	 * @see #setActiveIsolate(Value)
 	 */
-	public boolean supportsConcurrency();
+	boolean supportsConcurrency();
 
 	/**
 	 * Get an array of all workers that the debugger knows of.
 	 */
-	public Isolate[] getWorkers();
+	Isolate[] getWorkers();
 
 	/**
 	 * Ask the player again for a list of all workers. Use this
 	 * method with caution as it will also reset all state about
 	 * workers that the debugger is aware of.
 	 */
-	public Isolate[] refreshWorkers() throws  NotSupportedException, NotSuspendedException, NoResponseException, NotConnectedException;
+	Isolate[] refreshWorkers() throws  NotSupportedException, NotSuspendedException, NoResponseException, NotConnectedException;
 
 	/**
 	 * Return the worker specific session object that can be used
 	 * to communicate with that worker.
 	 */
-	public IsolateSession getWorkerSession(int isolateId);
+	IsolateSession getWorkerSession(int isolateId);
 
 	/**
 	 *
@@ -599,6 +599,6 @@ public interface Session
 	 * @param launcher
 	 * 				ILauncher instance used to launch & terminate the process.
 	 */
-	public void setLauncher(ILauncher launcher);
+	void setLauncher(ILauncher launcher);
 
 }

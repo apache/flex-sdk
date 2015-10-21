@@ -24,13 +24,13 @@ package flash.tools.debugger;
  */
 public interface VariableType
 {
-    public static final int NUMBER					=  0;
-    public static final int BOOLEAN					=  1;
-    public static final int STRING					=  2;
-    public static final int OBJECT					=  3;
-    public static final int FUNCTION				=  4;
-    public static final int MOVIECLIP				=  5;
-    public static final int NULL				    =  6;
-    public static final int UNDEFINED				=  7;
-	public static final int UNKNOWN					=  8;
+    int NUMBER					=  0;
+    int BOOLEAN					=  1;
+    int STRING					=  2;
+    int OBJECT					=  3;
+    int FUNCTION				=  4;
+    int MOVIECLIP				=  5;
+    int NULL				    =  6;
+    int UNDEFINED				=  7;
+	int UNKNOWN					=  8;
 }

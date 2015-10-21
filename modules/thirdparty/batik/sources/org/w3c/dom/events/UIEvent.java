@@ -29,13 +29,13 @@ public interface UIEvent extends Event {
      *  The <code>view</code> attribute identifies the 
      * <code>AbstractView</code> from which the event was generated. 
      */
-    public AbstractView getView();
+    AbstractView getView();
 
     /**
      *  Specifies some detail information about the <code>Event</code>, 
      * depending on the type of event. 
      */
-    public int getDetail();
+    int getDetail();
 
     /**
      *  The <code>initUIEvent</code> method is used to initialize the value of 
@@ -51,11 +51,11 @@ public interface UIEvent extends Event {
      *   <code>null</code>. 
      * @param detailArg  Specifies <code>UIEvent.detail</code>.   
      */
-    public void initUIEvent(String typeArg, 
-                            boolean canBubbleArg, 
-                            boolean cancelableArg, 
-                            AbstractView viewArg, 
-                            int detailArg);
+    void initUIEvent(String typeArg,
+                     boolean canBubbleArg,
+                     boolean cancelableArg,
+                     AbstractView viewArg,
+                     int detailArg);
 
     /**
      *  The <code>initUIEventNS</code> method is used to initialize the value 
@@ -75,11 +75,11 @@ public interface UIEvent extends Event {
      *   method for a description of this parameter.   
      * @since DOM Level 3
      */
-    public void initUIEventNS(String namespaceURI, 
-                              String typeArg, 
-                              boolean canBubbleArg, 
-                              boolean cancelableArg, 
-                              AbstractView viewArg, 
-                              int detailArg);
+    void initUIEventNS(String namespaceURI,
+                       String typeArg,
+                       boolean canBubbleArg,
+                       boolean cancelableArg,
+                       AbstractView viewArg,
+                       int detailArg);
 
 }

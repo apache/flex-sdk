@@ -26,11 +26,11 @@ import java.util.Iterator;
  */
 public interface Linkable
 {
-    public String getName();
-    public Iterator getDefinitions();
-    public Iterator getPrerequisites();
-    public Iterator getDependencies();
-    public long getLastModified();
-    public long getSize();
-    public boolean isNative();
+    String getName();
+    Iterator getDefinitions();
+    Iterator getPrerequisites();
+    Iterator getDependencies();
+    long getLastModified();
+    long getSize();
+    boolean isNative();
 }

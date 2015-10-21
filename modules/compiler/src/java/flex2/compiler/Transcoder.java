@@ -69,7 +69,7 @@ public interface Transcoder
      * Value object used to pass the results of a transcoding from the
      * transcoder back to the caller.
      */
-    public class TranscodingResults
+    class TranscodingResults
     {
         public TranscodingResults() {}
         public TranscodingResults( VirtualFile assetSource )

@@ -33,20 +33,20 @@ public interface Watch
 	 * can be used to obtain the variable.  This combined with
 	 * the memberName() forms the unique identifier for the Watch.
 	 */
-	public long getValueId();
+	long getValueId();
 
 	/**
 	 * Name of variable member that is being watched.  
 	 */
-	public String getMemberName();
+	String getMemberName();
 
 	/**
 	 * The kind of watch placed on the variable being watched.
 	 */
-    public int getKind();
+	int getKind();
     
     /**
      * The isolate to which this watchpoint belongs.
      */
-    public int getIsolateId();
+	int getIsolateId();
 }

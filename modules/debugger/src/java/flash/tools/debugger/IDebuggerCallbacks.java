@@ -35,60 +35,60 @@ public interface IDebuggerCallbacks
 	 * of recalculating the values from time to time (e.g. when a new launch
 	 * is going to happen).
 	 */
-	public void recomputeExeLocations();
+	void recomputeExeLocations();
 
 	/**
 	 * Returns the executable of the browser to launch for http: URLs, or
 	 * <code>null</code> if not known.
 	 */
-	public File getHttpExe();
+	File getHttpExe();
 	
 	/**
 	 * Returns the parameters to pass to the browser or null if non-existent.
 	 * If this is present, URL is assumed to already exist in this array.
 	 */
-	public String[] getBrowserParameters(String uri);
+	String[] getBrowserParameters(String uri);
 	
 	/**
 	 * Returns the executable for the standalone Flash player, or <code>null</code>
 	 * if not known.
 	 */
-	public File getPlayerExe();
+	File getPlayerExe();
 
 	/**
 	 * Returns a name such as "firefox" or "Web browser", the name of the
 	 * browser, useful for error messages. Never returns <code>null</code>.
 	 */
-	public String getHttpExeName();
+	String getHttpExeName();
 
 	/**
 	 * Returns a name such as "SAFlashPlayer.exe" or "gflashplayer" or "Flash
 	 * player", the name of the standalone player, useful for error messages.
 	 * Never returns <code>null</code>.
 	 */
-	public String getPlayerExeName();
+	String getPlayerExeName();
 
 	/**
 	 * Launches a debug target.  The arguments are the same as those of
 	 * Runtime.exec().
 	 */
-	public Process launchDebugTarget(String[] cmd) throws IOException;
+	Process launchDebugTarget(String[] cmd) throws IOException;
 
 	/**
 	 * Terminates a debug target process.
 	 */
-	public void terminateDebugTarget(Process process) throws IOException;
+	void terminateDebugTarget(Process process) throws IOException;
 	
 	/**
 	 * Launches a debug target using the launcher instance<code>ILauncher.launch(cmd)</code>.
 	 * 
 	 */
-	public Process launchDebugTarget(String[] cmd, ILauncher launcher) throws IOException;
+	Process launchDebugTarget(String[] cmd, ILauncher launcher) throws IOException;
 
 	/**
 	 * Terminates a debug target process by invoking <code>ILauncher.terminate(process)</code>
 	 */
-	public void terminateDebugTarget(Process process, ILauncher launcher) throws IOException;
+	void terminateDebugTarget(Process process, ILauncher launcher) throws IOException;
 
 
 	/**
@@ -110,13 +110,13 @@ public interface IDebuggerCallbacks
 	 *             work on Windows 2000. So, this function should not be counted
 	 *             on too heavily -- you should have a backup plan.
 	 */
-	public String queryWindowsRegistry(String key, String value) throws IOException;
+	String queryWindowsRegistry(String key, String value) throws IOException;
 	
 	/**
 	 * Same as queryWindowsRegistry, but allows specific access to the 32-bit
 	 * or 64-bit part of the registry.
 	 */
-	public String queryWindowsRegistry(String key, String value, int registryBitMode) throws IOException;
+	String queryWindowsRegistry(String key, String value, int registryBitMode) throws IOException;
 
 	/**
 	 * Returns the version number of an application. For example, Firefox 3.5.4
@@ -144,5 +144,5 @@ public interface IDebuggerCallbacks
 	 * @throws java.io.IOException
 	 *             e.g. for file not found, etc.
 	 */
-	public int[] getAppVersion(File application) throws IOException;
+	int[] getAppVersion(File application) throws IOException;
 }

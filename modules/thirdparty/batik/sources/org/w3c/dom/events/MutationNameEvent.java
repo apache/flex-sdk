@@ -30,13 +30,13 @@ public interface MutationNameEvent extends MutationEvent {
      *  The previous value of the <code>relatedNode</code>'s 
      * <code>namespaceURI</code>. 
      */
-    public String getPrevNamespaceURI();
+    String getPrevNamespaceURI();
 
     /**
      *  The previous value of the <code>relatedNode</code>'s 
      * <code>nodeName</code>. 
      */
-    public String getPrevNodeName();
+    String getPrevNodeName();
 
     /**
      *  The <code>initMutationNameEvent</code> method is used to initialize 
@@ -61,12 +61,12 @@ public interface MutationNameEvent extends MutationEvent {
      *   <code>MutationNameEvent.prevNodeName</code>.   
      * @since DOM Level 3
      */
-    public void initMutationNameEvent(String typeArg, 
-                                      boolean canBubbleArg, 
-                                      boolean cancelableArg, 
-                                      Node relatedNodeArg, 
-                                      String prevNamespaceURIArg, 
-                                      String prevNodeNameArg);
+    void initMutationNameEvent(String typeArg,
+                               boolean canBubbleArg,
+                               boolean cancelableArg,
+                               Node relatedNodeArg,
+                               String prevNamespaceURIArg,
+                               String prevNodeNameArg);
 
     /**
      *  The <code>initMutationNameEventNS</code> method is used to initialize 
@@ -95,12 +95,12 @@ public interface MutationNameEvent extends MutationEvent {
      *   description of this parameter.   
      * @since DOM Level 3
      */
-    public void initMutationNameEventNS(String namespaceURI, 
-                                        String typeArg, 
-                                        boolean canBubbleArg, 
-                                        boolean cancelableArg, 
-                                        Node relatedNodeArg, 
-                                        String prevNamespaceURIArg, 
-                                        String prevNodeNameArg);
+    void initMutationNameEventNS(String namespaceURI,
+                                 String typeArg,
+                                 boolean canBubbleArg,
+                                 boolean cancelableArg,
+                                 Node relatedNodeArg,
+                                 String prevNamespaceURIArg,
+                                 String prevNodeNameArg);
 
 }

@@ -30,7 +30,7 @@ public interface CustomEvent extends Event {
     /**
      *  Specifies some detail information about the <code>Event</code>. 
      */
-    public Object getDetail();
+    Object getDetail();
 
     /**
      *  The <code>initCustomEventNS</code> method is used to initialize the 
@@ -47,10 +47,10 @@ public interface CustomEvent extends Event {
      * @param detailArg  Specifies <code>CustomEvent.detail</code>. This 
      *   value may be <code>null</code>.   
      */
-    public void initCustomEventNS(String namespaceURI, 
-                                  String typeArg, 
-                                  boolean canBubbleArg, 
-                                  boolean cancelableArg, 
-                                  Object detailArg);
+    void initCustomEventNS(String namespaceURI,
+                           String typeArg,
+                           boolean canBubbleArg,
+                           boolean cancelableArg,
+                           Object detailArg);
 
 }

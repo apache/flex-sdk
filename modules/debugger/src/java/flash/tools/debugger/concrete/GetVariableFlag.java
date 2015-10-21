@@ -34,7 +34,7 @@ public interface GetVariableFlag
 	 * the result.  If this flag is *not* set, then the player will
 	 * simply return the address of the getter itself.
 	 */
-	public static final int INVOKE_GETTER			= 0x00000001;
+	int INVOKE_GETTER			= 0x00000001;
 
 	/**
 	 * Indicates that if the variable which is being retrieved is a
@@ -42,7 +42,7 @@ public interface GetVariableFlag
 	 * a string or int or something like that), then the player
 	 * should also return all of the child members of the object.
 	 */
-	public static final int ALSO_GET_CHILDREN		= 0x00000002;
+	int ALSO_GET_CHILDREN		= 0x00000002;
 	
 	/**
 	 * Indicates that when retrieving children, we only want fields
@@ -50,7 +50,7 @@ public interface GetVariableFlag
 	 * This is an optimization to decrease the amount of network
 	 * traffic.
 	 */
-	public static final int DONT_GET_FUNCTIONS		= 0x00000004;
+	int DONT_GET_FUNCTIONS		= 0x00000004;
 
 	/**
 	 * Indicates that when retrieving children, we also want to
@@ -59,5 +59,5 @@ public interface GetVariableFlag
 	 * class Bar, we want to know which member fields came from
 	 * Foo and which ones came from Bar.
 	 */
-	public static final int GET_CLASS_HIERARCHY		= 0x00000008;
+	int GET_CLASS_HIERARCHY		= 0x00000008;
 }

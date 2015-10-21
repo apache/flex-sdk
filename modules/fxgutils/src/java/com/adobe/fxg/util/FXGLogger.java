@@ -26,22 +26,22 @@ public interface FXGLogger
 {
     
     /** The Constant ALL. */
-    public static final int ALL = 0;
+    int ALL = 0;
     
     /** The Constant DEBUG. */
-    public static final int DEBUG = 10000;
+    int DEBUG = 10000;
     
     /** The Constant INFO. */
-    public static final int INFO = 20000;
+    int INFO = 20000;
     
     /** The Constant WARN. */
-    public static final int WARN = 30000;
+    int WARN = 30000;
     
     /** The Constant ERROR. */
-    public static final int ERROR = 40000;
+    int ERROR = 40000;
     
     /** The Constant NONE. */
-    public static final int NONE = Integer.MAX_VALUE;
+    int NONE = Integer.MAX_VALUE;
 
     /**
      * Gets the level.

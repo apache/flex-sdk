@@ -34,34 +34,34 @@ public interface TextNode extends FXGNode, PreserveWhiteSpaceNode
      * An id attribute provides a well defined name to a text node.
      * @return the node id.
      */
-    public String getId();
+    String getId();
 
     /**
      * Sets the node id.
      * @param value - the node id as a String.
      */
-    public void setId(String value);
+    void setId(String value);
     
     /**
      * @return A Map that records the attribute names and values set on this
      * text node.
      */
-    public Map<String, String> getTextAttributes();
+    Map<String, String> getTextAttributes();
 
     /**
      * @return The List of child nodes of this text node. 
      */
-    public List<TextNode> getTextChildren();
+    List<TextNode> getTextChildren();
 
     /**
      * @return The list of child property nodes of this text node.
      */
-    public Map<String, TextNode> getTextProperties();
+    Map<String, TextNode> getTextProperties();
 
     /**
      * Add a child property to this text node.
      * @param propertyName - the property's local name
      * @param node - the value node
      */
-    public void addTextProperty(String propertyName, TextNode node);
+    void addTextProperty(String propertyName, TextNode node);
 }

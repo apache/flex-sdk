@@ -250,7 +250,7 @@ public abstract class Algorithms
 	 *   so the GlobalOptimizer needs its own
 	 *   interface and implementations.
 	 */
-	public static interface Deque<E> extends List<E>
+	public interface Deque<E> extends List<E>
 	{
 		E removeFirst();
 		E peekFirst();
@@ -415,7 +415,7 @@ public abstract class Algorithms
 	{
 		public interface DependencyChecker<T>
 		{
-			public boolean depends(T dep, T parent);
+			boolean depends(T dep, T parent);
 		}
 		
 		public List<T> toplogicalSort(List<T> unsorted, DependencyChecker<T> checker)

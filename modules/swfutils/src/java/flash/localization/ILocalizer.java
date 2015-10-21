@@ -26,5 +26,5 @@ import java.util.Locale;
  */
 public interface ILocalizer
 {
-    public ILocalizedText getLocalizedText( Locale locale, String id );
+    ILocalizedText getLocalizedText(Locale locale, String id);
 }

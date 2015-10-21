@@ -36,7 +36,7 @@ public interface SourceLocator
 	 * Callback from DJAPI to the debugger, to find a source file.
 	 * Returns null if it can't find the file.
 	 */
-    public InputStream locateSource(String path, String pkg, String name);
+	InputStream locateSource(String path, String pkg, String name);
 
 	/**
 	 * Returns a number which indicates how many times this SourceLocator's
@@ -49,5 +49,5 @@ public interface SourceLocator
 	 * to look for a source file that it had previously been unable to
 	 * find.
 	 */
-	public int getChangeCount();
+	int getChangeCount();
 }

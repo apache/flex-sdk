@@ -33,28 +33,28 @@ public interface Event {
     /**
      *  The current event phase is the capture phase. 
      */
-    public static final short CAPTURING_PHASE           = 1;
+    short CAPTURING_PHASE           = 1;
     /**
      *  The current event is in the target phase, i.e. it is being evaluated 
      * at the event target. 
      */
-    public static final short AT_TARGET                 = 2;
+    short AT_TARGET                 = 2;
     /**
      *  The current event phase is the bubbling phase. 
      */
-    public static final short BUBBLING_PHASE            = 3;
+    short BUBBLING_PHASE            = 3;
 
     /**
      *  The local name of the event type. The name must be an <a href='http://www.w3.org/TR/2004/REC-xml-names11-20040204/#NT-NCName'>NCName</a> as defined in [<a href='http://www.w3.org/TR/2004/REC-xml-names11-20040204/'>XML Namespaces 1.1</a>]
      *  and is case-sensitive. 
      */
-    public String getType();
+    String getType();
 
     /**
      *  Used to indicate the event target. This attribute contains the target 
      * node when used with the . 
      */
-    public EventTarget getTarget();
+    EventTarget getTarget();
 
     /**
      *  Used to indicate the <code>EventTarget</code> whose 
@@ -63,20 +63,20 @@ public interface Event {
      * attribute could contain the target node or a target ancestor when 
      * used with the . 
      */
-    public EventTarget getCurrentTarget();
+    EventTarget getCurrentTarget();
 
     /**
      *  Used to indicate which phase of event flow is currently being 
      * accomplished. 
      */
-    public short getEventPhase();
+    short getEventPhase();
 
     /**
      *  Used to indicate whether or not an event is a bubbling event. If the 
      * event can bubble the value is <code>true</code>, otherwise the value 
      * is <code>false</code>. 
      */
-    public boolean getBubbles();
+    boolean getBubbles();
 
     /**
      *  Used to indicate whether or not an event can have its default action 
@@ -84,7 +84,7 @@ public interface Event {
      * value is <code>true</code>, otherwise the value is <code>false</code>
      * . 
      */
-    public boolean getCancelable();
+    boolean getCancelable();
 
     /**
      *  Used to specify the time at which the event was created in 
@@ -93,7 +93,7 @@ public interface Event {
      * <code>timeStamp</code> may be not available for all events. When not 
      * available, the value is <code>0</code>. 
      */
-    public long getTimeStamp();
+    long getTimeStamp();
 
     /**
      *  This method is used to prevent event listeners of the same group to be 
@@ -105,7 +105,7 @@ public interface Event {
      * being invoked; use <code>Event.preventDefault()</code> for that 
      * effect.   
      */
-    public void stopPropagation();
+    void stopPropagation();
 
     /**
      *  If an event is cancelable, the <code>preventDefault</code> method is 
@@ -117,7 +117,7 @@ public interface Event {
      * <code>Event.stopPropagation()</code> or 
      * <code>Event.stopImmediatePropagation()</code> for that effect.   
      */
-    public void preventDefault();
+    void preventDefault();
 
     /**
      *  The <code>initEvent</code> method is used to initialize the value of 
@@ -143,9 +143,9 @@ public interface Event {
      *   parameter overrides the intrinsic cancelable behavior of the event. 
      *     
      */
-    public void initEvent(String eventTypeArg, 
-                          boolean canBubbleArg, 
-                          boolean cancelableArg);
+    void initEvent(String eventTypeArg,
+                   boolean canBubbleArg,
+                   boolean cancelableArg);
 
     /**
      *  The namespace URI associated with this event at creation time, or 
@@ -154,7 +154,7 @@ public interface Event {
      * <code>Event.initEvent()</code>, this is always <code>null</code>. 
      * @since DOM Level 3
      */
-    public String getNamespaceURI();
+    String getNamespaceURI();
 
     /**
      *  This method is used to prevent event listeners of the same group to be 
@@ -166,14 +166,14 @@ public interface Event {
      * effect.   
      * @since DOM Level 3
      */
-    public void stopImmediatePropagation();
+    void stopImmediatePropagation();
 
     /**
      *  Used to indicate whether <code>Event.preventDefault()</code> has been 
      * called for this event. 
      * @since DOM Level 3
      */
-    public boolean getDefaultPrevented();
+    boolean getDefaultPrevented();
 
     /**
      *  The <code>initEventNS</code> method is used to initialize the value of 
@@ -190,9 +190,9 @@ public interface Event {
      *   method for a description of this parameter.   
      * @since DOM Level 3
      */
-    public void initEventNS(String namespaceURIArg, 
-                            String eventTypeArg, 
-                            boolean canBubbleArg, 
-                            boolean cancelableArg);
+    void initEventNS(String namespaceURIArg,
+                     String eventTypeArg,
+                     boolean canBubbleArg,
+                     boolean cancelableArg);
 
 }

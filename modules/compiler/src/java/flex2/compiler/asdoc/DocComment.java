@@ -31,14 +31,14 @@ import java.util.Map;
 public interface DocComment
 {
     //What kind of definition does this DocComment belongs to.
-    public static final int PACKAGE = 0;
-    public static final int CLASS = 1;
-    public static final int INTERFACE = 2;
-    public static final int FUNCTION = 3;
-    public static final int FUNCTION_GET = 4;
-    public static final int FUNCTION_SET = 5;
-    public static final int FIELD = 6;
-    public static final int METADATA = 7;
+    int PACKAGE = 0;
+    int CLASS = 1;
+    int INTERFACE = 2;
+    int FUNCTION = 3;
+    int FUNCTION_GET = 4;
+    int FUNCTION_SET = 5;
+    int FIELD = 6;
+    int METADATA = 7;
     
     /**
      * Method that returns a map of all the information 
@@ -46,100 +46,100 @@ public interface DocComment
      * tag names. The values correspond to the get methods
      * for each tag.
      */
-    public Map getAllTags();
+    Map getAllTags();
     
     //Basic get methods for most comments
-    public String getName();
-    public String getFullname();
-    public int getType();
-    public boolean isExcluded();
+    String getName();
+    String getFullname();
+    int getType();
+    boolean isExcluded();
     
-    public String getDescription();
+    String getDescription();
     
     //Common ones for Definitions
-    public boolean isFinal();
-    public boolean isStatic();
-    public boolean isOverride();
+    boolean isFinal();
+    boolean isStatic();
+    boolean isOverride();
     
     //For Classes
-    public boolean isDynamic();
-    public String getSourceFile();
-    public String getAccess();    //public, private, etc...
-    public String getNamespace();
-    public String getBaseClass();
-    public String[] getInterfaces();
+    boolean isDynamic();
+    String getSourceFile();
+    String getAccess();    //public, private, etc...
+    String getNamespace();
+    String getBaseClass();
+    String[] getInterfaces();
     
     //For Interfaces
-    public String[] getBaseclasses();
+    String[] getBaseclasses();
     
     //For Methods
-    public String[] getParamNames();
-    public String[] getParamTypes();
-    public String[] getParamDefaults();    //"undefined" if none found.
-    public String getResultType();
+    String[] getParamNames();
+    String[] getParamTypes();
+    String[] getParamDefaults();    //"undefined" if none found.
+    String getResultType();
     
     //For Fields
-    public String getVartype();
-    public String getDefaultValue();    //"unknown" if none found.
-    public boolean isConst();
+    String getVartype();
+    String getDefaultValue();    //"unknown" if none found.
+    boolean isConst();
     
     //For Metadata
-    public List getMetadata();   //returns List containing DocComments of type METADATA
-    public String getMetadataType();
-    public String getOwner();
-    public String getType_meta();
-    public String getEvent_meta();
-    public String getKind_meta();
-    public String getArrayType_meta();
-    public String getFormat_meta();
-    public String getInherit_meta();
-    public String getEnumeration_meta();
-    public String getTheme_meta();
-    public String getMessage_meta(); // contains message for Deprecation
-    public String getReplacement_meta(); // contains replacement for Deprecation
-    public String getSince_meta(); // contains since for Deprecation
+    List getMetadata();   //returns List containing DocComments of type METADATA
+    String getMetadataType();
+    String getOwner();
+    String getType_meta();
+    String getEvent_meta();
+    String getKind_meta();
+    String getArrayType_meta();
+    String getFormat_meta();
+    String getInherit_meta();
+    String getEnumeration_meta();
+    String getTheme_meta();
+    String getMessage_meta(); // contains message for Deprecation
+    String getReplacement_meta(); // contains replacement for Deprecation
+    String getSince_meta(); // contains since for Deprecation
     
     
     //All @<something> tags are denoted by a get<Something>Tag() 
     //(or Tags()) method.
     
     //common ones
-    public String getCopyTag();    //@copy
-    public Map getCustomTags();    //(all unknown tags)
-    public List getExampleTags();     //@example
-    public String getHelpidTag();     //@helpid
-    public List getIncludeExampleTags();
-    public List getSeeTags();    //@see (multiple)
-    public String getTiptextTag();    //@tiptext
-    public boolean hasInheritTag();    //@inheritDoc
+    String getCopyTag();    //@copy
+    Map getCustomTags();    //(all unknown tags)
+    List getExampleTags();     //@example
+    String getHelpidTag();     //@helpid
+    List getIncludeExampleTags();
+    List getSeeTags();    //@see (multiple)
+    String getTiptextTag();    //@tiptext
+    boolean hasInheritTag();    //@inheritDoc
 
     //privacy tags
-    public boolean hasPrivateTag();    //@private
-    public String getInternalTag();    //@internal
-    public boolean hasReviewTag();    //@review
+    boolean hasPrivateTag();    //@private
+    String getInternalTag();    //@internal
+    boolean hasReviewTag();    //@review
     
     //Version of AS/other products
-    public String getLangversionTag();    //@langversion
-    public List<String> getPlayerversionTags();    //@playerversion (multiple)
-    public List<String> getProductversionTags();   //@productversion (multiple)
-    public String getToolversionTag();    //@toolversion
-    public String getSinceTag();    //@since
+    String getLangversionTag();    //@langversion
+    List<String> getPlayerversionTags();    //@playerversion (multiple)
+    List<String> getProductversionTags();   //@productversion (multiple)
+    String getToolversionTag();    //@toolversion
+    String getSinceTag();    //@since
     
     //For Classes and Interfaces
-    public List getAuthorTags();    //@author (multiple)
+    List getAuthorTags();    //@author (multiple)
     
     //For Methods
-    public List getParamTags();    //@param (multiple)
-    public String getReturnTag();    //@return
-    public List getThrowsTags();    //@throws (multiple)
-    public List<String> getEventTags();    //@event (multiple)
+    List getParamTags();    //@param (multiple)
+    String getReturnTag();    //@return
+    List getThrowsTags();    //@throws (multiple)
+    List<String> getEventTags();    //@event (multiple)
     
     //For Fields
-    public String getDefaultTag();     //@default
+    String getDefaultTag();     //@default
 
     //[Event]-specific
-    public String getEventTypeTag();    //@eventType
+    String getEventTypeTag();    //@eventType
     
-    public String getVariableType_meta();
-    public String getRequired_meta();    
+    String getVariableType_meta();
+    String getRequired_meta();
 }

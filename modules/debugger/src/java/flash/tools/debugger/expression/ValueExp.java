@@ -54,7 +54,7 @@ public interface ValueExp
 	 * 
 	 * @see Context#lookup(Object)
 	 */
-	public Object evaluate(Context context) throws NumberFormatException, NoSuchVariableException,
+	Object evaluate(Context context) throws NumberFormatException, NoSuchVariableException,
 			PlayerFaultException, PlayerDebugException;
 
 	/**
@@ -63,7 +63,7 @@ public interface ValueExp
 	 * well, such as function calls, or even simple expressions like "foo" if
 	 * foo is a getter.
 	 */
-	public boolean containsAssignment();
+	boolean containsAssignment();
 
 	/**
 	 * Returns whether <code>evaluate()</code> will return an object that
@@ -77,5 +77,5 @@ public interface ValueExp
 	 * @see ASTBuilder#ASTBuilder(boolean)
 	 * @see ASTBuilder#isIndirectionOperatorAllowed()
 	 */
-	public boolean isLookupMembers();
+	boolean isLookupMembers();
 }

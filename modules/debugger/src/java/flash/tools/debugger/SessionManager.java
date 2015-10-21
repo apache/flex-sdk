@@ -51,7 +51,7 @@ public interface SessionManager
 	 * milliseconds) <code>accept()</code> waits before timing out. The
 	 * default value for this preference is 120000 (2 minutes).
 	 */
-	public static final String PREF_ACCEPT_TIMEOUT				= "$accepttimeout"; //$NON-NLS-1$
+	String PREF_ACCEPT_TIMEOUT				= "$accepttimeout"; //$NON-NLS-1$
 
 	/**
 	 * Valid values for <code>$urimodification</code> are 0 (off) and 1 (on).
@@ -59,7 +59,7 @@ public interface SessionManager
 	 * passed to <code>launch()</code> as necessary for creating a debuggable
 	 * version of an MXML file.
 	 */
-	public static final String PREF_URI_MODIFICATION			= "$urimodification"; //$NON-NLS-1$
+	String PREF_URI_MODIFICATION			= "$urimodification"; //$NON-NLS-1$
 
 	/**
 	 *-----------------------------------------------------------------
@@ -75,7 +75,7 @@ public interface SessionManager
 	 * milliseconds) the session will wait, for a player response before giving
 	 * up on the request and throwing an Exception.
 	 */
-	public static final String PREF_RESPONSE_TIMEOUT			= "$responsetimeout"; //$NON-NLS-1$
+	String PREF_RESPONSE_TIMEOUT			= "$responsetimeout"; //$NON-NLS-1$
 	
 	/**
 	 * <code>$sockettimeout</code> is used to determine how long (in
@@ -87,7 +87,7 @@ public interface SessionManager
 	 * This is -1 by default to indicate no timeout 
 	 * (for backward compatibility).
 	 */
-	public static final String PREF_SOCKET_TIMEOUT			= "$sockettimeout"; //$NON-NLS-1$
+	String PREF_SOCKET_TIMEOUT			= "$sockettimeout"; //$NON-NLS-1$
 
 	/**
 	 * <code>$contextresponsetimeout</code> is used to determine how long (in
@@ -95,7 +95,7 @@ public interface SessionManager
 	 * to get context, before giving up on the request and throwing an
 	 * Exception.
 	 */
-	public static final String PREF_CONTEXT_RESPONSE_TIMEOUT	= "$contextresponsetimeout"; //$NON-NLS-1$
+	String PREF_CONTEXT_RESPONSE_TIMEOUT	= "$contextresponsetimeout"; //$NON-NLS-1$
 
 	/**
 	 * <code>$getvarresponsetimeout</code> is used to determine how long (in
@@ -103,7 +103,7 @@ public interface SessionManager
 	 * variable request before giving up on the request and throwing an
 	 * Exception.
 	 */
-	public static final String PREF_GETVAR_RESPONSE_TIMEOUT		= "$getvarresponsetimeout"; //$NON-NLS-1$
+	String PREF_GETVAR_RESPONSE_TIMEOUT		= "$getvarresponsetimeout"; //$NON-NLS-1$
 
 	/**
 	 * <code>$setvarresponsetimeout</code> is the amount of time (in
@@ -111,50 +111,50 @@ public interface SessionManager
 	 * before the player interrupts it with a ScriptTimeoutError. Default value
 	 * is 5000 ms.
 	 */
-	public static final String PREF_SETVAR_RESPONSE_TIMEOUT		= "$setvarresponsetimeout"; //$NON-NLS-1$
+	String PREF_SETVAR_RESPONSE_TIMEOUT		= "$setvarresponsetimeout"; //$NON-NLS-1$
 
 	/**
 	 * <code>$swfswdloadtimeout<code> is used to determine how long (in milliseconds)
 	 * the session will wait, for a player response to a swf/swd load 
 	 * request before giving up on the request and throwing an Exception.
 	 */
-	public static final String PREF_SWFSWD_LOAD_TIMEOUT			= "$swfswdloadtimeout"; //$NON-NLS-1$
+	String PREF_SWFSWD_LOAD_TIMEOUT			= "$swfswdloadtimeout"; //$NON-NLS-1$
 
 	/**
 	 * <code>$suspendwait</code> is the amount of time (in milliseconds) that
 	 * a Session will wait for the Player to suspend, after a call to
 	 * <code>suspend()</code>.
 	 */
-	public static final String PREF_SUSPEND_WAIT				= "$suspendwait"; //$NON-NLS-1$
+	String PREF_SUSPEND_WAIT				= "$suspendwait"; //$NON-NLS-1$
 
 	/**
 	 * <code>$invokegetters</code> is used to determine whether a getter
 	 * property is invoked or not when requested via <code>getVariable()</code>
 	 * The default value is for this to be enabled.
 	 */
-	public static final String PREF_INVOKE_GETTERS				= "$invokegetters"; //$NON-NLS-1$
+	String PREF_INVOKE_GETTERS				= "$invokegetters"; //$NON-NLS-1$
 
-	public static final String PLAYER_SUPPORTS_GET				= "$playersupportsget"; //$NON-NLS-1$
+	String PLAYER_SUPPORTS_GET				= "$playersupportsget"; //$NON-NLS-1$
 
 	/**
 	 * <code>$hiervars</code> is used to determine whether the members of
 	 * a variable are shown in a hierchical way.
 	 */
-	public static final String PREF_HIERARCHICAL_VARIABLES		= "$hiervars"; //$NON-NLS-1$
+	String PREF_HIERARCHICAL_VARIABLES		= "$hiervars"; //$NON-NLS-1$
 
 	/**
 	 * The value used for <code>$connecttimeout</code> controls how long (in
 	 * milliseconds) <code>connect()</code> waits before timing out. The
 	 * default value for this preference is 120000 (2 minutes).
 	 */
-	public static final String PREF_CONNECT_TIMEOUT				= "$connecttimeout"; //$NON-NLS-1$
+	String PREF_CONNECT_TIMEOUT				= "$connecttimeout"; //$NON-NLS-1$
 
 	 /**
      * The value used for <code>$connectwaitinterval</code> controls how long (in
      * milliseconds) we wait between subsequent <code>connect()</code> calls. The
      * default value for this preference is 250.
      */
-    public static final String PREF_CONNECT_WAIT_INTERVAL = "$connectwaitinterval"; //$NON-NLS-1$
+	 String PREF_CONNECT_WAIT_INTERVAL = "$connectwaitinterval"; //$NON-NLS-1$
 
     /**
      * The value used for <code>$connectretryattempts</code> controls how many times
@@ -163,7 +163,7 @@ public interface SessionManager
      * indicates that the debugger should retry till the timeout period has elapsed.
      * Setting this to zero will disable the retry mechanism.
      */
-    public static final String PREF_CONNECT_RETRY_ATTEMPTS = "$connectretryattempts"; //$NON-NLS-1$
+	String PREF_CONNECT_RETRY_ATTEMPTS = "$connectretryattempts"; //$NON-NLS-1$
     
 	/**
 	 * Set preference for this manager and for subsequent Sessions 
@@ -173,7 +173,7 @@ public interface SessionManager
 	 * @param pref preference name, one of the strings listed above
 	 * @param value value to set for preference
 	 */
-	public void setPreference(String pref, int value);
+	void setPreference(String pref, int value);
 
 	/**
 	 * Set preference for this manager and for subsequent Sessions 
@@ -183,7 +183,7 @@ public interface SessionManager
 	 * @param pref preference name, one of the strings listed above
 	 * @param value value to set for preference
 	 */
-	public void setPreference(String pref, String value);
+	void setPreference(String pref, String value);
 
 	/**
 	 * Return the value of a particular preference item
@@ -191,7 +191,7 @@ public interface SessionManager
 	 * @param pref preference name, one of the strings listed above
 	 * @throws NullPointerException if pref does not exist
 	 */
-	public int getPreference(String pref) throws NullPointerException;
+	int getPreference(String pref) throws NullPointerException;
 
 	/**
 	 * Listens for Player attempts to open a debug session. This method must be
@@ -200,20 +200,20 @@ public interface SessionManager
 	 * @throws IOException
 	 *             if opening the server side socket fails
 	 */
-	public void startListening() throws IOException;
+	void startListening() throws IOException;
 
 	/**
 	 * Stops listening for new Player attempts to open a debug session. The
 	 * method DOES NOT terminate currently connected sessions, but will cause
 	 * threads blocked in <code>accept</code> to throw SocketExceptions.
 	 */
-	public void stopListening() throws IOException;
+	void stopListening() throws IOException;
 
 	/**
 	 * Is this object currently listening for Debug Player connections 
 	 * @return TRUE currently listening 
 	 */
-	public boolean isListening();
+	boolean isListening();
 
 	/**
 	 * Launches a Player using the given string as a URI, as defined by RFC2396.
@@ -288,8 +288,8 @@ public interface SessionManager
 	 * @throws IOException
 	 *             see Runtime.exec()
 	 */
-	public Session launch(String uri, AIRLaunchInfo airLaunchInfo,
-			boolean forDebugging, IProgress waitReporter, ILaunchNotification launchNotification) throws IOException;
+	Session launch(String uri, AIRLaunchInfo airLaunchInfo,
+				   boolean forDebugging, IProgress waitReporter, ILaunchNotification launchNotification) throws IOException;
 
 	/**
 	 * Returns information about the Flash player which will be used to run the
@@ -311,7 +311,7 @@ public interface SessionManager
 	 *         determined. <em>Important:</em> There are valid situations in
 	 *         which this will return <code>null</code>
 	 */
-	public Player playerForUri(String uri, AIRLaunchInfo airLaunchInfo);
+	Player playerForUri(String uri, AIRLaunchInfo airLaunchInfo);
 
 	/**
 	 * Returns whether this platform supports the <code>launch()</code>
@@ -322,7 +322,7 @@ public interface SessionManager
 	 * @return true if this platform supports the <code>launch()</code>
 	 *         command.
 	 */
-	public boolean supportsLaunch();
+	boolean supportsLaunch();
 
 	/**
 	 * Blocks until the next available player debug session commences, or until
@@ -344,7 +344,7 @@ public interface SessionManager
 	 * @throws IOException -
 	 *             see java.net.ServerSocket.accept()
 	 */
-	public Session accept(IProgress waitReporter) throws IOException;
+	Session accept(IProgress waitReporter) throws IOException;
 
 	/**
 	 * Tells the session manager to use the specified IDebuggerCallbacks for
@@ -352,7 +352,7 @@ public interface SessionManager
 	 * launching the debug target. If you do not call this, the session manager
 	 * will use a <code>DefaultDebuggerCallbacks</code> object.
 	 */
-	public void setDebuggerCallbacks(IDebuggerCallbacks debugger);
+	void setDebuggerCallbacks(IDebuggerCallbacks debugger);
 
 	/**
 	 * Initiate a debug session by connecting to the specified port. Blocks 
@@ -375,18 +375,18 @@ public interface SessionManager
 	 * @return A Session object on which bind() has already been called.
 	 * @throws IOException - This may have a wrapped VersionException due to bind()
 	 */
-	public Session connect(int port, IProgress waitReporter) throws IOException;
+	Session connect(int port, IProgress waitReporter) throws IOException;
 	
 	/**
 	 * Stops connecting to the Player for a debug session. The
 	 * method DOES NOT terminate currently connected sessions, but will cause
 	 * threads blocked in <code>connect</code> to throw SocketExceptions.
 	 */
-	public void stopConnecting() throws IOException;
+	void stopConnecting() throws IOException;
 
 	/**
 	 * Is this object currently connecting to the Debug Player 
 	 * @return TRUE currently connecting 
 	 */
-	public boolean isConnecting();
+	boolean isConnecting();
 }

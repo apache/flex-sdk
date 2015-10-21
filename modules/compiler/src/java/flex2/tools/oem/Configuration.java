@@ -1246,7 +1246,7 @@ public interface Configuration
      * 								    the length of the policyFileUrls array.
      * @throws NullPointerException if any of the arguments are null.
      */
-	public void setRuntimeSharedLibraryPath(String swc, String[] rslUrls, String[] policyFileUrls);
+    void setRuntimeSharedLibraryPath(String swc, String[] rslUrls, String[] policyFileUrls);
 	
 	/**
 	 * This is equivalent to using more than one <code>runtime-shared-library-path</code>
@@ -1266,7 +1266,7 @@ public interface Configuration
      * 								    the length of the policyFileUrls array.
      * @throws NullPointerException if any of the arguments is null.
 	 */
-	public void addRuntimeSharedLibraryPath(String swc, String[] rslUrls, String[] policyFileUrls);
+    void addRuntimeSharedLibraryPath(String swc, String[] rslUrls, String[] policyFileUrls);
 	
     /**
      * Verifies the RSL loaded 
@@ -1312,7 +1312,7 @@ public interface Configuration
      * 
      * @see #setDefineDirective(String[], String[])
      */
-    public void addDefineDirective(String name, String value);
+    void addDefineDirective(String name, String value);
     
     /**
      * Set global AS3 compiler configuration values and clear existing definitions.
@@ -1327,15 +1327,15 @@ public interface Configuration
      * 
      * @see #addDefineDirective(String, String)
      */
-    public void setDefineDirective(String[] names, String[] values);
+    void setDefineDirective(String[] names, String[] values);
     
     
     /**
      * @param libraries
      */
-    public void setExtensionLibraries(Map<File, List<String>> extensions);
+    void setExtensionLibraries(Map<File, List<String>> extensions);
     
-    public void addExtensionLibraries(File extension, List<String> parameters);
+    void addExtensionLibraries(File extension, List<String> parameters);
     
     
     /**

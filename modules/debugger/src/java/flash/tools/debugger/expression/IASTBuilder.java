@@ -33,5 +33,5 @@ public interface IASTBuilder
 	 *  ParseException - a general parsing error occurred.
 	 * 
 	 */
-	public ValueExp parse(Reader in) throws IOException, ParseException;
+	ValueExp parse(Reader in) throws IOException, ParseException;
 }
