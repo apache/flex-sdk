@@ -19,28 +19,26 @@
 
 package spark.components.gridClasses
 {
-import flash.display.DisplayObject;
-import flash.events.Event;
-import flash.geom.Point;
-import flash.geom.Rectangle;
+    import flash.display.DisplayObject;
+    import flash.events.Event;
+    import flash.geom.Point;
+    import flash.geom.Rectangle;
 
-import mx.core.ILayoutDirectionElement;
-import mx.core.IToolTip;
-import mx.core.IUIComponent;
-import mx.core.LayoutDirection;
-import mx.core.mx_internal;
-import mx.events.FlexEvent;
-import mx.events.ToolTipEvent;
-import mx.managers.ISystemManager;
-import mx.managers.IToolTipManagerClient;
-import mx.managers.ToolTipManager;
-import mx.utils.PopUpUtil;
+    import mx.core.IToolTip;
+    import mx.core.IUIComponent;
+    import mx.core.LayoutDirection;
+    import mx.events.FlexEvent;
+    import mx.events.ToolTipEvent;
+    import mx.managers.IToolTipManagerClient;
+    import mx.managers.ToolTipManager;
+    import mx.utils.PopUpUtil;
+    import mx.validators.IValidatorListener;
 
-import spark.components.Grid;
-import spark.components.Group;
-import spark.components.supportClasses.TextBase;
+    import spark.components.Grid;
+    import spark.components.Group;
+    import spark.components.supportClasses.TextBase;
 
-use namespace mx_internal;
+    use namespace mx_internal;
 
 //--------------------------------------
 //  Events
@@ -213,6 +211,9 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
         const uiComp:IUIComponent = event.currentTarget as IUIComponent;
         if (!uiComp)
             return;
+
+        if(uiComp is IValidatorListener && IValidatorListener(uiComp).errorString)
+            return;
         
         // If the renderer is partially obscured because the Grid has been 
         // scrolled, we'll put the tooltip in the center of the exposed portion
@@ -310,10 +311,10 @@ public class GridItemRenderer extends Group implements IGridItemRenderer
     /**
      *  @private
      */
-    private function dispatchChangeEvent(type:String):void
+    private function dispatchChangeEvent(eventType:String):void
     {
-        if (hasEventListener(type))
-            dispatchEvent(new Event(type));
+        if (hasEventListener(eventType))
+            dispatchEvent(new Event(eventType));
     }
     
     //----------------------------------
