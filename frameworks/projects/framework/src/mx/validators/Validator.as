@@ -20,18 +20,15 @@
 package mx.validators
 {
 
-import flash.events.Event;
-import flash.events.EventDispatcher;
-import flash.events.IEventDispatcher;
-import mx.binding.BindingManager;
-import mx.core.IMXMLObject;
-import mx.events.FlexEvent;
-import mx.events.ValidationResultEvent;
-import mx.managers.ISystemManager;
-import mx.managers.SystemManager;
-import mx.resources.IResourceManager;
-import mx.resources.ResourceManager;
-import mx.validators.IValidator;
+    import flash.events.Event;
+    import flash.events.EventDispatcher;
+    import flash.events.IEventDispatcher;
+
+    import mx.core.IMXMLObject;
+    import mx.events.FlexEvent;
+    import mx.events.ValidationResultEvent;
+    import mx.resources.IResourceManager;
+    import mx.resources.ResourceManager;
 
 //--------------------------------------
 //  Events
@@ -179,53 +176,7 @@ public class Validator extends EventDispatcher implements IMXMLObject,IValidator
         return result;
     }
     
-    /**
-     *  @private
-     */
-    private static function findObjectFromString(doc:Object,
-                                                 value:String):Object
-    {
-        var obj:Object = doc;
-        var parts:Array = value.split(".");
 
-        var n:int = parts.length;
-        for (var i:int = 0; i < n; i++)
-        {
-            try
-            {
-                obj = obj[parts[i]];
-                
-                // There's no guarantee that the objects have
-                // already been created when this function fires;
-                // for example, in the deferred instantiation case,
-                // this function fires before the object for validation
-                // has been created.
-                if (obj == null)
-                {
-                    //return true;
-                }
-            }
-            catch(error:Error)
-            {
-                if ((error is TypeError) &&
-                    (error.message.indexOf("null has no properties") != -1))
-                {
-                    var resourceManager:IResourceManager =
-                        ResourceManager.getInstance();
-                    var message:String = resourceManager.getString(
-                        "validators", "fieldNotFound", [ value ]);
-                    throw new Error(message);
-                }
-                else
-                {                    
-                    throw error;
-                }
-            }
-        }
-        
-        return obj;
-    }
-    
     /**
      *  @private
      */
