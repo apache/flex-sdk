@@ -29,6 +29,7 @@ package mx.validators
     import mx.events.ValidationResultEvent;
     import mx.resources.IResourceManager;
     import mx.resources.ResourceManager;
+    import mx.utils.ObjectUtil;
 
 //--------------------------------------
 //  Events
@@ -937,7 +938,7 @@ public class Validator extends EventDispatcher implements IMXMLObject,IValidator
 
         if (_source && _property)
         {
-            return _source[_property];
+            return _property.indexOf(".") == -1 ? _source[_property] : ObjectUtil.getValue(_source, _property.split("."));
         }
 
         else if (!_source && _property)
