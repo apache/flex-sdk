@@ -1707,9 +1707,9 @@ public class ClassTable implements DocCommentTable {
                 tags.put("throws", getThrowsTags());
                 tags.put("tiptext", getTiptextTag());
                 tags.put("toolversion", getToolversionTag());
-                tags.put("inheritDoc", Boolean.valueOf(hasInheritTag()));
-                tags.put("private", Boolean.valueOf(hasPrivateTag()));
-                tags.put("review", Boolean.valueOf(hasReviewTag()));
+                tags.put("inheritDoc", hasInheritTag());
+                tags.put("private", hasPrivateTag());
+                tags.put("review", hasReviewTag());
                 tags.put("custom", getCustomTags());
                 return tags;
             }

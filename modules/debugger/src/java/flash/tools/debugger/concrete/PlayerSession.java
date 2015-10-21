@@ -240,7 +240,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable, Is
 	 */
 	public void setPreference(String pref, int value)
 	{
-		m_prefs.put(pref, new Integer(value));
+		m_prefs.put(pref, value);
 		mapBack();
 
 		// change in console messages?
@@ -1991,7 +1991,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable, Is
 	public boolean supportsWatchpoints(int isolateId)
 	{
 		if (m_playerSupportsWatchpoints == null)
-			m_playerSupportsWatchpoints = new Boolean(getOption("can_set_watchpoints", false, isolateId)); //$NON-NLS-1$
+			m_playerSupportsWatchpoints = getOption("can_set_watchpoints", false, isolateId); //$NON-NLS-1$
 		return m_playerSupportsWatchpoints.booleanValue();
 	}
 
@@ -2003,14 +2003,14 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable, Is
 	public boolean playerCanBreakOnAllExceptions(int isolateId)
 	{
 		if (m_playerCanBreakOnAllExceptions == null)
-			m_playerCanBreakOnAllExceptions = new Boolean(getOption("can_break_on_all_exceptions", false, isolateId)); //$NON-NLS-1$
+			m_playerCanBreakOnAllExceptions = getOption("can_break_on_all_exceptions", false, isolateId); //$NON-NLS-1$
 		return m_playerCanBreakOnAllExceptions.booleanValue();
 	}
 	
 	public boolean supportsConcurrency(int isolateId)
 	{
 		if (m_playerSupportsConcurrency == null)
-			m_playerSupportsConcurrency = new Boolean(getOption("concurrent_player", false, isolateId)); //$NON-NLS-1$
+			m_playerSupportsConcurrency = getOption("concurrent_player", false, isolateId); //$NON-NLS-1$
 		return m_playerSupportsConcurrency.booleanValue();
 	}
 	
@@ -2027,7 +2027,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable, Is
 	public boolean supportsWideLineNumbers(int isolateId)
 	{
 		if (m_playerSupportsWideLine == null)
-			m_playerSupportsWideLine = new Boolean(getOption("wide_line_player", false, isolateId)); //$NON-NLS-1$
+			m_playerSupportsWideLine = getOption("wide_line_player", false, isolateId); //$NON-NLS-1$
 		return m_playerSupportsWideLine.booleanValue();
 	}
 
@@ -2044,7 +2044,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable, Is
 	public boolean playerCanCallFunctions(int isolateId)
 	{
 		if (m_playerCanCallFunctions == null)
-			m_playerCanCallFunctions = new Boolean(getOption("can_call_functions", false, isolateId)); //$NON-NLS-1$
+			m_playerCanCallFunctions = getOption("can_call_functions", false, isolateId); //$NON-NLS-1$
 		return m_playerCanCallFunctions.booleanValue();
 	}
 
@@ -2669,7 +2669,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable, Is
 		Boolean retval = m_evalIsAndInstanceofCache.get(key);
 		if (retval == null)
 		{
-			retval = new Boolean(ECMA.toBoolean(evalBinaryOp(op, value, type, isolateId)));
+			retval = ECMA.toBoolean(evalBinaryOp(op, value, type, isolateId));
 			m_evalIsAndInstanceofCache.put(key, retval);
 		}
 
@@ -2686,7 +2686,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable, Is
 			if (typeval == null)
 				retval = Boolean.FALSE;
 			else
-				retval = new Boolean(ECMA.toBoolean(evalBinaryOp(op, value, typeval, isolateId)));
+				retval = ECMA.toBoolean(evalBinaryOp(op, value, typeval, isolateId));
 			m_evalIsAndInstanceofCache.put(key, retval);
 		}
 

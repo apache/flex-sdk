@@ -98,7 +98,7 @@ import org.w3c.dom.svg.SVGTextPositioningElement;
 public class SVGTextElementBridge extends AbstractGraphicsNodeBridge
     implements SVGTextContent {
 
-    protected static final Integer ZERO = new Integer(0);
+    protected static final Integer ZERO = 0;
 
     public static final
         AttributedCharacterIterator.Attribute TEXT_COMPOUND_DELIMITER =
@@ -1393,7 +1393,7 @@ public class SVGTextElementBridge extends AbstractGraphicsNodeBridge
             len = rs.getNumberOfItems();
             if (len == 1) {  // not a list
                 // each char will have the same rotate value
-                Float rad = new Float(Math.toRadians(rs.getItem(0).getValue()));
+                Float rad = (float) Math.toRadians(rs.getItem(0).getValue());
                 as.addAttribute
                     (GVTAttributedCharacterIterator.TextAttribute.ROTATION,
                      rad, firstChar, lastChar + 1);
@@ -1401,7 +1401,7 @@ public class SVGTextElementBridge extends AbstractGraphicsNodeBridge
             } else if (len > 1) {  // it's a list
                 // set each rotate value from the list
                 for (int i = 0; i < len && firstChar + i <= lastChar; i++) {
-                    Float rad = new Float(Math.toRadians(rs.getItem(i).getValue()));
+                    Float rad = (float) Math.toRadians(rs.getItem(i).getValue());
                     as.addAttribute
                         (GVTAttributedCharacterIterator.TextAttribute.ROTATION,
                          rad, firstChar + i, firstChar + i + 1);
@@ -1667,7 +1667,7 @@ public class SVGTextElementBridge extends AbstractGraphicsNodeBridge
                 break;
             }
 
-            result.put(TextAttribute.BIDI_EMBEDDING, new Integer(cbidi));
+            result.put(TextAttribute.BIDI_EMBEDDING, cbidi);
         }
 
         // Writing mode
@@ -1715,7 +1715,7 @@ public class SVGTextElementBridge extends AbstractGraphicsNodeBridge
                        TextAttribute.ORIENTATION_ANGLE);
             result.put(GVTAttributedCharacterIterator.
                        TextAttribute.VERTICAL_ORIENTATION_ANGLE,
-                       new Float(val.getFloatValue()));
+                    val.getFloatValue());
             break;
         case CSSPrimitiveValue.CSS_RAD:
             result.put(GVTAttributedCharacterIterator.
@@ -1724,7 +1724,7 @@ public class SVGTextElementBridge extends AbstractGraphicsNodeBridge
                        TextAttribute.ORIENTATION_ANGLE);
             result.put(GVTAttributedCharacterIterator.
                        TextAttribute.VERTICAL_ORIENTATION_ANGLE,
-                       new Float( Math.toDegrees( val.getFloatValue() ) ));
+                    (float) Math.toDegrees(val.getFloatValue()));
             break;
         case CSSPrimitiveValue.CSS_GRAD:
             result.put(GVTAttributedCharacterIterator.
@@ -1733,7 +1733,7 @@ public class SVGTextElementBridge extends AbstractGraphicsNodeBridge
                        TextAttribute.ORIENTATION_ANGLE);
             result.put(GVTAttributedCharacterIterator.
                        TextAttribute.VERTICAL_ORIENTATION_ANGLE,
-                       new Float(val.getFloatValue() * 9 / 5));
+                    val.getFloatValue() * 9 / 5);
             break;
         default:
             // Cannot happen
@@ -1749,17 +1749,17 @@ public class SVGTextElementBridge extends AbstractGraphicsNodeBridge
         case CSSPrimitiveValue.CSS_DEG:
             result.put(GVTAttributedCharacterIterator.
                        TextAttribute.HORIZONTAL_ORIENTATION_ANGLE,
-                       new Float(val.getFloatValue()));
+                    val.getFloatValue());
             break;
         case CSSPrimitiveValue.CSS_RAD:
             result.put(GVTAttributedCharacterIterator.
                        TextAttribute.HORIZONTAL_ORIENTATION_ANGLE,
-                       new Float( Math.toDegrees( val.getFloatValue() ) ));
+                    (float) Math.toDegrees(val.getFloatValue()));
             break;
         case CSSPrimitiveValue.CSS_GRAD:
             result.put(GVTAttributedCharacterIterator.
                        TextAttribute.HORIZONTAL_ORIENTATION_ANGLE,
-                       new Float(val.getFloatValue() * 9 / 5));
+                    val.getFloatValue() * 9 / 5);
             break;
         default:
             // Cannot happen
@@ -1813,7 +1813,7 @@ public class SVGTextElementBridge extends AbstractGraphicsNodeBridge
                     inheritMap = new HashMap();
                 }
 
-                Object value = new Float(textLength.getCheckedValue());
+                Object value = textLength.getCheckedValue();
                 result.put
                     (GVTAttributedCharacterIterator.TextAttribute.BBOX_WIDTH,
                      value);

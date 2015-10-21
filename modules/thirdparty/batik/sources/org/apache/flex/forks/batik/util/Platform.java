@@ -53,7 +53,7 @@ public abstract class Platform {
                     Frame.class.getMethod("setExtendedState",
                                           new Class[] { Integer.TYPE });
                 int i = ((Integer) m1.invoke(f, (Object[]) null)).intValue();
-                m2.invoke(f, new Object[] { new Integer(i & ~6) });
+                m2.invoke(f, new Object[] {i & ~6});
             } catch (java.lang.reflect.InvocationTargetException ite) {
             } catch (NoSuchMethodException nsme) {
             } catch (IllegalAccessException iae) {

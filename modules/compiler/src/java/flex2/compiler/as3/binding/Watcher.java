@@ -123,7 +123,7 @@ public abstract class Watcher
         }
         else
         {
-            childWatchers.put(new Integer(child.id), child);
+            childWatchers.put(child.id, child);
         }
 
         child.parent = this;

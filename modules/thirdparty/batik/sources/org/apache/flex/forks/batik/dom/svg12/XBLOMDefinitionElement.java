@@ -72,7 +72,7 @@ public class XBLOMDefinitionElement extends XBLOMElement {
             throw createDOMException
                         (DOMException.NAMESPACE_ERR,
                          "prefix",
-                         new Object[] { new Integer(getNodeType()),
+                         new Object[] {(int) getNodeType(),
                                         getNodeName(),
                                         prefix });
         }

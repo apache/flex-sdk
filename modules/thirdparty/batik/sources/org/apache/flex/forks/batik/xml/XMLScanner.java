@@ -2073,8 +2073,8 @@ public class XMLScanner implements Localizable {
         try {
             m = formatMessage(message,
                               new Object[] {
-                                  new Integer(reader.getLine()),
-                                  new Integer(reader.getColumn())
+                                      reader.getLine(),
+                                      reader.getColumn()
                               });
         } catch (MissingResourceException e) {
             m = message;

@@ -134,7 +134,7 @@ public class ArabicTextHandler {
                 if (x != null && !x.isNaN()) {
                     reorderedAS.addAttribute
                         (GVTAttributedCharacterIterator.TextAttribute.X,
-                         new Float(Float.NaN), charOrder[0], charOrder[0]+1);
+                                Float.NaN, charOrder[0], charOrder[0]+1);
                     reorderedAS.addAttribute
                         (GVTAttributedCharacterIterator.TextAttribute.X,
                          x, 0, 1);
@@ -142,7 +142,7 @@ public class ArabicTextHandler {
                 if (y != null && !y.isNaN()) {
                     reorderedAS.addAttribute
                         (GVTAttributedCharacterIterator.TextAttribute.Y,
-                         new Float(Float.NaN), charOrder[0], charOrder[0]+1);
+                                Float.NaN, charOrder[0], charOrder[0]+1);
                     reorderedAS.addAttribute
                         (GVTAttributedCharacterIterator.TextAttribute.Y,
                          y, 0, 1);

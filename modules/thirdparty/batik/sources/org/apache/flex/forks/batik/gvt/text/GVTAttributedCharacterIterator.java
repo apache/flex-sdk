@@ -348,22 +348,22 @@ public interface GVTAttributedCharacterIterator extends AttributedCharacterItera
         // VALUES
 
         /** Value for WRITING_MODE indicating left-to-right */
-        public static final Integer WRITING_MODE_LTR = new Integer(0x1);
+        public static final Integer WRITING_MODE_LTR = 0x1;
 
         /** Value for WRITING_MODE indicating right-to-left */
-        public static final Integer WRITING_MODE_RTL = new Integer(0x2);
+        public static final Integer WRITING_MODE_RTL = 0x2;
 
         /** Value for WRITING_MODE indicating top-to-botton */
-        public static final Integer WRITING_MODE_TTB = new Integer(0x3);
+        public static final Integer WRITING_MODE_TTB = 0x3;
 
         /** Value for VERTICAL_ORIENTATION indicating an angle */
-        public static final Integer ORIENTATION_ANGLE = new Integer(0x1);
+        public static final Integer ORIENTATION_ANGLE = 0x1;
 
         /** Value for VERTICAL_ORIENTATION indicating auto */
-        public static final Integer ORIENTATION_AUTO = new Integer(0x2);
+        public static final Integer ORIENTATION_AUTO = 0x2;
 
         /** Value for FONT_VARIANT specifying small caps */
-        public static final Integer SMALL_CAPS = new Integer(0x10);
+        public static final Integer SMALL_CAPS = 0x10;
 
         /** Value for UNDERLINE specifying underlining-on */
         public static final Integer UNDERLINE_ON =
@@ -378,18 +378,18 @@ public interface GVTAttributedCharacterIterator extends AttributedCharacterItera
 
         /** Value for LENGTH_ADJUST specifying adjustment to inter-glyph spacing */
         public static final Integer ADJUST_SPACING =
-                            new Integer(0x0);
+                0x0;
 
         /** Value for LENGTH_ADJUST specifying overall scaling of layout outlines */
         public static final Integer ADJUST_ALL =
-                            new Integer(0x01);
+                0x01;
 
         // constant values for the arabic glyph forms
-        public static final Integer ARABIC_NONE = new Integer(0x0);
-        public static final Integer ARABIC_ISOLATED = new Integer(0x1);
-        public static final Integer ARABIC_TERMINAL = new Integer(0x2);
-        public static final Integer ARABIC_INITIAL = new Integer(0x3);
-        public static final Integer ARABIC_MEDIAL = new Integer(0x4);
+        public static final Integer ARABIC_NONE = 0x0;
+        public static final Integer ARABIC_ISOLATED = 0x1;
+        public static final Integer ARABIC_TERMINAL = 0x2;
+        public static final Integer ARABIC_INITIAL = 0x3;
+        public static final Integer ARABIC_MEDIAL = 0x4;
 
     }
 

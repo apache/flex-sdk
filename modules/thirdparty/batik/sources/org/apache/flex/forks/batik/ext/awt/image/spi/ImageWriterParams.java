@@ -71,7 +71,7 @@ public class ImageWriterParams {
      * @param dpi the resolution in dpi
      */
     public void setResolution(int dpi) {
-        this.resolution = new Integer(dpi);
+        this.resolution = dpi;
     }
     
     /**
@@ -80,7 +80,7 @@ public class ImageWriterParams {
      * @param forceBaseline force baseline quantization table
      */
     public void setJPEGQuality(float quality, boolean forceBaseline) {
-        this.jpegQuality = new Float(quality);
+        this.jpegQuality = quality;
         this.jpegForceBaseline = forceBaseline?Boolean.TRUE:Boolean.FALSE;
     }
     

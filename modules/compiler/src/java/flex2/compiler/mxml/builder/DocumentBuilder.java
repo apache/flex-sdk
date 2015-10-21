@@ -1074,7 +1074,7 @@ public class DocumentBuilder extends ComponentBuilder implements MXMLNamespaces
 				{
 					if (value instanceof Double)
 					{
-						value = new Integer(((Double) value).intValue());
+						value = ((Double) value).intValue();
 					}
 					swfvarmap.put(rootAttrWidth, value);
 				}
@@ -1109,7 +1109,7 @@ public class DocumentBuilder extends ComponentBuilder implements MXMLNamespaces
 				{
 					if (value instanceof Double)
 					{
-						value = new Integer(((Double) value).intValue());
+						value = ((Double) value).intValue();
 					}
 					swfvarmap.put(rootAttrHeight, value);
 				}
@@ -1342,7 +1342,7 @@ public class DocumentBuilder extends ComponentBuilder implements MXMLNamespaces
 		unit.auxGenerateInfo.put( "generateLoaderClass", generateLoaderClass );
 		unit.auxGenerateInfo.put( "windowClass", windowClass );
 		unit.auxGenerateInfo.put( "preloaderClass", document.getPreloader() );
-		unit.auxGenerateInfo.put( specialAttrUsePreloader, new Boolean( document.getUsePreloader() ) );
+		unit.auxGenerateInfo.put( specialAttrUsePreloader, document.getUsePreloader());
 		unit.auxGenerateInfo.put( "rootAttributes", rootAttributeMap );
 		unit.auxGenerateInfo.put( "rootAttributeEmbedVars", rootAttributeEmbedVarsMap );
 		unit.auxGenerateInfo.put( "rootAttributeEmbedNames", rootAttributeEmbedNamesMap );

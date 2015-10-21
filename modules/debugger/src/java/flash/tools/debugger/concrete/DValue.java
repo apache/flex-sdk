@@ -107,7 +107,7 @@ public class DValue implements Value
      */
     public DValue(long id)
     {
-        init(VariableType.UNKNOWN, null, null, 0, new Long(id));
+        init(VariableType.UNKNOWN, null, null, 0, id);
         setIsolateId(0);
     }
 
@@ -120,7 +120,7 @@ public class DValue implements Value
 	 */
 	public DValue(long id, int isolateId)
 	{
-		init(VariableType.UNKNOWN, null, null, 0, new Long(id));
+		init(VariableType.UNKNOWN, null, null, 0, id);
 		setIsolateId(isolateId);
 	}
 

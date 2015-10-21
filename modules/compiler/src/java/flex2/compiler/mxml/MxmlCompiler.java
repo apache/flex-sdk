@@ -384,7 +384,7 @@ public class MxmlCompiler extends AbstractSubCompiler
 
 	private void setState(CompilationUnit unit, int state)
 	{
-		unit.getContext().setAttribute(ATTR_STATE, new Integer(state));
+		unit.getContext().setAttribute(ATTR_STATE, state);
 	}
 
 	private void advanceState(CompilationUnit unit)

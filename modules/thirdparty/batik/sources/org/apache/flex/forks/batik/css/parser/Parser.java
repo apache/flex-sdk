@@ -440,7 +440,7 @@ public class Parser implements ExtendedParser, Localizable {
         case LexicalUnits.IMPORT_SYMBOL:
             return true;
         default:
-            reportError("token", new Object[] { new Integer(current) });
+            reportError("token", new Object[] {current});
             return false;
         }
     }
@@ -1145,7 +1145,7 @@ public class Parser implements ExtendedParser, Localizable {
                 if (current == LexicalUnits.RIGHT_BRACE) {
                     if (op) {
                         throw createCSSParseException
-                            ("token", new Object[] { new Integer(current) });
+                            ("token", new Object[] {current});
                     }
                     return result;
                 }
@@ -1158,7 +1158,7 @@ public class Parser implements ExtendedParser, Localizable {
                 case LexicalUnits.EOF:
                     if (op) {
                         throw createCSSParseException
-                            ("token", new Object[] { new Integer(current) });
+                            ("token", new Object[] {current});
                     }
                     return result;
                 default:
@@ -1264,7 +1264,7 @@ public class Parser implements ExtendedParser, Localizable {
             if (sgn) {
                 throw createCSSParseException
                     ("token",
-                     new Object[] { new Integer(current) });
+                     new Object[] {current});
             }
         }
         switch (current) {
@@ -1302,7 +1302,7 @@ public class Parser implements ExtendedParser, Localizable {
         default:
             throw createCSSParseException
                 ("token",
-                 new Object[] { new Integer(current) });
+                 new Object[] {current});
         }
     }
 
@@ -1318,7 +1318,7 @@ public class Parser implements ExtendedParser, Localizable {
         if (current != LexicalUnits.RIGHT_BRACE) {
             throw createCSSParseException
                 ("token",
-                 new Object[] { new Integer(current) });
+                 new Object[] {current});
         }
         int line = getLineNumber();
         nextIgnoreSpaces();

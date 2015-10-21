@@ -33,6 +33,6 @@ public class IntProperties
 	public HashMap<String, Integer>	map()					{ return m_map; }
 
 	/* setters */
-	public void put(String s, int value)		{ m_map.put(s, new Integer(value)); }
+	public void put(String s, int value)		{ m_map.put(s, value); }
 
 }

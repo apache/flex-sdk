@@ -594,9 +594,9 @@ public abstract class AbstractElement
             throw createDOMException
                       (DOMException.HIERARCHY_REQUEST_ERR,
                        "child.type",
-                       new Object[] { new Integer(getNodeType()),
+                       new Object[] {(int) getNodeType(),
                                       getNodeName(),
-                                      new Integer(n.getNodeType()),
+                               (int) n.getNodeType(),
                                       n.getNodeName() });
         }
     }
@@ -921,7 +921,7 @@ public abstract class AbstractElement
             if ( getOwnerDocument() != arg.getOwnerDocument() ) {
                 throw createDOMException( DOMException.WRONG_DOCUMENT_ERR,
                         "node.from.wrong.document",
-                        new Object[]{new Integer( arg.getNodeType() ),
+                        new Object[]{(int) arg.getNodeType(),
                                 arg.getNodeName()} );
             }
             if ( arg.getNodeType() == ATTRIBUTE_NODE &&

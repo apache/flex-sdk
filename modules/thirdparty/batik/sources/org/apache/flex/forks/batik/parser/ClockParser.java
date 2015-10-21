@@ -68,7 +68,7 @@ public class ClockParser extends TimingParser {
         float clockValue = parseOffset ? parseOffset() : parseClockValue();
         if (current != -1) {
             reportError("end.of.stream.expected",
-                        new Object[] { new Integer(current) });
+                        new Object[] {current});
         }
         if (clockHandler != null) {
             clockHandler.clockValue(clockValue);

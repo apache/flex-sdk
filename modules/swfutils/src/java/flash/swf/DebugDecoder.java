@@ -145,9 +145,9 @@ public class DebugDecoder
 				}
 				else
 				{
-					lineRecords.add(new Integer(id));
+					lineRecords.add(id);
 					lineRecords.add(lr);
-					lineRecords.add(new Integer(offset));
+					lineRecords.add(offset);
 				}
 				break;
 			case kDebugBreakpoint:

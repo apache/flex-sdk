@@ -116,7 +116,7 @@ public class RecordStore {
             mr.functionId = functionId;
 
             for ( int j = 0; j < numPts; j++ ){
-                mr.AddElement( new Integer( is.readShort()));
+                mr.AddElement((int) is.readShort());
             }
 
             records.add( mr );

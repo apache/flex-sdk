@@ -547,9 +547,9 @@ public abstract class SVGUtilities implements SVGConstants, ErrorConstants {
 
         try {
             StringTokenizer tokens = new StringTokenizer(attrValue, " ");
-            ret[0] = new Float(Float.parseFloat(tokens.nextToken()));
+            ret[0] = Float.parseFloat(tokens.nextToken());
             if (tokens.hasMoreTokens()) {
-                ret[1] = new Float(Float.parseFloat(tokens.nextToken()));
+                ret[1] = Float.parseFloat(tokens.nextToken());
             }
 
             if (tokens.hasMoreTokens()) {

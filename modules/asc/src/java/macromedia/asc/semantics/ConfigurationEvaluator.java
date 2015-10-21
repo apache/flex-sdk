@@ -356,7 +356,7 @@ public class ConfigurationEvaluator implements Evaluator, ErrorConstants {
 		{
 			if( tv == cx.booleanType() )
 			{
-				ret = new Double(obj.booleanValue() ? 1 : 0);
+				ret = (double) (obj.booleanValue() ? 1 : 0);
 			}
 			else if( tv == cx.stringType() || isNumericType(cx, tv))
 			{
@@ -395,9 +395,9 @@ public class ConfigurationEvaluator implements Evaluator, ErrorConstants {
 		if( d != null )
 		{
 			if( d.isInfinite() || d.isNaN() || d.doubleValue() == 0.0 )
-				l = new Long(0);
+				l = 0L;
 			else
-				l = new Long((long)d.doubleValue());
+				l = (long) d.doubleValue();
 		}
 		return l;
 	}

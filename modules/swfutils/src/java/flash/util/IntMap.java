@@ -179,7 +179,7 @@ public class IntMap
                 {
                     public Object getKey()
                     {
-                        return new Integer(keys[j]);
+                        return keys[j];
                     }
 
                     public Object getValue()

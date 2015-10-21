@@ -66,7 +66,7 @@ public class WMFPainter extends AbstractWMFPainter {
      */
     private static final int INPUT_BUFFER_SIZE = 30720;
 
-    private static final Integer INTEGER_0 = new Integer( 0 );
+    private static final Integer INTEGER_0 = 0;
 
     private float scale, scaleX, scaleY, conv;
     private float xOffset, yOffset;
@@ -673,12 +673,12 @@ public class WMFPainter extends AbstractWMFPainter {
                     break;
 
                 case WMFConstants.META_SAVEDC:
-                    dcStack.push( new Float( penWidth ));
-                    dcStack.push( new Float( startX ));
-                    dcStack.push( new Float( startY ));
-                    dcStack.push( new Integer( brushObject ));
-                    dcStack.push( new Integer( penObject ));
-                    dcStack.push( new Integer( fontObject ));
+                    dcStack.push(penWidth);
+                    dcStack.push(startX);
+                    dcStack.push(startY);
+                    dcStack.push(brushObject);
+                    dcStack.push(penObject);
+                    dcStack.push(fontObject);
                     dcStack.push( frgdColor );
                     dcStack.push( bkgdColor );
                     break;

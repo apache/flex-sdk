@@ -55,7 +55,7 @@ public abstract class AbstractValueFactory {
      */
     protected DOMException createInvalidLexicalUnitDOMException(short type) {
         Object[] p = new Object[] { getPropertyName(),
-                                    new Integer(type) };
+                (int) type};
         String s = Messages.formatMessage("invalid.lexical.unit", p);
         return new DOMException(DOMException.NOT_SUPPORTED_ERR, s);
     }
@@ -64,7 +64,7 @@ public abstract class AbstractValueFactory {
      * Creates a DOM exception, given an invalid float type.
      */
     protected DOMException createInvalidFloatTypeDOMException(short t) {
-        Object[] p = new Object[] { getPropertyName(), new Integer(t) };
+        Object[] p = new Object[] { getPropertyName(), (int) t};
         String s = Messages.formatMessage("invalid.float.type", p);
         return new DOMException(DOMException.INVALID_ACCESS_ERR, s);
     }
@@ -73,7 +73,7 @@ public abstract class AbstractValueFactory {
      * Creates a DOM exception, given an invalid float value.
      */
     protected DOMException createInvalidFloatValueDOMException(float f) {
-        Object[] p = new Object[] { getPropertyName(), new Float(f) };
+        Object[] p = new Object[] { getPropertyName(), f};
         String s = Messages.formatMessage("invalid.float.value", p);
         return new DOMException(DOMException.INVALID_ACCESS_ERR, s);
     }
@@ -82,7 +82,7 @@ public abstract class AbstractValueFactory {
      * Creates a DOM exception, given an invalid string type.
      */
     protected DOMException createInvalidStringTypeDOMException(short t) {
-        Object[] p = new Object[] { getPropertyName(), new Integer(t) };
+        Object[] p = new Object[] { getPropertyName(), (int) t};
         String s = Messages.formatMessage("invalid.string.type", p);
         return new DOMException(DOMException.INVALID_ACCESS_ERR, s);
     }

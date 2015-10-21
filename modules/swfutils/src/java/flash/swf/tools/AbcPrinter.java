@@ -1583,7 +1583,7 @@ public class AbcPrinter
         {
             String key = Integer.toString(offset);
             if (!labels.containsKey(key))
-                labels.put(key, new Integer(index++));
+                labels.put(key, index++);
             return "L" + labels.get(key).toString();
         }
 				

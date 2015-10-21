@@ -188,7 +188,7 @@ public class CatalogWriter
 
                 writer.write("      <script ");
                 writeAttribute("name", scriptName, "script", true, writer);
-                writeAttribute("mod", new Long(swcScript.getLastModified()), "script", true, writer);
+                writeAttribute("mod", swcScript.getLastModified(), "script", true, writer);
                 
                 Long signatureChecksum = swcScript.getSignatureChecksum();
                 if (!forceLibraryVersion1 && signatureChecksum != null)

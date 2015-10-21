@@ -221,7 +221,7 @@ outer:  while (i < len) {
             try {
                 float keyPointCoord =
                     Float.parseFloat(keyPointsString.substring(start, end));
-                keyPoints.add(new Float(keyPointCoord));
+                keyPoints.add(keyPointCoord);
             } catch (NumberFormatException nfEx ) {
                 throw new BridgeException
                     (ctx, element, nfEx, ErrorConstants.ERR_ATTRIBUTE_VALUE_MALFORMED,

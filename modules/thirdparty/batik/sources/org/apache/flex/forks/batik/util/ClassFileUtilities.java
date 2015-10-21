@@ -146,7 +146,7 @@ public class ClassFileUtilities {
                     }
                     Integer n = (Integer) fromJar.deps.get(toJar);
                     if (n == null) {
-                        fromJar.deps.put(toJar, new Integer(1));
+                        fromJar.deps.put(toJar, 1);
                     } else {
                         fromJar.deps.put(toJar, new Integer(n.intValue() + 1));
                     }
@@ -362,7 +362,7 @@ public class ClassFileUtilities {
                 break;
 
             case CONSTANT_CLASS_INFO:
-                classes.add(new Integer(dis.readShort() & 0xffff));
+                classes.add(dis.readShort() & 0xffff);
                 break;
 
             case CONSTANT_STRING_INFO:
@@ -371,7 +371,7 @@ public class ClassFileUtilities {
 
             case CONSTANT_NAMEANDTYPE_INFO:
                 dis.readShort();
-                desc.add(new Integer(dis.readShort() & 0xffff));
+                desc.add(dis.readShort() & 0xffff);
                 break;
 
             case CONSTANT_UTF8_INFO:

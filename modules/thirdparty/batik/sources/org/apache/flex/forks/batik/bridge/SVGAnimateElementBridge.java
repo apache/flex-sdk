@@ -218,7 +218,7 @@ outer:  while (i < len) {
             try {
                 float keyTime =
                     Float.parseFloat(keyTimesString.substring(start, end));
-                keyTimes.add(new Float(keyTime));
+                keyTimes.add(keyTime);
             } catch (NumberFormatException nfEx ) {
                 throw new BridgeException
                     (ctx, element, nfEx, ErrorConstants.ERR_ATTRIBUTE_VALUE_MALFORMED,
@@ -294,7 +294,7 @@ outer:  while (i < len) {
             try {
                 float keySplineValue =
                     Float.parseFloat(keySplinesString.substring(start, end));
-                keySplines.add(new Float(keySplineValue));
+                keySplines.add(keySplineValue);
             } catch (NumberFormatException nfEx ) {
                 throw new BridgeException
                     (ctx, element, nfEx, ErrorConstants.ERR_ATTRIBUTE_VALUE_MALFORMED,

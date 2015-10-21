@@ -85,7 +85,7 @@ public abstract class AbstractAttrNS extends AbstractAttr {
                 throw createDOMException
                     (DOMException.NAMESPACE_ERR,
                      "namespace.uri",
-                     new Object[] { new Integer(getNodeType()),
+                     new Object[] {(int) getNodeType(),
                                     getNodeName(),
                                     nsURI });
             }
@@ -93,7 +93,7 @@ public abstract class AbstractAttrNS extends AbstractAttr {
                    !XMLSupport.XMLNS_NAMESPACE_URI.equals(nsURI)) {
             throw createDOMException(DOMException.NAMESPACE_ERR,
                                      "namespace.uri",
-                                     new Object[] { new Integer(getNodeType()),
+                                     new Object[] {(int) getNodeType(),
                                                     getNodeName(),
                                                     nsURI });
         }

@@ -157,7 +157,7 @@ public abstract class AbstractSVGPreserveAspectRatio
             throw createDOMException
                 (DOMException.INVALID_MODIFICATION_ERR,
                  "preserve.aspect.ratio.align",
-                 new Object[] { new Integer(align) });
+                 new Object[] {(int) align});
         }
         String value = ALIGN_VALUES[align];
         if (align == SVG_PRESERVEASPECTRATIO_NONE) {
@@ -168,7 +168,7 @@ public abstract class AbstractSVGPreserveAspectRatio
             throw createDOMException
                 (DOMException.INVALID_MODIFICATION_ERR,
                  "preserve.aspect.ratio.meet.or.slice",
-                 new Object[] { new Integer(meetOrSlice) });
+                 new Object[] {(int) meetOrSlice});
         }
         return value + ' ' + MEET_OR_SLICE_VALUES[meetOrSlice];
     }

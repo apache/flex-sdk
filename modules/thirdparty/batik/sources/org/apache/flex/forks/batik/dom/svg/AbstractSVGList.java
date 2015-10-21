@@ -189,7 +189,7 @@ public abstract class AbstractSVGList {
         if (index < 0 || itemList == null || index >= itemList.size()) {
             throw createDOMException
                 (DOMException.INDEX_SIZE_ERR, "index.out.of.bounds",
-                 new Object[] { new Integer(index) } );
+                 new Object[] {index} );
         }
 
         return (SVGItem)itemList.get(index);
@@ -228,7 +228,7 @@ public abstract class AbstractSVGList {
         if (index < 0) {
             throw createDOMException
                 (DOMException.INDEX_SIZE_ERR, "index.out.of.bounds",
-                 new Object[] { new Integer(index) } );
+                 new Object[] {index} );
         }
 
         if (index > itemList.size()) {
@@ -279,7 +279,7 @@ public abstract class AbstractSVGList {
         if (index < 0 || index >= itemList.size()) {
             throw createDOMException
                 (DOMException.INDEX_SIZE_ERR, "index.out.of.bounds",
-                 new Object[] { new Integer(index) } );
+                 new Object[] {index} );
         }
 
         SVGItem item = removeIfNeeded(newItem);
@@ -314,7 +314,7 @@ public abstract class AbstractSVGList {
         if (index < 0 || index >= itemList.size()) {
             throw createDOMException
                 (DOMException.INDEX_SIZE_ERR, "index.out.of.bounds",
-                 new Object[] { new Integer(index) } );
+                 new Object[] {index} );
         }
 
         SVGItem item = (SVGItem)itemList.remove(index);

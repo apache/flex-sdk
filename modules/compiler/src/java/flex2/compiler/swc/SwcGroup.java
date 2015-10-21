@@ -160,7 +160,7 @@ public class SwcGroup
 		for (Iterator<Swc> iterator = swcs.values().iterator(); iterator.hasNext();)
 		{
 			Swc swc = iterator.next();
-			lastModified.add(new Long(swc.getLastModified()));
+			lastModified.add(swc.getLastModified());
 		}
 
 		return lastModified;

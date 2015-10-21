@@ -844,9 +844,9 @@ public abstract class AbstractDocument
         default:
             throw createDOMException(DOMException.HIERARCHY_REQUEST_ERR,
                                      "child.type",
-                                     new Object[] { new Integer(getNodeType()),
+                                     new Object[] {(int) getNodeType(),
                                                     getNodeName(),
-                                                    new Integer(t),
+                                             (int) t,
                                                     n.getNodeName() });
         }
         if (!replace &&
@@ -854,7 +854,7 @@ public abstract class AbstractDocument
             (t == DOCUMENT_TYPE_NODE && getDoctype() != null)) {
             throw createDOMException(DOMException.NOT_SUPPORTED_ERR,
                                      "document.child.already.exists",
-                                     new Object[] { new Integer(t),
+                                     new Object[] {(int) t,
                                                     n.getNodeName() });
         }
     }
@@ -971,7 +971,7 @@ public abstract class AbstractDocument
             throw createDOMException
                 (DOMException.NO_MODIFICATION_ALLOWED_ERR,
                  "readonly.node",
-                 new Object[] { new Integer(an.getNodeType()),
+                 new Object[] {(int) an.getNodeType(),
                                an.getNodeName() });
         }
         Node parent = n.getParentNode();
@@ -1037,7 +1037,7 @@ public abstract class AbstractDocument
         if (nt != Node.ELEMENT_NODE && nt != Node.ATTRIBUTE_NODE) {
             throw createDOMException(DOMException.NOT_SUPPORTED_ERR,
                                      "rename.node",
-                                     new Object[] { new Integer(nt),
+                                     new Object[] {nt,
                                                     n.getNodeName() });
         }
         if (xmlVersion.equals(XMLConstants.XML_VERSION_11)
@@ -1050,14 +1050,14 @@ public abstract class AbstractDocument
         if (n.getOwnerDocument() != this) {
             throw createDOMException(DOMException.NOT_SUPPORTED_ERR,
                                      "node.from.wrong.document",
-                                     new Object[] { new Integer(nt),
+                                     new Object[] {nt,
                                                     n.getNodeName() });
         }
         int i = qn.indexOf(':');
         if (i == 0 || i == qn.length() - 1) {
             throw createDOMException(DOMException.NAMESPACE_ERR,
                                      "qname",
-                                     new Object[] { new Integer(nt),
+                                     new Object[] {nt,
                                                     n.getNodeName(),
                                                     qn });
         }
@@ -1068,7 +1068,7 @@ public abstract class AbstractDocument
         if (prefix != null && ns == null) {
             throw createDOMException(DOMException.NAMESPACE_ERR,
                                      "prefix",
-                                     new Object[] { new Integer(nt),
+                                     new Object[] {nt,
                                                     n.getNodeName(),
                                                     prefix });
         }
@@ -1079,7 +1079,7 @@ public abstract class AbstractDocument
                         && !XMLConstants.XMLNS_NAMESPACE_URI.equals(ns)) {
                 throw createDOMException(DOMException.NAMESPACE_ERR,
                                          "namespace",
-                                         new Object[] { new Integer(nt),
+                                         new Object[] {nt,
                                                         n.getNodeName(),
                                                         ns });
             }
@@ -1481,7 +1481,7 @@ public abstract class AbstractDocument
                             DOMConstants.DOM_INVALID_CHARACTER_ERROR,
                             DOMError.SEVERITY_ERROR,
                             "wf.invalid.character",
-                            new Object[] { new Integer(Node.ATTRIBUTE_NODE),
+                            new Object[] {(int) Node.ATTRIBUTE_NODE,
                                            a.getNodeName(),
                                            a.getNodeValue() },
                             a,
@@ -1503,7 +1503,7 @@ public abstract class AbstractDocument
                                     DOMConstants.DOM_INVALID_CHARACTER_ERROR,
                                     DOMError.SEVERITY_ERROR,
                                     "wf.invalid.character",
-                                    new Object[] { new Integer(m.getNodeType()),
+                                    new Object[] {(int) m.getNodeType(),
                                                    m.getNodeName(),
                                                    s },
                                     m,
@@ -1523,7 +1523,7 @@ public abstract class AbstractDocument
                                     DOMConstants.DOM_INVALID_CHARACTER_ERROR,
                                     DOMError.SEVERITY_ERROR,
                                     "wf.invalid.character",
-                                    new Object[] { new Integer(m.getNodeType()),
+                                    new Object[] {(int) m.getNodeType(),
                                                    m.getNodeName(),
                                                    s },
                                     m,
@@ -1542,7 +1542,7 @@ public abstract class AbstractDocument
                                     DOMConstants.DOM_INVALID_CHARACTER_ERROR,
                                     DOMError.SEVERITY_ERROR,
                                     "wf.invalid.character",
-                                    new Object[] { new Integer(m.getNodeType()),
+                                    new Object[] {(int) m.getNodeType(),
                                                    m.getNodeName(),
                                                    s },
                                     m,
@@ -1576,7 +1576,7 @@ public abstract class AbstractDocument
                                     DOMConstants.DOM_INVALID_CHARACTER_ERROR,
                                     DOMError.SEVERITY_ERROR,
                                     "wf.invalid.character",
-                                    new Object[] { new Integer(m.getNodeType()),
+                                    new Object[] {(int) m.getNodeType(),
                                                    m.getNodeName(),
                                                    s },
                                     m,
@@ -1950,7 +1950,7 @@ public abstract class AbstractDocument
         protected Map booleanParamIndexes = new HashMap();
         {
             for (int i = 0; i < booleanParamNames.length; i++) {
-                booleanParamIndexes.put(booleanParamNames[i], new Integer(i));
+                booleanParamIndexes.put(booleanParamNames[i], i);
             }
         }
 
@@ -2218,13 +2218,13 @@ public abstract class AbstractDocument
                 throw createDOMException
                     (DOMException.WRONG_DOCUMENT_ERR,
                      "node.from.wrong.document",
-                     new Object[] { new Integer(contextNode.getNodeType()),
+                     new Object[] {(int) contextNode.getNodeType(),
                                     contextNode.getNodeName() });
             }
             if (type < 0 || type > 9) {
                 throw createDOMException(DOMException.NOT_SUPPORTED_ERR,
                                          "xpath.invalid.result.type",
-                                         new Object[] { new Integer(type) });
+                                         new Object[] {(int) type});
             }
             switch (contextNode.getNodeType()) {
                 case ENTITY_REFERENCE_NODE:
@@ -2235,7 +2235,7 @@ public abstract class AbstractDocument
                     throw createDOMException
                         (DOMException.NOT_SUPPORTED_ERR,
                          "xpath.invalid.context.node",
-                         new Object[] { new Integer(contextNode.getNodeType()),
+                         new Object[] {(int) contextNode.getNodeType(),
                                         contextNode.getNodeName() });
             }
             context.reset();
@@ -2283,7 +2283,7 @@ public abstract class AbstractDocument
                 throw createXPathException
                     (XPathException.TYPE_ERR,
                      "xpath.cannot.convert.result",
-                     new Object[] { new Integer(type),
+                     new Object[] {(int) type,
                                     te.getMessage() });
             }
             return null;
@@ -2430,7 +2430,7 @@ public abstract class AbstractDocument
                     throw createXPathException
                         (XPathException.TYPE_ERR,
                          "xpath.invalid.result.type",
-                         new Object[] { new Integer(resultType) });
+                         new Object[] {(int) resultType});
                 }
                 return booleanValue;
             }
@@ -2443,7 +2443,7 @@ public abstract class AbstractDocument
                     throw createXPathException
                         (XPathException.TYPE_ERR,
                          "xpath.invalid.result.type",
-                         new Object[] { new Integer(resultType) });
+                         new Object[] {(int) resultType});
                 }
                 return numberValue;
             }
@@ -2456,7 +2456,7 @@ public abstract class AbstractDocument
                     throw createXPathException
                         (XPathException.TYPE_ERR,
                          "xpath.invalid.result.type",
-                         new Object[] { new Integer(resultType) });
+                         new Object[] {(int) resultType});
                 }
                 return stringValue;
             }
@@ -2470,7 +2470,7 @@ public abstract class AbstractDocument
                     throw createXPathException
                         (XPathException.TYPE_ERR,
                          "xpath.invalid.result.type",
-                         new Object[] { new Integer(resultType) });
+                         new Object[] {(int) resultType});
                 }
                 return singleNodeValue;
             }
@@ -2492,7 +2492,7 @@ public abstract class AbstractDocument
                     throw createXPathException
                         (XPathException.TYPE_ERR,
                          "xpath.invalid.result.type",
-                         new Object[] { new Integer(resultType) });
+                         new Object[] {(int) resultType});
                 }
                 return iterator.getLength();
             }
@@ -2507,7 +2507,7 @@ public abstract class AbstractDocument
                     throw createXPathException
                         (XPathException.TYPE_ERR,
                          "xpath.invalid.result.type",
-                         new Object[] { new Integer(resultType) });
+                         new Object[] {(int) resultType});
                 }
                 return iterator.item(iteratorPosition++);
             }
@@ -2521,7 +2521,7 @@ public abstract class AbstractDocument
                     throw createXPathException
                         (XPathException.TYPE_ERR,
                          "xpath.invalid.result.type",
-                         new Object[] { new Integer(resultType) });
+                         new Object[] {(int) resultType});
                 }
                 return iterator.item(i);
             }

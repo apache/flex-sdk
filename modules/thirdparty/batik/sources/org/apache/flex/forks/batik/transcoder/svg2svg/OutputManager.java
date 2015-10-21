@@ -451,7 +451,7 @@ public class OutputManager {
         throws IOException {
         xmlSpace.add(0, xmlSpace.get(0));
 
-        startingLines.add(0, new Integer(line));
+        startingLines.add(0, line);
 
         if (prettyPrinter.getFormat()) {
             if (canIndent) {

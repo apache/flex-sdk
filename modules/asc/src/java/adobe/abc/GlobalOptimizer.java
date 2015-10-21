@@ -1450,10 +1450,10 @@ public class GlobalOptimizer
 					b.add(frame[sp++] = new Expr(m,op, new Integer(ints[p.readU30()])));
 					break;
 				case OP_pushuint:
-					b.add(frame[sp++] = new Expr(m,op, new Long(uints[p.readU30()])));
+					b.add(frame[sp++] = new Expr(m,op, uints[p.readU30()]));
 					break;
 				case OP_pushdouble:
-					b.add(frame[sp++] = new Expr(m,op, new Double(doubles[p.readU30()])));
+					b.add(frame[sp++] = new Expr(m,op, doubles[p.readU30()]));
 					break;
 				case OP_pushnamespace:
 					b.add(frame[sp++] = new Expr(m,op, namespaces[p.readU30()]));

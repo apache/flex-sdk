@@ -69,7 +69,7 @@ public class FaultActions
 	 */
 	public void add(String k)				
 	{ 
-		put(k, new Integer(0)); 
+		put(k, 0);
 	}
 
 	/**
@@ -77,7 +77,7 @@ public class FaultActions
 	 */
 	public void addAction(String k)	
 	{ 
-		Integer v = new Integer(m_nextBitForAction++);
+		Integer v = m_nextBitForAction++;
 		m_actions.put(k,v); 
 	}
 
@@ -121,7 +121,7 @@ public class FaultActions
 		int n = (old & (~mask));  // turn it off
 		n = (no) ? n : (n | mask); // leave it off or turn it on
 
-		put(fault, new Integer(n));
+		put(fault, n);
 
 		return n;
 	}

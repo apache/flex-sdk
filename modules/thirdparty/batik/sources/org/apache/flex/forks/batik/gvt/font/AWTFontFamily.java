@@ -109,7 +109,7 @@ public class AWTFontFamily implements GVTFontFamily {
             return new AWTGVTFont(font, size);
 
         Map fontAttributes = new HashMap(attrs);
-        fontAttributes.put(TextAttribute.SIZE, new Float(size));
+        fontAttributes.put(TextAttribute.SIZE, size);
         fontAttributes.put(TextAttribute.FAMILY, fontFace.getFamilyName());
         fontAttributes.remove(TEXT_COMPOUND_DELIMITER);
         return new AWTGVTFont(fontAttributes);

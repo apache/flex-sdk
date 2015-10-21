@@ -263,7 +263,7 @@ public class SVG12ScriptingEnvironment extends ScriptingEnvironment {
                  new Object [] {d.getDocumentURI(),
                                 eventNamespaceURI,
                                 eventType,
-                                new Integer(line)});
+                         line});
 
             // Find the scripting language
             String lang = handlerElement.getAttributeNS

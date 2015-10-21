@@ -28,6 +28,6 @@ public class Boxing
     
     public static Double valueOf(double d)
     {
-    	return new Double(d);
+    	return d;
     }
 }

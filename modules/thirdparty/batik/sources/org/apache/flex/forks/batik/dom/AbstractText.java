@@ -45,14 +45,14 @@ public abstract class AbstractText
         if (isReadonly()) {
             throw createDOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR,
                                      "readonly.node",
-                                     new Object[] { new Integer(getNodeType()),
+                                     new Object[] {(int) getNodeType(),
                                                     getNodeName() });
         }
         String v = getNodeValue();
         if (offset < 0 || offset >= v.length()) {
             throw createDOMException(DOMException.INDEX_SIZE_ERR,
                                      "offset",
-                                     new Object[] { new Integer(offset) });
+                                     new Object[] {offset});
         }
         Node n = getParentNode();
         if (n == null) {
@@ -175,7 +175,7 @@ public abstract class AbstractText
                 throw createDOMException
                     (DOMException.NO_MODIFICATION_ALLOWED_ERR,
                      "readonly.node",
-                     new Object[] { new Integer(n.getNodeType()),
+                     new Object[] {(int) n.getNodeType(),
                                     n.getNodeName() });
             }
         }
@@ -187,7 +187,7 @@ public abstract class AbstractText
                 throw createDOMException
                     (DOMException.NO_MODIFICATION_ALLOWED_ERR,
                      "readonly.node",
-                     new Object[] { new Integer(n.getNodeType()),
+                     new Object[] {(int) n.getNodeType(),
                                     n.getNodeName() });
             }
         }
