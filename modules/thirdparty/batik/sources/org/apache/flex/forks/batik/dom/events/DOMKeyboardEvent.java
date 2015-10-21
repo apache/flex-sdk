@@ -18,6 +18,7 @@
  */
 package org.apache.flex.forks.batik.dom.events;
 
+import java.util.Collections;
 import java.util.HashSet;
 
 import org.w3c.dom.events.KeyboardEvent;
@@ -324,9 +325,7 @@ public class DOMKeyboardEvent extends DOMUIEvent implements KeyboardEvent {
         keyLocation = keyLocationArg;
         modifierKeys.clear();
         String[] modifiers = split(modifiersList);
-        for (int i = 0; i < modifiers.length; i++) {
-            modifierKeys.add(modifiers[i]);
-        }
+        Collections.addAll(modifierKeys, modifiers);
     }
 
     /**
@@ -363,8 +362,6 @@ public class DOMKeyboardEvent extends DOMUIEvent implements KeyboardEvent {
         keyLocation = keyLocationArg;
         modifierKeys.clear();
         String[] modifiers = split(modifiersList);
-        for (int i = 0; i < modifiers.length; i++) {
-            modifierKeys.add(modifiers[i]);
-        }
+        Collections.addAll(modifierKeys, modifiers);
     }
 }

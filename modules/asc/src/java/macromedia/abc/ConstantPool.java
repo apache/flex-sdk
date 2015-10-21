@@ -50,6 +50,7 @@ import static macromedia.asc.embedding.avmplus.ActionBlockConstants.CONSTANT_Utf
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import macromedia.asc.util.Decimal128;
 import macromedia.asc.util.IntegerPool;
@@ -490,10 +491,7 @@ public class ConstantPool
             int namespacesetIndex = in.readU32();
             String[] value = getNamespaceSet(namespacesetIndex);
             ArrayList<String> a = new ArrayList<String>();
-            for (int k = 0; k < value.length; k++)
-            {
-                a.add(value[k]);
-            }
+            Collections.addAll(a, value);
             in.seek(originalPos);
             return a;
         }

@@ -25,6 +25,7 @@ import java.awt.geom.Arc2D;
 import java.awt.geom.PathIterator;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
+import java.util.Collections;
 import java.util.List;
 import java.util.ArrayList;
 
@@ -300,9 +301,7 @@ public class MarkerShapePainter implements ShapePainter {
         }
 
         if (middleMarkerProxies != null) {
-            for(int i=0; i<middleMarkerProxies.length; i++){
-                children.add(middleMarkerProxies[i]);
-            }
+            Collections.addAll(children, middleMarkerProxies);
         }
 
         if (endMarkerProxy != null) {

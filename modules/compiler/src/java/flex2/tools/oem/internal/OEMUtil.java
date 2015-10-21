@@ -27,12 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 import flash.localization.LocalizationManager;
 import flash.localization.ResourceBundleLocalizer;
@@ -489,10 +484,7 @@ public class OEMUtil
 			int iStart = ((Integer) a[1]).intValue(), iEnd = ((Integer) a[2]).intValue();
 			if (!excludes.contains(var))
 			{
-				for (int j = iStart; j < iEnd; j++)
-				{
-					newArgs.add(args[j]);
-				}
+				newArgs.addAll(Arrays.asList(args).subList(iStart, iEnd));
 			}
 		}
 		args = new String[newArgs.size()];

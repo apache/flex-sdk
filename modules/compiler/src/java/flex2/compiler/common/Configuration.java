@@ -1133,11 +1133,7 @@ public class Configuration implements LinkerConfiguration, Cloneable
     
     public void cfgRuntimeSharedLibraries( ConfigurationValue cfgval, String[] urls ) throws ConfigurationException
     {
-        for (int i = 0; i < urls.length; ++i)
-        {
-            // can't really validate these easily...
-            rslList.add( urls[i] );
-        }
+        Collections.addAll(rslList, urls);
     }
 
     public static ConfigurationInfo getRuntimeSharedLibrariesInfo()

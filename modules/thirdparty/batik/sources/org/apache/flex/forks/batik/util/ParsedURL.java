@@ -21,11 +21,7 @@ package org.apache.flex.forks.batik.util;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 import org.apache.flex.forks.batik.Version;
 
@@ -412,8 +408,7 @@ public class ParsedURL {
      */
     public InputStream openStream(String [] mimeTypes) throws IOException {
         List mt = new ArrayList(mimeTypes.length);
-        for (int i=0; i<mimeTypes.length; i++)
-            mt.add(mimeTypes[i]);
+        Collections.addAll(mt, mimeTypes);
         return data.openStream(userAgent, mt.iterator());
     }
 
@@ -459,8 +454,7 @@ public class ParsedURL {
      */
     public InputStream openStreamRaw(String [] mimeTypes) throws IOException {
         List mt = new ArrayList(mimeTypes.length);
-        for (int i=0; i<mimeTypes.length; i++)
-            mt.add(mimeTypes[i]);
+        Collections.addAll(mt, mimeTypes);
         return data.openStreamRaw(userAgent, mt.iterator());
     }
 

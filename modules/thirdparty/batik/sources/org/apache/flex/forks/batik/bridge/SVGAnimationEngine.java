@@ -21,12 +21,7 @@ package org.apache.flex.forks.batik.bridge;
 import java.awt.Color;
 import java.awt.Paint;
 import java.lang.ref.WeakReference;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Arrays;
-import java.util.Set;
+import java.util.*;
 
 import org.apache.flex.forks.batik.anim.AnimationEngine;
 import org.apache.flex.forks.batik.anim.AnimationException;
@@ -256,12 +251,8 @@ public class SVGAnimationEngine extends AnimationEngine {
             animationEventNames11.add(eventNamesCommon[i]);
             animationEventNames12.add(eventNamesCommon[i]);
         }
-        for (int i = 0; i < eventNamesSVG11.length; i++) {
-            animationEventNames11.add(eventNamesSVG11[i]);
-        }
-        for (int i = 0; i < eventNamesSVG12.length; i++) {
-            animationEventNames12.add(eventNamesSVG12[i]);
-        }
+        Collections.addAll(animationEventNames11, eventNamesSVG11);
+        Collections.addAll(animationEventNames12, eventNamesSVG12);
     }
 
     /**

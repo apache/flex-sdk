@@ -448,8 +448,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable, Is
 			execArgs.add("-"); //$NON-NLS-1$
 			if (argv != null)
 			{
-				for (int i=0; i<argv.length; ++i)
-					execArgs.add(argv[i]);
+				Collections.addAll(execArgs, argv);
 			}
 			Process osascript = Runtime.getRuntime().exec(execArgs.toArray(new String[execArgs.size()]));
 			// feed our AppleScript code to osascript's stdin
@@ -525,8 +524,7 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable, Is
 		);
 		String[] apps = running.split(", "); //$NON-NLS-1$
 		Set<String> retval = new HashSet<String>();
-		for (int i=0; i<apps.length; ++i)
-			retval.add(apps[i]);
+		Collections.addAll(retval, apps);
 		return retval;
 	}
 
@@ -2910,11 +2908,9 @@ public class PlayerSession implements Session, DProtocolNotifierIF, Runnable, Is
 		}
 		//SwfInfo[] swfs = m_manager.getSwfInfos();
 		
-		ArrayList<SwfInfo> swfList = new ArrayList<SwfInfo>(); 
+		ArrayList<SwfInfo> swfList = new ArrayList<SwfInfo>();
 
-		for ( SwfInfo info : m_manager.getSwfInfos(isolateId) ) {
-			swfList.add(info);
-		}
+		Collections.addAll(swfList, m_manager.getSwfInfos(isolateId));
 
 		return swfList.toArray(new SwfInfo[0]);
 	}

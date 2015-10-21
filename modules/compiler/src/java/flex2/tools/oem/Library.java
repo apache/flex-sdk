@@ -27,18 +27,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.io.RandomAccessFile;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
+import java.util.*;
 import java.net.URI;
 
 import flash.util.Trace;
@@ -1252,10 +1241,7 @@ public class Library implements Builder, Cloneable
                 compilerConfiguration.expandTokens(localPathArray, compilerConfiguration.getLocales(), null);
 
             // Add the token expanded VirtualFile's back into "sources".
-            for (VirtualFile virtualFile : virtualFileArray)
-            {
-                sources.add(virtualFile);
-            }
+            Collections.addAll(sources, virtualFileArray);
 
             List<VirtualFile> fileList =
                 CompilerAPI.getVirtualFileList(sources, new HashSet<String>(Arrays.asList(WebTierAPI.getSourcePathMimeTypes())));

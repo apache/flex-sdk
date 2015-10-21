@@ -21,19 +21,7 @@ package adobe.abc;
 
 import static adobe.abc.OptimizerConstants.OP_phi;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.BitSet;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
+import java.util.*;
 
 public abstract class Algorithms
 {
@@ -160,7 +148,7 @@ public abstract class Algorithms
 					// make sure each PHI has the same set of incoming
 					// edges as the block does.
 					Set<Edge>phi_in = new TreeSet<Edge>();
-					for (Edge p: e.pred) phi_in.add(p);
+					Collections.addAll(phi_in, e.pred);
 					Set<Edge>blk_in = pred.get(b);
 					assert(phi_in.equals(blk_in));
 				}
