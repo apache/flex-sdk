@@ -42,5 +42,5 @@ public enum Direction
     /**
      * The enum representing an 'rtl' Direction.
      */    
-    RTL;
+    RTL
 }

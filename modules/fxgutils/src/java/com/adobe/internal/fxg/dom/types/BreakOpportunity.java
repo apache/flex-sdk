@@ -60,5 +60,5 @@ public enum BreakOpportunity
     /**
      * The enum representing an 'all' BreakOpportunity.
      */
-    ALL;    
+    ALL
 }

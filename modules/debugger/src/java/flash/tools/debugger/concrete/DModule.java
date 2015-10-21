@@ -340,12 +340,10 @@ public class DModule implements SourceFile
             }
             catch (VersionException e)
             {
-                ;
-            }
+			}
             catch (NoResponseException e)
             {
-                ;
-            }
+			}
         }
         m_gotAllFncNames = true;
     }

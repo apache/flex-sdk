@@ -38,5 +38,5 @@ public enum TextDecoration
     /**
      * The enum representing an 'underline' Font Style.
      */
-    UNDERLINE;
+    UNDERLINE
 }

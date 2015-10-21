@@ -62,7 +62,7 @@ public class BaselineShift
         /**
          * The enum representing an 'subscript' BaselineShift.
          */
-        SUBSCRIPT;
+        SUBSCRIPT
     }
     
     private BaselineShift()

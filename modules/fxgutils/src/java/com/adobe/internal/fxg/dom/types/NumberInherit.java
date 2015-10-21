@@ -44,7 +44,7 @@ public class NumberInherit
         /**
          * The enum representing an 'inherit' NumberInherit.
          */
-        INHERIT;
+        INHERIT
     }
     
     protected NumberInherit()

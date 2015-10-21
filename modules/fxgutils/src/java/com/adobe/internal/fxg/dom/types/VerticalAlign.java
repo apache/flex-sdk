@@ -59,5 +59,5 @@ public enum VerticalAlign
     /**
      * The enum representing an 'inherit' VerticalAlign.
      */    
-    INHERIT;
+    INHERIT
 }

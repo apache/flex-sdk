@@ -58,5 +58,5 @@ public enum TextRotation
     /**
      * The enum representing an 'rotate270' TextRotation.
      */    
-    ROTATE_270;
+    ROTATE_270
 }

@@ -47,5 +47,5 @@ public enum BevelType
     /**
      * The enum representing a 'full' bevel type.
      */
-    FULL;
+    FULL
 }

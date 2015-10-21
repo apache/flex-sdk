@@ -47,5 +47,5 @@ public enum SpreadMethod
     /**
      * The enum representing a 'repeat' spread method.
      */
-    REPEAT;
+    REPEAT
 }

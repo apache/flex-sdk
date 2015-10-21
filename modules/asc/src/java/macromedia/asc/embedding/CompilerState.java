@@ -48,4 +48,4 @@ public class CompilerState
 	 * jkamerer ported from c++ end
 	 */
 
-};
+}

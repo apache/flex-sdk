@@ -66,5 +66,5 @@ public enum TextAlign
     /**
      * The enum representing an 'justify' TextAlign.
      */
-    JUSTIFY;
+    JUSTIFY
 }

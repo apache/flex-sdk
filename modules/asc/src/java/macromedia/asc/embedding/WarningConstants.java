@@ -649,8 +649,8 @@ public class WarningConstants
       int code;  // enum used to identify or lookup this message/problem
       String pWarning; // a particular warning message    '
       AscWarning(int c, String s) { code = c; pWarning = s; }
-   } ;
-   
+   }
+
    public static class AscWarningInstance
    {
       int code;			// enum identifying the warning to use if we find a match for baseType and name
@@ -658,9 +658,9 @@ public class WarningConstants
       boolean is_static;  // is a static property or method
       String name;		// name of the property or method we are looking for
       AscWarningInstance(int c, int b, String s, boolean isStatic) { code = c; baseType = b; name = s; is_static = isStatic; }
-   } ;
-   
-   
+   }
+
+
    public static void initWarningConstants() 
    {
       initWarningConstantsEN();
@@ -1210,7 +1210,7 @@ public class WarningConstants
         warningConstantsEN[index++] = new AscWarning(kWarning_DeprecatedSince_specific, "'%s' has been deprecated since %s.  Please use '%s'." );
         warningConstantsEN[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement, "Use of deprecated definition." );
         warningConstantsEN[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement_specific, "'%s' has been deprecated since %s." );
-   };
+   }
 
    static final AscWarning[] warningConstantsCN= new AscWarning[kNumWarningConstants]; 
 
@@ -1738,7 +1738,7 @@ public class WarningConstants
         warningConstantsCN[index++] = new AscWarning(kWarning_DeprecatedSince_specific, "“%s”从 %s 开始已弃用。请使用“%s”。" );
         warningConstantsCN[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement, "使用了已弃用的定义。" );
         warningConstantsCN[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement_specific, "“%s”从 %s 开始已弃用。" );
-   };
+   }
 
    static final AscWarning[] warningConstantsCS= new AscWarning[kNumWarningConstants]; 
 
@@ -2266,7 +2266,7 @@ public class WarningConstants
         warningConstantsCS[index++] = new AscWarning(kWarning_DeprecatedSince_specific, "'%s' has been deprecated since %s.  Please use '%s'." );
         warningConstantsCS[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement, "Use of deprecated definition." );
         warningConstantsCS[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement_specific, "'%s' has been deprecated since %s." );
-   };
+   }
 
    static final AscWarning[] warningConstantsDA= new AscWarning[kNumWarningConstants]; 
 
@@ -2794,7 +2794,7 @@ public class WarningConstants
         warningConstantsDA[index++] = new AscWarning(kWarning_DeprecatedSince_specific, "%s' har været frarådet siden %s. Brug '%s'." );
         warningConstantsDA[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement, "Brug af frarådet definition." );
         warningConstantsDA[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement_specific, "%s' har været frarådet siden %s." );
-   };
+   }
 
    static final AscWarning[] warningConstantsDE= new AscWarning[kNumWarningConstants]; 
 
@@ -3322,7 +3322,7 @@ public class WarningConstants
         warningConstantsDE[index++] = new AscWarning(kWarning_DeprecatedSince_specific, "„%s“ wird seit %s nicht mehr verwendet. Verwenden Sie „%s“." );
         warningConstantsDE[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement, "Verwendung einer veralteten Definition." );
         warningConstantsDE[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement_specific, "„%s“ wird seit %s nicht mehr verwendet." );
-   };
+   }
 
    static final AscWarning[] warningConstantsES= new AscWarning[kNumWarningConstants]; 
 
@@ -3850,7 +3850,7 @@ public class WarningConstants
         warningConstantsES[index++] = new AscWarning(kWarning_DeprecatedSince_specific, "%s' está en desuso desde %s.  Utilice '%s'." );
         warningConstantsES[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement, "Uso de definición desfasada." );
         warningConstantsES[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement_specific, "%s' está en desuso desde %s." );
-   };
+   }
 
    static final AscWarning[] warningConstantsFI= new AscWarning[kNumWarningConstants]; 
 
@@ -4378,7 +4378,7 @@ public class WarningConstants
         warningConstantsFI[index++] = new AscWarning(kWarning_DeprecatedSince_specific, "%s' on ollut pois käytöstä alkaen %s.  Käytä määritystä '%s'." );
         warningConstantsFI[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement, "Käytöstä poistetun määrityksen käyttö." );
         warningConstantsFI[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement_specific, "%s' on ollut pois käytöstä alkaen %s." );
-   };
+   }
 
    static final AscWarning[] warningConstantsFR= new AscWarning[kNumWarningConstants]; 
 
@@ -4906,7 +4906,7 @@ public class WarningConstants
         warningConstantsFR[index++] = new AscWarning(kWarning_DeprecatedSince_specific, "L’utilisation de '%s' est déconseillée depuis %s. Veuillez utiliser '%s'." );
         warningConstantsFR[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement, "Utilisation d’une définition déconseillée." );
         warningConstantsFR[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement_specific, "L’utilisation de '%s' est déconseillée depuis %s." );
-   };
+   }
 
    static final AscWarning[] warningConstantsIT= new AscWarning[kNumWarningConstants]; 
 
@@ -5434,7 +5434,7 @@ public class WarningConstants
         warningConstantsIT[index++] = new AscWarning(kWarning_DeprecatedSince_specific, "%s' è stato contrassegnato come obsoleto a partire da %s. Utilizzare '%s'." );
         warningConstantsIT[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement, "Utilizzo di una definizione obsoleta." );
         warningConstantsIT[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement_specific, "%s' è stato contrassegnato come obsoleto a partire da %s." );
-   };
+   }
 
    static final AscWarning[] warningConstantsJP= new AscWarning[kNumWarningConstants]; 
 
@@ -5962,7 +5962,7 @@ public class WarningConstants
         warningConstantsJP[index++] = new AscWarning(kWarning_DeprecatedSince_specific, "\"%s\" は %s 以降推奨されていません。\"%s\" を使用してください。" );
         warningConstantsJP[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement, "推奨されない定義を使用しています。" );
         warningConstantsJP[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement_specific, "\"%s\" は %s 以降推奨されていません。" );
-   };
+   }
 
    static final AscWarning[] warningConstantsKR= new AscWarning[kNumWarningConstants]; 
 
@@ -6490,7 +6490,7 @@ public class WarningConstants
         warningConstantsKR[index++] = new AscWarning(kWarning_DeprecatedSince_specific, "%s'이(가) %s 이후로 더 이상 사용되지 않습니다. '%s'을(를) 사용하십시오." );
         warningConstantsKR[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement, "더 이상 사용되지 않는 정의가 사용되었습니다." );
         warningConstantsKR[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement_specific, "%s'이(가) %s 이후로 더 이상 사용되지 않습니다." );
-   };
+   }
 
    static final AscWarning[] warningConstantsNB= new AscWarning[kNumWarningConstants]; 
 
@@ -7018,7 +7018,7 @@ public class WarningConstants
         warningConstantsNB[index++] = new AscWarning(kWarning_DeprecatedSince_specific, "%s har vært avskrevet siden %s. Bruk %s." );
         warningConstantsNB[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement, "Bruk av avskrevet definisjon." );
         warningConstantsNB[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement_specific, "%s har vært avskrevet siden %s." );
-   };
+   }
 
    static final AscWarning[] warningConstantsNL= new AscWarning[kNumWarningConstants]; 
 
@@ -7546,7 +7546,7 @@ public class WarningConstants
         warningConstantsNL[index++] = new AscWarning(kWarning_DeprecatedSince_specific, "%s' is afgeschaft sinds '%s'. Gebruik '%s'." );
         warningConstantsNL[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement, "Gebruik van afgeschafte definitie." );
         warningConstantsNL[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement_specific, "%s' is afgeschaft sinds '%s'." );
-   };
+   }
 
    static final AscWarning[] warningConstantsPL= new AscWarning[kNumWarningConstants]; 
 
@@ -8074,7 +8074,7 @@ public class WarningConstants
         warningConstantsPL[index++] = new AscWarning(kWarning_DeprecatedSince_specific, "'%s' has been deprecated since %s.  Please use '%s'." );
         warningConstantsPL[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement, "Use of deprecated definition." );
         warningConstantsPL[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement_specific, "'%s' has been deprecated since %s." );
-   };
+   }
 
    static final AscWarning[] warningConstantsPT= new AscWarning[kNumWarningConstants]; 
 
@@ -8602,7 +8602,7 @@ public class WarningConstants
         warningConstantsPT[index++] = new AscWarning(kWarning_DeprecatedSince_specific, "%s' está obsoleto desde %s. Use '%s'." );
         warningConstantsPT[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement, "Uso de definição obsoleta." );
         warningConstantsPT[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement_specific, "%s' está obsoleto desde %s." );
-   };
+   }
 
    static final AscWarning[] warningConstantsRU= new AscWarning[kNumWarningConstants]; 
 
@@ -9130,7 +9130,7 @@ public class WarningConstants
         warningConstantsRU[index++] = new AscWarning(kWarning_DeprecatedSince_specific, "\"%s\" устарело с %s. Используйте \"%s\"." );
         warningConstantsRU[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement, "Использование устаревшего определения." );
         warningConstantsRU[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement_specific, "\"%s\" устарело с %s." );
-   };
+   }
 
    static final AscWarning[] warningConstantsSV= new AscWarning[kNumWarningConstants]; 
 
@@ -9658,7 +9658,7 @@ public class WarningConstants
         warningConstantsSV[index++] = new AscWarning(kWarning_DeprecatedSince_specific, "%s fasades ut %s. Använd %s istället." );
         warningConstantsSV[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement, "Det går inte att använda en funktion som har fasats ut." );
         warningConstantsSV[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement_specific, "%s fasades ut %s." );
-   };
+   }
 
    static final AscWarning[] warningConstantsTR= new AscWarning[kNumWarningConstants]; 
 
@@ -10186,7 +10186,7 @@ public class WarningConstants
         warningConstantsTR[index++] = new AscWarning(kWarning_DeprecatedSince_specific, "'%s' has been deprecated since %s.  Please use '%s'." );
         warningConstantsTR[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement, "Use of deprecated definition." );
         warningConstantsTR[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement_specific, "'%s' has been deprecated since %s." );
-   };
+   }
 
    static final AscWarning[] warningConstantsTW= new AscWarning[kNumWarningConstants]; 
 
@@ -10714,9 +10714,9 @@ public class WarningConstants
         warningConstantsTW[index++] = new AscWarning(kWarning_DeprecatedSince_specific, "「%s」從 %s 起已經過時。請使用「%s」。" );
         warningConstantsTW[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement, "使用已過時的定義。" );
         warningConstantsTW[index++] = new AscWarning(kWarning_DeprecatedSinceNoReplacement_specific, "「%s」從 %s 起已經過時。" );
-   };
+   }
 
-    static final AscWarningInstance[] unsupportedProperties =
+   static final AscWarningInstance[] unsupportedProperties =
     {
         new AscWarningInstance(kUnsupportedProp_version, kVoidType, "$version", false ),
         new AscWarningInstance(kUnsupportedProp_Focusrect, kVoidType, "_focusrect", false ),
@@ -11224,4 +11224,4 @@ public class WarningConstants
               warningConstantsTW,
         };
 
-};
+}

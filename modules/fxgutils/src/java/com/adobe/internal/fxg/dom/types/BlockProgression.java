@@ -42,5 +42,5 @@ public enum BlockProgression
     /**
      * The enum representing an 'rl' BlockProgression.
      */    
-    RL;
+    RL
 }

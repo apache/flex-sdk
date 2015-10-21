@@ -48,5 +48,5 @@ public enum DigitCase
     /**
      * The enum representing an 'oldStyle' DigitCase.
      */
-    OLDSTYLE;
+    OLDSTYLE
 }

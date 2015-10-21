@@ -52,7 +52,7 @@ public class ColorWithEnum
         /**
          * The enum representing an 'inherit' ColorWithEnum.
          */
-        INHERIT;
+        INHERIT
     }
     
     private ColorWithEnum()

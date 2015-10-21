@@ -58,5 +58,5 @@ public enum JustificationStyle
     /**
      * The enum representing an 'pushOutOnly' JustificationStyle.
      */    
-    PUSHOUTONLY;
+    PUSHOUTONLY
 }

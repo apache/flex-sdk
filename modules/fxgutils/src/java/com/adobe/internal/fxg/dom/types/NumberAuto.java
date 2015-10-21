@@ -54,7 +54,7 @@ public class NumberAuto
         /**
          * The enum representing an 'inherit' NumberAuto.
          */
-        INHERIT;
+        INHERIT
     }
     
     /** The Type class.
@@ -80,7 +80,7 @@ public class NumberAuto
          /**
           * The enum representing an 'integer' data type.
           */
-         INTEGER;
+         INTEGER
      }
     
     private NumberAuto()

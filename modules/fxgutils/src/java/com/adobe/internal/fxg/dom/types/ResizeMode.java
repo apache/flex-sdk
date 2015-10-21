@@ -44,5 +44,5 @@ public enum ResizeMode
     /**
      * The enum representing an 'scale' ResizeMode.
      */    
-    SCALE;
+    SCALE
 }

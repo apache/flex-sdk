@@ -327,32 +327,32 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
 	public Value evaluate(Context cx, IncrementNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, DeleteExpressionNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, InvokeNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, ThisExpressionNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, QualifiedIdentifierNode node)
 	{
 		return new KeylessValue(node.name);  // just return the simple name
-	};
+	}
 
-    public Value evaluate(Context cx, QualifiedExpressionNode node)
+	public Value evaluate(Context cx, QualifiedExpressionNode node)
     {
         return null;
-    };
+    }
 
 	public Value evaluate(Context cx, LiteralXMLNode node)
 	{
@@ -363,59 +363,59 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
 			v = node.list.evaluate(cx,this);
 		}
 		return v;
-	};
+	}
 
 	public Value evaluate(Context cx, FunctionCommonNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, ParenExpressionNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, ParenListExpressionNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, LiteralObjectNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, LiteralFieldNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, SuperExpressionNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, SuperStatementNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, UnaryExpressionNode node)
 	{
 		if (node.expr != null)
 			node.expr.evaluate(cx,this);
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, BinaryExpressionNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, ConditionalExpressionNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, ListNode node)
 	{
@@ -428,7 +428,7 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
 			}
 		}
 		return v;
-	};
+	}
 
 	// Statements
 
@@ -442,104 +442,104 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
 			}
 		}
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, EmptyElementNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, EmptyStatementNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, ExpressionStatementNode node)
 	{
 		if (node.expr != null)
 			node.expr.evaluate(cx,this);
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, LabeledStatementNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, IfStatementNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, SwitchStatementNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, CaseLabelNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, DoStatementNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, WhileStatementNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, ForStatementNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, WithStatementNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, ContinueStatementNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, BreakStatementNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, ReturnStatementNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, ThrowStatementNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, TryStatementNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, CatchClauseNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, FinallyClauseNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, UseDirectiveNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, IncludeDirectiveNode node)
 	{
@@ -560,9 +560,9 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
             node.prev_cx = null;
         }
         return null;
-	};
+	}
 
-    public Value evaluate(Context cx, ImportNode node)
+	public Value evaluate(Context cx, ImportNode node)
     {
         return null;
     }
@@ -587,12 +587,12 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
 	public Value evaluate(Context cx, ImportDirectiveNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, AttributeListNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, VariableDefinitionNode node)
 	{
@@ -630,7 +630,7 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
         }
 
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, VariableBindingNode node)
 	{
@@ -651,12 +651,12 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
     	}
 
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, UntypedVariableBindingNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, TypedIdentifierNode node)
 	{
@@ -665,12 +665,12 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
 		if (node.type != null)
 			node.type.evaluate(cx,this);
 		return null;
-	};
+	}
 
-    public Value evaluate(Context cx, BinaryFunctionDefinitionNode node)
+	public Value evaluate(Context cx, BinaryFunctionDefinitionNode node)
     {
         return null;
-    };
+    }
 
 	public Value evaluate(Context cx, FunctionDefinitionNode node)
 	{
@@ -698,9 +698,9 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
             }
         }
 		return null;
-	};
+	}
 
-    private void addMetadataToSlot(Context cx, Slot slot, MetaDataNode metadata)
+	private void addMetadataToSlot(Context cx, Slot slot, MetaDataNode metadata)
     {
         if( metadata != null )
         {
@@ -745,37 +745,37 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
     public Value evaluate(Context cx, FunctionNameNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, FunctionSignatureNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, ParameterNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, ParameterListNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, RestExpressionNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, RestParameterNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, InterfaceDefinitionNode node)
 	{
         return evaluate(cx, (ClassDefinitionNode)node);
-	};
+	}
 
 	public Value evaluate(Context cx, ClassDefinitionNode node)
 	{
@@ -886,37 +886,37 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
 	public Value evaluate(Context cx, ClassNameNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, InheritanceNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, NamespaceDefinitionNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, ConfigNamespaceDefinitionNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, PackageDefinitionNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, PackageIdentifiersNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, PackageNameNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, ProgramNode node)
 	{
@@ -931,27 +931,27 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
 			node.statements.evaluate(cx,this);
 
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, ErrorNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, ToObjectNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, LoadRegisterNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, StoreRegisterNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate( Context cx, HasNextNode node )
 	{
@@ -961,49 +961,49 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
 	public Value evaluate(Context cx, BoxNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, CoerceNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, PragmaNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, UsePrecisionNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, UseNumericNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, UseRoundingNode node)
 	{
 		return null;
-	};
+	}
 
 	public Value evaluate(Context cx, PragmaExpressionNode node)
 	{
 		return null;
-	};
+	}
 
-    public Value evaluate(Context cx, DefaultXMLNamespaceNode node)
+	public Value evaluate(Context cx, DefaultXMLNamespaceNode node)
     {
         return null;
-    };
+    }
 
-    public Value evaluate(Context cx, RegisterNode node)
+	public Value evaluate(Context cx, RegisterNode node)
     {
         return null;
-    };
+    }
 
-    public Value evaluate(Context cx, TypeExpressionNode node)
+	public Value evaluate(Context cx, TypeExpressionNode node)
     {
         return node.expr.evaluate(cx, this);
     }

@@ -38,5 +38,5 @@ public enum FontWeight
     /**
      * The enum representing an 'bold' Font Weight.
      */
-    BOLD;
+    BOLD
 }

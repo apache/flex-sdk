@@ -220,8 +220,8 @@ public interface ErrorConstants
       public int code;  // enum used to identify or lookup this message/problem
       public String errorMsg; // a particular error message    '
       public AscError(int c, String s) { code = c; errorMsg = s; }
-   } ;
-   
+   }
+
    public static final AscError[] errorConstantsEN = { 
            new AscError(kError_AmbiguousReference, "Ambiguous reference to %s." ),
            new AscError(kError_NamespaceAccessSpecifiers, "Access specifiers are not allowed with namespace attributes." ),
@@ -3686,4 +3686,4 @@ public interface ErrorConstants
    
    
    
-};
+}

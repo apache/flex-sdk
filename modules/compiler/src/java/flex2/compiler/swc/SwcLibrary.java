@@ -220,7 +220,7 @@ public class SwcLibrary
             {
                 if (frame.label != null)
                 {
-                    try { c1 = Integer.parseInt( frame.label.label ); } catch (Exception e) {};
+                    try { c1 = Integer.parseInt( frame.label.label ); } catch (Exception e) {}
                 }
                 int c2 = SimpleMovie.getCodeHash( frame );
 

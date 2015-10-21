@@ -45,7 +45,7 @@ public class NumberPercentAuto
         /**
          * The enum representing an 'auto' NumberPercentAuto.
          */
-        AUTO;
+        AUTO
     }
     
     private NumberPercentAuto()

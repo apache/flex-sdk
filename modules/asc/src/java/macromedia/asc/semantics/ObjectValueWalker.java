@@ -36,4 +36,4 @@ public abstract class ObjectValueWalker implements Iterator<ObjectValue>
 	}
 	
 	abstract void clear();
-};
+}

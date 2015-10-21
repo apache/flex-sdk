@@ -72,8 +72,8 @@ public final class LintEvaluator extends Emitter implements Evaluator, ErrorCons
 			errStringArg1 = s1;
 			errStringArg2 = s2;
             errStringArg3 = s3;
-		};
-	};
+		}
+	}
 
 
 	public boolean checkFeature(Context cx, Node node)
@@ -2613,7 +2613,7 @@ public final class LintEvaluator extends Emitter implements Evaluator, ErrorCons
 		String nameSpace;
 		String name;
 		DefaultTypeDesc(int c, String ns, String n) { code = c; nameSpace = ns; name = n; }
-	};
+	}
 
 	private DefaultTypeDesc[]   typeDescriptors = {
 		new DefaultTypeDesc(kVoidType,				"",						"null"),
@@ -3407,7 +3407,7 @@ public final class LintEvaluator extends Emitter implements Evaluator, ErrorCons
 			is_registered_for_event = false;
             declaration_pos = 0;
 		}
-	};
+	}
 
 	private ObjectList<Slot>  slotsToClean = new ObjectList<Slot>();  // store what we allocate so we can clean it up
 

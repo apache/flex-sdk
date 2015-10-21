@@ -40,5 +40,5 @@ public enum TextJustify
     /**
      * The enum representing an 'distribute' TextJustify.
      */    
-    DISTRIBUTE;
+    DISTRIBUTE
 }

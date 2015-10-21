@@ -43,5 +43,5 @@ public enum FillMode
     /**
      * The enum representing an 'scale' FillMode.
      */    
-    SCALE;
+    SCALE
 }

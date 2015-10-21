@@ -79,5 +79,5 @@ public enum LeadingModel
     /**
      * The enum representing an 'approximateTextField' LeadingModel.
      */
-    APPROXIMATETEXTFIELD;
+    APPROXIMATETEXTFIELD
 }

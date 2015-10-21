@@ -52,5 +52,5 @@ public enum Kerning
     /**
      * The enum representing an 'auto' kerning type.
      */
-    AUTO;
+    AUTO
 }
