@@ -231,7 +231,7 @@ public class DocumentBuilder extends ComponentBuilder implements MXMLNamespaces
 
             // If the document sets Frame metadata, then we must not overwrite it.
             // Is there a better way to do this?   This seems really hacky and brittle.
-            if (node.getText().toString().indexOf( "[Frame" ) != -1)
+            if (node.getText().indexOf( "[Frame" ) != -1)
             {
                 assert unit.isRoot();
                 generateLoader = false;

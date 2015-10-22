@@ -311,7 +311,7 @@ public abstract class FontManager
 
         if (location != null)
         {
-            message.append("was not found at: ").append(location.toString());
+            message.append("was not found at: ").append(location);
         }
         else
         {

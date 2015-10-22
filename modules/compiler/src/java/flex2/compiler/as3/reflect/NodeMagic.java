@@ -398,7 +398,7 @@ public class NodeMagic
         
         final Iterator<String> iter = getAttributes(node).iterator();
         while (iter.hasNext())
-            attrs.add(iter.next().toString());
+            attrs.add(iter.next());
 
         return attrs;
     }
