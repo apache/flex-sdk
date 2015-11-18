@@ -1,10 +1,59 @@
 Apache Flex 4.15.0
 ==================
 
+New Features
+------------
+- Sorting on complex DataGrid fields 
+
+AIR and Flash Player Support
+----------------------------
+- Support Flash Player 18.0, 19.0 and 20.0
+- Support for AIR 18.0, 19.0 and 20.0
+
 Bug Fixes
 ---------
-FLEX-34753  Returning strongly typed object in Promise fails
- 
+
+FLEX-32249	AdvancedDataGrid.makeListData() incorrectly references 
+			HierarchicalCollectionViewCursor class instead of 
+			IHierarchicalCollectionViewCursor interface
+FLEX-34028	Cannot Ctrl-Click A Datagrid Row to deselect it when dragEnabled 
+			is set to true
+FLEX-34741	Spark DataGrid Drag and Drop non functioning
+FLEX-34744	TextFlowElement parent nulled when addChild method used via 
+			parent reference
+FLEX-34751	Regression in fdb tool: VM is resumed if breakpoint can't be set
+FLEX-34753	Returning strongly typed object in Promise fails
+FLEX-34775	Application hangs (in infinite loop) when opening a node inside  
+			a HierarchicalCollectionView whose parent is closed and then  
+			trying to navigate the collection
+FLEX-34807	TLF - EditManager - TextFlowEdit -insertTextScrap
+FLEX-34812	Error "Could not find or load main class Flash" when running 
+			`ant frameworks-rsls`
+FLEX-34838	getItemIndex returns -1 for item whose property was edited with 
+			GridItemEditor in a sorted DataGrid
+FLEX-34850	Applying sort with complex dataField on DataGrid results in 
+			unintuitive item ordering
+FLEX-34857	Adding an id to a fx:Vector when using -keep compiler argument 
+			results in a compiler error
+FLEX-34858	Adding a subclass of a Vector's type to the Vector in MXML 
+			results in an internal build error
+FLEX-34862	RTE on ListBase when dataProvider is changed
+FLEX-34876	Paste Problem with multiple paragraphs
+FLEX-34878	error property of NumberFormatter returns null and not it's 
+			default value
+FLEX-34879	FLEX-34853 Deprecate state setters and reverse() for mx and 
+			spark SortField and Sort classes
+FLEX-34883	FLEX-34852 Sort correctly by complex fields with all data types
+FLEX-34884	FLEX-34852 Make sure that finding objects works correctly
+FLEX-34891	TLF: pasted text doesn't get the format of the original text
+FLEX-34927	Allow the setting of an arbitrary property on an object via 
+			ObjectUtil
+FLEX-34929	Error #1009 when copy/paste a text with style effect in a 
+			RichEditableText/RichTextEditor
+FLEX-34941	Allow custom validators to use the triggerEvent
+FLEX-34944	GridItemRenderer overrides error tooltip
+FLEX-34945	Validator should be able to validate nested properties
+
 Known Issues
 ------------
 
