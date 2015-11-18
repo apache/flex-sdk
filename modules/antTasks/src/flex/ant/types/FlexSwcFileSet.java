@@ -33,7 +33,7 @@ public class FlexSwcFileSet extends FlexFileSet
 		super(spec, dirs);
 	}
 
-	// Only accept directories, and *.swc and *.ane files
+	// Only accept directories, *.swc and *.ane files
     protected void addFiles(File base, String[] files, Commandline cmdl)
     {
         FileUtils utils = FileUtils.getFileUtils();
