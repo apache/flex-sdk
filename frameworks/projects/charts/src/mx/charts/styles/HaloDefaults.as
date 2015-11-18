@@ -233,8 +233,8 @@ public class HaloDefaults
 		var decl:CSSStyleDeclaration = styleManager.getStyleDeclaration(name);
 		if (!decl)
 		{
-			var sm:IStyleManager2 = styleManager;
-			while (sm.parent)
+			var sm:IStyleManager2 = styleManager.parent;
+			while (sm)
 			{
 				decl = sm.getStyleDeclaration(name);
 				if (decl)
