@@ -690,7 +690,7 @@ public class WindowedApplication extends Application implements IWindow
      */
     override public function get maxHeight():Number
     {
-        if (nativeWindow && nativeWindow.maxSize && !maxHeightChanged)
+        if (nativeWindow && !maxHeightChanged)
             return nativeWindow.maxSize.y - chromeHeight();
         else
             return _maxHeight;
@@ -738,7 +738,7 @@ public class WindowedApplication extends Application implements IWindow
      */
     override public function get maxWidth():Number
     {
-        if (nativeWindow && nativeWindow.maxSize && !maxWidthChanged)
+        if (nativeWindow && !maxWidthChanged)
             return nativeWindow.maxSize.x - chromeWidth();
         else
             return _maxWidth;
@@ -792,7 +792,7 @@ public class WindowedApplication extends Application implements IWindow
      */
     override public function get minHeight():Number
     {
-        if (nativeWindow && nativeWindow.minSize && !minHeightChanged)
+        if (nativeWindow && !minHeightChanged)
             return nativeWindow.minSize.y - chromeHeight();
         else
             return _minHeight;
@@ -840,7 +840,7 @@ public class WindowedApplication extends Application implements IWindow
      */
     override public function get minWidth():Number
     {
-        if (nativeWindow && nativeWindow.minSize && !minWidthChanged)
+        if (nativeWindow && !minWidthChanged)
             return nativeWindow.minSize.x - chromeWidth();
         else
             return _minWidth;
