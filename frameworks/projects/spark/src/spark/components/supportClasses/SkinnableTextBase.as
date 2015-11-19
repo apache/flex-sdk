@@ -1875,8 +1875,7 @@ public class SkinnableTextBase extends SkinnableComponent
             }
             else
             {
-                //Calling later so the skin/state can finish setting up before accepting focus on textDisplay.
-                callLater(textDisplay.setFocus);
+                textDisplay.setFocus();
             }
         }
     }
