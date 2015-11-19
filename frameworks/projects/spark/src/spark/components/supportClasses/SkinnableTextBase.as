@@ -1875,8 +1875,10 @@ public class SkinnableTextBase extends SkinnableComponent
             }
             else
             {
-                //Calling later so the skin/state can finish setting up before accepting focus on textDisplay.
-                callLater(textDisplay.setFocus);
+                //Force properties to validate before resetting focus.
+                validateProperties();
+
+                textDisplay.setFocus();
             }
         }
     }
@@ -2693,18 +2695,23 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     private function textDisplay_changeHandler(event:Event):void
     {        
-        //trace(id, "textDisplay_changeHandler", textDisplay.text);
-        
         // The text component has changed.  Generate an UPDATE_COMPLETE event.
         invalidateDisplayList();
-        
+
+
         // We may have gone from empty to non-empty or vice-versa. This should
         // cause the prompt to show or hide.
-        if (prompt != null && prompt != "" && skin && skin.currentState &&
-            (skin.currentState.indexOf("WithPrompt") != -1 && text.length != 0 ||
-            skin.currentState.indexOf("WithPrompt") == -1 && text.length == 0))
-            invalidateSkinState();
-                
+        if (prompt != null && prompt != "" && skin && skin.currentState)
+        {
+            //Checks when to invalidate skin. However when component is focused (and not prompt with focus) it will not have "WithPrompt".  Broken out for clarity.
+            if (skin.currentState.indexOf("WithPrompt") != -1 && text.length != 0 ||
+                skin.currentState.indexOf("WithPrompt") == -1 && text.length == 0)
+            {
+                invalidateSkinState();
+            }
+        }
+
+
         // Redispatch the event that came from the RichEditableText.
         dispatchEvent(event);
     }
