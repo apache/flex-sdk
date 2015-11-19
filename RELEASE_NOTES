@@ -12,12 +12,14 @@ AIR and Flash Player Support
 
 Bug Fixes
 ---------
-
 FLEX-32249	AdvancedDataGrid.makeListData() incorrectly references 
 			HierarchicalCollectionViewCursor class instead of 
 			IHierarchicalCollectionViewCursor interface
+FLEX-33537	Spark TextArea writing in prompt text format
 FLEX-34028	Cannot Ctrl-Click A Datagrid Row to deselect it when dragEnabled 
 			is set to true
+FLEX-34728	HaloDefaults.findStyleDeclaration doesn't go through styleManager 
+			chains correctly
 FLEX-34741	Spark DataGrid Drag and Drop non functioning
 FLEX-34744	TextFlowElement parent nulled when addChild method used via 
 			parent reference
@@ -50,9 +52,15 @@ FLEX-34927	Allow the setting of an arbitrary property on an object via
 			ObjectUtil
 FLEX-34929	Error #1009 when copy/paste a text with style effect in a 
 			RichEditableText/RichTextEditor
+FLEX-34934	Spark Window - Closed Window
 FLEX-34941	Allow custom validators to use the triggerEvent
 FLEX-34944	GridItemRenderer overrides error tooltip
 FLEX-34945	Validator should be able to validate nested properties
+PR#8		Mxmlc accepts not only *.swc but also *.ane files
+PR#12		Fix MenuBar.styleChanged() crash bug
+
+
+
 
 Known Issues
 ------------
