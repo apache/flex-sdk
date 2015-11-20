@@ -47,7 +47,7 @@
     <property name="flexToolApi.name" value="flex-tool-api"/>
     <property name="flexToolApi.version" value="1.0.0"/>
     <property name="blazeds.name" value="flex-messaging-common"/>
-    <property name="blazeds.version" value="4.7.1"/>
+    <property name="blazeds.version" value="4.7.2"/>
 
 	<!--
 	   Notes:
