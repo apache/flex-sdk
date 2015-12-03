@@ -1,6 +1,8 @@
+import mx.core.IFlexModuleFactory;
 import mx.styles.AdvancedStyleClient;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.IAdvancedStyleClient;
+import mx.styles.IStyleManager2;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -141,4 +143,24 @@ public function set styleName(value:Object):void
 public function styleChanged(styleProp:String):void
 {
     _styleChanged(styleProp);
+}
+
+public function get styleManager():IStyleManager2
+{
+    return _advancedStyleClient.styleManager;
+}
+
+public function get moduleFactory():IFlexModuleFactory
+{
+    return _advancedStyleClient.moduleFactory;
+}
+
+public function set moduleFactory(factory:IFlexModuleFactory):void
+{
+    _advancedStyleClient.moduleFactory = factory;
+}
+
+public function initialized(document:Object, id:String):void
+{
+    _advancedStyleClient.initialized(document, id);
 }

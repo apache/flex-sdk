@@ -24,6 +24,8 @@ package spark.collections
     import mx.styles.IAdvancedStyleClient;
     import mx.collections.ISortField;
     import mx.core.FlexGlobals;
+    import mx.core.IFlexModule;
+    import mx.core.IMXMLObject;
     import mx.utils.ObjectUtil;
 
     import spark.globalization.SortingCollator;
@@ -153,9 +155,10 @@ package spark.collections
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-public class SortField extends mx.collections.SortField implements IAdvancedStyleClient
+public class SortField extends mx.collections.SortField implements IAdvancedStyleClient, IFlexModule, IMXMLObject
 {
     include "../core/Version.as";
+    include "AdvancedStyleClientImplementation.as";
 
     //--------------------------------------------------------------------------
     //
@@ -192,8 +195,6 @@ public class SortField extends mx.collections.SortField implements IAdvancedStyl
         super(name, false, descending, numeric, sortCompareType, customCompareFunction);
     }
 	
-	include "AdvancedStyleClientImplementation.as";
-
     //--------------------------------------------------------------------------
     //
     //  Variables

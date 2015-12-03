@@ -22,6 +22,9 @@ package spark.collections
 
     import flash.events.Event;
 
+    import mx.core.IFlexModule;
+    import mx.core.IMXMLObject;
+
     import mx.core.mx_internal;
     import mx.styles.IAdvancedStyleClient;
     import mx.collections.ISortField;
@@ -190,7 +193,7 @@ package spark.collections
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-public class Sort extends mx.collections.Sort implements IAdvancedStyleClient
+public class Sort extends mx.collections.Sort implements IAdvancedStyleClient, IFlexModule, IMXMLObject
 {
     include "../core/Version.as";
     include "AdvancedStyleClientImplementation.as";
@@ -425,5 +428,5 @@ public class Sort extends mx.collections.Sort implements IAdvancedStyleClient
 
         dispatchEvent(new Event(Event.CHANGE));
     }
-}
+    }
 }

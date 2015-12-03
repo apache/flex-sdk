@@ -20,18 +20,16 @@
 package mx.styles
 {
 
-import flash.events.*;
+    import flash.events.*;
 
-import mx.core.FlexGlobals;
-import mx.core.IFlexDisplayObject;
-import mx.core.IFlexModule;
-import mx.core.IFlexModuleFactory;
-import mx.core.IMXMLObject;
-import mx.core.UIComponent;
-import mx.styles.*;
-import mx.utils.NameUtil;
+    import mx.core.FlexGlobals;
+    import mx.core.IFlexModule;
+    import mx.core.IFlexModuleFactory;
+    import mx.core.IMXMLObject;
+    import mx.core.UIComponent;
+    import mx.utils.NameUtil;
 
-/**
+    /**
  *  A base class that can be used
  *  when implementing an object that uses the
  *  <code>IAdvancedStyleClient</code> interface.  The base class supplies
