@@ -1,8 +1,11 @@
 import mx.core.IFlexModuleFactory;
+import mx.core.UIComponent;
 import mx.styles.AdvancedStyleClient;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.IAdvancedStyleClient;
 import mx.styles.IStyleManager2;
+import mx.styles.StyleProtoChain;
+import mx.utils.NameUtil;
 
 ////////////////////////////////////////////////////////////////////////////////
 //
@@ -23,11 +26,28 @@ import mx.styles.IStyleManager2;
 //
 ////////////////////////////////////////////////////////////////////////////////
 
-private var _advancedStyleClient:AdvancedStyleClient = new AdvancedStyleClient();
+private var _advancedStyleClient:AdvancedStyleClient_;
+
+private function initAdvancedStyleClient():void
+{
+    _advancedStyleClient = new AdvancedStyleClient_(this);
+    _advancedStyleClient.addEventListener("allStylesChanged", dispatchIfListenersExist);
+}
+
+private function dispatchIfListenersExist(event:Event):void
+{
+    if(hasEventListener(event.type))
+        dispatchEvent(event);
+}
 
 public function get id():String
 {
     return _advancedStyleClient.id;
+}
+
+public function set id(value:String):void
+{
+    _advancedStyleClient.id = value;
 }
 
 public function get styleParent():IAdvancedStyleClient
@@ -142,7 +162,9 @@ public function set styleName(value:Object):void
 
 public function styleChanged(styleProp:String):void
 {
+    _advancedStyleClient.addEventListener(styleProp + "Changed", dispatchIfListenersExist);
     _styleChanged(styleProp);
+    _advancedStyleClient.removeEventListener(styleProp + "Changed", dispatchIfListenersExist);
 }
 
 public function get styleManager():IStyleManager2

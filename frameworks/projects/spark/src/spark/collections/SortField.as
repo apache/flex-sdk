@@ -193,6 +193,8 @@ public class SortField extends mx.collections.SortField implements IAdvancedStyl
                               customCompareFunction:Function = null)
     {
         super(name, false, descending, numeric, sortCompareType, customCompareFunction);
+
+        initAdvancedStyleClient();
     }
 	
     //--------------------------------------------------------------------------
@@ -285,7 +287,7 @@ public class SortField extends mx.collections.SortField implements IAdvancedStyl
     private function _getStyle(styleProp:String):*
     {
         if (styleProp != "locale")
-            return _advancedStyleClient.getStyle(styleProp);
+            return _advancedStyleClient.getStyleImpl(styleProp);
 
         if ((localeStyle !== undefined) && (localeStyle !== null))
             return localeStyle;
@@ -314,7 +316,7 @@ public class SortField extends mx.collections.SortField implements IAdvancedStyl
      */
     private function _setStyle(styleProp:String, newValue:*):void
     {
-        _advancedStyleClient.setStyle(styleProp, newValue);
+        _advancedStyleClient.setStyleImpl(styleProp, newValue);
 
         if (styleProp != "locale")
             return;
@@ -347,7 +349,8 @@ public class SortField extends mx.collections.SortField implements IAdvancedStyl
     private function _styleChanged(styleProp:String):void
     {
         localeChanged();
-        _advancedStyleClient.styleChanged(styleProp);
+
+        _advancedStyleClient.styleChangedImpl(styleProp);
     }
 
 
@@ -482,7 +485,7 @@ public class SortField extends mx.collections.SortField implements IAdvancedStyl
      */
     private function localeChanged():void
     {
-        const newLocaleStyle:* = _advancedStyleClient.getStyle("locale");
+        const newLocaleStyle:* = _advancedStyleClient.getStyleImpl("locale");
 
         if (localeStyle === newLocaleStyle)
             return;

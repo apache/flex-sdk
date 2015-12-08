@@ -89,7 +89,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  Keeps track of the setStyles() calls that have been deferred
      *  until a moduleFactory is set.
      */
-    private var deferredSetStyles:Object;
+    protected var deferredSetStyles:Object;
 
     //--------------------------------------------------------------------------
     //
@@ -235,15 +235,14 @@ public class AdvancedStyleClient extends EventDispatcher
         return StyleManager.getStyleManager(moduleFactory);
     }
 
-    private function setDeferredStyles():void
+    protected function setDeferredStyles():void
     {
         if (!deferredSetStyles)
             return;
 
         for (var styleProp:String in deferredSetStyles)
         {
-            StyleProtoChain.setStyle(
-                                this, styleProp, deferredSetStyles[styleProp]);
+            StyleProtoChain.setStyle(this, styleProp, deferredSetStyles[styleProp]);
         }
 
         deferredSetStyles = null;

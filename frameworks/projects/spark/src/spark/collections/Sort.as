@@ -21,15 +21,11 @@ package spark.collections
 {
 
     import flash.events.Event;
-
-    import mx.core.IFlexModule;
-    import mx.core.IMXMLObject;
-
-    import mx.core.mx_internal;
     import mx.styles.IAdvancedStyleClient;
     import mx.collections.ISortField;
-    import mx.collections.errors.SortError;
     import mx.core.FlexGlobals;
+    import mx.core.IFlexModule;
+    import mx.core.IMXMLObject;
 
     [DefaultProperty("fields")]
 [ResourceBundle("collections")]
@@ -260,6 +256,8 @@ public class Sort extends mx.collections.Sort implements IAdvancedStyleClient, I
     {
         super(fields, customCompareFunction, unique);
         mx_internal::useSortOn = false;
+
+        initAdvancedStyleClient();
     }
 
     //--------------------------------------------------------------------------
@@ -297,7 +295,7 @@ public class Sort extends mx.collections.Sort implements IAdvancedStyleClient, I
     private function _getStyle(styleProp:String):*
     {
         if (styleProp != "locale")
-            return _advancedStyleClient.getStyle(styleProp);
+            return _advancedStyleClient.getStyleImpl(styleProp);
 
         if ((localeStyle !== undefined) && (localeStyle !== null))
             return localeStyle;
@@ -324,7 +322,7 @@ public class Sort extends mx.collections.Sort implements IAdvancedStyleClient, I
      */
     private function _setStyle(styleProp:String, newValue:*):void
     {
-        _advancedStyleClient.setStyle(styleProp, newValue);
+        _advancedStyleClient.setStyleImpl(styleProp, newValue);
 
         if (styleProp != "locale")
             return;
@@ -355,7 +353,7 @@ public class Sort extends mx.collections.Sort implements IAdvancedStyleClient, I
     private function _styleChanged(styleProp:String):void
     {
         localeChanged();
-        _advancedStyleClient.styleChanged(styleProp);
+        _advancedStyleClient.styleChangedImpl(styleProp);
     }
 
     //--------------------------------------------------------------------------
@@ -417,7 +415,7 @@ public class Sort extends mx.collections.Sort implements IAdvancedStyleClient, I
      */
     private function localeChanged():void
     {
-        const newLocaleStyle:* = _advancedStyleClient.getStyle("locale");
+        const newLocaleStyle:* = _advancedStyleClient.getStyleImpl("locale");
 
         if (localeStyle === newLocaleStyle)
             return;
