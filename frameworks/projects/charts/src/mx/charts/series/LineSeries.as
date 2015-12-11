@@ -883,21 +883,31 @@ public class LineSeries extends Series
 	/**
      *  @private
      */
-    private function initStyles():Boolean
+    private function initStyles():void
     {
         HaloDefaults.init(styleManager);
-		
+
 		var lineSeriesStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.series.LineSeries");
+
+
 		if (lineSeriesStyle)
 		{
 			lineSeriesStyle.setStyle("lineSegmentRenderer", new ClassFactory(LineRenderer));
 			lineSeriesStyle.setStyle("fill", new SolidColor(0xFFFFFF));
 			lineSeriesStyle.setStyle("fills", []);
 			lineSeriesStyle.setStyle("lineStroke", new SolidColorStroke(0,3));
-		}		
-        return true;
+		}
+        else
+        {
+            //Fallback to set the style to this chart directly.
+			setStyle("lineSegmentRenderer", new ClassFactory(LineRenderer));
+			setStyle("fill", new SolidColor(0xFFFFFF));
+			setStyle("fills", []);
+			setStyle("lineStroke", new SolidColorStroke(0,3));
+        }
     }
-    
+
+
     /**
      *  @inheritDoc
      *  
