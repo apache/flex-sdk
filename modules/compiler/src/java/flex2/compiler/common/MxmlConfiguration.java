@@ -63,10 +63,10 @@ public class MxmlConfiguration
     public static final int VERSION_3_0 = 0x03000000;
     public static final int VERSION_2_0_1 = 0x02000001;
     public static final int VERSION_2_0 = 0x02000000;
-    public static final int CURRENT_VERSION = VERSION_4_14_1;
+    public static final int CURRENT_VERSION = VERSION_4_15;
     public static final int EARLIEST_MAJOR_VERSION = 3;
     public static final int LATEST_MAJOR_VERSION = 4;
-    public static final int LATEST_MINOR_VERSION = 14;
+    public static final int LATEST_MINOR_VERSION = 15;
 
 	private int major = LATEST_MAJOR_VERSION;
 	private int minor = LATEST_MINOR_VERSION;
