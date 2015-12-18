@@ -3,12 +3,12 @@ Apache Flex 4.15.0
 
 New Features
 ------------
-- FLEX-34852 Sorting by complex fields in ListCollectionView
-- FLEX-34837 Full support for sorting on complex fields of DataGrid rows
-- FLEX-34927 Allow the setting of an arbitrary property on an object via
-			ObjectUtil
-- FLEX-34941 Allow custom validators to use the triggerEvent
-- FLEX-34945 Validators now able to validate nested properties
+- FLEX-34837    Full support for sorting on complex fields of DataGrid rows
+- FLEX-34852    Sorting by complex fields in ListCollectionView
+- FLEX-34927    Allow the setting of an arbitrary property on an object via
+                ObjectUtil
+- FLEX-34941    Allow custom validators to use the triggerEvent
+- FLEX-34945    Validators now able to validate nested properties
 
 AIR and Flash Player Support
 ----------------------------
