@@ -18,67 +18,46 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 package spark.skins.spark {
-    import flash.display.Sprite;
     import flash.events.Event;
     import flash.events.EventDispatcher;
-
-    import mx.core.Container;
 
     import mx.managers.FocusManager;
     import mx.managers.IFocusManagerContainer;
 
-    import org.flexunit.asserts.assertNotNull;
-
     import org.flexunit.asserts.assertTrue;
     import org.flexunit.async.Async;
     import org.fluint.uiImpersonation.UIImpersonator;
-
-    import spark.components.Group;
 
     import spark.components.TextInput;
 
     public class FLEX_34625_Tests {
 
         private static const NO_ENTER_FRAMES_TO_ALLOW:int = 4;
+        private static const _finishNotifier:EventDispatcher = new EventDispatcher();
+        private static var _textInput:TextInput;
         private var noEnterFramesRemaining:int = NaN;
-        private var _finishNotifier:EventDispatcher;
-        private var _textInput:TextInput;
 
         [Before]
         public function setUp():void
         {
+            var _focusManager:FocusManager = new FocusManager(UIImpersonator.testDisplay as IFocusManagerContainer);
+            _focusManager.showFocusIndicator = true;
 
+            _textInput = new TextInput();
+            _textInput.width = 0;
+            _textInput.height = 0;
+            _textInput.focusManager = _focusManager;
         }
 
         [After]
         public function tearDown():void
         {
             _textInput = null;
-            _finishNotifier = null;
         }
 
         [Test(async, timeout=500)]
         public function test_focus_skin_with_zero_focus_thickness():void
         {
-            //from setUp(), for debugging
-            trace("UIImpersonator root:" + UIImpersonator.testDisplay);
-
-            assertNotNull("UIImpersonator is not available!", UIImpersonator.testDisplay);
-            assertTrue("It's not a Sprite!", UIImpersonator.testDisplay is Sprite);
-            assertTrue("It's not a Container!", UIImpersonator.testDisplay is Container);
-            assertTrue("It's not a Group!", UIImpersonator.testDisplay is Group);
-            assertTrue("It's not an IFocusManagerContainer!", UIImpersonator.testDisplay is IFocusManagerContainer);
-
-            var focusManager:FocusManager = new FocusManager(UIImpersonator.testDisplay as IFocusManagerContainer);
-            focusManager.showFocusIndicator = true;
-
-            _textInput = new TextInput();
-            _textInput.width = 0;
-            _textInput.height = 0;
-            _textInput.focusManager = focusManager;
-
-            _finishNotifier = new EventDispatcher();
-
             //given
             UIImpersonator.addChild(_textInput);
 
@@ -95,17 +74,6 @@ package spark.skins.spark {
         [Test(async, timeout=500)]
         public function test_focus_skin_with_NaN_focus_thickness():void
         {
-            //from setUp(), for debugging
-            var focusManager:FocusManager = new FocusManager(UIImpersonator.testDisplay as IFocusManagerContainer);
-            focusManager.showFocusIndicator = true;
-
-            _textInput = new TextInput();
-            _textInput.width = 0;
-            _textInput.height = 0;
-            _textInput.focusManager = focusManager;
-
-            _finishNotifier = new EventDispatcher();
-
             //given
             UIImpersonator.addChild(_textInput);
 
@@ -124,7 +92,6 @@ package spark.skins.spark {
             if(!--noEnterFramesRemaining)
             {
                 UIImpersonator.testDisplay.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
-
                 _finishNotifier.dispatchEvent(new Event(Event.COMPLETE));
             }
         }
