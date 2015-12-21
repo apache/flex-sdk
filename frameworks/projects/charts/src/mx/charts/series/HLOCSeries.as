@@ -166,6 +166,9 @@ public class HLOCSeries extends HLOCSeriesBase
 	public function HLOCSeries()
 	{
 		super();
+
+		//Our style settings
+		initStyles();
 	}
 
 	//--------------------------------------------------------------------------
@@ -229,9 +232,6 @@ public class HLOCSeries extends HLOCSeriesBase
 			return;
 		
 		_moduleFactoryInitialized[factory] = true;
-		
-		// our style settings
-		initStyles();
 	}
 	
 	/**

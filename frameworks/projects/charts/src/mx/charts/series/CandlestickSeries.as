@@ -166,6 +166,9 @@ public class CandlestickSeries extends HLOCSeriesBase
     public function CandlestickSeries()
     {
         super();
+
+        // our style settings
+        initStyles();
     }
     //--------------------------------------------------------------------------
     //
@@ -329,9 +332,6 @@ public class CandlestickSeries extends HLOCSeriesBase
             return;
         
         _moduleFactoryInitialized[factory] = true;
-        
-        // our style settings
-        initStyles();
     }
     
     /**

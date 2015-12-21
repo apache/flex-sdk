@@ -200,6 +200,9 @@ public class BubbleSeries extends Series
         _instanceCache.creationCallback = applyItemRendererProperties;
         
         dataTransform = new CartesianTransform();
+
+		// our style settings
+		initStyles();
     }
 
     //--------------------------------------------------------------------------
@@ -740,9 +743,6 @@ public class BubbleSeries extends Series
 			return;
 		
 		_moduleFactoryInitialized[factory] = true;
-		
-		// our style settings
-		initStyles();
 	}
 	
     /**

@@ -289,6 +289,9 @@ public class LineSeries extends Series
         _segmentInstanceCache.properties = { styleName: this };
         
         dataTransform = new CartesianTransform();
+
+        // our style settings
+        initStyles();
     }
 
     //--------------------------------------------------------------------------
@@ -924,9 +927,6 @@ public class LineSeries extends Series
             return;
         
         _moduleFactoryInitialized[factory] = true;
-        
-        // our style settings
-        initStyles();
     }
     
     /**

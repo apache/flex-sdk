@@ -273,6 +273,9 @@ public class BarSeries extends Series implements IStackable2, IBar
         };
         
         dataTransform = new CartesianTransform();
+
+        // our style settings
+        initStyles();
     }
     
     private function getLabelClass():Class
@@ -1099,9 +1102,6 @@ public class BarSeries extends Series implements IStackable2, IBar
             return;
         
         _moduleFactoryInitialized[factory] = true;
-        
-        // our style settings
-        initStyles();
     }
     
     /**

@@ -272,6 +272,9 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
         };
             
         dataTransform = new CartesianTransform();
+
+        // our style settings
+        initStyles();
     }
     
     private function getLabelClass():Class
@@ -1087,9 +1090,6 @@ public class ColumnSeries extends Series implements IColumn,IStackable2
             return;
         
         _moduleFactoryInitialized[factory] = true;
-        
-        // our style settings
-        initStyles();
     }
     
     /**

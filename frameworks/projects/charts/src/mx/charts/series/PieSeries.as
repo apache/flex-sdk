@@ -359,7 +359,10 @@ public class PieSeries extends Series
 		filters = [ new DropShadowFilter(DROP_SHADOW_SIZE, 45, 0, 60,
                                          DROP_SHADOW_SIZE, DROP_SHADOW_SIZE) ];
         
-        dataTransform = new PolarTransform();                                 
+        dataTransform = new PolarTransform();  
+
+		// our style settings
+		initStyles();
     }
 
     //--------------------------------------------------------------------------
@@ -1219,9 +1222,6 @@ public class PieSeries extends Series
 			return;
 		
 		_moduleFactoryInitialized[factory] = true;
-		
-		// our style settings
-		initStyles();
 	}
 	
     /**

@@ -283,6 +283,9 @@ public class AreaSeries extends Series implements IStackable2
         _instanceCache.creationCallback = applyItemRendererProperties;
         
         dataTransform = new CartesianTransform();
+
+		// our style settings
+		initStyles();
     }
 
     //--------------------------------------------------------------------------
@@ -912,9 +915,6 @@ public class AreaSeries extends Series implements IStackable2
 			return;
 		
 		_moduleFactoryInitialized[factory] = true;
-		
-		// our style settings
-		initStyles();
 	}
 	
     /**
