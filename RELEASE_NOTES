@@ -53,10 +53,12 @@ FLEX-34878	error property of NumberFormatter returns null and not it's
 FLEX-34879	FLEX-34853 Deprecate state setters and reverse() for mx and 
 			spark SortField and Sort classes
 FLEX-34891	TLF: pasted text doesn't get the format of the original text
+FLEX-34909	Embedded fonts not working on charts
 FLEX-34929	Error #1009 when copy/paste a text with style effect in a 
 			RichEditableText/RichTextEditor
 FLEX-34934	Spark Window - Closed Window
 FLEX-34944	GridItemRenderer overrides error tooltip
+FLEX-35003	Update to FontAwesome 4.5
 PR#8		Mxmlc accepts not only *.swc but also *.ane files
 PR#12		Fix MenuBar.styleChanged() crash bug
 
