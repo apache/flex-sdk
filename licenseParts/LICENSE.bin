@@ -1,0 +1,126 @@
+Below are the licenses for components included in the binary distribution.
+
+------------------------------------------------------------------------------------------
+
+lib/external/commons-collection.jar (commons-collections-3.0.tar.gz)
+
+This product bundles Apache Commons Collections available under a
+Apache Software License, Version 1.1. For details, 
+see lib/external/commons-collections-LICENSE.txt
+       
+------------------------------------------------------------------------------------------
+
+lib/external/commons-discovery.jar (commons-discovery-0.2.tar.gz)
+
+This product bundles Apache Commons Discovery available under a
+Apache Software License, Version 1.1. For details,
+see lib/external/commons-collections-LICENSE.txt
+
+------------------------------------------------------------------------------------------
+
+lib/external/java-cc.jar (javacc-5.0.tar.gz)
+
+Copyright (c) 2006, Sun Microsystems, Inc.
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright notice,
+      this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above copyright
+      notice, this list of conditions and the following disclaimer in the
+      documentation and/or other materials provided with the distribution.
+    * Neither the name of the Sun Microsystems, Inc. nor the names of its
+      contributors may be used to endorse or promote products derived from
+      this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE
+LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
+CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
+SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
+INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
+CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
+ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF
+THE POSSIBILITY OF SUCH DAMAGE.
+
+------------------------------------------------------------------------------------------
+
+lib/external/saxon9.jar (saxonb9-1-0-8j.zip)
+
+The contents of these file are subject to the Mozilla Public License Version 1.0 
+(the "License"); you may not use these files except in compliance with the License. You 
+may obtain a copy of the License at http://www.mozilla.org/MPL/
+
+Software distributed under the License is distributed on an "AS IS" basis, 
+WITHOUT WARRANTY OF ANY KIND, either express or implied. See the License for the 
+specific language governing rights and limitations under the License.
+
+The Original Code is all Saxon modules labelled with a notice referring to this license.
+
+The Initial Developer of the Original Code is Michael Kay, except where otherwise 
+specified in an individual module.
+
+Portions created by other named contributors are copyright as identified in the relevant 
+module. All Rights Reserved.
+
+ Copyright 1999 CERN - European Organization for Nuclear Research.<br/><br/>
+
+Permission to use, copy, modify, distribute and sell this software and its documentation for any purpose
+is hereby granted without fee, provided that the above copyright notice appear in all copies and
+that both that copyright notice and this permission notice appear in supporting documentation.
+CERN makes no representations about the suitability of this software for any purpose.
+It is provided "as is" without expressed or implied warranty.
+
+This product bundles software available under a
+BSD software license. For details, see lib/external/saxon9-NOTICES/THAI.txt
+
+This product bundles software available under a
+MIT software license. For details, see lib/external/saxon9-NOTICES/UNICODE.txt
+
+This product bundles software available under a
+MIT software license. For details, see lib/external/saxon9-NOTICES/JAMESCLARK.txt
+
+------------------------------------------------------------------------------------------
+
+lib/external/xml-apis.jar
+
+This product bundles documents available under a
+W3C document license. For details, see lib/external/xml-apis-LICENSES/LICENSE.dom-documentation.txt
+
+This product bundles software available under a
+W3C software license. For details, see lib/external/xml-apis-LICENSES/LICENSE.dom-software.txt
+
+This product bundles SAX2 available under a Public Domain license.
+For more details see lib/external/xml-apis-LICENSES/LICENSE.sax.txt
+
+------------------------------------------------------------------------------------------
+
+lib/external/xml-apis-ext.jar
+
+This product bundles documents available under a
+W3C document license. For details, see lib/external/xml-apis-ext-LICENSES/LICENSE.dom-documentation.txt
+
+This product bundles software available under a
+W3C software license. For details, see lib/external/xml-apis-ext-LICENSES/LICENSE.dom-software.txt
+
+------------------------------------------------------------------------------------------
+
+lib/external/xalan.jar
+
+This product bundles Apache Commons BCEL available under a
+Apache Software License, Version 1.1. For details, see lib/external/xalan-LICENSES/BCEL.LICENSE.txt
+
+This product bundle CUP Parser Generator available under an (old style)
+MIT license. For details, see lib/external/xalan-LICENSES/java_cup.LICENSE.txt
+
+This product bundles Jakarta Regexp available under a
+Apache Software License, Version 1.1. For details,
+see lib/external/xalan-LICENSES/LICENSE.dom-software.txt
+
+------------------------------------------------------------------------------------------
+
+
