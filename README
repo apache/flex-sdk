@@ -21,7 +21,7 @@ For more information about the Apache Flex project, please visit:
 
     http://flex.apache.org/
 
-The Apache Flex SDK 4.14.1 is a follow up release to version 4.14.0. It is
+The Apache Flex SDK 4.15 is a follow up release to version 4.14.1. It is
 compatible with most code written for the original Adobe Flex 4.6 SDK.
 
 
@@ -144,11 +144,11 @@ and you will get compile errors.
 * 3)
 The Adobe AIR integration kit for Windows can be downloaded from:
 
-   http://airdownload.adobe.com/air/win/download/16.0/AdobeAIRSDK.zip
+   http://airdownload.adobe.com/air/win/download/20.0/AdobeAIRSDK.zip
 
 The Adobe AIR integration kit for Mac can be downloaded from:
 
-    http://airdownload.adobe.com/air/mac/download/16.0/AdobeAIRSDK.tbz2
+    http://airdownload.adobe.com/air/mac/download/20.0/AdobeAIRSDK.tbz2
 
 The Adobe AIR integration kit for Linux can be downloaded from:
 
@@ -331,8 +331,8 @@ than their defaults, pass the versions to the ant script like so:
 On Mac/Linux the AIR and Flash Player version can be changed, after the SDK
 has been compiled, by running:
 
-    ./ide/setFlashPlayerVersion.sh ./ 16.0
-    ./ide/addAIRtoSDK.sh 16.0 ./
+    ./ide/setFlashPlayerVersion.sh ./ 20.0
+    ./ide/addAIRtoSDK.sh 20.0 ./
 
 
 
@@ -414,9 +414,9 @@ OR
 Change the playerglobal.version in the build.properties file to have a value
 other than '11.1'. For this change to take effect, the SDK needs to be
 recompiled. For example, to compile against the latest version of the Adobe
-Flash Player, set the value of playerglobal.version to be '16.0' like so:
+Flash Player, set the value of playerglobal.version to be '20.0' like so:
 
-    playerglobal.version = 16.0
+    playerglobal.version = 20.0
 
 OR
 
