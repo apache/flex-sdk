@@ -126,4 +126,6 @@ downloadPlayerGlobal 14.0 6858e63b1ff8373a1a3c1c60b36c9fc9 http://download.macro
 downloadPlayerGlobal 15.0 4d17b14ef74dd23377a71a3fdbfda8ad http://download.macromedia.com/get/flashplayer/updaters/15/playerglobal15_0.swc
 downloadPlayerGlobal 16.0 336be79e5b3ed665c98308241381aff3 http://download.macromedia.com/get/flashplayer/updaters/16/playerglobal16_0.swc
 downloadPlayerGlobal 17.0 1a5e68003b5ce6af08f3841bdb2b96ee http://download.macromedia.com/get/flashplayer/updaters/17/playerglobal17_0.swc
-downloadPlayerGlobal 17.0b 2bd048da880ab3b9516bdf1f263a3135 http://labsdownload.adobe.com/pub/labs/flashruntimes/flashplayer/flashplayer17_playerglobal.swc
+downloadPlayerGlobal 18.0 af3459e5beb554e58fe4d8582e5fae20 http://download.macromedia.com/get/flashplayer/updaters/17/playerglobal18_0.swc
+downloadPlayerGlobal 19.0 680a08d16f4b74de2648e956bde3c87b http://download.macromedia.com/get/flashplayer/updaters/17/playerglobal19_0.swc
+downloadPlayerGlobal 20.0 8f51be6cf9ed743bab90d5aaca37fb05 http://download.macromedia.com/get/flashplayer/updaters/17/playerglobal20_0.swc
