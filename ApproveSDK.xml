@@ -319,10 +319,7 @@
                 <!-- exclude text files -->
                 <exclude name="CONTRIBUTING"/>
                 <exclude name="CONTRIBUTORS"/>
-                <exclude name="LICENSE.bin"/>
-                <exclude name="NOTICE.bin"/>
-                <exclude name="NOTICE.asc"/>
-                <exclude name="NOTICE.base"/>
+                <exclude name="licenseParts/*"/>
                 <exclude name="modules/thirdparty/batik/lib/**/LICENSE*.txt"/>
                 <exclude name="modules/thirdparty/batik/lib/**/README*.txt"/>
                 <exclude name="frameworks/projects/flatspark/src/flatspark/assets/fonts/**/OFL.txt"/>
@@ -409,10 +406,7 @@
                 <!-- exclude text files -->
                 <exclude name="CONTRIBUTING"/>
                 <exclude name="CONTRIBUTORS"/>
-                <exclude name="LICENSE.bin"/>
-                <exclude name="NOTICE.bin"/>
-                <exclude name="NOTICE.asc"/>
-                <exclude name="NOTICE.base"/>
+                <exclude name="licenseParts/*"/>
                 <exclude name="modules/thirdparty/batik/lib/**/LICENSE*.txt"/>
                 <exclude name="modules/thirdparty/batik/lib/**/README*.txt"/>
                 <exclude name="frameworks/projects/flatspark/src/flatspark/assets/fonts/**/OFL.txt"/>

@@ -566,12 +566,8 @@
                 <include name="installer.properties/**"/>
                 <include name="CHANGES"/>
                 <include name="LICENSE"/>
-                <include name="LICENSE.base"/>
-                <include name="LICENSE.bin"/>
+                <include name="licenseParts/*"/>
                 <include name="NOTICE"/>
-                <include name="NOTICE.asc"/>
-                <include name="NOTICE.base"/>
-                <include name="NOTICE.bin"/>
                 <include name="README"/>
                 <include name="RELEASE_NOTES"/>
             	<include name="CONTRIBUTING"/>
@@ -807,8 +803,8 @@
             </fileset>
         </copy>
         <copy file="${basedir}/README.pb" tofile="${basedir}/temp/README" />
-        <copy file="${basedir}/LICENSE.pb" tofile="${basedir}/temp/LICENSE" />
-        <copy file="${basedir}/NOTICE.pb" tofile="${basedir}/temp/NOTICE" />
+        <copy file="${basedir}/licenseParts/LICENSE.pb" tofile="${basedir}/temp/LICENSE" />
+        <copy file="${basedir}/licenseParts/NOTICE.pb" tofile="${basedir}/temp/NOTICE" />
         <echo file="${basedir}/temp/RELEASE_NOTES">
 Licensed to the Apache Software Foundation (ASF) under one or more
 contributor license agreements.  See the NOTICE file distributed with
@@ -888,11 +884,11 @@ There are no known issues.
         
         <!-- concat the license file with the binary license file for the 3rd party deps -->
         <concat destfile="${basedir}/temp/LICENSE">
-            <filelist dir="${FLEX_HOME}" files="LICENSE,LICENSE.bin"/>
+            <filelist dir="${FLEX_HOME}" files="LICENSE,licenseParts/LICENSE.bin"/>
         </concat>
         <!-- concat the license file with the binary license file for the 3rd party deps -->
         <concat destfile="${basedir}/temp/NOTICE">
-            <filelist dir="${FLEX_HOME}" files="NOTICE,NOTICE.bin"/>
+            <filelist dir="${FLEX_HOME}" files="NOTICE,licenseParts/NOTICE.bin"/>
         </concat>
         
         <!-- use this to build frameworks -->
@@ -1799,10 +1795,7 @@ There are no known issues.
                 <!-- exclude text files -->
                 <exclude name="CONTRIBUTING"/>
                 <exclude name="CONTRIBUTORS"/>
-                <exclude name="LICENSE.bin"/>
-                <exclude name="NOTICE.bin"/>
-                <exclude name="NOTICE.asc"/>
-                <exclude name="NOTICE.base"/>
+                <exclude name="licenseParts/*"/>
                 <exclude name="modules/thirdparty/batik/lib/**/LICENSE*.txt"/>
                 <exclude name="modules/thirdparty/batik/lib/**/README*.txt"/>
                 <exclude name="frameworks/projects/flatspark/src/flatspark/assets/fonts/**/OFL.txt"/>
