@@ -587,7 +587,7 @@ public class Shell
 	private static void intro()
 	{
 		System.out.println("Actionscript compiler SHell (ash)");
-		System.out.println("Copyright 2015 The Apache Software Foundation");
+		System.out.println("Copyright 2016 The Apache Software Foundation");
 		System.out.println("");
 	}
 
