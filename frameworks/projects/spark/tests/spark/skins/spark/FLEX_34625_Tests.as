@@ -40,7 +40,11 @@ package spark.skins.spark {
         [Before]
         public function setUp():void
         {
-            var _focusManager:FocusManager = new FocusManager(UIImpersonator.testDisplay as IFocusManagerContainer);
+            var _focusManager:FocusManager;
+            if (UIImpersonator.testDisplay is IFocusManagerContainer)
+                _focusManager = new FocusManager(UIImpersonator.testDisplay as IFocusManagerContainer);
+            else
+                _focusManager = UIImpersonator.testDisplay.parent["document"].focusManager;
             _focusManager.showFocusIndicator = true;
 
             _textInput = new TextInput();
@@ -59,7 +63,7 @@ package spark.skins.spark {
         public function test_focus_skin_with_zero_focus_thickness():void
         {
             //given
-            UIImpersonator.addChild(_textInput);
+            UIImpersonator.addElement(_textInput);
 
             //when
             _textInput.setStyle("focusThickness", 0);
@@ -75,7 +79,7 @@ package spark.skins.spark {
         public function test_focus_skin_with_NaN_focus_thickness():void
         {
             //given
-            UIImpersonator.addChild(_textInput);
+            UIImpersonator.addElement(_textInput);
 
             //when
             _textInput.setStyle("focusThickness", NaN);

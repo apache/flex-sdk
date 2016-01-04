@@ -77,6 +77,7 @@
             toDir="${tests.bin}/report"
             haltonfailure="false"
             verbose="true"
+            debug="true"
             localTrusted="true">
 
       <source dir="${project.root}/src"/>
@@ -85,7 +86,7 @@
         <include name="**/*Tests.as"/>
       </testSource>
 
-      <library dir="${FLEXUNIT_HOME}/FlexUnit4/target"/>
+      <library file="${FLEXUNIT_HOME}/FlexUnit4/target/flexunit-4.3.0-20140410-flex_4.12.0.swc"/>
       <library dir="${FLEXUNIT_HOME}/FlexUnit4CIListener/target"/>
     </flexunit>
   </target>
@@ -96,6 +97,7 @@
             toDir="${tests.bin}/report"
             haltonfailure="false"
             verbose="true"
+            debug="true"
             localTrusted="true">
 
       <source dir="${project.root}/src"/>
