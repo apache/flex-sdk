@@ -33,6 +33,7 @@ package spark.skins.spark {
     public class FLEX_34625_Tests {
 
         private static const NO_ENTER_FRAMES_TO_ALLOW:int = 4;
+        private static const TIMEOUT_MS:int = 1000;
         private static const _finishNotifier:EventDispatcher = new EventDispatcher();
         private static var _textInput:TextInput;
         private var noEnterFramesRemaining:int = NaN;
@@ -72,7 +73,7 @@ package spark.skins.spark {
             //then wait for the focus skin to show
             noEnterFramesRemaining = NO_ENTER_FRAMES_TO_ALLOW;
             UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
-            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, onTestComplete);
+            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, onTestComplete, TIMEOUT_MS);
         }
 
         [Test(async, timeout=500)]
@@ -88,7 +89,7 @@ package spark.skins.spark {
             //then wait for the focus skin to show
             noEnterFramesRemaining = NO_ENTER_FRAMES_TO_ALLOW;
             UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
-            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, onTestComplete);
+            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, onTestComplete, TIMEOUT_MS);
         }
 
         private function onEnterFrame(event:Event):void
