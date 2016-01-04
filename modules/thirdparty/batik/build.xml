@@ -538,7 +538,7 @@ To display the available targets type:
 JAVA=/usr/bin/java
 [ -e "$JAVA_HOME/bin/java" ] && JAVA="$JAVA_HOME/bin/java"
 
-"$JAVA" -Dcom.apple.mrj.application.apple.menu.about.name=Squiggle -jar "`dirname $0`/../Resources/batik-squiggle.jar"
+"$JAVA" -Dcom.apple.mrj.application.apple.menu.about.name=Squiggle -jar "`dirname "$0"`/../Resources/batik-squiggle.jar"
 ]]></echo>
     <chmod perm="a+x" file="${app}/Contents/MacOS/Squiggle"/>
     <copy todir="${app}/Contents/Resources">

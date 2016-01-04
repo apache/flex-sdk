@@ -34,7 +34,7 @@ esac
 if [ $OS = "Windows" ]; then
 	# set FLEX_HOME relative to fontswf if not set
 	test "$FLEX_HOME" = "" && {
-	FLEX_HOME=`dirname $0`/..
+	FLEX_HOME=`dirname "$0"`/..
     	FLEX_HOME=`cygpath -m $FLEX_HOME`
 	}
 
@@ -42,7 +42,7 @@ elif [ $OS = "Unix" ]; then
 
 	# set FLEX_HOME relative to fontswf if not set
 	test "$FLEX_HOME" = "" && {
-	FLEX_HOME=`dirname $0`/..
+	FLEX_HOME=`dirname "$0"`/..
 	}
 
 fi

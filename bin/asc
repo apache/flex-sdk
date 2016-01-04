@@ -34,7 +34,7 @@ esac
 if [ $OS = "Windows" ]; then
 	# set FLEX_HOME relative to fdb if not set
 	test "$FLEX_HOME" = "" && {
-    	FLEX_HOME=`dirname $0`/..
+    	FLEX_HOME=`dirname "$0"`/..
     	FLEX_HOME=`cygpath -m $FLEX_HOME`
 	}
 
@@ -46,7 +46,7 @@ fi
 if [ $OS = "Unix" ]; then
 	# set FLEX_HOME relative to fdb if not set
 	test "$FLEX_HOME" = "" && {
-    	FLEX_HOME=`dirname $0`/..
+    	FLEX_HOME=`dirname "$0"`/..
 	}
 
 	VMARGS="-ea -Dapplication.home=$FLEX_HOME -Xms32m -Xmx384m"
