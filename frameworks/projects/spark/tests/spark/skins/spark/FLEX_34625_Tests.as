@@ -60,7 +60,7 @@ package spark.skins.spark {
             _textInput = null;
         }
 
-        [Test(async, timeout=500)]
+        [Test(async, timeout=1100)]
         public function test_focus_skin_with_zero_focus_thickness():void
         {
             //given
@@ -76,7 +76,7 @@ package spark.skins.spark {
             Async.handleEvent(this, _finishNotifier, Event.COMPLETE, onTestComplete, TIMEOUT_MS);
         }
 
-        [Test(async, timeout=500)]
+        [Test(async, timeout=1100)]
         public function test_focus_skin_with_NaN_focus_thickness():void
         {
             //given
