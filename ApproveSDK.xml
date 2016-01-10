@@ -198,7 +198,7 @@
         <delete file="jars.txt" />
         <!-- this is a comma-delimited, no spaces, no-line-breaks list used to decide which jars
          to skip in the rat-check of the binaries and which jars to examine before approval -->
-        <property name="jars-list" value="ant/lib/flexTasks.jar,lib/asc.jar,lib/asdoc.jar,lib/batik-all-flex.jar,lib/compc.jar,lib/copylocale.jar,lib/digest.jar,lib/fcsh.jar,lib/fdb.jar,lib/flex-compiler-oem.jar,lib/flex-messaging-common.jar,lib/flex-tool-api.jar,lib/fxgutils.jar,lib/mxmlc.jar,lib/mxmlc_da.jar,lib/mxmlc_de.jar,lib/mxmlc_es.jar,lib/mxmlc_fi.jar,lib/mxmlc_fr.jar,lib/mxmlc_it.jar,lib/mxmlc_ja.jar,lib/mxmlc_ko.jar,lib/mxmlc_nb.jar,lib/mxmlc_nl.jar,lib/mxmlc_pt.jar,lib/mxmlc_ru.jar,lib/mxmlc_sv.jar,lib/mxmlc_zh_CN.jar,lib/mxmlc_zh_TW.jar,lib/optimizer.jar,lib/swcdepends.jar,lib/swfdump.jar,lib/swfutils.jar,lib/velocity-dep-1.4-flex.jar"/>
+        <property name="jars-list" value="ant/lib/flexTasks.jar,lib/asc.jar,lib/asdoc.jar,lib/batik-all-flex.jar,lib/compc.jar,lib/copylocale.jar,lib/digest.jar,lib/fcsh.jar,lib/fdb.jar,lib/flex-compiler-oem.jar,lib/flex-tool-api.jar,lib/fxgutils.jar,lib/mxmlc.jar,lib/mxmlc_da.jar,lib/mxmlc_de.jar,lib/mxmlc_es.jar,lib/mxmlc_fi.jar,lib/mxmlc_fr.jar,lib/mxmlc_it.jar,lib/mxmlc_ja.jar,lib/mxmlc_ko.jar,lib/mxmlc_nb.jar,lib/mxmlc_nl.jar,lib/mxmlc_pt.jar,lib/mxmlc_ru.jar,lib/mxmlc_sv.jar,lib/mxmlc_zh_CN.jar,lib/mxmlc_zh_TW.jar,lib/optimizer.jar,lib/swcdepends.jar,lib/swfdump.jar,lib/swfutils.jar,lib/velocity-dep-1.4-flex.jar"/>
         <echo file="${basedir}/jars.txt" message="${jars-list}"/>
         <echo file="${basedir}/jarexcludes.txt" message="${jars-list}"/>
         <replaceregexp file="${basedir}/jarexcludes.txt" match="," flags="g" replace="${line.separator}" />
@@ -319,7 +319,11 @@
                 <!-- exclude text files -->
                 <exclude name="CONTRIBUTING"/>
                 <exclude name="CONTRIBUTORS"/>
-                <exclude name="licenseParts/*"/>
+                <exclude name="licenseParts/LICENSE.bin"/>
+                <exclude name="licenseParts/NOTICE.bin"/>
+                <exclude name="licenseParts/NOTICE.asc"/>
+                <exclude name="licenseParts/NOTICE.base"/>
+                <exclude name="licenseParts/NOTICE.pb"/>
                 <exclude name="modules/thirdparty/batik/lib/**/LICENSE*.txt"/>
                 <exclude name="modules/thirdparty/batik/lib/**/README*.txt"/>
                 <exclude name="frameworks/projects/flatspark/src/flatspark/assets/fonts/**/OFL.txt"/>
@@ -406,7 +410,11 @@
                 <!-- exclude text files -->
                 <exclude name="CONTRIBUTING"/>
                 <exclude name="CONTRIBUTORS"/>
-                <exclude name="licenseParts/*"/>
+                <exclude name="licenseParts/LICENSE.bin"/>
+                <exclude name="licenseParts/NOTICE.bin"/>
+                <exclude name="licenseParts/NOTICE.asc"/>
+                <exclude name="licenseParts/NOTICE.base"/>
+                <exclude name="licenseParts/NOTICE.pb"/>
                 <exclude name="modules/thirdparty/batik/lib/**/LICENSE*.txt"/>
                 <exclude name="modules/thirdparty/batik/lib/**/README*.txt"/>
                 <exclude name="frameworks/projects/flatspark/src/flatspark/assets/fonts/**/OFL.txt"/>
@@ -1195,8 +1203,6 @@
                 <equals arg1="${releasenotes.ok}" arg2="y" />
                 <equals arg1="${src.notice.ok}" arg2="y" />
                 <equals arg1="${bin.notice.ok}" arg2="y" />
-                <equals arg1="${readmejx.ok}" arg2="y" />
-                <equals arg1="${releasenotesjx.ok}" arg2="y" />
                 <equals arg1="${src.license.ok}" arg2="y" />
                 <equals arg1="${bin.license.ok}" arg2="y" />
 			</and>

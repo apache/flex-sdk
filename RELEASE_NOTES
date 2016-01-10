@@ -58,6 +58,9 @@ FLEX-34929	Error #1009 when copy/paste a text with style effect in a
 			RichEditableText/RichTextEditor
 FLEX-34934	Spark Window - Closed Window
 FLEX-34944	GridItemRenderer overrides error tooltip
+FLEX-34954	SkinnableTextBase steals focus by callLater(textDisplay.setFocus)
+FLEX-34982	Charting components that are unable to find their style
+			declarations causing RTE
 FLEX-35003	Update to FontAwesome 4.5
 PR#8		Mxmlc accepts not only *.swc but also *.ane files
 PR#12		Fix MenuBar.styleChanged() crash bug
