@@ -32,7 +32,7 @@ import java.util.Properties;
 public class VersionInfo
 {
     public static String FLEX_MAJOR_VERSION = "4";
-    public static String FLEX_MINOR_VERSION = "15";
+    public static String FLEX_MINOR_VERSION = "16";
     public static String FLEX_NANO_VERSION  = "0";
     
 	/**
