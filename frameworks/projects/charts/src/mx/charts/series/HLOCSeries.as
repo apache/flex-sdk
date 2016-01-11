@@ -166,6 +166,9 @@ public class HLOCSeries extends HLOCSeriesBase
 	public function HLOCSeries()
 	{
 		super();
+
+		//Our style settings
+		initStyles();
 	}
 
 	//--------------------------------------------------------------------------
@@ -188,11 +191,13 @@ public class HLOCSeries extends HLOCSeriesBase
 	/**
 	 *  @private
 	 */
-	private function initStyles():Boolean
+	private function initStyles():void
 	{
 		HaloDefaults.init(styleManager);
-		
+
 		var hlocSeriesStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.series.HLOCSeries");
+
+
 		if (hlocSeriesStyle)
 		{
 			hlocSeriesStyle.setStyle("closeTickStroke", new SolidColorStroke(0, 3, 1, false, "normal", "none"));
@@ -200,9 +205,16 @@ public class HLOCSeries extends HLOCSeriesBase
 			hlocSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.HLOCItemRenderer));
 			hlocSeriesStyle.setStyle("stroke", new SolidColorStroke(0,0));
 		}
-		
-		return true;
+        else
+        {
+            //Fallback to set the style to this chart directly.
+			setStyle("closeTickStroke", new SolidColorStroke(0, 3, 1, false, "normal", "none"));
+			setStyle("openTickStroke", new SolidColorStroke(0, 3, 1, false, "normal", "none"));
+			setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.HLOCItemRenderer));
+			setStyle("stroke", new SolidColorStroke(0,0));
+        }
 	}
+
 
 	/**
 	 *  @inheritDoc
@@ -220,9 +232,6 @@ public class HLOCSeries extends HLOCSeriesBase
 			return;
 		
 		_moduleFactoryInitialized[factory] = true;
-		
-		// our style settings
-		initStyles();
 	}
 	
 	/**

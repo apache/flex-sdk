@@ -262,7 +262,16 @@ abstract class Info
 
         if (lastIndex < 0)
         {
-            lastIndex = name.lastIndexOf(".");
+            // check for __AS3__.vec.Vector.<T>
+            int dotLessThanIndex = name.lastIndexOf(".<");
+            if (dotLessThanIndex != -1)
+            {
+                lastIndex = name.lastIndexOf(".", dotLessThanIndex - 1);
+            }
+            else
+            {
+                lastIndex = name.lastIndexOf(".");
+            }
         }
 
         if (lastIndex > 0)

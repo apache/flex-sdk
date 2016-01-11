@@ -56,7 +56,7 @@ public class IncludeListTextFile
 		delimiter = new RegExp("\n", "g");
 		data = data.replace(delimiter, ",");
 
-		UnitTester.includeList = new Object();
+		UnitTester.includeList = {};
 		var items:Array = data.split(",");
 		var n:int = items.length;
 		for (var i:int = 0; i < n; i++)

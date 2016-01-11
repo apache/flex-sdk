@@ -200,6 +200,9 @@ public class BubbleSeries extends Series
         _instanceCache.creationCallback = applyItemRendererProperties;
         
         dataTransform = new CartesianTransform();
+
+		// our style settings
+		initStyles();
     }
 
     //--------------------------------------------------------------------------
@@ -699,11 +702,13 @@ public class BubbleSeries extends Series
 	/**
 	 *  @private
 	 */
-	private function initStyles():Boolean
+	private function initStyles():void
 	{
 		HaloDefaults.init(styleManager);
-		
+
 		var bubbleSeriesStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.series.BubbleSeries");
+
+
 		if (bubbleSeriesStyle)
 		{
 			bubbleSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.CircleItemRenderer));
@@ -711,10 +716,17 @@ public class BubbleSeries extends Series
 			bubbleSeriesStyle.setStyle("fills", []);
 			bubbleSeriesStyle.setStyle("stroke", new SolidColorStroke(0,1,0.2));
 		}
-		
-		return true;
+        else
+        {
+            //Fallback to set the style to this chart directly.
+			setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.CircleItemRenderer));
+			setStyle("fill", new SolidColor(0x444444));
+			setStyle("fills", []);
+			setStyle("stroke", new SolidColorStroke(0,1,0.2));
+        }
 	}
-	
+
+
 	/**
 	 *  @inheritDoc
 	 *  
@@ -731,9 +743,6 @@ public class BubbleSeries extends Series
 			return;
 		
 		_moduleFactoryInitialized[factory] = true;
-		
-		// our style settings
-		initStyles();
 	}
 	
     /**

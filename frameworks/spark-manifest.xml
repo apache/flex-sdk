@@ -101,6 +101,8 @@
     <component id="GraphicElement" class="spark.primitives.supportClasses.GraphicElement"/>
     <component id="Grid" class="spark.components.Grid"/>
     <component id="GridColumn" class="spark.components.gridClasses.GridColumn"/>
+    <component id="GridSortFieldSimple" class="spark.components.gridClasses.GridSortFieldSimple"/>
+    <component id="GridSortFieldComplex" class="spark.components.gridClasses.GridSortFieldComplex"/>
     <component id="GridItemEditor" class="spark.components.gridClasses.GridItemEditor" />
     <component id="GridItemRenderer" class="spark.components.gridClasses.GridItemRenderer"/>
     <component id="GridLayer" class="spark.components.gridClasses.GridLayer"/>
@@ -179,6 +181,7 @@
     <component id="SliderBase" class="spark.components.supportClasses.SliderBase"/>
     <component id="Sort" class="spark.collections.Sort"/>
     <component id="SortField" class="spark.collections.SortField"/>
+    <component id="ComplexSortField" class="spark.collections.ComplexSortField"/>
     <component id="SortingCollator" class="spark.globalization.SortingCollator"/>
     <component id="Spacer" class="mx.controls.Spacer" lookupOnly="true"/>
     <component id="SparkButtonSkin" class="spark.skins.SparkButtonSkin"/>

@@ -3969,11 +3969,10 @@ public class DataGrid extends DataGridBase implements IIMESupport
                 {
                     for (var i:int = 0; i < sf.length; i++)
                     {
-
                         if (sf[i].name == c.dataField)
                         {
                             // we're part of the current sort
-                            f = sf[i]
+                            f = sf[i];
                             // flip the logic so desc is new desired order
                             desc = !f.descending;
                             break;
@@ -3986,7 +3985,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
             if (!f)
             {
-                f = new SortField(c.dataField);
+                f = new SortField(c.dataField, false, desc, null, null, c.sortCompareFunction);
                 f.sortCompareType = c.sortCompareType;
             }
 
@@ -4002,14 +4001,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
             // if you have a labelFunction you must supply a sortCompareFunction
             f.name = c.dataField;
-            if (c.sortCompareFunction != null)
-            {
-                f.compareFunction = c.sortCompareFunction;
-            }
-            else
-            {
-                f.compareFunction = null;
-            }
+            f.compareFunction = c.sortCompareFunction;
             f.descending = desc;
             s.fields = [f];
         }

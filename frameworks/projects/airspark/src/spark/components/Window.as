@@ -749,7 +749,7 @@ public class Window extends SkinnableContainer implements IWindow
      */
     override public function get maxHeight():Number
     {
-        if (nativeWindow && !maxHeightChanged)
+        if (nativeWindow && !maxHeightChanged && !nativeWindow.closed && nativeWindow.maxSize)
             return nativeWindow.maxSize.y - chromeHeight();
         else
             return _maxHeight;
@@ -797,7 +797,7 @@ public class Window extends SkinnableContainer implements IWindow
      */
     override public function get maxWidth():Number
     {
-        if (nativeWindow && !maxWidthChanged)
+        if (nativeWindow && !maxWidthChanged && !nativeWindow.closed && nativeWindow.maxSize)
             return nativeWindow.maxSize.x - chromeWidth();
         else
             return _maxWidth;
@@ -851,7 +851,7 @@ public class Window extends SkinnableContainer implements IWindow
      */
     override public function get minHeight():Number
     {
-        if (nativeWindow && !minHeightChanged)
+        if (nativeWindow && !minHeightChanged && !nativeWindow.closed && nativeWindow.minSize)
             return nativeWindow.minSize.y - chromeHeight();
         else
             return _minHeight;
@@ -899,7 +899,7 @@ public class Window extends SkinnableContainer implements IWindow
      */
     override public function get minWidth():Number
     {
-        if (nativeWindow && !minWidthChanged)
+        if (nativeWindow && !minWidthChanged && !nativeWindow.closed && nativeWindow.minSize)
             return nativeWindow.minSize.x - chromeWidth();
         else
             return _minWidth;

@@ -20,29 +20,27 @@
 package mx.collections
 {
 
-import flash.events.Event;
-import flash.events.EventDispatcher;
-import flash.utils.Proxy;
-import flash.utils.flash_proxy;
-import flash.utils.getQualifiedClassName;
+    import flash.events.Event;
+    import flash.events.EventDispatcher;
+    import flash.utils.Proxy;
+    import flash.utils.flash_proxy;
+    import flash.utils.getQualifiedClassName;
 
-import mx.collections.errors.CollectionViewError;
-import mx.collections.errors.CursorError;
-import mx.collections.errors.ItemPendingError;
-import mx.collections.errors.SortError;
-import mx.core.IMXMLObject;
-import mx.core.mx_internal;
-import mx.events.CollectionEvent;
-import mx.events.CollectionEventKind;
-import mx.events.FlexEvent;
-import mx.events.PropertyChangeEvent;
-import mx.managers.ISystemManager;
-import mx.managers.SystemManager;
-import mx.resources.IResourceManager;
-import mx.resources.ResourceManager;
-import mx.utils.ObjectUtil;
+    import mx.binding.utils.BindingUtils;
+    import mx.binding.utils.ChangeWatcher;
+    import mx.collections.errors.CollectionViewError;
+    import mx.collections.errors.ItemPendingError;
+    import mx.collections.errors.SortError;
+    import mx.core.IMXMLObject;
+    import mx.core.mx_internal;
+    import mx.events.CollectionEvent;
+    import mx.events.CollectionEventKind;
+    import mx.events.PropertyChangeEvent;
+    import mx.resources.IResourceManager;
+    import mx.resources.ResourceManager;
+    import mx.utils.ObjectUtil;
 
-use namespace mx_internal;
+    use namespace mx_internal;
 
 /**
  *  Dispatched when the ICollectionView has been updated in some way.
@@ -101,6 +99,12 @@ public class ListCollectionView extends Proxy
     // Private variables
     //
     //--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     *  Change watcher for complex sort fields.
+     */
+    private var _complexFieldWatcher:ComplexFieldChangeWatcher;
 
     /**
      *  @private
@@ -375,12 +379,21 @@ public class ListCollectionView extends Proxy
     /**
      *  @private
      */
-    public function set sort(s:ISort):void
+    public function set sort(value:ISort):void
     {
-        _sort = s;
-		
-        dispatchEvent(new Event("sortChanged"));
+        if(_sort != value)
+        {
+            stopWatchingForComplexFieldsChanges();
+
+            _sort = value;
+
+            startWatchingForComplexFieldsChanges();
+
+            dispatchEvent(new Event("sortChanged"));
+        }
     }
+
+
 
     //--------------------------------------------------------------------------
     //
@@ -622,7 +635,7 @@ public class ListCollectionView extends Proxy
      *  Adds a list of items to the current list, placing them at the end of
      *  the list in the order they are passed.
      * 
-     *  @param IList The list of items to add to the current list
+     *  @param addList IList The list of items to add to the current list
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -642,7 +655,7 @@ public class ListCollectionView extends Proxy
      *  index passed in to the function.  The items are placed at the index location
      *  and placed in the order they are recieved.
      * 
-     *  @param IList The list of items to add to the current list
+     *  @param addList IList The list of items to add to the current list
      *  @param index The location of the current list to place the new items.
      *  @throws RangeError if index is less than 0 or greater than the length of the list. 
      *  
@@ -1052,13 +1065,13 @@ public class ListCollectionView extends Proxy
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function addEventListener(type:String,
+    public function addEventListener(eventType:String,
                                      listener:Function,
                                      useCapture:Boolean = false,
                                      priority:int = 0,
                                      useWeakReference:Boolean = false):void
     {
-        eventDispatcher.addEventListener(type, listener, useCapture,
+        eventDispatcher.addEventListener(eventType, listener, useCapture,
                                          priority, useWeakReference);
     }
 
@@ -1070,11 +1083,11 @@ public class ListCollectionView extends Proxy
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function removeEventListener(type:String,
+    public function removeEventListener(eventType:String,
                                         listener:Function,
                                         useCapture:Boolean = false):void
     {
-        eventDispatcher.removeEventListener(type, listener, useCapture);
+        eventDispatcher.removeEventListener(eventType, listener, useCapture);
     }
 
     /**
@@ -1098,9 +1111,9 @@ public class ListCollectionView extends Proxy
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function hasEventListener(type:String):Boolean
+    public function hasEventListener(eventType:String):Boolean
     {
-        return eventDispatcher.hasEventListener(type);
+        return eventDispatcher.hasEventListener(eventType);
     }
 
     /**
@@ -1111,9 +1124,9 @@ public class ListCollectionView extends Proxy
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function willTrigger(type:String):Boolean
+    public function willTrigger(eventType:String):Boolean
     {
-        return eventDispatcher.willTrigger(type);
+        return eventDispatcher.willTrigger(eventType);
     }
 
     //--------------------------------------------------------------------------
@@ -1129,8 +1142,6 @@ public class ListCollectionView extends Proxy
      *
      *  @param items the items to add into the view
      *  @param sourceLocation the location within the list where the items were added
-     *  @param extendedInfo Object reference to any additional event information
-     *         that needs to be preserved.
      *  @param dispatch true if the view should dispatch a corresponding
      *                 CollectionEvent with kind ADD (default is true)
      *  
@@ -1260,7 +1271,7 @@ public class ListCollectionView extends Proxy
         }
         catch (e:SortError)
         {
-            // usually because the find critieria is not compatible with the sort.
+            // usually because the find criteria is not compatible with the sort.
         }
         
         return -1;
@@ -1408,7 +1419,7 @@ public class ListCollectionView extends Proxy
     }
 
     /**
-     * Given a set of PropertyChangeEvents go through and update the view.
+     * Given a set of <code>PropertyChangeEvent</code>s go through and update the view.
      * This is currently not optimized.
      *  
      *  @langversion 3.0
@@ -1456,7 +1467,7 @@ public class ListCollectionView extends Proxy
 					if (updatedItems[j].item == item)
 					{
 						// even if it is, if a different property changed, track that too.
-						var evts:Array = updatedItems[j].events;
+						var evts:Array = updatedItems[j].events as Array;
 						var l:int = evts.length;
 						for (var k:int = 0; k < l; k++)
 						{
@@ -1479,7 +1490,8 @@ public class ListCollectionView extends Proxy
                 }
                 else
                 {
-                    updateEntry = { item: item, move: defaultMove, events: [ updateInfo ] };
+                    updateEntry = {item: item, move: defaultMove, events: [updateInfo],
+                        entireObjectChanged: updateInfo.property == null, oldItem: updateInfo.property == null ? updateInfo.oldValue : null};
                     updatedItems.push(updateEntry);
                 }
 
@@ -1491,7 +1503,7 @@ public class ListCollectionView extends Proxy
                 updateEntry.move =
                     updateEntry.move
                     || filterFunction != null
-                    || !updateInfo.property
+                    || updateEntry.entireObjectChanged
                     || (sort && sort.propertyAffectsSort(String(updateInfo.property)));
             }
 
@@ -1503,6 +1515,10 @@ public class ListCollectionView extends Proxy
                 updateEntry = updatedItems[i];
                 if (updateEntry.move)
                 {
+                    if(updateEntry.entireObjectChanged)
+                    {
+                        removeItemsFromView([updateEntry.oldItem], -1, true);
+                    }
                     moveItemInView(updateEntry.item, updateEntry.item, eventItems);
                 }
                 else
@@ -1654,8 +1670,7 @@ public class ListCollectionView extends Proxy
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    private function moveItemInView(item:Object,
-                                      dispatch:Boolean = true, updateEventItems:Array = null):void
+    private function moveItemInView(item:Object, dispatch:Boolean = true, updateEventItems:Array = null):void
     {
         if (localIndex)
         {
@@ -1794,18 +1809,18 @@ public class ListCollectionView extends Proxy
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    private function replaceItemsInView(items:Array,
+    private function replaceItemsInView(changeEvents:Array,
                                           location:int,
                                           dispatch:Boolean = true):void
     {
         if (localIndex)
         {
-            var len:int = items.length;
+            var len:int = changeEvents.length;
             var oldItems:Array = [];
             var newItems:Array = [];
             for (var i:int = 0; i < len; i++)
             {
-                var propertyEvent:PropertyChangeEvent = items[i];
+                var propertyEvent:PropertyChangeEvent = changeEvents[i];
                 oldItems.push(propertyEvent.oldValue);
                 newItems.push(propertyEvent.newValue);
             }
@@ -1818,7 +1833,7 @@ public class ListCollectionView extends Proxy
                 new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
             event.kind = CollectionEventKind.REPLACE;
             event.location = location;
-            event.items = items;
+            event.items = changeEvents;
             dispatchEvent(event);
         }
     }
@@ -1839,19 +1854,61 @@ public class ListCollectionView extends Proxy
         }
     }
 
+    public function get complexFieldWatcher():ComplexFieldChangeWatcher
+    {
+        return _complexFieldWatcher;
+    }
+
+    public function set complexFieldWatcher(value:ComplexFieldChangeWatcher):void
+    {
+        if(_complexFieldWatcher != value)
+        {
+            stopWatchingForComplexFieldsChanges();
+
+            _complexFieldWatcher = value;
+            if(_complexFieldWatcher)
+                _complexFieldWatcher.mx_internal::list = this;
+
+            startWatchingForComplexFieldsChanges();
+        }
+    }
+
+    private function startWatchingForComplexFieldsChanges():void
+    {
+        if(complexFieldWatcher && sort && sort.fields)
+        {
+            _complexFieldWatcher.addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, onComplexFieldValueChanged, false, 0, true);
+            _complexFieldWatcher.startWatchingForComplexFieldChanges();
+        }
+    }
+
+    private function stopWatchingForComplexFieldsChanges():void
+    {
+        if(complexFieldWatcher)
+        {
+            _complexFieldWatcher.removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, onComplexFieldValueChanged);
+            _complexFieldWatcher.stopWatchingForComplexFieldChanges();
+        }
+    }
+
+    private function onComplexFieldValueChanged(changeEvent:PropertyChangeEvent):void
+    {
+        if(sort)
+        {
+            moveItemInView(changeEvent.source);
+        }
+    }
 }
 
 }
 
-import flash.events.EventDispatcher;
 import flash.events.Event;
-import flash.events.IEventDispatcher;
+import flash.events.EventDispatcher;
 
-import mx.events.*;
 import mx.collections.*;
 import mx.collections.errors.*;
 import mx.core.mx_internal;
-import mx.managers.*;
+import mx.events.*;
 import mx.resources.IResourceManager;
 import mx.resources.ResourceManager;
 
@@ -2300,7 +2357,6 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      *  @see mx.collections.IViewCursor#current
      *  @see mx.collections.IViewCursor#movePrevious
      *  @see mx.collections.errors.ItemPendingError
-     *  @see mx.collectoins.events.ItemAvailableEvent
      *  @example
      *  <pre>
      *    var myArrayCollection:ICollectionView = new ArrayCollection(["Bobby", "Mark", "Trevor", "Jacey", "Tyler"]);
@@ -2353,7 +2409,6 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      *  @see mx.collections.IViewCursor#current
      *  @see mx.collections.IViewCursor#moveNext
      *  @see mx.collections.errors.ItemPendingError
-     *  @see mx.collectoins.events.ItemAvailableEvent
      *  @example
      *  <pre>
      *     var myArrayCollection:ICollectionView = new ArrayCollection(["Bobby", "Mark", "Trevor", "Jacey", "Tyler"]);

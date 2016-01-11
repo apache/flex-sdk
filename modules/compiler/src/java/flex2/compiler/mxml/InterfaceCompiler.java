@@ -1796,6 +1796,11 @@ public class InterfaceCompiler extends flex2.compiler.AbstractSubCompiler implem
         {
             String className = (String) getLanguageAttributeValue(node, StandardDefs.PROP_TYPE);
             requestType(NameFormatter.toColon(className), node);
+
+            // the items in a Vector may be subclasses of the Vector's type, and
+            // those subclasses may not have been used anywhere else, so we
+            // can't assume that requesting the Vector's type is enough.
+            analyze((Node) node);
         }
 
         public void analyze(DefinitionNode node)

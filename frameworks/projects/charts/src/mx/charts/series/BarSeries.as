@@ -273,6 +273,9 @@ public class BarSeries extends Series implements IStackable2, IBar
         };
         
         dataTransform = new CartesianTransform();
+
+        // our style settings
+        initStyles();
     }
     
     private function getLabelClass():Class
@@ -1058,11 +1061,13 @@ public class BarSeries extends Series implements IStackable2, IBar
 	/**
      *  @private
      */
-    private function initStyles():Boolean
+    private function initStyles():void
     {
         HaloDefaults.init(styleManager);
 		
 		var barSeriesStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.series.BarSeries");
+
+
 		if (barSeriesStyle)
 		{
 			barSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.BoxItemRenderer));
@@ -1070,10 +1075,17 @@ public class BarSeries extends Series implements IStackable2, IBar
 			barSeriesStyle.setStyle("fills", []);
 			barSeriesStyle.setStyle("stroke", HaloDefaults.emptyStroke);
 		}
-		
-        return true;
+        else
+        {
+            //Fallback to set the style to this chart directly.
+			setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.BoxItemRenderer));
+			setStyle("fill", new SolidColor(0x000000));
+			setStyle("fills", []);
+			setStyle("stroke", HaloDefaults.emptyStroke);
+        }
     }
-    
+
+
     /**
      *  @inheritDoc
      *  
@@ -1090,9 +1102,6 @@ public class BarSeries extends Series implements IStackable2, IBar
             return;
         
         _moduleFactoryInitialized[factory] = true;
-        
-        // our style settings
-        initStyles();
     }
     
     /**

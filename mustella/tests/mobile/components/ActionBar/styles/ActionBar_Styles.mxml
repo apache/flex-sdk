@@ -198,7 +198,7 @@
 			</setup>
 			<body>
 				<AssertStyleValue target="actionBar.titleDisplay" styleName="textDecoration" value="underline" />
-				<CompareBitmap url="../styles/baselines" target="actionBar" numColorVariances="2" ignoreMaxColorVariance="true">
+				<CompareBitmap url="../styles/baselines" target="actionBar" numColorVariances="14" ignoreMaxColorVariance="true">
 					<ConditionalValue deviceDensity="160" os="win"/>
 					<ConditionalValue deviceDensity="240" os="android"/>
 					<ConditionalValue deviceDensity="320" os="win"/>

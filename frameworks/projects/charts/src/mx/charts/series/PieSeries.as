@@ -359,7 +359,10 @@ public class PieSeries extends Series
 		filters = [ new DropShadowFilter(DROP_SHADOW_SIZE, 45, 0, 60,
                                          DROP_SHADOW_SIZE, DROP_SHADOW_SIZE) ];
         
-        dataTransform = new PolarTransform();                                 
+        dataTransform = new PolarTransform();  
+
+		// our style settings
+		initStyles();
     }
 
     //--------------------------------------------------------------------------
@@ -1170,29 +1173,39 @@ public class PieSeries extends Series
 	/**
 	 *  @private
 	 */
-	private function initStyles():Boolean
+	private function initStyles():void
 	{
 		HaloDefaults.init(styleManager);
 		
+		var pieSeriesStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.series.PieSeries");
 		var pieFills:Array /* of IFill */ = [];
-		
 		var n:int = HaloDefaults.defaultFills.length;
+
+
 		for (var i:int = 0; i < n; i++)
 		{
 			pieFills[i] = HaloDefaults.defaultFills[i];
 		}
-		
-		var pieSeriesStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.series.PieSeries");
+
+
 		if (pieSeriesStyle)
 		{
 			pieSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.WedgeItemRenderer));
 			pieSeriesStyle.setStyle("fills", pieFills);
 			pieSeriesStyle.setStyle("legendMarkerRenderer", new ClassFactory(PieSeriesLegendMarker));
 			pieSeriesStyle.setStyle("calloutStroke", new SolidColorStroke(0,0,1));
-		}		
-		return true;
+		}
+        else
+        {
+            //Fallback to set the style to this chart directly.
+			setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.WedgeItemRenderer));
+			setStyle("fills", pieFills);
+			setStyle("legendMarkerRenderer", new ClassFactory(PieSeriesLegendMarker));
+			setStyle("calloutStroke", new SolidColorStroke(0,0,1));
+        }
 	}
-	
+
+
 	/**
 	 *  @inheritDoc
 	 *  
@@ -1209,9 +1222,6 @@ public class PieSeries extends Series
 			return;
 		
 		_moduleFactoryInitialized[factory] = true;
-		
-		// our style settings
-		initStyles();
 	}
 	
     /**

@@ -2,8 +2,8 @@ The Apache Flex SDK
 ===================
 
 The Apache Flex SDK is the evolution of the popular Adobe Flex SDK. The Apache
-Flex SDK is an application development framework for easily building Flash
-based applications for mobile devices, web browsers, and desktop platforms.
+Flex SDK is an application development framework for easily building Flash-based
+applications for mobile devices, web browsers, and desktop platforms.
 Currently supported platforms include:
 
     Microsoft Windows
@@ -21,7 +21,7 @@ For more information about the Apache Flex project, please visit:
 
     http://flex.apache.org/
 
-The Apache Flex SDK 4.14.1 is a follow up release to version 4.14.0. It is
+The Apache Flex SDK 4.15 is a follow up release to version 4.14.1. It is
 compatible with most code written for the original Adobe Flex 4.6 SDK.
 
 
@@ -78,7 +78,7 @@ Prepare your system
 
 Before building the Apache Flex SDK you must install the following software and
 set the corresponding environment variables. Make sure to use absolute paths,
-relative paths will result in build errors.
+as relative paths will result in build errors.
 
 The environment variables PLAYERGLOBAL_HOME, AIR_HOME, FLASHPLAYER_DEBUGGER,
 TLF_HOME, BLAZEDS_HOME and ADOBE_EXTENSION_MANAGER can also be set in a
@@ -144,11 +144,11 @@ and you will get compile errors.
 * 3)
 The Adobe AIR integration kit for Windows can be downloaded from:
 
-   http://airdownload.adobe.com/air/win/download/16.0/AdobeAIRSDK.zip
+   http://airdownload.adobe.com/air/win/download/20.0/AdobeAIRSDK.zip
 
 The Adobe AIR integration kit for Mac can be downloaded from:
 
-    http://airdownload.adobe.com/air/mac/download/16.0/AdobeAIRSDK.tbz2
+    http://airdownload.adobe.com/air/mac/download/20.0/AdobeAIRSDK.tbz2
 
 The Adobe AIR integration kit for Linux can be downloaded from:
 
@@ -169,7 +169,7 @@ The Adobe Flash Player content debuggers can be found here:
 This version of the Apache Flex SDK was certified for use with Adobe Flash
 Player 11.1, and is compatible with version 10.2 and up. It has been tested
 with versions 11.1, 11.7, 13.0 and 16.0 on Windows and Mac. It has been
-compiled, but not fully tested, against other Adobe Flash Player versions.
+compiled, but not fully tested, with other Adobe Flash Player versions.
 It has not been fully tested on Linux.
 
 On Windows, set FLASHPLAYER_DEBUGGER to the absolute path including the
@@ -195,8 +195,8 @@ versions of the Adobe Flash Player can be found in the section
 'Adobe Flash Player Version Support' below.
 
 * 6)
-The build scripts assume that the source code folder containing the Apache Flex
-Text Layout Framework root folder ('flex-tlf') is at the same level as the SDK
+The build scripts assume that the root folder containing the source code for
+Apache Flex Text Layout Framework ('flex-tlf') is at the same level as the SDK
 root folder ('flex-sdk'). See 'Getting the source code', below. If this is not
 the case on your system, then you must set the TLF_HOME environment variable to
 point to your TLF root folder. If you are using a released artifact, the
@@ -226,9 +226,9 @@ and set ADOBE_EXTENSION_MANAGER to the absolute path of
 On Linux, no Adobe Extension Manager exists.
 
 * 8)
-The build scripts assume that the source code folder containing the Apache Flex
-BlazeDS root folder ('flex-blazeds') is at the same level as the SDK
-root folder ('flex-sdk'). See 'Getting the source code', below. If this is not
+The build scripts assume that the root folder containing the source code for Apache
+Flex BlazeDS ('flex-blazeds') is at the same level as the SDK root folder
+('flex-sdk'). See 'Getting the source code', below. If this is not
 the case on your system, then you must set the BLAZEDS_HOME environment variable
 to point to your BLAZEDS root folder. If you are using a released artifact, the
 source should be included in the artifact, so setting BLAZEDS_HOME is not
@@ -324,15 +324,15 @@ To create an SDK for Flash Builder or any other IDE, run:
     ant -f installer.xml
     
 If you want to set the Flash Player and AIR versions to something other
-than their defaults, pass the verisons to the ant script like so:
+than their defaults, pass the versions to the ant script like so:
 
      ant -f installer.xml -Dflash.sdk.version=16.0 -Dair.sdk.version=16.0
 
 On Mac/Linux the AIR and Flash Player version can be changed, after the SDK
 has been compiled, by running:
 
-    ./ide/setFlashPlayerVersion.sh ./ 16.0
-    ./ide/addAIRtoSDK.sh 16.0 ./
+    ./ide/setFlashPlayerVersion.sh ./ 20.0
+    ./ide/addAIRtoSDK.sh 20.0 ./
 
 
 
@@ -414,9 +414,9 @@ OR
 Change the playerglobal.version in the build.properties file to have a value
 other than '11.1'. For this change to take effect, the SDK needs to be
 recompiled. For example, to compile against the latest version of the Adobe
-Flash Player, set the value of playerglobal.version to be '16.0' like so:
+Flash Player, set the value of playerglobal.version to be '20.0' like so:
 
-    playerglobal.version = 16.0
+    playerglobal.version = 20.0
 
 OR
 

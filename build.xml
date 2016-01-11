@@ -70,26 +70,6 @@
             property="TLF_HOME"
             value="${FLEX_HOME}/frameworks/projects" />
 
-    <available file="${FLEX_HOME}/../flex-blazeds/modules/remoting"
-            type="dir"
-            property="BLAZEDS_HOME"
-            value="${FLEX_HOME}/../flex-blazeds" />
-
-    <available file="${FLEX_HOME}/../blazeds/modules/remoting"
-            type="dir"
-            property="BLAZEDS_HOME"
-            value="${FLEX_HOME}/../blazeds" />
-
-    <available file="${env.BLAZEDS_HOME}"
-            type="dir"
-            property="BLAZEDS_HOME"
-            value="${env.BLAZEDS_HOME}"/>
-
-    <available file="${FLEX_HOME}/modules/flex-messaging-common/common/src"
-            type="dir"
-            property="BLAZEDS_HOME"
-            value="${FLEX_HOME}/modules/flex-messaging-common/common/src" />
-
     <tstamp>
         <format property="build.number.date" pattern="yyyyMMdd" />
     </tstamp>
@@ -183,7 +163,7 @@
     <target name="prebuild" depends="check-compile-env,thirdparty-downloads,create-description" 
         description="Stuff that needs to be done before any builds." />
 
-    <target name="check-compile-env" depends="check-playerglobal-home,check-air-home,check-tlf-home,check-blazeds-home"
+    <target name="check-compile-env" depends="check-playerglobal-home,check-air-home,check-tlf-home"
         description="Check for the required environment variables for compilation.">
             <echo>OS: ${os.name} / ${os.version} / ${os.arch}</echo>
             <echo>VM: ${java.vm.name} / ${java.vm.version}</echo>
@@ -247,21 +227,6 @@
         <fail message="TLF_HOME must be set correctly for a release build" 
             unless="TLF_HOME"/>
     	
-    </target>
-
-    <target name="check-blazeds-home" unless="BLAZEDS_HOME"
-        description="Check BLAZEDS_HOME is a directory.">
-        
-        <echo message="BLAZEDS_HOME is ${env.BLAZEDS_HOME}"/>
-        
-        <available file="${env.BLAZEDS_HOME}"
-            type="dir"
-            property="BLAZEDS_HOME"
-            value="${env.BLAZEDS_HOME}"/>
-        
-        <fail message="BLAZEDS_HOME must be set correctly for a release build"
-            unless="BLAZEDS_HOME"/>
-        
     </target>
 
     <target name="check-adobe-extension-manager-env" unless="ADOBE_EXTENSION_MANAGER.set"
@@ -465,7 +430,7 @@
             </unzip>
             <!-- optimize out metadata but keep debug info for the unsigned RSL -->
             <java jar="${basedir}/lib/optimizer.jar" fork="true" failonerror="true">
-                <jvmarg line="-ea -DAS3 -DAVMPLUS -Dflexlib=${basedir}/frameworks -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false"/>
+                <jvmarg line="-ea -DAS3 -DAVMPLUS -Dflexlib='${basedir}/frameworks' -Xms32m -Xmx384m -Dsun.io.useCanonCaches=false"/>
                 <arg line="'@{rsl-dir}/library.swf' --output '@{rsl-dir}/@{swc-name}_@{build-number}.swf' --keep-as3-metadata='Bindable,Managed,ChangeEvent,NonCommittingChangeEvent,Transient,SkinPart' --debug='true' "/>	
             </java>
             <delete file="@{rsl-dir}/library.swf"/>
@@ -601,12 +566,8 @@
                 <include name="installer.properties/**"/>
                 <include name="CHANGES"/>
                 <include name="LICENSE"/>
-                <include name="LICENSE.base"/>
-                <include name="LICENSE.bin"/>
+                <include name="licenseParts/*"/>
                 <include name="NOTICE"/>
-                <include name="NOTICE.asc"/>
-                <include name="NOTICE.base"/>
-                <include name="NOTICE.bin"/>
                 <include name="README"/>
                 <include name="RELEASE_NOTES"/>
             	<include name="CONTRIBUTING"/>
@@ -625,9 +586,6 @@
 
         <!-- modules -->
         <antcall target="stage-modules"/>
-        
-        <!-- blazeds -->
-        <antcall target="stage-blazeds"/>
         
         <!-- asdoc -->
         <copy todir="${basedir}/temp/asdoc" includeEmptyDirs="false">
@@ -754,23 +712,6 @@
         </copy>
     </target>
     
-    <!-- blazeds -->
-    <target name="stage-blazeds">
-        <copy todir="${basedir}/temp/modules/flex-messaging-common/common" includeEmptyDirs="false">
-            <fileset dir="${BLAZEDS_HOME}/modules/common">
-                <include name="**/**"/>
-                <exclude name="target/**"/>
-                <exclude name="classes/**"/>
-            </fileset>
-        </copy>
-        <copy todir="${basedir}/temp/modules/flex-messaging-common" includeEmptyDirs="false">
-            <fileset dir="${BLAZEDS_HOME}">
-                <include name="LICENSE"/>
-                <include name="NOTICE"/>
-            </fileset>
-        </copy>
-    </target>
-    
     <target name="stage-bin">
         <copy todir="${basedir}/temp/bin" includeEmptyDirs="false">
             <fileset dir="${basedir}/bin">
@@ -862,8 +803,8 @@
             </fileset>
         </copy>
         <copy file="${basedir}/README.pb" tofile="${basedir}/temp/README" />
-        <copy file="${basedir}/LICENSE.pb" tofile="${basedir}/temp/LICENSE" />
-        <copy file="${basedir}/NOTICE.pb" tofile="${basedir}/temp/NOTICE" />
+        <copy file="${basedir}/licenseParts/LICENSE.pb" tofile="${basedir}/temp/LICENSE" />
+        <copy file="${basedir}/licenseParts/NOTICE.pb" tofile="${basedir}/temp/NOTICE" />
         <echo file="${basedir}/temp/RELEASE_NOTES">
 Licensed to the Apache Software Foundation (ASF) under one or more
 contributor license agreements.  See the NOTICE file distributed with
@@ -943,11 +884,11 @@ There are no known issues.
         
         <!-- concat the license file with the binary license file for the 3rd party deps -->
         <concat destfile="${basedir}/temp/LICENSE">
-            <filelist dir="${FLEX_HOME}" files="LICENSE,LICENSE.bin"/>
+            <filelist dir="${FLEX_HOME}" files="LICENSE,licenseParts/LICENSE.bin"/>
         </concat>
         <!-- concat the license file with the binary license file for the 3rd party deps -->
         <concat destfile="${basedir}/temp/NOTICE">
-            <filelist dir="${FLEX_HOME}" files="NOTICE,NOTICE.bin"/>
+            <filelist dir="${FLEX_HOME}" files="NOTICE,licenseParts/NOTICE.bin"/>
         </concat>
         
         <!-- use this to build frameworks -->
@@ -1854,10 +1795,7 @@ There are no known issues.
                 <!-- exclude text files -->
                 <exclude name="CONTRIBUTING"/>
                 <exclude name="CONTRIBUTORS"/>
-                <exclude name="LICENSE.bin"/>
-                <exclude name="NOTICE.bin"/>
-                <exclude name="NOTICE.asc"/>
-                <exclude name="NOTICE.base"/>
+                <exclude name="licenseParts/*"/>
                 <exclude name="modules/thirdparty/batik/lib/**/LICENSE*.txt"/>
                 <exclude name="modules/thirdparty/batik/lib/**/README*.txt"/>
                 <exclude name="frameworks/projects/flatspark/src/flatspark/assets/fonts/**/OFL.txt"/>

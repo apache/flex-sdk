@@ -141,6 +141,7 @@
         <antcall target="apache-test"/>
         <antcall target="spark-test"/>
         <antcall target="advancedgrids-test"/>
+        <antcall target="framework-test"/>
     </target>
 
 	<target name="flex-config" depends="playerglobal-setswfversion" description="Copy the flex/air/airmobile config templates to flex/air/airmobile-config.xml and inject version numbers">
@@ -221,6 +222,15 @@
 		</condition>
 		<condition property="playerglobal.swfversion" value="28">
 			<equals arg1="${playerglobal.version}" arg2="17.0" />
+		</condition>
+		<condition property="playerglobal.swfversion" value="29">
+			<equals arg1="${playerglobal.version}" arg2="18.0" />
+		</condition>
+		<condition property="playerglobal.swfversion" value="30">
+			<equals arg1="${playerglobal.version}" arg2="19.0" />
+		</condition>
+		<condition property="playerglobal.swfversion" value="31">
+			<equals arg1="${playerglobal.version}" arg2="20.0" />
 		</condition>
 	</target>	
 
@@ -525,6 +535,9 @@
     </target>
     <target name="advancedgrids-test" description="Tests for 'advancedgrids' project">
         <ant dir="${basedir}/projects/advancedgrids" target="test"/>
+    </target>
+    <target name="framework-test" description="Tests for 'framework' project">
+        <ant dir="${basedir}/projects/framework" target="test"/>
     </target>
 
     <target name="experimental" description="Clean build of experimental.swc">

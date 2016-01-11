@@ -2952,8 +2952,6 @@ public class DebugCLI implements Runnable, SourceLocator {
             args.put("filename", filename); //$NON-NLS-1$
             args.put("line", Integer.toString(line)); //$NON-NLS-1$
             err(getLocalizationManager().getLocalizedTextString("breakpointNotSetNoCode", args)); //$NON-NLS-1$
-
-            continueAndSwapActiveWorkerBack(savedIsolateId, wasAlreadySuspended);
         } catch (InProgressException e) {
             e.printStackTrace();
         } finally {
@@ -4283,6 +4281,9 @@ public class DebugCLI implements Runnable, SourceLocator {
             /* If the first character is 0-9 or '-', arg is assumed to be a line number. */
             if (Character.isDigit(firstChar) || firstChar == '-') {
                 line = parseLineNumber(arg);
+
+				final FileLocation fileLocation = new FileLocation(m_activeIsolate, module, line, wasFunc);
+				fileLocations.add(fileLocation);
             }
             /* If the first character is a '#', what follows
                is assumed to be a file number. */
