@@ -613,7 +613,7 @@
     <target name="blazeds-jar" depends="blazeds-jar-check" unless="blazeds.jar.exists"
             description="Downloads and copies flex-messaging.jar to the lib directory.">
 
-        <get src="${maven.search.url}/org/apache/flex/blazeds/${blazeds.name}/${blazeds.version}/${blazeds.name}-${blazeds.version}.jar"
+        <get src="${maven.search.url}org/apache/flex/blazeds/${blazeds.name}/${blazeds.version}/${blazeds.name}-${blazeds.version}.jar"
              dest="${download.dir}/flex-messaging-common.jar"
              verbose="false"/>
 
