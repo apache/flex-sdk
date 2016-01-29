@@ -595,7 +595,7 @@
     <target name="flex-tool-api-jar" depends="flex-tool-api-jar-check" unless="flexToolApi.jar.exists"
             description="Downloads and copies flex-tool-api.jar to the lib directory.">
 
-        <get src="${maven.search.url}/org/apache/flex/${flexToolApi.name}/${flexToolApi.version}/${flexToolApi.name}-${flexToolApi.version}.jar"
+        <get src="${maven.search.url}org/apache/flex/${flexToolApi.name}/${flexToolApi.version}/${flexToolApi.name}-${flexToolApi.version}.jar"
              dest="${download.dir}/flex-tool-api.jar"
              verbose="false"/>
 
