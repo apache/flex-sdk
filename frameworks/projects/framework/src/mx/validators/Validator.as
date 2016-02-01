@@ -919,11 +919,10 @@ public class Validator extends EventDispatcher implements IMXMLObject,IValidator
         {
             // We assume if value is null and required is false that
             // validation was successful.
-            var resultEvent:ValidationResultEvent = 
-                new ValidationResultEvent(ValidationResultEvent.VALID);
+            var resultEvent:ValidationResultEvent = handleResults(null);
             if (!suppressEvents && _enabled)
             {
-            	dispatchEvent(resultEvent);
+                dispatchEvent(resultEvent);
             }
             return resultEvent; 
         } 
@@ -1080,7 +1079,7 @@ public class Validator extends EventDispatcher implements IMXMLObject,IValidator
     {
         var resultEvent:ValidationResultEvent;
         
-        if (errorResults.length > 0)
+        if (errorResults != null && errorResults.length > 0)
         {
             resultEvent =
                 new ValidationResultEvent(ValidationResultEvent.INVALID);
