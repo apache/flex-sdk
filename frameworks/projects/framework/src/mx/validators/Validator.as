@@ -435,20 +435,30 @@ public class Validator extends EventDispatcher implements IMXMLObject,IValidator
     //  required
     //----------------------------------
 
+    private var _required:Boolean = true;
+
     [Inspectable(category="General", defaultValue="true")]
-    
+
     /**
-     *  If <code>true</code>, specifies that a missing or empty 
-     *  value causes a validation error. 
-     *  
+     *  If <code>true</code>, specifies that a missing or empty
+     *  value causes a validation error.
+     *
      *  @default true
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public var required:Boolean = true;
+    public function get required():Boolean
+    {
+        return _required;
+    }
+
+    public function set required(value:Boolean):void
+    {
+        _required = value;
+    }
     
     //----------------------------------
     //  resourceManager
@@ -1135,6 +1145,5 @@ public class Validator extends EventDispatcher implements IMXMLObject,IValidator
     {
         resourcesChanged();
     }
-}   
-
+}
 }
