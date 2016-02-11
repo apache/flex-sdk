@@ -144,13 +144,12 @@ public class CursorBookmark
     //--------------------------------------------------------------------------
     
     /**
-     *  Gets the approximate index of the item represented by this bookmark
-     *  in its view. If the item has been paged out, this method could throw an 
-     *  ItemPendingError.
-     *  
-     *  @return The index of the item. If the item is not in the current view, this method returns
-     *  -1. This method also returns -1 if index-based location is not possible.
-     *  
+     *  Classes that extend CursorBookmark override this method to
+     *  return the approximate index of the item represented by this
+     *  bookmark in its view.
+     *
+     *  @return -1
+     *
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1

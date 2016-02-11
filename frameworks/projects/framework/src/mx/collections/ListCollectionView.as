@@ -2751,12 +2751,14 @@ class ListCollectionViewBookmark extends CursorBookmark
     }
 
     /**
-     * Get the approximate index of the item represented by this bookmark
-     * in its view.  If the item has been paged out this may throw an
-     * ItemPendingError.  If the item is not in the current view -1 will be
-     * returned.  This method may also return -1 if index-based location is not
-     * possible.
-     *  
+     *  Gets the approximate index of the item represented by this bookmark
+     *  in its view. If the item has been paged out, this method could throw an
+     *  ItemPendingError.
+     *
+     *  @return The index of the item. If the item is not in the current view,
+     *  this method returns -1. This method also returns -1 if index-based location
+     *  retrieval is not possible.
+     *
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
