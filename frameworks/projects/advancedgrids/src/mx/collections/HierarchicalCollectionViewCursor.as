@@ -317,19 +317,19 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function findAny(values:Object):Boolean
+    public function findAny(valuesToMatch:Object):Boolean
     {
         seek(CursorBookmark.FIRST);
         
         var done:Boolean = false;
         while (!done)
         {
-            var o:Object = hierarchicalData.getData(current);
+            var currentData:Object = hierarchicalData.getData(current);
             
             var matches:Boolean = true;
-            for (var p:String in values)
+            for (var property:String in valuesToMatch)
             {
-                if (o[p] != values[p])
+                if (valuesToMatch[property] != currentData[property])
                 {
                     matches = false;
                     break;
