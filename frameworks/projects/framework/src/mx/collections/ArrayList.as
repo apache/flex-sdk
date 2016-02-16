@@ -22,7 +22,6 @@ package mx.collections
  
 import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
-import flash.system.ApplicationDomain;
 import flash.utils.IDataInput;
 import flash.utils.IDataOutput;
 import flash.utils.IExternalizable;
@@ -660,7 +659,7 @@ public class ArrayList extends EventDispatcher
     }
     
     /**
-     *  Ensures that only the source property is seralized.
+     *  Ensures that only the source property is serialized.
      *  @private
      */
     public function readExternal(input:IDataInput):void

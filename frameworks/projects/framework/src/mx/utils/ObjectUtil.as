@@ -61,7 +61,7 @@ public class ObjectUtil
 
     /**
      *  Compares the Objects and returns an integer value 
-     *  indicating if the first item is less than greater than or equal to
+     *  indicating if the first item is less than, greater than, or equal to
      *  the second item.
      *  This method will recursively compare properties on nested objects and
      *  will return as soon as a non-zero result is found.
@@ -88,7 +88,7 @@ public class ObjectUtil
      *  In this case the <code>info</code> property will be turned into a string
      *  when performing the comparison.</p>
      *
-     *  @return Return 0 if a and b are null, NaN, or equal. 
+     *  @return Return 0 if a and b are equal, or both null or NaN.
      *  Return 1 if a is null or greater than b. 
      *  Return -1 if b is null or greater than a. 
      *  

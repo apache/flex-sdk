@@ -390,9 +390,7 @@ public class HierarchicalCollectionView extends EventDispatcher
      *
      *  @param item The Object that defines the node to look for.
      *
-     *  @param <code>true</code> if the collection contains the item,
-     *
-     *  @return <code>true</code> if the data item is in the collection, 
+     *  @return <code>true</code> if the data item is in the collection,
      *  and <code>false</code> if not.
      *  
      *  @langversion 3.0
