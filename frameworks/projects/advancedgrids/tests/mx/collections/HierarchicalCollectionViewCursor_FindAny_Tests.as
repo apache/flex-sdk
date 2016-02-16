@@ -19,6 +19,8 @@
 
 package mx.collections {
     import org.flexunit.asserts.assertEquals;
+    import org.flexunit.asserts.assertFalse;
+    import org.flexunit.asserts.assertNotNull;
     import org.flexunit.asserts.assertTrue;
 
     public class HierarchicalCollectionViewCursor_FindAny_Tests
@@ -112,7 +114,7 @@ package mx.collections {
         }
 
         [Test] //FLEX-35031
-        public function test_FLEX_35031_finding_sealed_class_instance():void
+        public function test_FLEX_35031_finding_current_sealed_class_instance_with_findFirst():void
         {
             //given
             _utils.openAllNodes(_collectionView);
@@ -129,7 +131,41 @@ package mx.collections {
         }
 
         [Test] //FLEX-35031
-        public function test_FLEX_35031_finding_sealed_class_instance_with_findLast():void
+        public function test_FLEX_35031_finding_different_sealed_class_instance_with_findAny():void
+        {
+            //given
+            _utils.openAllNodes(_collectionView);
+            var salesGroup:Object = _level0.getItemAt(1);
+            var salesEmployee:EmployeeVO = salesGroup.children.getItemAt(0) as EmployeeVO;
+            assertEquals(DEPARTMENT_SALES, salesEmployee.department);
+
+            //when
+            var found:Boolean = _sut.findAny(salesEmployee);
+
+            //then
+            assertTrue(found);
+            assertEquals(salesEmployee, _sut.current);
+        }
+
+        [Test] //FLEX-35031
+        public function test_FLEX_35031_finding_different_sealed_class_instance_with_findLast():void
+        {
+            //given
+            _utils.openAllNodes(_collectionView);
+            var developmentGroup:Object = _level0.getItemAt(0);
+            var developmentEmployee:EmployeeVO = developmentGroup.children.getItemAt(0) as EmployeeVO;
+            assertEquals(DEPARTMENT_DEVELOPMENT, developmentEmployee.department);
+
+            //when
+            var found:Boolean = _sut.findLast(developmentEmployee);
+
+            //then
+            assertTrue(found);
+            assertEquals(developmentEmployee, _sut.current);
+        }
+
+        [Test] //FLEX-35031
+        public function test_FLEX_35031_finding_sealed_class_instance_from_current_with_findLast():void
         {
             //given
             _utils.openAllNodes(_collectionView);
@@ -143,6 +179,98 @@ package mx.collections {
             assertTrue(found);
             assertTrue(_sut.current is EmployeeVO);
             assertEquals(DEPARTMENT_DEVELOPMENT, EmployeeVO(_sut.current).department);
+        }
+
+        [Test] //FLEX-33058
+        public function test_FLEX_33058_when_not_found_via_findAny_using_anonymous_object_current_is_null():void
+        {
+            //given
+            _utils.openAllNodes(_collectionView);
+
+            //when
+            var found:Boolean = _sut.findAny({someProperty:"someValue"});
+
+            //then
+            assertFalse(found);
+            assertEquals(null, _sut.current);
+        }
+
+        [Test] //FLEX-33058
+        public function test_FLEX_33058_when_not_found_via_findLast_using_anonymous_object_current_is_null():void
+        {
+            //given
+            _utils.openAllNodes(_collectionView);
+
+            //when
+            var found:Boolean = _sut.findLast({someProperty:"someValue"});
+
+            //then
+            assertFalse(found);
+            assertEquals(null, _sut.current);
+        }
+
+        [Test] //FLEX-35031
+        public function test_FLEX_35031_findAny_does_not_fatal_when_trying_to_find_null_and_doesnt_find_it():void
+        {
+            //given
+            _utils.openAllNodes(_collectionView);
+
+            //when
+            var found:Boolean = _sut.findAny(null);
+
+            //then
+            assertFalse(found);
+            assertEquals(null, _sut.current);
+        }
+
+        [Test] //FLEX-35031
+        public function test_FLEX_35031_findLast_does_not_fatal_when_trying_to_find_null_and_doesnt_find_it():void
+        {
+            //given
+            _utils.openAllNodes(_collectionView);
+
+            //when
+            var found:Boolean = _sut.findLast(null);
+
+            //then
+            assertFalse(found);
+            assertEquals(null, _sut.current);
+        }
+
+        [Test]
+        public function test_findAny_finds_sealed_class_instance_via_anonymous_object_with_subset_of_properties():void
+        {
+            //given
+            const ID_TO_FIND:int = 1;
+            _utils.openAllNodes(_collectionView);
+
+            //when
+            var found:Boolean = _sut.findAny({department:DEPARTMENT_SALES, idInDepartment:ID_TO_FIND});
+
+            //then
+            assertTrue(found);
+            var currentEmployee:EmployeeVO = _sut.current as EmployeeVO;
+            assertNotNull(currentEmployee);
+            assertEquals(DEPARTMENT_SALES, currentEmployee.department);
+            assertEquals(ID_TO_FIND, currentEmployee.idInDepartment);
+        }
+
+        [Test]
+        public function test_findLast_finds_sealed_class_instance_via_anonymous_object_with_subset_of_properties():void
+        {
+            //given
+            const ID_TO_FIND:int = 1;
+            _utils.openAllNodes(_collectionView);
+
+            //when
+            var found:Boolean = _sut.findLast({department:DEPARTMENT_DEVELOPMENT, idInDepartment:ID_TO_FIND});
+
+            //then
+            assertTrue(found);
+            var currentEmployee:EmployeeVO = _sut.current as EmployeeVO;
+            assertNotNull(currentEmployee);
+            assertEquals(DEPARTMENT_DEVELOPMENT, currentEmployee.department);
+            assertEquals(ID_TO_FIND, currentEmployee.idInDepartment);
         }
 
         private static function createHierarchicalCollectionView(groupingCollection:GroupingCollection2):HierarchicalCollectionView
