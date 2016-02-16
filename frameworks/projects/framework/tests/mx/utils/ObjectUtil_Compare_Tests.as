@@ -83,6 +83,34 @@ package mx.utils {
         }
 
         [Test]
+        public function test_sealed_class_instance_larger_than_anonymous_object_with_same_properties_and_same_values():void
+        {
+            //given
+            var objectA:PersonVO = new PersonVO("John", 23);
+            var objectB:Object = {name:"John", age:23};
+
+            //when
+            var compareResult:int = ObjectUtil.compare(objectA, objectB);
+
+            //then
+            assertEquals(A_LARGER_THAN_B, compareResult);
+        }
+
+        [Test]
+        public function test_sealed_class_instance_larger_than_dynamic_class_instance_with_same_properties_and_same_values():void
+        {
+            //given
+            var objectA:PersonVO = new PersonVO("John", 23);
+            var objectB:DynamicPersonVO = new DynamicPersonVO("John", 23);
+
+            //when
+            var compareResult:int = ObjectUtil.compare(objectA, objectB);
+
+            //then
+            assertEquals(A_LARGER_THAN_B, compareResult);
+        }
+
+        [Test]
         public function test_null_and_undefined_are_seen_equal():void
         {
             //given
@@ -109,5 +137,25 @@ package mx.utils {
             //then
             assertEquals(A_SMALLER_THAN_B, compareResult);
         }
+    }
+}
+
+class PersonVO
+{
+    public var name:String;
+    public var age:uint;
+
+    public function PersonVO(name:String, age:uint)
+    {
+        this.name = name;
+        this.age = age;
+    }
+}
+
+dynamic class DynamicPersonVO extends PersonVO
+{
+    public function DynamicPersonVO(name:String, age:uint)
+    {
+        super(name, age);
     }
 }
