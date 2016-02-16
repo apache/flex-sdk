@@ -27,11 +27,14 @@ package mx.collections {
     {
         private static const DEPARTMENT_SALES:String = "Sales";
         private static const DEPARTMENT_DEVELOPMENT:String = "Development";
-        private static const NO_ITEMS_PER_GRID_HEIGHT:int = 5;
+        private static const NO_EMPLOYEES_PER_DEPARTMENT:int = 5;
+        private static const NO_DEPARTMENTS:int = 2;
+        private static const NO_EMPLOYEES:int = NO_EMPLOYEES_PER_DEPARTMENT * NO_DEPARTMENTS;
         private static const _utils:HierarchicalCollectionViewTestUtils = new HierarchicalCollectionViewTestUtils();
         private static var _collectionView:HierarchicalCollectionView;
         private static var _sut:HierarchicalCollectionViewCursor;
         private static var _level0:ArrayCollection;
+        private static var _employeesByID:Array = [];
 
         [Before]
         public function setUp():void
@@ -241,36 +244,65 @@ package mx.collections {
         public function test_findAny_finds_sealed_class_instance_via_anonymous_object_with_subset_of_properties():void
         {
             //given
-            const ID_TO_FIND:int = 1;
+            const ID_TO_FIND:int = NO_EMPLOYEES_PER_DEPARTMENT;
             _utils.openAllNodes(_collectionView);
 
             //when
-            var found:Boolean = _sut.findAny({department:DEPARTMENT_SALES, idInDepartment:ID_TO_FIND});
+            var found:Boolean = _sut.findAny({department:DEPARTMENT_SALES, uniqueID:ID_TO_FIND});
 
             //then
             assertTrue(found);
             var currentEmployee:EmployeeVO = _sut.current as EmployeeVO;
             assertNotNull(currentEmployee);
             assertEquals(DEPARTMENT_SALES, currentEmployee.department);
-            assertEquals(ID_TO_FIND, currentEmployee.idInDepartment);
+            assertEquals(ID_TO_FIND, currentEmployee.uniqueID);
         }
 
         [Test]
         public function test_findLast_finds_sealed_class_instance_via_anonymous_object_with_subset_of_properties():void
         {
             //given
-            const ID_TO_FIND:int = 1;
+            const ID_TO_FIND:int = 0;
             _utils.openAllNodes(_collectionView);
 
             //when
-            var found:Boolean = _sut.findLast({department:DEPARTMENT_DEVELOPMENT, idInDepartment:ID_TO_FIND});
+            var found:Boolean = _sut.findLast({department:DEPARTMENT_DEVELOPMENT, uniqueID:ID_TO_FIND});
 
             //then
             assertTrue(found);
             var currentEmployee:EmployeeVO = _sut.current as EmployeeVO;
             assertNotNull(currentEmployee);
             assertEquals(DEPARTMENT_DEVELOPMENT, currentEmployee.department);
-            assertEquals(ID_TO_FIND, currentEmployee.idInDepartment);
+            assertEquals(ID_TO_FIND, currentEmployee.uniqueID);
+        }
+
+        [Test]
+        public function test_findLast_finds_different_object_to_findFirst_via_anonymous_object_with_subset_of_properties():void
+        {
+            //given
+            _utils.openAllNodes(_collectionView);
+
+            var secondEmployee:EmployeeVO = _employeesByID[1] as EmployeeVO;
+            var secondToLastEmployee:EmployeeVO = _employeesByID[NO_EMPLOYEES - 2] as EmployeeVO;
+
+            const sameName:String = "John";
+
+            //when
+            secondEmployee.name = sameName;
+            secondToLastEmployee.name = sameName;
+
+            var foundFromBeginning:Boolean = _sut.findAny({name:sameName});
+
+            //then
+            assertTrue(foundFromBeginning);
+            assertEquals(secondEmployee, _sut.current);
+
+            //when
+            var foundFromEnd:Boolean = _sut.findLast({name:sameName});
+
+            //then
+            assertTrue(foundFromEnd);
+            assertEquals(secondToLastEmployee, _sut.current);
         }
 
         private static function createHierarchicalCollectionView(groupingCollection:GroupingCollection2):HierarchicalCollectionView
@@ -281,22 +313,19 @@ package mx.collections {
         private static function createEmployees():ArrayCollection
         {
             var result:ArrayCollection = new ArrayCollection();
-            for (var i:int = 0; i < NO_ITEMS_PER_GRID_HEIGHT - 1; i++)
+            for (var i:int = 0; i < NO_EMPLOYEES_PER_DEPARTMENT * 2; i++)
             {
-                result.addItem(createEmployee("Emp-" + DEPARTMENT_DEVELOPMENT + "-" + i, DEPARTMENT_DEVELOPMENT, i));
-            }
-
-            for (i = 0; i < NO_ITEMS_PER_GRID_HEIGHT - 1; i++)
-            {
-                result.addItem(createEmployee("Emp-" + DEPARTMENT_SALES + "-" + i, DEPARTMENT_SALES, i));
+                result.addItem(createEmployee("Emp-" + i, (i < NO_EMPLOYEES_PER_DEPARTMENT ? DEPARTMENT_DEVELOPMENT : DEPARTMENT_SALES), i));
             }
 
             return result;
         }
 
-        private static function createEmployee(name:String, department:String, idInDepartment:int):EmployeeVO
+        private static function createEmployee(name:String, department:String, uniqueID:int):EmployeeVO
         {
-            return new EmployeeVO(name, department, idInDepartment);
+            var employeeVO:EmployeeVO = new EmployeeVO(name, department, uniqueID);
+            _employeesByID[employeeVO.uniqueID] = employeeVO;
+            return employeeVO;
         }
 
         private static function createGroupingCollection(source:ArrayCollection):GroupingCollection2
@@ -318,12 +347,12 @@ class EmployeeVO
 {
     public var name:String;
     public var department:String;
-    public var idInDepartment:int;
+    public var uniqueID:int;
 
-    public function EmployeeVO(name:String, department:String, idInDepartment:int)
+    public function EmployeeVO(name:String, department:String, uniqueID:int)
     {
         this.name = name;
         this.department = department;
-        this.idInDepartment = idInDepartment;
+        this.uniqueID = uniqueID;
     }
 }
