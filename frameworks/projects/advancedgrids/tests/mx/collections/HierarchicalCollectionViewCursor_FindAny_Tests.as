@@ -63,6 +63,40 @@ package mx.collections {
         }
 
         [Test]
+        public function test_searching_for_sales_using_anonymous_object_lands_on_sales_group():void
+        {
+            //given
+            var salesIdentifier:Object = {GroupLabel:DEPARTMENT_SALES};
+
+            //when
+            var found:Boolean = _sut.findAny(salesIdentifier);
+
+            //then
+            assertTrue(found);
+
+            var current:Object = _sut.current;
+            assertTrue(current.hasOwnProperty("GroupLabel"));
+            assertEquals(DEPARTMENT_SALES, current["GroupLabel"]);
+        }
+
+        [Test]
+        public function test_searching_for_sales_via_findLast_using_anonymous_object_lands_on_sales_group():void
+        {
+            //given
+            var salesIdentifier:Object = {GroupLabel:DEPARTMENT_SALES};
+
+            //when
+            var found:Boolean = _sut.findLast(salesIdentifier);
+
+            //then
+            assertTrue(found);
+
+            var current:Object = _sut.current;
+            assertTrue(current.hasOwnProperty("GroupLabel"));
+            assertEquals(DEPARTMENT_SALES, current["GroupLabel"]);
+        }
+
+        [Test]
         public function test_finding_current_leaves_first_unchanged():void
         {
             //given
@@ -87,6 +121,23 @@ package mx.collections {
 
             //when
             var found:Boolean = _sut.findAny(_sut.current);
+
+            //then
+            assertTrue(found);
+            assertTrue(_sut.current is EmployeeVO);
+            assertEquals(DEPARTMENT_DEVELOPMENT, EmployeeVO(_sut.current).department);
+        }
+
+        [Test] //FLEX-35031
+        public function test_FLEX_35031_finding_sealed_class_instance_with_findLast():void
+        {
+            //given
+            _utils.openAllNodes(_collectionView);
+            _sut.seek(new CursorBookmark(CursorBookmark.FIRST));
+            _sut.moveNext(); //an EmployeeVO instance from the "Development" department
+
+            //when
+            var found:Boolean = _sut.findLast(_sut.current);
 
             //then
             assertTrue(found);

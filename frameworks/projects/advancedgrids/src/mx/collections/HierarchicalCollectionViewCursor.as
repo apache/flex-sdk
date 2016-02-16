@@ -372,19 +372,19 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function findLast(values:Object):Boolean
+    public function findLast(valuesToMatch:Object):Boolean
     {
         seek(CursorBookmark.LAST);
         
         var done:Boolean = false;
         while (!done)
         {
-            var o:Object = current; 
+            var currentData:Object = current;
             
             var matches:Boolean = true;
-            for (var p:String in values)
+            for (var property:String in valuesToMatch)
             {
-                if (o[p] != values[p])
+                if (currentData[property] != valuesToMatch[property])
                 {
                     matches = false;
                     break;
