@@ -1110,12 +1110,11 @@ public class ObjectUtil
             }
         }
 
-        propertyNames.sort(Array.CASEINSENSITIVE |
-                           (numericIndex ? Array.NUMERIC : 0));
+        propertyNames.sort(Array.CASEINSENSITIVE | (numericIndex ? Array.NUMERIC : 0));
 
         // dictionary keys can be indexed by an object reference
         // there's a possibility that two keys will have the same toString()
-        // so we don't want to remove dupes
+        // so we don't want to remove duplicates
         if (!isDict)
         {
             // for Arrays, etc., on the other hand...

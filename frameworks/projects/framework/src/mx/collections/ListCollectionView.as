@@ -1902,7 +1902,6 @@ public class ListCollectionView extends Proxy
 
 }
 
-import flash.events.Event;
 import flash.events.EventDispatcher;
 
 import mx.collections.*;
@@ -2224,7 +2223,7 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-     public function findFirst(values:Object):Boolean
+    public function findFirst(values:Object):Boolean
     {
         checkValid();
         var lcView:ListCollectionView = ListCollectionView(view);

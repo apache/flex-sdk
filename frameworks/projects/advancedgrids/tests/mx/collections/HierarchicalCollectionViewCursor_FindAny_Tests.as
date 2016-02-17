@@ -21,6 +21,7 @@ package mx.collections {
     import org.flexunit.asserts.assertEquals;
     import org.flexunit.asserts.assertFalse;
     import org.flexunit.asserts.assertNotNull;
+    import org.flexunit.asserts.assertNull;
     import org.flexunit.asserts.assertTrue;
 
     public class HierarchicalCollectionViewCursor_FindAny_Tests
@@ -117,7 +118,7 @@ package mx.collections {
         }
 
         [Test] //FLEX-35031
-        public function test_FLEX_35031_finding_current_sealed_class_instance_with_findFirst():void
+        public function test_FLEX_35031_finding_current_sealed_class_instance_with_findAny():void
         {
             //given
             _utils.openAllNodes(_collectionView);
@@ -276,6 +277,45 @@ package mx.collections {
             assertEquals(ID_TO_FIND, currentEmployee.uniqueID);
         }
 
+        /**
+         * Note that in a perfect world this would work. However, to accomplish this task
+         * we'd need to use <code>flash.utils.describeType()</code> (or
+         * <code>DescribeTypeCache.describeType()</code> or <code>ObjectUtil.getClassInfo()</code>).
+         * But since no usage of findAny(), findFirst() and findLast() in the framework requires
+         * this feature (as they are all about finding items that already exist in the collection),
+         * there's no business case for implementing it.
+         */
+        [Test]
+        public function test_findAny_does_NOT_find_sealed_class_instance_via_other_sealed_class_instance_with_subset_of_properties():void
+        {
+            //given
+            _utils.openAllNodes(_collectionView);
+            var lastEmployee:EmployeeVO = _employeesByID[_employeesByID.length - 1];
+
+            //when
+            var found:Boolean = _sut.findAny(new NamedVO(lastEmployee.name));
+
+            //then
+            assertFalse(found);
+            assertNull(_sut.current);
+        }
+
+        //see the comment for the function above
+        [Test]
+        public function test_findLast_does_NOT_find_sealed_class_instance_via_other_sealed_class_instance_with_subset_of_properties():void
+        {
+            //given
+            _utils.openAllNodes(_collectionView);
+            var firstEmployee:EmployeeVO = _employeesByID[0];
+
+            //when
+            var found:Boolean = _sut.findLast(new NamedVO(firstEmployee.name));
+
+            //then
+            assertFalse(found);
+            assertNull(_sut.current);
+        }
+
         [Test]
         public function test_findLast_finds_different_object_to_findFirst_via_anonymous_object_with_subset_of_properties():void
         {
@@ -354,5 +394,15 @@ class EmployeeVO
         this.name = name;
         this.department = department;
         this.uniqueID = uniqueID;
+    }
+}
+
+class NamedVO
+{
+    public var name:String;
+
+    public function NamedVO(name:String)
+    {
+        this.name = name;
     }
 }
