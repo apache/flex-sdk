@@ -1173,7 +1173,7 @@ public class ObjectUtil
     /**
      *  Returns <code>true</code> if the object is an instance of a dynamic class.
      *
-     *  @param obj The object.
+     *  @param object The object.
      *
      *  @return <code>true</code> if the object is an instance of a dynamic class.
      *  
@@ -1182,21 +1182,46 @@ public class ObjectUtil
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public static function isDynamicObject(obj:Object):Boolean
+    public static function isDynamicObject(object:Object):Boolean
     {
         try
         {
             // this test for checking whether an object is dynamic or not is 
             // pretty hacky, but it assumes that no-one actually has a 
             // property defined called "wootHackwoot"
-            obj["wootHackwoot"];
+            object["wootHackwoot"];
         }
         catch (e:Error)
         {
-            // our object isn't from a dynamic class
+            // our object isn't an instance of a dynamic class
             return false;
         }
         return true;
+    }
+
+    /**
+     *  Returns all the properties defined dynamically on an object.
+     *
+     *  @param object The object to inspect.
+     *
+     *  @return an <code>Array</code> of the enumerable properties of the object.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function getEnumerableProperties(object:Object):Array
+    {
+        var result:Array = [];
+
+        if(!isDynamicObject(object))
+            return result;
+
+        for (var property:String in object)
+            result.push(property);
+
+        return result;
     }
 
     /**
