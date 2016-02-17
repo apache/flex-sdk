@@ -277,6 +277,36 @@ package mx.collections {
             assertEquals(ID_TO_FIND, currentEmployee.uniqueID);
         }
 
+        [Test]
+        public function test_findAny_finds_sealed_class_instance_via_dynamic_class_instance_with_subset_of_properties():void
+        {
+            //given
+            _utils.openAllNodes(_collectionView);
+            var lastEmployee:EmployeeVO = _employeesByID[_employeesByID.length - 1];
+
+            //when
+            var found:Boolean = _sut.findLast(new DynamicVO(lastEmployee.name));
+
+            //then
+            assertTrue(found);
+            assertEquals(lastEmployee, _sut.current);
+        }
+
+        [Test]
+        public function test_findLast_finds_sealed_class_instance_via_dynamic_class_instance_with_subset_of_properties():void
+        {
+            //given
+            _utils.openAllNodes(_collectionView);
+            var firstEmployee:EmployeeVO = _employeesByID[0];
+
+            //when
+            var found:Boolean = _sut.findLast(new DynamicVO(firstEmployee.name));
+
+            //then
+            assertTrue(found);
+            assertEquals(firstEmployee, _sut.current);
+        }
+
         /**
          * Note that in a perfect world this would work. However, to accomplish this task
          * we'd need to use <code>flash.utils.describeType()</code> (or
@@ -402,6 +432,14 @@ class NamedVO
     public var name:String;
 
     public function NamedVO(name:String)
+    {
+        this.name = name;
+    }
+}
+
+dynamic class DynamicVO
+{
+    public function DynamicVO(name:String)
     {
         this.name = name;
     }
