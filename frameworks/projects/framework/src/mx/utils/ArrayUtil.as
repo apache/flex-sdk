@@ -110,10 +110,13 @@ public class ArrayUtil
 
     /**
      *  Checks if the Array instances contain the same values
-     *  against the same indexes.
+     *  against the same indexes, even if in different orders.
      *
      *  @param a The first Array instance.
      *  @param b The second Array instance.
+     *  @param strictEqualityCheck true if we should compare the
+     *  values of the two Arrays using the strict equality
+     *  operator (===) or not (==).
      *  @return true if the two Arrays contain the same values
      *  (determined using the strict equality operator) associated
      *  with the same indexes.
@@ -123,7 +126,7 @@ public class ArrayUtil
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public static function arraysMatch(a:Array, b:Array):Boolean
+    public static function arraysMatch(a:Array, b:Array, strictEqualityCheck:Boolean = true):Boolean
     {
         if(!a || !b)
             return false;
@@ -137,7 +140,13 @@ public class ArrayUtil
         {
             var index:String = indexesA[i];
 
-            if(!b.hasOwnProperty(index) || a[index] !== b[index])
+            if(!b.hasOwnProperty(index))
+                return false;
+
+            if(strictEqualityCheck && a[index] !== b[index])
+                return false;
+
+            if(!strictEqualityCheck && a[index] != b[index])
                 return false;
         }
 
@@ -150,6 +159,9 @@ public class ArrayUtil
      *
      *  @param a The first Array instance.
      *  @param b The second Array instance.
+     *  @param strictEqualityCheck true if we should compare the
+     *  values of the two Arrays using the strict equality
+     *  operator (===) or not (==).
      *  @return true if the two Arrays contain the same values.
      *
      *  @langversion 3.0
@@ -157,7 +169,7 @@ public class ArrayUtil
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public static function arrayValuesMatch(a:Array, b:Array):Boolean
+    public static function arrayValuesMatch(a:Array, b:Array, strictEqualityCheck:Boolean = true):Boolean
     {
         if(!a || !b)
             return false;
@@ -168,7 +180,7 @@ public class ArrayUtil
         var valuesOfB:Array = getArrayValues(b);
         valuesOfB.sort();
 
-        return arraysMatch(valuesOfA, valuesOfB);
+        return arraysMatch(valuesOfA, valuesOfB, strictEqualityCheck);
     }
 
     /**

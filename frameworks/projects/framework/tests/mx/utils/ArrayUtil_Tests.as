@@ -114,22 +114,19 @@ package mx.utils
         public function test_arrays_match_when_indexes_expressed_in_string_and_int():void
         {
             //given
-            var arrayA:Array = [];
+            var arrayA:Array = ["value", "value"];
             var arrayB:Array = [];
 
             //when
-            arrayA[3] = "value";
-            arrayA["4"] = "value";
-
-            arrayB["3"] = "value";
-            arrayB[4] = "value";
+            arrayB["0"] = "value";
+            arrayB["1"] = "value";
 
             //then
             assertTrue(ArrayUtil.arraysMatch(arrayA, arrayB));
         }
 
         [Test]
-        public function test_arrays_dont_match_when_values_expressed_in_string_and_int():void
+        public function test_arrays_dont_match_when_values_expressed_in_string_and_int_if_strict_equality_used():void
         {
             //given
             var arrayA:Array = [];
@@ -143,7 +140,25 @@ package mx.utils
             arrayB[4] = "4";
 
             //then
-            assertFalse(ArrayUtil.arraysMatch(arrayA, arrayB));
+            assertFalse(ArrayUtil.arraysMatch(arrayA, arrayB, true));
+        }
+
+        [Test]
+        public function test_arrays_match_when_values_expressed_in_string_and_int_if_strict_equality_not_used():void
+        {
+            //given
+            var arrayA:Array = [];
+            var arrayB:Array = [];
+
+            //when
+            arrayA[3] = 3;
+            arrayA[4] = 4;
+
+            arrayB[3] = "3";
+            arrayB[4] = "4";
+
+            //then
+            assertTrue(ArrayUtil.arraysMatch(arrayA, arrayB, false));
         }
 
         [Test]

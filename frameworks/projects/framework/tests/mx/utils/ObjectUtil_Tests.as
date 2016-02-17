@@ -108,7 +108,7 @@ package mx.utils {
         public function test_enumerable_properties_of_dictionary():void
         {
             //given
-            var object:Object = new Dictionary(false);
+            var object:Dictionary = new Dictionary(false);
             object["name"] = "John";
             object["age"] = 9;
 
@@ -120,10 +120,10 @@ package mx.utils {
         }
 
         [Test]
-        public function test_enumerable_properties_of_dynamic_object():void
+        public function test_enumerable_properties_of_dynamic_class_instance():void
         {
             //given
-            var object:Object = new DynamicVO("John");
+            var object:DynamicVO = new DynamicVO("John");
             object["age"] = 9;
 
             //when
@@ -131,6 +131,49 @@ package mx.utils {
 
             //then
             assertTrue(ArrayUtil.arrayValuesMatch(["age", "name"], enumerableProperties));
+        }
+
+        [Test]
+        public function test_enumerable_properties_of_associative_array():void
+        {
+            //given
+            var object:Array = [];
+            object["age"] = 9;
+            object["name"] = "John";
+
+            //when
+            var enumerableProperties:Array = ObjectUtil.getEnumerableProperties(object);
+
+            //then
+            assertTrue(ArrayUtil.arrayValuesMatch(["age", "name"], enumerableProperties));
+        }
+
+        [Test]
+        public function test_enumerable_properties_of_indexed_array():void
+        {
+            //given
+            var object:Array = [9, "John"];
+
+            //when
+            var enumerableProperties:Array = ObjectUtil.getEnumerableProperties(object);
+
+            //then
+            assertTrue(ArrayUtil.arrayValuesMatch([0, 1], enumerableProperties));
+        }
+
+        [Test]
+        public function test_enumerable_properties_of_manually_indexed_array():void
+        {
+            //given
+            var object:Array = [];
+            object[3] = 9;
+            object[5] = "John";
+
+            //when
+            var enumerableProperties:Array = ObjectUtil.getEnumerableProperties(object);
+
+            //then
+            assertTrue(ArrayUtil.arrayValuesMatch([3, 5], enumerableProperties));
         }
 
         [Test]
