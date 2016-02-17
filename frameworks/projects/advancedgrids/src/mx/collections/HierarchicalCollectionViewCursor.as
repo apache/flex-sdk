@@ -324,39 +324,13 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
         var done:Boolean = false;
         while (!done)
         {
-            if (valuesAreSubsetOfObject(valuesToMatch, hierarchicalData.getData(current)))
+            if (ObjectUtil.valuesAreSubsetOfObject(valuesToMatch, hierarchicalData.getData(current)))
                 return true;
 
             done = !moveNext();
         }
 
         return false;
-    }
-
-    private static function valuesAreSubsetOfObject(values:Object, object:Object):Boolean
-    {
-        if(!object && !values)
-            return true;
-
-        if(!object || !values)
-            return false;
-
-        if(object === values)
-            return true;
-
-        var enumerableProperties:Array = ObjectUtil.getEnumerableProperties(values);
-        var matches:Boolean = enumerableProperties.length > 0 || ObjectUtil.isDynamicObject(values);
-
-        for each(var property:String in enumerableProperties)
-        {
-            if (!object.hasOwnProperty(property) || object[property] != values[property])
-            {
-                matches = false;
-                break;
-            }
-        }
-
-        return matches;
     }
 
     /**
@@ -393,7 +367,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
         var done:Boolean = false;
         while (!done)
         {
-            if (valuesAreSubsetOfObject(valuesToMatch, hierarchicalData.getData(current)))
+            if (ObjectUtil.valuesAreSubsetOfObject(valuesToMatch, hierarchicalData.getData(current)))
                 return true;
 
             done = !movePrevious();

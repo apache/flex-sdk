@@ -125,12 +125,13 @@ package mx.utils {
             //given
             var object:DynamicVO = new DynamicVO("John");
             object["age"] = 9;
+            object["height"] = 6.1;
 
             //when
             var enumerableProperties:Array = ObjectUtil.getEnumerableProperties(object);
 
             //then
-            assertTrue(ArrayUtil.arrayValuesMatch(["age", "name"], enumerableProperties));
+            assertTrue(ArrayUtil.arrayValuesMatch(["height", "age"], enumerableProperties));
         }
 
         [Test]
@@ -188,11 +189,112 @@ package mx.utils {
             //then
             assertEquals(0, enumerableProperties.length);
         }
+
+
+        //--------------------------------------------------------------------------
+        //
+        //  valuesAreSubsetOfObject()
+        //
+        //--------------------------------------------------------------------------
+
+        [Test]
+        public function test_empty_anonymous_object_is_subset_of_empty_anonymous_instance():void
+        {
+            //then
+            assertTrue(ObjectUtil.valuesAreSubsetOfObject({}, {}));
+        }
+
+        [Test]
+        public function test_empty_anonymous_object_is_subset_of_sealed_class_instance():void
+        {
+            //then
+            assertTrue(ObjectUtil.valuesAreSubsetOfObject({}, new NonDynamicVO("John")));
+        }
+
+        [Test]
+        public function test_empty_anonymous_object_is_subset_of_dynamic_class_instance():void
+        {
+            //then
+            assertTrue(ObjectUtil.valuesAreSubsetOfObject({}, new DynamicVO("John")));
+        }
+
+        [Test]
+        public function test_anonymous_object_with_same_name_is_subset_of_similar_dynamic_class_instance():void
+        {
+            //then
+            assertTrue(ObjectUtil.valuesAreSubsetOfObject({name:"John"}, new DynamicVO("John")));
+        }
+
+        [Test]
+        public function test_anonymous_object_with_same_properties_and_values_is_subset_of_similar_dynamic_class_instance_with_one_property_manually_set():void
+        {
+            //given
+            var john:DynamicVO = new DynamicVO("John");
+            john.age = 23;
+            john.height = 6;
+
+            //then
+            assertTrue(ObjectUtil.valuesAreSubsetOfObject({name:"John", age:23}, john));
+        }
+
+        [Test]
+        public function test_anonymous_object_with_different_name_is_not_subset_of_similar_dynamic_class_instance():void
+        {
+            //then
+            assertFalse(ObjectUtil.valuesAreSubsetOfObject({name:"Max"}, new DynamicVO("John")));
+        }
+
+        [Test]
+        public function test_anonymous_object_with_same_name_is_subset_of_similar_sealed_class_instance():void
+        {
+            //then
+            assertTrue(ObjectUtil.valuesAreSubsetOfObject({name:"John"}, new NonDynamicVO("John")));
+        }
+
+        [Test]
+        public function test_anonymous_object_with_different_name_is_not_subset_of_similar_sealed_class_instance():void
+        {
+            //then
+            assertFalse(ObjectUtil.valuesAreSubsetOfObject({name:"Max"}, new NonDynamicVO("John")));
+        }
+
+        [Test]
+        public function test_anonymous_object_with_extra_property_is_not_subset_of_similar_sealed_class_instance():void
+        {
+            //then
+            assertFalse(ObjectUtil.valuesAreSubsetOfObject({name:"Max", age:23}, new NonDynamicVO("John")));
+        }
+
+        [Test]
+        public function test_sealed_object_is_a_subset_of_itself():void
+        {
+            //given
+            var max:NonDynamicVO = new NonDynamicVO("Max");
+
+            //then
+            assertTrue(ObjectUtil.valuesAreSubsetOfObject(max, max));
+        }
+
+        [Test]
+        public function test_sealed_object_is_not_a_subset_of_similar_dynamic_object():void
+        {
+            //then
+            assertFalse(ObjectUtil.valuesAreSubsetOfObject(new NonDynamicVO("Max"), {name:"Max"}));
+        }
+
+        [Test]
+        public function test_sealed_object_is_not_a_subset_of_similar_sealed_object():void
+        {
+            //then
+            assertFalse(ObjectUtil.valuesAreSubsetOfObject(new NonDynamicVO("Max"), new NonDynamicVO("Max")));
+        }
     }
 }
 
 dynamic class DynamicVO
 {
+    public var name:String;
+
     public function DynamicVO(name:String)
     {
         this.name = name;

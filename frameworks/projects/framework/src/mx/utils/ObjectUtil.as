@@ -1218,10 +1218,53 @@ public class ObjectUtil
         if(!isDynamicObject(object))
             return result;
 
-        for (var property:String in object)
+        for (var property:Object in object)
             result.push(property);
 
         return result;
+    }
+
+
+    /**
+     *  Verifies if the first object is dynamic and is a subset of the second object.
+     *
+     *  @param values The values which need to be shared by <code>object</object>
+     *  @param object The object to verify against.
+     *
+     *  @return true if and only if the objects are the same, or if <code>values</code>
+     *  is dynamic and <code>object</code> shares all its properties and values.
+     *  (Even if <code>object</code> contains other properties and values, we still
+     *  consider it a match).
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function valuesAreSubsetOfObject(values:Object, object:Object):Boolean
+    {
+        if(!object && !values)
+            return true;
+
+        if(!object || !values)
+            return false;
+
+        if(object === values)
+            return true;
+
+        var enumerableProperties:Array = ObjectUtil.getEnumerableProperties(values);
+        var matches:Boolean = enumerableProperties.length > 0 || ObjectUtil.isDynamicObject(values);
+
+        for each(var property:String in enumerableProperties)
+        {
+            if (!object.hasOwnProperty(property) || object[property] != values[property])
+            {
+                matches = false;
+                break;
+            }
+        }
+
+        return matches;
     }
 
     /**
