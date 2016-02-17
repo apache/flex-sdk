@@ -242,6 +242,34 @@ package mx.collections {
         }
 
         [Test]
+        public function test_findAny_finds_the_first_item_when_its_argument_is_an_empty_anonymous_object():void
+        {
+            //given
+            _utils.openAllNodes(_collectionView);
+
+            //when
+            var found:Boolean = _sut.findAny({});
+
+            //then
+            assertTrue(found);
+            assertEquals(_level0.getItemAt(0), _sut.current);
+        }
+
+        [Test]
+        public function test_findLast_finds_the_last_item_when_its_argument_is_an_empty_anonymous_object():void
+        {
+            //given
+            _utils.openAllNodes(_collectionView);
+
+            //when
+            var found:Boolean = _sut.findLast({});
+
+            //then
+            assertTrue(found);
+            assertEquals(_employeesByID[_employeesByID.length - 1], _sut.current);
+        }
+
+        [Test]
         public function test_findAny_finds_sealed_class_instance_via_anonymous_object_with_subset_of_properties():void
         {
             //given
@@ -260,6 +288,24 @@ package mx.collections {
         }
 
         [Test]
+        public function test_findAny_finds_sealed_class_instance_via_anonymous_object_with_subset_of_properties_and_string_values_instead_of_int():void
+        {
+            //given
+            const ID_TO_FIND:int = NO_EMPLOYEES_PER_DEPARTMENT;
+            _utils.openAllNodes(_collectionView);
+
+            //when
+            var found:Boolean = _sut.findAny({department:DEPARTMENT_SALES, uniqueID:ID_TO_FIND.toString()});
+
+            //then
+            assertTrue(found);
+            var currentEmployee:EmployeeVO = _sut.current as EmployeeVO;
+            assertNotNull(currentEmployee);
+            assertEquals(DEPARTMENT_SALES, currentEmployee.department);
+            assertEquals(ID_TO_FIND, currentEmployee.uniqueID);
+        }
+
+        [Test]
         public function test_findLast_finds_sealed_class_instance_via_anonymous_object_with_subset_of_properties():void
         {
             //given
@@ -268,6 +314,24 @@ package mx.collections {
 
             //when
             var found:Boolean = _sut.findLast({department:DEPARTMENT_DEVELOPMENT, uniqueID:ID_TO_FIND});
+
+            //then
+            assertTrue(found);
+            var currentEmployee:EmployeeVO = _sut.current as EmployeeVO;
+            assertNotNull(currentEmployee);
+            assertEquals(DEPARTMENT_DEVELOPMENT, currentEmployee.department);
+            assertEquals(ID_TO_FIND, currentEmployee.uniqueID);
+        }
+
+        [Test]
+        public function test_findLast_finds_sealed_class_instance_via_anonymous_object_with_subset_of_properties_and_string_values_instead_of_int():void
+        {
+            //given
+            const ID_TO_FIND:int = 0;
+            _utils.openAllNodes(_collectionView);
+
+            //when
+            var found:Boolean = _sut.findLast({department:DEPARTMENT_DEVELOPMENT, uniqueID:ID_TO_FIND.toString()});
 
             //then
             assertTrue(found);
