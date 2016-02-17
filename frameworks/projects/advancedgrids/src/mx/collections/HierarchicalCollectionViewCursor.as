@@ -310,7 +310,8 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
      *  @inheritDoc
      *  
      *  <p>Note that for this class, the view does not need to be sorted in order to
-     *  call this method.</p>
+     *  call this method. Also, if the item cannot be found, the cursor location is
+     *  left on the last queried object.</p>
      * 
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -321,14 +322,12 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
     {
         seek(CursorBookmark.FIRST);
         
-        var done:Boolean = false;
-        while (!done)
+        do
         {
             if (ObjectUtil.valuesAreSubsetOfObject(valuesToMatch, hierarchicalData.getData(current)))
                 return true;
-
-            done = !moveNext();
         }
+        while(moveNext());
 
         return false;
     }
@@ -337,7 +336,8 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
      *  @inheritDoc
      *  
      *  <p>Note that for this class, the view does not need to be sorted in order to
-     *  call this method.</p>
+     *  call this method. Also, if the item cannot be found, the cursor location is
+     *  left on the last queried object.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -353,7 +353,8 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
      *  @inheritDoc
      *  
      *  <p>Note that for this class, the view does not need to be sorted in order to
-     *  call this method.</p>
+     *  call this method. Also, if the item cannot be found, the cursor location is
+     *  left on the last queried object.</p>
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -364,14 +365,12 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
     {
         seek(CursorBookmark.LAST);
         
-        var done:Boolean = false;
-        while (!done)
+        do
         {
             if (ObjectUtil.valuesAreSubsetOfObject(valuesToMatch, hierarchicalData.getData(current)))
                 return true;
-
-            done = !movePrevious();
         }
+        while(movePrevious());
 
         return false;
     }
