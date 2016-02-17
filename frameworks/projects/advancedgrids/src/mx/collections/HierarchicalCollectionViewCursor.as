@@ -324,7 +324,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
         var done:Boolean = false;
         while (!done)
         {
-            if (objectMatchesValues(hierarchicalData.getData(current), valuesToMatch))
+            if (valuesAreSubsetOfObject(valuesToMatch, hierarchicalData.getData(current)))
                 return true;
 
             done = !moveNext();
@@ -333,7 +333,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
         return false;
     }
 
-    private static function objectMatchesValues(object:Object, values:Object):Boolean
+    private static function valuesAreSubsetOfObject(values:Object, object:Object):Boolean
     {
         if(!object && !values)
             return true;
@@ -393,7 +393,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
         var done:Boolean = false;
         while (!done)
         {
-            if (objectMatchesValues(hierarchicalData.getData(current), valuesToMatch))
+            if (valuesAreSubsetOfObject(valuesToMatch, hierarchicalData.getData(current)))
                 return true;
 
             done = !movePrevious();
