@@ -307,11 +307,11 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
     //--------------------------------------------------------------------------
     
     /**
-     *  @inheritDoc
-     *  
      *  <p>Note that for this class, the view does not need to be sorted in order to
      *  call this method. Also, if the item cannot be found, the cursor location is
      *  left on the last queried object.</p>
+     *
+     *  @inheritDoc
      * 
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -333,12 +333,12 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
     }
 
     /**
-     *  @inheritDoc
-     *  
      *  <p>Note that for this class, the view does not need to be sorted in order to
      *  call this method. Also, if the item cannot be found, the cursor location is
      *  left on the last queried object.</p>
-     *  
+     *
+     *  @inheritDoc
+     *
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
@@ -350,11 +350,11 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
     }
 
     /**
-     *  @inheritDoc
-     *  
      *  <p>Note that for this class, the view does not need to be sorted in order to
      *  call this method. Also, if the item cannot be found, the cursor location is
      *  left on the last queried object.</p>
+     *
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
