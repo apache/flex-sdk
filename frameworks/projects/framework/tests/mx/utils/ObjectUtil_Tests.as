@@ -19,6 +19,7 @@
 
 package mx.utils {
     import flash.utils.Dictionary;
+    import flash.utils.Proxy;
 
     import org.flexunit.asserts.assertEquals;
 
@@ -52,6 +53,34 @@ package mx.utils {
         {
             //then
             assertTrue(ObjectUtil.isDynamicObject([]));
+        }
+
+        [Test]
+        public function test_XML_instance_recognized_as_dynamic_object():void
+        {
+            //then
+            assertTrue(ObjectUtil.isDynamicObject(new XML()));
+        }
+
+        [Test]
+        public function test_Proxy_instance_recognized_as_sealed_object_instance():void
+        {
+            //then
+            assertFalse(ObjectUtil.isDynamicObject(new Proxy()));
+        }
+
+        [Test]
+        public function test_ObjectProxy_with_implicit_target_object_instance_recognized_as_dynamic_instance():void
+        {
+            //then
+            assertTrue(ObjectUtil.isDynamicObject(new ObjectProxy()));
+        }
+
+        [Test]
+        public function test_ObjectProxy_with_explicit_target_object_instance_recognized_as_dynamic_instance():void
+        {
+            //then
+            assertTrue(ObjectUtil.isDynamicObject(new ObjectProxy({})));
         }
 
         [Test]
