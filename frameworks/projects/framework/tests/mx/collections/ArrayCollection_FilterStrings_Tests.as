@@ -19,7 +19,7 @@
 package mx.collections {
     import org.flexunit.asserts.*;
 
-    public class FilterStrings
+    public class ArrayCollection_FilterStrings_Tests
 	{
         private var _sut:ArrayCollection;
 		

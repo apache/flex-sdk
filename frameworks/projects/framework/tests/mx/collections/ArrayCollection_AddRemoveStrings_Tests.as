@@ -19,7 +19,7 @@
 package mx.collections {
     import org.flexunit.asserts.*;
 
-    public class AddRemoveStrings
+    public class ArrayCollection_AddRemoveStrings_Tests
 	{	
 		protected var _sut:ArrayCollection;
 		
