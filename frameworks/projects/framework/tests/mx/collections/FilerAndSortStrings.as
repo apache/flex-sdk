@@ -21,30 +21,29 @@ package mx.collections {
 
     public class FilerAndSortStrings
 	{
-
-        protected var ac:ArrayCollection;
+        private var _sut:ArrayCollection;
 		
 		[Before]
 		public function setUp():void
 		{
-			ac = new ArrayCollection();
+			_sut = new ArrayCollection();
 		}
 		
 		[After]
 		public function tearDown():void
 		{
-			ac = null;
+			_sut = null;
 		}
 		
 		
 		protected function addNumbers():void
 		{
-			ac.addItem(6);
-			ac.addItem(2);
-			ac.addItem(3);
-			ac.addItem(1);
-			ac.addItem(5);
-			ac.addItem(4);
+			_sut.addItem(6);
+			_sut.addItem(2);
+			_sut.addItem(3);
+			_sut.addItem(1);
+			_sut.addItem(5);
+			_sut.addItem(4);
 		}
 		
 		protected function even(object:Object):Boolean
@@ -61,53 +60,53 @@ package mx.collections {
 		public function filterAndSortCombinations():void
 		{
 			addNumbers();
-			ac.filterFunction = even;
-			ac.sort = new Sort();
-			ac.refresh();
+			_sut.filterFunction = even;
+			_sut.sort = new Sort();
+			_sut.refresh();
 			
-			assertEquals("Length is not three",  3, ac.length);
-			assertEquals("First element not correct",  2, ac[0]);
-			assertEquals("Second element not correct",  4, ac[1]);
-			assertEquals("Third element not correct",  6, ac[2]);
+			assertEquals("Length is not three",  3, _sut.length);
+			assertEquals("First element not correct",  2, _sut[0]);
+			assertEquals("Second element not correct",  4, _sut[1]);
+			assertEquals("Third element not correct",  6, _sut[2]);
 			
-			ac.filterFunction = odd;
-			ac.refresh();
+			_sut.filterFunction = odd;
+			_sut.refresh();
 			
-			assertEquals("Length is not three",  3, ac.length);
-			assertEquals("First element not correct",  1, ac[0]);
-			assertEquals("Second element not correct",  3, ac[1]);
-			assertEquals("Third element not correct",  5, ac[2]);
+			assertEquals("Length is not three",  3, _sut.length);
+			assertEquals("First element not correct",  1, _sut[0]);
+			assertEquals("Second element not correct",  3, _sut[1]);
+			assertEquals("Third element not correct",  5, _sut[2]);
 			
-			ac.sort = new Sort();			
-			ac.sort.fields = [new SortField(null, false, true, true)];
-			ac.refresh();
+			_sut.sort = new Sort();
+			_sut.sort.fields = [new SortField(null, false, true, true)];
+			_sut.refresh();
 			
-			assertEquals("Length is not three",  3, ac.length);
-			assertEquals("First element not correct",  5, ac[0]);
-			assertEquals("Second element not correct",  3, ac[1]);
-			assertEquals("Third element not correct",  1, ac[2]);
+			assertEquals("Length is not three",  3, _sut.length);
+			assertEquals("First element not correct",  5, _sut[0]);
+			assertEquals("Second element not correct",  3, _sut[1]);
+			assertEquals("Third element not correct",  1, _sut[2]);
 			
-			ac.filterFunction = null;
-			ac.refresh();
+			_sut.filterFunction = null;
+			_sut.refresh();
 			
-			assertEquals("Length is not six",  6, ac.length);
-			assertEquals("First element not correct",  6, ac[0]);
-			assertEquals("Second element not correct",  5, ac[1]);
-			assertEquals("Third element not correct",  4, ac[2]);
-			assertEquals("Fourth element not correct",  3, ac[3]);
-			assertEquals("Fith element not correct",  2, ac[4]);
-			assertEquals("Six element not correct",  1, ac[5]);
+			assertEquals("Length is not six",  6, _sut.length);
+			assertEquals("First element not correct",  6, _sut[0]);
+			assertEquals("Second element not correct",  5, _sut[1]);
+			assertEquals("Third element not correct",  4, _sut[2]);
+			assertEquals("Fourth element not correct",  3, _sut[3]);
+			assertEquals("Fith element not correct",  2, _sut[4]);
+			assertEquals("Six element not correct",  1, _sut[5]);
 			
-			ac.sort = null;
-			ac.refresh();
+			_sut.sort = null;
+			_sut.refresh();
 			
-			assertEquals("Length is not six",  6, ac.length);
-			assertEquals("First element not correct",  6, ac[0]);
-			assertEquals("Second element not correct",  2, ac[1]);
-			assertEquals("Third element not correct",  3, ac[2]);
-			assertEquals("Fourth element not correct",  1, ac[3]);
-			assertEquals("Fith element not correct",  5, ac[4]);
-			assertEquals("Six element not correct",  4, ac[5]);
+			assertEquals("Length is not six",  6, _sut.length);
+			assertEquals("First element not correct",  6, _sut[0]);
+			assertEquals("Second element not correct",  2, _sut[1]);
+			assertEquals("Third element not correct",  3, _sut[2]);
+			assertEquals("Fourth element not correct",  1, _sut[3]);
+			assertEquals("Fith element not correct",  5, _sut[4]);
+			assertEquals("Six element not correct",  4, _sut[5]);
 		}	
 		
 		

@@ -21,25 +21,24 @@ package mx.collections {
 
     public class FilterNumbers
 	{
-
-        protected var ac:ArrayCollection;
+        private var _sut:ArrayCollection;
 		
 		[Before]
 		public function setUp():void
 		{
-			ac = new ArrayCollection();
+			_sut = new ArrayCollection();
 		}
 		
 		[After]
 		public function tearDown():void
 		{
-			ac = null;
+			_sut = null;
 		}
 		
 		protected function addNumbers():void
 		{
-			ac.addItem(1);
-			ac.addItem(2);
+			_sut.addItem(1);
+			_sut.addItem(2);
 		}
 		
 		protected function allIn(object:Object):Boolean
@@ -61,34 +60,34 @@ package mx.collections {
 		public function nullFilter():void
 		{
 			addNumbers();
-			ac.filterFunction = null;
-			ac.refresh();
+			_sut.filterFunction = null;
+			_sut.refresh();
 			
-			assertEquals("Length is not two",  2, ac.length);
-			assertEquals("First element not correct",  1, ac[0]);
-			assertEquals("Second element not correct",  2, ac[1]);
+			assertEquals("Length is not two",  2, _sut.length);
+			assertEquals("First element not correct",  1, _sut[0]);
+			assertEquals("Second element not correct",  2, _sut[1]);
 		}	
 		
 		[Test]
 		public function trueFilter():void
 		{
 			addNumbers();
-			ac.filterFunction = allIn; 
-			ac.refresh();
+			_sut.filterFunction = allIn;
+			_sut.refresh();
 			
-			assertEquals("Length is not two",  2, ac.length);
-			assertEquals("First element not correct",  1, ac[0]);
-			assertEquals("Second element not correct",  2, ac[1]);
+			assertEquals("Length is not two",  2, _sut.length);
+			assertEquals("First element not correct",  1, _sut[0]);
+			assertEquals("Second element not correct",  2, _sut[1]);
 		}
 		
 		[Test]
 		public function falseFilter():void
 		{
 			addNumbers();
-			ac.filterFunction = allOut; 
-			ac.refresh();
+			_sut.filterFunction = allOut;
+			_sut.refresh();
 			
-			assertEquals("Length is not two",  0, ac.length);
+			assertEquals("Length is not two",  0, _sut.length);
 		}
 		
 		
@@ -96,42 +95,42 @@ package mx.collections {
 		public function filterNoRefresh():void
 		{
 			addNumbers();
-			ac.filterFunction = allOut;
+			_sut.filterFunction = allOut;
 			
 			// Filter should not take effect
-			assertEquals("Length is not two",  2, ac.length);
-			assertEquals("First element not correct",  1, ac[0]);
-			assertEquals("Second element not correct",  2, ac[1]);
+			assertEquals("Length is not two",  2, _sut.length);
+			assertEquals("First element not correct",  1, _sut[0]);
+			assertEquals("Second element not correct",  2, _sut[1]);
 		}
 		
 		[Test]
 		public function nullFilterNoRefresh():void
 		{
 			addNumbers();
-			ac.filterFunction = null;
+			_sut.filterFunction = null;
 			
 			// Filter should not take effect
-			assertEquals("Length is not two",  2, ac.length);
-			assertEquals("First element not correct",  1, ac[0]);
-			assertEquals("Second element not correct",  2, ac[1]);
+			assertEquals("Length is not two",  2, _sut.length);
+			assertEquals("First element not correct",  1, _sut[0]);
+			assertEquals("Second element not correct",  2, _sut[1]);
 		}
 		
 		[Test]
 		public function filterDoubleRefresh():void
 		{
 			addNumbers();
-			ac.filterFunction = allOut;
-			ac.refresh();
+			_sut.filterFunction = allOut;
+			_sut.refresh();
 			
-			assertEquals("Length is not zero",  0, ac.length);
+			assertEquals("Length is not zero",  0, _sut.length);
 			
-			ac.filterFunction = null;
-			ac.refresh();
+			_sut.filterFunction = null;
+			_sut.refresh();
 			
 			// Filter should not take effect
-			assertEquals("Length is not two",  2, ac.length);
-			assertEquals("First element not correct",  1, ac[0]);
-			assertEquals("Second element not correct",  2, ac[1]);
+			assertEquals("Length is not two",  2, _sut.length);
+			assertEquals("First element not correct",  1, _sut[0]);
+			assertEquals("Second element not correct",  2, _sut[1]);
 		}
 		
 		// RTEs in Apache Flex 4.9.1
@@ -140,26 +139,26 @@ package mx.collections {
 		{
 			addNumbers();
 			
-			ac.filterFunction = allOut;
-			ac.refresh();
+			_sut.filterFunction = allOut;
+			_sut.refresh();
 			
-			assertEquals("Length is not zero",  0, ac.length);
+			assertEquals("Length is not zero",  0, _sut.length);
 			
-			ac.filterFunction = null;
+			_sut.filterFunction = null;
 			addNumbers();
 			
 			// Filter should be in effect and first 2 items sorted
 			// item added after are not filtered until refresh called
-			assertEquals("Length is not two",  2, ac.length);
-			assertEquals("First element not correct",  1, ac[0]);
-			assertEquals("Second element not correct",  2, ac[1]);
+			assertEquals("Length is not two",  2, _sut.length);
+			assertEquals("First element not correct",  1, _sut[0]);
+			assertEquals("Second element not correct",  2, _sut[1]);
 			
-			ac.refresh();
-			assertEquals("Length is not four",  4, ac.length);
-			assertEquals("First element not correct",  1, ac[0]);
-			assertEquals("Second element not correct",  2, ac[1]);
-			assertEquals("First element not correct",  1, ac[2]);
-			assertEquals("Second element not correct",  2, ac[3]);
+			_sut.refresh();
+			assertEquals("Length is not four",  4, _sut.length);
+			assertEquals("First element not correct",  1, _sut[0]);
+			assertEquals("Second element not correct",  2, _sut[1]);
+			assertEquals("First element not correct",  1, _sut[2]);
+			assertEquals("Second element not correct",  2, _sut[3]);
 		}
 		
 		[Test]
@@ -167,24 +166,24 @@ package mx.collections {
 		{
 			addNumbers();
 			
-			ac.filterFunction = allOut;
-			ac.refresh();
-			ac.filterFunction = null;
+			_sut.filterFunction = allOut;
+			_sut.refresh();
+			_sut.filterFunction = null;
 			
-			assertEquals("Length is not zero",  0, ac.length);
+			assertEquals("Length is not zero",  0, _sut.length);
 			
 			try {
-				ac.removeItemAt(0);
+				_sut.removeItemAt(0);
 			}
 			catch (error:Error)
 			{
 				assertTrue("Error not range error", error is RangeError);
 			}
 			
-			assertEquals("Length is not zero",  0, ac.length);
+			assertEquals("Length is not zero",  0, _sut.length);
 			
-			ac.refresh();
-			assertEquals("Length is not two",  2, ac.length);
+			_sut.refresh();
+			assertEquals("Length is not two",  2, _sut.length);
 		}
 		
 		[Test]
@@ -193,13 +192,13 @@ package mx.collections {
 			addNumbers();
 			addNumbers();
 			
-			ac.filterFunction = isOne;
-			ac.refresh();
+			_sut.filterFunction = isOne;
+			_sut.refresh();
 			
-			assertEquals("Length is not two",  2, ac.length);
+			assertEquals("Length is not two",  2, _sut.length);
 			
-			assertEquals("First element not correct",  1, ac[0]);
-			assertEquals("Second element not correct",  1, ac[1]);
+			assertEquals("First element not correct",  1, _sut[0]);
+			assertEquals("Second element not correct",  1, _sut[1]);
 		}
 		
 		// Fails in Apache Flex 4.9.1
@@ -208,107 +207,107 @@ package mx.collections {
 		{
 			//given
 			addNumbers();
-			ac.filterFunction = allIn;
-			ac.refresh();
+			_sut.filterFunction = allIn;
+			_sut.refresh();
 			
-			var item1:Number = ac.getItemAt(0) as Number;
-			var item2:Number = ac.getItemAt(1) as Number;
+			var item1:Number = _sut.getItemAt(0) as Number;
+			var item2:Number = _sut.getItemAt(1) as Number;
 
             //when
-			ac.setItemAt(item2, 0);
-			ac.setItemAt(item1, 1);
+			_sut.setItemAt(item2, 0);
+			_sut.setItemAt(item1, 1);
 
             //then
-			assertEquals("Length is not two", 2, ac.length);
-			assertEquals("First element not correct", 2, ac[0]);
-			assertEquals("Second element not correct", 1, ac[1]);
+			assertEquals("Length is not two", 2, _sut.length);
+			assertEquals("First element not correct", 2, _sut[0]);
+			assertEquals("Second element not correct", 1, _sut[1]);
 		}
 		
 		[Test]
 		public function swapItemsOneThenTwo():void
 		{
 			addNumbers();
-			ac.filterFunction = allIn; 
-			ac.refresh();
+			_sut.filterFunction = allIn;
+			_sut.refresh();
 			
-			var item1:Number = ac.getItemAt(0) as Number;
-			var item2:Number = ac.getItemAt(1) as Number;
+			var item1:Number = _sut.getItemAt(0) as Number;
+			var item2:Number = _sut.getItemAt(1) as Number;
 			
-			ac.setItemAt(item1,1);
-			ac.setItemAt(item2,0);
+			_sut.setItemAt(item1,1);
+			_sut.setItemAt(item2,0);
 			
-			assertEquals("Length is not two",  2, ac.length);
-			assertEquals("First element not correct",  2, ac[0]);
-			assertEquals("Second element not correct",  1, ac[1]);
+			assertEquals("Length is not two",  2, _sut.length);
+			assertEquals("First element not correct",  2, _sut[0]);
+			assertEquals("Second element not correct",  1, _sut[1]);
 		}
 		
 		[Test]
 		public function removeAllAfterFiltered():void
 		{
 			addNumbers();
-			ac.filterFunction = allOut; 
-			ac.refresh();
+			_sut.filterFunction = allOut;
+			_sut.refresh();
 			
-			assertEquals("Length is not two",  0, ac.length);
+			assertEquals("Length is not two",  0, _sut.length);
 			
-			ac.removeAll();
+			_sut.removeAll();
 			
-			assertEquals("Length is not two",  0, ac.length);
+			assertEquals("Length is not two",  0, _sut.length);
 			
-			ac.filterFunction = null; 
-			ac.refresh();
+			_sut.filterFunction = null;
+			_sut.refresh();
 			
-			assertEquals("Length is not two",  2, ac.length);
-			assertEquals("First element not correct",  1, ac[0]);
-			assertEquals("Second element not correct",  2, ac[1]);
+			assertEquals("Length is not two",  2, _sut.length);
+			assertEquals("First element not correct",  1, _sut[0]);
+			assertEquals("Second element not correct",  2, _sut[1]);
 		}
 		
 		[Test]
 		public function removeFilteredItem():void
 		{
 			addNumbers();
-			ac.filterFunction = isOne; 
-			ac.refresh();
+			_sut.filterFunction = isOne;
+			_sut.refresh();
 			
-			assertEquals("Length is not one",  1, ac.length);
+			assertEquals("Length is not one",  1, _sut.length);
 			
-			ac.removeItemAt(ac.getItemIndex(1));
+			_sut.removeItemAt(_sut.getItemIndex(1));
 			
-			assertEquals("Length is not zero",  0, ac.length);
+			assertEquals("Length is not zero",  0, _sut.length);
 			
-			ac.filterFunction = null; 
-			ac.refresh();
+			_sut.filterFunction = null;
+			_sut.refresh();
 			
-			assertEquals("Length is not two",  1, ac.length);
-			assertEquals("First element not correct",  2, ac[0]);
+			assertEquals("Length is not two",  1, _sut.length);
+			assertEquals("First element not correct",  2, _sut[0]);
 		}
 		
 		[Test]
 		public function removeNonFilteredItem():void
 		{
 			addNumbers();
-			ac.filterFunction = isOne; 
-			ac.refresh();
+			_sut.filterFunction = isOne;
+			_sut.refresh();
 			
-			assertEquals("Length is not one",  1, ac.length);
+			assertEquals("Length is not one",  1, _sut.length);
 			
 			try {
 				// not removed as filter hids it - perhaps it should be removed?
-				ac.removeItemAt(ac.getItemIndex(2));	
+				_sut.removeItemAt(_sut.getItemIndex(2));
 			}
 			catch (error:Error)
 			{
 				assertTrue("Error not range error", error is RangeError);
 			}
 			
-			assertEquals("Length is not one",  1, ac.length);
+			assertEquals("Length is not one",  1, _sut.length);
 			
-			ac.filterFunction = null; 
-			ac.refresh();
+			_sut.filterFunction = null;
+			_sut.refresh();
 			
-			assertEquals("Length is not two",  2, ac.length);
-			assertEquals("First element not correct",  1, ac[0]);
-			assertEquals("First element not correct",  2, ac[1]);
+			assertEquals("Length is not two",  2, _sut.length);
+			assertEquals("First element not correct",  1, _sut[0]);
+			assertEquals("First element not correct",  2, _sut[1]);
 		}
 		
 		
