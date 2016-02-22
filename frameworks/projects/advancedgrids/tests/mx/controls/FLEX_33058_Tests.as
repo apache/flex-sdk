@@ -69,7 +69,7 @@ package mx.controls {
             noEnterFramesRemaining = NaN;
         }
 
-        [Test(async, timeout=500)]
+        [Test(async, timeout=1000)]
         public function test_sorting_doesnt_throw_fatal():void
         {
             //given
@@ -81,7 +81,7 @@ package mx.controls {
             //then wait a few frames
             noEnterFramesRemaining = NO_ENTER_FRAMES_TO_ALLOW;
             UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
-            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, onGridAddedToStage);
+            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, onGridAddedToStage, 300);
         }
 
         private function onGridAddedToStage(event:Event, passThroughData:Object):void
@@ -92,7 +92,7 @@ package mx.controls {
             //then - wait a few more frames
             noEnterFramesRemaining = NO_ENTER_FRAMES_TO_ALLOW;
             UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
-            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, onGridDrawn);
+            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, onGridDrawn, 300);
         }
 
         private function onGridDrawn(event:Event, passThroughData:Object):void
@@ -106,7 +106,7 @@ package mx.controls {
             //then - wait a few more frames
             noEnterFramesRemaining = NO_ENTER_FRAMES_TO_ALLOW;
             UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
-            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, onGridSetupComplete);
+            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, onGridSetupComplete, 300);
         }
 
         private static function onGridSetupComplete(event:Event, passThroughData:Object):void
