@@ -201,7 +201,7 @@ package mx.collections {
 			assertEquals("Second element not correct",  1, _sut[1]);
 		}
 		
-		// Fails in Apache Flex 4.9.1
+		//Fails in Apache Flex 4.9.1. See FLEX-35039
 		[Test]
 		public function swapItemsTwoThenOne():void
 		{
