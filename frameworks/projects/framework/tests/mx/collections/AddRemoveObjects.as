@@ -1,147 +1,192 @@
 package mx.collections {
-	import mx.collections.ArrayCollection;
-	
-	import org.flexunit.asserts.*;
+    import org.flexunit.asserts.*;
 
-	public class AddRemoveObjects
+    public class AddRemoveObjects
 	{	
-		protected var ac:ArrayCollection;
+		private var _sut:ArrayCollection;
 		
-		protected var players:Array=[
+		protected var players:Array = [
 			{team:"TeamOne",jerseyNumber:80,lastName:"PlayerA",firstName:"Aa"},
 			{team:"TeamTwo",jerseyNumber:7, lastName:"PlayerB",firstName:"Bb"},
 			{team:"TeamOne",jerseyNumber:12, lastName:"PlayerC",firstName:"Cc"},
 			{team:"TeamOne",jerseyNumber:21,lastName:"PlayerD",firstName:"Dd"},
 			{team:"TeamThree",jerseyNumber:34, lastName:"PlayerE",firstName:"Ee"},
 			{team:"TeamOne",jerseyNumber:12, lastName:"PlayerF",firstName:"Ff"},
-			{team:"TeamTwo",jerseyNumber:7, lastName:"PlayerG",firstName:"Gg"},
+			{team:"TeamTwo",jerseyNumber:7, lastName:"PlayerG",firstName:"Gg"}
 		];
 		
 		[Before]
 		public function setUp():void
 		{
-			ac = new ArrayCollection();
+			_sut = new ArrayCollection();
 		}
 		
 		[After]
 		public function tearDown():void
 		{
-			ac = null;
+			_sut = null;
 		}
 		
 		[Test]
 		public function empty():void
 		{
-			assertEquals(ac.length, 0);
+			assertEquals(_sut.length, 0);
 		}
 		
 		[Test]
 		public function addObjects():void
 		{
-			ac = new ArrayCollection(players);
-			assertEquals("Length is not seven", ac.length, 7);
-			assertEquals("First element not correct", ac[0], players[0]);
-			assertEquals("Second element not correct", ac[1], players[1]);
-			assertEquals("Third element not correct", ac[2], players[2]);
-			assertEquals("Fouth element not correct", ac[3], players[3]);
-			assertEquals("Fifth element not correct", ac[4], players[4]);
-			assertEquals("Sixth element not correct", ac[5], players[5]);
-			assertEquals("Seventh element not correct", ac[6], players[6]);
+			_sut = new ArrayCollection(players);
+			assertEquals("Length is not seven", _sut.length, 7);
+			assertEquals("First element not correct", _sut[0], players[0]);
+			assertEquals("Second element not correct", _sut[1], players[1]);
+			assertEquals("Third element not correct", _sut[2], players[2]);
+			assertEquals("Fouth element not correct", _sut[3], players[3]);
+			assertEquals("Fifth element not correct", _sut[4], players[4]);
+			assertEquals("Sixth element not correct", _sut[5], players[5]);
+			assertEquals("Seventh element not correct", _sut[6], players[6]);
 		}
 		
 		[Test]
 		public function addDuplicate():void
 		{
 			addObjects();
-			ac.addItem(players[0]);
-			assertEquals("Length is not eight", ac.length, 8);
-			assertEquals("First element not correct", ac[0], players[0]);
-			assertEquals("Second element not correct", ac[1], players[1]);
-			assertEquals("Third element not correct", ac[2], players[2]);
-			assertEquals("Fouth element not correct", ac[3], players[3]);
-			assertEquals("Fifth element not correct", ac[4], players[4]);
-			assertEquals("Sixth element not correct", ac[5], players[5]);
-			assertEquals("Seventh element not correct", ac[6], players[6]);
-			assertEquals("Eighth element not correct", ac[7], players[0]);
+			_sut.addItem(players[0]);
+			assertEquals("Length is not eight", _sut.length, 8);
+			assertEquals("First element not correct", _sut[0], players[0]);
+			assertEquals("Second element not correct", _sut[1], players[1]);
+			assertEquals("Third element not correct", _sut[2], players[2]);
+			assertEquals("Fouth element not correct", _sut[3], players[3]);
+			assertEquals("Fifth element not correct", _sut[4], players[4]);
+			assertEquals("Sixth element not correct", _sut[5], players[5]);
+			assertEquals("Seventh element not correct", _sut[6], players[6]);
+			assertEquals("Eighth element not correct", _sut[7], players[0]);
 		}
 		
 		[Test]
 		public function removeDuplicate():void
 		{
+            //given
 			addObjects();
-			ac.addItem(players[0]);
-			ac.removeItemAt(0);
-			assertEquals("Length is not seven", ac.length, 7);
-			assertEquals("First element not correct", ac[0], players[1]);
-			assertEquals("Second element not correct", ac[1], players[2]);
-			assertEquals("Third element not correct", ac[2], players[3]);
-			assertEquals("Fouth element not correct", ac[3], players[4]);
-			assertEquals("Fifth element not correct", ac[4], players[5]);
-			assertEquals("Sixth element not correct", ac[5], players[6]);
-			assertEquals("Seventh element not correct", ac[6], players[0]);
+            var firstPlayer:* = players[0];
+            var secondPlayer:* = players[1];
+            var thirdPlayer:* = players[2];
+            var fourthPlayer:* = players[3];
+            var fifthPlayer:* = players[4];
+            var sixthPlayer:* = players[5];
+            var seventhPlayer:* = players[6];
+
+            //when
+			_sut.addItem(players[0]);
+            _sut.removeItemAt(0);
+            //then
+			assertEquals("Length is not seven", _sut.length, 7);
+            assertEquals("First element not correct", _sut[0], secondPlayer);
+            assertEquals("Second element not correct", _sut[1], thirdPlayer);
+            assertEquals("Third element not correct", _sut[2], fourthPlayer);
+            assertEquals("Fourth element not correct", _sut[3], fifthPlayer);
+            assertEquals("Fifth element not correct", _sut[4], sixthPlayer);
+            assertEquals("Sixth element not correct", _sut[5], seventhPlayer);
+            assertEquals("Seventh element not correct", _sut[6], firstPlayer);
 		}
 		
 		[Test]
 		public function removeAllObjects():void
 		{
 			addObjects();
-			ac.removeAll();
-			assertEquals("Length is not zero", ac.length, 0);		
+			_sut.removeAll();
+			assertEquals("Length is not zero", _sut.length, 0);
 		}
 		
 		[Test]
 		public function removeFirstObjects():void
 		{
+            //given
 			addObjects();
-			ac.removeItemAt(0);
-			assertEquals("First element not correct", ac[0], players[1]);
-			assertEquals("Length is not six", ac.length, 6);
-			ac.removeItemAt(0);
-			assertEquals("Length is not five", ac.length, 5);
-			ac.removeItemAt(0);
-			assertEquals("Length is not four", ac.length, 4);
-			ac.removeItemAt(0);
-			assertEquals("Length is not three", ac.length, 3);
-			ac.removeItemAt(0);
-			assertEquals("Length is not two", ac.length, 2);
-			ac.removeItemAt(0);
-			assertEquals("Length is not one", ac.length, 1);
-			ac.removeItemAt(0);
-			assertEquals("Length is not zero", ac.length, 0);
+            var secondPlayer:Object = players[1];
+
+            //when
+			_sut.removeItemAt(0);
+
+            //then
+            assertEquals("First element not correct", secondPlayer, _sut[0]);
+			assertEquals("Length is not six", 6, _sut.length);
+
+            //when
+			_sut.removeItemAt(0);
+            //then
+			assertEquals("Length is not five", _sut.length, 5);
+
+            //when
+			_sut.removeItemAt(0);
+            //then
+			assertEquals("Length is not four", _sut.length, 4);
+
+            //when
+			_sut.removeItemAt(0);
+            //then
+			assertEquals("Length is not three", _sut.length, 3);
+
+            //when
+			_sut.removeItemAt(0);
+            //then
+			assertEquals("Length is not two", _sut.length, 2);
+
+            //when
+			_sut.removeItemAt(0);
+            //then
+			assertEquals("Length is not one", _sut.length, 1);
+
+            //when
+			_sut.removeItemAt(0);
+            //then
+			assertEquals("Length is not zero", _sut.length, 0);
 		}
 		
 		[Test]
 		public function removeLastNumbers():void
 		{
 			addObjects();
-			ac.removeItemAt(6);
-			assertEquals("First element not correct", ac[0], players[0]);
-			assertEquals("Length is not six", ac.length, 6);
-			ac.removeItemAt(0);
-			assertEquals("Length is not five", ac.length, 5);
-			ac.removeItemAt(0);
-			assertEquals("Length is not four", ac.length, 4);
-			ac.removeItemAt(0);
-			assertEquals("Length is not three", ac.length, 3);
-			ac.removeItemAt(0);
-			assertEquals("Length is not two", ac.length, 2);
-			ac.removeItemAt(0);
-			assertEquals("Length is not one", ac.length, 1);
-			ac.removeItemAt(0);
-			assertEquals("Length is not zero", ac.length, 0);
+			_sut.removeItemAt(6);
+			assertEquals("First element not correct", _sut[0], players[0]);
+			assertEquals("Length is not six", _sut.length, 6);
+			_sut.removeItemAt(0);
+			assertEquals("Length is not five", _sut.length, 5);
+			_sut.removeItemAt(0);
+			assertEquals("Length is not four", _sut.length, 4);
+			_sut.removeItemAt(0);
+			assertEquals("Length is not three", _sut.length, 3);
+			_sut.removeItemAt(0);
+			assertEquals("Length is not two", _sut.length, 2);
+			_sut.removeItemAt(0);
+			assertEquals("Length is not one", _sut.length, 1);
+			_sut.removeItemAt(0);
+			assertEquals("Length is not zero", _sut.length, 0);
 		}
 		
 		[Test]
 		public function removeItemByIndex():void
 		{
+			//given
 			addObjects();
-			ac.removeItemAt(ac.getItemIndex(players[0]));
-			assertEquals("First element not correct", ac[0], players[1]);
-			assertEquals("Length is not six", ac.length, 6);
-			ac.removeItemAt(ac.getItemIndex(players[2]));
-			assertEquals("First element not correct", ac[0], players[1]);
-			assertEquals("Second element not correct", ac[1], players[3]);
-			assertEquals("Length is not four", ac.length, 4);
+            const secondPlayer:Object = players[1];
+            const thirdPlayer:Object = players[2];
+            const fourthPlayer:Object = players[3];
+
+            //when
+			_sut.removeItemAt(_sut.getItemIndex(players[0]));
+
+            //then
+            assertEquals("First element incorrect", secondPlayer, _sut[0]);
+			assertEquals("Length is not six", 6, _sut.length);
+
+            //when
+			_sut.removeItemAt(_sut.getItemIndex(thirdPlayer));
+
+            //then
+			assertEquals("First element not correct", secondPlayer, _sut[0]);
+			assertEquals("Second element not correct", fourthPlayer, _sut[1]);
+			assertEquals("Length is not four", 5, _sut.length);
 		}
 		
 		[Test]
@@ -149,53 +194,61 @@ package mx.collections {
 		{
 			addObjects();
 			try {
-				ac.removeItemAt(-1);
+				_sut.removeItemAt(-1);
 			}
 			catch (error:Error)
 			{
 				assertTrue("Error not range error", error is RangeError);
 			}
-			assertEquals("Length is not seven", ac.length, 7);
+			assertEquals("Length is not seven", _sut.length, 7);
 			try {
-				ac.removeItemAt(10);
+				_sut.removeItemAt(10);
 			}
 			catch (error:Error)
 			{
 				assertTrue("Error not range error", error is RangeError);
 			}
-			assertEquals("Length is not seven", ac.length, 7);
+			assertEquals("Length is not seven", _sut.length, 7);
 		}
 		
 		[Test]
 		public function swapItemsTwoThenOne():void
 		{
+            //given
 			addObjects();
-			
-			var item1:Object = ac.getItemAt(0);
-			var item2:Object = ac.getItemAt(1);
-			
-			ac.setItemAt(item2,0);
-			ac.setItemAt(item1,1);
-			
-			assertEquals("Length is not seven", ac.length, 7);
-			assertEquals("First element not correct", ac[0], players[1]);
-			assertEquals("Second element not correct", ac[1], players[0]);
+			var item1:Object = _sut.getItemAt(0);
+			var item2:Object = _sut.getItemAt(1);
+            var firstPlayer:* = players[0];
+            var secondPlayer:* = players[1];
+
+            //when
+			_sut.setItemAt(item2,0);
+			_sut.setItemAt(item1,1);
+
+            //then
+			assertEquals("Length is not seven", _sut.length, 7);
+            assertEquals("First element not correct", _sut[0], secondPlayer);
+            assertEquals("Second element not correct", _sut[1], firstPlayer);
 		}
 		
 		[Test]
 		public function swapItemsOneThenTwo():void
 		{
+            //given
 			addObjects();
+			var item1:Object = _sut.getItemAt(0);
+			var item2:Object = _sut.getItemAt(1);
+            var secondPlayer:Object = players[1];
+            var firstPlayer:Object = players[0];
 
-			var item1:Object = ac.getItemAt(0);
-			var item2:Object = ac.getItemAt(1);
-			
-			ac.setItemAt(item1,1);
-			ac.setItemAt(item2,0);
-			
-			assertEquals("Length is not seven", ac.length, 7);
-			assertEquals("First element not correct", ac[0], players[1]);
-			assertEquals("Second element not correct", ac[1], players[0]);
+            //when
+			_sut.setItemAt(item1,1);
+			_sut.setItemAt(item2,0);
+
+            //then
+			assertEquals("Length is not seven", _sut.length, 7);
+            assertEquals("First element not correct", _sut[0], secondPlayer);
+            assertEquals("Second element not correct", _sut[1], firstPlayer);
 
 		}
 		

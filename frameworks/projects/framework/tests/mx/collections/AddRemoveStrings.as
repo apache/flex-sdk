@@ -5,108 +5,121 @@ package mx.collections {
 
 	public class AddRemoveStrings
 	{	
-		protected var ac:ArrayCollection;
+		protected var _sut:ArrayCollection;
 		
 		[Before]
 		public function setUp():void
 		{
-			ac = new ArrayCollection();
+			_sut = new ArrayCollection();
 		}
 		
 		[After]
 		public function tearDown():void
 		{
-			ac = null;
+			_sut = null;
 		}
 		
 		[Test]
 		public function empty():void
 		{
-			assertEquals(ac.length, 0);
+			assertEquals(0, _sut.length);
 		}
 		
 		[Test]
 		public function addStrings():void
 		{
-			ac.addItem("A");
-			assertEquals("Length is not one", ac.length, 1);
-			assertEquals("First element not correct", ac[0], "A");
-			ac.addItem("B");
-			assertEquals("Length is not two", ac.length, 2);
-			assertEquals("Second element not correct", ac[1], "B");
-			ac.addItem("D");
-			assertEquals("Length is not three", ac.length, 3);
-			assertEquals("Second element not correct", ac[2], "D");
-			ac.addItem("C");
-			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("Second element not correct", ac[3], "C");
+			_sut.addItem("A");
+			assertEquals("Length is not one", 1, _sut.length);
+			assertEquals("First element not correct", "A", _sut[0]);
+
+			_sut.addItem("B");
+			assertEquals("Length is not two", 2, _sut.length);
+			assertEquals("Second element not correct", "B", _sut[1]);
+
+			_sut.addItem("D");
+			assertEquals("Length is not three", 3, _sut.length);
+			assertEquals("Second element not correct", "D", _sut[2]);
+
+			_sut.addItem("C");
+			assertEquals("Length is not four", 4, _sut.length);
+			assertEquals("Second element not correct", "C", _sut[3]);
 		}
 		
 		[Test]
 		public function addDuplicate():void
 		{
+            //given
 			addStrings();
-			ac.addItem("B");
-			assertEquals("Length is not five", ac.length, 5);
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Second element not correct", ac[1], "B");
-			assertEquals("Second element not correct", ac[2], "D");
-			assertEquals("Second element not correct", ac[3], "C");
-			assertEquals("Second element not correct", ac[4], "B");
+
+            //when
+			_sut.addItem("B");
+
+            //then
+			assertEquals("Length is not five", 5, _sut.length);
+			assertEquals("First element not correct", "A", _sut[0]);
+			assertEquals("Second element not correct", "B", _sut[1]);
+			assertEquals("Second element not correct", "D", _sut[2]);
+			assertEquals("Second element not correct", "C", _sut[3]);
+			assertEquals("Second element not correct", "B", _sut[4]);
 		}
 		
 		[Test]
 		public function removeDuplicate():void
 		{
+            //given
 			addStrings();
-			ac.addItem("B");
-			ac.removeItemAt(1);
-			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Second element not correct", ac[1], "D");
-			assertEquals("Second element not correct", ac[2], "C");
-			assertEquals("Second element not correct", ac[3], "B");
+
+            //when
+			_sut.addItem("B");
+			_sut.removeItemAt(1);
+
+            //then
+			assertEquals("Length is not four", 4, _sut.length);
+			assertEquals("First element not correct", _sut[0], "A");
+			assertEquals("Second element not correct", _sut[1], "D");
+			assertEquals("Second element not correct", _sut[2], "C");
+			assertEquals("Second element not correct", _sut[3], "B");
 		}
 		
 		[Test]
 		public function removeAllStrings():void
 		{
 			addStrings();
-			ac.removeAll();
-			assertEquals("Length is not zero", ac.length, 0);		
+			_sut.removeAll();
+			assertEquals("Length is not zero", _sut.length, 0);
 		}
 		
 		[Test]
 		public function removeFirstStrings():void
 		{
 			addStrings();
-			ac.removeItemAt(0);
-			assertEquals("First element not correct", ac[0], "B");
-			assertEquals("Length is not three", ac.length, 3);
-			ac.removeItemAt(0);
-			assertEquals("Length is not two", ac.length, 2);
+			_sut.removeItemAt(0);
+			assertEquals("First element not correct", _sut[0], "B");
+			assertEquals("Length is not three", _sut.length, 3);
+			_sut.removeItemAt(0);
+			assertEquals("Length is not two", _sut.length, 2);
 		}
 		
 		[Test]
 		public function removeLastStrings():void
 		{
 			addStrings();
-			ac.removeItemAt(1);
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Length is not three", ac.length, 3);
-			ac.removeItemAt(0);
-			assertEquals("Length is not two", ac.length, 2);
+			_sut.removeItemAt(1);
+			assertEquals("First element not correct", _sut[0], "A");
+			assertEquals("Length is not three", _sut.length, 3);
+			_sut.removeItemAt(0);
+			assertEquals("Length is not two", _sut.length, 2);
 		}
 		
 		[Test]
 		public function removeItemByIndex():void
 		{
 			addStrings();
-			ac.removeItemAt(ac.getItemIndex("B"));
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Length is not three", ac.length, 3);
-			ac.removeItemAt(ac.getItemIndex("D"));
-			assertEquals("Length is not two", ac.length, 2);
+			_sut.removeItemAt(_sut.getItemIndex("B"));
+			assertEquals("First element not correct", _sut[0], "A");
+			assertEquals("Length is not three", _sut.length, 3);
+			_sut.removeItemAt(_sut.getItemIndex("D"));
+			assertEquals("Length is not two", _sut.length, 2);
 		}
 		
 		[Test]
@@ -114,53 +127,57 @@ package mx.collections {
 		{
 			addStrings();
 			try {
-				ac.removeItemAt(-1);
+				_sut.removeItemAt(-1);
 			}
 			catch (error:Error)
 			{
 				assertTrue("Error not range error", error is RangeError);
 			}
-			assertEquals("Length is not four", ac.length, 4);
+			assertEquals("Length is not four", 4, _sut.length);
 			try {
-				ac.removeItemAt(10);
+				_sut.removeItemAt(10);
 			}
 			catch (error:Error)
 			{
 				assertTrue("Error not range error", error is RangeError);
 			}
-			assertEquals("Length is not two", ac.length, 4);
+			assertEquals("Length is not two", 4, _sut.length);
 		}
 		
 		[Test]
 		public function swapItemsTwoThenOne():void
 		{
+            //given
 			addStrings();
-			
-			var item1:String = ac.getItemAt(0) as String;
-			var item2:String = ac.getItemAt(1) as String;
-			
-			ac.setItemAt(item2, 0);
-			ac.setItemAt(item1, 1);
-			
-			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("First element not correct", ac[0], "B");
-			assertEquals("Second element not correct", ac[1], "A");
+			var item1:String = _sut.getItemAt(0) as String;
+			var item2:String = _sut.getItemAt(1) as String;
+
+            //when
+			_sut.setItemAt(item2, 0);
+			_sut.setItemAt(item1, 1);
+
+            //then
+			assertEquals("Length is not four", _sut.length, 4);
+			assertEquals("First element not correct", _sut[0], "B");
+			assertEquals("Second element not correct", _sut[1], "A");
 		}
 		
 		[Test]
 		public function swapItemsOneThenTwo():void
 		{
+            //given
 			addStrings();
+			var item1:String = _sut.getItemAt(0) as String;
+			var item2:String = _sut.getItemAt(1) as String;
 
-			var item1:String = ac.getItemAt(0) as String;
-			var item2:String = ac.getItemAt(1) as String;
-			
-			ac.setItemAt(item1, 1);
-			ac.setItemAt(item2, 0);
-			
-			assertEquals("Length is not two", ac.length, 2);
-			assertEquals("First element not correct", ac[0], "B");
-			assertEquals("Second element not correct", ac[1], "A");
+			//when
+			_sut.setItemAt(item1, 1);
+			_sut.setItemAt(item2, 0);
+
+            //then
+			assertEquals("Length is not four", 4, _sut.length);
+			assertEquals("First element not correct", _sut[0], "B");
+			assertEquals("Second element not correct", _sut[1], "A");
 		}
 		
 	}

@@ -209,21 +209,24 @@ package mx.collections {
 		[Test]
 		public function swapItemsTwoThenOne():void
 		{
+			//given
 			addStrings();
 			ac.filterFunction = allIn; 
 			ac.refresh();
 			
 			var item1:String = ac.getItemAt(0) as String;
 			var item2:String = ac.getItemAt(1) as String;
-			
+
+            //when
 			ac.setItemAt(item2,0);
 			ac.setItemAt(item1,1);
-			
+
+            //then
 			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("First element not correct", ac[0], "B");
-			assertEquals("Second element not correct", ac[1], "A");
-			assertEquals("Third element not correct", ac[2], "D");
-			assertEquals("Four element not correct", ac[3], "C");
+			assertEquals("First element not correct", "B", ac[0]);
+			assertEquals("Second element not correct", "A", ac[1]);
+			assertEquals("Third element not correct", "D", ac[2]);
+			assertEquals("Four element not correct", "C", ac[3]);
 		}
 		
 		[Test]
