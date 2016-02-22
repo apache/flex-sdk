@@ -51,11 +51,11 @@ package mx.collections {
 			ac.sort = null;
 			ac.refresh();
 			
-			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Second element not correct", ac[1], "B");
-			assertEquals("First element not correct", ac[2], "D");
-			assertEquals("Second element not correct", ac[3], "C");
+			assertEquals("Length is not four",  4, ac.length);
+			assertEquals("First element not correct",  "A", ac[0]);
+			assertEquals("Second element not correct",  "B", ac[1]);
+			assertEquals("First element not correct",  "D", ac[2]);
+			assertEquals("Second element not correct",  "C", ac[3]);
 		}	
 		
 		[Test]
@@ -65,11 +65,11 @@ package mx.collections {
 			ac.sort = new Sort();
 			ac.refresh();
 			
-			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Second element not correct", ac[1], "B");
-			assertEquals("First element not correct", ac[2], "C");
-			assertEquals("Second element not correct", ac[3], "D");
+			assertEquals("Length is not four",  4, ac.length);
+			assertEquals("First element not correct",  "A", ac[0]);
+			assertEquals("Second element not correct",  "B", ac[1]);
+			assertEquals("First element not correct",  "C", ac[2]);
+			assertEquals("Second element not correct",  "D", ac[3]);
 		}
 		
 		[Test]
@@ -81,11 +81,11 @@ package mx.collections {
 			ac.sort = sort;
 			ac.refresh();
 			
-			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("First element not correct", ac[0], "D");
-			assertEquals("Second element not correct", ac[1], "C");
-			assertEquals("First element not correct", ac[2], "B");
-			assertEquals("Second element not correct", ac[3], "A");
+			assertEquals("Length is not four",  4, ac.length);
+			assertEquals("First element not correct",  "D", ac[0]);
+			assertEquals("Second element not correct",  "C", ac[1]);
+			assertEquals("First element not correct",  "B", ac[2]);
+			assertEquals("Second element not correct",  "A", ac[3]);
 		}
 		
 		[Test]
@@ -97,11 +97,11 @@ package mx.collections {
 			ac.sort = sort;
 			ac.refresh();
 			
-			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Second element not correct", ac[1], "B");
-			assertEquals("First element not correct", ac[2], "C");
-			assertEquals("Second element not correct", ac[3], "D");
+			assertEquals("Length is not four",  4, ac.length);
+			assertEquals("First element not correct",  "A", ac[0]);
+			assertEquals("Second element not correct",  "B", ac[1]);
+			assertEquals("First element not correct",  "C", ac[2]);
+			assertEquals("Second element not correct",  "D", ac[3]);
 		}
 		
 		[Test]
@@ -113,11 +113,11 @@ package mx.collections {
 			ac.sort = sort;
 			
 			// Short should not take effect
-			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Second element not correct", ac[1], "B");
-			assertEquals("First element not correct", ac[2], "D");
-			assertEquals("Second element not correct", ac[3], "C");
+			assertEquals("Length is not four",  4, ac.length);
+			assertEquals("First element not correct",  "A", ac[0]);
+			assertEquals("Second element not correct",  "B", ac[1]);
+			assertEquals("First element not correct",  "D", ac[2]);
+			assertEquals("Second element not correct",  "C", ac[3]);
 		}
 		
 		[Test]
@@ -131,20 +131,20 @@ package mx.collections {
 			ac.sort = null;
 			
 			// Sort should be in effect
-			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Second element not correct", ac[1], "B");
-			assertEquals("First element not correct", ac[2], "C");
-			assertEquals("Second element not correct", ac[3], "D");
+			assertEquals("Length is not four",  4, ac.length);
+			assertEquals("First element not correct",  "A", ac[0]);
+			assertEquals("Second element not correct",  "B", ac[1]);
+			assertEquals("First element not correct",  "C", ac[2]);
+			assertEquals("Second element not correct",  "D", ac[3]);
 			
 			ac.refresh();
 			
 			// and back to original
-			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Second element not correct", ac[1], "B");
-			assertEquals("First element not correct", ac[2], "D");
-			assertEquals("Second element not correct", ac[3], "C");
+			assertEquals("Length is not four",  4, ac.length);
+			assertEquals("First element not correct",  "A", ac[0]);
+			assertEquals("Second element not correct",  "B", ac[1]);
+			assertEquals("First element not correct",  "D", ac[2]);
+			assertEquals("Second element not correct",  "C", ac[3]);
 		}
 		
 		[Test]
@@ -159,11 +159,11 @@ package mx.collections {
 			ac.refresh();
 			
 			// Sort should not be in effect
-			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Second element not correct", ac[1], "B");
-			assertEquals("First element not correct", ac[2], "D");
-			assertEquals("Second element not correct", ac[3], "C");
+			assertEquals("Length is not four",  4, ac.length);
+			assertEquals("First element not correct",  "A", ac[0]);
+			assertEquals("Second element not correct",  "B", ac[1]);
+			assertEquals("First element not correct",  "D", ac[2]);
+			assertEquals("Second element not correct",  "C", ac[3]);
 		}
 		
 		// RTEs in APache flex 4.9.1
@@ -181,28 +181,28 @@ package mx.collections {
 			
 			// Sort should be in effect and first 4 items sorted
 			// item added after are not sorted
-			assertEquals("Length is not eight", ac.length, 8);
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Second element not correct", ac[1], "B");
-			assertEquals("First element not correct", ac[2], "C");
-			assertEquals("Second element not correct", ac[3], "D");
-			assertEquals("First element not correct", ac[4], "A");
-			assertEquals("Second element not correct", ac[5], "B");
-			assertEquals("First element not correct", ac[6], "D");
-			assertEquals("Second element not correct", ac[7], "C");
+			assertEquals("Length is not eight",  8, ac.length);
+			assertEquals("First element not correct",  "A", ac[0]);
+			assertEquals("Second element not correct",  "B", ac[1]);
+			assertEquals("First element not correct",  "C", ac[2]);
+			assertEquals("Second element not correct",  "D", ac[3]);
+			assertEquals("First element not correct",  "A", ac[4]);
+			assertEquals("Second element not correct",  "B", ac[5]);
+			assertEquals("First element not correct",  "D", ac[6]);
+			assertEquals("Second element not correct",  "C", ac[7]);
 			
 			ac.refresh();
 			
 			// and back to being unsorted
-			assertEquals("Length is not eight", ac.length, 8);
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Second element not correct", ac[1], "B");
-			assertEquals("First element not correct", ac[2], "D");
-			assertEquals("Second element not correct", ac[3], "C");
-			assertEquals("First element not correct", ac[4], "A");
-			assertEquals("Second element not correct", ac[5], "B");
-			assertEquals("First element not correct", ac[6], "D");
-			assertEquals("Second element not correct", ac[7], "C");
+			assertEquals("Length is not eight",  8, ac.length);
+			assertEquals("First element not correct",  "A", ac[0]);
+			assertEquals("Second element not correct",  "B", ac[1]);
+			assertEquals("First element not correct",  "D", ac[2]);
+			assertEquals("Second element not correct",  "C", ac[3]);
+			assertEquals("First element not correct",  "A", ac[4]);
+			assertEquals("Second element not correct",  "B", ac[5]);
+			assertEquals("First element not correct",  "D", ac[6]);
+			assertEquals("Second element not correct",  "C", ac[7]);
 		}
 		
 		// RTEs in Apache Flex 4.9.1
@@ -217,16 +217,16 @@ package mx.collections {
 			ac.refresh();
 			ac.sort = null;
 			
-			assertEquals("Length is not four", ac.length, 4);
+			assertEquals("Length is not four",  4, ac.length);
 			
 			ac.removeItemAt(0); // still sorted so 2 is removed leaving 1
-			assertEquals("Length is not three", ac.length, 3);
-			assertEquals("First element not correct", ac[0], "B");
+			assertEquals("Length is not three",  3, ac.length);
+			assertEquals("First element not correct",  "B", ac[0]);
 			
 			ac.refresh();
 			
-			assertEquals("Length is not four", ac.length, 3);
-			assertEquals("First element not correct", ac[0], "A");
+			assertEquals("Length is not four",  3, ac.length);
+			assertEquals("First element not correct",  "A", ac[0]);
 		}
 		
 		[Test]
@@ -240,15 +240,15 @@ package mx.collections {
 			ac.sort = sort;
 			ac.refresh();
 			
-			assertEquals("Length is not eight", ac.length, 8);
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Second element not correct", ac[1], "A");
-			assertEquals("First element not correct", ac[2], "B");
-			assertEquals("Second element not correct", ac[3], "B");	
-			assertEquals("First element not correct", ac[4], "C");
-			assertEquals("Second element not correct", ac[5], "C");
-			assertEquals("First element not correct", ac[6], "D");
-			assertEquals("Second element not correct", ac[7], "D");	
+			assertEquals("Length is not eight",  8, ac.length);
+			assertEquals("First element not correct",  "A", ac[0]);
+			assertEquals("Second element not correct",  "A", ac[1]);
+			assertEquals("First element not correct",  "B", ac[2]);
+			assertEquals("Second element not correct",  "B", ac[3]);
+			assertEquals("First element not correct",  "C", ac[4]);
+			assertEquals("Second element not correct",  "C", ac[5]);
+			assertEquals("First element not correct",  "D", ac[6]);
+			assertEquals("Second element not correct",  "D", ac[7]);
 		}
 		
 	}

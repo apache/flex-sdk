@@ -46,11 +46,11 @@ package mx.collections {
 		public function addNumbers():void
 		{
 			_sut.addItem(1);
-			assertEquals("Length is not one", _sut.length, 1);
-			assertEquals("First element not correct", _sut[0], 1);
+			assertEquals("Length is not one",  1, _sut.length);
+			assertEquals("First element not correct",  1, _sut[0]);
 			_sut.addItem(2);
-			assertEquals("Length is not two", _sut.length, 2);
-			assertEquals("Second element not correct", _sut[1], 2);
+			assertEquals("Length is not two",  2, _sut.length);
+			assertEquals("Second element not correct",  2, _sut[1]);
 		}
 		
 		[Test]
@@ -58,10 +58,10 @@ package mx.collections {
 		{
 			addNumbers();
 			_sut.addItem(1);
-			assertEquals("Length is not three", _sut.length, 3);
-			assertEquals("First element not correct", _sut[0], 1);
-			assertEquals("Second element not correct", _sut[1], 2);
-			assertEquals("Second element not correct", _sut[2], 1);
+			assertEquals("Length is not three",  3, _sut.length);
+			assertEquals("First element not correct",  1, _sut[0]);
+			assertEquals("Second element not correct",  2, _sut[1]);
+			assertEquals("Second element not correct",  1, _sut[2]);
 		}
 		
 		[Test]
@@ -70,9 +70,9 @@ package mx.collections {
 			addNumbers();
 			_sut.addItem(1);
 			_sut.removeItemAt(0);
-			assertEquals("Length is not two", _sut.length, 2);
-			assertEquals("First element not correct", _sut[0], 2);
-			assertEquals("Second element not correct", _sut[1], 1);
+			assertEquals("Length is not two",  2, _sut.length);
+			assertEquals("First element not correct",  2, _sut[0]);
+			assertEquals("Second element not correct",  1, _sut[1]);
 		}
 		
 		[Test]
@@ -80,7 +80,7 @@ package mx.collections {
 		{
 			addNumbers();
 			_sut.removeAll();
-			assertEquals("Length is not zero", _sut.length, 0);
+			assertEquals("Length is not zero",  0, _sut.length);
 		}
 		
 		[Test]
@@ -88,10 +88,10 @@ package mx.collections {
 		{
 			addNumbers();
 			_sut.removeItemAt(0);
-			assertEquals("First element not correct", _sut[0], 2);
-			assertEquals("Length is not one", _sut.length, 1);
+			assertEquals("First element not correct",  2, _sut[0]);
+			assertEquals("Length is not one",  1, _sut.length);
 			_sut.removeItemAt(0);
-			assertEquals("Length is not zero", _sut.length, 0);
+			assertEquals("Length is not zero",  0, _sut.length);
 		}
 		
 		[Test]
@@ -99,10 +99,10 @@ package mx.collections {
 		{
 			addNumbers();
 			_sut.removeItemAt(1);
-			assertEquals("First element not correct", _sut[0], 1);
-			assertEquals("Length is not one", _sut.length, 1);
+			assertEquals("First element not correct",  1, _sut[0]);
+			assertEquals("Length is not one",  1, _sut.length);
 			_sut.removeItemAt(0);
-			assertEquals("Length is not zero", _sut.length, 0);
+			assertEquals("Length is not zero",  0, _sut.length);
 		}
 		
 		[Test]
@@ -110,10 +110,10 @@ package mx.collections {
 		{
 			addNumbers();
 			_sut.removeItemAt(_sut.getItemIndex(1));
-			assertEquals("First element not correct", _sut[0], 2);
-			assertEquals("Length is not one", _sut.length, 1);
+			assertEquals("First element not correct",  2, _sut[0]);
+			assertEquals("Length is not one",  1, _sut.length);
 			_sut.removeItemAt(_sut.getItemIndex(2));
-			assertEquals("Length is not zero", _sut.length, 0);
+			assertEquals("Length is not zero",  0, _sut.length);
 		}
 		
 		[Test]
@@ -127,7 +127,7 @@ package mx.collections {
 			{
 				assertTrue("Error not range error", error is RangeError);
 			}
-			assertEquals("Length is not two", _sut.length, 2);
+			assertEquals("Length is not two",  2, _sut.length);
 			try {
 				_sut.removeItemAt(10);
 			}
@@ -135,7 +135,7 @@ package mx.collections {
 			{
 				assertTrue("Error not range error", error is RangeError);
 			}
-			assertEquals("Length is not two", _sut.length, 2);
+			assertEquals("Length is not two",  2, _sut.length);
 		}
 		
 		[Test]
@@ -149,9 +149,9 @@ package mx.collections {
 			_sut.setItemAt(item2,0);
 			_sut.setItemAt(item1,1);
 			
-			assertEquals("Length is not two", _sut.length, 2);
-			assertEquals("First element not correct", _sut[0], 2);
-			assertEquals("Second element not correct", _sut[1], 1);
+			assertEquals("Length is not two",  2, _sut.length);
+			assertEquals("First element not correct",  2, _sut[0]);
+			assertEquals("Second element not correct",  1, _sut[1]);
 		}
 		
 		[Test]
@@ -165,9 +165,9 @@ package mx.collections {
 			_sut.setItemAt(item1,1);
 			_sut.setItemAt(item2,0);
 			
-			assertEquals("Length is not two", _sut.length, 2);
-			assertEquals("First element not correct", _sut[0], 2);
-			assertEquals("Second element not correct", _sut[1], 1);
+			assertEquals("Length is not two",  2, _sut.length);
+			assertEquals("First element not correct",  2, _sut[0]);
+			assertEquals("Second element not correct",  1, _sut[1]);
 		}
 		
 	}

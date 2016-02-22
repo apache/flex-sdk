@@ -66,11 +66,11 @@ package mx.collections {
 			ac.filterFunction = null;
 			ac.refresh();
 			
-			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Second element not correct", ac[1], "B");
-			assertEquals("Third element not correct", ac[2], "D");
-			assertEquals("Four element not correct", ac[3], "C");
+			assertEquals("Length is not four",  4, ac.length);
+			assertEquals("First element not correct",  "A", ac[0]);
+			assertEquals("Second element not correct",  "B", ac[1]);
+			assertEquals("Third element not correct",  "D", ac[2]);
+			assertEquals("Four element not correct",  "C", ac[3]);
 		}	
 		
 		[Test]
@@ -80,11 +80,11 @@ package mx.collections {
 			ac.filterFunction = allIn; 
 			ac.refresh();
 			
-			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Second element not correct", ac[1], "B");
-			assertEquals("Third element not correct", ac[2], "D");
-			assertEquals("Four element not correct", ac[3], "C");
+			assertEquals("Length is not four",  4, ac.length);
+			assertEquals("First element not correct",  "A", ac[0]);
+			assertEquals("Second element not correct",  "B", ac[1]);
+			assertEquals("Third element not correct",  "D", ac[2]);
+			assertEquals("Four element not correct",  "C", ac[3]);
 		}
 		
 		[Test]
@@ -94,7 +94,7 @@ package mx.collections {
 			ac.filterFunction = allOut; 
 			ac.refresh();
 			
-			assertEquals("Length is not zero", ac.length, 0);
+			assertEquals("Length is not zero",  0, ac.length);
 		}
 		
 		
@@ -105,11 +105,11 @@ package mx.collections {
 			ac.filterFunction = allOut;
 			
 			// Filter should not take effect
-			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Second element not correct", ac[1], "B");
-			assertEquals("Third element not correct", ac[2], "D");
-			assertEquals("Four element not correct", ac[3], "C");
+			assertEquals("Length is not four",  4, ac.length);
+			assertEquals("First element not correct",  "A", ac[0]);
+			assertEquals("Second element not correct",  "B", ac[1]);
+			assertEquals("Third element not correct",  "D", ac[2]);
+			assertEquals("Four element not correct",  "C", ac[3]);
 		}
 		
 		[Test]
@@ -119,11 +119,11 @@ package mx.collections {
 			ac.filterFunction = null;
 			
 			// Filter should not take effect
-			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Second element not correct", ac[1], "B");
-			assertEquals("Third element not correct", ac[2], "D");
-			assertEquals("Four element not correct", ac[3], "C");
+			assertEquals("Length is not four",  4, ac.length);
+			assertEquals("First element not correct",  "A", ac[0]);
+			assertEquals("Second element not correct",  "B", ac[1]);
+			assertEquals("Third element not correct",  "D", ac[2]);
+			assertEquals("Four element not correct",  "C", ac[3]);
 		}
 		
 		[Test]
@@ -133,17 +133,17 @@ package mx.collections {
 			ac.filterFunction = allOut;
 			ac.refresh();
 			
-			assertEquals("Length is not zero", ac.length, 0);
+			assertEquals("Length is not zero",  0, ac.length);
 			
 			ac.filterFunction = null;
 			ac.refresh();
 			
 			// Filter should not take effect
-			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Second element not correct", ac[1], "B");
-			assertEquals("Third element not correct", ac[2], "D");
-			assertEquals("Four element not correct", ac[3], "C");
+			assertEquals("Length is not four",  4, ac.length);
+			assertEquals("First element not correct",  "A", ac[0]);
+			assertEquals("Second element not correct",  "B", ac[1]);
+			assertEquals("Third element not correct",  "D", ac[2]);
+			assertEquals("Four element not correct",  "C", ac[3]);
 		}
 		
 		// RTEs in Apache Flex 4.9.1
@@ -155,29 +155,29 @@ package mx.collections {
 			ac.filterFunction = allOut;
 			ac.refresh();
 			
-			assertEquals("Length is not zero", ac.length, 0);
+			assertEquals("Length is not zero",  0, ac.length);
 			
 			ac.filterFunction = null;
 			addStrings();
 			
 			// Filter should be in effect and first 2 items sorted
 			// item added after are not filtered until refresh called
-			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Second element not correct", ac[1], "B");
-			assertEquals("Third element not correct", ac[2], "D");
-			assertEquals("Four element not correct", ac[3], "C");
+			assertEquals("Length is not four",  4, ac.length);
+			assertEquals("First element not correct",  "A", ac[0]);
+			assertEquals("Second element not correct",  "B", ac[1]);
+			assertEquals("Third element not correct",  "D", ac[2]);
+			assertEquals("Four element not correct",  "C", ac[3]);
 			
 			ac.refresh();
-			assertEquals("Length is not eight", ac.length, 8);
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Second element not correct", ac[1], "B");
-			assertEquals("Third element not correct", ac[2], "D");
-			assertEquals("Four element not correct", ac[3], "C");
-			assertEquals("First element not correct", ac[4], "A");
-			assertEquals("Second element not correct", ac[5], "B");
-			assertEquals("Third element not correct", ac[6], "D");
-			assertEquals("Four element not correct", ac[7], "C");
+			assertEquals("Length is not eight",  8, ac.length);
+			assertEquals("First element not correct",  "A", ac[0]);
+			assertEquals("Second element not correct",  "B", ac[1]);
+			assertEquals("Third element not correct",  "D", ac[2]);
+			assertEquals("Four element not correct",  "C", ac[3]);
+			assertEquals("First element not correct",  "A", ac[4]);
+			assertEquals("Second element not correct",  "B", ac[5]);
+			assertEquals("Third element not correct",  "D", ac[6]);
+			assertEquals("Four element not correct",  "C", ac[7]);
 		}
 		
 		[Test]
@@ -189,7 +189,7 @@ package mx.collections {
 			ac.refresh();
 			ac.filterFunction = null;
 			
-			assertEquals("Length is not zero", ac.length, 0);
+			assertEquals("Length is not zero",  0, ac.length);
 			
 			try {
 				ac.removeItemAt(0);
@@ -199,10 +199,10 @@ package mx.collections {
 				assertTrue("Error not range error", error is RangeError);
 			}
 			
-			assertEquals("Length is not zero", ac.length, 0);
+			assertEquals("Length is not zero",  0, ac.length);
 			
 			ac.refresh();
-			assertEquals("Length is not four", ac.length, 4);
+			assertEquals("Length is not four",  4, ac.length);
 		}
 		
 		[Test]
@@ -214,10 +214,10 @@ package mx.collections {
 			ac.filterFunction = isA;
 			ac.refresh();
 			
-			assertEquals("Length is not two", ac.length, 2);
+			assertEquals("Length is not two",  2, ac.length);
 			
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Second element not correct", ac[1], "A");	
+			assertEquals("First element not correct",  "A", ac[0]);
+			assertEquals("Second element not correct",  "A", ac[1]);
 		}
 		
 		// Fails in Apache Flex 4.9.1
@@ -237,11 +237,11 @@ package mx.collections {
 			ac.setItemAt(item1,1);
 
             //then
-			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("First element not correct", "B", ac[0]);
-			assertEquals("Second element not correct", "A", ac[1]);
-			assertEquals("Third element not correct", "D", ac[2]);
-			assertEquals("Four element not correct", "C", ac[3]);
+			assertEquals("Length is not four",  4, ac.length);
+			assertEquals("First element not correct",  ac[0], "B");
+			assertEquals("Second element not correct",  ac[1], "A");
+			assertEquals("Third element not correct",  ac[2], "D");
+			assertEquals("Four element not correct",  ac[3], "C");
 		}
 		
 		[Test]
@@ -257,11 +257,11 @@ package mx.collections {
 			ac.setItemAt(item1,1);
 			ac.setItemAt(item2,0);
 			
-			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("First element not correct", ac[0], "B");
-			assertEquals("Second element not correct", ac[1], "A");
-			assertEquals("Third element not correct", ac[2], "D");
-			assertEquals("Four element not correct", ac[3], "C");
+			assertEquals("Length is not four",  4, ac.length);
+			assertEquals("First element not correct",  "B", ac[0]);
+			assertEquals("Second element not correct",  "A", ac[1]);
+			assertEquals("Third element not correct",  "D", ac[2]);
+			assertEquals("Four element not correct",  "C", ac[3]);
 		}
 		
 		[Test]
@@ -271,20 +271,20 @@ package mx.collections {
 			ac.filterFunction = allOut; 
 			ac.refresh();
 			
-			assertEquals("Length is not two", ac.length, 0);
+			assertEquals("Length is not two",  0, ac.length);
 			
 			ac.removeAll();
 			
-			assertEquals("Length is not two", ac.length, 0);
+			assertEquals("Length is not two",  0, ac.length);
 			
 			ac.filterFunction = null; 
 			ac.refresh();
 			
-			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Second element not correct", ac[1], "B");
-			assertEquals("Third element not correct", ac[2], "D");
-			assertEquals("Four element not correct", ac[3], "C");
+			assertEquals("Length is not four",  4, ac.length);
+			assertEquals("First element not correct",  "A", ac[0]);
+			assertEquals("Second element not correct",  "B", ac[1]);
+			assertEquals("Third element not correct",  "D", ac[2]);
+			assertEquals("Four element not correct",  "C", ac[3]);
 		}
 		
 		[Test]
@@ -294,17 +294,17 @@ package mx.collections {
 			ac.filterFunction = isA; 
 			ac.refresh();
 			
-			assertEquals("Length is not one", ac.length, 1);
+			assertEquals("Length is not one",  1, ac.length);
 			
 			ac.removeItemAt(ac.getItemIndex("A"));
 			
-			assertEquals("Length is not zero", ac.length, 0);
+			assertEquals("Length is not zero",  0, ac.length);
 			
 			ac.filterFunction = null; 
 			ac.refresh();
 			
-			assertEquals("Length is not three", ac.length, 3);
-			assertEquals("First element not correct", ac[0], "B");
+			assertEquals("Length is not three",  3, ac.length);
+			assertEquals("First element not correct",  "B", ac[0]);
 		}
 		
 		[Test]
@@ -314,7 +314,7 @@ package mx.collections {
 			ac.filterFunction = isA; 
 			ac.refresh();
 			
-			assertEquals("Length is not one", ac.length, 1);
+			assertEquals("Length is not one",  1, ac.length);
 			
 			try {
 				// not removed as filter hids it - perhaps it should be removed?
@@ -325,16 +325,16 @@ package mx.collections {
 				assertTrue("Error not range error", error is RangeError);
 			}
 			
-			assertEquals("Length is not one", ac.length, 1);
+			assertEquals("Length is not one",  1, ac.length);
 			
 			ac.filterFunction = null; 
 			ac.refresh();
 			
-			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("First element not correct", ac[0], "A");
-			assertEquals("Second element not correct", ac[1], "B");
-			assertEquals("Third element not correct", ac[2], "D");
-			assertEquals("Four element not correct", ac[3], "C");
+			assertEquals("Length is not four",  4, ac.length);
+			assertEquals("First element not correct",  "A", ac[0]);
+			assertEquals("Second element not correct",  "B", ac[1]);
+			assertEquals("Third element not correct",  "D", ac[2]);
+			assertEquals("Four element not correct",  "C", ac[3]);
 		}
 		
 		

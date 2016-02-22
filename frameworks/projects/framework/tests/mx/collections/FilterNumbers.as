@@ -64,9 +64,9 @@ package mx.collections {
 			ac.filterFunction = null;
 			ac.refresh();
 			
-			assertEquals("Length is not two", ac.length, 2);
-			assertEquals("First element not correct", ac[0], 1);
-			assertEquals("Second element not correct", ac[1], 2);
+			assertEquals("Length is not two",  2, ac.length);
+			assertEquals("First element not correct",  1, ac[0]);
+			assertEquals("Second element not correct",  2, ac[1]);
 		}	
 		
 		[Test]
@@ -76,9 +76,9 @@ package mx.collections {
 			ac.filterFunction = allIn; 
 			ac.refresh();
 			
-			assertEquals("Length is not two", ac.length, 2);
-			assertEquals("First element not correct", ac[0], 1);
-			assertEquals("Second element not correct", ac[1], 2);
+			assertEquals("Length is not two",  2, ac.length);
+			assertEquals("First element not correct",  1, ac[0]);
+			assertEquals("Second element not correct",  2, ac[1]);
 		}
 		
 		[Test]
@@ -88,7 +88,7 @@ package mx.collections {
 			ac.filterFunction = allOut; 
 			ac.refresh();
 			
-			assertEquals("Length is not two", ac.length, 0);
+			assertEquals("Length is not two",  0, ac.length);
 		}
 		
 		
@@ -99,9 +99,9 @@ package mx.collections {
 			ac.filterFunction = allOut;
 			
 			// Filter should not take effect
-			assertEquals("Length is not two", ac.length, 2);
-			assertEquals("First element not correct", ac[0], 1);
-			assertEquals("Second element not correct", ac[1], 2);
+			assertEquals("Length is not two",  2, ac.length);
+			assertEquals("First element not correct",  1, ac[0]);
+			assertEquals("Second element not correct",  2, ac[1]);
 		}
 		
 		[Test]
@@ -111,9 +111,9 @@ package mx.collections {
 			ac.filterFunction = null;
 			
 			// Filter should not take effect
-			assertEquals("Length is not two", ac.length, 2);
-			assertEquals("First element not correct", ac[0], 1);
-			assertEquals("Second element not correct", ac[1], 2);
+			assertEquals("Length is not two",  2, ac.length);
+			assertEquals("First element not correct",  1, ac[0]);
+			assertEquals("Second element not correct",  2, ac[1]);
 		}
 		
 		[Test]
@@ -123,15 +123,15 @@ package mx.collections {
 			ac.filterFunction = allOut;
 			ac.refresh();
 			
-			assertEquals("Length is not zero", ac.length, 0);
+			assertEquals("Length is not zero",  0, ac.length);
 			
 			ac.filterFunction = null;
 			ac.refresh();
 			
 			// Filter should not take effect
-			assertEquals("Length is not two", ac.length, 2);
-			assertEquals("First element not correct", ac[0], 1);
-			assertEquals("Second element not correct", ac[1], 2);
+			assertEquals("Length is not two",  2, ac.length);
+			assertEquals("First element not correct",  1, ac[0]);
+			assertEquals("Second element not correct",  2, ac[1]);
 		}
 		
 		// RTEs in Apache Flex 4.9.1
@@ -143,23 +143,23 @@ package mx.collections {
 			ac.filterFunction = allOut;
 			ac.refresh();
 			
-			assertEquals("Length is not zero", ac.length, 0);
+			assertEquals("Length is not zero",  0, ac.length);
 			
 			ac.filterFunction = null;
 			addNumbers();
 			
 			// Filter should be in effect and first 2 items sorted
 			// item added after are not filtered until refresh called
-			assertEquals("Length is not two", ac.length, 2);
-			assertEquals("First element not correct", ac[0], 1);
-			assertEquals("Second element not correct", ac[1], 2);
+			assertEquals("Length is not two",  2, ac.length);
+			assertEquals("First element not correct",  1, ac[0]);
+			assertEquals("Second element not correct",  2, ac[1]);
 			
 			ac.refresh();
-			assertEquals("Length is not four", ac.length, 4);
-			assertEquals("First element not correct", ac[0], 1);
-			assertEquals("Second element not correct", ac[1], 2);
-			assertEquals("First element not correct", ac[2], 1);
-			assertEquals("Second element not correct", ac[3], 2);
+			assertEquals("Length is not four",  4, ac.length);
+			assertEquals("First element not correct",  1, ac[0]);
+			assertEquals("Second element not correct",  2, ac[1]);
+			assertEquals("First element not correct",  1, ac[2]);
+			assertEquals("Second element not correct",  2, ac[3]);
 		}
 		
 		[Test]
@@ -171,7 +171,7 @@ package mx.collections {
 			ac.refresh();
 			ac.filterFunction = null;
 			
-			assertEquals("Length is not zero", ac.length, 0);
+			assertEquals("Length is not zero",  0, ac.length);
 			
 			try {
 				ac.removeItemAt(0);
@@ -181,10 +181,10 @@ package mx.collections {
 				assertTrue("Error not range error", error is RangeError);
 			}
 			
-			assertEquals("Length is not zero", ac.length, 0);
+			assertEquals("Length is not zero",  0, ac.length);
 			
 			ac.refresh();
-			assertEquals("Length is not two", ac.length, 2);
+			assertEquals("Length is not two",  2, ac.length);
 		}
 		
 		[Test]
@@ -196,10 +196,10 @@ package mx.collections {
 			ac.filterFunction = isOne;
 			ac.refresh();
 			
-			assertEquals("Length is not two", ac.length, 2);
+			assertEquals("Length is not two",  2, ac.length);
 			
-			assertEquals("First element not correct", ac[0], 1);
-			assertEquals("Second element not correct", ac[1], 1);	
+			assertEquals("First element not correct",  1, ac[0]);
+			assertEquals("Second element not correct",  1, ac[1]);
 		}
 		
 		// Fails in Apache Flex 4.9.1
@@ -237,9 +237,9 @@ package mx.collections {
 			ac.setItemAt(item1,1);
 			ac.setItemAt(item2,0);
 			
-			assertEquals("Length is not two", ac.length, 2);
-			assertEquals("First element not correct", ac[0], 2);
-			assertEquals("Second element not correct", ac[1], 1);
+			assertEquals("Length is not two",  2, ac.length);
+			assertEquals("First element not correct",  2, ac[0]);
+			assertEquals("Second element not correct",  1, ac[1]);
 		}
 		
 		[Test]
@@ -249,18 +249,18 @@ package mx.collections {
 			ac.filterFunction = allOut; 
 			ac.refresh();
 			
-			assertEquals("Length is not two", ac.length, 0);
+			assertEquals("Length is not two",  0, ac.length);
 			
 			ac.removeAll();
 			
-			assertEquals("Length is not two", ac.length, 0);
+			assertEquals("Length is not two",  0, ac.length);
 			
 			ac.filterFunction = null; 
 			ac.refresh();
 			
-			assertEquals("Length is not two", ac.length, 2);
-			assertEquals("First element not correct", ac[0], 1);
-			assertEquals("Second element not correct", ac[1], 2);
+			assertEquals("Length is not two",  2, ac.length);
+			assertEquals("First element not correct",  1, ac[0]);
+			assertEquals("Second element not correct",  2, ac[1]);
 		}
 		
 		[Test]
@@ -270,17 +270,17 @@ package mx.collections {
 			ac.filterFunction = isOne; 
 			ac.refresh();
 			
-			assertEquals("Length is not one", ac.length, 1);
+			assertEquals("Length is not one",  1, ac.length);
 			
 			ac.removeItemAt(ac.getItemIndex(1));
 			
-			assertEquals("Length is not zero", ac.length, 0);
+			assertEquals("Length is not zero",  0, ac.length);
 			
 			ac.filterFunction = null; 
 			ac.refresh();
 			
-			assertEquals("Length is not two", ac.length, 1);
-			assertEquals("First element not correct", ac[0], 2);
+			assertEquals("Length is not two",  1, ac.length);
+			assertEquals("First element not correct",  2, ac[0]);
 		}
 		
 		[Test]
@@ -290,7 +290,7 @@ package mx.collections {
 			ac.filterFunction = isOne; 
 			ac.refresh();
 			
-			assertEquals("Length is not one", ac.length, 1);
+			assertEquals("Length is not one",  1, ac.length);
 			
 			try {
 				// not removed as filter hids it - perhaps it should be removed?
@@ -301,14 +301,14 @@ package mx.collections {
 				assertTrue("Error not range error", error is RangeError);
 			}
 			
-			assertEquals("Length is not one", ac.length, 1);
+			assertEquals("Length is not one",  1, ac.length);
 			
 			ac.filterFunction = null; 
 			ac.refresh();
 			
-			assertEquals("Length is not two", ac.length, 2);
-			assertEquals("First element not correct", ac[0], 1);
-			assertEquals("First element not correct", ac[1], 2);
+			assertEquals("Length is not two",  2, ac.length);
+			assertEquals("First element not correct",  1, ac[0]);
+			assertEquals("First element not correct",  2, ac[1]);
 		}
 		
 		
