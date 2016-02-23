@@ -18,6 +18,10 @@
 ////////////////////////////////////////////////////////////////////////////////
 
 package mx.collections {
+    import flash.display.DisplayObject;
+    import flash.events.UncaughtErrorEvent;
+
+    import mx.core.FlexGlobals;
     import mx.events.PropertyChangeEvent;
     import mx.events.PropertyChangeEventKind;
     import mx.utils.ObjectUtil;
@@ -35,6 +39,21 @@ package mx.collections {
         private static var PROPERTY_CHANGE_EVENT_UPDATE_CONVENIENCE:PropertyChangeEvent;
         private static var _noTimesFilterFunctionCalled:int;
         private static var _lastFilteredObject:Object;
+        private static var _uncaughtError:Error;
+
+        [BeforeClass]
+        public static function setUpBeforeClass():void
+        {
+            if(FlexGlobals.topLevelApplication is DisplayObject)
+                (FlexGlobals.topLevelApplication as DisplayObject).loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, handleUncaughtClientError);
+        }
+
+        [AfterClass]
+        public static function tearDownAfterClass():void
+        {
+            if(FlexGlobals.topLevelApplication is DisplayObject)
+                (FlexGlobals.topLevelApplication as DisplayObject).loaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, handleUncaughtClientError);
+        }
 
         [Before]
         public function setUp():void
@@ -62,6 +81,8 @@ package mx.collections {
             PROPERTY_CHANGE_EVENT_UPDATE_CONVENIENCE = null;
 
             InspectableSort.tearDown();
+
+            _uncaughtError = null;
         }
 
         [Test]
@@ -187,10 +208,10 @@ package mx.collections {
             assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
         }
 
-        [Test(expects="Error")]
+        [Test]
         public function test_when_collection_item_dispatches_PropertyChangeEvent_sort_compare_function_called_with_null_and_fatals_if_no_null_check():void
         {
-            function compareWorkouts(a:Object, b:Object):int
+            function compareWorkouts(a:Object, b:Object, fields:Array = null):int
             {
                 if(a.duration > b.duration)
                     return 1;
@@ -207,7 +228,8 @@ package mx.collections {
             //when
             _firstWorkout.dispatchEvent(PROPERTY_CHANGE_EVENT);
 
-            //then - fatal because compareWorkouts was called with null, which it didn't expect - but should have
+            //then - fatal because compareWorkouts was called with null, which it didn't expect (but should have)
+            assertTrue(_uncaughtError is TypeError);
         }
 
         private static function allowAll(object:Object):Boolean
@@ -228,6 +250,13 @@ package mx.collections {
             _firstWorkout = result.getItemAt(0) as WorkoutVO;
 
             return result;
+        }
+
+        private static function handleUncaughtClientError(event:UncaughtErrorEvent):void
+        {
+            _uncaughtError = event.error;
+            event.preventDefault();
+            event.stopImmediatePropagation();
         }
     }
 }
