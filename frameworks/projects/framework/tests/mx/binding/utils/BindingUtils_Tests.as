@@ -27,11 +27,14 @@ package mx.binding.utils {
 
     public class BindingUtils_Tests
     {
+        private static var noTimesAddressBindingTriggered:int;
         private static var noTimesStreetBindingTriggered:int;
         private static var noTimesStreetNumberBindingTriggered:int;
         private static var address:AddressVO;
-        private static var addressWatcher:ChangeWatcher;
-        private static var addressNumberWatcher:ChangeWatcher;
+        private static var _house:PropertyVO;
+        private static var _streetWatcher:ChangeWatcher;
+        private static var _streetNumberWatcher:ChangeWatcher;
+        private static var _addressWatcher:ChangeWatcher;
         private static var PROPERTY_CHANGE_EVENT:PropertyChangeEvent;
         private static var PROPERTY_CHANGE_EVENT_UPDATE:PropertyChangeEvent;
         private static var PROPERTY_CHANGE_EVENT_UPDATE_CONVENIENCE:PropertyChangeEvent;
@@ -44,6 +47,7 @@ package mx.binding.utils {
         [Before]
         public function setUp():void
         {
+            noTimesAddressBindingTriggered = 0;
             noTimesStreetBindingTriggered = 0;
             noTimesStreetNumberBindingTriggered = 0;
 
@@ -52,16 +56,19 @@ package mx.binding.utils {
             PROPERTY_CHANGE_EVENT_UPDATE_CONVENIENCE = PropertyChangeEvent.createUpdateEvent(null, null, null, null);
 
             address = new AddressVO(STREET_INITIAL, STREET_NO_INITIAL);
+            _house = new PropertyVO(address, "Jim Tim");
 
-            addressWatcher = BindingUtils.bindSetter(setStreet, address, "street", false, false);
-            addressNumberWatcher = BindingUtils.bindSetter(setStreetNumber, address, "number", false, false);
+            _addressWatcher = BindingUtils.bindSetter(setAddress, _house, "address", false, false);
+            _streetWatcher = BindingUtils.bindSetter(setStreet, address, "street", false, false);
+            _streetNumberWatcher = BindingUtils.bindSetter(setStreetNumber, address, "number", false, false);
         }
 
         [After]
         public function tearDown():void
         {
-            addressWatcher.unwatch();
-            addressNumberWatcher.unwatch();
+            _addressWatcher.unwatch();
+            _streetWatcher.unwatch();
+            _streetNumberWatcher.unwatch();
 
             PROPERTY_CHANGE_EVENT = null;
             PROPERTY_CHANGE_EVENT_UPDATE = null;
@@ -72,6 +79,7 @@ package mx.binding.utils {
         public function test_binding_triggered_at_binding_definition():void
         {
             //then
+            assertTrue(1, noTimesAddressBindingTriggered);
             assertTrue(1, noTimesStreetBindingTriggered);
             assertTrue(1, noTimesStreetNumberBindingTriggered);
         }
@@ -95,6 +103,7 @@ package mx.binding.utils {
             address.dispatchEvent(PROPERTY_CHANGE_EVENT);
 
             //then
+            assertEquals(1, noTimesAddressBindingTriggered);
             assertEquals(1, noTimesStreetBindingTriggered);
             assertEquals(1, noTimesStreetNumberBindingTriggered);
         }
@@ -116,6 +125,7 @@ package mx.binding.utils {
             address.dispatchEvent(PROPERTY_CHANGE_EVENT_UPDATE);
 
             //then
+            assertEquals(1, noTimesAddressBindingTriggered);
             assertEquals(1, noTimesStreetBindingTriggered);
             assertEquals(1, noTimesStreetNumberBindingTriggered);
         }
@@ -127,6 +137,7 @@ package mx.binding.utils {
             address.dispatchEvent(PROPERTY_CHANGE_EVENT_UPDATE_CONVENIENCE);
 
             //then
+            assertEquals(1, noTimesAddressBindingTriggered);
             assertEquals(1, noTimesStreetBindingTriggered);
             assertEquals(1, noTimesStreetNumberBindingTriggered);
         }
@@ -138,6 +149,7 @@ package mx.binding.utils {
             address.dispatchEvent(PropertyChangeEvent.createUpdateEvent(address, "street", address.street, STREET_OTHER));
 
             //then
+            assertEquals(1, noTimesAddressBindingTriggered);
             assertEquals(2, noTimesStreetBindingTriggered);
             assertEquals(1, noTimesStreetNumberBindingTriggered);
         }
@@ -149,6 +161,7 @@ package mx.binding.utils {
             address.dispatchEvent(PropertyChangeEvent.createUpdateEvent(null, "street", address.street, STREET_OTHER));
 
             //then
+            assertEquals(1, noTimesAddressBindingTriggered);
             assertEquals(2, noTimesStreetBindingTriggered);
             assertEquals(1, noTimesStreetNumberBindingTriggered);
         }
@@ -160,6 +173,7 @@ package mx.binding.utils {
             address.dispatchEvent(PropertyChangeEvent.createUpdateEvent(null, "street", null, null));
 
             //then
+            assertEquals(1, noTimesAddressBindingTriggered);
             assertEquals(2, noTimesStreetBindingTriggered);
             assertEquals(1, noTimesStreetNumberBindingTriggered);
         }
@@ -171,8 +185,14 @@ package mx.binding.utils {
             address.dispatchEvent(new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE, false, false, PropertyChangeEventKind.UPDATE, "street", address.street, STREET_OTHER, address));
 
             //then
+            assertEquals(1, noTimesAddressBindingTriggered);
             assertEquals(2, noTimesStreetBindingTriggered);
             assertEquals(1, noTimesStreetNumberBindingTriggered);
+        }
+
+        private static function setAddress(newAddress:AddressVO):void
+        {
+            noTimesAddressBindingTriggered++;
         }
 
         private static function setStreet(newStreet:String):void
@@ -197,5 +217,18 @@ class AddressVO
     {
         this.street = street;
         this.number = number;
+    }
+}
+
+[Bindable]
+class PropertyVO
+{
+    public var address:AddressVO;
+    public var ownerName:String;
+
+    public function PropertyVO(address:AddressVO, ownerName:String)
+    {
+        this.address = address;
+        this.ownerName = ownerName;
     }
 }
