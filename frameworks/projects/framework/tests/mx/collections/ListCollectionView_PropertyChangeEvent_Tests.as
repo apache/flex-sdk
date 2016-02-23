@@ -101,6 +101,7 @@ package mx.collections {
             //given
             _sut.filterFunction = allowAll;
             _sut.refresh();
+            const positionOfFirstWorkout:int = _sut.getItemIndex(_firstWorkout);
 
             _noTimesFilterFunctionCalled = 0;
             _lastFilteredObject = null;
@@ -111,6 +112,7 @@ package mx.collections {
             //then - no fatal, and object has been filtered
             assertEquals(1, _noTimesFilterFunctionCalled);
             assertEquals(_firstWorkout, _lastFilteredObject);
+            assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
         }
 
         [Test]
@@ -121,6 +123,7 @@ package mx.collections {
             _sut.filterFunction = allowAll;
             _sut.refresh();
             var positionOfNull:int = _sut.getItemIndex(null);
+            const positionOfFirstWorkout:int = _sut.getItemIndex(_firstWorkout);
 
             //when
             _firstWorkout.dispatchEvent(PROPERTY_CHANGE_EVENT);
@@ -128,6 +131,7 @@ package mx.collections {
             //then
             assertTrue(positionOfNull != -1);
             assertEquals(-1, _sut.getItemIndex(null));
+            assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
         }
 
         [Test]
@@ -138,6 +142,7 @@ package mx.collections {
             _sut.filterFunction = allowAll;
             _sut.refresh();
             var positionOfNull:int = _sut.getItemIndex(null);
+            const positionOfFirstWorkout:int = _sut.getItemIndex(_firstWorkout);
 
             //when
             _firstWorkout.dispatchEvent(PROPERTY_CHANGE_EVENT_UPDATE);
@@ -145,6 +150,7 @@ package mx.collections {
             //then
             assertTrue(positionOfNull != -1);
             assertEquals(-1, _sut.getItemIndex(null));
+            assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
         }
 
         [Test]
