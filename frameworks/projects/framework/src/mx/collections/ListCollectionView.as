@@ -89,8 +89,7 @@ package mx.collections
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public class ListCollectionView extends Proxy
-       implements ICollectionView, IList, IMXMLObject
+public class ListCollectionView extends Proxy implements ICollectionView, IList, IMXMLObject
 {
     include "../core/Version.as";
 
@@ -290,8 +289,7 @@ public class ListCollectionView extends Proxy
             var newHasItems:Boolean;
             if (_list)
             {
-                _list.removeEventListener(CollectionEvent.COLLECTION_CHANGE,
-                                          listChangeHandler);
+                _list.removeEventListener(CollectionEvent.COLLECTION_CHANGE, listChangeHandler);
                 oldHasItems = _list.length > 0;
             }
 
@@ -300,8 +298,7 @@ public class ListCollectionView extends Proxy
             if (_list)
             {
                 // weak listeners to collections and dataproviders
-                _list.addEventListener(CollectionEvent.COLLECTION_CHANGE,
-                                       listChangeHandler, false, 0, true);
+                _list.addEventListener(CollectionEvent.COLLECTION_CHANGE, listChangeHandler, false, 0, true);
                 newHasItems = _list.length > 0;
             }
 
@@ -1448,7 +1445,7 @@ public class ListCollectionView extends Proxy
                 {
                     item = updateInfo.target;
                     //if the target != source that means the update
-                    //happened to some subprop of the item in the collection
+                    //happened to some sub-property of the item in the collection.
                     //if we have a custom comparator this will affect
                     //the sort so for now say we should move but
                     //maybe we could optimize further
@@ -1495,13 +1492,10 @@ public class ListCollectionView extends Proxy
                     updatedItems.push(updateEntry);
                 }
 
-                //if we've already set replace don't unset it
-                //if there's a filterFunction need to go through replace
-                //if there's no property specified for the sort we'll need
-                //to assume we have to replace
-                //if there is a property see if it affects the sort
-                updateEntry.move =
-                    updateEntry.move
+                //if we've already set move don't unset it
+                //if there's a filterFunction need to go through move
+                //if the property affects the sort, we'll need to move
+                updateEntry.move = updateEntry.move
                     || filterFunction != null
                     || updateEntry.entireObjectChanged
                     || (sort && sort.propertyAffectsSort(String(updateInfo.property)));
@@ -1529,7 +1523,7 @@ public class ListCollectionView extends Proxy
 
 			// now go through the updated items and add all events for all 
 			// properties that changed in that item (except for those items
-			// we moved
+			// we moved)
             var temp:Array = [];
             for (var ctr:int = 0; ctr < eventItems.length; ctr++)
                 for (var ctr1:int = 0; ctr1 < updatedItems.length; ctr1++)
@@ -1542,9 +1536,7 @@ public class ListCollectionView extends Proxy
 
         if (eventItems.length > 0)
         {
-            
-            var updateEvent:CollectionEvent =
-                new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+            var updateEvent:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
             updateEvent.kind = CollectionEventKind.UPDATE;
             updateEvent.items = eventItems;
             dispatchEvent(updateEvent);

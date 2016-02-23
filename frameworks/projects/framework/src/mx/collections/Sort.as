@@ -568,7 +568,9 @@ public class Sort extends EventDispatcher implements ISort
      */
     public function propertyAffectsSort(property:String):Boolean
     {
-        if (usingCustomCompareFunction || !fields) return true;
+        if (usingCustomCompareFunction || !fields)
+            return true;
+
         for (var i:int = 0; i < fields.length; i++)
         {
             var field:ISortField = fields[i];

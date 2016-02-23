@@ -748,8 +748,7 @@ public class ArrayList extends EventDispatcher
         {
             if (hasEventListener(CollectionEvent.COLLECTION_CHANGE))
             {
-                var event:CollectionEvent =
-                    new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+                var event:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
                 event.kind = kind;
 				if(kind != CollectionEventKind.RESET && kind != CollectionEventKind.REFRESH)
 				    event.items.push(item);
@@ -761,8 +760,7 @@ public class ArrayList extends EventDispatcher
             if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE) && 
                (kind == CollectionEventKind.ADD || kind == CollectionEventKind.REMOVE))
             {
-                var objEvent:PropertyChangeEvent =
-                    new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
+                var objEvent:PropertyChangeEvent = new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
                 objEvent.property = location;
                 if (kind == CollectionEventKind.ADD)
                     objEvent.newValue = item;
@@ -814,9 +812,7 @@ public class ArrayList extends EventDispatcher
     {
         if (item && (item is IEventDispatcher))
         {
-            IEventDispatcher(item).addEventListener(
-                                        PropertyChangeEvent.PROPERTY_CHANGE, 
-                                        itemUpdateHandler, false, 0, true);
+            IEventDispatcher(item).addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, itemUpdateHandler, false, 0, true);
         }
     }
     
@@ -837,12 +833,8 @@ public class ArrayList extends EventDispatcher
     {
         if (item && item is IEventDispatcher)
         {
-            IEventDispatcher(item).removeEventListener(
-                                        PropertyChangeEvent.PROPERTY_CHANGE, 
-                                        itemUpdateHandler);    
+            IEventDispatcher(item).removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, itemUpdateHandler);
         }
     }
-    
 }
-
 }
