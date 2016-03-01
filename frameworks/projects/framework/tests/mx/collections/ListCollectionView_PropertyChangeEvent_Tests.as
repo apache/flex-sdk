@@ -116,6 +116,26 @@ package mx.collections {
         }
 
         [Test]
+        public function test_when_collection_item_changes_item_is_run_through_filter_and_there_is_no_fatal():void
+        {
+            //given
+            _sut.filterFunction = allowAll;
+            _sut.refresh();
+            const positionOfFirstWorkout:int = _sut.getItemIndex(_firstWorkout);
+
+            _noTimesFilterFunctionCalled = 0;
+            _lastFilteredObject = null;
+
+            //when
+            _firstWorkout.duration += 10;
+
+            //then - no fatal, and object has been filtered
+            assertEquals(1, _noTimesFilterFunctionCalled);
+            assertEquals(_firstWorkout, _lastFilteredObject);
+            assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
+        }
+
+        [Test]
         public function test_when_collection_item_dispatches_PropertyChangeEvent_null_is_removed_from_list():void
         {
             //given
