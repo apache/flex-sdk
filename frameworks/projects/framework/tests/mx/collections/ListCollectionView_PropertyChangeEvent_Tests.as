@@ -155,6 +155,25 @@ package mx.collections {
         }
 
         [Test]
+        public function test_when_collection_item_is_changed_null_is_not_removed_from_list():void
+        {
+            //given
+            _sut.addItem(null);
+            _sut.filterFunction = allowAll;
+            _sut.refresh();
+            const positionOfNull:int = _sut.getItemIndex(null);
+            const positionOfFirstWorkout:int = _sut.getItemIndex(_firstWorkout);
+
+            //when
+            _firstWorkout.duration += 10;
+
+            //then
+            assertTrue(positionOfNull != -1);
+            assertEquals(positionOfNull, _sut.getItemIndex(null));
+            assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
+        }
+
+        [Test]
         public function test_when_collection_item_dispatches_PropertyChangeEvent_with_UPDATE_null_is_removed_from_list():void
         {
             //given
