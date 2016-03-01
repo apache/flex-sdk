@@ -174,6 +174,47 @@ package mx.collections {
         }
 
         [Test]
+        public function test_when_item_is_changed_bypassing_binding_and_collection_notified_of_itemUpdated_with_property_null_is_not_removed_from_list():void
+        {
+            //given
+            _sut.addItem(null);
+            _sut.filterFunction = allowAll;
+            _sut.refresh();
+            const positionOfNull:int = _sut.getItemIndex(null);
+            const positionOfFirstWorkout:int = _sut.getItemIndex(_firstWorkout);
+
+            //when
+            _firstWorkout.setMuscleGroupsWithoutTriggeringBinding("biceps");
+            _sut.itemUpdated(_firstWorkout, "muscleGroups", null, _firstWorkout.muscleGroups);
+
+            //then
+            assertTrue(positionOfNull != -1);
+            assertEquals(positionOfNull, _sut.getItemIndex(null));
+            assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
+        }
+
+        [Test]
+        public function test_when_item_is_changed_bypassing_binding_and_collection_notified_of_itemUpdated_without_property_null_is_removed_from_list():void
+        {
+            //given
+            _sut.addItem(null);
+            _sut.filterFunction = allowAll;
+            _sut.refresh();
+            const positionOfNull:int = _sut.getItemIndex(null);
+            const positionOfFirstWorkout:int = _sut.getItemIndex(_firstWorkout);
+
+            //when
+            _firstWorkout.setMuscleGroupsWithoutTriggeringBinding("biceps");
+            _firstWorkout.setMinAgeWithoutTriggeringBinding(14);
+            _sut.itemUpdated(_firstWorkout);
+
+            //then
+            assertTrue(positionOfNull != -1);
+            assertEquals(-1, _sut.getItemIndex(null));
+            assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
+        }
+
+        [Test]
         public function test_when_collection_item_dispatches_PropertyChangeEvent_with_UPDATE_null_is_removed_from_list():void
         {
             //given
@@ -277,6 +318,32 @@ package mx.collections {
             assertTrue(_uncaughtError is TypeError);
         }
 
+        [Test]
+        public function test_when_collection_notified_of_itemUpdated_without_valid_property_sort_compare_function_called_with_null_and_fatals_if_no_null_check():void
+        {
+            function compareWorkouts(a:Object, b:Object, fields:Array = null):int
+            {
+                if(a.duration > b.duration)
+                    return 1;
+                if(a.duration < b.duration)
+                    return -1;
+
+                return 0;
+            }
+            //given
+            var sort:InspectableSort = new InspectableSort([], compareWorkouts);
+            _sut.sort = sort;
+            _sut.refresh();
+
+            //when
+            _firstWorkout.setMuscleGroupsWithoutTriggeringBinding("chest");
+            _firstWorkout.setMinAgeWithoutTriggeringBinding(20);
+            _sut.itemUpdated(_firstWorkout);
+
+            //then - fatal because compareWorkouts was called with null, which it didn't expect (but should have)
+            assertTrue(_uncaughtError is TypeError);
+        }
+
         private static function allowAll(object:Object):Boolean
         {
             _lastFilteredObject = object;
@@ -313,11 +380,43 @@ class WorkoutVO
 {
     public var duration:int;
     public var name:String;
+    private var _muscleGroups:String;
+    private var _minAge:uint;
 
     public function WorkoutVO(name:String, duration:int)
     {
         this.name = name;
         this.duration = duration;
+    }
+
+    public function get muscleGroups():String
+    {
+        return _muscleGroups;
+    }
+
+    public function set muscleGroups(value:String):void
+    {
+        _muscleGroups = value;
+    }
+
+    public function setMuscleGroupsWithoutTriggeringBinding(groups:String):void
+    {
+        _muscleGroups = groups;
+    }
+
+    public function get minAge():uint
+    {
+        return _minAge;
+    }
+
+    public function set minAge(value:uint):void
+    {
+        _minAge = value;
+    }
+
+    public function setMinAgeWithoutTriggeringBinding(age:uint):void
+    {
+        _minAge = age;
     }
 }
 
