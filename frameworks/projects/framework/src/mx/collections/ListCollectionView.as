@@ -1487,8 +1487,10 @@ public class ListCollectionView extends Proxy implements ICollectionView, IList,
                 }
                 else
                 {
+                    var oldOrNewValueSpecified:Boolean = updateInfo.oldValue != null || updateInfo.newValue != null;
+                    var objectReplacedInCollection:Boolean = updateInfo.property == null && oldOrNewValueSpecified;
                     updateEntry = {item: item, move: defaultMove, events: [updateInfo],
-                        entireObjectChanged: updateInfo.property == null, oldItem: updateInfo.property == null ? updateInfo.oldValue : null};
+                        objectReplacedWithAnother: objectReplacedInCollection, oldItem: updateInfo.oldValue};
                     updatedItems.push(updateEntry);
                 }
 
@@ -1497,7 +1499,7 @@ public class ListCollectionView extends Proxy implements ICollectionView, IList,
                 //if the property affects the sort, we'll need to move
                 updateEntry.move = updateEntry.move
                     || filterFunction != null
-                    || updateEntry.entireObjectChanged
+                    || updateEntry.objectReplacedWithAnother
                     || (sort && sort.propertyAffectsSort(String(updateInfo.property)));
             }
 
@@ -1509,7 +1511,7 @@ public class ListCollectionView extends Proxy implements ICollectionView, IList,
                 updateEntry = updatedItems[i];
                 if (updateEntry.move)
                 {
-                    if(updateEntry.entireObjectChanged)
+                    if(updateEntry.objectReplacedWithAnother)
                     {
                         removeItemsFromView([updateEntry.oldItem], -1, true);
                     }
