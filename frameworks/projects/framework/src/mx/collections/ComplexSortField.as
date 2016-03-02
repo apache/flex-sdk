@@ -20,7 +20,6 @@
 package mx.collections {
     import mx.utils.ObjectUtil;
 
-    [Alternative(replacement="spark.collections.ComplexSortField", since="4.15")]
     public class ComplexSortField extends SortField implements IComplexSortField
     {
         private var _nameParts:Array;
