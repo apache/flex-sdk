@@ -135,7 +135,7 @@ package mx.collections {
             assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
         }
 
-        [Test]
+        [Test] //FLEX-35043
         public function test_when_collection_item_dispatches_PropertyChangeEvent_null_is_removed_from_list():void
         {
             //given
@@ -173,7 +173,7 @@ package mx.collections {
             assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
         }
 
-        [Test]
+        [Test] //FLEX-35043
         public function test_when_item_is_changed_bypassing_binding_and_collection_notified_of_itemUpdated_with_property_null_is_not_removed_from_list():void
         {
             //given
@@ -193,7 +193,7 @@ package mx.collections {
             assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
         }
 
-        [Test]
+        [Test] //FLEX-35043
         public function test_when_item_is_changed_bypassing_binding_and_collection_notified_of_itemUpdated_without_property_null_is_removed_from_list():void
         {
             //given
@@ -214,7 +214,7 @@ package mx.collections {
             assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
         }
 
-        [Test]
+        [Test] //FLEX-35043
         public function test_when_collection_item_dispatches_PropertyChangeEvent_with_UPDATE_null_is_removed_from_list():void
         {
             //given
@@ -273,7 +273,7 @@ package mx.collections {
             assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
         }
 
-        [Test]
+        [Test] //FLEX-35043
         public function test_when_collection_item_dispatches_PropertyChangeEvent_item_is_added_in_correct_place_based_on_sort_and_there_is_no_fatal():void
         {
             //given
@@ -294,7 +294,7 @@ package mx.collections {
             assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
         }
 
-        [Test]
+        [Test] //FLEX-35043
         public function test_when_collection_item_dispatches_PropertyChangeEvent_sort_compare_function_called_with_null_and_fatals_if_no_null_check():void
         {
             function compareWorkouts(a:Object, b:Object, fields:Array = null):int
@@ -318,7 +318,7 @@ package mx.collections {
             assertTrue(_uncaughtError is TypeError);
         }
 
-        [Test]
+        [Test] //FLEX-35043
         public function test_when_collection_notified_of_itemUpdated_without_valid_property_sort_compare_function_called_with_null_and_fatals_if_no_null_check():void
         {
             function compareWorkouts(a:Object, b:Object, fields:Array = null):int
