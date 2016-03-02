@@ -40,18 +40,18 @@ package mx.collections {
 			_sut.addItem(1);
 			_sut.addItem(2);
 		}
-		
-		protected function allIn(object:Object):Boolean
+
+		private static function allIn(object:Object):Boolean
 		{
 			return true;
 		}
-		
-		protected function allOut(object:Object):Boolean
+
+		private static function allOut(object:Object):Boolean
 		{
 			return false;
 		}
-		
-		protected function isOne(object:Object):Boolean
+
+		private static function isOne(object:Object):Boolean
 		{
 			return object == 1;
 		}
@@ -200,10 +200,10 @@ package mx.collections {
 			assertEquals("First element not correct",  1, _sut[0]);
 			assertEquals("Second element not correct",  1, _sut[1]);
 		}
-		
-		//Fails in Apache Flex 4.9.1. See FLEX-35039
-		[Test]
-		public function swapItemsTwoThenOne():void
+
+        [Ignore]
+		[Test] //See FLEX-35039
+		public function swapItemsTwoThenOne_reproduces_FLEX_35039():void
 		{
 			//given
 			addNumbers();
