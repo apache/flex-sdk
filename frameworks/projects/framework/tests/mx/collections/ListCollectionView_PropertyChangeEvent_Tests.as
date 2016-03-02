@@ -27,6 +27,7 @@ package mx.collections {
     import mx.utils.ObjectUtil;
 
     import org.flexunit.asserts.assertEquals;
+    import org.flexunit.asserts.assertNull;
     import org.flexunit.asserts.assertTrue;
 
     public class ListCollectionView_PropertyChangeEvent_Tests
@@ -136,7 +137,7 @@ package mx.collections {
         }
 
         [Test] //FLEX-35043
-        public function test_when_collection_item_dispatches_PropertyChangeEvent_null_is_removed_from_list():void
+        public function test_when_collection_item_dispatches_PropertyChangeEvent_null_is_not_removed_from_list():void
         {
             //given
             _sut.addItem(null);
@@ -150,7 +151,7 @@ package mx.collections {
 
             //then
             assertTrue(positionOfNull != -1);
-            assertEquals(-1, _sut.getItemIndex(null));
+            assertEquals(positionOfNull, _sut.getItemIndex(null));
             assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
         }
 
@@ -194,7 +195,7 @@ package mx.collections {
         }
 
         [Test] //FLEX-35043
-        public function test_when_item_is_changed_bypassing_binding_and_collection_notified_of_itemUpdated_without_property_null_is_removed_from_list():void
+        public function test_when_item_is_changed_bypassing_binding_and_collection_notified_of_itemUpdated_without_property_null_is_not_removed_from_list():void
         {
             //given
             _sut.addItem(null);
@@ -210,12 +211,12 @@ package mx.collections {
 
             //then
             assertTrue(positionOfNull != -1);
-            assertEquals(-1, _sut.getItemIndex(null));
+            assertEquals(positionOfNull, _sut.getItemIndex(null));
             assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
         }
 
         [Test] //FLEX-35043
-        public function test_when_collection_item_dispatches_PropertyChangeEvent_with_UPDATE_null_is_removed_from_list():void
+        public function test_when_collection_item_dispatches_PropertyChangeEvent_with_UPDATE_null_is_not_removed_from_list():void
         {
             //given
             _sut.addItem(null);
@@ -229,7 +230,7 @@ package mx.collections {
 
             //then
             assertTrue(positionOfNull != -1);
-            assertEquals(-1, _sut.getItemIndex(null));
+            assertEquals(positionOfNull, _sut.getItemIndex(null));
             assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
         }
 
@@ -261,6 +262,7 @@ package mx.collections {
             var sort:InspectableSort = new InspectableSort([new SortField("name")]);
             _sut.sort = sort;
             _sut.refresh();
+
             const positionOfNull:int = _sut.getItemIndex(null);
             const positionOfFirstWorkout:int = _sut.getItemIndex(_firstWorkout);
 
@@ -289,13 +291,13 @@ package mx.collections {
             //object's correct position has been inspected with Sort
             assertEquals(_firstWorkout, InspectableSort.lastItemSearchedFor);
             //and null (PropertyChangeEvent.oldValue) has been sought for when trying to remove it
-            assertTrue(InspectableSort.itemsSearchedFor.indexOf(null) != -1);
+            assertEquals(-1, InspectableSort.itemsSearchedFor.indexOf(null));
             //and it's in the same position
             assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
         }
 
         [Test] //FLEX-35043
-        public function test_when_collection_item_dispatches_PropertyChangeEvent_sort_compare_function_called_with_null_and_fatals_if_no_null_check():void
+        public function test_when_collection_item_dispatches_PropertyChangeEvent_sort_compare_function_not_called_with_null():void
         {
             function compareWorkouts(a:Object, b:Object, fields:Array = null):int
             {
@@ -314,12 +316,12 @@ package mx.collections {
             //when
             _firstWorkout.dispatchEvent(PROPERTY_CHANGE_EVENT);
 
-            //then - fatal because compareWorkouts was called with null, which it didn't expect (but should have)
-            assertTrue(_uncaughtError is TypeError);
+            //then - no fatal because compareWorkouts was not called with null as an argument
+            assertNull(_uncaughtError);
         }
 
         [Test] //FLEX-35043
-        public function test_when_collection_notified_of_itemUpdated_without_valid_property_sort_compare_function_called_with_null_and_fatals_if_no_null_check():void
+        public function test_when_collection_notified_of_itemUpdated_without_property_or_oldValue_sort_compare_function_not_called_with_null():void
         {
             function compareWorkouts(a:Object, b:Object, fields:Array = null):int
             {
@@ -340,8 +342,8 @@ package mx.collections {
             _firstWorkout.setMinAgeWithoutTriggeringBinding(20);
             _sut.itemUpdated(_firstWorkout);
 
-            //then - fatal because compareWorkouts was called with null, which it didn't expect (but should have)
-            assertTrue(_uncaughtError is TypeError);
+            //then - no fatal because compareWorkouts was not called with null
+            assertNull(_uncaughtError);
         }
 
         private static function allowAll(object:Object):Boolean
