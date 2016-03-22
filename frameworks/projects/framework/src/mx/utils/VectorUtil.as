@@ -24,10 +24,7 @@ package mx.utils {
          */
         public static function getFirstItemValue(v:Vector.<int>):int
         {
-            if (v && v.length > 0)
-                return v[0];
-            else
-                return -1;
+            return v && v.length ? v[0] : -1;
         }
     }
 }
