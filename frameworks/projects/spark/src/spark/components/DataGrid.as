@@ -1992,7 +1992,7 @@ public class DataGrid extends SkinnableContainerBase
      * 
      *  @default null.
      *
-     *  @see #dataField 
+     *  @see spark.components.gridClasses.GridColumn#dataField
      *  @see spark.components.gridClasses.IGridItemEditor
      * 
      *  @langversion 3.0
@@ -2587,7 +2587,7 @@ public class DataGrid extends SkinnableContainerBase
     }
     
     /**
-     *  @copy spark.components.Grid#invalidateTypicalItem()
+     *  @copy spark.components.Grid#invalidateTypicalItemRenderer()
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3710,7 +3710,7 @@ public class DataGrid extends SkinnableContainerBase
             var f:Function = function(g:Grid):void
             {
                 g.selectedCell = valueCopy;
-            }
+            };
             deferredGridOperations.push(f);
         }
     }    
@@ -3748,7 +3748,7 @@ public class DataGrid extends SkinnableContainerBase
             var f:Function = function(g:Grid):void
             {
                 g.selectedCells = valueCopy;
-            }
+            };
             deferredGridOperations.push(f);
         }
     }       
@@ -3830,7 +3830,7 @@ public class DataGrid extends SkinnableContainerBase
             var f:Function = function(g:Grid):void
             {
                 g.selectedIndices = valueCopy;
-            }
+            };
             deferredGridOperations.push(f);
         }
     }    
@@ -3874,7 +3874,7 @@ public class DataGrid extends SkinnableContainerBase
             var f:Function = function(g:Grid):void
             {
                 g.selectedItem = value;
-            }
+            };
             deferredGridOperations.push(f);
         }
     }    
@@ -3921,7 +3921,7 @@ public class DataGrid extends SkinnableContainerBase
             var f:Function = function(g:Grid):void
             {
                 g.selectedItems = valueCopy;
-            }
+            };
             deferredGridOperations.push(f);
         }
     }      
@@ -5423,14 +5423,11 @@ public class DataGrid extends SkinnableContainerBase
         // Cancel so another component doesn't handle this event.
         event.preventDefault(); 
         
-        var selectionChanged:Boolean = false;
-        
         if (event.shiftKey)
         {
             // The shift key-nav key combination extends the selection and 
             // updates the caret.
-            selectionChanged = 
-                extendSelection(newPosition.rowIndex, newPosition.columnIndex);
+            extendSelection(newPosition.rowIndex, newPosition.columnIndex);
         }
         else if (event.ctrlKey)
         {
@@ -6095,7 +6092,7 @@ public class DataGrid extends SkinnableContainerBase
      *  a drag-and-drop operation.
      *  Override this method to add other data to the drag source.
      * 
-     *  @param ds The DragSource object to which to add the data.
+     *  @param dragSource The DragSource object to which to add the data.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 11
@@ -6474,25 +6471,7 @@ public class DataGrid extends SkinnableContainerBase
         // Destroy the dropIndicator instance
         destroyDropIndicator();
     }
-    
-    /**
-     *  @private
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    private function touchInteractionStartHandler(event:TouchInteractionEvent):void
-    {
-        // cancel actual selection
-        mouseDownRowIndex = -1;
-        mouseDownColumnIndex = -1;
-        mouseDownObject = null;
-        mouseDownPoint = null;
-        pendingSelectionOnMouseUp = false;
-    }
-    
+
     /**
      *  @private
      *  Handles <code>DragEvent.DRAG_DROP events</code>. This method  hides
