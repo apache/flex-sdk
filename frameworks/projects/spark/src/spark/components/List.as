@@ -1242,7 +1242,7 @@ public class List extends ListBase implements IFocusManagerComponent
         }
         // Keep _proposedSelectedIndex in-sync with multiple selection properties. 
         if (!isEmpty(_proposedSelectedIndices))
-            _proposedSelectedIndex = VectorUtil.getFirstItemValue(_proposedSelectedIndices);
+            _proposedSelectedIndex = VectorUtil.getFirstItem(_proposedSelectedIndices);
         
         // need to store changeCaretOnSelection since super.commitSelection() may change it
         var currentChangeCaretOnSelection:Boolean = changeCaretOnSelection;
@@ -2671,7 +2671,7 @@ public class List extends ListBase implements IFocusManagerComponent
             // an "caretChange" event to update any bindings and update the 
             // caretIndex backing variable. 
             var oldIndex:Number = caretIndex; 
-            _caretIndex = VectorUtil.getFirstItemValue(newInterval);
+            _caretIndex = VectorUtil.getFirstItem(newInterval);
             e = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
             e.oldIndex = oldIndex; 
             e.newIndex = caretIndex; 
@@ -2693,7 +2693,7 @@ public class List extends ListBase implements IFocusManagerComponent
         
         var oldIndices:Vector.<int> = selectedIndices;  
         _selectedIndices = newInterval;
-        _selectedIndex = VectorUtil.getFirstItemValue(newInterval);
+        _selectedIndex = VectorUtil.getFirstItem(newInterval);
         // If the selection has actually changed, trigger a pass to 
         // commitProperties where a change event will be 
         // fired to update any bindings to selection properties. 

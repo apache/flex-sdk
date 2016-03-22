@@ -25,13 +25,13 @@ package mx.utils {
         [Test]
         public function test_empty_vector():void
         {
-            assertEquals(-1, VectorUtil.getFirstItemValue(new Vector.<int>()));
+            assertEquals(-1, VectorUtil.getFirstItem(new Vector.<int>()));
         }
 
         [Test]
         public function test_null_parameter():void
         {
-            assertEquals(-1, VectorUtil.getFirstItemValue(null));
+            assertEquals(-1, VectorUtil.getFirstItem(null));
         }
 
         [Test]
@@ -44,7 +44,7 @@ package mx.utils {
             vector.push(3, 2, 1);
 
             //then
-            assertEquals(3, VectorUtil.getFirstItemValue(vector));
+            assertEquals(3, VectorUtil.getFirstItem(vector));
         }
 
         [Test]
@@ -54,7 +54,7 @@ package mx.utils {
             var vector:Vector.<int> = new <int>[35, 25, 15];
 
             //then
-            assertEquals(35, VectorUtil.getFirstItemValue(vector));
+            assertEquals(35, VectorUtil.getFirstItem(vector));
         }
 
         [Test]
@@ -64,7 +64,7 @@ package mx.utils {
             var vector:Vector.<int> = new <int>[-1, 2, 1];
 
             //then
-            assertEquals(-1, VectorUtil.getFirstItemValue(vector));
+            assertEquals(-1, VectorUtil.getFirstItem(vector));
         }
 
         [Test]
@@ -76,7 +76,7 @@ package mx.utils {
             //then
             assertStrictlyEquals(0, vector[0]);
             assertStrictlyEquals(0, vector[1]);
-            assertEquals(0, VectorUtil.getFirstItemValue(vector));
+            assertEquals(0, VectorUtil.getFirstItem(vector));
         }
 
         [Test]
@@ -91,7 +91,7 @@ package mx.utils {
             //then
             assertStrictlyEquals(3, vector[0]);
             assertStrictlyEquals(2, vector[1]);
-            assertEquals(3, VectorUtil.getFirstItemValue(vector));
+            assertEquals(3, VectorUtil.getFirstItem(vector));
         }
     }
 }

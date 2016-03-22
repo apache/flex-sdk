@@ -22,7 +22,7 @@ package mx.utils {
          *  Given a Vector, returns the value of the first item,
          *  or -1 if there are no items in the Vector;
          */
-        public static function getFirstItemValue(v:Vector.<int>):int
+        public static function getFirstItem(v:Vector.<int>):int
         {
             return v && v.length ? v[0] : -1;
         }
