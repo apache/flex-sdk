@@ -54,7 +54,7 @@ import mx.managers.DragManager;
 import mx.managers.IFocusManagerComponent;
 import mx.utils.ObjectUtil;
 import mx.utils.UIDUtil;
-
+import mx.utils.VectorUtil;
 import spark.components.supportClasses.ListBase;
 import spark.core.NavigationUnit;
 import spark.events.IndexChangeEvent;
@@ -1242,7 +1242,7 @@ public class List extends ListBase implements IFocusManagerComponent
         }
         // Keep _proposedSelectedIndex in-sync with multiple selection properties. 
         if (!isEmpty(_proposedSelectedIndices))
-            _proposedSelectedIndex = getFirstItemValue(_proposedSelectedIndices); 
+            _proposedSelectedIndex = VectorUtil.getFirstItemValue(_proposedSelectedIndices);
         
         // need to store changeCaretOnSelection since super.commitSelection() may change it
         var currentChangeCaretOnSelection:Boolean = changeCaretOnSelection;
@@ -1572,19 +1572,6 @@ public class List extends ListBase implements IFocusManagerComponent
     
     /**
      *  @private
-     *  Given a Vector, returns the value of the first item, 
-     *  or -1 if there are no items in the Vector; 
-     */
-    private function getFirstItemValue(v:Vector.<int>):int
-    {
-        if (v && v.length > 0)
-            return v[0]; 
-        else 
-            return -1; 
-    }
-    
-    /**
-     *  @private
      *  Returns true if v is null or an empty Vector.
      */
     private function isEmpty(v:Vector.<int>):Boolean
@@ -1877,7 +1864,7 @@ public class List extends ListBase implements IFocusManagerComponent
             return;
         
         // Handle the fixup of selection
-        var newIndex:int
+        var newIndex:int;
         if (event.currentTarget is IItemRenderer)
             newIndex = IItemRenderer(event.currentTarget).itemIndex;
         else
@@ -2684,7 +2671,7 @@ public class List extends ListBase implements IFocusManagerComponent
             // an "caretChange" event to update any bindings and update the 
             // caretIndex backing variable. 
             var oldIndex:Number = caretIndex; 
-            _caretIndex = getFirstItemValue(newInterval);
+            _caretIndex = VectorUtil.getFirstItemValue(newInterval);
             e = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
             e.oldIndex = oldIndex; 
             e.newIndex = caretIndex; 
@@ -2706,7 +2693,7 @@ public class List extends ListBase implements IFocusManagerComponent
         
         var oldIndices:Vector.<int> = selectedIndices;  
         _selectedIndices = newInterval;
-        _selectedIndex = getFirstItemValue(newInterval);
+        _selectedIndex = VectorUtil.getFirstItemValue(newInterval);
         // If the selection has actually changed, trigger a pass to 
         // commitProperties where a change event will be 
         // fired to update any bindings to selection properties. 
