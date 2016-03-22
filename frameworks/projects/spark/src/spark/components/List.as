@@ -937,8 +937,9 @@ public class List extends ListBase implements IFocusManagerComponent
     /**
      *  @private
      *  Used internally to specify whether the selectedIndices changed programmatically or due to 
-     *  user interaction. 
-     * 
+     *  user interaction.
+     *
+     *  @param value the new indices.
      *  @param dispatchChangeEvent if true, the component will dispatch a "change" event if the
      *  value has changed. Otherwise, it will dispatch a "valueCommit" event. 
      * 
@@ -2011,7 +2012,7 @@ public class List extends ListBase implements IFocusManagerComponent
                     (mouseDownObject is DisplayObjectContainer && 
                         DisplayObjectContainer(mouseDownObject).contains(event.target as DisplayObject)));
                 
-                // check to make sure they clciked on an item and selection should change
+                // check to make sure they clicked on an item and selection should change
                 if (selectionChange)
                 {
                     // now handle the cases where the item is being selected or de-selected
