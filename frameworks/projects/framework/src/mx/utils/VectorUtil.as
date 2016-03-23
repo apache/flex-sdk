@@ -26,5 +26,16 @@ package mx.utils {
         {
             return v && v.length ? v[0] : -1;
         }
+
+        public static function toArrayInt(v:Vector.<int>):Array
+        {
+            var result:Array = [];
+            for (var i:int = 0; i < (v ? v.length : 0); i++)
+            {
+                result.push(v[i]);
+            }
+
+            return result;
+        }
     }
 }

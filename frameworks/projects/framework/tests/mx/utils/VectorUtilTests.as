@@ -22,6 +22,12 @@ package mx.utils {
     import org.flexunit.asserts.assertTrue;
 
     public class VectorUtilTests {
+
+        //--------------------------------------------------------------------------
+        //
+        //  getFirstItem()
+        //
+        //--------------------------------------------------------------------------
         [Test]
         public function test_empty_vector():void
         {
@@ -92,6 +98,55 @@ package mx.utils {
             assertStrictlyEquals(3, vector[0]);
             assertStrictlyEquals(2, vector[1]);
             assertEquals(3, VectorUtil.getFirstItem(vector));
+        }
+
+
+        //--------------------------------------------------------------------------
+        //
+        //  toArrayInt()
+        //
+        //--------------------------------------------------------------------------
+        [Test]
+        public function test_toArrayInt_with_different_items():void
+        {
+            //given
+            var vector:Vector.<int> = new <int>[1, 2, 3];
+
+            //then
+            assertTrue(ArrayUtil.arraysMatch([1, 2, 3], VectorUtil.toArrayInt(vector)));
+        }
+
+        [Test]
+        public function test_toArrayInt_with_duplicate_items():void
+        {
+            //given
+            var vector:Vector.<int> = new <int>[2, 2, 3, 1];
+
+            //then
+            assertTrue(ArrayUtil.arraysMatch([2, 2, 3, 1], VectorUtil.toArrayInt(vector)));
+        }
+
+        [Test]
+        public function test_toArrayInt_with_0_items():void
+        {
+            //given
+            var vector:Vector.<int> = new <int>[];
+
+            //when
+            var result:Array = VectorUtil.toArrayInt(vector);
+
+            //then
+            assertEquals(0, result.length);
+        }
+
+        [Test]
+        public function test_toArrayInt_with_null():void
+        {
+            //when
+            var result:Array = VectorUtil.toArrayInt(null);
+
+            //then
+            assertEquals(0, result.length);
         }
     }
 }
