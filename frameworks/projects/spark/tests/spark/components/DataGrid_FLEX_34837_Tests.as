@@ -37,6 +37,8 @@ package spark.components {
         public function setUp():void
         {
             _sut = new DataGrid();
+            _sut.width = 200;
+            _sut.height = 200;
         }
 
         [After]
