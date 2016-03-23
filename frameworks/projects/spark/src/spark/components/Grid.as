@@ -4329,7 +4329,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
      *  Create and/or configure this Grid's GridViews.  We're assuming that the
      *  Grid's viewFactory, columns and dataProvider are specified.
 	 * 
-	 *  If GridVeiws are added or removed, a "gridViewsChanged" event is dispatched.
+	 *  If GridViews are added or removed, a "gridViewsChanged" event is dispatched.
      */
     private function configureGridViews():void
     {
