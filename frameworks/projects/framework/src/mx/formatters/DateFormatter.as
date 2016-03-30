@@ -599,7 +599,7 @@ public class DateFormatter extends Formatter
      *          <li>O = +7</li>
      *          <li>OO = -08</li>
 	 *          <li>OOO = +4:30</li>
-	 *          <li>OOO = -08:30</li>
+	 *          <li>OOOO = -08:30</li>
      *        </ul></td>
      *    </tr>
 	 *    <tr>
