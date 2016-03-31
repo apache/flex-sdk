@@ -29,8 +29,19 @@ package mx.utils {
 
         public static function toArrayInt(v:Vector.<int>):Array
         {
+            return v ? VectorToArray(v) : [];
+        }
+
+        public static function toArrayObject(v:Vector.<Object>):Array
+        {
+            return v ? VectorToArray(v) : [];
+        }
+
+        private static function VectorToArray(v:Object):Array
+        {
+            //this function assumes that v is a Vector!
             var result:Array = [];
-            for (var i:int = 0; i < (v ? v.length : 0); i++)
+            for (var i:int = 0; i < v.length; i++)
             {
                 result.push(v[i]);
             }

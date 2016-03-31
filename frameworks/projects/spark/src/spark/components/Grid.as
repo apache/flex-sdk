@@ -2377,7 +2377,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
             var f:Function = function():void
             {
                 doSetSelectedIndices(valueCopy);
-            }
+            };
             deferredOperations.push(f);  // function f() to be called by commitProperties()
             invalidateProperties();
         }

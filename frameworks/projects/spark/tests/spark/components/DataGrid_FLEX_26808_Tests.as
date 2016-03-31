@@ -26,8 +26,11 @@ package spark.components {
     import mx.collections.ArrayList;
     import mx.collections.IList;
     import mx.collections.ListCollectionView;
+    import mx.utils.ArrayUtil;
+    import mx.utils.VectorUtil;
 
     import org.flexunit.asserts.assertEquals;
+    import org.flexunit.asserts.assertFalse;
     import org.flexunit.asserts.assertNull;
     import org.flexunit.asserts.assertTrue;
     import org.flexunit.async.Async;
@@ -44,6 +47,7 @@ package spark.components {
         private static var noEnterFramesRemaining:int = NaN;
         private var _sut:DataGridInspectable;
         private var _firstObject:FLEX_26808_VO;
+        private var _secondObject:FLEX_26808_VO;
 
         [Before]
         public function setUp():void
@@ -58,6 +62,7 @@ package spark.components {
 
             const tenObjects:IList = generateVOs(10);
             _firstObject = tenObjects.getItemAt(0) as FLEX_26808_VO;
+            _secondObject = tenObjects.getItemAt(1) as FLEX_26808_VO;
             const dataProvider:ListCollectionView = new ListCollectionView(tenObjects);
             _sut.dataProvider = dataProvider;
         }
@@ -80,10 +85,10 @@ package spark.components {
 
             noEnterFramesRemaining = NO_ENTER_FRAMES_TO_ALLOW;
             UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
-            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, testSelectionAndDeselection, 800);
+            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, test_programmatic_selection_and_event_deselection_with_ctrl_click, 800);
         }
 
-        private function testSelectionAndDeselection(event:Event, passThroughData:Object):void
+        private function test_programmatic_selection_and_event_deselection_with_ctrl_click(event:Event, passThroughData:Object):void
         {
             function onGridMouseDown(event:GridEvent):void
             {
@@ -110,6 +115,122 @@ package spark.components {
             assertEquals(1, _sut.commitInteractiveSelection_calls);
             assertNull("The selection should have been removed due to Ctrl+Click!", _sut.selectedItem);
             _sut.removeEventListener(GridEvent.GRID_MOUSE_DOWN, onGridMouseDown);
+        }
+
+        [Test(async, timeout=1000)]
+        public function test_ctrl_click_on_another_item_adds_it_to_selection():void
+        {
+            //when
+            UIImpersonator.addElement(_sut);
+
+            //then
+            assertNull(_sut.selectedItem);
+
+            noEnterFramesRemaining = NO_ENTER_FRAMES_TO_ALLOW;
+            UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, test_programmatic_selection_and_event_deselection_with_ctrl_click, 800);
+        }
+
+        private function test_manual_multiple_selection_with_ctrl_click(event:Event, passThroughData:Object):void
+        {
+            function onGridMouseDown(event:GridEvent):void
+            {
+                assertTrue("The clicks should only happen on the first and second row!", event.rowIndex == 0 || event.rowIndex == 1);
+                assertTrue("Ctrl key should have been pressed on the second row!", event.rowIndex == 1 ? event.ctrlKey : true);
+            }
+
+            //given
+            const mouseDownOnFirstItem:MouseEvent = new MouseEvent(MouseEvent.MOUSE_DOWN, true, false, 5, 5, null, false, false, false);
+            const mouseUpOnFirstItem:MouseEvent = new MouseEvent(MouseEvent.MOUSE_UP, true, false, 5, 5, null, false, false, false);
+            const mouseDownOnSecondItemWithCtrl:MouseEvent = new MouseEvent(MouseEvent.MOUSE_DOWN, true, false, 5, _sut.rowHeight + 2, null, false, false, false);
+            const mouseUpOnSecondItemWithCtrl:MouseEvent = new MouseEvent(MouseEvent.MOUSE_UP, true, false, 5, _sut.rowHeight + 2, null, false, false, false);
+
+            //when - first click on first row to select it
+            _sut.addEventListener(GridEvent.GRID_MOUSE_DOWN, onGridMouseDown);
+            _sut.grid.dispatchEvent(mouseDownOnFirstItem);
+            _sut.grid.dispatchEvent(mouseUpOnFirstItem);
+
+            //then
+            assertEquals(_firstObject, _sut.selectedItem);
+
+            //when - ctrl+click on second item to add it to the selection
+            _sut.grid.dispatchEvent(mouseDownOnSecondItemWithCtrl);
+            _sut.grid.dispatchEvent(mouseUpOnSecondItemWithCtrl);
+
+            //then
+            assertTrue(ArrayUtil.arraysMatch([_firstObject, _secondObject], VectorUtil.toArrayObject(_sut.selectedItems)));
+            _sut.removeEventListener(GridEvent.GRID_MOUSE_DOWN, onGridMouseDown);
+        }
+
+        [Test(async, timeout=1000)]
+        public function test_dragging_maintains_programmatically_selected_items():void
+        {
+            //when
+            UIImpersonator.addElement(_sut);
+
+            //then
+            assertNull(_sut.selectedItem);
+
+            noEnterFramesRemaining = NO_ENTER_FRAMES_TO_ALLOW;
+            UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, test_programmatic_selection_and_dragging, 800);
+        }
+
+        private function test_programmatic_selection_and_dragging(event:Event, passThroughData:Object):void
+        {
+            function onGridMouseDown(event:GridEvent):void
+            {
+                assertEquals(0, event.rowIndex);
+                assertFalse(event.ctrlKey);
+            }
+
+            //when
+            _sut.selectedIndices = new <int>[0, 1];
+
+            //then
+            assertTrue(ArrayUtil.arraysMatch([_firstObject, _secondObject], VectorUtil.toArrayObject(_sut.selectedItems)));
+
+            //given
+            const mouseDown:MouseEvent = new MouseEvent(MouseEvent.MOUSE_DOWN, true, false, 5, 5, null, false, false, false);
+            const mouseMove:MouseEvent = new MouseEvent(MouseEvent.MOUSE_MOVE, true, false, 5, 6, null, false, false, false);
+            _sut.addEventListener(GridEvent.GRID_MOUSE_DOWN, onGridMouseDown);
+
+            //when - Mouse down and then mouse move to simulate drag
+            _sut.grid.dispatchEvent(mouseDown);
+            _sut.grid.dispatchEvent(mouseMove);
+
+            //then
+            assertTrue(ArrayUtil.arraysMatch([_firstObject, _secondObject], VectorUtil.toArrayObject(_sut.selectedItems)));
+            _sut.removeEventListener(GridEvent.GRID_MOUSE_DOWN, onGridMouseDown);
+        }
+
+        [Test(async, timeout=1000)]
+        public function test_dragging_maintains_manually_selected_items():void
+        {
+            //when
+            UIImpersonator.addElement(_sut);
+
+            //then
+            assertNull(_sut.selectedItem);
+
+            noEnterFramesRemaining = NO_ENTER_FRAMES_TO_ALLOW;
+            UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, test_programmatic_selection_and_dragging, 800);
+        }
+
+        private function test_manual_selection_of_two_items_and_dragging(event:Event, passThroughData:Object):void
+        {
+            //given
+            const mouseDown:MouseEvent = new MouseEvent(MouseEvent.MOUSE_DOWN, true, false, 5, 5, null, false, false, false);
+            const mouseMove:MouseEvent = new MouseEvent(MouseEvent.MOUSE_MOVE, true, false, 5, 6, null, false, false, false);
+
+            //when
+            test_manual_multiple_selection_with_ctrl_click(event, passThroughData);
+            _sut.grid.dispatchEvent(mouseDown);
+            _sut.grid.dispatchEvent(mouseMove);
+
+            //then
+            assertTrue(ArrayUtil.arraysMatch([_firstObject, _secondObject], VectorUtil.toArrayObject(_sut.selectedItems)));
         }
 
         private static function onEnterFrame(event:Event):void
