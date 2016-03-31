@@ -389,8 +389,7 @@ package mx.collections {
             _sut.removeAll();
             _sut.addAll(new ArrayList([testWorkout, {duration:20}, {duration:5}]));
 
-            var sortField:SortField = new SortField("duration");
-            sortField.sortCompareType = SortFieldCompareTypes.NUMERIC;
+            var sortField:SortField = new SortField("duration", false, false, null, SortFieldCompareTypes.NUMERIC);
             var sort:InspectableSort = new InspectableSort([sortField]);
             _sut.sort = sort;
             _sut.refresh();
