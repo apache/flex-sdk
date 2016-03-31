@@ -1489,7 +1489,9 @@ public class ListCollectionView extends Proxy implements ICollectionView, IList,
                 {
                     var oldOrNewValueSpecified:Boolean = updateInfo.oldValue != null || updateInfo.newValue != null;
                     var objectReplacedInCollection:Boolean = updateInfo.property == null && oldOrNewValueSpecified;
+                    var somethingUnknownAboutTheObjectChanged:Boolean = updateInfo.property == null && !oldOrNewValueSpecified;
                     updateEntry = {item: item, move: defaultMove, events: [updateInfo],
+                        undefinedChange:somethingUnknownAboutTheObjectChanged,
                         objectReplacedWithAnother: objectReplacedInCollection, oldItem: updateInfo.oldValue};
                     updatedItems.push(updateEntry);
                 }
@@ -1500,6 +1502,7 @@ public class ListCollectionView extends Proxy implements ICollectionView, IList,
                 updateEntry.move = updateEntry.move
                     || filterFunction != null
                     || updateEntry.objectReplacedWithAnother
+                    || updateEntry.undefinedChange
                     || (sort && sort.propertyAffectsSort(String(updateInfo.property)));
             }
 
@@ -1515,7 +1518,7 @@ public class ListCollectionView extends Proxy implements ICollectionView, IList,
                     {
                         removeItemsFromView([updateEntry.oldItem], -1, true);
                     }
-                    moveItemInView(updateEntry.item, updateEntry.item, eventItems);
+                    moveItemInView(updateEntry.item, updateEntry.item != null, eventItems);
                 }
                 else
                 {
@@ -1648,8 +1651,7 @@ public class ListCollectionView extends Proxy implements ICollectionView, IList,
         pendingUpdates = null;
         if (dispatch)
         {
-            var refreshEvent:CollectionEvent =
-                new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+            var refreshEvent:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
             refreshEvent.kind = CollectionEventKind.REFRESH;
             dispatchEvent(refreshEvent);
         }
@@ -1690,8 +1692,7 @@ public class ListCollectionView extends Proxy implements ICollectionView, IList,
 
             if (dispatch)
             {
-                var event:CollectionEvent =
-                    new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+                var event:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
                 event.items.push(item);
                 if (updateEventItems && addLocation == removeLocation && addLocation > -1)
                 {
@@ -1782,8 +1783,7 @@ public class ListCollectionView extends Proxy implements ICollectionView, IList,
         }
         if (dispatch && removedItems.length > 0)
         {
-            var event:CollectionEvent =
-                new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+            var event:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
             event.kind = CollectionEventKind.REMOVE;
             event.location = (!localIndex || removedItems.length == 1)
                 ? removeLocation
@@ -1823,8 +1823,7 @@ public class ListCollectionView extends Proxy implements ICollectionView, IList,
         }
         else
         {
-            var event:CollectionEvent =
-                new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+            var event:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
             event.kind = CollectionEventKind.REPLACE;
             event.location = location;
             event.items = changeEvents;
@@ -1841,8 +1840,7 @@ public class ListCollectionView extends Proxy implements ICollectionView, IList,
         internalRefresh(false);
         if (dispatchResetEvent)
         {
-            var event:CollectionEvent =
-                new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+            var event:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
             event.kind = CollectionEventKind.RESET;
             dispatchEvent(event);
         }

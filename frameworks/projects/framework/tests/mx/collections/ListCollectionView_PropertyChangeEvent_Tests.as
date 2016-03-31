@@ -22,6 +22,8 @@ package mx.collections {
     import flash.events.UncaughtErrorEvent;
 
     import mx.core.FlexGlobals;
+    import mx.events.CollectionEvent;
+    import mx.events.CollectionEventKind;
     import mx.events.PropertyChangeEvent;
     import mx.events.PropertyChangeEventKind;
     import mx.utils.ObjectUtil;
@@ -32,6 +34,8 @@ package mx.collections {
 
     public class ListCollectionView_PropertyChangeEvent_Tests
     {
+        private static const NO_WORKOUTS:int = 10;
+
         private static var _sut:ListCollectionView;
         private static var _firstWorkout:WorkoutVO;
 
@@ -76,6 +80,7 @@ package mx.collections {
         {
             _sut = null;
             _lastFilteredObject = null;
+            _firstWorkout = null;
 
             PROPERTY_CHANGE_EVENT = null;
             PROPERTY_CHANGE_EVENT_UPDATE = null;
@@ -136,7 +141,7 @@ package mx.collections {
             assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
         }
 
-        [Test] //FLEX-35043
+        [Test] //FLEX-35043 FLEX-34885
         public function test_when_collection_item_dispatches_PropertyChangeEvent_null_is_not_removed_from_list():void
         {
             //given
@@ -174,7 +179,7 @@ package mx.collections {
             assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
         }
 
-        [Test] //FLEX-35043
+        [Test] //FLEX-35043 FLEX-34885
         public function test_when_item_is_changed_bypassing_binding_and_collection_notified_of_itemUpdated_with_property_null_is_not_removed_from_list():void
         {
             //given
@@ -194,7 +199,7 @@ package mx.collections {
             assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
         }
 
-        [Test] //FLEX-35043
+        [Test] //FLEX-35043 FLEX-34885
         public function test_when_item_is_changed_bypassing_binding_and_collection_notified_of_itemUpdated_without_property_null_is_not_removed_from_list():void
         {
             //given
@@ -215,7 +220,7 @@ package mx.collections {
             assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
         }
 
-        [Test] //FLEX-35043
+        [Test] //FLEX-35043 FLEX-34885
         public function test_when_collection_item_dispatches_PropertyChangeEvent_with_UPDATE_null_is_not_removed_from_list():void
         {
             //given
@@ -275,7 +280,7 @@ package mx.collections {
             assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
         }
 
-        [Test] //FLEX-35043
+        [Test] //FLEX-35043 FLEX-34885
         public function test_when_collection_item_dispatches_PropertyChangeEvent_item_is_added_in_correct_place_based_on_sort_and_there_is_no_fatal():void
         {
             //given
@@ -296,7 +301,7 @@ package mx.collections {
             assertEquals(positionOfFirstWorkout, _sut.getItemIndex(_firstWorkout));
         }
 
-        [Test] //FLEX-35043
+        [Test] //FLEX-35043 FLEX-34885
         public function test_when_collection_item_dispatches_PropertyChangeEvent_sort_compare_function_not_called_with_null():void
         {
             function compareWorkouts(a:Object, b:Object, fields:Array = null):int
@@ -320,10 +325,54 @@ package mx.collections {
             assertNull(_uncaughtError);
         }
 
-        [Test] //FLEX-35043
-        public function test_when_collection_notified_of_itemUpdated_without_property_or_oldValue_sort_compare_function_not_called_with_null():void
+        [Test] //FLEX-35043 FLEX-34885
+        public function test_when_collection_notified_of_itemUpdated_without_property_or_oldValue_sort_compare_function_not_called_with_null_and_item_repositioned():void
         {
-            function compareWorkouts(a:Object, b:Object, fields:Array = null):int
+            function orderByDurationDescending(a:Object, b:Object, fields:Array = null):int
+            {
+                if(a.duration > b.duration)
+                    return -1;
+                if(a.duration < b.duration)
+                    return 1;
+
+                return 0;
+            }
+
+            //make sure the workout is on the first position
+            assertEquals("Initial assumption wrong - position", 0, _sut.getItemIndex(_firstWorkout));
+            assertEquals("Initial assumption wrong - duration", 0, _firstWorkout.duration);
+
+            //given
+            var sort:InspectableSort = new InspectableSort([], orderByDurationDescending);
+            _sut.sort = sort;
+            _sut.refresh();
+
+            //then
+            assertEquals("The first item should have the highest duration", NO_WORKOUTS - 1, WorkoutVO(_sut.getItemAt(0)).duration);
+            assertEquals("The first workout should have been moved to the end of the list", _sut.length - 1, _sut.getItemIndex(_firstWorkout));
+
+            //when
+            _firstWorkout.setMuscleGroupsWithoutTriggeringBinding("chest");
+            _firstWorkout.setMinAgeWithoutTriggeringBinding(20);
+            _firstWorkout.setDurationWithoutTriggeringBinding(int.MAX_VALUE);
+            _sut.itemUpdated(_firstWorkout);
+
+            //then
+            // 1. no fatal because compare function was not called with null
+            assertNull(_uncaughtError);
+            // 2. the workout was repositioned because its duration changed
+            assertEquals("The workout should have been moved to the start of the list, as it has the highest duration", 0, _sut.getItemIndex(_firstWorkout));
+        }
+
+        [Test] //FLEX-35043 FLEX-34885
+        public function test_when_collection_of_non_binding_objects_notified_of_itemUpdated_without_property_or_oldValue_item_is_repositioned():void
+        {
+            function onCollectionChange(event:CollectionEvent):void
+            {
+                moveDispatched = event.kind == CollectionEventKind.MOVE;
+            }
+
+            function orderByDurationAscending(a:Object, b:Object, fields:Array = null):int
             {
                 if(a.duration > b.duration)
                     return 1;
@@ -332,18 +381,35 @@ package mx.collections {
 
                 return 0;
             }
+
             //given
-            var sort:InspectableSort = new InspectableSort([], compareWorkouts);
+            var moveDispatched:Boolean = false;
+
+            var testWorkout:Object = {duration:10};
+            _sut.removeAll();
+            _sut.addAll(new ArrayList([testWorkout, {duration:20}, {duration:5}]));
+
+            var sortField:SortField = new SortField("duration");
+            sortField.sortCompareType = SortFieldCompareTypes.NUMERIC;
+            var sort:InspectableSort = new InspectableSort([sortField]);
             _sut.sort = sort;
             _sut.refresh();
 
-            //when
-            _firstWorkout.setMuscleGroupsWithoutTriggeringBinding("chest");
-            _firstWorkout.setMinAgeWithoutTriggeringBinding(20);
-            _sut.itemUpdated(_firstWorkout);
+            _sut.addEventListener(CollectionEvent.COLLECTION_CHANGE, onCollectionChange);
 
-            //then - no fatal because compareWorkouts was not called with null
+            //then
+            assertEquals("The ten minute workout should be in the second position", 1, _sut.getItemIndex(testWorkout));
+
+            //when
+            testWorkout.duration = int.MAX_VALUE;
+            _sut.itemUpdated(testWorkout);
+
+            //then
+            // 1. no fatal because compare function was not called with null
             assertNull(_uncaughtError);
+            // 2. the workout was repositioned because its duration changed
+            assertTrue(moveDispatched);
+            assertEquals("The workout should have been moved to the end of the list, as it now has the highest duration", _sut.length - 1, _sut.getItemIndex(testWorkout));
         }
 
         private static function allowAll(object:Object):Boolean
@@ -356,7 +422,7 @@ package mx.collections {
         private static function createWorkouts():IList
         {
             var result:ArrayList = new ArrayList();
-            for (var i:int = 0; i < 10; i++)
+            for (var i:int = 0; i < NO_WORKOUTS; i++)
             {
                 result.addItem(new WorkoutVO("Workout" + i, i));
             }
@@ -380,15 +446,15 @@ import spark.collections.Sort;
 [Bindable]
 class WorkoutVO
 {
-    public var duration:int;
     public var name:String;
+    private var _duration:int;
     private var _muscleGroups:String;
     private var _minAge:uint;
 
     public function WorkoutVO(name:String, duration:int)
     {
         this.name = name;
-        this.duration = duration;
+        this._duration = duration;
     }
 
     public function get muscleGroups():String
@@ -419,6 +485,21 @@ class WorkoutVO
     public function setMinAgeWithoutTriggeringBinding(age:uint):void
     {
         _minAge = age;
+    }
+
+    public function setDurationWithoutTriggeringBinding(duration:int):void
+    {
+        _duration = duration;
+    }
+
+    public function get duration():int
+    {
+        return _duration;
+    }
+
+    public function set duration(value:int):void
+    {
+        _duration = value;
     }
 }
 

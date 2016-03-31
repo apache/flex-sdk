@@ -247,8 +247,7 @@
 				var sortField:SortField = new SortField("value",false);
 				this.addStyleClient(sort);
 				this.addStyleClient(sortField);
-//				var sort:mx.collections.Sort = new mx.collections.Sort();
-//				var sortField:mx.collections.SortField = new mx.collections.SortField("value",true);
+
 				sort.fields = [sortField];
 				ArrayCollection(list1.dataProvider).sort = sort;
 				ArrayCollection(list1.dataProvider).refresh();
@@ -259,7 +258,7 @@
 				lb.text = to.value;
 				
 				to.value = "yello1";
-				list1.dataProvider.itemUpdated(list1.dataProvider.getItemAt(0));
+				list1.dataProvider.itemUpdated(to);
 				return 1;
 			}
 		]]>

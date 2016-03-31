@@ -620,8 +620,7 @@ public class ArrayList extends EventDispatcher
                                  oldValue:Object = null, 
                                  newValue:Object = null):void
     {
-        var event:PropertyChangeEvent =
-            new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
+        var event:PropertyChangeEvent = new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
         
         event.kind = PropertyChangeEventKind.UPDATE;
         event.source = item;
