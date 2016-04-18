@@ -369,13 +369,9 @@ public class DropDownList extends DropDownListBase
         {
             if (displayItem == undefined)
                 displayItem = selectedItem;
-            if (displayItem != null && displayItem != undefined)
-                labelDisplay.text = LabelUtil.itemToLabel(displayItem, labelField, labelFunction);
             else
-                labelDisplay.text = prompt;
-        }   
+                labelDisplay.text = displayItem != null ? LabelUtil.itemToLabel(displayItem, labelField, labelFunction) : prompt;
+        }
     }
- 
 }
-
 }

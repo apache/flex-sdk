@@ -2781,7 +2781,7 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     mx_internal function findStringLoop(str:String, startIndex:int, stopIndex:int):Number
     {
-        // Try to find the item based on the start and stop indices. 
+        // Try to find the item based on the start and stop indices
         for (startIndex; startIndex != stopIndex; startIndex++)
         {
             var itmStr:String = itemToLabel(dataProvider.getItemAt(startIndex));
@@ -2812,7 +2812,7 @@ public class List extends ListBase implements IFocusManagerComponent
         if (isEditableTarget(event.target))
             return;
         
-        var touchMode:Boolean = (getStyle("interactionMode") == InteractionMode.TOUCH);
+        var touchMode:Boolean = getStyle("interactionMode") == InteractionMode.TOUCH;
         
         // 1. Was the space bar hit? or was the enter key hit and we're in 5-way mode
         // Hitting the space bar means the current caret item, 
