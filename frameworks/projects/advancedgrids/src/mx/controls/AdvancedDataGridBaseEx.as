@@ -2798,7 +2798,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
      */
     override public function itemToLabel(data:Object):String
     {
-        return displayableColumns[sortIndex == -1 ? 0 : sortIndex].itemToLabel(data);
+        var column:AdvancedDataGridColumn = displayableColumns[sortIndex == -1 ? 0 : sortIndex];
+        return column ? column.itemToLabel(data) : "";
     }
 
     //--------------------------------------------------------------------------
