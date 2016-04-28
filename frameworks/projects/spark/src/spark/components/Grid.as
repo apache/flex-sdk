@@ -4805,7 +4805,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
             {
                 currentObject = dataProvider.getItemAt(loopingIndex);
 
-                if (currentObject.hasOwnProperty(field) == true && currentObject[field].search(pattern) != -1)
+                if (currentObject.hasOwnProperty(field) == true && pattern.test(currentObject[field]) == true)
                 {
                     return loopingIndex;
                 }
@@ -4862,7 +4862,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
                 //Loop through regex patterns from the values array.
                 for (loopingValuesIndex = 0; loopingValuesIndex < valuesTotal; loopingValuesIndex++)
                 {
-                    if (currentObject[field].search(regexList[loopingValuesIndex]) != -1)
+                    if (regexList[loopingValuesIndex].test(currentObject[field]) == true)
                     {
                         matchedIndices.push(loopingDataProviderIndex);
 
