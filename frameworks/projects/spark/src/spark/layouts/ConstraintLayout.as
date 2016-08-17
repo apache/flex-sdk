@@ -121,6 +121,10 @@ use namespace mx_internal;
  */
 public class ConstraintLayout extends LayoutBase
 {
+
+    //See FLEX-33311 for more details on why this is used
+    private var constraintCacheNeeded:int = 0;
+
     //--------------------------------------------------------------------------
     //
     //  Class methods
@@ -1604,7 +1608,9 @@ public class ConstraintLayout extends LayoutBase
         var layoutTarget:GroupBase = target;
         if (!layoutTarget)
             return;
-        
+
+        constraintCacheNeeded++;
+
         var count:Number = layoutTarget.numElements;
         var layoutElement:ILayoutElement;
         
@@ -1614,7 +1620,7 @@ public class ConstraintLayout extends LayoutBase
         // Populate rowBaselines with baseline information from rows.
         var n:int = _constraintRows.length;
         var row:ConstraintRow;
-        var obj:Object = {};
+
         if (rowBaselines == null)
             rowBaselines = new Vector.<Array>();
         else
@@ -1641,6 +1647,7 @@ public class ConstraintLayout extends LayoutBase
         }
         
         this.constraintCache = cache;
+        constraintCacheNeeded--;
     }
     
     /**
@@ -1833,12 +1840,15 @@ public class ConstraintLayout extends LayoutBase
      */
     private function clearConstraintCache():void
     {
-        colSpanElements = null;
-        rowSpanElements = null;
-        otherElements = null;
-        rowBaselines = null;
-        rowMaxAscents = null;
-        constraintCache = null;
+        if(!constraintCacheNeeded)
+        {
+            colSpanElements = null;
+            rowSpanElements = null;
+            otherElements = null;
+            rowBaselines = null;
+            rowMaxAscents = null;
+            constraintCache = null;
+        }
     }
 }
 }
