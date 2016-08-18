@@ -109,7 +109,7 @@ package spark.layouts {
 
             //when
             _parentGroup.layout = _sut;
-            UIImpersonator.addElement(_parentGroup);
+            UIImpersonator.addChild(_parentGroup);
             _dropDown.openDropDown();
 
             //then - wait a few frames

@@ -64,7 +64,7 @@ package spark.skins.spark {
         public function test_focus_skin_with_zero_focus_thickness():void
         {
             //given
-            UIImpersonator.addElement(_textInput);
+            UIImpersonator.addChild(_textInput);
 
             //when
             _textInput.setStyle("focusThickness", 0);
@@ -80,7 +80,7 @@ package spark.skins.spark {
         public function test_focus_skin_with_NaN_focus_thickness():void
         {
             //given
-            UIImpersonator.addElement(_textInput);
+            UIImpersonator.addChild(_textInput);
 
             //when
             _textInput.setStyle("focusThickness", NaN);

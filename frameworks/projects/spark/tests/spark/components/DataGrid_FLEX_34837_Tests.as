@@ -59,7 +59,7 @@ package spark.components {
             const dataProvider:ListCollectionView = new ListCollectionView(tenObjects);
 
             //when
-            UIImpersonator.addElement(_sut);
+            UIImpersonator.addChild(_sut);
             assertNotNull("UIImpersonator doesn't work correctly!", _sut.grid);
             _sut.dataProvider = dataProvider;
             _sut.sortByColumns(new <int>[0]); //sort by address.street
@@ -86,7 +86,7 @@ package spark.components {
             const dataProvider:ListCollectionView = new ListCollectionView(tenObjects);
 
             //when
-            UIImpersonator.addElement(_sut);
+            UIImpersonator.addChild(_sut);
             assertNotNull("UIImpersonator doesn't work correctly!", _sut.grid);
             _sut.dataProvider = dataProvider;
             _sut.sortByColumns(new <int>[0]); //sort by address.dateMovedIn, in effect by month name
@@ -119,7 +119,7 @@ package spark.components {
             const dataProvider:ListCollectionView = new ListCollectionView(tenObjects);
 
             //when
-            UIImpersonator.addElement(_sut);
+            UIImpersonator.addChild(_sut);
             assertNotNull("UIImpersonator doesn't work correctly!", _sut.grid);
             _sut.dataProvider = dataProvider;
 

@@ -78,7 +78,7 @@ package spark.components {
         public function test_ctrl_click_removes_selected_item():void
         {
             //when
-            UIImpersonator.addElement(_sut);
+            UIImpersonator.addChild(_sut);
 
             //then
             assertNull(_sut.selectedItem);
@@ -121,7 +121,7 @@ package spark.components {
         public function test_ctrl_click_on_another_item_adds_it_to_selection():void
         {
             //when
-            UIImpersonator.addElement(_sut);
+            UIImpersonator.addChild(_sut);
 
             //then
             assertNull(_sut.selectedItem);
@@ -166,7 +166,7 @@ package spark.components {
         public function test_dragging_maintains_programmatically_selected_items():void
         {
             //when
-            UIImpersonator.addElement(_sut);
+            UIImpersonator.addChild(_sut);
 
             //then
             assertNull(_sut.selectedItem);
@@ -208,7 +208,7 @@ package spark.components {
         public function test_dragging_maintains_manually_selected_items():void
         {
             //when
-            UIImpersonator.addElement(_sut);
+            UIImpersonator.addChild(_sut);
 
             //then
             assertNull(_sut.selectedItem);
