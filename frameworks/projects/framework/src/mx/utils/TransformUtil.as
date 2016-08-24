@@ -100,7 +100,7 @@ public final class TransformUtil
                                            initLayoutFeatures:Function = null):void
     {
         var needAdvancedLayout:Boolean = (layoutFeatures ||
-                                          needAdvancedLayout(transformCenter,
+                                          TransformUtil.needAdvancedLayout(transformCenter,
                                                              scale,
                                                              rotation,
                                                              translation,

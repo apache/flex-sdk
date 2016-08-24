@@ -303,7 +303,7 @@ public class AutomationClass implements IAutomationClass2
 	 */
 	public function addEvent(m:IAutomationEventDescriptor):void
     {
-        var hash:String = hash(m.eventClassName, m.eventType);
+        var hash:String = AutomationClass.hash(m.eventClassName, m.eventType);
                             
         _event2descriptor[hash] = m;
     }
@@ -328,7 +328,7 @@ public class AutomationClass implements IAutomationClass2
         if (event is KeyboardEvent)
             eventType = "keyPress";
         var eventClassName:String = getClassName(event);
-        var hash:String = hash(eventClassName, eventType);
+        var hash:String = AutomationClass.hash(eventClassName, eventType);
         return hash in _event2descriptor ? _event2descriptor[hash] : null;
     }
 

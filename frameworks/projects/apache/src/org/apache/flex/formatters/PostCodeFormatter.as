@@ -234,8 +234,8 @@ public class PostCodeFormatter extends Formatter
         // Check and add missing (or convert) padding characters
         for each (var format:String in formats)
         {
-            var condensedPostcode:String = condensedFormat(postCode);
-            var condensedFormat:String = condensedFormat(format);
+            var condensedPostcode:String = this.condensedFormat(postCode);
+            var condensedFormat:String = this.condensedFormat(format);
             var char:String;
             var length:int = format.length;
             var condensedErrors:Array;
