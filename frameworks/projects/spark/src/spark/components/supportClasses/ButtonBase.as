@@ -1345,7 +1345,7 @@ public class ButtonBase extends SkinnableComponent implements IFocusManagerCompo
                         // There are two possibilities for being here:
                         //    1) mouseCaptured wasn't set to true (meaning this is the first click)
                         //    2) mouseCaptured was true (meaning a click operation hadn't finished 
-                        //       and we find ourselves in here again--perhaps it was a doublet tap).
+                        //       and we find ourselves in here again--perhaps it was a double tap).
                         // In either case, let's make sure that down state shows up for a little bit
                         // before going back to the up state.
                         
