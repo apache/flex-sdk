@@ -5401,7 +5401,6 @@ public class AdvancedListBase extends ScrollControlBase
         var selectionChange:Boolean = false;
         var placeHolder:CursorBookmark = iterator.bookmark;
         var index:int = itemRendererToIndex(item);
-        var data:Object;
         var uid:String = itemToUID(item.data);
 
         if (!allowMultipleSelection || (!shiftKey && !ctrlKey))
@@ -5508,7 +5507,7 @@ public class AdvancedListBase extends ScrollControlBase
             iterator.seek(placeHolder, 0);
 
             // if user is clicking with ctl key then
-            // seletion gets changed always.
+            // selection gets changed always.
             selectionChange = true;
         }
 
