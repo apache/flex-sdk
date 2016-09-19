@@ -62,7 +62,7 @@ package spark.components.supportClasses {
         public function test_dropdown_doesnt_close_when_item_selected_from_DropDownList():void
         {
             //given
-            UIImpersonator.addElement(_sut);
+            UIImpersonator.addChild(_sut);
 
             //when
             _sut.dispatchEvent(new MouseEvent(MouseEvent.ROLL_OVER));
