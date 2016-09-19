@@ -188,7 +188,7 @@ package spark.components {
             _sut.selectedIndices = new <int>[0, 1];
 
             //then
-            assertTrue(ArrayUtil.arraysMatch([_firstObject, _secondObject], VectorUtil.toArrayObject(_sut.selectedItems)));
+            assertTrue("The first two objects should be selected", ArrayUtil.arraysMatch([_firstObject, _secondObject], VectorUtil.toArrayObject(_sut.selectedItems)));
 
             //given
             const mouseDown:MouseEvent = new MouseEvent(MouseEvent.MOUSE_DOWN, true, false, 5, 5, null, false, false, false);
@@ -204,7 +204,7 @@ package spark.components {
             _sut.removeEventListener(GridEvent.GRID_MOUSE_DOWN, onGridMouseDown);
         }
 
-        [Test(async, timeout=1000)]
+        [Test(async, timeout=1300)]
         public function test_dragging_maintains_manually_selected_items():void
         {
             //when
@@ -215,7 +215,7 @@ package spark.components {
 
             noEnterFramesRemaining = NO_ENTER_FRAMES_TO_ALLOW;
             UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
-            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, test_programmatic_selection_and_dragging, 800);
+            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, test_programmatic_selection_and_dragging, 1200);
         }
 
         private function test_manual_selection_of_two_items_and_dragging(event:Event, passThroughData:Object):void
