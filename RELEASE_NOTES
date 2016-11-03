@@ -12,15 +12,18 @@ AIR and Flash Player Support
 
 Bug Fixes
 ---------
+FLEX-35165  Remove bundling of Apache 1.0 licensed software
 FLEX-35126  DropDownController inside a pop up still listens to MOUSE_DOWN and
 		MOUSE_DOWN_SOMEWHERE after the popup has closed
 FLEX-35125  DropDownList inside a PopUpAnchor doesn't close when another DropDownList
 		is selected
 FLEX-35124  RTE 1009 in DropDownController.systemManager_mouseDownHandler() when inside
 		a PopUpAnchor and other item is removed on click
+FLEX-35123  DOM XSS vulnerability in history.js
 FLEX-35109  falcon compiler's build.xml error
 FLEX-35106  Incorrect date in datefield popup for fr_FR locale
 FLEX-35100  TextFlowLine.recreateTextLine() throws a null object reference error
+FLEX-35097  How to compile AIR beta 22 with Flex SDK?
 FLEX-35082  moveIndexFindRow doesn't accept integer values
 FLEX-35078  Fatal when SelectionManager tries to reapply selection onto changed textFlow
 FLEX-35056  Pressing escape on s:Alert causes a RangeError when Alert.CANCEL is passed
@@ -36,10 +39,10 @@ FLEX-35037  Add ArrayCollection unit tests donated by Justin
 FLEX-35031  HierarchicalCollectionViewCursor cannot find sealed class instance
 FLEX-35028  Error in DataGrid getHeaderRendererAt(-1)
 FLEX-35025  Validator results cannot be intercepted if the value is null
+FLEX-34935  Copy From Word Document And Pasting Into TextRegion Not Working Properly
 FLEX-34926  Misplaced [PercentProxy] metatag in GridColumn
 FLEX-34698  Flatspark ButtonIcon: Introduce 'iconFontPlacement' style
 FLEX-34391  ScrollableStageText with large y value crashes app
-FLEX-34088  CalloutButton closes when selecting an item in a spark Dropdown
 FLEX-34088  CalloutButton closes when selecting an item in a spark Dropdown
 FLEX-33646  The "required" property on Validator should be a getter/setter
 FLEX-33311  Null pointer fatal in ConstraintLayout when executing Transition on
