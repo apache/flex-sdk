@@ -1228,7 +1228,7 @@ public class ObjectUtil
     /**
      *  Verifies if the first object is dynamic and is a subset of the second object.
      *
-     *  @param values The values which need to be shared by <code>object</object>
+     *  @param values The values which need to be shared by <code>object</code>
      *  @param object The object to verify against.
      *
      *  @return true if and only if the objects are the same, or if <code>values</code>
