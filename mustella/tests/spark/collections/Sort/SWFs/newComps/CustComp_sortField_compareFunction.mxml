@@ -107,10 +107,9 @@
 				sfCN.setStyle("locale","zh-CN");
 				sfScriptName.setStyle("locale","zh-CN");
 				
-				sfCFScript= new spark.collections.SortField("name");
+				sfCFScript= new spark.collections.SortField("name", false, null, null, mySortCompareFunction);
 				this.addStyleClient(sfCFScript);
-				sfCFScript.compareFunction=mySortCompareFunction;
-				
+
 				stCFScript=new Sort();
 				this.addStyleClient(stCFScript);
 				

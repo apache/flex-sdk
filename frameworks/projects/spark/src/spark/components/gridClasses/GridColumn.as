@@ -1609,7 +1609,7 @@ public class GridColumn extends EventDispatcher
             }
         }
         
-        sortField.compareFunction = compareFunc;
+        SortField(sortField).mx_internal::compareFunction_ = compareFunc;
         sortField.descending = column.sortDescending;
         return sortField;
     }

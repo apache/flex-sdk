@@ -146,7 +146,7 @@ public class SortField extends EventDispatcher implements ISortField
 
         if(customCompareFunction != null)
         {
-            compareFunction = customCompareFunction;
+            mx_internal::compareFunction_ = customCompareFunction;
         }
         else if (updateSortCompareType() == false)
         {
@@ -302,7 +302,7 @@ public class SortField extends EventDispatcher implements ISortField
      *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
      *  argument instead.
      */
-    public function set compareFunction(c:Function):void
+    mx_internal function set compareFunction_(c:Function):void
     {
         _compareFunction = c;
         _usingCustomCompareFunction = (c != null);

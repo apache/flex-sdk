@@ -382,14 +382,14 @@ public class DefaultCubeImpl implements IOLAPCubeImpl
                 newSort = new Sort;
                 var fields:Array = [];
                 
-                var field:ISortField ;
+                var field:ISortField;
                 for each (level in levels)
                 {
                 	if (level.attribute && level.attribute.userDataFunction)
                     {
                     	attr = level.attribute;
-	                    field= new SortField(attr.dataField);
-	                    field.compareFunction = attr.dataCompareFunction;
+	                    field = new SortField(attr.dataField);
+	                    SortField(field).mx_internal::compareFunction_ = attr.dataCompareFunction;
 		                fields.push(field);
     	            }
                 	else
