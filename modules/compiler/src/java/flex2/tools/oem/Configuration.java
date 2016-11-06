@@ -141,7 +141,7 @@ public interface Configuration
     
     /**
      * Sets the location of the default CSS file.
-     * This is equivalent to using the <code>compiler.defaults-css-url</code> option of the mxmlc or compc compilers</code>.
+     * This is equivalent to using the <code>compiler.defaults-css-url</code> option of the mxmlc or compc compilers.
      * 
      * @param url An instance of <code>java.io.File</code>.
      */
@@ -973,12 +973,12 @@ public interface Configuration
      * the file format:
      * 
      * <pre>
-     * &lt;script>
-     *     &lt;!-- use 'dep', 'pre' or 'dep' to specify a definition to be omitted from linking. -->
-     *     &lt;def id="mx.skins:ProgrammaticSkin"/>
-     *     &lt;pre id="mx.core:IFlexDisplayObject"/>
-     *     &lt;dep id="String"/>
-     * &lt;/script>
+     * &lt;script&gt;
+     *     &lt;!-- use 'dep', 'pre' or 'dep' to specify a definition to be omitted from linking. --&gt;
+     *     &lt;def id="mx.skins:ProgrammaticSkin"/&gt;
+     *     &lt;pre id="mx.core:IFlexDisplayObject"/&gt;
+     *     &lt;dep id="String"/&gt;
+     * &lt;/script&gt;
      * </pre>
      * 
      * @see #setExterns(String[])
@@ -1087,8 +1087,8 @@ public interface Configuration
      * CONTRIBUTOR      java.lang.String
      * CREATOR          java.lang.String
      * DATE             java.util.Date
-     * DESCRIPTION      java.util.Map<String, String>
-     * TITLE            java.util.Map<String, String>
+     * DESCRIPTION      java.util.Map&lt;String, String&gt;
+     * TITLE            java.util.Map&lt;String, String&gt;
      * LANGUAGE         java.lang.String
      * PUBLISHER        java.lang.String
      * </pre>
@@ -1331,7 +1331,7 @@ public interface Configuration
     
     
     /**
-     * @param libraries
+     * @param extensions
      */
     public void setExtensionLibraries(Map<File, List<String>> extensions);
     
@@ -1382,7 +1382,7 @@ public interface Configuration
      * instance should represent a SWC file. May not be null.
      *    
      * @since 4.5
-     * @see #setForcedRuntimeSharedLibraryPaths(File[])
+     * @see #setForceRuntimeSharedLibraryPaths(File[])
      * @throws NullPointerException if path is null.
      */
     void addForceRuntimeSharedLibraryPaths(File[] paths);

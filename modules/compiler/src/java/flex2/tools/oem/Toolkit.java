@@ -303,7 +303,7 @@ public class Toolkit
 	 * This operation returns an optimized version of the library SWF. The SWF in the library
 	 * remains unchanged.
 	 * 
-	 * @param in a SWF input stream
+	 * @param lib a SWF input stream
 	 * @param out a SWF output stream
 	 * @return the number of bytes written to the output stream; <code>0</code> if the optimization fails.
 	 */
@@ -496,7 +496,7 @@ public class Toolkit
      * @param minimizeDependencySet If false, all of the libraries dependencies are returned. If true, the external script
      * classes are reviewed. If the set of script classes resolved in a libraryA is a subset of the script
      * classes resolved in libraryB, then libraryA will be removed as a dependency of targetLibrary.
-     * @param dependencyTypes The types of dependencies to consider when 
+     * @param dependencySet The types of dependencies to consider when 
      * determining the library's dependencies. If this parameter is null or an empty set, then all
      * dependencies will be considered. 
      * @return A set of Strings; where each String is the location of a library in the file system. 
