@@ -312,7 +312,7 @@
 
     <target name="download-afe" unless="adobe.afe.download.exists" >
         <mkdir dir="${download.dir}"/>
-        <get src="http://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/lib/afe.jar?format=raw"
+        <get src="https://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/lib/afe.jar?format=raw"
             dest="${download.dir}/${adobe.afe.file}" ignoreerrors="true"/>
         <antcall target="get-from-cache-if-needed" >
             <param name="filename" value="${adobe.afe.file}" />
@@ -324,7 +324,7 @@
 
     <target name="download-aglj40" unless="adobe.aglj40.download.exists" >
         <mkdir dir="${download.dir}"/>
-        <get src="http://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/lib/aglj40.jar?format=raw"
+        <get src="https://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/lib/aglj40.jar?format=raw"
              dest="${download.dir}/${adobe.aglj40.file}" ignoreerrors="true"/>
          <antcall target="get-from-cache-if-needed" >
              <param name="filename" value="${adobe.aglj40.file}" />
