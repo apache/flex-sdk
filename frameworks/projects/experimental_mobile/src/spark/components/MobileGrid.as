@@ -22,6 +22,7 @@ package spark.components
 import mx.collections.ICollectionView;
 import mx.collections.ISort;
 import mx.collections.ISortField;
+import mx.collections.SortField;
 import mx.core.ClassFactory;
 import mx.core.ScrollPolicy;
 import mx.core.mx_internal;
@@ -280,8 +281,8 @@ public class MobileGrid extends List
         lastSortIndex = sortIndex;
         sortIndex = index;
         sortColumn = c;
-        f.name = c.dataField;
-        f.descending = desc;
+        SortField(f).mx_internal::name_ = c.dataField;
+        SortField(f).mx_internal::descending_ = desc;
         s.fields = [f];
         collection.sort = s;
         collection.refresh();

@@ -3997,7 +3997,7 @@ public class DataGrid extends DataGridBase implements IIMESupport
 
             // if you have a labelFunction you must supply a sortCompareFunction
             SortField(f).mx_internal::compareFunction_ = c.sortCompareFunction;
-            f.descending = desc;
+            SortField(f).mx_internal::descending_ = desc;
             s.fields = [f];
         }
 

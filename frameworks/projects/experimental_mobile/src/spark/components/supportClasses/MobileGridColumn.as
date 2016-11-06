@@ -324,7 +324,7 @@ public class MobileGridColumn extends EventDispatcher
             };
             sortField.mx_internal::compareFunction = cF;
         }
-        sortField.descending = column.sortDescending;
+        sortField.mx_internal::descending_ = column.sortDescending;
         return sortField;
     }
 

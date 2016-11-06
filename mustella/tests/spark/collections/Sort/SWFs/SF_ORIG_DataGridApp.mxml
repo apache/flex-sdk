@@ -33,7 +33,7 @@
 			import mx.events.DragEvent;
 			import mx.managers.DragManager;
 			import mx.utils.ObjectUtil;
-			
+			import mx.core.mx_internal;
 			import spark.collections.*;
 			
 			// These skins are copied from DataGridMain.mxml.
@@ -766,14 +766,14 @@
 				
 				event.preventDefault();
 				
-				sf.descending = !dgc.sortDescending;
+				sf.mx_internal::descending_ = !dgc.sortDescending;
 				
 				if(dgc.headerText == "numeric")
-					sf.numeric = true;
+					sf.mx_internal::numeric_ = true;
 				else if(dgc.headerText == "alpha")
-					sf.numeric = false;
+					sf.mx_internal::numeric_ = false;
 				else
-					sf.numeric = null;
+					sf.mx_internal::numeric_ = null;
 				
 				dgc.sortDescending = sf.descending;
 				s.fields = [ sf ];

@@ -24,6 +24,7 @@ package {
     import mx.collections.ListCollectionView;
     import mx.collections.Sort;
     import mx.collections.SortFieldCompareTypes;
+    import mx.core.mx_internal;
 
     import org.flexunit.asserts.assertEquals;
     import org.flexunit.asserts.assertTrue;
@@ -146,7 +147,7 @@ package {
 
             const sortByDateMovedInAscending:Sort = new Sort();
             var complexSortField:ComplexSortField = new ComplexSortField("address.dateMovedIn", false, false, false);
-            complexSortField.sortCompareType = SortFieldCompareTypes.DATE;
+            complexSortField.mx_internal::sortCompareType_ = SortFieldCompareTypes.DATE;
             sortByDateMovedInAscending.fields = [complexSortField];
             _sut.sort = sortByDateMovedInAscending;
 
@@ -166,7 +167,7 @@ package {
 
             const sortByDateMovedInDescending:Sort = new Sort();
             var complexSortField:ComplexSortField = new ComplexSortField("address.dateMovedIn", false, true, false);
-            complexSortField.sortCompareType = SortFieldCompareTypes.DATE;
+            complexSortField.mx_internal::sortCompareType_ = SortFieldCompareTypes.DATE;
             sortByDateMovedInDescending.fields = [complexSortField];
             _sut.sort = sortByDateMovedInDescending;
 

@@ -91,11 +91,6 @@ public interface ISortField
      */
     function get descending():Boolean;
 
-    /**
-     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
-     *  argument instead.
-     */
-    function set descending(value:Boolean):void;
 
     /**
      *  The name of the field to be sorted.
@@ -106,12 +101,6 @@ public interface ISortField
      *  @productversion Flex 4.5
      */
     function get name():String;
-
-    /**
-     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
-     *  argument instead.
-     */
-    function set name(n:String):void;
 
     /**
      *  Specifies that if the field being sorted contains numeric
@@ -147,12 +136,6 @@ public interface ISortField
      */
     function get numeric():Object;
 
-    /**
-     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
-     *  argument instead.
-     */
-    function set numeric(value:Object):void;
-
 
     /**
      *  Specifies what compare type will be used for the sortField. This overrides the default
@@ -166,12 +149,6 @@ public interface ISortField
      *  @productversion Flex 4.11
      */
     function get sortCompareType():String;
-
-    /**
-     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
-     *  argument instead.
-     */
-    function set sortCompareType(value:String):void;
 
 
     /**
