@@ -3981,14 +3981,10 @@ public class DataGrid extends DataGridBase implements IIMESupport
                 }
             }
             else
-                s = new Sort;
+                s = new Sort();
 
             if (!f)
-            {
-                f = new SortField(c.dataField, false, desc, null, null, c.sortCompareFunction);
-                f.sortCompareType = c.sortCompareType;
-            }
-
+                f = new SortField(c.dataField, false, desc, null, c.sortCompareType, c.sortCompareFunction);
 
             c.sortDescending = desc;
             var dir:String = (desc) ? "DESC" : "ASC";
@@ -4000,14 +3996,13 @@ public class DataGrid extends DataGridBase implements IIMESupport
             sortColumn = c;
 
             // if you have a labelFunction you must supply a sortCompareFunction
-            f.name = c.dataField;
-            f.compareFunction = c.sortCompareFunction;
-            f.descending = desc;
+            SortField(f).mx_internal::compareFunction_ = c.sortCompareFunction;
+            SortField(f).mx_internal::descending_ = desc;
             s.fields = [f];
         }
+
         collection.sort = s;
         collection.refresh();
-
     }
 
     /**

@@ -1586,7 +1586,7 @@ public class GridColumn extends EventDispatcher
         // data object even though a sortCompareFunction is defined.
         var sortField:ISortField = isComplexDataField ? new GridSortFieldComplex(this, dataField) : new GridSortFieldSimple(this, dataField);
 
-        sortField.sortCompareType = column._sortCompareType;
+        SortField(sortField).mx_internal::sortCompareType_ = column._sortCompareType;
 
         var compareFunc:Function = null;
         if (_sortCompareFunction != null)
@@ -1609,8 +1609,8 @@ public class GridColumn extends EventDispatcher
             }
         }
         
-        sortField.compareFunction = compareFunc;
-        sortField.descending = column.sortDescending;
+        SortField(sortField).mx_internal::compareFunction_ = compareFunc;
+        SortField(sortField).mx_internal::descending_ = column.sortDescending;
         return sortField;
     }
     

@@ -1113,7 +1113,7 @@ public class GroupingCollection extends HierarchicalData implements IGroupingCol
             var sortField:SortField = new SortField(groupingField.name, 
                         groupingField.caseInsensitive, 
                         groupingField.descending, groupingField.numeric);
-            sortField.compareFunction = groupingField.compareFunction;
+            sortField.mx_internal::compareFunction_ = groupingField.compareFunction;
             fields.push(sortField);
         }
         

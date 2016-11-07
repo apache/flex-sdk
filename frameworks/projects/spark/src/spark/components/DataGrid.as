@@ -36,6 +36,7 @@ package spark.components
     import mx.collections.IList;
     import mx.collections.ISort;
     import mx.collections.ISortField;
+	import mx.collections.SortField;
     import mx.collections.ListCollectionView;
     import mx.core.DragSource;
     import mx.core.EventPriority;
@@ -5052,7 +5053,7 @@ public class DataGrid extends SkinnableContainerBase
             }
             else
             {
-                sortField.descending = col.sortDescending;
+                SortField(sortField).mx_internal::descending_ = col.sortDescending;
             }
 
             fields.push(sortField);
