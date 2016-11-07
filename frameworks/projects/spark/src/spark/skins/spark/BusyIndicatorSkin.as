@@ -239,6 +239,18 @@ package spark.skins.spark
 				symbolColorChanged = true;
 				invalidateDisplayList();
 			}
+			
+			if (styleProp == "styleName") {
+				var value:String = getStyle("styleName");
+				
+				// We're being removed from the stage
+				if (value == null) {
+					stopRotation();
+					busyIndicatorBackground = null;
+					busyIndicator = null;
+				}
+			}
+			
 			super.styleChanged(styleProp);
 		}
 		
@@ -326,16 +338,17 @@ package spark.skins.spark
 			event.updateAfterEvent();
 		}
 		
-		private var rotationMatrix:Matrix; 
 		private function rotate(obj:DisplayObject, angle:Number, aroundX:Number, aroundY:Number):void
 		{
-			rotationMatrix = new Matrix();
-			rotationMatrix.translate(-aroundX,-aroundY);
+			var center:Number = Math.min(aroundX, aroundY); // stop wobbling if not square
+			var rotationMatrix:Matrix = new Matrix();
+			rotationMatrix.translate(-center,-center);
 			rotationMatrix.rotate(Math.PI*angle/180);
-			rotationMatrix.translate(aroundX,aroundY);
+			rotationMatrix.translate(center,center);
 			obj.transform.matrix = rotationMatrix;
 		}
 		
 	}
 }
+
 
