@@ -448,7 +448,7 @@
     <target name="saxon9-jar" depends="saxon9-jar-check" unless="saxon9.jar.exists" 
         description="Copies sax9.jar to the lib directory.">
 
-        <get src="https://downloads.sourceforge.net/project/saxon/Saxon-B/9.1.0.8/saxonb9-1-0-8j.zip?r=&amp;ts=1366147457&amp;use_mirror=superb-dca2" 
+        <get src="http://downloads.sourceforge.net/project/saxon/Saxon-B/9.1.0.8/saxonb9-1-0-8j.zip?r=&amp;ts=1366147457&amp;use_mirror=superb-dca2" 
             dest="${download.dir}/${saxon9.bin.zip}" 
             verbose="false" ignoreerrors="true"/>
 
