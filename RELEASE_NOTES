@@ -43,6 +43,7 @@ FLEX-35025  Validator results cannot be intercepted if the value is null
 FLEX-34935  Copy From Word Document And Pasting Into TextRegion Not Working Properly
 FLEX-34926  Misplaced [PercentProxy] metatag in GridColumn
 FLEX-34738  Not delete BusyIndicator
+FLEX-34811  Email validator show allow apostrophe in email address
 FLEX-34698  Flatspark ButtonIcon: Introduce 'iconFontPlacement' style
 FLEX-34391  ScrollableStageText with large y value crashes app
 FLEX-34088  CalloutButton closes when selecting an item in a spark Dropdown
