@@ -25,7 +25,7 @@ package {
     import mx.collections.Sort;
     import mx.collections.SortField;
     import mx.utils.ObjectUtil;
-    import mx.core.mx_internal;
+
     import org.flexunit.asserts.assertEquals;
 
     public class ListCollectionView_FLEX_34837_Tests {
@@ -87,7 +87,7 @@ package {
 
             const sortByStreetAscending:Sort = new Sort();
             var sortField:SortField = new ComplexSortField("address.street", false, false, false);
-            sortField.mx_internal::compareFunction_ = compareByStreet;
+            sortField.compareFunction = compareByStreet;
             sortByStreetAscending.fields = [sortField];
             _sut.sort = sortByStreetAscending;
 
