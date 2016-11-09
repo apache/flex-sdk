@@ -146,7 +146,7 @@ public class SortField extends EventDispatcher implements ISortField
 
         if(customCompareFunction != null)
         {
-            mx_internal::compareFunction_ = customCompareFunction;
+            compareFunction = customCompareFunction;
         }
         else if (updateSortCompareType() == false)
         {
@@ -233,7 +233,7 @@ public class SortField extends EventDispatcher implements ISortField
      *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
      *  argument instead.
      */
-    mx_internal function set caseInsensitive_(value:Boolean):void
+    mx_internal function setCaseInsensitive(value:Boolean):void
     {
         if (value != _caseInsensitive)
         {
@@ -302,7 +302,7 @@ public class SortField extends EventDispatcher implements ISortField
      *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
      *  argument instead.
      */
-    mx_internal function set compareFunction_(c:Function):void
+    public function set compareFunction(c:Function):void
     {
         _compareFunction = c;
         _usingCustomCompareFunction = (c != null);
@@ -338,7 +338,7 @@ public class SortField extends EventDispatcher implements ISortField
      *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
      *  argument instead.
      */
-    mx_internal function set descending_(value:Boolean):void
+    public function set descending(value:Boolean):void
     {
         if (_descending != value)
         {
@@ -379,7 +379,7 @@ public class SortField extends EventDispatcher implements ISortField
      *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
      *  argument instead.
      */
-    mx_internal function set name_(n:String):void
+    public function set name(n:String):void
     {
         _name = n;
         dispatchEvent(new Event("nameChanged"));
@@ -417,7 +417,7 @@ public class SortField extends EventDispatcher implements ISortField
      *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
      *  argument instead.
      */
-    mx_internal function set numeric_(value:Object):void
+    public function set numeric(value:Object):void
     {
         if (_numeric != value)
         {
@@ -454,7 +454,7 @@ public class SortField extends EventDispatcher implements ISortField
      *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
      *  argument instead.
      */
-    mx_internal function set sortCompareType_(value:String):void
+    public function set sortCompareType(value:String):void
     {
         if (_sortCompareType != value)
         {
@@ -598,7 +598,7 @@ public class SortField extends EventDispatcher implements ISortField
      */
     public function reverse():void
     {
-        mx_internal::descending_ = !descending;
+        descending = !descending;
     }
 
 

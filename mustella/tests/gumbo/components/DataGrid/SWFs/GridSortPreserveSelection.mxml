@@ -33,7 +33,6 @@
         <![CDATA[
             import mx.collections.*;
             import flash.utils.getTimer;
-            import mx.core.mx_internal;
             
             private var startTime:uint = 0;
             private var endTime:uint = 0;
@@ -58,8 +57,8 @@
             private function sort():void
             {
                 var dataSortField:SortField = new SortField();
-                dataSortField.mx_internal::name_ = "A";
-                dataSortField.mx_internal::numeric_ = true;
+                dataSortField.name = "A";
+                dataSortField.numeric = true;
                 
                 var numericDataSort:Sort = new Sort();
                 numericDataSort.fields = [dataSortField];

@@ -751,14 +751,14 @@
 				
 				event.preventDefault();
 				
-				sf.mx_internal::descending_ = !dgc.sortDescending;
+				sf.descending = !dgc.sortDescending;
 				
 				if(dgc.headerText == "numeric")
-					sf.mx_internal::numeric_ = true;
+					sf.numeric = true;
 				else if(dgc.headerText == "alpha")
-					sf.mx_internal::numeric_ = false;
+					sf.numeric = false;
 				else
-					sf.mx_internal::numeric_ = null;
+					sf.numeric = null;
 				
 				dgc.sortDescending = sf.descending;
 				s.fields = [ sf ];
