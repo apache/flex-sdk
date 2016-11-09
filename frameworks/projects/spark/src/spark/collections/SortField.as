@@ -19,7 +19,7 @@
 
 package spark.collections
 {
-    import mx.core.mx_internal;
+
     import flash.events.Event;
     import mx.styles.IAdvancedStyleClient;
     import mx.collections.ISortField;
@@ -27,9 +27,8 @@ package spark.collections
     import mx.core.IFlexModule;
     import mx.core.IMXMLObject;
     import mx.utils.ObjectUtil;
-    import spark.globalization.SortingCollator;
 
-    use namespace mx_internal;
+    import spark.globalization.SortingCollator;
 
     [ResourceBundle("collections")]
 
@@ -267,9 +266,9 @@ public class SortField extends mx.collections.SortField implements IAdvancedStyl
      *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
      *  argument instead.
      */
-    override mx_internal function set compareFunction_(c:Function):void
+    override public function set compareFunction(c:Function):void
     {
-        super.mx_internal::compareFunction_ = c;
+        super.compareFunction = c;
     }
 
 
