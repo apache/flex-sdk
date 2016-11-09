@@ -129,6 +129,11 @@ package spark.collections
  *  UIComponent's <code>addStyleClient()</code> method.
  *  </li>
  *  </ul>
+ *
+ *  Note: to prevent problems like
+ *  <a href="https://issues.apache.org/jira/browse/FLEX-34853">FLEX-34853</a>
+ *  it is recommended to use SortField
+ *  instances as immutable objects (by not changing their state).
  *  
  *  @mxml
  *
