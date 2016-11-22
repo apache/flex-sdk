@@ -1174,6 +1174,28 @@ public interface Configuration
     void useNetwork(boolean b);
     
     /**
+     * Toggles whether the application SWF is flagged broker local connections.
+     * This is equivalent to the <code>broker-local-connection</code> option of the mxmlc or compc compilers.
+     *
+     * <p>
+     * The default value is <code>true</code>.
+     *
+     * @param b Boolean value.
+     */
+    void brokerLocalConnection(boolean b);
+    
+    /**
+     * Toggles whether the application SWF is flagged to broker product manager.
+     * This is equivalent to the <code>broker-product-manager</code> option of the mxmlc or compc compilers.
+     *
+     * <p>
+     * The default value is <code>true</code>.
+     *
+     * @param b Boolean value.
+     */
+    void brokerProductManager(boolean b);
+    
+    /**
      * Set the default output directory for configuration settings.
      * 
      */

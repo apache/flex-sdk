@@ -47,6 +47,10 @@ public interface LinkerConfiguration
 
 	boolean useNetwork();
 
+    boolean brokerLocalConnection();
+    
+    boolean brokerProductManager();
+    
 	boolean lazyInit();
 
     boolean scriptLimitsSet();
