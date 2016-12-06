@@ -413,7 +413,7 @@
 		<mkdir dir="${download.dir}/airsdk" />
         <move file="${download.dir}/${air.sdk.url.file}" todir="${download.dir}/airsdk" />
 
-    	<condition property="shouldUnzip" value="true" else="false">
+    	<condition property="shouldUnzip" value="true">
       		<matches pattern="tbz2" string="${air.sdk.url.file}"/>
     	</condition>
     	<echo message="Should unzip: ${shouldUnzip}"/>
