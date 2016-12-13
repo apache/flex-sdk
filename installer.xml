@@ -151,8 +151,8 @@
     <target name="get-data">
 		<tstamp />
 		<property name="ts" value="${DSTAMP}${TSTAMP}" />
-		<!-- <property name="xml.properties" value="http://flex.apache.org/installer/sdk-installer-config-4.0.xml?ts=${ts}" />
-        <get src="${xml.properties}" dest="${basedir}/sdk-installer-config-4.0.xml" /> -->
+		<property name="xml.properties" value="http://flex.apache.org/installer/sdk-installer-config-4.0.xml?ts=${ts}" />
+        <get src="${xml.properties}" dest="${basedir}/sdk-installer-config-4.0.xml" />
         <xmlproperty file="${basedir}/sdk-installer-config-4.0.xml" semanticAttributes="true" collapseAttributes="true"/>
         <xmlproperty file="${basedir}/flex-sdk-description.xml" semanticAttributes="true" collapseAttributes="true"/>
         <condition property="air.sdk.version" value="${config.airsdk.linux.versions.default}">
