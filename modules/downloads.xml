@@ -80,6 +80,7 @@
 	
     <property name="saxon9.bin.zip" value="saxonb9-1-0-8j.zip"/>
     <property name="saxon9.jar.dir" value="saxonb9-1-0-8j"/>
+    <property name="saxon9.download.url" value="http://downloads.sourceforge.net/project/saxon/Saxon-B/9.1.0.8/saxonb9-1-0-8j.zip?r=&amp;ts=1482018310&amp;use_mirror=internode"/>
     
     <property name="xerces.dir" value="xerces-2_9_1"/>
      
@@ -448,7 +449,7 @@
     <target name="saxon9-jar" depends="saxon9-jar-check" unless="saxon9.jar.exists" 
         description="Copies sax9.jar to the lib directory.">
 
-        <get src="http://downloads.sourceforge.net/project/saxon/Saxon-B/9.1.0.8/saxonb9-1-0-8j.zip?r=&amp;ts=1366147457&amp;use_mirror=superb-dca2" 
+        <get src="${saxon9.download.url}" 
             dest="${download.dir}/${saxon9.bin.zip}" 
             verbose="false" ignoreerrors="true"/>
 
