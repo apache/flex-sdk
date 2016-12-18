@@ -117,7 +117,7 @@ downloadAIR()
 	
 	echo Extracting into SDK 
 	hdiutil attach "${airTempDir}"/air.dmg
-	cp -R "/Volumes/AIR SDK" "${IDE_SDK_DIR}"
+	cp -R "/Volumes/AIR SDK/" "${IDE_SDK_DIR}"
 	umount "/Volumes/AIR SDK"
     else
 	echo Downloading AIR ${version}
