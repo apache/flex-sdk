@@ -419,7 +419,7 @@
     	<echo message="Should unzip: ${shouldUnzip}"/>
     </target>
 
-    <target name="unzipAIRSDK" if="${shouldUnzip}" depends="unzipOrMountDMG">
+    <target name="unzipAIRSDK" if="${shouldUnzip}">
     	<echo message="Unzipping"/>
 
     	<!--The tbz2 contains symlinks which Ant does not preserve
@@ -439,7 +439,7 @@
         <delete file="${basedir}/airtar.properties" />
     </target>
     
-	<target name="mountAIRSDK" unless="${shouldUnzip}" depends="unzipOrMountDMG">
+	<target name="mountAIRSDK" unless="${shouldUnzip}">
 		<echo message="Mounting dmg"/>
 		<exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
 	      <arg value="attach"/>
@@ -447,7 +447,7 @@
 	    </exec>
 	</target>
 
-	<target name="copyFromMount" unless="${shouldUnzip}" depends="mountAIRSDK">
+	<target name="copyFromMount" unless="${shouldUnzip}">
 		<echo message="Copying AIR SDK from mounted volume"/>
 		<exec executable="rsync" dir="${FLEX_HOME}">
             <arg value="--archive" />
@@ -458,7 +458,7 @@
         </exec>
 	</target>
 
-	<target name="unmountAIRSDK" unless="${shouldUnzip}" depends="copyFromMount">
+	<target name="unmountAIRSDK" unless="${shouldUnzip}">
 		<echo message="Unmounting AIR SDK"/>
 		<exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="false">
 	      <arg value="unmount"/>
@@ -466,7 +466,7 @@
 	    </exec>
 	</target>
     
-    <target name="air-setup-mac" depends="unzipAIRSDK,mountAIRSDK,copyFromMount,unmountAIRSDK" unless="isWindows">
+    <target name="air-setup-mac" depends="unzipOrMountDMG,unzipAIRSDK,mountAIRSDK,copyFromMount,unmountAIRSDK" unless="isWindows">
         <antcall target="mac-copy-file">
             <param name="srcdir" value="." />
             <param name="filename" value="AIR SDK license.pdf"/>
