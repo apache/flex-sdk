@@ -132,3 +132,4 @@ downloadPlayerGlobal 20.0 444ea8e8f2cddec22ed8b77e0d61bfe2 playerglobal20_0.swc
 downloadPlayerGlobal 21.0 1dd14e80b962327ccd17ce1321dc2135 playerglobal21_0.swc
 downloadPlayerGlobal 22.0 177e7f8cb98bc874b73296791b747128 playerglobal22_0.swc
 downloadPlayerGlobal 23.0 1a7cd9b61930be524e9c98e1a85feebe playerglobal23_0.swc
+downloadPlayerGlobal 24.0 aea2bcc689232752ef68efbf98368066 playerglobal24_0.swc

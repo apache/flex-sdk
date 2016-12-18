@@ -30,7 +30,8 @@
 AIR_VERSION="$1"
 OS=`uname`
 
-if [[ "${AIR_VERSION}" != "23.0"  && "${AIR_VERSION}" != "22.0"  && "${AIR_VERSION}" != "21.0"
+if [[ "${AIR_VERSION}" != "24.0"
+  && "${AIR_VERSION}" != "23.0"  && "${AIR_VERSION}" != "22.0"  && "${AIR_VERSION}" != "21.0"
   &&  "${AIR_VERSION}" != "20.0"  && "${AIR_VERSION}" != "19.0"  && "${AIR_VERSION}" != "18.0"
   && "${AIR_VERSION}" != "17.0" && "${AIR_VERSION}" != "16.0" && "${AIR_VERSION}" != "15.0" 
   && "${AIR_VERSION}" != "14.0" && "${AIR_VERSION}" != "13.0" && "${AIR_VERSION}" != "4.0" 
@@ -39,7 +40,7 @@ if [[ "${AIR_VERSION}" != "23.0"  && "${AIR_VERSION}" != "22.0"  && "${AIR_VERSI
   && "${AIR_VERSION}" != "3.3" && "${AIR_VERSION}" != "3.2" && "${AIR_VERSION}" != "3.1" 
   && "${AIR_VERSION}" != "3.0" && "${AIR_VERSION}" != "2.7" && "${AIR_VERSION}" != "2.6" ]]
 then
-	echo Unknown version ${AIR_VERISON} of AIR. Versions 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0, 21.0, 22.0 and 23.0 are supported.
+	echo Unknown version ${AIR_VERISON} of AIR. Versions 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4.0, 13.0, 14.0, 15.0, 16.0, 17.0, 18.0, 19.0, 20.0, 21.0, 22.0,  23.0 and 24.0 are supported.
 	exit 1;
 fi
 
@@ -106,13 +107,28 @@ downloadAIR()
     else
         airDownload="https://airdownload.adobe.com/air/lin/download/${version}/AdobeAIRSDK.tbz2"
     fi
+
+    if [[ "${AIR_VERSION}" == "24.0" ]]
+    then
+        airDownload="https://airdownload.adobe.com/air/mac/download/24.0/AdobeAIRSDK.dmg"
 	echo Downloading AIR ${version}
+	echo from ${airDownload}
+	curl ${airDownload} > "${airTempDir}/air.dmg"
+	
+	echo Extracting into SDK 
+	hdiutil attach "${airTempDir}"/air.dmg
+	cp -R "/Volumes/AIR SDK" "${IDE_SDK_DIR}"
+	umount "/Volumes/AIR SDK"
+    else
+	echo Downloading AIR ${version}
+	echo from ${airDownload}
 	curl ${airDownload} > "${airTempDir}/air.tbz2"
 	
 	echo Extracting into SDK  
 	tar xf "${airTempDir}/air.tbz2" -C "${IDE_SDK_DIR}"
+    fi
 
-	rm -rf "${airTempDir}"	
+    rm -rf "${airTempDir}"	
 }
 
 agreeLicense
@@ -157,6 +173,13 @@ for configFile in "${configFiles[@]}"
 do
 	echo Updating ${configFile}
 	
+	# 24.0 needs FP 24 and swf version 35
+	if [ ${AIR_VERSION} = "23.0" ]
+	then
+		updatePlayerVersion 24.0 "${configFile}"
+		updateSWFVersion 35 "${configFile}"
+	fi
+
 	# 23.0 needs FP 23 and swf version 34
 	if [ ${AIR_VERSION} = "23.0" ]
 	then
