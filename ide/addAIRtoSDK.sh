@@ -116,8 +116,8 @@ downloadAIR()
 	curl ${airDownload} > "${airTempDir}/air.dmg"
 	
 	echo Extracting into SDK 
-	hdiutil attach "${airTempDir}"/air.dmg
-	cp -R "/Volumes/AIR SDK/" "${IDE_SDK_DIR}"
+	hdiutil attach -nobrowse "${airTempDir}"/air.dmg
+	cp -fR "/Volumes/AIR SDK/" "${IDE_SDK_DIR}"
 	umount "/Volumes/AIR SDK"
     else
 	echo Downloading AIR ${version}

@@ -443,6 +443,7 @@
 		<echo message="Mounting dmg"/>
 		<exec executable="/usr/bin/hdiutil" os="Mac OS X" failonerror="true">
 	      <arg value="attach"/>
+	      <arg value="-nobrowse"/>
 	      <arg value="${download.dir}/airsdk/${air.sdk.url.file}"/>
 	    </exec>
 	</target>
