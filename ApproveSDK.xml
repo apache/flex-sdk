@@ -902,7 +902,7 @@
         </rat:report>
     </target>
     
-    <target name="external-jar-folder-dump" >
+    <target name="external-jar-folder-dump" if="isMac">
         <echo>list of folders in external jars.  This may impact LICENSE and NOTICE</echo>
         <antcall target="show-jar-folders" >
             <param name="thisFile" value="lib/external/commons-collections.jar" />
