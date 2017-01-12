@@ -54,6 +54,7 @@ FLEX-33311  Null pointer fatal in ConstraintLayout when executing Transition on
 FLEX-33058  RTE in HierarchicalCollectionViewCursor when a refresh occurs and old cursor
 		had an enumerable property that new cursor item doesn't
 FLEX-31948  When all the columns are invisible, pressing any character Key throws RTE
+FLEX-27509  AdvancedListBase itemMaskFreeList is null
 FLEX-26808  s:DataGrid Drag and Drop of multiple items doesn't work
 FLEX-20313  SelectItem on AdvancedDataGrid use weird code
 
