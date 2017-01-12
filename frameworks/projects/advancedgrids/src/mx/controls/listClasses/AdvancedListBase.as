@@ -5231,7 +5231,10 @@ public class AdvancedListBase extends ScrollControlBase
             }
             else if (item && item.mask)
             {
-                itemMaskFreeList.push(item.mask);
+                if(itemMaskFreeList)
+                {
+                    itemMaskFreeList.push(item.mask);
+                }
                 item.mask = null;
             }
         }
