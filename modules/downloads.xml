@@ -80,6 +80,7 @@
 	
     <property name="saxon9.jar" value="saxonb9-1-0-8.jar"/>
     <property name="saxon9.download.url" value="http://repo1.maven.org/maven2/net/sourceforge/saxon/saxon/9.1.0.8/saxon-9.1.0.8.jar"/>
+    <property name="saxon9.notice.dir" value="${FLEX_HOME}/licenseParts/saxon9-NOTICES"/>
     
     <property name="xerces.dir" value="xerces-2_9_1"/>
      
@@ -461,6 +462,9 @@
             <param name="destDir" value="${download.dir}" />
         </antcall>
 
+        <copy toDir="${lib.ext.dir}/saxon9-NOTICES" verbose="true">
+            <fileset dir="${saxon9.notice.dir}" includes="**"/>
+        </copy>
         <copy file="${download.dir}/${saxon9.jar}" toDir="${lib.ext.dir}" verbose="true"/>
         
         <delete dir="${download.dir}/${saxon9.jar}"/>
