@@ -78,9 +78,8 @@
     <property name="commons-discovery.name" value="commons-discovery-0.2"/>	
     <property name="commons-logging.name" value="commons-logging-1.0.4"/>
 	
-    <property name="saxon9.bin.zip" value="saxonb9-1-0-8j.zip"/>
-    <property name="saxon9.jar.dir" value="saxonb9-1-0-8j"/>
-    <property name="saxon9.download.url" value="http://downloads.sourceforge.net/project/saxon/Saxon-B/9.1.0.8/saxonb9-1-0-8j.zip?r=&amp;ts=1482018310&amp;use_mirror=internode"/>
+    <property name="saxon9.jar" value="saxonb9-1-0-8.jar"/>
+    <property name="saxon9.download.url" value="http://repo1.maven.org/maven2/net/sourceforge/saxon/saxon/9.1.0.8/saxon-9.1.0.8.jar"/>
     
     <property name="xerces.dir" value="xerces-2_9_1"/>
      
@@ -450,28 +449,21 @@
         description="Copies sax9.jar to the lib directory.">
 
         <get src="${saxon9.download.url}" 
-            dest="${download.dir}/${saxon9.bin.zip}" 
+            dest="${download.dir}/${saxon9.jar}" 
             verbose="false" ignoreerrors="true"/>
 
         <antcall target="get-from-cache-if-needed" >
-            <param name="filename" value="${saxon9.bin.zip}" />
+            <param name="filename" value="${saxon9.jar}" />
             <param name="destDir" value="${download.dir}" />
         </antcall>
         <antcall target="fail-if-not-found" >
-            <param name="filename" value="${saxon9.bin.zip}" />
+            <param name="filename" value="${saxon9.jar}" />
             <param name="destDir" value="${download.dir}" />
         </antcall>
 
-    	<unzip src="${download.dir}/${saxon9.bin.zip}"
-    		dest="${download.dir}/${saxon9.jar.dir}"/>
+        <copy file="${download.dir}/${saxon9.jar}" toDir="${lib.ext.dir}" verbose="true"/>
         
-        <copy file="${download.dir}/${saxon9.jar.dir}/saxon9.jar" toDir="${lib.ext.dir}" verbose="true"/>
-        
-        <copy todir="${lib.ext.dir}/saxon9-NOTICES">
-            <fileset dir="${download.dir}/${saxon9.jar.dir}/notices" includes="**"/>
-        </copy>
-        
-        <delete dir="${download.dir}/${saxon9.jar.dir}"/>
+        <delete dir="${download.dir}/${saxon9.jar}"/>
     </target>
     	
     <!--

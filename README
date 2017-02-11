@@ -120,6 +120,9 @@ Optional: Adobe Extension Manager CS5 (* 7)   ADOBE_EXTENSION_MANAGER
 
 Optional: Flex Messaging Common (* 8)         BLAZEDS_HOME
 
+Java Cryptography Extensions
+    (see note (*9))
+
 ---------------------------------------------------------------------
 
 * 1)
@@ -234,6 +237,10 @@ to point to your BLAZEDS root folder. If you are using a released artifact, the
 source should be included in the artifact, so setting BLAZEDS_HOME is not
 required.
 
+* 9)
+The Java Cryptography Extensions (JCE) Unlimited Strength jars are needed in
+order to download 3rd party software. Download and install this from Oracle
+which version you need will depend on your Java version and OS.
 
 Get the source code
 -------------------
