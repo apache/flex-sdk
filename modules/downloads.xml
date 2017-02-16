@@ -454,7 +454,7 @@
             verbose="false" ignoreerrors="true"/>
 
         <antcall target="get-from-cache-if-needed" >
-            <param name="filename" value="${saxon9.jar}" />
+            <param name="filename" value="saxon9.jar" />
             <param name="destDir" value="${download.dir}" />
         </antcall>
         <antcall target="fail-if-not-found" >
