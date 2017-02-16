@@ -450,7 +450,7 @@
         description="Copies sax9.jar to the lib directory.">
 
         <get src="${saxon9.download.url}" 
-            dest="${download.dir}/${saxon9.jar}" 
+            dest="${download.dir}/saxon9.jar" 
             verbose="false" ignoreerrors="true"/>
 
         <antcall target="get-from-cache-if-needed" >
@@ -458,16 +458,16 @@
             <param name="destDir" value="${download.dir}" />
         </antcall>
         <antcall target="fail-if-not-found" >
-            <param name="filename" value="${saxon9.jar}" />
+            <param name="filename" value="saxon9.jar" />
             <param name="destDir" value="${download.dir}" />
         </antcall>
 
         <copy toDir="${lib.ext.dir}/saxon9-NOTICES" verbose="true">
             <fileset dir="${saxon9.notice.dir}" includes="**"/>
         </copy>
-        <copy file="${download.dir}/${saxon9.jar}" toDir="${lib.ext.dir}" verbose="true"/>
+        <copy file="${download.dir}/saxon9.jar" toDir="${lib.ext.dir}" verbose="true"/>
         
-        <delete dir="${download.dir}/${saxon9.jar}"/>
+        <delete dir="${download.dir}/saxon9.jar"/>
     </target>
     	
     <!--
