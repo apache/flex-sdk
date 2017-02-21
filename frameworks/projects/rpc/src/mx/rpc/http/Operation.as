@@ -346,6 +346,7 @@ public class Operation extends AbstractOperation
         else
         {
             params = args;
+			params = new Object();			//we moved reference to args, so we can now reset this to be object of parameters to send
             if (!params || (params.length == 0 && this.request))
             {
                 params = this.request;
