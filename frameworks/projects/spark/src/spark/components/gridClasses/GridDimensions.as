@@ -1183,9 +1183,12 @@ public class GridDimensions
      */
     public function getColumnIndexAt(x:Number, y:Number):int
     {
-        var cur:Number = x;
+        var current:Number = x;
         var i:int;
-        
+
+        if(current < 0)
+            return -1;
+
         for (i = 0; i < _columnCount; i++)
         {
             var temp:Number = _columnWidths[i];
@@ -1202,9 +1205,9 @@ public class GridDimensions
             if (isNaN(temp))
                 temp = defaultColumnWidth;
             
-            cur -= temp + columnGap;
+            current -= temp + columnGap;
 
-            if (cur < 0)
+            if (current < 0)
                 return i;
         }
         
