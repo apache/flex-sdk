@@ -225,9 +225,9 @@ public class GridDimensionsView
         return rowIndex >= 0 ? rowIndex : -1;
     }
     
-    public function getColumnIndexAt(viewX:Number, viewY:Number):int
+    public function getColumnIndexAt(localX:Number, localY:Number):int
     {
-        const columnIndex:int = gridDimensions.getColumnIndexAt(viewX + viewOriginX, viewY + viewOriginY) - viewColumnIndex;
+        const columnIndex:int = gridDimensions.getColumnIndexAt(localX + viewOriginX, localY + viewOriginY) - viewColumnIndex;
         return columnIndex >= 0 ? columnIndex : -1;
     }
     
