@@ -782,7 +782,40 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     {
         return (_visibleSortIndicatorIndices.indexOf(columnIndex) != -1);
     }
+
+    public function containsGlobalCoordinates(coordinates:Point):Boolean
+    {
+        return areCoordinatesOverAHeaderView(coordinates) || areCoordinatesOverPadding(coordinates);
+    }
+
+    public function areCoordinatesOverAHeaderView(coordinates:Point):Boolean
+    {
+        return getHeaderViewUnderGlobalCoordinates(coordinates) != null;
+    }
+
+    public function areCoordinatesOverPadding(coordinates:Point):Boolean
+    {
+        return areCoordinatesOverLeftPadding(coordinates) || areCoordinatesOverRightPadding(coordinates);
+    }
+
+    public function areCoordinatesOverLeftPadding(coordinates:Point):Boolean
+    {
+        var paddingLeftStyle:Number = getStyle("paddingLeft");
+        var paddingLeft:Number = isNaN(paddingLeftStyle) ? 0 : paddingLeftStyle;
+
+        return getHeaderViewUnderGlobalCoordinates(new Point(coordinates.x, coordinates.y)) == null &&
+                getHeaderViewUnderGlobalCoordinates(new Point(coordinates.x + paddingLeft, coordinates.y)) != null;
+    }
     
+    public function areCoordinatesOverRightPadding(coordinates:Point):Boolean
+    {
+        var paddingRightStyle:Number = getStyle("paddingRight");
+        var paddingRight:Number = isNaN(paddingRightStyle) ? 0 : paddingRightStyle;
+
+        return getHeaderViewUnderGlobalCoordinates(new Point(coordinates.x, coordinates.y)) == null &&
+        getHeaderViewUnderGlobalCoordinates(new Point(coordinates.x, coordinates.y - paddingRight)) != null;
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Methods 
@@ -804,28 +837,28 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
 	 */
 	public function configureGridColumnHeaderViews():void
 	{
-        const ghl:GridHeaderLayout = layout as GridHeaderLayout;
-        if (!ghl)
+        const headerLayout:GridHeaderLayout = layout as GridHeaderLayout;
+        if (!headerLayout)
             return;
         
-		if (ghl.centerGridColumnHeaderView == null)
-			ghl.centerGridColumnHeaderView = createGridColumnHeaderView();
+		if (headerLayout.centerGridColumnHeaderView == null)
+			headerLayout.centerGridColumnHeaderView = createGridColumnHeaderView();
 		
 		if (dataGrid.lockedColumnCount > 0)
 		{
-			ghl.leftGridColumnHeaderView = createGridColumnHeaderView();
+			headerLayout.leftGridColumnHeaderView = createGridColumnHeaderView();
 		}
-		else if (ghl.leftGridColumnHeaderView)
+		else if (headerLayout.leftGridColumnHeaderView)
 		{
-			removeElement(ghl.leftGridColumnHeaderView);
-			ghl.leftGridColumnHeaderView = null;
+			removeElement(headerLayout.leftGridColumnHeaderView);
+			headerLayout.leftGridColumnHeaderView = null;
 		}
 		
 		const gridLayout:GridLayout = dataGrid.grid.layout as GridLayout;
 
-		GridHeaderViewLayout(ghl.centerGridColumnHeaderView.layout).gridView = gridLayout.centerGridView;
-		if (ghl.leftGridColumnHeaderView)
-			GridHeaderViewLayout(ghl.leftGridColumnHeaderView.layout).gridView = gridLayout.leftGridView;
+		GridHeaderViewLayout(headerLayout.centerGridColumnHeaderView.layout).gridView = gridLayout.centerGridView;
+		if (headerLayout.leftGridColumnHeaderView)
+			GridHeaderViewLayout(headerLayout.leftGridColumnHeaderView.layout).gridView = gridLayout.leftGridView;
 	}
 	
 	/**
@@ -850,7 +883,6 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      */
     public function getHeaderIndexAt(x:Number, y:Number):int
     {
-        // TODO: fix this: x coordinate has to be adjusted
 		const view:Group = getColumnHeaderViewAtX(x);
         return GridHeaderViewLayout(view.layout).getHeaderIndexAt(x, y);
     }
@@ -1000,16 +1032,16 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
 	 *  comparison is based strictly on the event's location and the GridViews' bounds.
 	 *  The event's target can be anything.
 	 */
-	private function mouseEventHeaderView(event:MouseEvent):GridColumnHeaderView
+	private function getHeaderViewUnderGlobalCoordinates(globalCoordinates:Point):GridColumnHeaderView
 	{
 		const ghl:GridHeaderLayout = layout as GridHeaderLayout;
 
-		const centerGridColumnHeaderView:GridColumnHeaderView = GridColumnHeaderView(ghl.centerGridColumnHeaderView)
-		if (centerGridColumnHeaderView && centerGridColumnHeaderView.containsMouseEvent(event))
+		const centerGridColumnHeaderView:GridColumnHeaderView = GridColumnHeaderView(ghl.centerGridColumnHeaderView);
+		if (centerGridColumnHeaderView && centerGridColumnHeaderView.containsStageCoordinates(globalCoordinates))
 			return centerGridColumnHeaderView;
 		
 		const leftGridColumnHeaderView:GridColumnHeaderView = GridColumnHeaderView(ghl.leftGridColumnHeaderView);
-		if (leftGridColumnHeaderView && leftGridColumnHeaderView.containsMouseEvent(event))
+		if (leftGridColumnHeaderView && leftGridColumnHeaderView.containsStageCoordinates(globalCoordinates))
 			return leftGridColumnHeaderView;
 		
 		return null;
@@ -1018,7 +1050,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     // TODO: apologize for stashing the separatorIndex in headerCP.rowIndex
     private function eventToHeaderLocations(event:MouseEvent, headerCP:CellPosition, headerXY:Point):Boolean
     {
-        const view:Group = mouseEventHeaderView(event);
+        const view:Group = getHeaderViewUnderGlobalCoordinates(new Point(event.stageX, event.stageY));
         if (!view)
             return false;
 
