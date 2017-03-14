@@ -89,6 +89,7 @@ package spark.components.gridClasses {
         private var _keyRectangles:Array;
         private var _keyPoints:Array;
 
+        //@TODO add cases with horizontal scroll, and also with fixed columns
         public static var dimensions:Array = [/*x, y, width, header padding left, header padding top, [column widths] */
             [[10, 0, 300, 5, 0, [25, 150]]],
             [[0, 0, 300, 5, 0, [25, 150]]]
@@ -124,20 +125,7 @@ package spark.components.gridClasses {
             _keyPoints = null;
         }
 
-        /*[Ignore]
-        [Test]
-        public function test_global_coordinates_over_header_view(globalPoint:Array, expectedHeaderIndex:int):void
-        {
-            //given
-            var pointOverAHeaderView:Boolean = expectedHeaderIndex != -1;
-
-            //when
-            var doesHeaderContainThisPoint:Boolean = _sut.areCoordinatesOverAHeaderView(new Point(globalPoint[0], globalPoint[1]));
-
-            //then
-            assertEquals(pointOverAHeaderView, doesHeaderContainThisPoint);
-        }
-
+        /*
         [Ignore]
         [Test]
         public function test_column_index(globalPoint:Array, expectedColumnIndex:int):void
@@ -196,14 +184,21 @@ package spark.components.gridClasses {
             {
                 for (var i:int = 0; i < directions.length; i++)
                 {
+                    //given
+                    var pointToTest:Point = getAdjacentPoint(_keyPoints[pointName], directions[i]);
+
                     //when
-                    var adjacentPoint:Point = getAdjacentPoint(_keyPoints[pointName], directions[i]);
-                    var expectedHeaderIndex:int = getHeaderIndexAssumption(adjacentPoint);
-                    var actualHeaderIndex:int = getHeaderIndexAtGlobalPoint(adjacentPoint);
+                    var expectedHeaderIndex:int = getHeaderIndexAssumption(pointToTest);
+                    var actualHeaderIndex:int = getHeaderIndexAtGlobalPoint(pointToTest);
+                    const errorMessageHeaderIndex:String = getHeaderIndexErrorMessage(pointName, directions[i], pointToTest, expectedHeaderIndex, actualHeaderIndex);
+
+                    var shouldBeContainedInHeader:Boolean = getHeaderContainsPointAssumption(pointToTest);
+                    var actuallyContainedInHeader:Boolean = _sut.areCoordinatesOverAHeaderView(pointToTest);
+                    const errorMessageHeaderContainsPoint:String = getHeaderContainsPointErrorMessage(pointName, directions[i], pointToTest, shouldBeContainedInHeader, actuallyContainedInHeader);
 
                     //then
-                    const errorMessage:String = getHeaderIndexErrorMessage(pointName, directions[i], adjacentPoint, expectedHeaderIndex, actualHeaderIndex);
-                    assertEquals(errorMessage, expectedHeaderIndex, actualHeaderIndex);
+                    assertEquals(errorMessageHeaderIndex, expectedHeaderIndex, actualHeaderIndex);
+                    assertEquals(errorMessageHeaderContainsPoint, shouldBeContainedInHeader, actuallyContainedInHeader);
                 }
             }
         }
@@ -217,10 +212,24 @@ package spark.components.gridClasses {
                     + "\n DEBUG INFO: headerRectangles=" + headerRectangles);
         }
 
+        private function getHeaderContainsPointErrorMessage(pointName:String, direction:Matrix, transformedPoint:Point, shouldBeContainedInHeader:Boolean, isActuallyContainedInHeader:Boolean):String
+        {
+            return "The point " + pointName + " transformed with Matrix " + direction + " (resulting in " + transformedPoint + ") should be "
+                    + (shouldBeContainedInHeader ? "within " : "outside ") + "header bounds"
+                    + " but was mistakenly found to be "
+                    + (isActuallyContainedInHeader ? "within" : "outside")
+                    + "\n DEBUG INFO: headerRectangle=" + headerRectangle;
+        }
+
         private function getHeaderIndexAtGlobalPoint(globalPoint:Point):int
         {
             var localPoint:Point = _sut.globalToLocal(globalPoint);
             return _sut.getHeaderIndexAt(localPoint.x, localPoint.y);
+        }
+
+        private function getHeaderContainsPointAssumption(point:Point):Boolean
+        {
+            return rectangleContainsPoint(headerRectangle, point);
         }
 
         private function getHeaderIndexAssumption(point:Point):int
@@ -290,10 +299,16 @@ package spark.components.gridClasses {
             var keyRectangles:Array = [];
 
             keyRectangles["headerRectangles"] = generateHeaderRectangles(keyPoints, dimensions);
+            keyRectangles["headerRectangle"] = generateVisibleHeaderRectangle(keyPoints, dimensions);
 
             return keyRectangles;
         }
 
+        private function generateVisibleHeaderRectangle(keyPoints:Array, dimensions:Array):Rectangle
+        {
+            const topLeftCorner:Point = keyPoints["b"];
+            return new Rectangle(topLeftCorner.x, topLeftCorner.y, getHeaderWidthFromKeyPoints(keyPoints), getHeaderHeightFromKeyPoints(keyPoints));
+        }
         private function generateHeaderRectangles(keyPoints:Array, dimensions:Array):Array
         {
             var headerRectangles:Array = [];
@@ -317,6 +332,11 @@ package spark.components.gridClasses {
         private function get headerRectangles():Array
         {
             return _keyRectangles["headerRectangles"];
+        }
+
+        private function get headerRectangle():Rectangle
+        {
+            return _keyRectangles["headerRectangle"] as Rectangle;
         }
 
         private function getColumnWidthFromKeyPoints(keyPoints:Array, columnIndex:int):Number
@@ -359,6 +379,11 @@ package spark.components.gridClasses {
         private function getHeaderHeightFromKeyPoints(keyPoints:Array):Number
         {
             return Point(keyPoints["h"]).y - Point(keyPoints["e"]).y;
+        }
+
+        private function getHeaderWidthFromKeyPoints(keyPoints:Array):Number
+        {
+            return Point(keyPoints["e"]).x - Point(keyPoints["b"]).x;
         }
 
         private function getColumnWidths(dimensions:Array):Array
