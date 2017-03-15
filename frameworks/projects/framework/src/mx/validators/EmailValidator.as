@@ -74,7 +74,7 @@ public class EmailValidator extends Validator
 	 *  @private
 	 */
 	private static const DISALLOWED_LOCALNAME_CHARS:String =
-								"()<>,;:\\\"[] `~!#$%^&*={}|/?'\t\n\r";
+								"()<>,;:\\\"[] `~!#$%^&*={}|/?\t\n\r";
 	/**
 	 *  @private
 	 */							

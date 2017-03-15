@@ -32,13 +32,19 @@
     <property name="lib.opt.dir" value="${FLEX_HOME}/lib/external/optional"/>
 
     <property name="flex-deps.dir" value="flex_deps"/>
+    <property name="adobe.afe.url" value="https://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/lib/afe.jar?format=raw"/>
     <property name="adobe.afe.file" value="afe.jar"/>
+    <property name="adobe.aglj40.url" value="https://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/lib/aglj40.jar?format=raw"/>
     <property name="adobe.aglj40.file" value="aglj40.jar"/>
+    <property name="adobe.rideau.url" value="http://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/lib/rideau.jar?format=raw"/>
     <property name="adobe.rideau.file" value="rideau.jar"/>
+    <property name="adobe.flex-fontkit.url" value="http://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/lib/flex-fontkit.jar?format=raw"/>
     <property name="adobe.flex-fontkit.file" value="flex-fontkit.jar"/>
     <property name="pixelbender.url" value="http://www.apache.org/dyn/mirrors/mirrors.cgi" />
     <property name="pixelbender.folder" value="flex/pixelbender/1.0/binaries" />
     <property name="pixelbender.bin.zip" value="apache-flex-sdk-pixel-bender-1.0.0-bin.zip" />
+    <property name="osmf.url" value="https://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/frameworks/libs/OSMF2_0.swc?format=raw" />
+    <property name="swfobject.url" value="https://codeload.github.com/swfobject/swfobject/zip/2.2" />
     
     <property name="adobe.flex.license" value="
         ${line.separator}
@@ -102,10 +108,7 @@
 
     <target name="download-osmf-swc" unless="osmf.swc.exists">
         <mkdir dir="${download.dir}"/>
-        <!-- get src="http://sourceforge.net/projects/osmf.adobe/files/OSMF%202.0%20Release%20%28final%20source%2C%20ASDocs%2C%20pdf%20guides%20and%20release%20notes%29/OSMF.swc/download" 
-            dest="${download.dir}/osmf.swc" 
-            verbose="false"/ -->
-        <get src="http://downloads.sourceforge.net/project/osmf.adobe/OSMF%202.0%20Release%20%28final%20source%2C%20ASDocs%2C%20pdf%20guides%20and%20release%20notes%29/OSMF.swc?r=&amp;ts=1381906346&amp;use_mirror=optimate" 
+        <get src="${osmf.url}"
             dest="${download.dir}/osmf.swc" 
             verbose="false" ignoreerrors="true"/>
         <antcall target="get-from-cache-if-needed" >
@@ -161,7 +164,7 @@
         description="Copies SWFObject from code.google.com">
         
         <mkdir dir="${download.dir}"/>
-        <get src="https://codeload.github.com/swfobject/swfobject/zip/2.2"
+        <get src="${swfobject.url}"
             dest="${download.dir}/swfobject_2_2.zip" 
             verbose="false" ignoreerrors="true"/>
         
@@ -312,7 +315,7 @@
 
     <target name="download-afe" unless="adobe.afe.download.exists" >
         <mkdir dir="${download.dir}"/>
-        <get src="http://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/lib/afe.jar?format=raw"
+        <get src="${adobe.afe.url}"
             dest="${download.dir}/${adobe.afe.file}" ignoreerrors="true"/>
         <antcall target="get-from-cache-if-needed" >
             <param name="filename" value="${adobe.afe.file}" />
@@ -324,7 +327,7 @@
 
     <target name="download-aglj40" unless="adobe.aglj40.download.exists" >
         <mkdir dir="${download.dir}"/>
-        <get src="http://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/lib/aglj40.jar?format=raw"
+        <get src="${adobe.aglj40.url}"
              dest="${download.dir}/${adobe.aglj40.file}" ignoreerrors="true"/>
          <antcall target="get-from-cache-if-needed" >
              <param name="filename" value="${adobe.aglj40.file}" />
@@ -336,7 +339,7 @@
 
     <target name="download-rideau" unless="adobe.rideau.download.exists" >
         <mkdir dir="${download.dir}"/>
-        <get src="http://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/lib/rideau.jar?format=raw"
+        <get src="${adobe.rideau.url}"
              dest="${download.dir}/${adobe.rideau.file}" ignoreerrors="true"/>
          <antcall target="get-from-cache-if-needed" >
              <param name="filename" value="${adobe.rideau.file}" />
@@ -348,7 +351,7 @@
 
     <target name="download-flex-fontkit" unless="adobe.flex-fontkit.download.exists" >
         <mkdir dir="${download.dir}"/>
-        <get src="http://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/lib/flex-fontkit.jar?format=raw"
+        <get src="${adobe.flex-fontkit.url}"
              dest="${download.dir}/${adobe.flex-fontkit.file}" ignoreerrors="true"/>
          <antcall target="get-from-cache-if-needed" >
              <param name="filename" value="${adobe.flex-fontkit.file}" />

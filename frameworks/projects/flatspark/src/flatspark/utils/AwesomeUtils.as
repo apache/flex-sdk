@@ -1,19 +1,17 @@
 /**	
- Licensed to the Apache Software Foundation (ASF) under one or more
- contributor license agreements.  See the NOTICE file distributed with
- this work for additional information regarding copyright ownership.
- The ASF licenses this file to You under the Apache License, Version 2.0
- (the "License"); you may not use this file except in compliance with
- the License.  You may obtain a copy of the License at
- 
- http://www.apache.org/licenses/LICENSE-2.0
- 
- Unless required by applicable law or agreed to in writing, software
- distributed under the License is distributed on an "AS IS" BASIS,
- WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- See the License for the specific language governing permissions and
- limitations under the License.	
- */
+The MIT License (MIT)
+Copyright (c) 2016 by Dave Gandy
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated
+documentation files (the "Software"), to deal in the Software without restriction, including without limitation
+the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, 
+and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, 
+INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR 
+THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*/
 
 package flatspark.utils
 {
@@ -26,6 +24,10 @@ package flatspark.utils
 		}
 		
 		public static const fa_500px:String = "\uf26e";
+		public static const fa_address_book:String = "\uf2b9";
+		public static const fa_address_book_o:String = "\uf2ba";
+		public static const fa_address_card:String = "\uf2bb";
+		public static const fa_address_card_o:String = "\uf2bc";
 		public static const fa_adjust:String = "\uf042";
 		public static const fa_adn:String = "\uf170";
 		public static const fa_align_center:String = "\uf037";
@@ -34,6 +36,7 @@ package flatspark.utils
 		public static const fa_align_right:String = "\uf038";
 		public static const fa_amazon:String = "\uf270";
 		public static const fa_ambulance:String = "\uf0f9";
+		public static const fa_american_sign_language_interpreting:String = "\uf2a3";
 		public static const fa_anchor:String = "\uf13d";
 		public static const fa_android:String = "\uf17b";
 		public static const fa_angellist:String = "\uf209";
@@ -64,17 +67,24 @@ package flatspark.utils
 		public static const fa_arrows_alt:String = "\uf0b2";
 		public static const fa_arrows_h:String = "\uf07e";
 		public static const fa_arrows_v:String = "\uf07d";
+		public static const fa_asl_interpreting:String = "\uf2a3";
+		public static const fa_assistive_listening_systems:String = "\uf2a2";
 		public static const fa_asterisk:String = "\uf069";
 		public static const fa_at:String = "\uf1fa";
+		public static const fa_audio_description:String = "\uf29e";
 		public static const fa_automobile:String = "\uf1b9";
 		public static const fa_backward:String = "\uf04a";
 		public static const fa_balance_scale:String = "\uf24e";
 		public static const fa_ban:String = "\uf05e";
+		public static const fa_bandcamp:String = "\uf2d5";
 		public static const fa_bank:String = "\uf19c";
 		public static const fa_bar_chart:String = "\uf080";
 		public static const fa_bar_chart_o:String = "\uf080";
 		public static const fa_barcode:String = "\uf02a";
 		public static const fa_bars:String = "\uf0c9";
+		public static const fa_bath:String = "\uf2cd";
+		public static const fa_bathtub:String = "\uf2cd";
+		public static const fa_battery:String = "\uf240";
 		public static const fa_battery_0:String = "\uf244";
 		public static const fa_battery_1:String = "\uf243";
 		public static const fa_battery_2:String = "\uf242";
@@ -100,6 +110,7 @@ package flatspark.utils
 		public static const fa_bitbucket_square:String = "\uf172";
 		public static const fa_bitcoin:String = "\uf15a";
 		public static const fa_black_tie:String = "\uf27e";
+		public static const fa_blind:String = "\uf29d";
 		public static const fa_bluetooth:String = "\uf293";
 		public static const fa_bluetooth_b:String = "\uf294";
 		public static const fa_bold:String = "\uf032";
@@ -108,6 +119,7 @@ package flatspark.utils
 		public static const fa_book:String = "\uf02d";
 		public static const fa_bookmark:String = "\uf02e";
 		public static const fa_bookmark_o:String = "\uf097";
+		public static const fa_braille:String = "\uf2a1";
 		public static const fa_briefcase:String = "\uf0b1";
 		public static const fa_btc:String = "\uf15a";
 		public static const fa_bug:String = "\uf188";
@@ -210,6 +222,8 @@ package flatspark.utils
 		public static const fa_dashboard:String = "\uf0e4";
 		public static const fa_dashcube:String = "\uf210";
 		public static const fa_database:String = "\uf1c0";
+		public static const fa_deaf:String = "\uf2a4";
+		public static const fa_deafness:String = "\uf2a4";
 		public static const fa_dedent:String = "\uf03b";
 		public static const fa_delicious:String = "\uf1a5";
 		public static const fa_desktop:String = "\uf108";
@@ -220,18 +234,25 @@ package flatspark.utils
 		public static const fa_dot_circle_o:String = "\uf192";
 		public static const fa_download:String = "\uf019";
 		public static const fa_dribbble:String = "\uf17d";
+		public static const fa_drivers_license:String = "\uf2c2";
+		public static const fa_drivers_license_o:String = "\uf2c3";
 		public static const fa_dropbox:String = "\uf16b";
 		public static const fa_drupal:String = "\uf1a9";
 		public static const fa_edge:String = "\uf282";
 		public static const fa_edit:String = "\uf044";
+		public static const fa_eercast:String = "\uf2da";
 		public static const fa_eject:String = "\uf052";
 		public static const fa_ellipsis_h:String = "\uf141";
 		public static const fa_ellipsis_v:String = "\uf142";
 		public static const fa_empire:String = "\uf1d1";
 		public static const fa_envelope:String = "\uf0e0";
 		public static const fa_envelope_o:String = "\uf003";
+		public static const fa_envelope_open:String = "\uf2b6";
+		public static const fa_envelope_open_o:String = "\uf2b7";
 		public static const fa_envelope_square:String = "\uf199";
+		public static const fa_envira:String = "\uf299";
 		public static const fa_eraser:String = "\uf12d";
+		public static const fa_etsy:String = "\uf2d7";
 		public static const fa_eur:String = "\uf153";
 		public static const fa_euro:String = "\uf153";
 		public static const fa_exchange:String = "\uf0ec";
@@ -245,6 +266,7 @@ package flatspark.utils
 		public static const fa_eye:String = "\uf06e";
 		public static const fa_eye_slash:String = "\uf070";
 		public static const fa_eyedropper:String = "\uf1fb";
+		public static const fa_fa:String = "\uf2b4";
 		public static const fa_facebook:String = "\uf09a";
 		public static const fa_facebook_f:String = "\uf09a";
 		public static const fa_facebook_official:String = "\uf230";
@@ -279,6 +301,7 @@ package flatspark.utils
 		public static const fa_fire:String = "\uf06d";
 		public static const fa_fire_extinguisher:String = "\uf134";
 		public static const fa_firefox:String = "\uf269";
+		public static const fa_first_order:String = "\uf2b0";
 		public static const fa_flag:String = "\uf024";
 		public static const fa_flag_checkered:String = "\uf11e";
 		public static const fa_flag_o:String = "\uf11d";
@@ -291,11 +314,13 @@ package flatspark.utils
 		public static const fa_folder_open:String = "\uf07c";
 		public static const fa_folder_open_o:String = "\uf115";
 		public static const fa_font:String = "\uf031";
+		public static const fa_font_awesome:String = "\uf2b4";
 		public static const fa_fonticons:String = "\uf280";
 		public static const fa_fort_awesome:String = "\uf286";
 		public static const fa_forumbee:String = "\uf211";
 		public static const fa_forward:String = "\uf04e";
 		public static const fa_foursquare:String = "\uf180";
+		public static const fa_free_code_camp:String = "\uf2c5";
 		public static const fa_frown_o:String = "\uf119";
 		public static const fa_futbol_o:String = "\uf1e3";
 		public static const fa_gamepad:String = "\uf11b";
@@ -314,15 +339,21 @@ package flatspark.utils
 		public static const fa_github:String = "\uf09b";
 		public static const fa_github_alt:String = "\uf113";
 		public static const fa_github_square:String = "\uf092";
+		public static const fa_gitlab:String = "\uf296";
 		public static const fa_gittip:String = "\uf184";
 		public static const fa_glass:String = "\uf000";
+		public static const fa_glide:String = "\uf2a5";
+		public static const fa_glide_g:String = "\uf2a6";
 		public static const fa_globe:String = "\uf0ac";
 		public static const fa_google:String = "\uf1a0";
 		public static const fa_google_plus:String = "\uf0d5";
+		public static const fa_google_plus_circle:String = "\uf2b3";
+		public static const fa_google_plus_official:String = "\uf2b3";
 		public static const fa_google_plus_square:String = "\uf0d4";
 		public static const fa_google_wallet:String = "\uf1ee";
 		public static const fa_graduation_cap:String = "\uf19d";
 		public static const fa_gratipay:String = "\uf184";
+		public static const fa_grav:String = "\uf2d6";
 		public static const fa_group:String = "\uf0c0";
 		public static const fa_h_square:String = "\uf0fd";
 		public static const fa_hacker_news:String = "\uf1d4";
@@ -339,6 +370,8 @@ package flatspark.utils
 		public static const fa_hand_scissors_o:String = "\uf257";
 		public static const fa_hand_spock_o:String = "\uf259";
 		public static const fa_hand_stop_o:String = "\uf256";
+		public static const fa_handshake_o:String = "\uf2b5";
+		public static const fa_hard_of_hearing:String = "\uf2a4";
 		public static const fa_hashtag:String = "\uf292";
 		public static const fa_hdd_o:String = "\uf0a0";
 		public static const fa_header:String = "\uf1dc";
@@ -361,8 +394,12 @@ package flatspark.utils
 		public static const fa_houzz:String = "\uf27c";
 		public static const fa_html5:String = "\uf13b";
 		public static const fa_i_cursor:String = "\uf246";
+		public static const fa_id_badge:String = "\uf2c1";
+		public static const fa_id_card:String = "\uf2c2";
+		public static const fa_id_card_o:String = "\uf2c3";
 		public static const fa_ils:String = "\uf20b";
 		public static const fa_image:String = "\uf03e";
+		public static const fa_imdb:String = "\uf2d8";
 		public static const fa_inbox:String = "\uf01c";
 		public static const fa_indent:String = "\uf03c";
 		public static const fa_industry:String = "\uf275";
@@ -400,6 +437,7 @@ package flatspark.utils
 		public static const fa_link:String = "\uf0c1";
 		public static const fa_linkedin:String = "\uf0e1";
 		public static const fa_linkedin_square:String = "\uf08c";
+		public static const fa_linode:String = "\uf2b8";
 		public static const fa_linux:String = "\uf17c";
 		public static const fa_list:String = "\uf03a";
 		public static const fa_list_alt:String = "\uf022";
@@ -411,6 +449,7 @@ package flatspark.utils
 		public static const fa_long_arrow_left:String = "\uf177";
 		public static const fa_long_arrow_right:String = "\uf178";
 		public static const fa_long_arrow_up:String = "\uf176";
+		public static const fa_low_vision:String = "\uf2a8";
 		public static const fa_magic:String = "\uf0d0";
 		public static const fa_magnet:String = "\uf076";
 		public static const fa_mail_forward:String = "\uf064";
@@ -431,8 +470,10 @@ package flatspark.utils
 		public static const fa_meanpath:String = "\uf20c";
 		public static const fa_medium:String = "\uf23a";
 		public static const fa_medkit:String = "\uf0fa";
+		public static const fa_meetup:String = "\uf2e0";
 		public static const fa_meh_o:String = "\uf11a";
 		public static const fa_mercury:String = "\uf223";
+		public static const fa_microchip:String = "\uf2db";
 		public static const fa_microphone:String = "\uf130";
 		public static const fa_microphone_slash:String = "\uf131";
 		public static const fa_minus:String = "\uf068";
@@ -482,8 +523,9 @@ package flatspark.utils
 		public static const fa_photo:String = "\uf03e";
 		public static const fa_picture_o:String = "\uf03e";
 		public static const fa_pie_chart:String = "\uf200";
-		public static const fa_pied_piper:String = "\uf1a7";
+		public static const fa_pied_piper:String = "\uf2ae";
 		public static const fa_pied_piper_alt:String = "\uf1a8";
+		public static const fa_pied_piper_pp:String = "\uf1a7";
 		public static const fa_pinterest:String = "\uf0d2";
 		public static const fa_pinterest_p:String = "\uf231";
 		public static const fa_pinterest_square:String = "\uf0d3";
@@ -496,6 +538,7 @@ package flatspark.utils
 		public static const fa_plus_circle:String = "\uf055";
 		public static const fa_plus_square:String = "\uf0fe";
 		public static const fa_plus_square_o:String = "\uf196";
+		public static const fa_podcast:String = "\uf2ce";
 		public static const fa_power_off:String = "\uf011";
 		public static const fa_print:String = "\uf02f";
 		public static const fa_product_hunt:String = "\uf288";
@@ -504,10 +547,13 @@ package flatspark.utils
 		public static const fa_qrcode:String = "\uf029";
 		public static const fa_question:String = "\uf128";
 		public static const fa_question_circle:String = "\uf059";
+		public static const fa_question_circle_o:String = "\uf29c";
+		public static const fa_quora:String = "\uf2c4";
 		public static const fa_quote_left:String = "\uf10d";
 		public static const fa_quote_right:String = "\uf10e";
 		public static const fa_ra:String = "\uf1d0";
 		public static const fa_random:String = "\uf074";
+		public static const fa_ravelry:String = "\uf2d9";
 		public static const fa_rebel:String = "\uf1d0";
 		public static const fa_recycle:String = "\uf1b8";
 		public static const fa_reddit:String = "\uf1a1";
@@ -521,6 +567,7 @@ package flatspark.utils
 		public static const fa_repeat:String = "\uf01e";
 		public static const fa_reply:String = "\uf112";
 		public static const fa_reply_all:String = "\uf122";
+		public static const fa_resistance:String = "\uf1d0";
 		public static const fa_retweet:String = "\uf079";
 		public static const fa_rmb:String = "\uf157";
 		public static const fa_road:String = "\uf018";
@@ -533,6 +580,7 @@ package flatspark.utils
 		public static const fa_rub:String = "\uf158";
 		public static const fa_ruble:String = "\uf158";
 		public static const fa_rupee:String = "\uf156";
+		public static const fa_s15:String = "\uf2cd";
 		public static const fa_safari:String = "\uf267";
 		public static const fa_save:String = "\uf0c7";
 		public static const fa_scissors:String = "\uf0c4";
@@ -557,9 +605,12 @@ package flatspark.utils
 		public static const fa_shopping_bag:String = "\uf290";
 		public static const fa_shopping_basket:String = "\uf291";
 		public static const fa_shopping_cart:String = "\uf07a";
+		public static const fa_shower:String = "\uf2cc";
 		public static const fa_sign_in:String = "\uf090";
+		public static const fa_sign_language:String = "\uf2a7";
 		public static const fa_sign_out:String = "\uf08b";
 		public static const fa_signal:String = "\uf012";
+		public static const fa_signing:String = "\uf2a7";
 		public static const fa_simplybuilt:String = "\uf215";
 		public static const fa_sitemap:String = "\uf0e8";
 		public static const fa_skyatlas:String = "\uf216";
@@ -568,6 +619,10 @@ package flatspark.utils
 		public static const fa_sliders:String = "\uf1de";
 		public static const fa_slideshare:String = "\uf1e7";
 		public static const fa_smile_o:String = "\uf118";
+		public static const fa_snapchat:String = "\uf2ab";
+		public static const fa_snapchat_ghost:String = "\uf2ac";
+		public static const fa_snapchat_square:String = "\uf2ad";
+		public static const fa_snowflake_o:String = "\uf2dc";
 		public static const fa_soccer_ball_o:String = "\uf1e3";
 		public static const fa_sort:String = "\uf0dc";
 		public static const fa_sort_alpha_asc:String = "\uf15d";
@@ -613,6 +668,7 @@ package flatspark.utils
 		public static const fa_subway:String = "\uf239";
 		public static const fa_suitcase:String = "\uf0f2";
 		public static const fa_sun_o:String = "\uf185";
+		public static const fa_superpowers:String = "\uf2dd";
 		public static const fa_superscript:String = "\uf12b";
 		public static const fa_support:String = "\uf1cd";
 		public static const fa_table:String = "\uf0ce";
@@ -622,6 +678,7 @@ package flatspark.utils
 		public static const fa_tags:String = "\uf02c";
 		public static const fa_tasks:String = "\uf0ae";
 		public static const fa_taxi:String = "\uf1ba";
+		public static const fa_telegram:String = "\uf2c6";
 		public static const fa_television:String = "\uf26c";
 		public static const fa_tencent_weibo:String = "\uf1d5";
 		public static const fa_terminal:String = "\uf120";
@@ -630,6 +687,18 @@ package flatspark.utils
 		public static const fa_th:String = "\uf00a";
 		public static const fa_th_large:String = "\uf009";
 		public static const fa_th_list:String = "\uf00b";
+		public static const fa_themeisle:String = "\uf2b2";
+		public static const fa_thermometer:String = "\uf2c7";
+		public static const fa_thermometer_0:String = "\uf2cb";
+		public static const fa_thermometer_1:String = "\uf2ca";
+		public static const fa_thermometer_2:String = "\uf2c9";
+		public static const fa_thermometer_3:String = "\uf2c8";
+		public static const fa_thermometer_4:String = "\uf2c7";
+		public static const fa_thermometer_empty:String = "\uf2cb";
+		public static const fa_thermometer_full:String = "\uf2c7";
+		public static const fa_thermometer_half:String = "\uf2c9";
+		public static const fa_thermometer_quarter:String = "\uf2ca";
+		public static const fa_thermometer_three_quarters:String = "\uf2c8";
 		public static const fa_thumb_tack:String = "\uf08d";
 		public static const fa_thumbs_down:String = "\uf165";
 		public static const fa_thumbs_o_down:String = "\uf088";
@@ -639,6 +708,8 @@ package flatspark.utils
 		public static const fa_times:String = "\uf00d";
 		public static const fa_times_circle:String = "\uf057";
 		public static const fa_times_circle_o:String = "\uf05c";
+		public static const fa_times_rectangle:String = "\uf2d3";
+		public static const fa_times_rectangle_o:String = "\uf2d4";
 		public static const fa_tint:String = "\uf043";
 		public static const fa_toggle_down:String = "\uf150";
 		public static const fa_toggle_left:String = "\uf191";
@@ -669,6 +740,7 @@ package flatspark.utils
 		public static const fa_umbrella:String = "\uf0e9";
 		public static const fa_underline:String = "\uf0cd";
 		public static const fa_undo:String = "\uf0e2";
+		public static const fa_universal_access:String = "\uf29a";
 		public static const fa_university:String = "\uf19c";
 		public static const fa_unlink:String = "\uf127";
 		public static const fa_unlock:String = "\uf09c";
@@ -678,20 +750,28 @@ package flatspark.utils
 		public static const fa_usb:String = "\uf287";
 		public static const fa_usd:String = "\uf155";
 		public static const fa_user:String = "\uf007";
+		public static const fa_user_circle:String = "\uf2bd";
+		public static const fa_user_circle_o:String = "\uf2be";
 		public static const fa_user_md:String = "\uf0f0";
+		public static const fa_user_o:String = "\uf2c0";
 		public static const fa_user_plus:String = "\uf234";
 		public static const fa_user_secret:String = "\uf21b";
 		public static const fa_user_times:String = "\uf235";
 		public static const fa_users:String = "\uf0c0";
+		public static const fa_vcard:String = "\uf2bb";
+		public static const fa_vcard_o:String = "\uf2bc";
 		public static const fa_venus:String = "\uf221";
 		public static const fa_venus_double:String = "\uf226";
 		public static const fa_venus_mars:String = "\uf228";
 		public static const fa_viacoin:String = "\uf237";
+		public static const fa_viadeo:String = "\uf2a9";
+		public static const fa_viadeo_square:String = "\uf2aa";
 		public static const fa_video_camera:String = "\uf03d";
 		public static const fa_vimeo:String = "\uf27d";
 		public static const fa_vimeo_square:String = "\uf194";
 		public static const fa_vine:String = "\uf1ca";
 		public static const fa_vk:String = "\uf189";
+		public static const fa_volume_control_phone:String = "\uf2a0";
 		public static const fa_volume_down:String = "\uf027";
 		public static const fa_volume_off:String = "\uf026";
 		public static const fa_volume_up:String = "\uf028";
@@ -701,11 +781,20 @@ package flatspark.utils
 		public static const fa_weixin:String = "\uf1d7";
 		public static const fa_whatsapp:String = "\uf232";
 		public static const fa_wheelchair:String = "\uf193";
+		public static const fa_wheelchair_alt:String = "\uf29b";
 		public static const fa_wifi:String = "\uf1eb";
 		public static const fa_wikipedia_w:String = "\uf266";
+		public static const fa_window_close:String = "\uf2d3";
+		public static const fa_window_close_o:String = "\uf2d4";
+		public static const fa_window_maximize:String = "\uf2d0";
+		public static const fa_window_minimize:String = "\uf2d1";
+		public static const fa_window_restore:String = "\uf2d2";
 		public static const fa_windows:String = "\uf17a";
 		public static const fa_won:String = "\uf159";
 		public static const fa_wordpress:String = "\uf19a";
+		public static const fa_wpbeginner:String = "\uf297";
+		public static const fa_wpexplorer:String = "\uf2de";
+		public static const fa_wpforms:String = "\uf298";
 		public static const fa_wrench:String = "\uf0ad";
 		public static const fa_xing:String = "\uf168";
 		public static const fa_xing_square:String = "\uf169";
@@ -716,6 +805,7 @@ package flatspark.utils
 		public static const fa_yc_square:String = "\uf1d4";
 		public static const fa_yelp:String = "\uf1e9";
 		public static const fa_yen:String = "\uf157";
+		public static const fa_yoast:String = "\uf2b1";
 		public static const fa_youtube:String = "\uf167";
 		public static const fa_youtube_play:String = "\uf16a";
 		public static const fa_youtube_square:String = "\uf166";
