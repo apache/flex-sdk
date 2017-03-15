@@ -106,8 +106,13 @@ public class GridColumnHeaderView extends Group
      */
     public function containsMouseEvent(event:MouseEvent):Boolean
     {
-        const eventStageX:Number = event.stageX;
-        const eventStageY:Number = event.stageY;
+        return containsStageCoordinates(new Point(event.stageX, event.stageY));
+    }
+
+    public function containsStageCoordinates(coordinates:Point):Boolean
+    {
+        const eventStageX:Number = coordinates.x;
+        const eventStageY:Number = coordinates.y;
         const origin:Point = localToGlobal(zeroPoint);
 
         origin.x += horizontalScrollPosition;
