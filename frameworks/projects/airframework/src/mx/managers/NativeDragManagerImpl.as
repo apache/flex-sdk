@@ -390,7 +390,7 @@ public class NativeDragManagerImpl implements IDragManager
     {
         if (removeImage)
             _dragImage.removeEventListener(FlexEvent.UPDATE_COMPLETE, initiateDrag);
-        var dragBitmap:BitmapData     
+        var dragBitmap:BitmapData;
         if (_dragImage.width && _dragImage.height)
             dragBitmap = new BitmapData(_dragImage.width, _dragImage.height, true, 0x000000);
         else

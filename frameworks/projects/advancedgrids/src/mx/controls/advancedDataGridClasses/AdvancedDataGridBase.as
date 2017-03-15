@@ -1351,15 +1351,9 @@ public class AdvancedDataGridBase extends AdvancedListBase implements IFontConte
      *  @return The newly selected item or <code>null</code> if the selection
      *  has not changed.
      */
-    override protected function moveSelectionVertically(
-        code:uint, shiftKey:Boolean,
-        ctrlKey:Boolean):void
+    override protected function moveSelectionVertically(code:uint, shiftKey:Boolean, ctrlKey:Boolean):void
     {
         var newVerticalScrollPosition:Number;
-        var listItem:IListItemRenderer;
-        var uid:String;
-        var len:int;
-
         showCaret = true;
 
         var rowCount:int = listItems.length;
@@ -1825,18 +1819,15 @@ public class AdvancedDataGridBase extends AdvancedListBase implements IFontConte
     /**
      *  @private
      */
-    private function createRow(left:Number,top:Number,right:Number,bottom:Number,more:Boolean):void
+    private function createRow(left:Number, top:Number, right:Number, bottom:Number, more:Boolean):void
     {
         var xx:Number;
-        var ww:Number;
         var hh:Number;
 
         var i:int;
         var n:int;
 
-        var c:AdvancedDataGridColumn;
         var item:IListItemRenderer;
-        var rowData:AdvancedDataGridListData;
         var extraItem:IListItemRenderer;
 
         var bSelected:Boolean = false;
@@ -1877,7 +1868,7 @@ public class AdvancedDataGridBase extends AdvancedListBase implements IFontConte
         }
         else
         {
-            // if we've run out of data, we dont make renderers
+            // if we've run out of data, we don't make renderers
             // and we inherit the previous row's height or rowHeight
             // if it is the first row.
             hh = currentRowNum > 1 ? rowInfo[currentRowNum - 1].height : rowHeight;
@@ -1965,9 +1956,8 @@ public class AdvancedDataGridBase extends AdvancedListBase implements IFontConte
             }
             catch (e:ItemPendingError)
             {
-                lastSeekPending = new ListBaseSeekPending(CursorBookmark.CURRENT, 0)
-                    e.addResponder(new ItemResponder(seekPendingResultHandler, seekPendingFailureHandler, 
-                                                     lastSeekPending));
+                lastSeekPending = new ListBaseSeekPending(CursorBookmark.CURRENT, 0);
+                e.addResponder(new ItemResponder(seekPendingResultHandler, seekPendingFailureHandler, lastSeekPending));
                 more = false;
                 iteratorValid = false;
             }
@@ -2058,8 +2048,6 @@ public class AdvancedDataGridBase extends AdvancedListBase implements IFontConte
      *  Returns the header item renderer.
      *
      *  @param c The column of the control.
-     *
-     *  @param The header item renderer.
      *
      *  @return The header item renderer.
      * 

@@ -32,13 +32,19 @@
     <property name="lib.opt.dir" value="${FLEX_HOME}/lib/external/optional"/>
 
     <property name="flex-deps.dir" value="flex_deps"/>
+    <property name="adobe.afe.url" value="https://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/lib/afe.jar?format=raw"/>
     <property name="adobe.afe.file" value="afe.jar"/>
+    <property name="adobe.aglj40.url" value="https://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/lib/aglj40.jar?format=raw"/>
     <property name="adobe.aglj40.file" value="aglj40.jar"/>
+    <property name="adobe.rideau.url" value="http://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/lib/rideau.jar?format=raw"/>
     <property name="adobe.rideau.file" value="rideau.jar"/>
+    <property name="adobe.flex-fontkit.url" value="http://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/lib/flex-fontkit.jar?format=raw"/>
     <property name="adobe.flex-fontkit.file" value="flex-fontkit.jar"/>
     <property name="pixelbender.url" value="http://www.apache.org/dyn/mirrors/mirrors.cgi" />
     <property name="pixelbender.folder" value="flex/pixelbender/1.0/binaries" />
     <property name="pixelbender.bin.zip" value="apache-flex-sdk-pixel-bender-1.0.0-bin.zip" />
+    <property name="osmf.url" value="https://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/frameworks/libs/OSMF2_0.swc?format=raw" />
+    <property name="swfobject.url" value="https://codeload.github.com/swfobject/swfobject/zip/2.2" />
     
     <property name="adobe.flex.license" value="
         ${line.separator}
@@ -102,12 +108,15 @@
 
     <target name="download-osmf-swc" unless="osmf.swc.exists">
         <mkdir dir="${download.dir}"/>
-        <!-- get src="http://sourceforge.net/projects/osmf.adobe/files/OSMF%202.0%20Release%20%28final%20source%2C%20ASDocs%2C%20pdf%20guides%20and%20release%20notes%29/OSMF.swc/download" 
+        <get src="${osmf.url}"
             dest="${download.dir}/osmf.swc" 
-            verbose="false"/ -->
-        <get src="http://downloads.sourceforge.net/project/osmf.adobe/OSMF%202.0%20Release%20%28final%20source%2C%20ASDocs%2C%20pdf%20guides%20and%20release%20notes%29/OSMF.swc?r=&amp;ts=1381906346&amp;use_mirror=optimate" 
-            dest="${download.dir}/osmf.swc" 
-            verbose="false"/>
+            verbose="false" ignoreerrors="true"/>
+        <antcall target="get-from-cache-if-needed" >
+            <param name="filename" value="osmf.swc" />
+        </antcall>
+        <antcall target="fail-if-not-found" >
+            <param name="filename" value="osmf.swc" />
+        </antcall>
     </target>
     
     <!-- pixelbender files (Version 1.0) -->
@@ -125,6 +134,12 @@
             <param name="folder" value="${pixelbender.folder}" />
             <param name="file" value="${pixelbender.bin.zip}" />
             <param name="dest" value="${download.dir}/${pixelbender.bin.zip}" />
+        </antcall>
+        <antcall target="get-from-cache-if-needed" >
+            <param name="filename" value="${pixelbender.bin.zip}" />
+        </antcall>
+        <antcall target="fail-if-not-found" >
+            <param name="filename" value="${pixelbender.bin.zip}" />
         </antcall>
         
         <unzip src="${download.dir}/${pixelbender.bin.zip}" dest="${FLEX_HOME}">
@@ -149,9 +164,16 @@
         description="Copies SWFObject from code.google.com">
         
         <mkdir dir="${download.dir}"/>
-        <get src="https://codeload.github.com/swfobject/swfobject/zip/2.2"
+        <get src="${swfobject.url}"
             dest="${download.dir}/swfobject_2_2.zip" 
-            verbose="false"/>
+            verbose="false" ignoreerrors="true"/>
+        
+        <antcall target="get-from-cache-if-needed" >
+            <param name="filename" value="swfobject_2_2.zip" />
+        </antcall>
+        <antcall target="fail-if-not-found" >
+            <param name="filename" value="swfobject_2_2.zip" />
+        </antcall>
         
         <unzip src="${download.dir}/swfobject_2_2.zip" dest="${FLEX_HOME}/templates/swfobject">
             <patternset>
@@ -160,6 +182,7 @@
             </patternset>
             <flattenmapper />
         </unzip>
+        <antcall target="swfobject-double-check" />
     </target>
 
     <target name="swfobject-clean" description="Deletes templates swfobject code.">
@@ -170,6 +193,24 @@
                 <exclude name="index.template.html"/>
             </fileset>
         </delete>
+    </target>
+    
+    <target name="have-swfobject" >
+        <condition property="still-no-swfobject">
+            <not>
+                <available file="${FLEX_HOME}/templates/swfobject/swfobject.js" />
+            </not>
+        </condition>
+    </target>
+    
+    <target name="swfobject-double-check" depends="have-swfobject" if="still-no-swfobject" description="some SWFObject zips have a different folder structure so if the first unzip doesn't work, try this one">
+        <unzip src="${download.dir}/swfobject_2_2.zip" dest="${FLEX_HOME}/templates/swfobject">
+            <patternset>
+                <include name="swfobject/expressInstall.swf"/>
+                <include name="swfobject/swfobject.js"/>
+            </patternset>
+            <flattenmapper />
+        </unzip>
     </target>
     
     <!-- the copy of swfobject.js that is in javascript/fabridge -->
@@ -274,26 +315,50 @@
 
     <target name="download-afe" unless="adobe.afe.download.exists" >
         <mkdir dir="${download.dir}"/>
-        <get src="http://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/lib/afe.jar?format=raw"
-            dest="${download.dir}/${adobe.afe.file}"/>
+        <get src="${adobe.afe.url}"
+            dest="${download.dir}/${adobe.afe.file}" ignoreerrors="true"/>
+        <antcall target="get-from-cache-if-needed" >
+            <param name="filename" value="${adobe.afe.file}" />
+        </antcall>
+        <antcall target="fail-if-not-found" >
+            <param name="filename" value="${adobe.afe.file}" />
+        </antcall>
     </target>
 
     <target name="download-aglj40" unless="adobe.aglj40.download.exists" >
         <mkdir dir="${download.dir}"/>
-        <get src="http://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/lib/aglj40.jar?format=raw"
-             dest="${download.dir}/${adobe.aglj40.file}"/>
+        <get src="${adobe.aglj40.url}"
+             dest="${download.dir}/${adobe.aglj40.file}" ignoreerrors="true"/>
+         <antcall target="get-from-cache-if-needed" >
+             <param name="filename" value="${adobe.aglj40.file}" />
+         </antcall>
+         <antcall target="fail-if-not-found" >
+             <param name="filename" value="${adobe.aglj40.file}" />
+         </antcall>
     </target>
 
     <target name="download-rideau" unless="adobe.rideau.download.exists" >
         <mkdir dir="${download.dir}"/>
-        <get src="http://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/lib/rideau.jar?format=raw"
-             dest="${download.dir}/${adobe.rideau.file}"/>
+        <get src="${adobe.rideau.url}"
+             dest="${download.dir}/${adobe.rideau.file}" ignoreerrors="true"/>
+         <antcall target="get-from-cache-if-needed" >
+             <param name="filename" value="${adobe.rideau.file}" />
+         </antcall>
+         <antcall target="fail-if-not-found" >
+             <param name="filename" value="${adobe.rideau.file}" />
+         </antcall>
     </target>
 
     <target name="download-flex-fontkit" unless="adobe.flex-fontkit.download.exists" >
         <mkdir dir="${download.dir}"/>
-        <get src="http://sourceforge.net/adobe/flexsdk/code/HEAD/tree/trunk/lib/flex-fontkit.jar?format=raw"
-             dest="${download.dir}/${adobe.flex-fontkit.file}"/>
+        <get src="${adobe.flex-fontkit.url}"
+             dest="${download.dir}/${adobe.flex-fontkit.file}" ignoreerrors="true"/>
+         <antcall target="get-from-cache-if-needed" >
+             <param name="filename" value="${adobe.flex-fontkit.file}" />
+         </antcall>
+         <antcall target="fail-if-not-found" >
+             <param name="filename" value="${adobe.flex-fontkit.file}" />
+         </antcall>
     </target>
 
     <target name="clean-adobe-flex-sdk">
@@ -301,8 +366,12 @@
     </target>
 
     <target name="get_from_mirror">
-        <condition property="usingmirror" value="true">
+        <condition property="mirrorurl" value="true">
             <contains string="${server}" substring="mirrors.cgi" />
+        </condition>
+        <antcall target="get_mirror_data" />
+        <condition property="usingmirror">
+            <available file="${basedir}/mirror.json" />
         </condition>
         <antcall target="download_using_mirror">
             <param name="server" value="${server}" />
@@ -318,8 +387,11 @@
         </antcall>
     </target>
     
+    <target name="get_mirror_data" if="mirrorurl">
+        <get src="${server}/${folder}/${file}?asjson=true" verbose="true" dest="${basedir}/mirror.json" ignoreerrors="true"/>
+    </target>
+    
     <target name="download_using_mirror" if="usingmirror">
-        <get src="${server}/${folder}/${file}?asjson=true" verbose="true" dest="${basedir}/mirror.json" />
         <replace file="${basedir}/mirror.json">
             <replacefilter token="{"
             value="" />
@@ -339,11 +411,35 @@
         <property file="${basedir}/mirror.json" />
         <delete file="${basedir}/mirror.json" />
         <echo>Using mirror: ${preferred}</echo>
-        <get src="${preferred}${folder}/${file}" dest="${dest}" />
+        <get src="${preferred}${folder}/${file}" dest="${dest}" ignoreerrors="true" />
     </target>
     
     <target name="download_using_get" unless="usingmirror">
-        <get src="${server}/${folder}/${file}" dest="${dest}" />
+        <get src="${server}/${folder}/${file}" dest="${dest}" ignoreerrors="true"/>
     </target>
 
+    <target name="fail-if-not-found">
+        <fail message="${filename} could not be downloaded or found in cache">
+            <condition>
+                <not>
+                    <available file="${download.dir}/${filename}" />
+                </not>
+            </condition>
+        </fail>
+    </target>
+
+    <target name="double-check-file" >
+        <condition property="still-no-file" value="true">
+            <and>
+                <not>
+                    <available file="${download.dir}/${filename}" />
+                </not>
+                <isset property="env.FLEX_DOWNLOAD_CACHE" />
+            </and>
+        </condition>
+        <echo>Need file: ${still_no_file}</echo>
+    </target>
+    <target name="get-from-cache-if-needed" depends="double-check-file" if="still-no-file">
+        <copy file="${env.FLEX_DOWNLOAD_CACHE}/${filename}" tofile="${download.dir}/${filename}" />
+    </target>
 </project>

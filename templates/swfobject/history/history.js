@@ -262,27 +262,8 @@ BrowserHistory = (function() {
             }
 
             if (browser.safari && !browserHasHashChange) {
-                // for Safari, submit a form whose action points to the desired URL
-                if (browser.version <= 419.3) {
-                    var file = window.location.pathname.toString();
-                    file = file.substring(file.lastIndexOf("/")+1);
-                    getFormElement().innerHTML = '<form name="historyForm" action="'+file+'#' + flexAppUrl + '" method="GET"></form>';
-                    //get the current elements and add them to the form
-                    var qs = window.location.search.substring(1);
-                    var qs_arr = qs.split("&");
-                    for (var i = 0; i < qs_arr.length; i++) {
-                        var tmp = qs_arr[i].split("=");
-                        var elem = document.createElement("input");
-                        elem.type = "hidden";
-                        elem.name = tmp[0];
-                        elem.value = tmp[1];
-                        document.forms.historyForm.appendChild(elem);
-                    }
-                    document.forms.historyForm.submit();
-                } else {
-                    top.location.hash = flexAppUrl;
-                }
-                // We also have to maintain the history by hand for Safari
+                top.location.hash = flexAppUrl;
+                // We have to maintain the history by hand for Safari
                 historyHash[history.length] = flexAppUrl;
                 _storeStates();
             } else {

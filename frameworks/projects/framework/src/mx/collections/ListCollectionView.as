@@ -89,8 +89,7 @@ package mx.collections
  *  @playerversion AIR 1.1
  *  @productversion Flex 3
  */
-public class ListCollectionView extends Proxy
-       implements ICollectionView, IList, IMXMLObject
+public class ListCollectionView extends Proxy implements ICollectionView, IList, IMXMLObject
 {
     include "../core/Version.as";
 
@@ -290,8 +289,7 @@ public class ListCollectionView extends Proxy
             var newHasItems:Boolean;
             if (_list)
             {
-                _list.removeEventListener(CollectionEvent.COLLECTION_CHANGE,
-                                          listChangeHandler);
+                _list.removeEventListener(CollectionEvent.COLLECTION_CHANGE, listChangeHandler);
                 oldHasItems = _list.length > 0;
             }
 
@@ -300,8 +298,7 @@ public class ListCollectionView extends Proxy
             if (_list)
             {
                 // weak listeners to collections and dataproviders
-                _list.addEventListener(CollectionEvent.COLLECTION_CHANGE,
-                                       listChangeHandler, false, 0, true);
+                _list.addEventListener(CollectionEvent.COLLECTION_CHANGE, listChangeHandler, false, 0, true);
                 newHasItems = _list.length > 0;
             }
 
@@ -1448,7 +1445,7 @@ public class ListCollectionView extends Proxy
                 {
                     item = updateInfo.target;
                     //if the target != source that means the update
-                    //happened to some subprop of the item in the collection
+                    //happened to some sub-property of the item in the collection.
                     //if we have a custom comparator this will affect
                     //the sort so for now say we should move but
                     //maybe we could optimize further
@@ -1490,20 +1487,22 @@ public class ListCollectionView extends Proxy
                 }
                 else
                 {
+                    var oldOrNewValueSpecified:Boolean = updateInfo.oldValue != null || updateInfo.newValue != null;
+                    var objectReplacedInCollection:Boolean = updateInfo.property == null && oldOrNewValueSpecified;
+                    var somethingUnknownAboutTheObjectChanged:Boolean = updateInfo.property == null && !oldOrNewValueSpecified;
                     updateEntry = {item: item, move: defaultMove, events: [updateInfo],
-                        entireObjectChanged: updateInfo.property == null, oldItem: updateInfo.property == null ? updateInfo.oldValue : null};
+                        undefinedChange:somethingUnknownAboutTheObjectChanged,
+                        objectReplacedWithAnother: objectReplacedInCollection, oldItem: updateInfo.oldValue};
                     updatedItems.push(updateEntry);
                 }
 
-                //if we've already set replace don't unset it
-                //if there's a filterFunction need to go through replace
-                //if there's no property specified for the sort we'll need
-                //to assume we have to replace
-                //if there is a property see if it affects the sort
-                updateEntry.move =
-                    updateEntry.move
+                //if we've already set move don't unset it
+                //if there's a filterFunction need to go through move
+                //if the property affects the sort, we'll need to move
+                updateEntry.move = updateEntry.move
                     || filterFunction != null
-                    || updateEntry.entireObjectChanged
+                    || updateEntry.objectReplacedWithAnother
+                    || updateEntry.undefinedChange
                     || (sort && sort.propertyAffectsSort(String(updateInfo.property)));
             }
 
@@ -1515,11 +1514,11 @@ public class ListCollectionView extends Proxy
                 updateEntry = updatedItems[i];
                 if (updateEntry.move)
                 {
-                    if(updateEntry.entireObjectChanged)
+                    if(updateEntry.objectReplacedWithAnother)
                     {
                         removeItemsFromView([updateEntry.oldItem], -1, true);
                     }
-                    moveItemInView(updateEntry.item, updateEntry.item, eventItems);
+                    moveItemInView(updateEntry.item, updateEntry.item != null, eventItems);
                 }
                 else
                 {
@@ -1529,7 +1528,7 @@ public class ListCollectionView extends Proxy
 
 			// now go through the updated items and add all events for all 
 			// properties that changed in that item (except for those items
-			// we moved
+			// we moved)
             var temp:Array = [];
             for (var ctr:int = 0; ctr < eventItems.length; ctr++)
                 for (var ctr1:int = 0; ctr1 < updatedItems.length; ctr1++)
@@ -1542,9 +1541,7 @@ public class ListCollectionView extends Proxy
 
         if (eventItems.length > 0)
         {
-            
-            var updateEvent:CollectionEvent =
-                new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+            var updateEvent:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
             updateEvent.kind = CollectionEventKind.UPDATE;
             updateEvent.items = eventItems;
             dispatchEvent(updateEvent);
@@ -1654,8 +1651,7 @@ public class ListCollectionView extends Proxy
         pendingUpdates = null;
         if (dispatch)
         {
-            var refreshEvent:CollectionEvent =
-                new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+            var refreshEvent:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
             refreshEvent.kind = CollectionEventKind.REFRESH;
             dispatchEvent(refreshEvent);
         }
@@ -1696,8 +1692,7 @@ public class ListCollectionView extends Proxy
 
             if (dispatch)
             {
-                var event:CollectionEvent =
-                    new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+                var event:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
                 event.items.push(item);
                 if (updateEventItems && addLocation == removeLocation && addLocation > -1)
                 {
@@ -1788,8 +1783,7 @@ public class ListCollectionView extends Proxy
         }
         if (dispatch && removedItems.length > 0)
         {
-            var event:CollectionEvent =
-                new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+            var event:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
             event.kind = CollectionEventKind.REMOVE;
             event.location = (!localIndex || removedItems.length == 1)
                 ? removeLocation
@@ -1829,8 +1823,7 @@ public class ListCollectionView extends Proxy
         }
         else
         {
-            var event:CollectionEvent =
-                new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+            var event:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
             event.kind = CollectionEventKind.REPLACE;
             event.location = location;
             event.items = changeEvents;
@@ -1847,8 +1840,7 @@ public class ListCollectionView extends Proxy
         internalRefresh(false);
         if (dispatchResetEvent)
         {
-            var event:CollectionEvent =
-                new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+            var event:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
             event.kind = CollectionEventKind.RESET;
             dispatchEvent(event);
         }
@@ -1902,7 +1894,6 @@ public class ListCollectionView extends Proxy
 
 }
 
-import flash.events.Event;
 import flash.events.EventDispatcher;
 
 import mx.collections.*;
@@ -2224,7 +2215,7 @@ class ListCollectionViewCursor extends EventDispatcher implements IViewCursor
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-     public function findFirst(values:Object):Boolean
+    public function findFirst(values:Object):Boolean
     {
         checkValid();
         var lcView:ListCollectionView = ListCollectionView(view);
@@ -2751,12 +2742,14 @@ class ListCollectionViewBookmark extends CursorBookmark
     }
 
     /**
-     * Get the approximate index of the item represented by this bookmark
-     * in its view.  If the item has been paged out this may throw an
-     * ItemPendingError.  If the item is not in the current view -1 will be
-     * returned.  This method may also return -1 if index-based location is not
-     * possible.
-     *  
+     *  Gets the approximate index of the item represented by this bookmark
+     *  in its view. If the item has been paged out, this method could throw an
+     *  ItemPendingError.
+     *
+     *  @return The index of the item. If the item is not in the current view,
+     *  this method returns -1. This method also returns -1 if index-based location
+     *  retrieval is not possible.
+     *
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1

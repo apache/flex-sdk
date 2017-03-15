@@ -426,7 +426,7 @@ public class Binding
         catch(error:Error)
         {
 			if (error is ItemPendingError) {
-	            error.addResponder(new EvalBindingResponder(this, object));
+	            (error as ItemPendingError).addResponder(new EvalBindingResponder(this, object));
 	            if (BindingManager.debugDestinationStrings[destString])
 	            {
 	                trace("Binding: destString = " + destString + ", error = " + error);

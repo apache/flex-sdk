@@ -260,7 +260,7 @@ package spark.skins.mobile
 		 */
 		private function updateSpinner(diameter:Number):void
 		{
-			var isRotating:Boolean = isRotating();
+			var isRotating:Boolean = this.isRotating();
 			
 			if (isRotating)
 				stopRotation();

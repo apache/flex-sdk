@@ -177,7 +177,7 @@ limitations under the License.
 		<s:Label id="iconFont" color="0xFFFFFF" color.disabled="0xE3E3E3" text="{hostComponent.iconFont}"
 				 textAlign="left" fontFamily="FontAwesome"
 				 maxDisplayedLines="1" includeInLayout="{hostComponent.iconFont != null}"
-				 horizontalCenter="0" verticalCenter="0" verticalAlign="middle">
+				 horizontalCenter="0" verticalCenter="0" verticalAlign="middle" fontWeight="normal">
 		</s:Label>
 		
 		<s:Label id="labelDisplay" color="0xFFFFFF" color.disabled="0xE3E3E3"

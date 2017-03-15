@@ -128,6 +128,16 @@ public class SimpleMovie extends Movie
 	            fileAttributes.actionScript3 = (version >= 9);
             }
             
+            if (configuration.brokerLocalConnection())
+            {
+                fileAttributes.brokerLocalConnection = true;
+            }
+            
+            if (configuration.brokerProductManager())
+            {
+                fileAttributes.brokerProductManager = true;
+            }
+            
             if (configuration.getAdvancedTelemetry()) {
             	enableTelemetry.enabled = true;
             }

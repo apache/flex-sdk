@@ -83,7 +83,7 @@ use namespace mx_internal;
  *    and <code>right</code> constraints.</li>
  * 
  *    <li>If the element has both <code>top</code> and <code>bottom</code> constraints, 
- *    it's height is set to be the container's height minus the <code>top</code> 
+ *    it's height is set to be the container's height minus the <code>top</code>
  *    and <code>bottom</code> constraints.</li>
  *
  *    <li>The element is set to its preferred width and/or height.</li>
@@ -96,12 +96,12 @@ use namespace mx_internal;
  *    the vertical direction such that its <code>baselinePosition</code> (usually the base line
  *    of its first line of text) is aligned with <code>baseline</code> constraint.</li>
  *
- *    <li>If element's <code>top</code> or <code>left</code> constraints 
+ *    <li>If element's <code>top</code> or <code>left</code> constraints
  *    are specified, then the element is
  *    positioned such that the top-left corner of the element's layout bounds is
  *    offset from the top-left corner of the container by the specified values.</li>
  *
- *    <li>If element's <code>bottom</code> or <code>right</code> constraints are specified, 
+ *    <li>If element's <code>bottom</code> or <code>right</code> constraints are specified,
  *    then the element is positioned such that the bottom-right corner 
  *    of the element's layout bounds is
  *    offset from the bottom-right corner of the container by the specified values.</li>
@@ -121,6 +121,10 @@ use namespace mx_internal;
  */
 public class ConstraintLayout extends LayoutBase
 {
+
+    //See FLEX-33311 for more details on why this is used
+    private var constraintCacheNeeded:int = 0;
+
     //--------------------------------------------------------------------------
     //
     //  Class methods
@@ -1604,7 +1608,9 @@ public class ConstraintLayout extends LayoutBase
         var layoutTarget:GroupBase = target;
         if (!layoutTarget)
             return;
-        
+
+        constraintCacheNeeded++;
+
         var count:Number = layoutTarget.numElements;
         var layoutElement:ILayoutElement;
         
@@ -1614,7 +1620,7 @@ public class ConstraintLayout extends LayoutBase
         // Populate rowBaselines with baseline information from rows.
         var n:int = _constraintRows.length;
         var row:ConstraintRow;
-        var obj:Object = {};
+
         if (rowBaselines == null)
             rowBaselines = new Vector.<Array>();
         else
@@ -1641,6 +1647,7 @@ public class ConstraintLayout extends LayoutBase
         }
         
         this.constraintCache = cache;
+        constraintCacheNeeded--;
     }
     
     /**
@@ -1833,12 +1840,15 @@ public class ConstraintLayout extends LayoutBase
      */
     private function clearConstraintCache():void
     {
-        colSpanElements = null;
-        rowSpanElements = null;
-        otherElements = null;
-        rowBaselines = null;
-        rowMaxAscents = null;
-        constraintCache = null;
+        if(!constraintCacheNeeded)
+        {
+            colSpanElements = null;
+            rowSpanElements = null;
+            otherElements = null;
+            rowBaselines = null;
+            rowMaxAscents = null;
+            constraintCache = null;
+        }
     }
 }
 }

@@ -1005,6 +1005,7 @@ public class GridColumn extends EventDispatcher
     private var _width:Number = NaN;
     
     [Bindable("widthChanged")]    
+    [PercentProxy("percentWidth")]
     
     /**
      *  The width of this column in pixels. 
@@ -1151,7 +1152,6 @@ public class GridColumn extends EventDispatcher
     }
     
     [Inspectable(category="General")]
-    [PercentProxy("percentWidth")]
     
     /**
      *  @private

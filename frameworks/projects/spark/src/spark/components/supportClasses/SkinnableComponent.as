@@ -216,7 +216,7 @@ public class SkinnableComponent extends UIComponent
     
     /**
      *  The instance of the skin class for this component instance. 
-     *  This is a read-only property that gets set automomatically when Flex 
+     *  This is a read-only property that gets set automatically when Flex
      *  calls the <code>attachSkin()</code> method.
      *  
      *  @langversion 3.0

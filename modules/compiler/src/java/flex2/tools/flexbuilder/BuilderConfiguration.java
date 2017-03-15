@@ -414,6 +414,16 @@ public class BuilderConfiguration implements Configuration
 		configuration.useNetwork(b);
 	}
 
+    public void brokerProductManager(boolean b)
+    {
+        configuration.brokerProductManager(b);
+    }
+    
+    public void brokerLocalConnection(boolean b)
+    {
+        configuration.brokerLocalConnection(b);
+    }
+    
 	public void useResourceBundleMetaData(boolean b)
 	{
 		configuration.useResourceBundleMetaData(b);

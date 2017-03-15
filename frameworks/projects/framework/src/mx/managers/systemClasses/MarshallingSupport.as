@@ -869,7 +869,7 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
 				{
 					for (var i:int = 0; i < n; i++)
 					{
-						var form_i:Object = isRemotePopUp(awm.forms[i]) ? awm.forms[i].window : awm.forms[i];
+						var form_i:Object = MarshallingSupport.isRemotePopUp(awm.forms[i]) ? awm.forms[i].window : awm.forms[i];
 						if (form_i == p)
 						{
 							var j:int = 0;
@@ -904,7 +904,7 @@ public class MarshallingSupport implements IMarshalSystemManager, ISWFBridgeProv
 							for (j = 0; j < n; j++)
 							{
 								var f:DisplayObject;
-								var isRemotePopUp:Boolean = isRemotePopUp(awm.forms[j]);
+								var isRemotePopUp:Boolean = MarshallingSupport.isRemotePopUp(awm.forms[j]);
 								if (isRemotePopUp)
 								{
 									if (awm.forms[j].window is String)

@@ -166,7 +166,7 @@ public interface IViewCursor extends IEventDispatcher
     /**
      *  Finds an item with the specified properties within the collection
      *  and positions the cursor to that item.
-     *  If the item can not be found, the cursor location does not change.
+     *  If the item cannot be found, the cursor location does not change.
      *
      *  <p>The <code>findAny()</code> method can only be called on sorted views;
      *  if the view isn't sorted, a <code>CursorError</code> is thrown.</p>
@@ -209,7 +209,7 @@ public interface IViewCursor extends IEventDispatcher
     /**
      *  Finds the first item with the specified properties within the collection
      *  and positions the cursor to that item.
-     *  If the item can not be found, no cursor location does not change.
+     *  If the item cannot be found, no cursor location does not change.
      *
      *  <p>The <code>findFirst()</code> method can only be called on sorted views;
      *  if the view isn't sorted, a <code>CursorError</code> is thrown.</p>
@@ -227,9 +227,9 @@ public interface IViewCursor extends IEventDispatcher
      *  performed, an ItemPendingError is thrown.</p>
      *
      *  @param values The search criteria. The values in the Object must be configured as name-value pairs,
-     *  as in an associative array (or be the actual object to search for). The values of the names specified must match properties
-     *  specified in the sort. For example, if properties <code>x</code>, <code>y</code>, and
-     *  <code>z</code> are in the current sort, the values specified should be
+     *  as in an associative array (or be the actual object to search for). The values of the names
+     *  specified must match properties specified in the sort. For example, if properties <code>x</code>,
+     *  <code>y</code>, and <code>z</code> are in the current sort, the values specified should be
      *  <code>{x: <i>x-value</i>, y: <i>y-value</i>, z: <i>z-value</i>}</code>.
      *
      *  @return When all of the data is local this method returns
@@ -250,7 +250,7 @@ public interface IViewCursor extends IEventDispatcher
     /**
      *  Finds the last item with the specified properties within the collection
      *  and positions the cursor on that item.
-     *  If the item can not be found, the cursor location does not chanage.
+     *  If the item cannot be found, the cursor location does not chanage.
      *
      *  <p>The <code>findLast()</code> method can only be called on sorted views;
      *  if the view isn't sorted, a <code>CursorError</code> is thrown.</p>
@@ -268,9 +268,9 @@ public interface IViewCursor extends IEventDispatcher
      *  performed, an ItemPendingError is thrown.</p>
      *
      *  @param values The search criteria. The values in the Object must be configured as name-value pairs,
-     *  as in an associative array (or be the actual object to search for). The values of the names specified must match properties
-     *  specified in the sort. For example, if properties <code>x</code>, <code>y</code>, and
-     *  <code>z</code> are in the current sort, the values specified should be
+     *  as in an associative array (or be the actual object to search for). The values of the names
+     *  specified must match properties specified in the sort. For example, if properties <code>x</code>,
+     *  <code>y</code>, and <code>z</code> are in the current sort, the values specified should be
      *  <code>{x: <i>x-value</i>, y: <i>y-value</i>, z: <i>z-value</i>}</code>.
      *
      *  @return When all of the data is local this method returns

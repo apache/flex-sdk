@@ -40,6 +40,8 @@ public class SwfMaker
 	public static final int swfFlagsNoCrossdomainCache  = 0x00000004;  // do not add this SWF to the Asset Cache
 	public static final int swfFlagsAS3                 = 0x00000008;  // this SWF contains AVM+ bytecodes
 	public static final int swfFlagsHasMetadata         = 0x00000010;  // this SWF contains stagMetadata somewhere
+    public static final int swfFlagsBrokerLocalConnection = 0x00004000;  // broker local connections
+    public static final int swfFlagsBrokerProductManager = 0x00008000;  // broker product manager
 	// (this is not relevant to the player, but is relevant to search engines)
 	public static final int kDefaultSwfFlags            = 0x00000000;   // these flags are assumed when no stagFileAttributes is present
 
@@ -229,6 +231,8 @@ public class SwfMaker
 		String className = null;
 		int width, height, fps = 12;
         int useNetwork=0;
+        int brokerLocalConnection=0;
+        int brokerProductManager=0;
 
         boolean debug = false;
 		int dAt = options.indexOf(",-g");
@@ -242,6 +246,16 @@ public class SwfMaker
         if (dAt>-1) {
             useNetwork=swfFlagsUseNetwork;
             options = options.substring(0, dAt) + options.substring(dAt+12);
+        }
+        dAt = options.indexOf(",-brokerLocalConnection");
+        if (dAt>-1) {
+            brokerLocalConnection=swfFlagsBrokerLocalConnection;
+            options = options.substring(0, dAt) + options.substring(dAt+23);
+        }
+        dAt = options.indexOf(",-brokerProductManager");
+        if (dAt>-1) {
+            brokerProductManager=swfFlagsBrokerProductManager;
+            options = options.substring(0, dAt) + options.substring(dAt+22);
         }
 
         StringTokenizer tokenizer = new StringTokenizer(options, ",");
@@ -282,7 +296,7 @@ public class SwfMaker
 		PutWord(1);       // # of frames  SDD ### Change to sensicle number
 
 		StartTag(stagFileAttributes, false);
-		PutDWord(swfFlagsAS3|useNetwork);
+		PutDWord(swfFlagsAS3|useNetwork|brokerLocalConnection|brokerProductManager);
 		FinishTag();
 
 		if (debug)

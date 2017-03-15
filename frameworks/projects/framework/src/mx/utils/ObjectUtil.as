@@ -61,7 +61,7 @@ public class ObjectUtil
 
     /**
      *  Compares the Objects and returns an integer value 
-     *  indicating if the first item is less than greater than or equal to
+     *  indicating if the first item is less than, greater than, or equal to
      *  the second item.
      *  This method will recursively compare properties on nested objects and
      *  will return as soon as a non-zero result is found.
@@ -88,7 +88,7 @@ public class ObjectUtil
      *  In this case the <code>info</code> property will be turned into a string
      *  when performing the comparison.</p>
      *
-     *  @return Return 0 if a and b are null, NaN, or equal. 
+     *  @return Return 0 if a and b are equal, or both null or NaN.
      *  Return 1 if a is null or greater than b. 
      *  Return -1 if b is null or greater than a. 
      *  
@@ -1110,12 +1110,11 @@ public class ObjectUtil
             }
         }
 
-        propertyNames.sort(Array.CASEINSENSITIVE |
-                           (numericIndex ? Array.NUMERIC : 0));
+        propertyNames.sort(Array.CASEINSENSITIVE | (numericIndex ? Array.NUMERIC : 0));
 
         // dictionary keys can be indexed by an object reference
         // there's a possibility that two keys will have the same toString()
-        // so we don't want to remove dupes
+        // so we don't want to remove duplicates
         if (!isDict)
         {
             // for Arrays, etc., on the other hand...
@@ -1174,7 +1173,7 @@ public class ObjectUtil
     /**
      *  Returns <code>true</code> if the object is an instance of a dynamic class.
      *
-     *  @param obj The object.
+     *  @param object The object.
      *
      *  @return <code>true</code> if the object is an instance of a dynamic class.
      *  
@@ -1183,21 +1182,89 @@ public class ObjectUtil
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public static function isDynamicObject(obj:Object):Boolean
+    public static function isDynamicObject(object:Object):Boolean
     {
         try
         {
             // this test for checking whether an object is dynamic or not is 
             // pretty hacky, but it assumes that no-one actually has a 
             // property defined called "wootHackwoot"
-            obj["wootHackwoot"];
+            object["wootHackwoot"];
         }
         catch (e:Error)
         {
-            // our object isn't from a dynamic class
+            // our object isn't an instance of a dynamic class
             return false;
         }
         return true;
+    }
+
+    /**
+     *  Returns all the properties defined dynamically on an object.
+     *
+     *  @param object The object to inspect.
+     *
+     *  @return an <code>Array</code> of the enumerable properties of the object.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function getEnumerableProperties(object:Object):Array
+    {
+        var result:Array = [];
+
+        if(!isDynamicObject(object))
+            return result;
+
+        for (var property:Object in object)
+            result.push(property);
+
+        return result;
+    }
+
+
+    /**
+     *  Verifies if the first object is dynamic and is a subset of the second object.
+     *
+     *  @param values The values which need to be shared by <code>object</code>
+     *  @param object The object to verify against.
+     *
+     *  @return true if and only if the objects are the same, or if <code>values</code>
+     *  is dynamic and <code>object</code> shares all its properties and values.
+     *  (Even if <code>object</code> contains other properties and values, we still
+     *  consider it a match).
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function valuesAreSubsetOfObject(values:Object, object:Object):Boolean
+    {
+        if(!object && !values)
+            return true;
+
+        if(!object || !values)
+            return false;
+
+        if(object === values)
+            return true;
+
+        var enumerableProperties:Array = ObjectUtil.getEnumerableProperties(values);
+        var matches:Boolean = enumerableProperties.length > 0 || ObjectUtil.isDynamicObject(values);
+
+        for each(var property:String in enumerableProperties)
+        {
+            if (!object.hasOwnProperty(property) || object[property] != values[property])
+            {
+                matches = false;
+                break;
+            }
+        }
+
+        return matches;
     }
 
     /**

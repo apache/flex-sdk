@@ -35,7 +35,7 @@ use namespace mx_internal;
 /**
  *  The VectorCollection class is a wrapper class that exposes a Vector as a collection 
  *  that can be accessed and manipulated using the methods and properties of the 
- *  ICollectionView or IList interfaces. Operations on a ArrayCollection instance modify 
+ *  ICollectionView or IList interfaces. Operations on a VectorCollection instance modify 
  *  the data source; for example, if you use the removeItemAt() method on  
  *  VectorCollection, you remove the item from the underlying Vector.
  */

@@ -338,6 +338,30 @@ public class LinkerConfiguration extends ToolsConfiguration implements flex2.lin
 		}
 	}
 
+    public boolean brokerProductManager()
+    {
+        if (args.contains(ConfigurationConstants.BROKER_PRODUCT_MANAGER))
+        {
+            return super.brokerProductManager();
+        }
+        else
+        {
+            return original.brokerProductManager();
+        }
+    }
+    
+    public boolean brokerLocalConnection()
+    {
+        if (args.contains(ConfigurationConstants.BROKER_LOCAL_CONNECTION))
+        {
+            return super.brokerLocalConnection();
+        }
+        else
+        {
+            return original.brokerLocalConnection();
+        }
+    }
+    
 	public String width()
 	{
 		return original.width();

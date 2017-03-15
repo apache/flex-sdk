@@ -107,6 +107,110 @@ public class ArrayUtil
 
         return -1;           
     }
+
+    /**
+     *  Checks if the Array instances contain the same values
+     *  against the same indexes, even if in different orders.
+     *
+     *  @param a The first Array instance.
+     *  @param b The second Array instance.
+     *  @param strictEqualityCheck true if we should compare the
+     *  values of the two Arrays using the strict equality
+     *  operator (===) or not (==).
+     *  @return true if the two Arrays contain the same values
+     *  (determined using the strict equality operator) associated
+     *  with the same indexes.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function arraysMatch(a:Array, b:Array, strictEqualityCheck:Boolean = true):Boolean
+    {
+        if(!a || !b)
+            return false;
+
+        if(a.length != b.length)
+            return false;
+
+        var indexesA:Array = ObjectUtil.getEnumerableProperties(a);
+
+        for (var i:int = 0; i < indexesA.length; i++)
+        {
+            var index:String = indexesA[i];
+
+            if(!b.hasOwnProperty(index))
+                return false;
+
+            if(strictEqualityCheck && a[index] !== b[index])
+                return false;
+
+            if(!strictEqualityCheck && a[index] != b[index])
+                return false;
+        }
+
+        return true;
+    }
+
+    /**
+     *  Checks if the Array instances contain the same values,
+     *  even if in different orders.
+     *
+     *  @param a The first Array instance.
+     *  @param b The second Array instance.
+     *  @param strictEqualityCheck true if we should compare the
+     *  values of the two Arrays using the strict equality
+     *  operator (===) or not (==).
+     *  @return true if the two Arrays contain the same values.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function arrayValuesMatch(a:Array, b:Array, strictEqualityCheck:Boolean = true):Boolean
+    {
+        if(!a || !b)
+            return false;
+
+        var valuesOfA:Array = getArrayValues(a);
+        valuesOfA.sort();
+
+        var valuesOfB:Array = getArrayValues(b);
+        valuesOfB.sort();
+
+        return arraysMatch(valuesOfA, valuesOfB, strictEqualityCheck);
+    }
+
+    /**
+     *  Used to obtain the values in an Array, whether indexed
+     *  or associative.
+     *
+     *  @param value The Array instance.
+     *  @return an indexed Array with the values found in <code>value</code>.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function getArrayValues(value:Array):Array
+    {
+        var result:Array = [];
+
+        if(!value)
+            return result;
+
+        var indexes:Array = ObjectUtil.getEnumerableProperties(value);
+
+        for each(var index:String in indexes)
+        {
+            result.push(value[index]);
+        }
+
+        return result;
+    }
 }
 
 }

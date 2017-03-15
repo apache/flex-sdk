@@ -1992,7 +1992,7 @@ public class DataGrid extends SkinnableContainerBase
      * 
      *  @default null.
      *
-     *  @see #dataField 
+     *  @see spark.components.gridClasses.GridColumn#dataField
      *  @see spark.components.gridClasses.IGridItemEditor
      * 
      *  @langversion 3.0
@@ -2587,7 +2587,7 @@ public class DataGrid extends SkinnableContainerBase
     }
     
     /**
-     *  @copy spark.components.Grid#invalidateTypicalItem()
+     *  @copy spark.components.Grid#invalidateTypicalItemRenderer()
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3710,7 +3710,7 @@ public class DataGrid extends SkinnableContainerBase
             var f:Function = function(g:Grid):void
             {
                 g.selectedCell = valueCopy;
-            }
+            };
             deferredGridOperations.push(f);
         }
     }    
@@ -3748,7 +3748,7 @@ public class DataGrid extends SkinnableContainerBase
             var f:Function = function(g:Grid):void
             {
                 g.selectedCells = valueCopy;
-            }
+            };
             deferredGridOperations.push(f);
         }
     }       
@@ -3830,7 +3830,7 @@ public class DataGrid extends SkinnableContainerBase
             var f:Function = function(g:Grid):void
             {
                 g.selectedIndices = valueCopy;
-            }
+            };
             deferredGridOperations.push(f);
         }
     }    
@@ -3874,7 +3874,7 @@ public class DataGrid extends SkinnableContainerBase
             var f:Function = function(g:Grid):void
             {
                 g.selectedItem = value;
-            }
+            };
             deferredGridOperations.push(f);
         }
     }    
@@ -3921,7 +3921,7 @@ public class DataGrid extends SkinnableContainerBase
             var f:Function = function(g:Grid):void
             {
                 g.selectedItems = valueCopy;
-            }
+            };
             deferredGridOperations.push(f);
         }
     }      
@@ -5423,14 +5423,11 @@ public class DataGrid extends SkinnableContainerBase
         // Cancel so another component doesn't handle this event.
         event.preventDefault(); 
         
-        var selectionChanged:Boolean = false;
-        
         if (event.shiftKey)
         {
             // The shift key-nav key combination extends the selection and 
             // updates the caret.
-            selectionChanged = 
-                extendSelection(newPosition.rowIndex, newPosition.columnIndex);
+            extendSelection(newPosition.rowIndex, newPosition.columnIndex);
         }
         else if (event.ctrlKey)
         {
@@ -5600,6 +5597,8 @@ public class DataGrid extends SkinnableContainerBase
             grid.hoverColumnIndex = event.columnIndex;
             updateHoverOnRollOver = true;
         }
+
+        removeMouseHandlersForDragStart(event);
     }
     
     /**
@@ -5620,40 +5619,15 @@ public class DataGrid extends SkinnableContainerBase
         if (rowIndex == -1 || isCellSelection && columnIndex == -1)
             return;
 
-
-        if (event.ctrlKey)
-        {
-            // ctrl-click toggles the selection and updates caret and anchor.
-            if (!toggleSelection(rowIndex, columnIndex))
-                return;
-            
-            grid.anchorRowIndex = rowIndex;
-            grid.anchorColumnIndex = columnIndex;
-        }
-        else
-        {
-            if (event.shiftKey)
-            {
-                // shift-click extends the selection and updates the caret.
-                if  (grid.selectionMode == GridSelectionMode.MULTIPLE_ROWS || grid.selectionMode == GridSelectionMode.MULTIPLE_CELLS)
-                {    
-                    if (!extendSelection(rowIndex, columnIndex))
-                        return;
-                }
-            }
-            else
-            {
-                // click sets the selection and updates the caret and anchor positions.
-                setSelectionAnchorCaret(rowIndex, columnIndex);
-            }
-        }
-
-
         if (dragEnabled && isRowSelectionMode() && selectionContainsIndex(rowIndex))
         {
             pendingSelectionOnMouseUp = true;
         }
-        
+        else
+        {
+            adjustSelection(event, rowIndex, columnIndex);
+        }
+
         // If selection is pending on mouse up then we have just moused down on
         // an item, part of an already commited selection.
         // However if we moused down on an item that's not currently selected,
@@ -5667,14 +5641,14 @@ public class DataGrid extends SkinnableContainerBase
         mouseDownRowIndex = rowIndex;
         mouseDownColumnIndex = columnIndex;
         
-        var listenForDrag:Boolean = (dragEnabled && 
+        var listenForDrag:Boolean = dragEnabled &&
             getStyle("interactionMode") == InteractionMode.MOUSE && selectedIndices && 
-            this.selectedIndices.indexOf(rowIndex) != -1);
+            this.selectedIndices.indexOf(rowIndex) != -1;
         // Handle any drag gestures that may have been started
         if (listenForDrag)
         {
             // Listen for GRID_MOUSE_DRAG.
-            // The user may have cliked on the item renderer close
+            // The user may have clicked on the item renderer close
             // to the edge of the list, and we still want to start a drag
             // operation if they move out of the list.
             grid.addEventListener(GridEvent.GRID_MOUSE_DRAG, grid_mouseDragHandler);
@@ -5698,6 +5672,30 @@ public class DataGrid extends SkinnableContainerBase
         
     }
     
+    private function adjustSelection(event:MouseEvent, rowIndex:int, columnIndex:int):void
+    {
+        if (event.ctrlKey)
+        {
+            // ctrl-click toggles the selection and updates caret and anchor.
+            if (!toggleSelection(rowIndex, columnIndex))
+                return;
+
+            grid.anchorRowIndex = rowIndex;
+            grid.anchorColumnIndex = columnIndex;
+        }
+        else if (event.shiftKey)
+        {
+            // shift-click extends the selection and updates the caret.
+            if  (grid.selectionMode == GridSelectionMode.MULTIPLE_ROWS || grid.selectionMode == GridSelectionMode.MULTIPLE_CELLS)
+                extendSelection(rowIndex, columnIndex);
+        }
+        else
+        {
+            // click sets the selection and updates the caret and anchor positions.
+            setSelectionAnchorCaret(rowIndex, columnIndex);
+        }
+    }
+
     /**
      *  @private
      *  Redispatch the grid's "caretChange" event.
@@ -6094,7 +6092,7 @@ public class DataGrid extends SkinnableContainerBase
      *  a drag-and-drop operation.
      *  Override this method to add other data to the drag source.
      * 
-     *  @param ds The DragSource object to which to add the data.
+     *  @param dragSource The DragSource object to which to add the data.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 11
@@ -6189,40 +6187,11 @@ public class DataGrid extends SkinnableContainerBase
         }
     }
     
-    private function removeMouseHandlersForDragStart(event:GridEvent):void
+    private function removeMouseHandlersForDragStart(event:MouseEvent):void
     {
         // If dragging failed, but we had a pending selection, commit it here
         if (pendingSelectionOnMouseUp && !DragManager.isDragging)
-        {
-            const rowIndex:int = mouseDownRowIndex;
-            const columnIndex:int = mouseDownColumnIndex;
-            
-            if (event.ctrlKey)
-            {
-                // ctrl-click toggles the selection and updates caret and anchor.
-                if (!toggleSelection(rowIndex, columnIndex))
-                    return;
-                
-                grid.anchorRowIndex = rowIndex;
-                grid.anchorColumnIndex = columnIndex;
-            }
-            else if (event.shiftKey)
-            {
-                // shift-click extends the selection and updates the caret.
-                if  (grid.selectionMode == GridSelectionMode.MULTIPLE_ROWS || 
-                    grid.selectionMode == GridSelectionMode.MULTIPLE_CELLS)
-                {    
-                    if (!extendSelection(rowIndex, columnIndex))
-                        return;
-                }
-            }
-            else
-            {
-                // click sets the selection and updates the caret and anchor 
-                // positions.
-                setSelectionAnchorCaret(rowIndex, columnIndex);
-            }           
-        }
+            adjustSelection(event, mouseDownRowIndex, mouseDownColumnIndex);
         
         // Always clean up the flag, even if currently dragging.
         pendingSelectionOnMouseUp = false;
@@ -6371,8 +6340,8 @@ public class DataGrid extends SkinnableContainerBase
      *
      *  @param event The DragEvent object.
      * 
-     *  @see spark.layouts.LayoutBase#showDropIndicator
-     *  @see spark.layouts.LayoutBase#hideDropIndicator
+     *  @see spark.layouts.supportClasses.LayoutBase#showDropIndicator
+     *  @see spark.layouts.supportClasses.LayoutBase#hideDropIndicator
      *  
      *  @langversion 3.0
      *  @playerversion Flash 11
@@ -6428,8 +6397,8 @@ public class DataGrid extends SkinnableContainerBase
      *
      *  @param event The DragEvent object.
      *  
-     *  @see spark.layouts.LayoutBase#showDropIndicator
-     *  @see spark.layouts.LayoutBase#hideDropIndicator
+     *  @see spark.layouts.supportClasses.LayoutBase#showDropIndicator
+     *  @see spark.layouts.supportClasses.LayoutBase#hideDropIndicator
      *  
      *  @langversion 3.0
      *  @playerversion Flash 11
@@ -6479,8 +6448,8 @@ public class DataGrid extends SkinnableContainerBase
      *
      *  @param event The DragEvent object.
      *  
-     *  @see spark.layouts.LayoutBase#showDropIndicator
-     *  @see spark.layouts.LayoutBase#hideDropIndicator
+     *  @see spark.layouts.supportClasses.LayoutBase#showDropIndicator
+     *  @see spark.layouts.supportClasses.LayoutBase#hideDropIndicator
      *  
      *  @langversion 3.0
      *  @playerversion Flash 11
@@ -6502,25 +6471,7 @@ public class DataGrid extends SkinnableContainerBase
         // Destroy the dropIndicator instance
         destroyDropIndicator();
     }
-    
-    /**
-     *  @private
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    private function touchInteractionStartHandler(event:TouchInteractionEvent):void
-    {
-        // cancel actual selection
-        mouseDownRowIndex = -1;
-        mouseDownColumnIndex = -1;
-        mouseDownObject = null;
-        mouseDownPoint = null;
-        pendingSelectionOnMouseUp = false;
-    }
-    
+
     /**
      *  @private
      *  Handles <code>DragEvent.DRAG_DROP events</code>. This method  hides

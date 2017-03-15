@@ -228,6 +228,8 @@ public final class SwfxPrinter extends TagHandler
 			out.print(" suppressCrossDomainCaching='" + tag.suppressCrossDomainCaching + "'");
 			out.print(" swfRelativeUrls='" + tag.swfRelativeUrls + "'");
 			out.print(" useNetwork='" + tag.useNetwork + "'");
+            out.print(" brokerProductManager='" + tag.brokerProductManager + "'");
+            out.print(" brokerLocalConnection='" + tag.brokerLocalConnection + "'");
 			close();
 		}
 		

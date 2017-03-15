@@ -33,6 +33,7 @@ package spark.skins.spark {
     public class FLEX_34625_Tests {
 
         private static const NO_ENTER_FRAMES_TO_ALLOW:int = 4;
+        private static const TIMEOUT_MS:int = 1000;
         private static const _finishNotifier:EventDispatcher = new EventDispatcher();
         private static var _textInput:TextInput;
         private var noEnterFramesRemaining:int = NaN;
@@ -40,7 +41,11 @@ package spark.skins.spark {
         [Before]
         public function setUp():void
         {
-            var _focusManager:FocusManager = new FocusManager(UIImpersonator.testDisplay as IFocusManagerContainer);
+            var _focusManager:FocusManager;
+            if (UIImpersonator.testDisplay is IFocusManagerContainer)
+                _focusManager = new FocusManager(UIImpersonator.testDisplay as IFocusManagerContainer);
+            else
+                _focusManager = UIImpersonator.testDisplay.parent["document"].focusManager;
             _focusManager.showFocusIndicator = true;
 
             _textInput = new TextInput();
@@ -55,7 +60,7 @@ package spark.skins.spark {
             _textInput = null;
         }
 
-        [Test(async, timeout=500)]
+        [Test(async, timeout=1100)]
         public function test_focus_skin_with_zero_focus_thickness():void
         {
             //given
@@ -68,10 +73,10 @@ package spark.skins.spark {
             //then wait for the focus skin to show
             noEnterFramesRemaining = NO_ENTER_FRAMES_TO_ALLOW;
             UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
-            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, onTestComplete);
+            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, onTestComplete, TIMEOUT_MS);
         }
 
-        [Test(async, timeout=500)]
+        [Test(async, timeout=1100)]
         public function test_focus_skin_with_NaN_focus_thickness():void
         {
             //given
@@ -84,7 +89,7 @@ package spark.skins.spark {
             //then wait for the focus skin to show
             noEnterFramesRemaining = NO_ENTER_FRAMES_TO_ALLOW;
             UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
-            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, onTestComplete);
+            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, onTestComplete, TIMEOUT_MS);
         }
 
         private function onEnterFrame(event:Event):void

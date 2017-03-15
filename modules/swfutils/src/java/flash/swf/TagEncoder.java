@@ -114,7 +114,9 @@ public class TagEncoder extends TagHandler
         tagw.writeBit(tag.suppressCrossDomainCaching);
         tagw.writeBit(tag.swfRelativeUrls);
         tagw.writeBit(tag.useNetwork);
-        tagw.writeUBits(0, 24);
+        tagw.writeBit(tag.brokerProductManager);
+        tagw.writeBit(tag.brokerLocalConnection);
+        tagw.writeUBits(0, 22);
         encodeTag(tag);
     }
     

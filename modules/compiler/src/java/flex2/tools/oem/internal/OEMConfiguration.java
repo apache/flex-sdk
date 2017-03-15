@@ -1931,6 +1931,34 @@ public class OEMConfiguration implements Configuration, ConfigurationConstants, 
 		newLinkerOptionsAfterCompile.add(USE_NETWORK);
 	}
 	
+    /**
+     * Toggles whether the application SWF is has the broker-local-connection bit set.
+     * This is equivalent to using <code>mxmlc/compc --broker-local-connection</code>.
+     * By default, it is set to <code>false</code>.
+     *
+     * @param b boolean value
+     */
+    public void brokerLocalConnection(boolean b)
+    {
+        args.put(BROKER_LOCAL_CONNECTION, b ? Boolean.TRUE : Boolean.FALSE);
+        linker_args.put(BROKER_LOCAL_CONNECTION, b ? Boolean.TRUE : Boolean.FALSE);
+        newLinkerOptionsAfterCompile.add(BROKER_LOCAL_CONNECTION);
+    }
+    
+    /**
+     * Toggles whether the application SWF is has the broker-product-manager bit set.
+     * This is equivalent to using <code>mxmlc/compc --broker-product-manager</code>.
+     * By default, it is set to <code>false</code>.
+     *
+     * @param b boolean value
+     */
+    public void brokerProductManager(boolean b)
+    {
+        args.put(BROKER_PRODUCT_MANAGER, b ? Boolean.TRUE : Boolean.FALSE);
+        linker_args.put(BROKER_PRODUCT_MANAGER, b ? Boolean.TRUE : Boolean.FALSE);
+        newLinkerOptionsAfterCompile.add(BROKER_PRODUCT_MANAGER);
+    }
+    
 	/**
 	 * Defines a token. mxmlc and compc support token substitutions. For example,
 	 * 
@@ -2353,6 +2381,8 @@ public class OEMConfiguration implements Configuration, ConfigurationConstants, 
 		setSWFMetaData(c.getMetadata());
 		setRuntimeSharedLibraries(toStrings(c.getRuntimeSharedLibraries()));
 		useNetwork(c.useNetwork());
+        brokerLocalConnection(c.brokerLocalConnection());
+        brokerProductManager(c.brokerProductManager());
 		
 		// useMobileFramework();
 		

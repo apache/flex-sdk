@@ -1628,6 +1628,30 @@ public class ScrollableStageText extends UIComponent  implements IStyleableEdita
         globalRect.y = Math.floor(Math.min(globalTopLeft.y, globalBottomRight.y));
         globalRect.width = Math.ceil(Math.abs(globalBottomRight.x - globalTopLeft.x));
         globalRect.height = Math.ceil(Math.abs(globalBottomRight.y - globalTopLeft.y));
+		
+		//StageText ViewPort's x and y should be in between -8192 and 8191
+		//Reset x to min of x and stage.stageWidth
+		if(globalRect.x > 0)
+		{
+			globalRect.x = Math.min(globalRect.x, stage.stageWidth);	
+		}
+		else
+		{
+			globalRect.x = Math.max(globalRect.x, 0);
+		}
+		
+		//Reset y to min of y and stage.stageHeight
+		if(globalRect.y > 0)
+		{
+			globalRect.y = Math.min(globalRect.y, stage.stageHeight);	
+		}
+		else
+		{
+			globalRect.y = Math.max(globalRect.y, 0);
+		}
+		
+		globalRect.width = Math.min(globalRect.width, stage.stageWidth);
+		globalRect.height = Math.min(globalRect.height, stage.stageHeight);
 
         return globalRect;
     }

@@ -1,4 +1,6 @@
-﻿Test by piotrz :)
+﻿Hope that it works and I'll be ready to change the world ;-) [okrueger]
+
+Test by piotrz :)
 junheider is Top Posting this file�people hate this on mailing lists.
 
 Flex committers can use this file to check their svn access.
@@ -83,3 +85,8 @@ Hello from joshtynjala!
 ello from Michael Schmalle
 
 Did it work? I won't get my hopes up. (May 30, 2015) -kmg ..
+
+My git commit (yishayw).
+
+First commit (Sept 7 , 2016).
+I wish I was composed entirely of acoustic vibrations. Then I would finally be 'of sound mind and body'. (gregdove)

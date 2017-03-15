@@ -78,8 +78,9 @@
     <property name="commons-discovery.name" value="commons-discovery-0.2"/>	
     <property name="commons-logging.name" value="commons-logging-1.0.4"/>
 	
-    <property name="saxon9.bin.zip" value="saxonb9-1-0-8j.zip"/>
-    <property name="saxon9.jar.dir" value="saxonb9-1-0-8j"/>
+    <property name="saxon9.jar" value="saxonb9-1-0-8.jar"/>
+    <property name="saxon9.download.url" value="http://repo1.maven.org/maven2/net/sourceforge/saxon/saxon/9.1.0.8/saxon-9.1.0.8.jar"/>
+    <property name="saxon9.notice.dir" value="${FLEX_HOME}/licenseParts/saxon9-NOTICES"/>
     
     <property name="xerces.dir" value="xerces-2_9_1"/>
      
@@ -165,8 +166,16 @@
      </target>   	
      
     <target name="get-zip" unless="zip.exists" description="Get zip and verify checksum.">
-        <get src="${srcUrl}/${zipFile}" dest="${download.dir}/${zipFile}"/>
-        
+        <get src="${srcUrl}/${zipFile}" dest="${download.dir}/${zipFile}" ignoreerrors="true"/>
+        <antcall target="get-from-cache-if-needed" >
+            <param name="filename" value="${zipFile}" />
+            <param name="destDir" value="${download.dir}" />
+        </antcall>
+        <antcall target="fail-if-not-found" >
+            <param name="filename" value="${zipFile}" />
+            <param name="destDir" value="${download.dir}" />
+        </antcall>
+
         <antcall target="check-sum">
             <param name="message" value="Checksum mismatch for ${download.dir}/${zipFile}"/>
         </antcall>
@@ -185,7 +194,16 @@
     <target name="download-jar" 
         description="Downloads jar, and optionally verifies checksum.">                
      
-        <get src="${srcUrl}/${srcJarFile}" dest="${destJarFile}"/>
+        <get src="${srcUrl}/${srcJarFile}" dest="${destJarDir}/${destJarFile}" ignoreerrors="true"/>
+        <antcall target="get-from-cache-if-needed" >
+            <param name="filename" value="${destJarFile}" />
+            <param name="destDir" value="${destJarDir}" />
+        </antcall>
+        <antcall target="fail-if-not-found" >
+            <param name="filename" value="${destJarFile}" />
+            <param name="destDir" value="${destJarDir}" />
+        </antcall>
+
         <antcall target="check-sum">
             <param name="message" value="Checksum mismatch for ${destJarFile}"/>
         </antcall>
@@ -414,8 +432,10 @@
         <antcall target="download-jar">
           <param name="srcUrl" value="http://search.maven.org/remotecontent?filepath=net/java/dev/javacc/javacc/5.0"/>
           <param name="srcJarFile" value="javacc-5.0.jar"/>
-          <param name="destJarFile" value="${lib.ext.dir}/javacc.jar"/>
+          <param name="destJarDir" value="${lib.ext.dir}"/>
+          <param name="destJarFile" value="javacc-5.0.jar"/>
         </antcall>
+        <move file="${lib.ext.dir}/javacc-5.0.jar" tofile="${lib.ext.dir}/javacc.jar" failonerror="false" />
     </target>
 
 	<!--
@@ -429,20 +449,25 @@
     <target name="saxon9-jar" depends="saxon9-jar-check" unless="saxon9.jar.exists" 
         description="Copies sax9.jar to the lib directory.">
 
-        <get src="http://downloads.sourceforge.net/project/saxon/Saxon-B/9.1.0.8/saxonb9-1-0-8j.zip?r=&amp;ts=1366147457&amp;use_mirror=superb-dca2" 
-            dest="${download.dir}/${saxon9.bin.zip}" 
-            verbose="false"/>   
+        <get src="${saxon9.download.url}" 
+            dest="${download.dir}/saxon9.jar" 
+            verbose="false" ignoreerrors="true"/>
 
-    	<unzip src="${download.dir}/${saxon9.bin.zip}" 
-    		dest="${download.dir}/${saxon9.jar.dir}"/>
-        
-        <copy file="${download.dir}/${saxon9.jar.dir}/saxon9.jar" toDir="${lib.ext.dir}" verbose="true"/>
-        
-        <copy todir="${lib.ext.dir}/saxon9-NOTICES">
-            <fileset dir="${download.dir}/${saxon9.jar.dir}/notices" includes="**"/>
+        <antcall target="get-from-cache-if-needed" >
+            <param name="filename" value="saxon9.jar" />
+            <param name="destDir" value="${download.dir}" />
+        </antcall>
+        <antcall target="fail-if-not-found" >
+            <param name="filename" value="saxon9.jar" />
+            <param name="destDir" value="${download.dir}" />
+        </antcall>
+
+        <copy toDir="${lib.ext.dir}/saxon9-NOTICES" verbose="true">
+            <fileset dir="${saxon9.notice.dir}" includes="**"/>
         </copy>
+        <copy file="${download.dir}/saxon9.jar" toDir="${lib.ext.dir}" verbose="true"/>
         
-        <delete dir="${download.dir}/${saxon9.jar.dir}"/>
+        <delete dir="${download.dir}/saxon9.jar"/>
     </target>
     	
     <!--
@@ -595,10 +620,19 @@
     <target name="flex-tool-api-jar" depends="flex-tool-api-jar-check" unless="flexToolApi.jar.exists"
             description="Downloads and copies flex-tool-api.jar to the lib directory.">
 
-        <get src="${maven.search.url}/org/apache/flex/${flexToolApi.name}/${flexToolApi.version}/${flexToolApi.name}-${flexToolApi.version}.jar"
+        <get src="${maven.search.url}org/apache/flex/${flexToolApi.name}/${flexToolApi.version}/${flexToolApi.name}-${flexToolApi.version}.jar"
              dest="${download.dir}/flex-tool-api.jar"
-             verbose="false"/>
+             verbose="false" ignoreerrors="true"/>
 
+        <antcall target="get-from-cache-if-needed" >
+            <param name="filename" value="flex-tool-api.jar" />
+            <param name="destDir" value="${download.dir}" />
+        </antcall>
+        <antcall target="fail-if-not-found" >
+            <param name="filename" value="flex-tool-api.jar" />
+            <param name="destDir" value="${download.dir}" />
+        </antcall>
+        
         <copy file="${download.dir}/flex-tool-api.jar" toDir="${lib.ext.dir}" verbose="true"/>
     </target>
 
@@ -613,11 +647,44 @@
     <target name="blazeds-jar" depends="blazeds-jar-check" unless="blazeds.jar.exists"
             description="Downloads and copies flex-messaging.jar to the lib directory.">
 
-        <get src="${maven.search.url}/org/apache/flex/blazeds/${blazeds.name}/${blazeds.version}/${blazeds.name}-${blazeds.version}.jar"
+        <get src="${maven.search.url}org/apache/flex/blazeds/${blazeds.name}/${blazeds.version}/${blazeds.name}-${blazeds.version}.jar"
              dest="${download.dir}/flex-messaging-common.jar"
-             verbose="false"/>
+             verbose="false" ignoreerrors="true"/>
+             
+         <antcall target="get-from-cache-if-needed" >
+             <param name="filename" value="flex-messaging-common.jar" />
+             <param name="destDir" value="${download.dir}" />
+         </antcall>
+         <antcall target="fail-if-not-found" >
+             <param name="filename" value="flex-messaging-common.jar" />
+             <param name="destDir" value="${download.dir}" />
+         </antcall>
 
         <copy file="${download.dir}/flex-messaging-common.jar" toDir="${lib.ext.dir}" verbose="true"/>
+    </target>
+    
+    <target name="fail-if-not-found">
+        <fail message="${filename} could not be downloaded or found in cache">
+            <condition>
+                <not>
+                    <available file="${destDir}/${filename}" />
+                </not>
+            </condition>
+        </fail>
+    </target>
+    
+    <target name="double-check-file" >
+        <condition property="still-no-file">
+            <and>
+                <not>
+                    <available file="${destDir}/${filename}" />
+                </not>
+                <isset property="env.FLEX_DOWNLOAD_CACHE" />
+            </and>
+        </condition>
+    </target>
+    <target name="get-from-cache-if-needed" depends="double-check-file" if="still-no-file">
+        <copy file="${env.FLEX_DOWNLOAD_CACHE}/${filename}" tofile="${destDir}/${filename}" />
     </target>
 
 </project>

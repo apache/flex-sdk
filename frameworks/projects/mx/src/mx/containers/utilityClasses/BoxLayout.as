@@ -88,7 +88,7 @@ public class BoxLayout extends Layout
 	{
 		var target:Container = super.target;
 
-		var isVertical:Boolean = isVertical();
+		var isVertical:Boolean = this.isVertical();
 
 		var minWidth:Number = 0;
 		var minHeight:Number = 0;

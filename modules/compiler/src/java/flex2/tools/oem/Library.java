@@ -2155,7 +2155,7 @@ public class Library implements Builder, Cloneable
      * Library object, the cache may be reused to build another
      * Library or Application object that uses the same library path.
      *
-     * @param swcCache A reference to an allocated swc cache.
+     * @param libraryCache A reference to an allocated swc cache.
      *
      * @since 3.0
      */

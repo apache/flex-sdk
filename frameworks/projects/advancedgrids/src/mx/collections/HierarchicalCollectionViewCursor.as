@@ -21,7 +21,6 @@ package mx.collections
 {
 
 import flash.events.EventDispatcher;
-import flash.utils.Dictionary;
 
 import mx.collections.errors.ChildItemPendingError;
 import mx.collections.errors.ItemPendingError;
@@ -29,6 +28,7 @@ import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
 import mx.events.FlexEvent;
+import mx.utils.ObjectUtil;
 import mx.utils.UIDUtil;
 
 use namespace mx_internal;
@@ -307,50 +307,38 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
     //--------------------------------------------------------------------------
     
     /**
-     *  @inheritDoc
-     *  
      *  <p>Note that for this class, the view does not need to be sorted in order to
-     *  call this method.</p>
+     *  call this method. Also, if the item cannot be found, the cursor location is
+     *  left on the last queried object.</p>
+     *
+     *  @inheritDoc
      * 
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function findAny(values:Object):Boolean
+    public function findAny(valuesToMatch:Object):Boolean
     {
         seek(CursorBookmark.FIRST);
         
-        var done:Boolean = false;
-        while (!done)
+        do
         {
-            var o:Object = hierarchicalData.getData(current);
-            
-            var matches:Boolean = true;
-            for (var p:String in values)
-            {
-                if (o[p] != values[p])
-                {
-                    matches = false;
-                    break;
-                }
-            }
-
-            if (matches)
+            if (ObjectUtil.valuesAreSubsetOfObject(valuesToMatch, hierarchicalData.getData(current)))
                 return true;
-
-            done = !moveNext();
         }
+        while(moveNext());
 
         return false;
     }
 
     /**
-     *  @inheritDoc
-     *  
      *  <p>Note that for this class, the view does not need to be sorted in order to
-     *  call this method.</p>
-     *  
+     *  call this method. Also, if the item cannot be found, the cursor location is
+     *  left on the last queried object.</p>
+     *
+     *  @inheritDoc
+     *
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
@@ -362,40 +350,27 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
     }
 
     /**
-     *  @inheritDoc
-     *  
      *  <p>Note that for this class, the view does not need to be sorted in order to
-     *  call this method.</p>
+     *  call this method. Also, if the item cannot be found, the cursor location is
+     *  left on the last queried object.</p>
+     *
+     *  @inheritDoc
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function findLast(values:Object):Boolean
+    public function findLast(valuesToMatch:Object):Boolean
     {
         seek(CursorBookmark.LAST);
         
-        var done:Boolean = false;
-        while (!done)
+        do
         {
-            var o:Object = current; 
-            
-            var matches:Boolean = true;
-            for (var p:String in values)
-            {
-                if (o[p] != values[p])
-                {
-                    matches = false;
-                    break;
-                }
-            }
-            
-            if (matches)
+            if (ObjectUtil.valuesAreSubsetOfObject(valuesToMatch, hierarchicalData.getData(current)))
                 return true;
-
-            done = !movePrevious();
         }
+        while(movePrevious());
 
         return false;
     }
@@ -412,7 +387,7 @@ public class HierarchicalCollectionViewCursor extends EventDispatcher
     public function moveNext():Boolean 
     {
         var currentNode:Object = current;
-        //if there is no currentNode then we cant move forward and must be off the ends
+        //if there is no currentNode then we can't move forward and must be off the ends
         if (currentNode == null) 
             return false; 
         
