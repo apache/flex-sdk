@@ -17,34 +17,35 @@ package spark.components.gridClasses {
     /*
      Example for two-column table (with no horizontal scroll):
 
+     [pt]: GridColumnHeaderGroup padding top
      [pl]: GridColumnHeaderGroup padding left
      [lch]: still part of last column header, but beyond last column width
-     c0: first column header starts here
-     c1: first column header ends here, second column header (if it exists) starts, and column separator is here
-     c2: second column header ends here; second column separator is here
+
+     b0: top-left corner of the data grid. Also, first column starts at this x-coordinate
+     b1: first column ends at this x-coordinate (but the first header usually doesn't, due to [pl])
+     b2: second column ends at this x-coordinate (but the second header usually doesn't, due to [pl])
      ...
-     cx: last column header ends here; last column separator is here
+     bx: last column ends at this x-coordinate
 
-     d0: first column ends at this x-axis coordinate (but the first header doesn't, due to [pl])
-     d1: second column ends at this x-axis coordinate
+     c0: first column header starts at this x-coordinate
+     c1: first column header ends at this x-coordinate, separator starts at this x-coordinate, and
+         second column header (if it exists) starts at this x-coordinate + separator.width
+     c1: second column header ends at this x-coordinate, next separator (if it exists) starts at
+     this x-coordinate, and third column header (if it exists) starts at this x-coordinate + separator.width
      ...
-     dx: last column ends at this x-axis coordinate
+     cx: last column header ends at this x-coordinate; last column separator starts at this x-coordinate
 
-     e: table ends at this x-axis coordinate
+     d: table ends at this x-axis coordinate
+     e: top-left corner of header. If [pt] and [pl] are 0, this coincides with b0
+     f: b0ttom-left corner of header. If [pb] and [pl] are 0, this coincides with g0
 
-     f0: header ends and grid starts at this y-coordinate
-     f1: first column ends here and second column (if it exists) begins here
-     f2: second column ends here and third column (if it exists) begins here
+     g0: header ends and grid starts at this y-coordinate
+     g1: first column ends at this x-coordinate and second column (if it exists) begins at this x-coordinate
+     g2: second column ends at this x-coordinate and third column (if it exists) begins at this x-coordinate
      ...
-     fx: last column ends here
+     gx: last column ends at this x-coordinate
 
-     g0: bottom-left point of first column header
-     g1: bottom-right point of first column header
-     g2: bottom-right point of second column header
-     ...
-     gx: bottom-right point of (last column header - [lch])
-
-     h: bottom-right point of last column header and x-coordinate at end of data grid
+     i: bottom-right point of last column header and x-coordinate at end of data grid
 
      And for each point we generate the 8 adjacent points:
      (x+1, y), (x+1, y+1), (x+1, y-1),
@@ -55,11 +56,13 @@ package spark.components.gridClasses {
 
      a (0, 0)
      ░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░░
-     ░░░░░b════c0══════d0═══c1════════════════════════════d1══c2═════════e░░░░░░░
-     ░░░░░║▓▓▓▓║▓▓▓▓▓▓▓▓▓▓▓▓║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║▓▓▓▓▓▓▓▓▓▓║░░░░░░░
+     ░░░░░b0═══c0══════b1═══c1════════════════════════════b2══c2═════════d░░░░░░░
+     ░░░░░║                              [pt]                            ║░░░░░░░
+     ░░░░░║    e▓▓▓▓▓▓▓▓▓▓▓▓║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║▓▓▓▓▓▓▓▓▓▓║░░░░░░░
      ░░░░░║[pl]║▓▓▓INDEX▓▓▓▓║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓NAME▓▓▓▓▓▓▓▓▓▓▓▓▓║▓▓▓[lch]▓▓║░░░░░░░
-     ░░░░░║▓▓▓▓║▓▓▓▓▓▓▓▓▓▓▓▓║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║▓▓▓▓▓▓▓▓▓▓║░░░░░░░
-     ░░░░░f0═══g0══════f1═══g1════════════════════════════f2══g2═════════h░░░░░░░
+     ░░░░░║    f▓▓▓▓▓▓▓▓▓▓▓▓║▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓▓║▓▓▓▓▓▓▓▓▓▓║░░░░░░░
+     ░░░░░║                              [pb]                            ║░░░░░░░
+     ░░░░░g0═══════════g1═════════════════════════════════g2═════════════i░░░░░░░
      ░░░░░║     01     ║     John                         ║              ║░░░░░░░
      ░░░░░║     02     ║     Jane                         ║              ║░░░░░░░
      ░░░░░║     03     ║     Judy                         ║              ║░░░░░░░
@@ -85,7 +88,7 @@ package spark.components.gridClasses {
         private static const directions:Array = [ITSELF, N, NE, E, SE, S, SW, W, NW];
 
         private static const COLUMN_HEADER_RECTANGLES:String = "columnHeaderRectangles";
-        private static const ENTIRE_HEADER_RECTANGLE:String = "headerRectangle";
+        private static const ENTIRE_HEADER_RECTANGLE:String = "headerRectangle"; //includes padding
         private static const MAIN_HEADER_VIEW_RECTANGLE:String = "mainHeaderViewRectangle";
         private static const FIXED_HEADER_VIEW_RECTANGLE:String = "fixedHeaderViewRectangle";
 
@@ -94,11 +97,11 @@ package spark.components.gridClasses {
         private var _keyRectangles:Array;
         private var _keyPoints:Array;
 
+        //@TODO add cases with horizontal scroll, and also with fixed columns
         //@TODO we probably have to account for paddingTop and paddingBottom as well
-        //@TODO add cases with horizontal scroll, with fixed columns, and RTL
-        public static var dimensions:Array = [/*x, y, width, header padding left, header padding top, [column widths] */
-            [[10, 0, 300, 5, 0, [25, 150]]],
-            [[0, 0, 300, 5, 0, [25, 150]]]
+        public static var dimensions:Array = [/*x, y, width, header padding left, header padding top, header padding bottom, [column widths] */
+            [[10, 0, 300, 5, 0, 5, [25, 150]]],
+            [[0, 0, 300, 5, 0, 0, [25, 150]]]
         ];
 
 
@@ -167,6 +170,7 @@ package spark.components.gridClasses {
 
             _dataGrid.columnHeaderGroup.setStyle("paddingLeft", getHeaderPaddingLeft(dimensions));
             _dataGrid.columnHeaderGroup.setStyle("paddingTop", getHeaderPaddingTop(dimensions));
+            _dataGrid.columnHeaderGroup.setStyle("paddingBottom", getHeaderPaddingBottom(dimensions));
 
             var gridColumns:Array = [];
             for (var i:int = 0; i < getColumnWidths(dimensions).length; i++)
@@ -237,7 +241,7 @@ package spark.components.gridClasses {
 
         private function getHeaderContainsPointAssumption(point:Point):Boolean
         {
-            return rectangleContainsPoint(headerRectangle, point);
+            return rectangleContainsPoint(entireHeaderRectangle, point);
         }
 
         private function getFixedHeaderViewContainsPointAssumption(point:Point):Boolean
@@ -282,20 +286,16 @@ package spark.components.gridClasses {
             //TODO this code does not yet account for horizontal scrolling!
 
             keyPoints["a"] = new Point(0, 0);
-            keyPoints["b"] = new Point(getX(dimensions), getY(dimensions));
+            keyPoints["b0"] = new Point(getX(dimensions), getY(dimensions));
+            generateColumnIntermediates(keyPoints, dimensions, "b0");
             keyPoints["c0"] = new Point(getX(dimensions) + getHeaderPaddingLeft(dimensions), getY(dimensions));
             generateColumnIntermediates(keyPoints, dimensions, "c0");
-            keyPoints["d0"] = new Point(getX(dimensions) + getColumnWidths(dimensions)[0], getY(dimensions));
-            generateColumnIntermediates(keyPoints, dimensions, "d0");
-            keyPoints["e"] = new Point(getX(dimensions) + getWidth(dimensions), getY(dimensions));
-
-            const yUnderHeader:Number = getY(dimensions) + getActualHeaderHeight(grid);
-            keyPoints["f0"] = new Point(getX(dimensions), yUnderHeader);
-            generateColumnIntermediates(keyPoints, dimensions, "f0");
-            keyPoints["g0"] = new Point(getX(dimensions) + getHeaderPaddingLeft(dimensions), yUnderHeader);
+            keyPoints["d"] = new Point(getX(dimensions) + getWidth(dimensions), getY(dimensions));
+            keyPoints["e"] = new Point(Point(keyPoints["c0"]).x, getY(dimensions) + getHeaderPaddingTop(dimensions));
+            keyPoints["f"] = new Point(Point(keyPoints["c0"]).x, getY(dimensions) + getActualHeaderHeight(grid) - getHeaderPaddingBottom(dimensions));
+            keyPoints["g0"] = new Point(getX(dimensions), getY(dimensions) + getActualHeaderHeight(grid));
             generateColumnIntermediates(keyPoints, dimensions, "g0");
-            keyPoints["h"] = new Point(getX(dimensions) + getWidth(dimensions), yUnderHeader);
-
+            keyPoints["i"] = new Point(getX(dimensions) + getWidth(dimensions), Point(keyPoints["g0"]).y);
             return keyPoints;
         }
 
@@ -327,20 +327,22 @@ package spark.components.gridClasses {
         private function generateMainHeaderViewRectangle(keyPoints:Array, dimensions:Array):Rectangle
         {
             //this is the GridColumnHeaderGroup.centerGridColumnHeaderView, which is holds the non-fixed columns; padding excluded
-            const topLeftCorner:Point = keyPoints["c0"];
-            return new Rectangle(topLeftCorner.x, topLeftCorner.y, getHeaderWidthFromKeyPoints(keyPoints) - getHeaderPaddingLeft(dimensions), getHeaderHeightFromKeyPoints(keyPoints));
+            const topLeftCorner:Point = keyPoints["e"];
+            return new Rectangle(topLeftCorner.x, topLeftCorner.y,
+                    getHeaderWidthFromKeyPoints(keyPoints) - getHeaderPaddingLeft(dimensions),
+                    getHeaderHeightFromKeyPoints(keyPoints) - getHeaderPaddingTop(dimensions) - getHeaderPaddingBottom(dimensions));
         }
 
         private function generateFixedHeaderViewRectangle(keyPoints:Array, dimensions:Array):Rectangle
         {
             //this is the GridColumnHeaderGroup.centerGridColumnHeaderView, which is holds the non-fixed columns; padding excluded
-            const topLeftCorner:Point = keyPoints["b"];
+            const topLeftCorner:Point = keyPoints["e"];
             return new Rectangle(topLeftCorner.x, topLeftCorner.y, 0, 0);
         }
 
         private function generateVisibleHeaderRectangle(keyPoints:Array, dimensions:Array):Rectangle
         {
-            const topLeftCorner:Point = keyPoints["b"];
+            const topLeftCorner:Point = keyPoints["b0"];
             return new Rectangle(topLeftCorner.x, topLeftCorner.y, getHeaderWidthFromKeyPoints(keyPoints), getHeaderHeightFromKeyPoints(keyPoints));
         }
 
@@ -348,18 +350,20 @@ package spark.components.gridClasses {
         {
             var headerRectangles:Array = [];
 
-            const headerHeight:Number = getHeaderHeightFromKeyPoints(keyPoints);
+            const headerPaddingTop:Number = getHeaderPaddingTop(dimensions);
+            const headerPaddingBottom:Number = getHeaderPaddingBottom(dimensions);
+            const headerHeight:Number = getHeaderHeightFromKeyPoints(keyPoints) - headerPaddingTop - headerPaddingBottom;
             for (var i:int = 0; i < getColumnWidths(dimensions).length; i++)
             {
                 var topLeft:Point = keyPoints["c" + i];
                 var topRight:Point = keyPoints["c" + (i+1)];
-                headerRectangles.push(new Rectangle(topLeft.x, topLeft.y, topRight.x - topLeft.x, headerHeight));
+                headerRectangles.push(new Rectangle(topLeft.x, topLeft.y + headerPaddingTop, topRight.x - topLeft.x, headerHeight));
             }
 
             //correct last header rectangle to extend to grid boundaries. This is one of the issues which prompted
             //this unit test in the first place.
             var lastHeaderRectangle:Rectangle = headerRectangles[headerRectangles.length - 1];
-            lastHeaderRectangle.width = Point(keyPoints["e"]).x - lastHeaderRectangle.x;
+            lastHeaderRectangle.width = Point(keyPoints["d"]).x - lastHeaderRectangle.x;
 
             return headerRectangles;
         }
@@ -369,7 +373,7 @@ package spark.components.gridClasses {
             return _keyRectangles[COLUMN_HEADER_RECTANGLES];
         }
 
-        private function get headerRectangle():Rectangle
+        private function get entireHeaderRectangle():Rectangle //includes padding
         {
             return _keyRectangles[ENTIRE_HEADER_RECTANGLE] as Rectangle;
         }
@@ -415,6 +419,11 @@ package spark.components.gridClasses {
             return dimensions[4];
         }
 
+        private function getHeaderPaddingBottom(dimensions:Array):Number
+        {
+            return dimensions[5];
+        }
+
         private function getActualHeaderHeight(grid:DataGrid):Number
         {
             //Note that we're assuming the grid is on stage and validated by this point!
@@ -423,17 +432,17 @@ package spark.components.gridClasses {
 
         private function getHeaderHeightFromKeyPoints(keyPoints:Array):Number
         {
-            return Point(keyPoints["h"]).y - Point(keyPoints["e"]).y;
+            return Point(keyPoints["i"]).y - Point(keyPoints["d"]).y;
         }
 
         private function getHeaderWidthFromKeyPoints(keyPoints:Array):Number
         {
-            return Point(keyPoints["e"]).x - Point(keyPoints["b"]).x;
+            return Point(keyPoints["d"]).x - Point(keyPoints["b0"]).x;
         }
 
         private function getColumnWidths(dimensions:Array):Array
         {
-            return dimensions[5];
+            return dimensions[6];
         }
 
         private function getColumnWidth(dimensions:Array, columnIndex:int):Number

@@ -505,7 +505,7 @@ public class GridHeaderViewLayout extends LayoutBase
 
         if(gridColumnHeaderGroup.containsGlobalCoordinates(globalPoint))
         {
-            if(!gridColumnHeaderGroup.areCoordinatesOverLeftPadding(globalPoint))
+            if (!gridColumnHeaderGroup.areCoordinatesOverPadding(globalPoint))
             {
                 var paddingLeftStyle:Number = gridColumnHeaderGroup.getStyle("paddingLeft");
                 var paddingLeft:Number = isNaN(paddingLeftStyle) ? 0 : paddingLeftStyle;
