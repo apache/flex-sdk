@@ -783,6 +783,15 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
         return (_visibleSortIndicatorIndices.indexOf(columnIndex) != -1);
     }
 
+    /**
+     *  True if either of this GridColumnHeaderGroup's views contains the global
+     *  coordinates in the event, or if they fall over this component's padding.
+     */
+    public function containsMouseEvent(event:MouseEvent):Boolean
+    {
+        return containsGlobalCoordinates(new Point(event.stageX, event.stageY));
+    }
+
     public function containsGlobalCoordinates(coordinates:Point):Boolean
     {
         return areCoordinatesOverAHeaderView(coordinates) || areCoordinatesOverPadding(coordinates);
@@ -795,7 +804,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
 
     public function areCoordinatesOverPadding(coordinates:Point):Boolean
     {
-        return areCoordinatesOverLeftPadding(coordinates) || areCoordinatesOverRightPadding(coordinates);
+        return areCoordinatesOverLeftPadding(coordinates) || areCoordinatesOverTopPadding(coordinates) || areCoordinatesOverBottomPadding(coordinates);
     }
 
     public function areCoordinatesOverLeftPadding(coordinates:Point):Boolean
@@ -807,13 +816,22 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
                 getHeaderViewUnderGlobalCoordinates(new Point(coordinates.x + paddingLeft, coordinates.y)) != null;
     }
     
-    public function areCoordinatesOverRightPadding(coordinates:Point):Boolean
+    public function areCoordinatesOverTopPadding(coordinates:Point):Boolean
     {
-        var paddingRightStyle:Number = getStyle("paddingRight");
-        var paddingRight:Number = isNaN(paddingRightStyle) ? 0 : paddingRightStyle;
+        var paddingTopStyle:Number = getStyle("paddingTop");
+        var paddingTop:Number = isNaN(paddingTopStyle) ? 0 : paddingTopStyle;
 
         return getHeaderViewUnderGlobalCoordinates(new Point(coordinates.x, coordinates.y)) == null &&
-        getHeaderViewUnderGlobalCoordinates(new Point(coordinates.x, coordinates.y - paddingRight)) != null;
+        getHeaderViewUnderGlobalCoordinates(new Point(coordinates.x, coordinates.y + paddingTop)) != null;
+    }
+
+    public function areCoordinatesOverBottomPadding(coordinates:Point):Boolean
+    {
+        var paddingBottomStyle:Number = getStyle("paddingBottom");
+        var paddingBottom:Number = isNaN(paddingBottomStyle) ? 0 : paddingBottomStyle;
+
+        return getHeaderViewUnderGlobalCoordinates(new Point(coordinates.x, coordinates.y)) == null &&
+        getHeaderViewUnderGlobalCoordinates(new Point(coordinates.x, coordinates.y - paddingBottom)) != null;
     }
 
     //--------------------------------------------------------------------------
@@ -1037,11 +1055,11 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
 		const ghl:GridHeaderLayout = layout as GridHeaderLayout;
 
 		const centerGridColumnHeaderView:GridColumnHeaderView = GridColumnHeaderView(ghl.centerGridColumnHeaderView);
-		if (centerGridColumnHeaderView && centerGridColumnHeaderView.containsStageCoordinates(globalCoordinates))
+		if (centerGridColumnHeaderView && centerGridColumnHeaderView.containsGlobalPoint(globalCoordinates))
 			return centerGridColumnHeaderView;
 		
 		const leftGridColumnHeaderView:GridColumnHeaderView = GridColumnHeaderView(ghl.leftGridColumnHeaderView);
-		if (leftGridColumnHeaderView && leftGridColumnHeaderView.containsStageCoordinates(globalCoordinates))
+		if (leftGridColumnHeaderView && leftGridColumnHeaderView.containsGlobalPoint(globalCoordinates))
 			return leftGridColumnHeaderView;
 		
 		return null;

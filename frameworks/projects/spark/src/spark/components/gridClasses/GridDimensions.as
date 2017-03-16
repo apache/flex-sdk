@@ -1191,21 +1191,21 @@ public class GridDimensions
 
         for (i = 0; i < _columnCount; i++)
         {
-            var temp:Number = _columnWidths[i];
+            var columnWidth:Number = _columnWidths[i];
             
             // fall back on typical widths if the actual width isn't set.
-            if (isNaN(temp))
+            if (isNaN(columnWidth))
             {
-                temp = typicalCellWidths[i];
-                if (temp == 0) // invisible column
+                columnWidth = typicalCellWidths[i];
+                if (columnWidth == 0) // invisible column
                     continue;
             }
             
             // fall back on defaultColumnWidth
-            if (isNaN(temp))
-                temp = defaultColumnWidth;
+            if (isNaN(columnWidth))
+                columnWidth = defaultColumnWidth;
             
-            current -= temp + columnGap;
+            current -= columnWidth + columnGap;
 
             if (current < 0)
                 return i;
