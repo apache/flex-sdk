@@ -21,7 +21,7 @@ For more information about the Apache Flex project, please visit:
 
     http://flex.apache.org/
 
-The Apache Flex SDK 4.15 is a follow up release to version 4.14.1. It is
+The Apache Flex SDK 4.16 is a follow up release to version 4.15. It is
 compatible with most code written for the original Adobe Flex 4.6 SDK.
 
 
@@ -119,6 +119,9 @@ Optional: Text Layout Framework (* 6)         TLF_HOME
 Optional: Adobe Extension Manager CS5 (* 7)   ADOBE_EXTENSION_MANAGER
 
 Optional: Flex Messaging Common (* 8)         BLAZEDS_HOME
+
+Java Cryptography Extensions
+    (see note (*9))
 
 ---------------------------------------------------------------------
 
@@ -234,6 +237,10 @@ to point to your BLAZEDS root folder. If you are using a released artifact, the
 source should be included in the artifact, so setting BLAZEDS_HOME is not
 required.
 
+* 9)
+The Java Cryptography Extensions (JCE) Unlimited Strength jars are needed in
+order to download 3rd party software. Download and install this from Oracle
+which version you need will depend on your Java version and OS.
 
 Get the source code
 -------------------

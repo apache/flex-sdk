@@ -1734,7 +1734,7 @@ public class Application implements Builder
      * Application object the cache may be reused to build another Application
      * object that uses the same library path.
      *
-     * @param swcCache A reference to an allocated swc cache.
+     * @param libraryCache A reference to an allocated swc cache.
      *
      * @since 3.0
      */

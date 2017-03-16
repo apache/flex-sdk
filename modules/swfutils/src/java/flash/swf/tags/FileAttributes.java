@@ -45,6 +45,8 @@ public class FileAttributes extends Tag
     public boolean useNetwork;
     public boolean useGPU;
     public boolean useDirectBlit;
+    public boolean brokerProductManager;
+    public boolean brokerLocalConnection;
 
     public FileAttributes()
     {
@@ -70,6 +72,8 @@ public class FileAttributes extends Tag
                 (tag.swfRelativeUrls == this.swfRelativeUrls) &&
                 (tag.useDirectBlit == this.useDirectBlit) &&
                 (tag.useGPU == this.useGPU) &&
+                (tag.brokerProductManager == this.brokerProductManager) &&
+                (tag.brokerLocalConnection == this.brokerLocalConnection) &&
                 (tag.useNetwork == this.useNetwork))
             {
                 isEqual = true;
