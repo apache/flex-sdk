@@ -88,6 +88,7 @@ package spark.components.gridClasses {
         private static const directions:Array = [ITSELF, N, NE, E, SE, S, SW, W, NW];
 
         private static const COLUMN_HEADER_RECTANGLES:String = "columnHeaderRectangles";
+        private static const COLUMN_RECTANGLES:String = "columnRectangles";
         private static const ENTIRE_HEADER_RECTANGLE:String = "headerRectangle"; //includes padding
         private static const MAIN_HEADER_VIEW_RECTANGLE:String = "mainHeaderViewRectangle";
         private static const FIXED_HEADER_VIEW_RECTANGLE:String = "fixedHeaderViewRectangle";
@@ -98,11 +99,11 @@ package spark.components.gridClasses {
         private var _keyPoints:Array;
 
         //@TODO add cases with horizontal scroll, and also with fixed columns
-        //@TODO we probably have to account for paddingTop and paddingBottom as well
         public static var dimensions:Array = [
             /*x, y, width, header padding left, header padding top, header padding bottom, [column widths] */
-            [[10, 0, 300, 5, 0, 5, [25, 150]]],
-            [[0, 0, 300, 5, 0, 0, [25, 150]]]
+            [[/*x=*/    0, /*y=*/   0, /*width=*/   300, /*paddingLeft=*/   5, /*paddingTop=*/  0, /*paddingBottom=*/   0, /*columnWidths=*/[25, 150]]],
+            [[/*x=*/   10, /*y=*/   0, /*width=*/   300, /*paddingLeft=*/   5, /*paddingTop=*/  0, /*paddingBottom=*/   5, /*columnWidths=*/[25, 150]]],
+            [[/*x=*/   -5, /*y=*/-100, /*width=*/   200, /*paddingLeft=*/  25, /*paddingTop=*/ 12, /*paddingBottom=*/   5, /*columnWidths=*/[100, 150]]] //horizontal scroll
         ];
 
 
@@ -134,22 +135,6 @@ package spark.components.gridClasses {
             _keyRectangles = null;
             _keyPoints = null;
         }
-
-        /*
-        [Ignore]
-        [Test]
-        public function test_column_index(globalPoint:Array, expectedColumnIndex:int):void
-        {
-            //given
-            var localPoint:Point = _dataGrid.grid.globalToLocal(new Point(globalPoint[0], globalPoint[1]));
-
-            //when
-            var columnIndex:int = _dataGrid.grid.getColumnIndexAt(localPoint.x, 0);
-
-            //then
-            assertEquals(expectedColumnIndex, columnIndex);
-        }
-*/
 
 
         [Test(dataProvider="dimensions")]
@@ -189,6 +174,7 @@ package spark.components.gridClasses {
             {
             assertThatHeaderContainsPointOrNot(point, pointName, currentTransformation);
             assertThatHeaderIndexIsCorrect(point, pointName, currentTransformation);
+            assertThatColumnIndexIsCorrect(point, pointName, currentTransformation);
             assertThatCoordinatesOverHeaderViewOrNot(point, pointName, currentTransformation);
         }
 
@@ -227,6 +213,17 @@ package spark.components.gridClasses {
             assertEquals(errorMessageHeaderIndex, expectedHeaderIndex, actualHeaderIndex);
         }
 
+        private function assertThatColumnIndexIsCorrect(point:Point, pointName:String, currentTransformation:Matrix):void
+        {
+            //when
+            var expectedColumnIndex:int = getColumnIndexAssumption(point);
+            var actualColumnIndex:int = getColumnIndexAtGlobalPoint(point);
+            const errorMessageColumnIndex:String = getColumnIndexErrorMessage(pointName, currentTransformation, point, expectedColumnIndex, actualColumnIndex);
+
+            //then
+            assertEquals(errorMessageColumnIndex, expectedColumnIndex, actualColumnIndex);
+        }
+
         private function getHeaderIndexErrorMessage(pointName:String, direction:Matrix, transformedPoint:Point, expectedColumnHeaderIndex:int, actualColumnHeaderIndex:int):String
         {
             return "The point " + pointName + " transformed with Matrix " + direction + " (resulting in " + transformedPoint + ") should be "
@@ -234,6 +231,15 @@ package spark.components.gridClasses {
                     + " but was mistakenly found to be "
                     + (actualColumnHeaderIndex == -1 ? "outside any column header bounds" : "inside the column header with index " + actualColumnHeaderIndex
                     + "\n DEBUG INFO: headerRectangles=" + columnHeaderRectangles);
+        }
+
+        private function getColumnIndexErrorMessage(pointName:String, direction:Matrix, transformedPoint:Point, expectedColumnHeaderIndex:int, actualColumnHeaderIndex:int):String
+        {
+            return "The point " + pointName + " transformed with Matrix " + direction + " (resulting in " + transformedPoint + ") should have its x value "
+                    + (expectedColumnHeaderIndex == -1 ? "outside any column bounds" : "within the column with index " + expectedColumnHeaderIndex)
+                    + " but was mistakenly found to be "
+                    + (actualColumnHeaderIndex == -1 ? "outside any column bounds" : "inside the column with index " + actualColumnHeaderIndex
+                    + "\n DEBUG INFO: columnRectangles=" + columnRectangles);
         }
 
         private function getHeaderContainsPointErrorMessage(pointName:String, direction:Matrix, transformedPoint:Point, shouldBeContainedInHeader:Boolean, isActuallyContainedInHeader:Boolean):String
@@ -260,6 +266,12 @@ package spark.components.gridClasses {
             return _sut.getHeaderIndexAt(localPoint.x, localPoint.y);
         }
 
+        private function getColumnIndexAtGlobalPoint(globalPoint:Point):int
+        {
+            var localPoint:Point = _dataGrid.grid.globalToLocal(globalPoint);
+            return _dataGrid.grid.getColumnIndexAt(localPoint.x, localPoint.y);
+        }
+
         private function getHeaderShouldContainPointAssumption(point:Point):Boolean
         {
             return rectangleContainsPoint(entireHeaderRectangle, point);
@@ -277,15 +289,15 @@ package spark.components.gridClasses {
 
         private function getHeaderIndexAssumption(point:Point):int
         {
-            return getIndexOfHeaderRectangleWhichContainsPoint(point, columnHeaderRectangles);
+            return getIndexOfRectangleWhichContainsPoint(point, columnHeaderRectangles);
         }
 
-        private function getAdjacentPoint(point:Point, direction:Matrix):Point
+        private function getColumnIndexAssumption(point:Point):int
         {
-            return direction.transformPoint(point);
+            return getIndexOfRectangleWhichContainsPoint(point, columnRectangles);
         }
 
-        private function getIndexOfHeaderRectangleWhichContainsPoint(point:Point, rectangles:Array):int
+        private function getIndexOfRectangleWhichContainsPoint(point:Point, rectangles:Array):int
         {
             for (var i:int = 0; i < rectangles.length; i++)
             {
@@ -299,6 +311,11 @@ package spark.components.gridClasses {
         private function rectangleContainsPoint(rectangle:Rectangle, point:Point):Boolean
         {
             return rectangle.containsPoint(point);
+        }
+
+        private function getAdjacentPoint(point:Point, direction:Matrix):Point
+        {
+            return direction.transformPoint(point);
         }
 
         private function generateKeyPoints(dimensions:Array, grid:DataGrid):Array
@@ -338,6 +355,7 @@ package spark.components.gridClasses {
             var keyRectangles:Array = [];
 
             keyRectangles[COLUMN_HEADER_RECTANGLES] = generateHeaderColumnRectangles(keyPoints, dimensions);
+            keyRectangles[COLUMN_RECTANGLES] = generateColumnRectangles(keyPoints, dimensions);
             keyRectangles[ENTIRE_HEADER_RECTANGLE] = generateVisibleHeaderRectangle(keyPoints, dimensions);
             keyRectangles[MAIN_HEADER_VIEW_RECTANGLE] = generateMainHeaderViewRectangle(keyPoints, dimensions);
             keyRectangles[FIXED_HEADER_VIEW_RECTANGLE] = generateFixedHeaderViewRectangle(keyPoints, dimensions);
@@ -390,6 +408,21 @@ package spark.components.gridClasses {
             return headerRectangles;
         }
 
+        //Note that the height and y of the rectangles doesn't matter until FLEX-35280 is fixed
+        private function generateColumnRectangles(keyPoints:Array, dimensions:Array):Array
+        {
+            var columnRectangles:Array = [];
+
+            for (var i:int = 0; i < getColumnWidths(dimensions).length; i++)
+            {
+                var topLeft:Point = keyPoints["g" + i];
+                var topRight:Point = keyPoints["g" + (i+1)];
+                columnRectangles.push(new Rectangle(topLeft.x, -10000, topRight.x - topLeft.x, Number.MAX_VALUE));
+            }
+
+            return columnRectangles;
+        }
+
         private function forEachPoint(assertThat_:Function):void
         {
             for (var pointName:String in _keyPoints)
@@ -413,6 +446,11 @@ package spark.components.gridClasses {
         private function get columnHeaderRectangles():Array
         {
             return _keyRectangles[COLUMN_HEADER_RECTANGLES];
+        }
+
+        private function get columnRectangles():Array
+        {
+            return _keyRectangles[COLUMN_RECTANGLES];
         }
 
         private function get entireHeaderRectangle():Rectangle //includes padding
