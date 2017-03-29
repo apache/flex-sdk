@@ -794,44 +794,15 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
 
     public function containsGlobalCoordinates(coordinates:Point):Boolean
     {
-        return areCoordinatesOverAHeaderView(coordinates) || areCoordinatesOverPadding(coordinates);
+        var globalPosition:Point = localToGlobal(new Point(getLayoutBoundsX(), getLayoutBoundsY()));
+        var bounds:Rectangle = new Rectangle(globalPosition.x, globalPosition.y, getLayoutBoundsWidth(), getLayoutBoundsHeight());
+
+        return bounds.containsPoint(coordinates);
     }
 
     public function areCoordinatesOverAHeaderView(coordinates:Point):Boolean
     {
         return getHeaderViewUnderGlobalCoordinates(coordinates) != null;
-    }
-
-    public function areCoordinatesOverPadding(coordinates:Point):Boolean
-    {
-        return areCoordinatesOverLeftPadding(coordinates) || areCoordinatesOverTopPadding(coordinates) || areCoordinatesOverBottomPadding(coordinates);
-    }
-
-    public function areCoordinatesOverLeftPadding(coordinates:Point):Boolean
-    {
-        var paddingLeftStyle:Number = getStyle("paddingLeft");
-        var paddingLeft:Number = isNaN(paddingLeftStyle) ? 0 : paddingLeftStyle;
-
-        return getHeaderViewUnderGlobalCoordinates(new Point(coordinates.x, coordinates.y)) == null &&
-                getHeaderViewUnderGlobalCoordinates(new Point(coordinates.x + paddingLeft, coordinates.y)) != null;
-    }
-    
-    public function areCoordinatesOverTopPadding(coordinates:Point):Boolean
-    {
-        var paddingTopStyle:Number = getStyle("paddingTop");
-        var paddingTop:Number = isNaN(paddingTopStyle) ? 0 : paddingTopStyle;
-
-        return getHeaderViewUnderGlobalCoordinates(new Point(coordinates.x, coordinates.y)) == null &&
-        getHeaderViewUnderGlobalCoordinates(new Point(coordinates.x, coordinates.y + paddingTop)) != null;
-    }
-
-    public function areCoordinatesOverBottomPadding(coordinates:Point):Boolean
-    {
-        var paddingBottomStyle:Number = getStyle("paddingBottom");
-        var paddingBottom:Number = isNaN(paddingBottomStyle) ? 0 : paddingBottomStyle;
-
-        return getHeaderViewUnderGlobalCoordinates(new Point(coordinates.x, coordinates.y)) == null &&
-        getHeaderViewUnderGlobalCoordinates(new Point(coordinates.x, coordinates.y - paddingBottom)) != null;
     }
 
     //--------------------------------------------------------------------------

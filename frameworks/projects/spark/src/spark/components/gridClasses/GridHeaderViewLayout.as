@@ -503,21 +503,18 @@ public class GridHeaderViewLayout extends LayoutBase
         var headerIndex:int = -1;
         var globalPoint:Point = gridColumnHeaderGroup.localToGlobal(new Point(x, y));
 
-        if(gridColumnHeaderGroup.containsGlobalCoordinates(globalPoint))
+        if(gridColumnHeaderGroup.areCoordinatesOverAHeaderView(globalPoint))
         {
-            if (!gridColumnHeaderGroup.areCoordinatesOverPadding(globalPoint))
+            var paddingLeftStyle:Number = gridColumnHeaderGroup.getStyle("paddingLeft");
+            var paddingLeft:Number = isNaN(paddingLeftStyle) ? 0 : paddingLeftStyle;
+
+            headerIndex = gridView.gridViewLayout.gridDimensionsView.getColumnIndexAt(x - paddingLeft + horizontalScrollPosition, y);
+
+            if(headerIndex == -1)
             {
-                var paddingLeftStyle:Number = gridColumnHeaderGroup.getStyle("paddingLeft");
-                var paddingLeft:Number = isNaN(paddingLeftStyle) ? 0 : paddingLeftStyle;
-
-                headerIndex = gridView.gridViewLayout.gridDimensionsView.getColumnIndexAt(x - paddingLeft + horizontalScrollPosition, y);
-
-                if(headerIndex == -1)
-                {
-                    //then the point is either over the right padding, over the width of the vertical
-                    //scroll bar, or over the space between the last separator and the width of the grid
-                    headerIndex = grid.getPreviousVisibleColumnIndex(columnsView.length);
-                }
+                //then the point is either over the right padding, over the width of the vertical
+                //scroll bar, or over the space between the last separator and the width of the grid
+                headerIndex = grid.getPreviousVisibleColumnIndex(columnsView.length);
             }
         }
 
