@@ -1,4 +1,7 @@
 package spark.components.gridClasses {
+    import flash.events.Event;
+    import flash.events.EventDispatcher;
+
     import flash.geom.Matrix;
     import flash.geom.Point;
     import flash.geom.Rectangle;
@@ -8,6 +11,8 @@ package spark.components.gridClasses {
     import org.flexunit.assertThat;
 
     import org.flexunit.asserts.assertEquals;
+    import org.flexunit.asserts.assertTrue;
+    import org.flexunit.async.Async;
     import org.flexunit.runners.Parameterized;
     import org.fluint.uiImpersonation.UIImpersonator;
 
@@ -87,22 +92,28 @@ package spark.components.gridClasses {
         private static const ITSELF:Matrix = new Matrix(1, 0, 0, 1, 0, 0); //the point, unmodified
         private static const directions:Array = [ITSELF, N, NE, E, SE, S, SW, W, NW];
 
-        private static const COLUMN_HEADER_RECTANGLES:String = "columnHeaderRectangles";
-        private static const COLUMN_RECTANGLES:String = "columnRectangles";
-        private static const ENTIRE_HEADER_RECTANGLE:String = "headerRectangle"; //includes padding
-        private static const MAIN_HEADER_VIEW_RECTANGLE:String = "mainHeaderViewRectangle";
+        private static const ENTIRE_HEADER_RECTANGLE:String = "visibleHeaderRectangle"; //includes padding
         private static const FIXED_HEADER_VIEW_RECTANGLE:String = "fixedHeaderViewRectangle";
 
+        private static const NO_ENTER_FRAMES_TO_ALLOW:int = 2;
+
         private static var _dataGrid:DataGrid;
+        private static const _finishNotifier:EventDispatcher = new EventDispatcher();
 
         private var _keyRectangles:Array;
         private var _keyPoints:Array;
+        private var _dimensions:Array;
+        private var _noEnterFramesRemaining:int = NaN;
 
-        //@TODO add cases with horizontal scroll, and also with fixed columns
-        public static var dimensions:Array = [
+        //@TODO add cases with fixed columns
+        //@TODO can the grid itself have padding?
+        //@TODO test with a columnGap as well
+        public static var allDimensions:Array = [
             /*x, y, width, header padding left, header padding top, header padding bottom, [column widths] */
             [[/*x=*/    0, /*y=*/   0, /*width=*/   300, /*paddingLeft=*/   5, /*paddingTop=*/  0, /*paddingBottom=*/   0, /*columnWidths=*/[25, 150]]],
             [[/*x=*/   10, /*y=*/   0, /*width=*/   300, /*paddingLeft=*/   5, /*paddingTop=*/  0, /*paddingBottom=*/   5, /*columnWidths=*/[25, 150]]],
+            [[/*x=*/    0, /*y=*/   0, /*width=*/   200, /*paddingLeft=*/   5, /*paddingTop=*/  0, /*paddingBottom=*/   0, /*columnWidths=*/[80, 150]]], //horizontal scroll
+            [[/*x=*/    0, /*y=*/   0, /*width=*/   100, /*paddingLeft=*/   0, /*paddingTop=*/  0, /*paddingBottom=*/   0, /*columnWidths=*/[10, 110, 15]]], //horizontal scroll
             [[/*x=*/   -5, /*y=*/-100, /*width=*/   200, /*paddingLeft=*/  25, /*paddingTop=*/ 12, /*paddingBottom=*/   5, /*columnWidths=*/[100, 150]]] //horizontal scroll
         ];
 
@@ -134,11 +145,12 @@ package spark.components.gridClasses {
         {
             _keyRectangles = null;
             _keyPoints = null;
+            _dimensions = null;
         }
 
 
-        [Test(dataProvider="dimensions")]
-        public function test_with_no_scroll(dimensions:Array):void
+        [Test(dataProvider="allDimensions", async, timeout=3000)]
+        public function test_ltr(dimensions:Array):void
         {
             //given
             _dataGrid.width = getWidth(dimensions);
@@ -158,24 +170,71 @@ package spark.components.gridClasses {
             }
             _dataGrid.columns = new ArrayCollection(gridColumns);
 
+            _dataGrid.columnHeaderGroup.invalidateDisplayList();
+            _dataGrid.columnHeaderGroup.validateNow();
+            _dataGrid.grid.validateNow();
             _dataGrid.validateNow();
 
-            _keyPoints = generateKeyPoints(dimensions, _dataGrid);
-            _keyRectangles = generateKeyRectangles(_keyPoints, dimensions);
+            _dimensions = dimensions;
+            _keyPoints = generateKeyPoints(_dataGrid);
+            _keyRectangles = generateKeyRectangles();
 
+            _noEnterFramesRemaining = NO_ENTER_FRAMES_TO_ALLOW;
+            UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, doTests, 3000);
+        }
+
+        private function doTests(event:Event, passThroughData:Object):void
+        {
             //then
             //first, make sure that the dataGrid was rendered correctly
             assertThat("The dataGrid has not yet been correctly rendered on stage", getActualHeaderHeight(_dataGrid) > 0);
 
-            forEachPoint(assertAssumptionsAboutPoint);
+            //test the assumption about the center column header view location
+            var centerGridViewLocation:Point = GridHeaderLayout(_dataGrid.columnHeaderGroup.layout).centerGridColumnHeaderView.localToGlobal(new Point(0, 0));
+            assertTrue("The location of the centerGridColumnHeaderView does not reflect the columnHeaderGroup's padding rules! It's located at the global coordinates " +
+                    centerGridViewLocation + ", but it should be at " + _keyPoints["e"],
+                    centerGridViewLocation.equals(_keyPoints["e"]));
+
+            forEachPointAndScrollLocation(assertAssumptionsAboutPoint);
+        }
+
+        private function forEachPointAndScrollLocation(assertThat_:Function):void
+        {
+            _dataGrid.columnHeaderGroup.invalidateDisplayList();
+            _dataGrid.columnHeaderGroup.validateNow();
+            _dataGrid.grid.validateNow();
+            _dataGrid.validateNow();
+
+            var maxScroll:Number = Math.max(1, getTotalColumnWidths(_dimensions) - getWidth(_dimensions) - getHeaderPaddingLeft(_dimensions));
+            for (var i:int = 0; i < maxScroll; i++)
+            {
+                _dataGrid.grid.horizontalScrollPosition = i;
+                _dataGrid.columnHeaderGroup.invalidateDisplayList();
+                _dataGrid.columnHeaderGroup.validateNow();
+                _dataGrid.grid.validateNow();
+                _dataGrid.validateNow();
+
+                for (var pointName:String in _keyPoints)
+                {
+                    for (var j:int = 0; j < directions.length; j++)
+                    {
+                        assertThat_(getAdjacentPoint(_keyPoints[pointName], directions[j]), pointName, directions[j]);
+                        _dataGrid.columnHeaderGroup.invalidateDisplayList();
+                        _dataGrid.columnHeaderGroup.validateNow();
+                        _dataGrid.grid.validateNow();
+                        _dataGrid.validateNow();
+                    }
+                }
+            }
         }
 
         private function assertAssumptionsAboutPoint(point:Point, pointName:String, currentTransformation:Matrix):void
-            {
+        {
             assertThatHeaderContainsPointOrNot(point, pointName, currentTransformation);
+            assertThatCoordinatesOverHeaderViewOrNot(point, pointName, currentTransformation);
             assertThatHeaderIndexIsCorrect(point, pointName, currentTransformation);
             assertThatColumnIndexIsCorrect(point, pointName, currentTransformation);
-            assertThatCoordinatesOverHeaderViewOrNot(point, pointName, currentTransformation);
         }
 
         private function assertThatHeaderContainsPointOrNot(point:Point, pointName:String, currentTransformation:Matrix):void
@@ -192,11 +251,12 @@ package spark.components.gridClasses {
         private function assertThatCoordinatesOverHeaderViewOrNot(point:Point, pointName:String, currentTransformation:Matrix):void
         {
             //when
-            var shouldBeContainedInMainHeaderView:Boolean = getMainHeaderViewContainsPointAssumption(point);
+            const visibleHeaderViewRectangle:Rectangle = getVisibleHeaderViewRectangle(getCurrentHScrollPosition());
+            var shouldBeContainedInMainHeaderView:Boolean = getMainHeaderViewContainsPointAssumption(visibleHeaderViewRectangle, point);
             var shouldBeContainedInFixedHeaderView:Boolean = getFixedHeaderViewContainsPointAssumption(point);
                     const shouldBeContainedInAHeaderView:Boolean = shouldBeContainedInMainHeaderView || shouldBeContainedInFixedHeaderView;
             var actuallyContainedInAHeaderView:Boolean = _sut.areCoordinatesOverAHeaderView(point);
-            const errorMessageHeaderViewContainsPoint:String = getHeaderViewContainsPointErrorMessage(pointName, currentTransformation, point, shouldBeContainedInAHeaderView, actuallyContainedInAHeaderView);
+            const errorMessageHeaderViewContainsPoint:String = getHeaderViewContainsPointErrorMessage(pointName, currentTransformation, point, shouldBeContainedInAHeaderView, actuallyContainedInAHeaderView, visibleHeaderViewRectangle);
 
                     //then
                     assertEquals(errorMessageHeaderViewContainsPoint, shouldBeContainedInAHeaderView, actuallyContainedInAHeaderView);
@@ -205,9 +265,10 @@ package spark.components.gridClasses {
         private function assertThatHeaderIndexIsCorrect(point:Point, pointName:String, currentTransformation:Matrix):void
         {
             //when
-            var expectedHeaderIndex:int = getHeaderIndexAssumption(point);
+            const visibleColumnHeaderRectangles:Array = getVisibleColumnHeaderRectangles(getCurrentHScrollPosition());
+            var expectedHeaderIndex:int = getHeaderIndexAssumption(point, visibleColumnHeaderRectangles);
             var actualHeaderIndex:int = getHeaderIndexAtGlobalPoint(point);
-            const errorMessageHeaderIndex:String = getHeaderIndexErrorMessage(pointName, currentTransformation, point, expectedHeaderIndex, actualHeaderIndex);
+            const errorMessageHeaderIndex:String = getHeaderIndexErrorMessage(pointName, currentTransformation, point, expectedHeaderIndex, actualHeaderIndex, visibleColumnHeaderRectangles);
 
             //then
             assertEquals(errorMessageHeaderIndex, expectedHeaderIndex, actualHeaderIndex);
@@ -216,30 +277,33 @@ package spark.components.gridClasses {
         private function assertThatColumnIndexIsCorrect(point:Point, pointName:String, currentTransformation:Matrix):void
         {
             //when
-            var expectedColumnIndex:int = getColumnIndexAssumption(point);
+            const visibleColumnRectangles:Array = getAllColumnRectangles(getCurrentHScrollPosition());
+            var expectedColumnIndex:int = getColumnIndexAssumption(visibleColumnRectangles, point);
             var actualColumnIndex:int = getColumnIndexAtGlobalPoint(point);
-            const errorMessageColumnIndex:String = getColumnIndexErrorMessage(pointName, currentTransformation, point, expectedColumnIndex, actualColumnIndex);
+            const errorMessageColumnIndex:String = getColumnIndexErrorMessage(pointName, currentTransformation, point, expectedColumnIndex, actualColumnIndex, visibleColumnRectangles);
 
             //then
             assertEquals(errorMessageColumnIndex, expectedColumnIndex, actualColumnIndex);
         }
 
-        private function getHeaderIndexErrorMessage(pointName:String, direction:Matrix, transformedPoint:Point, expectedColumnHeaderIndex:int, actualColumnHeaderIndex:int):String
+        private function getHeaderIndexErrorMessage(pointName:String, direction:Matrix, transformedPoint:Point, expectedColumnHeaderIndex:int, actualColumnHeaderIndex:int, visibleColumnHeaderRectangles:Array):String
         {
             return "The point " + pointName + " transformed with Matrix " + direction + " (resulting in " + transformedPoint + ") should be "
                     + (expectedColumnHeaderIndex == -1 ? "outside any column header bounds" : "inside the column header with index " + expectedColumnHeaderIndex)
                     + " but was mistakenly found to be "
-                    + (actualColumnHeaderIndex == -1 ? "outside any column header bounds" : "inside the column header with index " + actualColumnHeaderIndex
-                    + "\n DEBUG INFO: headerRectangles=" + columnHeaderRectangles);
+                    + (actualColumnHeaderIndex == -1 ? "outside any column header bounds" : "inside the column header with index " + actualColumnHeaderIndex)
+                    + " given a horizontalScrollPosition of " + getCurrentHScrollPosition()
+                    + "\n DEBUG INFO: visibleColumnHeaderRectangles=" + visibleColumnHeaderRectangles;
         }
 
-        private function getColumnIndexErrorMessage(pointName:String, direction:Matrix, transformedPoint:Point, expectedColumnHeaderIndex:int, actualColumnHeaderIndex:int):String
+        private function getColumnIndexErrorMessage(pointName:String, direction:Matrix, transformedPoint:Point, expectedColumnHeaderIndex:int, actualColumnHeaderIndex:int, visibleColumnRectangles:Array):String
         {
             return "The point " + pointName + " transformed with Matrix " + direction + " (resulting in " + transformedPoint + ") should have its x value "
-                    + (expectedColumnHeaderIndex == -1 ? "outside any column bounds" : "within the column with index " + expectedColumnHeaderIndex)
+                    + (expectedColumnHeaderIndex == -1 ? "outside any column bounds" : "inside the column with index " + expectedColumnHeaderIndex)
                     + " but was mistakenly found to be "
-                    + (actualColumnHeaderIndex == -1 ? "outside any column bounds" : "inside the column with index " + actualColumnHeaderIndex
-                    + "\n DEBUG INFO: columnRectangles=" + columnRectangles);
+                    + (actualColumnHeaderIndex == -1 ? "outside any column bounds" : "inside the column with index " + actualColumnHeaderIndex)
+                    + " given a horizontalScrollPosition of " + getCurrentHScrollPosition()
+                    + "\n DEBUG INFO: columnRectangles=" + visibleColumnRectangles;
         }
 
         private function getHeaderContainsPointErrorMessage(pointName:String, direction:Matrix, transformedPoint:Point, shouldBeContainedInHeader:Boolean, isActuallyContainedInHeader:Boolean):String
@@ -248,16 +312,18 @@ package spark.components.gridClasses {
                     + (shouldBeContainedInHeader ? "within " : "outside ") + "the header bounds"
                     + " but was mistakenly found to be "
                     + (isActuallyContainedInHeader ? "within" : "outside")
+                    + " given a horizontalScrollPosition of " + getCurrentHScrollPosition()
                     + "\n DEBUG INFO: header rectangle=" + entireHeaderRectangle;
         }
 
-        private function getHeaderViewContainsPointErrorMessage(pointName:String, direction:Matrix, transformedPoint:Point, shouldBeContainedInAHeaderView:Boolean, isActuallyContainedByAHeaderView:Boolean):String
+        private function getHeaderViewContainsPointErrorMessage(pointName:String, direction:Matrix, transformedPoint:Point, shouldBeContainedInAHeaderView:Boolean, isActuallyContainedByAHeaderView:Boolean, visibleHeaderViewRectangle:Rectangle):String
         {
             return "The point " + pointName + " transformed with Matrix " + direction + " (resulting in " + transformedPoint + ") should be "
                     + (shouldBeContainedInAHeaderView ? "within " : "outside ") + "a header view"
                     + " but was mistakenly found to be "
                     + (isActuallyContainedByAHeaderView ? "within" : "outside")
-                    + "\n DEBUG INFO: header views=" + fixedHeaderViewRectangle + "; " + mainHeaderViewRectangle;
+                    + " given a horizontalScrollPosition of " + getCurrentHScrollPosition()
+                    + "\n DEBUG INFO: rectangles of visible header views = " + fixedHeaderViewRectangle + "; " + visibleHeaderViewRectangle;
         }
 
         private function getHeaderIndexAtGlobalPoint(globalPoint:Point):int
@@ -282,19 +348,19 @@ package spark.components.gridClasses {
             return rectangleContainsPoint(fixedHeaderViewRectangle, point);
         }
 
-        private function getMainHeaderViewContainsPointAssumption(point:Point):Boolean
+        private function getMainHeaderViewContainsPointAssumption(visibleHeaderViewRectangle:Rectangle, point:Point):Boolean
         {
-            return rectangleContainsPoint(mainHeaderViewRectangle, point);
+            return rectangleContainsPoint(visibleHeaderViewRectangle, point);
         }
 
-        private function getHeaderIndexAssumption(point:Point):int
+        private function getHeaderIndexAssumption(point:Point, visibleColumnHeaderRectangles:Array):int
         {
-            return getIndexOfRectangleWhichContainsPoint(point, columnHeaderRectangles);
+            return getIndexOfRectangleWhichContainsPoint(point, visibleColumnHeaderRectangles);
         }
 
-        private function getColumnIndexAssumption(point:Point):int
+        private function getColumnIndexAssumption(visibleColumnRectangles:Array, point:Point):int
         {
-            return getIndexOfRectangleWhichContainsPoint(point, columnRectangles);
+            return getIndexOfRectangleWhichContainsPoint(point, visibleColumnRectangles);
         }
 
         private function getIndexOfRectangleWhichContainsPoint(point:Point, rectangles:Array):int
@@ -318,22 +384,21 @@ package spark.components.gridClasses {
             return direction.transformPoint(point);
         }
 
-        private function generateKeyPoints(dimensions:Array, grid:DataGrid):Array
+        private function generateKeyPoints(grid:DataGrid):Array
         {
             var keyPoints:Array = [];
-            //TODO this code does not yet account for horizontal scrolling!
 
             keyPoints["a"] = new Point(0, 0);
-            keyPoints["b0"] = new Point(getX(dimensions), getY(dimensions));
-            generateColumnIntermediates(keyPoints, dimensions, "b0");
-            keyPoints["c0"] = new Point(getX(dimensions) + getHeaderPaddingLeft(dimensions), getY(dimensions));
-            generateColumnIntermediates(keyPoints, dimensions, "c0");
-            keyPoints["d"] = new Point(getX(dimensions) + getWidth(dimensions), getY(dimensions));
-            keyPoints["e"] = new Point(Point(keyPoints["c0"]).x, getY(dimensions) + getHeaderPaddingTop(dimensions));
-            keyPoints["f"] = new Point(Point(keyPoints["c0"]).x, getY(dimensions) + getActualHeaderHeight(grid) - getHeaderPaddingBottom(dimensions));
-            keyPoints["g0"] = new Point(getX(dimensions), getY(dimensions) + getActualHeaderHeight(grid));
-            generateColumnIntermediates(keyPoints, dimensions, "g0");
-            keyPoints["i"] = new Point(getX(dimensions) + getWidth(dimensions), Point(keyPoints["g0"]).y);
+            keyPoints["b0"] = new Point(getX(_dimensions), getY(_dimensions));
+            generateColumnIntermediates(keyPoints, _dimensions, "b0");
+            keyPoints["c0"] = new Point(getX(_dimensions) + getHeaderPaddingLeft(_dimensions), getY(_dimensions));
+            generateColumnIntermediates(keyPoints, _dimensions, "c0");
+            keyPoints["d"] = new Point(getX(_dimensions) + getWidth(_dimensions), getY(_dimensions));
+            keyPoints["e"] = new Point(Point(keyPoints["c0"]).x, getY(_dimensions) + getHeaderPaddingTop(_dimensions));
+            keyPoints["f"] = new Point(Point(keyPoints["c0"]).x, getY(_dimensions) + getActualHeaderHeight(grid) - getHeaderPaddingBottom(_dimensions));
+            keyPoints["g0"] = new Point(getX(_dimensions), getY(_dimensions) + getActualHeaderHeight(grid));
+            generateColumnIntermediates(keyPoints, _dimensions, "g0");
+            keyPoints["i"] = new Point(getX(_dimensions) + getWidth(_dimensions), Point(keyPoints["g0"]).y);
             return keyPoints;
         }
 
@@ -350,88 +415,28 @@ package spark.components.gridClasses {
             }
         }
 
-        private function generateKeyRectangles(keyPoints:Array, dimensions:Array):Array
+        private function generateKeyRectangles():Array
         {
             var keyRectangles:Array = [];
 
-            keyRectangles[COLUMN_HEADER_RECTANGLES] = generateHeaderColumnRectangles(keyPoints, dimensions);
-            keyRectangles[COLUMN_RECTANGLES] = generateColumnRectangles(keyPoints, dimensions);
-            keyRectangles[ENTIRE_HEADER_RECTANGLE] = generateVisibleHeaderRectangle(keyPoints, dimensions);
-            keyRectangles[MAIN_HEADER_VIEW_RECTANGLE] = generateMainHeaderViewRectangle(keyPoints, dimensions);
-            keyRectangles[FIXED_HEADER_VIEW_RECTANGLE] = generateFixedHeaderViewRectangle(keyPoints, dimensions);
+            keyRectangles[ENTIRE_HEADER_RECTANGLE] = generateVisibleHeaderRectangle();
+            keyRectangles[FIXED_HEADER_VIEW_RECTANGLE] = generateFixedHeaderViewRectangle();
 
             return keyRectangles;
         }
 
-        private function generateMainHeaderViewRectangle(keyPoints:Array, dimensions:Array):Rectangle
+        private function generateFixedHeaderViewRectangle():Rectangle
         {
             //this is the GridColumnHeaderGroup.centerGridColumnHeaderView, which is holds the non-fixed columns; padding excluded
-            const topLeftCorner:Point = keyPoints["e"];
-            return new Rectangle(topLeftCorner.x, topLeftCorner.y,
-                    getHeaderWidthFromKeyPoints(keyPoints) - getHeaderPaddingLeft(dimensions),
-                    getHeaderHeightFromKeyPoints(keyPoints) - getHeaderPaddingTop(dimensions) - getHeaderPaddingBottom(dimensions));
-        }
-
-        private function generateFixedHeaderViewRectangle(keyPoints:Array, dimensions:Array):Rectangle
-        {
-            //this is the GridColumnHeaderGroup.centerGridColumnHeaderView, which is holds the non-fixed columns; padding excluded
-            const topLeftCorner:Point = keyPoints["e"];
+            const topLeftCorner:Point = _keyPoints["e"];
             return new Rectangle(topLeftCorner.x, topLeftCorner.y, 0, 0);
         }
 
-        private function generateVisibleHeaderRectangle(keyPoints:Array, dimensions:Array):Rectangle
+        private function generateVisibleHeaderRectangle():Rectangle
         {
-            const topLeftCorner:Point = keyPoints["b0"];
-            const bottomRightCorner:Point = keyPoints["i"];
+            const topLeftCorner:Point = _keyPoints["b0"];
+            const bottomRightCorner:Point = _keyPoints["i"];
             return new Rectangle(topLeftCorner.x, topLeftCorner.y, bottomRightCorner.x - topLeftCorner.x, bottomRightCorner.y - topLeftCorner.y);
-        }
-
-        private function generateHeaderColumnRectangles(keyPoints:Array, dimensions:Array):Array
-        {
-            var headerRectangles:Array = [];
-
-            const headerPaddingTop:Number = getHeaderPaddingTop(dimensions);
-            const headerPaddingBottom:Number = getHeaderPaddingBottom(dimensions);
-            const headerHeight:Number = getHeaderHeightFromKeyPoints(keyPoints) - headerPaddingTop - headerPaddingBottom;
-            for (var i:int = 0; i < getColumnWidths(dimensions).length; i++)
-            {
-                var topLeft:Point = keyPoints["c" + i];
-                var topRight:Point = keyPoints["c" + (i+1)];
-                headerRectangles.push(new Rectangle(topLeft.x, topLeft.y + headerPaddingTop, topRight.x - topLeft.x, headerHeight));
-            }
-
-            //correct last header rectangle to extend to grid boundaries. This is one of the issues which prompted
-            //this unit test in the first place.
-            var lastHeaderRectangle:Rectangle = headerRectangles[headerRectangles.length - 1];
-            lastHeaderRectangle.width = Point(keyPoints["d"]).x - lastHeaderRectangle.x;
-
-            return headerRectangles;
-        }
-
-        //Note that the height and y of the rectangles doesn't matter until FLEX-35280 is fixed
-        private function generateColumnRectangles(keyPoints:Array, dimensions:Array):Array
-        {
-            var columnRectangles:Array = [];
-
-            for (var i:int = 0; i < getColumnWidths(dimensions).length; i++)
-            {
-                var topLeft:Point = keyPoints["g" + i];
-                var topRight:Point = keyPoints["g" + (i+1)];
-                columnRectangles.push(new Rectangle(topLeft.x, -10000, topRight.x - topLeft.x, Number.MAX_VALUE));
-            }
-
-            return columnRectangles;
-        }
-
-        private function forEachPoint(assertThat_:Function):void
-        {
-            for (var pointName:String in _keyPoints)
-            {
-                for (var i:int = 0; i < directions.length; i++)
-                {
-                    assertThat_(getAdjacentPoint(_keyPoints[pointName], directions[i]), pointName, directions[i]);
-                }
-            }
         }
 
 
@@ -441,26 +446,95 @@ package spark.components.gridClasses {
             return grid.columnHeaderGroup.height;
         }
 
+        private function getCurrentHScrollPosition():Number
+        {
+            return _dataGrid.grid.horizontalScrollPosition;
+        }
+
+
+        private function getVisibleHeaderViewRectangle(hScrollPosition:Number = 0):Rectangle
+        {
+            //this is the GridColumnHeaderGroup.centerGridColumnHeaderView, which holds the non-fixed columns; padding excluded
+            const topLeftCorner:Point = _keyPoints["e"];
+            return new Rectangle(topLeftCorner.x, topLeftCorner.y,
+                    getHeaderWidthFromKeyPoints(_keyPoints) - getHeaderPaddingLeft(_dimensions),
+                    getHeaderHeightFromKeyPoints(_keyPoints) - getHeaderPaddingTop(_dimensions) - getHeaderPaddingBottom(_dimensions));
+        }
+
+        private function getVisibleColumnHeaderRectangles(hScrollPosition:Number = 0):Array
+        {
+            var headerRectangles:Array = [];
+
+            const headerPaddingTop:Number = getHeaderPaddingTop(_dimensions);
+            const headerPaddingBottom:Number = getHeaderPaddingBottom(_dimensions);
+            const headerHeight:Number = getHeaderHeightFromKeyPoints(_keyPoints) - headerPaddingTop - headerPaddingBottom;
+            const numColumns:uint = getColumnWidths(_dimensions).length;
+            const headerPaddingLeft:Number = getHeaderPaddingLeft(_dimensions);
+            const headerWidth:Number = getWidth(_dimensions) - headerPaddingLeft;
+            const e:Point = _keyPoints["e"];
+            const visibleRectangle:Rectangle = new Rectangle(e.x, e.y, headerWidth, 100);
+            var totalColumnWidths:Number = getTotalColumnWidths(_dimensions);
+            var columnHeaderY:Number = NaN;
+
+            //create the header rectangles from the first visible point on the left until the end
+            for (var i:int = 0; i < numColumns; i++)
+            {
+                var topLeft:Point = _keyPoints["c" + i];
+                var topRight:Point = _keyPoints["c" + (i+1)];
+                var topLeftX:Number = topLeft.x - hScrollPosition;
+                var topRightX:Number = topRight.x - hScrollPosition;
+
+                if(isNaN(columnHeaderY))
+                    columnHeaderY = topLeft.y + headerPaddingTop;
+
+                var endsBeforeVisibleRectangle:Boolean = topRightX < visibleRectangle.x;
+                var startsAfterVisibleRectangle:Boolean = topLeftX >= visibleRectangle.x + visibleRectangle.width;
+
+                if(!(endsBeforeVisibleRectangle || startsAfterVisibleRectangle))
+                {
+                    const startingX:Number = Math.max(topLeftX, visibleRectangle.x);
+                    const rightEdge:Number = Math.min(topRightX, visibleRectangle.x + visibleRectangle.width);
+                    const width:Number = rightEdge - startingX;
+                    headerRectangles.push(new Rectangle(startingX, columnHeaderY, width, headerHeight));
+                }
+            }
+
+            assertThat("no example has 0 columns, so we expect this Array to have at least one item.", headerRectangles.length > 0);
+
+            //correct last header rectangle to extend to grid boundaries if the total width of all the columns is smaller
+            //than the grid's width. It is one of the issues which prompted this unit test in the first place.
+            if(totalColumnWidths <= headerWidth)
+            {
+                var lastHeaderRectangle:Rectangle = headerRectangles[headerRectangles.length - 1];
+                lastHeaderRectangle.width = Point(_keyPoints["d"]).x - lastHeaderRectangle.x;
+            }
+
+            return headerRectangles;
+        }
+
+
+        //Note that the height and y of the rectangles needs to be all-encompassing until FLEX-35280 is fixed
+        private function getAllColumnRectangles(hScrollPosition:Number = 0):Array
+        {
+            var columnRectangles:Array = [];
+            const numColumns:uint = getColumnWidths(_dimensions).length;
+
+            for (var i:int = 0; i < numColumns; i++)
+            {
+                var topLeft:Point = _keyPoints["g" + i];
+                var topRight:Point = _keyPoints["g" + (i+1)];
+
+                columnRectangles.push(new Rectangle(topLeft.x, -10000, topRight.x - topLeft.x, Number.MAX_VALUE));
+            }
+
+            return columnRectangles;
+        }
+
         /* key rectangles getters */
-
-        private function get columnHeaderRectangles():Array
-        {
-            return _keyRectangles[COLUMN_HEADER_RECTANGLES];
-        }
-
-        private function get columnRectangles():Array
-        {
-            return _keyRectangles[COLUMN_RECTANGLES];
-        }
 
         private function get entireHeaderRectangle():Rectangle //includes padding
         {
             return _keyRectangles[ENTIRE_HEADER_RECTANGLE] as Rectangle;
-        }
-
-        private function get mainHeaderViewRectangle():Rectangle
-        {
-            return _keyRectangles[MAIN_HEADER_VIEW_RECTANGLE] as Rectangle;
         }
 
         private function get fixedHeaderViewRectangle():Rectangle
@@ -535,6 +609,15 @@ package spark.components.gridClasses {
             return sum;
         }
 
+
+        private function onEnterFrame(event:Event):void
+        {
+            if(!--_noEnterFramesRemaining)
+            {
+                UIImpersonator.testDisplay.removeEventListener(Event.ENTER_FRAME, onEnterFrame);
+                _finishNotifier.dispatchEvent(new Event(Event.COMPLETE));
+            }
+        }
 
         private function get _sut():GridColumnHeaderGroup
         {
