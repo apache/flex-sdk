@@ -1039,11 +1039,11 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     // TODO: apologize for stashing the separatorIndex in headerCP.rowIndex
     private function eventToHeaderLocations(event:MouseEvent, headerCP:CellPosition, headerXY:Point):Boolean
     {
-        const view:Group = getHeaderViewUnderGlobalCoordinates(new Point(event.stageX, event.stageY));
+        const stageXY:Point = new Point(event.stageX, event.stageY);
+        const view:Group = getHeaderViewUnderGlobalCoordinates(stageXY);
         if (!view)
             return false;
 
-		const stageXY:Point = new Point(event.stageX, event.stageY);
         const viewXY:Point = view.globalToLocal(stageXY);
         const viewLayout:GridHeaderViewLayout = view.layout as GridHeaderViewLayout;
         const gdv:GridDimensionsView = viewLayout.gridView.gridViewLayout.gridDimensionsView;

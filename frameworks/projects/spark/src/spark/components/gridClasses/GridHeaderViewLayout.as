@@ -501,14 +501,14 @@ public class GridHeaderViewLayout extends LayoutBase
     public function getHeaderIndexAt(x:Number, y:Number):int
     {
         var headerIndex:int = -1;
-        var globalPoint:Point = gridColumnHeaderGroup.localToGlobal(new Point(x, y));
+        var globalPoint:Point = gridColumnHeaderGroup.localToGlobal(new Point(x - horizontalScrollPosition, y));
 
         if(gridColumnHeaderGroup.areCoordinatesOverAHeaderView(globalPoint))
         {
             var paddingLeftStyle:Number = gridColumnHeaderGroup.getStyle("paddingLeft");
             var paddingLeft:Number = isNaN(paddingLeftStyle) ? 0 : paddingLeftStyle;
 
-            headerIndex = gridView.gridViewLayout.gridDimensionsView.getColumnIndexAt(x - paddingLeft + horizontalScrollPosition, y);
+            headerIndex = gridView.gridViewLayout.gridDimensionsView.getColumnIndexAt(x - paddingLeft, y);
 
             if(headerIndex == -1)
             {
