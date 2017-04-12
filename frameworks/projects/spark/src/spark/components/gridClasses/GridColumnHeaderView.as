@@ -120,7 +120,6 @@ public class GridColumnHeaderView extends Group
             origin.x -= width;
 
         origin.y += verticalScrollPosition;
-        
 
         var headerViewContainsGlobalCoordinates:Boolean = (stageX >= origin.x) && (stageY >= origin.y) &&
                 (stageX < (origin.x + width)) && (stageY < (origin.y + height));

@@ -1050,7 +1050,7 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
         const separatorIndex:int = viewLayout.getSeparatorIndexAt(viewXY.x, 0);
         
         headerCP.rowIndex = (separatorIndex != -1) ? separatorIndex + gdv.viewColumnIndex : -1;
-        headerCP.columnIndex = (separatorIndex == -1) ? viewLayout.getHeaderIndexAt(viewXY.x, 0) + gdv.viewColumnIndex : -1;
+        headerCP.columnIndex = (separatorIndex == -1) ? viewLayout.getHeaderIndexAt(viewXY.x, viewXY.y) + gdv.viewColumnIndex : -1;
         
         headerXY.x = viewXY.x + gdv.viewOriginX;
         headerXY.y = viewXY.y;
