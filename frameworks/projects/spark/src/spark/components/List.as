@@ -630,36 +630,7 @@ public class List extends ListBase implements IFocusManagerComponent
         super.useVirtualLayout = value;
     }
     
-    //----------------------------------
-    //  dataProvider
-    //----------------------------------
 
-    [Inspectable(category="Data")]
-    
-    /**
-     *  @private
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override public function set dataProvider(value:IList):void
-    {
-        // Uconditionally clear the selection, see SDK-21645.  Can't wait
-        // to commit the selection because it could be set again before
-        // commitProperties runs and that selection gets lost.
-        if (!isEmpty(_proposedSelectedIndices) || !isEmpty(selectedIndices))
-        {
-            _proposedSelectedIndices.length = 0;
-            multipleSelectionChanged = true;
-            invalidateProperties();
-            UIComponentGlobals.layoutManager.validateClient(this, true);
-        }
-        super.dataProvider = value;
-    }
-        
-        
     //--------------------------------------------------------------------------
     //
     //  Properties
