@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<s:List xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+    selectedItem="@{container.selectedCompany.headquarter}"
+    dataProvider="{container.potentialHeadquarters}">
+
+    <fx:Script>
+        <![CDATA[
+        private var _container:Object;
+
+        [Bindable]
+        public function get container():Object
+        {
+            return _container;
+        }
+
+        public function set container(value:Object):void
+        {
+            _container = value;
+        }
+        ]]>
+    </fx:Script>
+</s:List>
