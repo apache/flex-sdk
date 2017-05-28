@@ -1198,7 +1198,7 @@ public class As3Compiler extends AbstractSubCompiler implements flex2.compiler.S
 
             // Valid references shouldn't have a dot in them, but
             // sometimes ASC creates them.  Filter them out here.
-            if ((ref.name.indexOf(".") < 0) && !history.containsKey(namespaceURI, ref.name))
+            if ((!ref.name.contains(".")) && !history.containsKey(namespaceURI, ref.name))
 			{
 				target.add(new MultiName(namespaceURI, ref.name));
 			}

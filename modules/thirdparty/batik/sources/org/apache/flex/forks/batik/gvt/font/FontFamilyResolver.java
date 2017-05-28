@@ -182,7 +182,7 @@ public class FontFamilyResolver {
         for (int i = 0; i < awtFontFamilies.size(); i++) {
             AWTFontFamily fontFamily = (AWTFontFamily)awtFontFamilies.get(i);
             AWTGVTFont font = (AWTGVTFont)awtFonts.get(i);
-            if (font.canDisplay(c) && fontFamily.getFamilyName().indexOf("Song") == -1) {
+            if (font.canDisplay(c) && !fontFamily.getFamilyName().contains("Song")) {
                 // the awt font for "MS Song" doesn't display chinese glyphs correctly
                 return fontFamily;
             }

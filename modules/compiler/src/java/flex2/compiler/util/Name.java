@@ -34,7 +34,7 @@ public abstract class Name
 
 	public void setLocalPart(String localPart)
 	{
-        assert localPart.indexOf(":") < 0;
+        assert !localPart.contains(":");
 		this.localPart = localPart;
 	}
 

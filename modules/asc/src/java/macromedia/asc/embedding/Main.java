@@ -216,7 +216,7 @@ public class Main
 						{
 							++i;
 							swf_options = args[i];
-							if (swf_options.indexOf("-g") > -1) // -g means make it a debuggable swf
+							if (swf_options.contains("-g")) // -g means make it a debuggable swf
 								emit_debug_info = true;
 						}
 						break;

@@ -461,10 +461,10 @@ public class CommandLineConfigurator
                 String description = getDescription( cfgbuf, var, lmgr, l10nPrefix);
 
                 if ((all
-                        || (var.indexOf( keyword ) != -1)
-                        || ((description != null) && (description.toLowerCase().indexOf( keyword ) != -1))
+                        || (var.contains(keyword))
+                        || ((description != null) && (description.toLowerCase().contains(keyword)))
                         || (keyword.matches( var ) )
-                        || ((sesaila.get( var ) != null) && (sesaila.get( var )).indexOf( keyword ) != -1))
+                        || ((sesaila.get( var ) != null) && (sesaila.get(var)).contains(keyword)))
                      && (!info.isHidden())
                      && (advanced || !info.isAdvanced()))
                 {

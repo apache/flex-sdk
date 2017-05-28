@@ -433,7 +433,7 @@ public class StyleParser
                         reader.read(chBuf);
     
                         String specifiedCharaset = new String(chBuf);
-                        if (specifiedCharaset.indexOf(testCharset) == -1)
+                        if (!specifiedCharaset.contains(testCharset))
                         {
                             in.reset();
                             throw new StyleSheetInvalidCharset("", testCharset);

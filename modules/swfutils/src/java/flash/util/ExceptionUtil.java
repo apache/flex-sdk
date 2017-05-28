@@ -88,7 +88,7 @@ public class ExceptionUtil
         while (!done && tokens.hasMoreElements())
         {
             String token = tokens.nextToken();
-            if (token.indexOf(lookingFor) == -1)
+            if (!token.contains(lookingFor))
                 trace.append(token);
             else
                 done = true;

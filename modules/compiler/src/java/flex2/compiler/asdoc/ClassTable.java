@@ -1496,13 +1496,13 @@ public class ClassTable implements DocCommentTable {
                     String tagName = (id.substring(beginTag, endTag)).intern();
                     if (!matchesAnyTag(tagName))
                     {
-                        if(tagName.indexOf("!") != -1)
+                        if(tagName.contains("!"))
                         {
                             ThreadLocalToolkit.getLogger().logError("Unexpected symbol ! (" + tagName 
                                     + ") found in " + this.fullname + "."); 
                         }
 
-                        if(tagName.indexOf(":") != -1)
+                        if(tagName.contains(":"))
                         {
                             ThreadLocalToolkit.getLogger().logError("Unexpected symbol : (" + tagName 
                                     + ") found in " + this.fullname + "."); 

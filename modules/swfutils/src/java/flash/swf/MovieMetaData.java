@@ -841,7 +841,7 @@ public final class MovieMetaData extends TagHandler
 						}
 						f.name = buffer.toString();
 
-						if (f.name != null && f.name.indexOf(".prototype.") == -1)
+						if (f.name != null && !f.name.contains(".prototype."))
 						{
 							f.name = "";
 						}
