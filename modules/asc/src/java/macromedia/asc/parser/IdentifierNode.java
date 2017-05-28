@@ -109,7 +109,7 @@ public class IdentifierNode extends Node
     public String toString()
     {
       if(Node.useDebugToStrings)
-         return "Identifier@" + pos() + (name != null ? ": " + name.toString() : "");
+         return "Identifier@" + pos() + (name != null ? ": " + name : "");
       else
          return "Identifier";
     }

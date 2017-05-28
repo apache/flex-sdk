@@ -824,7 +824,7 @@ public class ObjectValue extends Value implements Comparable
 
     public String toString() {
        if(Node.useDebugToStrings)
-          return ("ObjVal: <" + type + "> " + (name != null ? name.toString() : EMPTY_STRING)
+          return ("ObjVal: <" + type + "> " + (name != null ? name : EMPTY_STRING)
               + ((names != null && names.size()>0) ? "\nmethods: " + names.toString() : EMPTY_STRING));
        else
           return getValue();
