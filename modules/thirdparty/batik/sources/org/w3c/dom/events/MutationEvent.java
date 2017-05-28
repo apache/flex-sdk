@@ -29,15 +29,15 @@ public interface MutationEvent extends Event {
     /**
      *  The <code>Attr</code> was modified in place. 
      */
-    public static final short MODIFICATION              = 1;
+    short MODIFICATION              = 1;
     /**
      *  The <code>Attr</code> was just added. 
      */
-    public static final short ADDITION                  = 2;
+    short ADDITION                  = 2;
     /**
      *  The <code>Attr</code> was just removed. 
      */
-    public static final short REMOVAL                   = 3;
+    short REMOVAL                   = 3;
 
     /**
      *  <code>relatedNode</code> is used to identify a secondary node related 
@@ -49,34 +49,34 @@ public interface MutationEvent extends Event {
      * the DOMAttrModified event it indicates the <code>Attr</code> node 
      * which was modified, added, or removed. 
      */
-    public Node getRelatedNode();
+    Node getRelatedNode();
 
     /**
      *  <code>prevValue</code> indicates the previous value of the 
      * <code>Attr</code> node in DOMAttrModified events, and of the 
      * <code>CharacterData</code> node in DOMCharacterDataModified events. 
      */
-    public String getPrevValue();
+    String getPrevValue();
 
     /**
      *  <code>newValue</code> indicates the new value of the <code>Attr</code> 
      * node in DOMAttrModified events, and of the <code>CharacterData</code> 
      * node in DOMCharacterDataModified events. 
      */
-    public String getNewValue();
+    String getNewValue();
 
     /**
      *  <code>attrName</code> indicates the name of the changed 
      * <code>Attr</code> node in a DOMAttrModified event. 
      */
-    public String getAttrName();
+    String getAttrName();
 
     /**
      *  <code>attrChange</code> indicates the type of change which triggered 
      * the DOMAttrModified event. The values can be <code>MODIFICATION</code>
      * , <code>ADDITION</code>, or <code>REMOVAL</code>. 
      */
-    public short getAttrChange();
+    short getAttrChange();
 
     /**
      *  The <code>initMutationEvent</code> method is used to initialize the 
@@ -99,14 +99,14 @@ public interface MutationEvent extends Event {
      * @param attrChangeArg  Specifies <code>MutationEvent.attrChange</code>. 
      *   This value may be null.   
      */
-    public void initMutationEvent(String typeArg, 
-                                  boolean canBubbleArg, 
-                                  boolean cancelableArg, 
-                                  Node relatedNodeArg, 
-                                  String prevValueArg, 
-                                  String newValueArg, 
-                                  String attrNameArg, 
-                                  short attrChangeArg);
+    void initMutationEvent(String typeArg,
+                           boolean canBubbleArg,
+                           boolean cancelableArg,
+                           Node relatedNodeArg,
+                           String prevValueArg,
+                           String newValueArg,
+                           String attrNameArg,
+                           short attrChangeArg);
 
     /**
      *  The <code>initMutationEventNS</code> method is used to initialize the 
@@ -137,14 +137,14 @@ public interface MutationEvent extends Event {
      *   description of this parameter.   
      * @since DOM Level 3
      */
-    public void initMutationEventNS(String namespaceURI, 
-                                    String typeArg, 
-                                    boolean canBubbleArg, 
-                                    boolean cancelableArg, 
-                                    Node relatedNodeArg, 
-                                    String prevValueArg, 
-                                    String newValueArg, 
-                                    String attrNameArg, 
-                                    short attrChangeArg);
+    void initMutationEventNS(String namespaceURI,
+                             String typeArg,
+                             boolean canBubbleArg,
+                             boolean cancelableArg,
+                             Node relatedNodeArg,
+                             String prevValueArg,
+                             String newValueArg,
+                             String attrNameArg,
+                             short attrChangeArg);
 
 }

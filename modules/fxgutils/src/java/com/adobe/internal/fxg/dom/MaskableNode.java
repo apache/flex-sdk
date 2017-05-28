@@ -32,26 +32,26 @@ public interface MaskableNode extends FXGNode
      * 
      * @return the mask
      */
-    public MaskingNode getMask();
+    MaskingNode getMask();
 
     /**
      * Gets the mask type.
      * 
      * @return the mask type
      */
-    public MaskType getMaskType();
+    MaskType getMaskType();
     
     /**
      * Gets the luminosity clip.
      * 
      * @return the luminosity clip
      */
-    public boolean getLuminosityClip();
+    boolean getLuminosityClip();
     
     /**
      * Gets the luminosity invert.
      * 
      * @return the luminosity invert
      */
-    public boolean getLuminosityInvert();
+    boolean getLuminosityInvert();
 }

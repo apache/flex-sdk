@@ -19,7 +19,7 @@ package macromedia.asc.embedding.avmplus;
 
 public interface ActionBlockConstants
 {
-	public static final int MINORwithDECIMAL = 17;
+	int MINORwithDECIMAL = 17;
     /*
      * Constant pool tags
      */

@@ -31,7 +31,7 @@ public interface Frame
 	/**
 	 * Location object related to this frame.
 	 */
-	public Location getLocation();
+	Location getLocation();
 
 	/**
 	 * 'this' variable for the frame.  Will return null
@@ -40,7 +40,7 @@ public interface Frame
 	 * @throws flash.tools.debugger.NotSuspendedException
 	 * @throws flash.tools.debugger.NotConnectedException
 	 */
-    public Variable getThis(Session s) throws NoResponseException, NotSuspendedException, NotConnectedException;
+	Variable getThis(Session s) throws NoResponseException, NotSuspendedException, NotConnectedException;
 
 	/**
 	 * Arguments that were passed into the function.  An empty
@@ -50,7 +50,7 @@ public interface Frame
 	 * @throws flash.tools.debugger.NotSuspendedException
 	 * @throws flash.tools.debugger.NotConnectedException
 	 */
-    public Variable[] getArguments(Session s) throws NoResponseException, NotSuspendedException, NotConnectedException;
+	Variable[] getArguments(Session s) throws NoResponseException, NotSuspendedException, NotConnectedException;
 
 	/**
 	 * Locals used within this function scope.  An empty
@@ -60,7 +60,7 @@ public interface Frame
 	 * @throws flash.tools.debugger.NotSuspendedException
 	 * @throws flash.tools.debugger.NotConnectedException
 	 */
-    public Variable[] getLocals(Session s) throws NoResponseException, NotSuspendedException, NotConnectedException;
+	Variable[] getLocals(Session s) throws NoResponseException, NotSuspendedException, NotConnectedException;
 
 	/**
 	 * Returns a string which contains the raw signature of
@@ -100,7 +100,7 @@ public interface Frame
 	 * </ul>
 	 * </p>
 	 */
-	public String getCallSignature();
+	String getCallSignature();
 
 	/**
 	 * Returns a list of objects which make up the scope chain of
@@ -112,11 +112,11 @@ public interface Frame
 	 * <b>Bug:</b> Currently, this does <em>not</em> include any
 	 * scope chain entries which were created via "with var".
 	 */
-	public Variable[] getScopeChain(Session s) throws NoResponseException, NotSuspendedException, NotConnectedException;
+	Variable[] getScopeChain(Session s) throws NoResponseException, NotSuspendedException, NotConnectedException;
 	
 	/**
 	 * Returns the worker ID associated to this frame. This will return
 	 * Isolate.DEFAULT_ID, that is, the main worker.
 	 */
-	public int getIsolateId();
+	int getIsolateId();
 }

@@ -49,7 +49,7 @@ public interface Context
 	 * @param o the object to look up; most commonly a string representing the name of
 	 * a member variable.
 	 */
-	public Object lookup(Object o) throws NoSuchVariableException, PlayerFaultException;
+	Object lookup(Object o) throws NoSuchVariableException, PlayerFaultException;
 
 	/**
 	 * Looks for the members of an object.
@@ -61,7 +61,7 @@ public interface Context
 	 *         type.
 	 * @see #lookup(Object)
 	 */
-	public Object lookupMembers(Object o) throws NoSuchVariableException;
+	Object lookupMembers(Object o) throws NoSuchVariableException;
 
 	/**
 	 * Creates a new context object by combining the current one and o.
@@ -72,7 +72,7 @@ public interface Context
 	 *
 	 * @param o any object which may have been returned by this class's lookup() function
 	 */
-	public Context createContext(Object o);
+	Context createContext(Object o);
 
 	/**
 	 * Assign the object o, the value v.
@@ -83,14 +83,14 @@ public interface Context
 	 * @param v
 	 *            a value, such as a Boolean, Long, String, etc.
 	 */
-	public void assign(Object o, Value v) throws NoSuchVariableException, PlayerFaultException;
+	void assign(Object o, Value v) throws NoSuchVariableException, PlayerFaultException;
 
 	/**
 	 * Enables/disables the creation of variables during lookup calls.
 	 * This is ONLY used by AssignmentExp for creating a assigning a value 
 	 * to a property which currently does not exist.
 	 */
-	public void createPseudoVariables(boolean oui);
+	void createPseudoVariables(boolean oui);
 
 	/**
 	 * Converts the object to a Value.
@@ -102,7 +102,7 @@ public interface Context
 	 * @return the corresponding Value, or <code>null</code>.
 	 * @see Value#getValueAsObject()
 	 */
-	public Value toValue(Object o);
+	Value toValue(Object o);
 
 	/**
 	 * Converts the context to a Value. Very similar to
@@ -111,7 +111,7 @@ public interface Context
 	 * 
 	 * @return the corresponding Value, or <code>null</code>.
 	 */
-	public Value toValue();
+	Value toValue();
 
 	/**
 	 * Returns the session associated with this context, or null.
@@ -119,10 +119,10 @@ public interface Context
 	 * allowed to do things like "set $columnwidth = 120" before
 	 * beginning a debugging session.
 	 */
-	public Session getSession();
+	Session getSession();
 
     /**
      * The worker id to which this context object belongs.
      */
-    public int getIsolateId();
+	int getIsolateId();
 }

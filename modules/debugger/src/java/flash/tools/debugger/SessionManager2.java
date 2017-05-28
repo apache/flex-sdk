@@ -62,7 +62,7 @@ public interface SessionManager2 extends SessionManager {
 	 * @throws IOException
 	 *             see Runtime.exec()
 	 */
-	public Process launchForRun(String uri, AIRLaunchInfo airLaunchInfo,
-			 IProgress waitReporter, ILaunchNotification launchNotification) throws IOException;
+	Process launchForRun(String uri, AIRLaunchInfo airLaunchInfo,
+						 IProgress waitReporter, ILaunchNotification launchNotification) throws IOException;
 
 }

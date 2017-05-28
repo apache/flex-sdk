@@ -83,7 +83,7 @@ public class StringJoiner
     
     public interface ItemStringer
     {
-    	public String itemToString(Object obj);
+    	String itemToString(Object obj);
     }
     
     public static class ItemQuoter implements ItemStringer

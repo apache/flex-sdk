@@ -57,7 +57,7 @@ public interface DocumentEvent {
      *    NOT_SUPPORTED_ERR: Raised if the implementation does not support the 
      *   <code>Event</code> interface requested. 
      */
-    public Event createEvent(String eventType)
+    Event createEvent(String eventType)
                              throws DOMException;
 
     /**
@@ -69,7 +69,7 @@ public interface DocumentEvent {
      *   dispatch this event type, <code>false</code> otherwise. 
      * @since DOM Level 3
      */
-    public boolean canDispatch(String namespaceURI, 
-                               String type);
+    boolean canDispatch(String namespaceURI,
+                        String type);
 
 }

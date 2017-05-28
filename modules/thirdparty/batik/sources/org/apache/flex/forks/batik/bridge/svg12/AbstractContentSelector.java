@@ -122,7 +122,7 @@ public abstract class AbstractContentSelector {
     /**
      * An interface for content selector factories.
      */
-    protected static interface ContentSelectorFactory {
+    protected interface ContentSelectorFactory {
 
         /**
          * Creates a new selector object.

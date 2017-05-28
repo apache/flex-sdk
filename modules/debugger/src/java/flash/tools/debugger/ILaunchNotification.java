@@ -35,5 +35,5 @@ public interface ILaunchNotification
 	 *            an exception if the launch failed, or null if the launch
 	 *            succeeded.
 	 */
-	public void notify(IOException e);
+	void notify(IOException e);
 }

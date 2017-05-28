@@ -31,7 +31,7 @@ public interface DocCommentTable
     /**
      * @return Map of all packages where key = package name, value = DocComment.
      */
-    public Map getPackages();
+    Map getPackages();
     
     /**
      * Useful to retrieve all the class names from a package (since they must be unique
@@ -42,7 +42,7 @@ public interface DocCommentTable
      * key = class or interface name, value = DocComment.
      *
      */
-    public Map getClassesAndInterfaces(String packageName);
+    Map getClassesAndInterfaces(String packageName);
     
     
     /**
@@ -50,5 +50,5 @@ public interface DocCommentTable
      * @param packageName
      * @return all the DocComments associated with the specified class and package
      */
-    public List getAllClassComments(String className, String packageName);
+    List getAllClassComments(String className, String packageName);
 }

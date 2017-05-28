@@ -33,18 +33,18 @@ public interface TranslationFormat
     /**
      * Let the compiler know whether the given mimeType is supported by this class
      */
-    public boolean isSupported(String mimeType);
+    boolean isSupported(String mimeType);
 
     /**
      * Returns the mimeTypes supported by this class.  The mimeType has to be known to the compiler.
      * Known types include MimeMappings.AS, MimeMappings.PROPERTIES, MimeMappings.MXML
      */
-    public String[] getSupportedMimeTypes();
+    String[] getSupportedMimeTypes();
 
     /**
      * Process the given file and return a Set of Map.Entry values with String keys and values.
      */
-    public TranslationInfo getTranslationSet(CompilerConfiguration configuration,
-            SymbolTable symbolTable, Source source, String locale, StandardDefs standardDefs)
+    TranslationInfo getTranslationSet(CompilerConfiguration configuration,
+                                      SymbolTable symbolTable, Source source, String locale, StandardDefs standardDefs)
     	throws TranslationException;
 }

@@ -38,49 +38,49 @@ public interface MouseEvent extends UIEvent {
      *  The horizontal coordinate at which the event occurred relative to the 
      * origin of the screen coordinate system. 
      */
-    public int getScreenX();
+    int getScreenX();
 
     /**
      *  The vertical coordinate at which the event occurred relative to the 
      * origin of the screen coordinate system. 
      */
-    public int getScreenY();
+    int getScreenY();
 
     /**
      *  The horizontal coordinate at which the event occurred relative to the 
      * DOM implementation's client area. 
      */
-    public int getClientX();
+    int getClientX();
 
     /**
      *  The vertical coordinate at which the event occurred relative to the 
      * DOM implementation's client area. 
      */
-    public int getClientY();
+    int getClientY();
 
     /**
      *  <code>true</code> if the control (Ctrl) key modifier is activated. 
      */
-    public boolean getCtrlKey();
+    boolean getCtrlKey();
 
     /**
      *  <code>true</code> if the shift (Shift) key modifier is activated. 
      */
-    public boolean getShiftKey();
+    boolean getShiftKey();
 
     /**
      *  <code>true</code> if the alt (alternative) key modifier is activated. 
      * <p ><b>Note:</b>  The Option key modifier on Macintosh systems must be 
      * represented using this key modifier. 
      */
-    public boolean getAltKey();
+    boolean getAltKey();
 
     /**
      *  <code>true</code> if the meta (Meta) key modifier is activated. 
      * <p ><b>Note:</b>  The Command key modifier on Macintosh system must be 
      * represented using this meta key. 
      */
-    public boolean getMetaKey();
+    boolean getMetaKey();
 
     /**
      *  During mouse events caused by the depression or release of a mouse 
@@ -95,13 +95,13 @@ public interface MouseEvent extends UIEvent {
      * buttons, and values higher than <code>2</code> can be used to 
      * represent such buttons. 
      */
-    public short getButton();
+    short getButton();
 
     /**
      *  Used to identify a secondary <code>EventTarget</code> related to a UI 
      * event, depending on the type of event. 
      */
-    public EventTarget getRelatedTarget();
+    EventTarget getRelatedTarget();
 
     /**
      *  The <code>initMouseEvent</code> method is used to initialize the value 
@@ -130,21 +130,21 @@ public interface MouseEvent extends UIEvent {
      *   <code>MouseEvent.relatedTarget</code>. This value may be 
      *   <code>null</code>.   
      */
-    public void initMouseEvent(String typeArg, 
-                               boolean canBubbleArg, 
-                               boolean cancelableArg, 
-                               AbstractView viewArg, 
-                               int detailArg, 
-                               int screenXArg, 
-                               int screenYArg, 
-                               int clientXArg, 
-                               int clientYArg, 
-                               boolean ctrlKeyArg, 
-                               boolean altKeyArg, 
-                               boolean shiftKeyArg, 
-                               boolean metaKeyArg, 
-                               short buttonArg, 
-                               EventTarget relatedTargetArg);
+    void initMouseEvent(String typeArg,
+                        boolean canBubbleArg,
+                        boolean cancelableArg,
+                        AbstractView viewArg,
+                        int detailArg,
+                        int screenXArg,
+                        int screenYArg,
+                        int clientXArg,
+                        int clientYArg,
+                        boolean ctrlKeyArg,
+                        boolean altKeyArg,
+                        boolean shiftKeyArg,
+                        boolean metaKeyArg,
+                        short buttonArg,
+                        EventTarget relatedTargetArg);
 
     /**
      *  This methods queries the state of a modifier using a key identifier. 
@@ -162,7 +162,7 @@ public interface MouseEvent extends UIEvent {
      *   activated, <code>false</code> otherwise. 
      * @since DOM Level 3
      */
-    public boolean getModifierState(String keyIdentifierArg);
+    boolean getModifierState(String keyIdentifierArg);
 
     /**
      *  The <code>initMouseEventNS</code> method is used to initialize the 
@@ -202,18 +202,18 @@ public interface MouseEvent extends UIEvent {
      *   the control and alt modifiers.   
      * @since DOM Level 3
      */
-    public void initMouseEventNS(String namespaceURI, 
-                                 String typeArg, 
-                                 boolean canBubbleArg, 
-                                 boolean cancelableArg, 
-                                 AbstractView viewArg, 
-                                 int detailArg, 
-                                 int screenXArg, 
-                                 int screenYArg, 
-                                 int clientXArg, 
-                                 int clientYArg, 
-                                 short buttonArg, 
-                                 EventTarget relatedTargetArg, 
-                                 String modifiersList);
+    void initMouseEventNS(String namespaceURI,
+                          String typeArg,
+                          boolean canBubbleArg,
+                          boolean cancelableArg,
+                          AbstractView viewArg,
+                          int detailArg,
+                          int screenXArg,
+                          int screenYArg,
+                          int clientXArg,
+                          int clientYArg,
+                          short buttonArg,
+                          EventTarget relatedTargetArg,
+                          String modifiersList);
 
 }

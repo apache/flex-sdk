@@ -33,14 +33,14 @@ public interface ILauncher {
 	 * 
 	 * @throws java.io.IOException
 	 */
-	public Process launch(String[] cmd) throws IOException;
+	Process launch(String[] cmd) throws IOException;
 
 	/**
 	 * Terminate the process started by launch method.
 	 * @param process - process started by launch.
 	 * @throws java.io.IOException
 	 */
-	public void terminate(Process process) throws IOException;
+	void terminate(Process process) throws IOException;
 	
 	
 }

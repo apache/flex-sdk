@@ -29,5 +29,5 @@ public interface DocCommentGenerator
 	 * This method takes the DocCommentTable and generates documentation.
 	 * @param table
 	 */
-    public void generate(DocCommentTable table);
+	void generate(DocCommentTable table);
 }

@@ -55,7 +55,7 @@ public interface ImageRenderer extends Renderer{
      * Returns the transform from the current user space (as defined
      * by the top node of the GVT tree) to the device space.
      */
-    public AffineTransform getTransform();
+    AffineTransform getTransform();
 
     /**
      * Sets the specified rendering hints to be used for future renderings.

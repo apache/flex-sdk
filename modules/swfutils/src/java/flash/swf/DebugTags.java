@@ -87,12 +87,12 @@ public interface DebugTags
     // --Recycle Bin (2/7/03 9:52 AM): public static final int InVersion = 52;
 
     // Breakpoint info
-    public static final int kDebugScript = 0;
-    public static final int kDebugOffset = 1;
-    public static final int kDebugBreakpoint = 2;
-    public static final int kDebugID = 3;
+    int kDebugScript = 0;
+    int kDebugOffset = 1;
+    int kDebugBreakpoint = 2;
+    int kDebugID = 3;
     // --Recycle Bin (2/7/03 9:52 AM): public static final int kDebugTree = 4;
-    public static final int kDebugRegisters = 5;
+    int kDebugRegisters = 5;
 
 // --Recycle Bin START (2/7/03 9:52 AM):
 //    // used in DebugRecorder (write), and DebuggerPanel (read)

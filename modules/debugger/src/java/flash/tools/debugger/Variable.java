@@ -28,13 +28,13 @@ public interface Variable
 	/**
 	 * The name of the variable.
 	 */
-	public String		getName();
+	String		getName();
 
 	/**
 	 * The fully qualified name of the variable, i.e. "namespace::name"
 	 * if there is a namespace, or just "name" if not.
 	 */
-	public String		getQualifiedName();
+	String		getQualifiedName();
 
 	/**
 	 * The namespace of the variable.  This is everything before the
@@ -56,7 +56,7 @@ public interface Variable
 	 * 
 	 * @return namespace or "", never <code>null</code>
 	 */
-	public String		getNamespace();
+	String		getNamespace();
 
 	/**
 	 * Returns just the scope bits of the attributes. The scope values from
@@ -66,7 +66,7 @@ public interface Variable
 	 * 
 	 * @see flash.tools.debugger.VariableAttribute
 	 */
-	public int			getScope();
+	int			getScope();
 
 	/**
 	 * For a member variable of an instance of some class, its "level" indicates
@@ -83,7 +83,7 @@ public interface Variable
 	 * In this case, for <code>myObject</code>, the "level" of variable <code>c</code>
 	 * is 0; the level of <code>b</code> is 1; and the level of <code>a</code> is 2.
 	 */
-	public int			getLevel();
+	int			getLevel();
 
 	/**
 	 * The class in which this member was actually defined.  For example, if class
@@ -91,7 +91,7 @@ public interface Variable
 	 * V, the defining class is always "A", even though the parent variable might
 	 * be an instance of class B.
 	 */
-	public String		getDefiningClass();
+	String		getDefiningClass();
 
 	/**
 	 * Variable attributes define further information 
@@ -100,24 +100,24 @@ public interface Variable
 	 * 
 	 * @see flash.tools.debugger.VariableAttribute
 	 */
-	public int			getAttributes();
+	int			getAttributes();
 
 	/**
 	 * @see flash.tools.debugger.VariableAttribute
 	 */
-	public boolean		isAttributeSet(int variableAttribute);
+	boolean		isAttributeSet(int variableAttribute);
 
 	/**
 	 * Returns the value of the variable.
 	 */
-	public Value		getValue();
+	Value		getValue();
 
 	/**
 	 * Returns whether the value of the variable has changed since the last
 	 * time the program was suspended.  If the previous value of the
 	 * variable is unknown, this function will return <code>false</code>.
 	 */
-	public boolean		hasValueChanged(Session s);
+	boolean		hasValueChanged(Session s);
 
 	/**
 	 * Changes the value of a variable. New members cannot be added to a Variable,
@@ -141,12 +141,12 @@ public interface Variable
 	 * @throws flash.tools.debugger.NotConnectedException
 	 *             if Player is disconnected from Session
 	 */
-	public FaultEvent setValue(Session s, int type, String value) throws NotSuspendedException, NoResponseException, NotConnectedException;
+	FaultEvent setValue(Session s, int type, String value) throws NotSuspendedException, NoResponseException, NotConnectedException;
 
 	/**
 	 * @return True if this variable has a getter, and the getter has not yet been invoked.
 	 */
-	public boolean needsToInvokeGetter();
+	boolean needsToInvokeGetter();
 
 	/**
 	 * Executes the getter for this variable, and changes its value accordingly.  Note that
@@ -160,10 +160,10 @@ public interface Variable
 	 * @throws flash.tools.debugger.NoResponseException
 	 * @throws flash.tools.debugger.NotConnectedException
 	 */
-	public void invokeGetter(Session s) throws NotSuspendedException, NoResponseException, NotConnectedException;
+	void invokeGetter(Session s) throws NotSuspendedException, NoResponseException, NotConnectedException;
 	
 	/**
 	 * Get the worker id of the isolate to which this value belongs.
 	 */
-	public int getIsolateId();
+	int getIsolateId();
 }

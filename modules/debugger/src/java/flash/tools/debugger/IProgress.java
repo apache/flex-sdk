@@ -32,5 +32,5 @@ public interface IProgress
 	 * @param total
 	 *            the total amount of work
 	 */
-	public void setProgress(int current, int total);
+	void setProgress(int current, int total);
 }

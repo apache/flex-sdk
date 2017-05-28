@@ -31,7 +31,7 @@ public interface Player
 	 * 
 	 * @see #getType()
 	 */
-	public static final int STANDALONE = 1;
+	int STANDALONE = 1;
 
 	/**
 	 * Indicates a Netscape-plugin Flash player, e.g. NPSWF32.dll. Used on
@@ -40,7 +40,7 @@ public interface Player
 	 * 
 	 * @see #getType()
 	 */
-	public static final int NETSCAPE_PLUGIN = 2;
+	int NETSCAPE_PLUGIN = 2;
 
 	/**
 	 * Indicates an ActiveX-control Flash player, e.g. Flash.ocx.  Used on Windows
@@ -48,18 +48,18 @@ public interface Player
 	 * 
 	 * @see #getType()
 	 */
-	public static final int ACTIVEX = 3;
+	int ACTIVEX = 3;
 
 	/**
 	 * Indicates the Flash player inside AIR.
 	 */
-	public static final int AIR = 4;
+	int AIR = 4;
 
 	/**
 	 * Returns what type of Player this is: <code>STANDALONE</code>, <code>NETSCAPE_PLUGIN</code>,
 	 * <code>ACTIVEX</code>, or <code>AIR</code>.
 	 */
-	public int getType();
+	int getType();
 
 	/**
 	 * Returns the path to the Flash player file -- e.g. the path to
@@ -71,12 +71,12 @@ public interface Player
 	 * Note that the file is not guaranteed to exist. You can use File.exists()
 	 * to test that.
 	 */
-	public File getPath();
+	File getPath();
 
 	/**
 	 * Returns the web browser with which this player is associated,
 	 * or <code>null</code> if this is the standalone player or AIR,
 	 * or if we're not sure which browser will be run.
 	 */
-	public Browser getBrowser();
+	Browser getBrowser();
 }

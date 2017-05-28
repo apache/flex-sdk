@@ -25,7 +25,7 @@ package flash.tools.debugger;
  */
 public interface Isolate {
 	
-	public static final int DEFAULT_ID = 1;
+	int DEFAULT_ID = 1;
 	
 	/**
 	 * Get the unique integer ID associated with the
@@ -33,6 +33,6 @@ public interface Isolate {
 	 * primordial. 
 	 * @return unique integer ID
 	 */
-	public int getId();
+	int getId();
 	
 }

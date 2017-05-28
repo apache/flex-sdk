@@ -24,7 +24,7 @@ public interface CompilerProfiler
     /**
      *  Initialize the profiler.
      */
-    public void initialize();
+    void initialize();
 
     /**
      *  Start allocation recording.
@@ -33,7 +33,7 @@ public interface CompilerProfiler
      *  @param threshold - record every allocation over the threshold.
      *     Zero value disables threshold-based recording.
      */
-    public void startAllocationRecording(int sampling_delta, int threshold);
+    void startAllocationRecording(int sampling_delta, int threshold);
 
     /**
      *  Start CPU profiling.
@@ -41,18 +41,18 @@ public interface CompilerProfiler
      *    false value is interpreted by the implementation
      *    (often interpreted as exact profiling).
      */
-    public void startCPUProfiling(boolean use_sampling_mode);
+    void startCPUProfiling(boolean use_sampling_mode);
       
     /**
      *  Advance the memory allocation generation.
      */
-    public void advanceGeneration(String description);
+    void advanceGeneration(String description);
 
     /**
      *  Save a snapshot.
      *  @return a file path to the snapshot.
      */
-    public String captureSnapshot();
+    String captureSnapshot();
 
     /**
      * Annotate a snapshot.
@@ -61,5 +61,5 @@ public interface CompilerProfiler
      * @see captureSnapshot(), which returns the relevant file path.
      * @return true if the annotation succeeded.
      */
-    public boolean annotateSnapshot(String snapshot_file, String annoation);
+    boolean annotateSnapshot(String snapshot_file, String annoation);
 }

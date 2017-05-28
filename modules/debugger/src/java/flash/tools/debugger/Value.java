@@ -27,7 +27,7 @@ public interface Value
 	/**
 	 * A special object representing ActionScript's "undefined" value.
 	 */
-	public static final Object UNDEFINED = new Object() {
+	Object UNDEFINED = new Object() {
 		@Override
 		public String toString() {
 			return "undefined";  //$NON-NLS-1$
@@ -40,27 +40,27 @@ public interface Value
 	 * integer, rather than an Object or MovieClip.
 	 * @see getId()
 	 */
-	public static final long UNKNOWN_ID							= -1;
+	long UNKNOWN_ID							= -1;
 
 	/**
 	 * The special ID for pseudo-variable "_global".  (Note, this only
 	 * exists in AS2, not AS3.)
 	 * @see getId()
 	 */
-	public static final long GLOBAL_ID							= -2;
+	long GLOBAL_ID							= -2;
 
 	/**
 	 * The special ID for pseudo-variable "this".
 	 * @see getId()
 	 */
-	public static final long THIS_ID							= -3;
+	long THIS_ID							= -3;
 
 	/**
 	 * The special ID for pseudo-variable "_root".  (Note, this only
 	 * exists in AS2, not AS3.)
 	 * @see getId()
 	 */
-	public static final long ROOT_ID							= -4;
+	long ROOT_ID							= -4;
 
 	/**
 	 * The special ID for the top frame of the stack.  Locals and
@@ -72,26 +72,26 @@ public interface Value
 	 * 
 	 * @see getId()
 	 */
-	public static final long BASE_ID							= -100;
+	long BASE_ID							= -100;
 
 	/**
 	 * _level0 == LEVEL_ID, _level1 == LEVEL_ID-1, ...
 	 * 
 	 * all IDs below this line are dynamic.
 	 */
-	public static final long LEVEL_ID							= -300;
+	long LEVEL_ID							= -300;
 
 	/**
 	 * The return value of getTypeName() if this value represents the traits of a class.
 	 */
-	public static final String TRAITS_TYPE_NAME					= "traits"; //$NON-NLS-1$
+	String TRAITS_TYPE_NAME					= "traits"; //$NON-NLS-1$
 
 	/**
 	 * Variable type can be one of VariableType.OBJECT,
 	 * VariableType.FUNCTION, VariableType.NUMBER, VariableType.STRING,
 	 * VariableType.UNDEFINED, VariableType.NULL.
 	 */
-	public int			getType();
+	int			getType();
 
 	/**
 	 * The type name of the value:
@@ -110,7 +110,7 @@ public interface Value
 	 * "mx.core::Application@1234abcd". </li>
 	 * </ul>
 	 */
-	public String		getTypeName();
+	String		getTypeName();
 
 	/**
 	 * The class name of the value. This isn't actually very useful, and should
@@ -127,7 +127,7 @@ public interface Value
 	 * null, undefined), or the traits of a class. </li>
 	 * </ul>
 	 */
-	public String		getClassName();
+	String		getClassName();
 
 	/**
 	 * Variable attributes define further information 
@@ -136,12 +136,12 @@ public interface Value
 	 * 
 	 * @see flash.tools.debugger.VariableAttribute
 	 */
-	public int			getAttributes();
+	int			getAttributes();
 
 	/**
 	 * @see flash.tools.debugger.VariableAttribute
 	 */
-	public boolean		isAttributeSet(int variableAttribute);
+	boolean		isAttributeSet(int variableAttribute);
 
 	/**
 	 * Returns a unique ID for the object referred to by this variable.
@@ -152,7 +152,7 @@ public interface Value
 	 * MovieClip.  For other types of variables (e.g. integers and
 	 * strings), this returns <code>UNKNOWN_ID</code>.
 	 */
-	public long			getId();
+	long			getId();
 
 	/**
 	 * Returns the value of the variable, as an Object.  The return
@@ -169,7 +169,7 @@ public interface Value
 	 * the Value (the same value returned by <code>getId()</code>).
 	 * </ul>
 	 */
-	public Object		getValueAsObject();
+	Object		getValueAsObject();
 
 	/**
 	 * Returns the value of the variable, converted to a string.  Strings
@@ -177,7 +177,7 @@ public interface Value
 	 * extra quotation marks and no escaping of characters within the
 	 * string.
 	 */
-	public String		getValueAsString();
+	String		getValueAsString();
 
 	/**
 	 * Returns all child members of this variable.  Can only be called for
@@ -186,7 +186,7 @@ public interface Value
 	 * @throws flash.tools.debugger.NoResponseException
 	 * @throws flash.tools.debugger.NotSuspendedException
 	 */
-	public Variable[]	getMembers(Session s) throws NotSuspendedException, NoResponseException, NotConnectedException;
+	Variable[]	getMembers(Session s) throws NotSuspendedException, NoResponseException, NotConnectedException;
 
 	/**
 	 * Returns a specific child member of this variable.  Can only be called for
@@ -198,7 +198,7 @@ public interface Value
 	 * @throws flash.tools.debugger.NoResponseException
 	 * @throws flash.tools.debugger.NotSuspendedException
 	 */
-	public Variable     getMemberNamed(Session s, String name) throws NotSuspendedException, NoResponseException, NotConnectedException;
+	Variable     getMemberNamed(Session s, String name) throws NotSuspendedException, NoResponseException, NotConnectedException;
 
 	/**
 	 * Returns the number of child members of this variable.  If called for
@@ -208,7 +208,7 @@ public interface Value
 	 * @throws flash.tools.debugger.NoResponseException
 	 * @throws flash.tools.debugger.NotSuspendedException
 	 */
-	public int			getMemberCount(Session s) throws NotSuspendedException, NoResponseException, NotConnectedException;
+	int			getMemberCount(Session s) throws NotSuspendedException, NoResponseException, NotConnectedException;
 
 	/**
 	 * Returns the list of classes that contributed members to this object, from
@@ -228,7 +228,7 @@ public interface Value
 	 *            will <em>never</em> end with <code>Object</code>.
 	 * @return an array of fully qualified class names.
 	 */
-	public String[]		getClassHierarchy(boolean allLevels);
+	String[]		getClassHierarchy(boolean allLevels);
 	
 	/**
 	 * Returns all child members of this variable that are private and are present 
@@ -237,17 +237,17 @@ public interface Value
 	 * Warning: This may contain variables with the same name (when there is more
 	 * than two level inheritance).
 	 */
-	public Variable[]	getPrivateInheritedMembers();
+	Variable[]	getPrivateInheritedMembers();
 	
 	/**
 	 * Get all the private variables with the given name. Usually one, but more
 	 * may be present if the inheritance chain is long.
 	 * @param name Variable name.
 	 */
-	public Variable[] getPrivateInheritedMemberNamed(String name);
+	Variable[] getPrivateInheritedMemberNamed(String name);
 	
 	/**
 	 * Get the worker id of the isolate to which this value belongs.
 	 */
-	public int getIsolateId();
+	int getIsolateId();
 }

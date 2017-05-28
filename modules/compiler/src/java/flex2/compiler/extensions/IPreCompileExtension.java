@@ -39,8 +39,8 @@ import flex2.compiler.common.Configuration;
  */
 public interface IPreCompileExtension
 {
-    public void run( FileSpec fileSpec, SourceList sourceList, Collection<Source> classes, SourcePath sourcePath,
-                     ResourceContainer resources, ResourceBundlePath bundlePath, CompilerSwcContext swcContext,
-                     SymbolTable symbolTable, Configuration configuration, flex2.compiler.SubCompiler[] compilers,
-                     PreLink preLink, Map licenseMap, List<Source> sources );
+    void run(FileSpec fileSpec, SourceList sourceList, Collection<Source> classes, SourcePath sourcePath,
+             ResourceContainer resources, ResourceBundlePath bundlePath, CompilerSwcContext swcContext,
+             SymbolTable symbolTable, Configuration configuration, flex2.compiler.SubCompiler[] compilers,
+             PreLink preLink, Map licenseMap, List<Source> sources);
 }

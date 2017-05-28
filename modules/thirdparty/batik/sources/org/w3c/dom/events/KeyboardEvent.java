@@ -41,25 +41,25 @@ public interface KeyboardEvent extends UIEvent {
      * originate with a virtual key corresponding to the numeric keypad). 
      * Example: the 'Q' key on a PC 101 Key US keyboard. 
      */
-    public static final int DOM_KEY_LOCATION_STANDARD = 0x00;
+    int DOM_KEY_LOCATION_STANDARD = 0x00;
     /**
      *  The key activated is in the left key location (there is more than one 
      * possible location for this key). Example: the left Shift key on a PC 
      * 101 Key US keyboard. 
      */
-    public static final int DOM_KEY_LOCATION_LEFT     = 0x01;
+    int DOM_KEY_LOCATION_LEFT     = 0x01;
     /**
      *  The key activation is in the right key location (there is more than 
      * one possible location for this key). Example: the right Shift key on 
      * a PC 101 Key US keyboard. 
      */
-    public static final int DOM_KEY_LOCATION_RIGHT    = 0x02;
+    int DOM_KEY_LOCATION_RIGHT    = 0x02;
     /**
      *  The key activation originated on the numeric keypad or with a virtual 
      * key corresponding to the numeric keypad. Example: the '1' key on a PC 
      * 101 Key US keyboard located on the numeric pad. 
      */
-    public static final int DOM_KEY_LOCATION_NUMPAD   = 0x03;
+    int DOM_KEY_LOCATION_NUMPAD   = 0x03;
 
     /**
      *  <code>keyIdentifier</code> holds the identifier of the key. The key 
@@ -67,37 +67,37 @@ public interface KeyboardEvent extends UIEvent {
      * unable to identify a key must use the key identifier 
      * <code>"Unidentified"</code>. 
      */
-    public String getKeyIdentifier();
+    String getKeyIdentifier();
 
     /**
      *  The <code>keyLocation</code> attribute contains an indication of the 
      * location of they key on the device, as described in . 
      */
-    public int getKeyLocation();
+    int getKeyLocation();
 
     /**
      *  <code>true</code> if the control (Ctrl) key modifier is activated. 
      */
-    public boolean getCtrlKey();
+    boolean getCtrlKey();
 
     /**
      *  <code>true</code> if the shift (Shift) key modifier is activated. 
      */
-    public boolean getShiftKey();
+    boolean getShiftKey();
 
     /**
      *  <code>true</code> if the alternative (Alt) key modifier is activated. 
      * <p ><b>Note:</b>  The Option key modifier on Macintosh systems must be 
      * represented using this key modifier. 
      */
-    public boolean getAltKey();
+    boolean getAltKey();
 
     /**
      *  <code>true</code> if the meta (Meta) key modifier is activated. 
      * <p ><b>Note:</b>  The Command key modifier on Macintosh systems must be 
      * represented using this key modifier. 
      */
-    public boolean getMetaKey();
+    boolean getMetaKey();
 
     /**
      *  This methods queries the state of a modifier using a key identifier. 
@@ -113,7 +113,7 @@ public interface KeyboardEvent extends UIEvent {
      * @return  <code>true</code> if it is modifier key and the modifier is 
      *   activated, <code>false</code> otherwise. 
      */
-    public boolean getModifierState(String keyIdentifierArg);
+    boolean getModifierState(String keyIdentifierArg);
 
     /**
      *  The <code>initKeyboardEvent</code> method is used to initialize the 
@@ -135,13 +135,13 @@ public interface KeyboardEvent extends UIEvent {
      * @param modifiersList  A <a href='http://www.w3.org/TR/2004/REC-xml-20040204/#NT-S'>white space</a> separated list of modifier key identifiers to be activated on this 
      *   object. 
      */
-    public void initKeyboardEvent(String typeArg, 
-                                  boolean canBubbleArg, 
-                                  boolean cancelableArg, 
-                                  AbstractView viewArg, 
-                                  String keyIdentifierArg, 
-                                  int keyLocationArg, 
-                                  String modifiersList);
+    void initKeyboardEvent(String typeArg,
+                           boolean canBubbleArg,
+                           boolean cancelableArg,
+                           AbstractView viewArg,
+                           String keyIdentifierArg,
+                           int keyLocationArg,
+                           String modifiersList);
 
     /**
      *  The <code>initKeyboardEventNS</code> method is used to initialize the 
@@ -168,13 +168,13 @@ public interface KeyboardEvent extends UIEvent {
      *   object. As an example, <code>"Control Alt"</code> will activated 
      *   the control and alt modifiers. 
      */
-    public void initKeyboardEventNS(String namespaceURI, 
-                                    String typeArg, 
-                                    boolean canBubbleArg, 
-                                    boolean cancelableArg, 
-                                    AbstractView viewArg, 
-                                    String keyIdentifierArg, 
-                                    int keyLocationArg, 
-                                    String modifiersList);
+    void initKeyboardEventNS(String namespaceURI,
+                             String typeArg,
+                             boolean canBubbleArg,
+                             boolean cancelableArg,
+                             AbstractView viewArg,
+                             String keyIdentifierArg,
+                             int keyLocationArg,
+                             String modifiersList);
 
 }

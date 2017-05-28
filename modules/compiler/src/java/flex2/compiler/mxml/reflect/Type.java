@@ -72,7 +72,7 @@ public interface Type
 	/**
 	 *
 	 */
-	public boolean hasStaticMember(String name);
+	boolean hasStaticMember(String name);
 
 	/**
 	 * [Event]
@@ -98,7 +98,7 @@ public interface Type
      * [Frame(loaderClass=...)]
      * Might support other Frame stuff in the future, requiring some refactoring.
      */
-    public String getLoaderClass();
+	String getLoaderClass();
 
 	/**
 	 * [Obsolete]

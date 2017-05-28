@@ -24,13 +24,13 @@ package flash.swf.builder.types;
  */
 public interface ShapeIterator
 {
-	public boolean isDone();
-	public short currentSegment(double[] coords);
-	public void next();
+	boolean isDone();
+	short currentSegment(double[] coords);
+	void next();
 
-	public static final short MOVE_TO = 0;
-	public static final short LINE_TO = 1;
-	public static final short QUAD_TO = 2;
-	public static final short CUBIC_TO = 3;
-	public static final short CLOSE = 4;
+	short MOVE_TO = 0;
+	short LINE_TO = 1;
+	short QUAD_TO = 2;
+	short CUBIC_TO = 3;
+	short CLOSE = 4;
 }

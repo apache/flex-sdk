@@ -26,5 +26,5 @@ import flash.swf.tags.DefineTag;
  */
 public interface TagBuilder
 {
-	public DefineTag build();
+	DefineTag build();
 }

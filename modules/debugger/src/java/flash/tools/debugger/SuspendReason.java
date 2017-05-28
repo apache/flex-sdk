@@ -24,27 +24,27 @@ package flash.tools.debugger;
  */
 public interface SuspendReason
 {
-	public static final int Unknown			= 0;
+	int Unknown			= 0;
 	
 	/** We hit a breakpoint */
-	public static final int Breakpoint  	= 1;
+	int Breakpoint  	= 1;
 	
 	/** A watchpoint was triggered */
-	public static final int Watch			= 2;
+	int Watch			= 2;
 	
 	/** A fault occurred */
-	public static final int Fault			= 3;
+	int Fault			= 3;
 
-	public static final int StopRequest		= 4;
+	int StopRequest		= 4;
 
 	/** A step completed */
-	public static final int Step			= 5;
+	int Step			= 5;
 
-	public static final int HaltOpcode		= 6;
+	int HaltOpcode		= 6;
 	
 	/**
 	 * Either a new SWF was loaded, or else one or more scripts (ABCs)
 	 * from an existing SWF were loaded.
 	 */
-	public static final int ScriptLoaded	= 7;
+	int ScriptLoaded	= 7;
 }

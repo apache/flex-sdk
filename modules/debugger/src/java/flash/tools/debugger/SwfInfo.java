@@ -42,25 +42,25 @@ public interface SwfInfo
 	/**
 	 * The full path of the SWF.
 	 */
-	public String getPath();
+	String getPath();
 
 	/**
 	 * The URL for the SWF.  Includes any options
 	 * at the end of the URL. For example ?debug=true
 	 */
-	public String getUrl();
+	String getUrl();
 
 	/**
 	 * The size of this SWF in bytes
 	 */
-	public int getSwfSize();
+	int getSwfSize();
 
 	/**
 	 * The size of the debug SWD file, if any
 	 * This may also be zero if the SWD load is in progress
 	 * @throws InProgressException if the SWD has not yet been loaded
 	 */
-	public int getSwdSize(Session s) throws InProgressException;
+	int getSwdSize(Session s) throws InProgressException;
 
 	/**
 	 * Indication that this SWF, which was previously loaded into
@@ -69,7 +69,7 @@ public interface SwfInfo
 	 * be inactive.  These breakpoints will still exist in the 
 	 * list returned by Session.getBreakpointList()
 	 */
-	public boolean isUnloaded();
+	boolean isUnloaded();
 	
 	/**
 	 * Indicates whether the contents of the SWF file
@@ -81,14 +81,14 @@ public interface SwfInfo
 	 * non-null values once this call returns true.
 	 * @since Version 2
 	 */
-	public boolean isProcessingComplete();
+	boolean isProcessingComplete();
 
 	/**
 	 * Number of source files in this SWF.
 	 * May be zero if no debug 
 	 * @throws InProgressException if the SWD has not yet been loaded
 	 */
-	public int getSourceCount(Session s) throws InProgressException;
+	int getSourceCount(Session s) throws InProgressException;
 
 	/**
 	 * List of source files that are contained within 
@@ -96,17 +96,17 @@ public interface SwfInfo
 	 * @throws InProgressException if the SWD has not yet been loaded
 	 * @since Version 2
 	 */
-	public SourceFile[] getSourceList(Session s) throws InProgressException;
+	SourceFile[] getSourceList(Session s) throws InProgressException;
 
 	/**
 	 * Returns true if the given source file is contained 
 	 * within this SWF. 
 	 * @since Version 2
 	 */
-	public boolean containsSource(SourceFile f);
+	boolean containsSource(SourceFile f);
 
 	/**
 	 * Return the worker ID to which this SWF belongs.
 	 */
-	public int getIsolateId();
+	int getIsolateId();
 }

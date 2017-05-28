@@ -35,7 +35,7 @@ public interface SourceFile
 	 * part would NOT be returned).
 	 * @return base path, or null
 	 */
-	public String getBasePath();
+	String getBasePath();
 
 	/**
 	 * Get the package name portion of the path for this file. For example, if
@@ -45,14 +45,14 @@ public interface SourceFile
 	 * 
 	 * @return package name, or "" (never null)
 	 */
-	public String getPackageName();
+	String getPackageName();
 
 	/**
 	 * File name of this SourceFile.  In the case of a disk-based SourceFile,
 	 * this is the same as the filename with no path, e.g. 'myfile.as'
 	 * @return filename, or "" (never null)
 	 */
-	public String getName();
+	String getName();
 
 	/**
 	 * Full path and file name, if its exists, for this SourceFile.  For
@@ -61,25 +61,25 @@ public interface SourceFile
 	 * where "slash" is a platform-specific slash character.
 	 * @return path, never null
 	 */
-	public String getFullPath();
+	String getFullPath();
 
 	/**
 	 * Raw, unprocessed file name for this SourceFile.
 	 * @since As of Version 2
 	 */
-	public String getRawName();
+	String getRawName();
 
 	/**
 	 * Returns the number of source lines in the given file
 	 * @return -1 indicates an error.  Call getError() to 
 	 * obtain specific reason code.
 	 */
-	public int getLineCount();
+	int getLineCount();
 
 	/**
 	 * Return a unique identifier for this SourceFile. 
 	 */
-	public int getId();
+	int getId();
 
 	/**
 	 * Obtains the textual content of the given line
@@ -90,7 +90,7 @@ public interface SourceFile
 	 *		   return and/or line feed are stripped from the
 	 *		   end of the string.
 	 */
-	public String getLine(int lineNum);
+	String getLine(int lineNum);
 
 	/**
 	 *---------------------------------------------------
@@ -105,22 +105,22 @@ public interface SourceFile
 	 * if not known or if the line matches more than one function.
      * @since Version 3.
 	 */
-	public String getFunctionNameForLine(Session s, int lineNum);
+	String getFunctionNameForLine(Session s, int lineNum);
 
 	/**
 	 * Return the line number for the given function name
 	 * if it doesn't exists -1 is returned
 	 */
-	public int getLineForFunctionName(Session s, String name);
+	int getLineForFunctionName(Session s, String name);
 
 	/**
 	 * Get a list of all function names for this SourceFile
 	 */
-	public String[] getFunctionNames(Session s);
+	String[] getFunctionNames(Session s);
 
 	/**
 	 * Return the offset within the SWF for a given line 
 	 * number.
 	 */
-	public int getOffsetForLine(int lineNum);
+	int getOffsetForLine(int lineNum);
 }

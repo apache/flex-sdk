@@ -76,6 +76,6 @@ public interface AbcClass
 
     void freeze();
 
-    public boolean isPublic();
+    boolean isPublic();
 }
 

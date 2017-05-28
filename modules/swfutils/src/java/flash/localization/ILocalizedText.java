@@ -26,5 +26,5 @@ import java.util.Map;
  */
 public interface ILocalizedText
 {
-    public String format( Map parameters );
+    String format(Map parameters);
 }

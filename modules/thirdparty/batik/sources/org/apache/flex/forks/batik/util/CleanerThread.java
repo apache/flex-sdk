@@ -53,7 +53,7 @@ public class CleanerThread extends Thread {
      * this class implement this interface then the 'cleared' method
      * will be called when the reference is queued.
      */
-    public static interface ReferenceCleared {
+    public interface ReferenceCleared {
         /* Called when the reference is cleared */
         void cleared();
     }

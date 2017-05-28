@@ -23,9 +23,9 @@ package flex2.compiler.mxml.reflect;
  */
 public interface Stateful
 {
-    public void setStateName(String name);
+    void setStateName(String name);
     
-    public String getStateName();
+    String getStateName();
     
-    public boolean isStateSpecific();
+    boolean isStateSpecific();
 }

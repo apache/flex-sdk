@@ -37,6 +37,6 @@ public interface EventListener {
      * @param evt  The <code>Event</code> contains contextual information 
      *   about the event.   
      */
-    public void handleEvent(Event evt);
+    void handleEvent(Event evt);
 
 }

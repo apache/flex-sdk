@@ -30,11 +30,11 @@ public interface FilterNode extends FXGNode
      * An id attribute provides a well defined name to a filter node.
      * @return the node id.
      */
-    public String getId();
+    String getId();
 
     /**
      * Sets the node id.
      * @param value - the node id as a String.
      */
-    public void setId(String value);
+    void setId(String value);
 }

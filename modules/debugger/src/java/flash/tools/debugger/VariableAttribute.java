@@ -32,29 +32,29 @@ public interface VariableAttribute
 	 * Indicates that this member is invisible to an enumeration
 	 * of its parent.
 	 */
-	public static final int DONT_ENUMERATE			= 0x00000001;
+	int DONT_ENUMERATE			= 0x00000001;
 
 	/**
 	 * Indicates that a variable is read-only.
 	 */
-	public static final int READ_ONLY				= 0x00000004;
+	int READ_ONLY				= 0x00000004;
 
 	/**
 	 * Indicates that a variable is a local.
 	 */
-	public static final int IS_LOCAL 				= 0x00000020;
+	int IS_LOCAL 				= 0x00000020;
 
 	/**
 	 * Indicates that a variable is an argument to a function.
 	 */
-	public static final int IS_ARGUMENT				= 0x00010000;
+	int IS_ARGUMENT				= 0x00010000;
 
 	/**
 	 * Indicates that a variable is "dynamic" -- that is, whether it
 	 * is a dynamic property of a class declared with keyword "dynamic".
 	 * Note, this attribute only works with AS3 and above.
 	 */
-	public static final int IS_DYNAMIC				= 0x00020000;
+	int IS_DYNAMIC				= 0x00020000;
 
 	// 0x00040000 is reserved for IS_EXCEPTION, which is now part of
 	// ValueAttribute rather than VariableAttribute.
@@ -62,17 +62,17 @@ public interface VariableAttribute
 	/**
 	 * Indicates that a variable has a getter.
 	 */
-	public static final int HAS_GETTER				= 0x00080000;
+	int HAS_GETTER				= 0x00080000;
 
 	/**
 	 * Indicates that a variable has a setter.
 	 */
-	public static final int HAS_SETTER				= 0x00100000;
+	int HAS_SETTER				= 0x00100000;
 
 	/**
 	 * Indicates that a variable is a static member of its parent.
 	 */
-	public static final int IS_STATIC				= 0x00200000;
+	int IS_STATIC				= 0x00200000;
 
 	/**
 	 * Indicates that a variable was declared "const". READ_ONLY, on the other
@@ -80,7 +80,7 @@ public interface VariableAttribute
 	 * of objects. IS_CONST implies READ_ONLY; READ_ONLY does not imply
 	 * IS_CONST.
 	 */
-	public static final int IS_CONST				= 0x00400000;
+	int IS_CONST				= 0x00400000;
 
 	/**
 	 * Indicates that a variable is a public member of its parent.
@@ -93,7 +93,7 @@ public interface VariableAttribute
 	 * 		if (myVar.getScope() == VariableAttribute.PUBLIC_SCOPE) ...
 	 * </pre>
 	 */
-	public static final int PUBLIC_SCOPE			= 0x00000000;
+	int PUBLIC_SCOPE			= 0x00000000;
 
 	/**
 	 * Indicates that a variable is a private member of its parent.
@@ -106,7 +106,7 @@ public interface VariableAttribute
 	 * 		if (myVar.getScope() == VariableAttribute.PRIVATE_SCOPE) ...
 	 * </pre>
 	 */
-	public static final int PRIVATE_SCOPE			= 0x00800000;
+	int PRIVATE_SCOPE			= 0x00800000;
 
 	/**
 	 * Indicates that a variable is a protected member of its parent.
@@ -119,7 +119,7 @@ public interface VariableAttribute
 	 * 		if (myVar.getScope() == VariableAttribute.PROTECTED_SCOPE) ...
 	 * </pre>
 	 */
-	public static final int PROTECTED_SCOPE			= 0x01000000;
+	int PROTECTED_SCOPE			= 0x01000000;
 
 	/**
 	 * Indicates that a variable is an internal member of its parent.
@@ -134,7 +134,7 @@ public interface VariableAttribute
 	 * 		if (myVar.getScope() == VariableAttribute.INTERNAL_SCOPE) ...
 	 * </pre>
 	 */
-	public static final int INTERNAL_SCOPE			= 0x01800000;
+	int INTERNAL_SCOPE			= 0x01800000;
 
 	/**
 	 * Indicates that a variable is scoped by a namespace.  For
@@ -149,7 +149,7 @@ public interface VariableAttribute
 	 * 		if (myVar.getScope() == VariableAttribute.NAMESPACE_SCOPE) ...
 	 * </pre>
 	 */
-	public static final int NAMESPACE_SCOPE			= 0x02000000;
+	int NAMESPACE_SCOPE			= 0x02000000;
 
 	/**
 	 * A mask which can be used to get back only the scope-related
@@ -163,7 +163,7 @@ public interface VariableAttribute
 	 * 		if (myVar.getScope() == VariableAttribute.PRIVATE_SCOPE) ...
 	 * </pre>
 	 */
-	public static final int SCOPE_MASK				= PUBLIC_SCOPE|PRIVATE_SCOPE|PROTECTED_SCOPE|INTERNAL_SCOPE|NAMESPACE_SCOPE;
+	int SCOPE_MASK				= PUBLIC_SCOPE|PRIVATE_SCOPE|PROTECTED_SCOPE|INTERNAL_SCOPE|NAMESPACE_SCOPE;
 
 	// 0x04000000 is reserved for IS_CLASS, which is now part of
 	// ValueAttribute rather than VariableAttribute.

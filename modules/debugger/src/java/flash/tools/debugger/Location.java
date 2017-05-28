@@ -26,16 +26,16 @@ public interface Location
 	/**
 	 * Source file for this location 
 	 */
-	public SourceFile getFile();
+	SourceFile getFile();
 
 	/**
 	 * Line number within the source for this location 
 	 */
-    public int getLine();
+	int getLine();
     
     /**
      * Worker to which this location belongs.
      */
-    public int getIsolateId();
+	int getIsolateId();
 
 }

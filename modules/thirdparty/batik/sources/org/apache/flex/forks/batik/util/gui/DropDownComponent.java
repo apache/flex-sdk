@@ -246,7 +246,7 @@ public class DropDownComponent extends JPanel {
     /**
      * The scrollable pop up menu item.
      */
-    public static interface ScrollablePopupMenuItem {
+    public interface ScrollablePopupMenuItem {
 
         /**
          * Selects and deselects the item.
@@ -401,7 +401,7 @@ public class DropDownComponent extends JPanel {
     /**
      * The scrollable popup menu model.
      */
-    public static interface ScrollablePopupMenuModel {
+    public interface ScrollablePopupMenuModel {
 
         /**
          * Gets the footer text for the ScrollablePopupMenu's footer item.
@@ -842,7 +842,7 @@ public class DropDownComponent extends JPanel {
      * The ScrollablePopupMenu listener. Handles the events that
      * ScrollablePopupMenu fires
      */
-    public static interface ScrollablePopupMenuListener extends EventListener {
+    public interface ScrollablePopupMenuListener extends EventListener {
 
         /**
          * Handles the 'itemsWereAdded' event.

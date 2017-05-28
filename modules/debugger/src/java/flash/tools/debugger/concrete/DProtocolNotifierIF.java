@@ -25,10 +25,10 @@ public interface DProtocolNotifierIF
 	/**
 	 * Issused when a message has been received from the socket
 	 */
-	public void messageArrived(DMessage message, DProtocol which);
+	void messageArrived(DMessage message, DProtocol which);
 
 	/**
 	 * Issued when the socket connection to the player is cut 
 	 */
-	public void disconnected();
+	void disconnected();
 }

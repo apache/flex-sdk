@@ -27,13 +27,13 @@ package flex2.compiler.mxml;
  */
 public interface MXMLNamespaces
 {
-    public static final String FXG_2008_NAMESPACE = "http://ns.adobe.com/fxg/2008";
+    String FXG_2008_NAMESPACE = "http://ns.adobe.com/fxg/2008";
 
-    public static final String MXML_1_NAMESPACE = "http://www.macromedia.com/2003/mxml";
-    public static final String MXML_2_NAMESPACE = "http://www.macromedia.com/2005/mxml";
-    public static final String MXML_2006_NAMESPACE = "http://www.adobe.com/2006/mxml";
-    public static final String MXML_2009_NAMESPACE = "http://ns.adobe.com/mxml/2009";
+    String MXML_1_NAMESPACE = "http://www.macromedia.com/2003/mxml";
+    String MXML_2_NAMESPACE = "http://www.macromedia.com/2005/mxml";
+    String MXML_2006_NAMESPACE = "http://www.adobe.com/2006/mxml";
+    String MXML_2009_NAMESPACE = "http://ns.adobe.com/mxml/2009";
 
-    public static final String SPARK_NAMESPACE = "library://ns.adobe.com/flex/spark";
-    public static final String MX_NAMESPACE = "library://ns.adobe.com/flex/mx";
+    String SPARK_NAMESPACE = "library://ns.adobe.com/flex/spark";
+    String MX_NAMESPACE = "library://ns.adobe.com/flex/mx";
 }

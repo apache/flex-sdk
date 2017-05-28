@@ -28,7 +28,7 @@ public interface ValueAttribute
 	 * an exception that was thrown while executing the getter for
 	 * the variable.
 	 */
-	public static final int IS_EXCEPTION			= 0x00040000;
+	int IS_EXCEPTION			= 0x00040000;
 
 	/**
 	 * Indicates that an object is actually a Class.  For example, if you have
@@ -37,5 +37,5 @@ public interface ValueAttribute
 	 * 
 	 * ... then someClass will have IS_CLASS set to true.
 	 */
-	public static final int IS_CLASS				= 0x04000000;
+	int IS_CLASS				= 0x04000000;
 }

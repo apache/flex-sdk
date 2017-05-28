@@ -60,9 +60,9 @@ public interface EventTarget {
      *   and bubbling phases. If <code>false</code>, the event listener will 
      *   only be triggered during the target and bubbling phases.   
      */
-    public void addEventListener(String type, 
-                                 EventListener listener, 
-                                 boolean useCapture);
+    void addEventListener(String type,
+                          EventListener listener,
+                          boolean useCapture);
 
     /**
      *  This method allows the removal of event listeners from the default 
@@ -85,9 +85,9 @@ public interface EventTarget {
      *   phase does not affect the same event listener registered for the 
      *   target and bubbling phases, and vice versa.   
      */
-    public void removeEventListener(String type, 
-                                    EventListener listener, 
-                                    boolean useCapture);
+    void removeEventListener(String type,
+                             EventListener listener,
+                             boolean useCapture);
 
     /**
      *  This method allows the dispatch of events into the implementation's 
@@ -115,7 +115,7 @@ public interface EventTarget {
      *   . 
      * @version DOM Level 3
      */
-    public boolean dispatchEvent(Event evt)
+    boolean dispatchEvent(Event evt)
                                  throws EventException, DOMException;
 
     /**
@@ -139,11 +139,11 @@ public interface EventTarget {
      *   group. 
      * @since DOM Level 3
      */
-    public void addEventListenerNS(String namespaceURI, 
-                                   String type, 
-                                   EventListener listener, 
-                                   boolean useCapture, 
-                                   Object evtGroup);
+    void addEventListenerNS(String namespaceURI,
+                            String type,
+                            EventListener listener,
+                            boolean useCapture,
+                            Object evtGroup);
 
     /**
      *  This method allows the removal of an event listener, independently of 
@@ -165,9 +165,9 @@ public interface EventTarget {
      *   description of this parameter.   
      * @since DOM Level 3
      */
-    public void removeEventListenerNS(String namespaceURI, 
-                                      String type, 
-                                      EventListener listener, 
-                                      boolean useCapture);
+    void removeEventListenerNS(String namespaceURI,
+                               String type,
+                               EventListener listener,
+                               boolean useCapture);
 
 }

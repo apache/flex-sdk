@@ -52,7 +52,7 @@ public interface SwcDependencyInfo
      * @return If there are no cylces any empty set will be returned. If there
      * are cycles the set will contain the SWCs that make up the cycle.
      */
-    public Set<Vertex<String, SwcExternalScriptInfo>> detectCycles();
+    Set<Vertex<String, SwcExternalScriptInfo>> detectCycles();
 
     /**
      * Get a list of all the SWCs in order of their relative dependencies. The list
