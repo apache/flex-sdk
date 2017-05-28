@@ -29,7 +29,7 @@ import java.util.Map;
  */
 public final class MultiName extends Name
 {
-	private static final String Empty = "".intern();
+	private static final String Empty = "";
 	private static final String[] EmptyNS = new String[] {Empty};
 
 	private static final Map<String, String[]> nsMap = new HashMap<String, String[]>();

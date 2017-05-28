@@ -63,18 +63,18 @@ public class AbstractSyntaxTreeUtil
     private static final String GREATER_THAN = ">";
 
     // intern all identifier constants
-    private static final String __AS3__ = "__AS3__".intern();
-    private static final String CONFIG = "CONFIG".intern();
-    private static final String MX_INTERNAL = "mx_internal".intern();
-    private static final String OVERRIDE = "override".intern();
-    private static final String PRIVATE = "private".intern();
-    private static final String PROTECTED = "protected".intern();
+    private static final String __AS3__ = "__AS3__";
+    private static final String CONFIG = "CONFIG";
+    private static final String MX_INTERNAL = "mx_internal";
+    private static final String OVERRIDE = "override";
+    private static final String PRIVATE = "private";
+    private static final String PROTECTED = "protected";
     private static final String PRIVATE_DOC_COMMENT = "<description><![CDATA[\n ]]></description>\n<private><![CDATA[ ]]></private>";
     private static final String INHERIT_DOC_COMMENT = "<description><![CDATA[\n ]]></description>\n<inheritDoc><![CDATA[ ]]></inheritDoc>";
-    private static final String PUBLIC = "public".intern();
-    private static final String STATIC = "static".intern();
-    private static final String VEC = "vec".intern();
-    private static final String VECTOR = "Vector".intern();
+    private static final String PUBLIC = "public";
+    private static final String STATIC = "static";
+    private static final String VEC = "vec";
+    private static final String VECTOR = "Vector";
 
     public static ApplyTypeExprNode generateApplyTypeExpr(NodeFactory nodeFactory, String type)
     {

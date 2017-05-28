@@ -905,7 +905,7 @@ public final class NodeFactory implements ErrorConstants
 		return node;
 	}
 
-	private static final String ARGUMENTS = "arguments".intern();
+	private static final String ARGUMENTS = "arguments";
 
 	public IdentifierNode identifier(String name, int pos)
 	{

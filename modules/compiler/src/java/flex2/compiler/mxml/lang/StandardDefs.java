@@ -126,17 +126,17 @@ public abstract class StandardDefs
     public static final String PACKAGE_FLASH_SYSTEM = "flash.system";
     public static final String PACKAGE_FLASH_TEXT = "flash.text";
     public static final String PACKAGE_FLASH_UI = "flash.ui";
-    public static final String PACKAGE_FLASH_UTILS = "flash.utils".intern();
+    public static final String PACKAGE_FLASH_UTILS = "flash.utils";
     public static final String PACKAGE_FLASH_XML = "flash.xml";
 
     // flashx.textLayout.*
     public static final String PACKAGE_FLASH_TEXTLAYOUT_COMPOSE = "flashx.textLayout.compose";
     
     // mx.*
-    private static final String PACKAGE_MX_BINDING = "mx.binding".intern();
+    private static final String PACKAGE_MX_BINDING = "mx.binding";
     private static final String PACKAGE_MX_CONTAINERS = "mx.containers";
     private static final String PACKAGE_MX_CONTROLS = "mx.controls";
-    private static final String PACKAGE_MX_CORE = "mx.core".intern();
+    private static final String PACKAGE_MX_CORE = "mx.core";
     private static final String PACKAGE_MX_DATA = "mx.data";
     private static final String PACKAGE_MX_DATA_UTILS = "mx.data.utils";
     private static final String PACKAGE_MX_EFFECTS = "mx.effects";
@@ -149,9 +149,9 @@ public abstract class StandardDefs
     private static final String PACKAGE_MX_RESOURCES = "mx.resources";
     private static final String PACKAGE_MX_RPC = "mx.rpc";    //    TODO to FramewkDefs? RpcDefs?
     private static final String PACKAGE_MX_RPC_XML = "mx.rpc.xml";    //    TODO to FramewkDefs? RpcDefs?
-    private static final String PACKAGE_MX_STATES = "mx.states".intern();
-    private static final String PACKAGE_MX_STYLES = "mx.styles".intern();
-    private static final String PACKAGE_MX_UTILS = "mx.utils".intern();
+    private static final String PACKAGE_MX_STATES = "mx.states";
+    private static final String PACKAGE_MX_STYLES = "mx.styles";
+    private static final String PACKAGE_MX_UTILS = "mx.utils";
 
     // spark.*
     private static final String PACKAGE_SPARK_COMPONENTS = "spark.components";
@@ -166,7 +166,7 @@ public abstract class StandardDefs
     //
     //--------------------------------------------------------------------------    
 
-    public static final String NAMESPACE_MX_INTERNAL_LOCALNAME = "mx_internal".intern();
+    public static final String NAMESPACE_MX_INTERNAL_LOCALNAME = "mx_internal";
     public static final String NAMESPACE_MX_INTERNAL_URI = "http://www.adobe.com/2006/flex/mx/internal";
 
     public final String NAMESPACE_MX_INTERNAL = getCorePackage() + ":" + NAMESPACE_MX_INTERNAL_LOCALNAME;
@@ -327,7 +327,7 @@ public abstract class StandardDefs
     public static final String PROP_CLASSFACTORY_PROPERTIES = "properties";
     public static final String PROP_UICOMPONENT_STATES = "states";
     // intern, because it's used as an identifier.
-    public static final String PROP_CONTAINER_CHILDREPEATERS = "childRepeaters".intern();
+    public static final String PROP_CONTAINER_CHILDREPEATERS = "childRepeaters";
 
 
     //--------------------------------------------------------------------------

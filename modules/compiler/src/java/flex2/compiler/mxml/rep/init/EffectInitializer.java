@@ -71,7 +71,7 @@ public class EffectInitializer extends NamedInitializer
     }
 
     // intern all identifier constants
-    private static final String SET_STYLE = "setStyle".intern();
+    private static final String SET_STYLE = "setStyle";
 
     public StatementListNode generateAssignExpr(NodeFactory nodeFactory,
                                                 HashSet<String> configNamespaces,

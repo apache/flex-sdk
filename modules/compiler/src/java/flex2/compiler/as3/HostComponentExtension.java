@@ -56,8 +56,8 @@ import macromedia.asc.util.Context;
  */
 public final class HostComponentExtension implements Extension
 {
-    private static final String SKINHOSTCOMPONENT = "hostComponent".intern();
-    private static final String BINDABLE = "Bindable".intern();
+    private static final String SKINHOSTCOMPONENT = "hostComponent";
+    private static final String BINDABLE = "Bindable";
     private static final String[] PUBLIC_NAMESPACE = new String[] {SymbolTable.publicNamespace};
 
     private boolean reportMissingRequiredSkinPartsAsWarnings; // true generates a warning,

@@ -43,21 +43,21 @@ import macromedia.asc.util.Context;
  */
 public class StatesGenerator {
 
-    public final static String INDENT = "  ".intern();
+    public final static String INDENT = "  ";
     private List<StatesModel.Override> bindingsQueue;
     private final StandardDefs standardDefs;
     
     // Interned constants used for AST generation.
-    private static final String _C = "_c".intern();
-    private static final String _I = "_i".intern();
-    private static final String _FACTORY = "_factory".intern();
-    private static final String _R = "_r".intern();
-    private static final String ADDEVENTLISTENER = "addEventListener".intern();
-    private static final String BINDINGMANAGER = "BindingManager".intern();
-    private static final String DEFERREDINSTANCEFROMFUNCTION = "DeferredInstanceFromFunction".intern();
-    private static final String EXECUTEBINDINGS = "executeBindings".intern();
-    private static final String GETINSTANCE = "getInstance".intern();
-    private static final String STATES = "states".intern();
+    private static final String _C = "_c";
+    private static final String _I = "_i";
+    private static final String _FACTORY = "_factory";
+    private static final String _R = "_r";
+    private static final String ADDEVENTLISTENER = "addEventListener";
+    private static final String BINDINGMANAGER = "BindingManager";
+    private static final String DEFERREDINSTANCEFROMFUNCTION = "DeferredInstanceFromFunction";
+    private static final String EXECUTEBINDINGS = "executeBindings";
+    private static final String GETINSTANCE = "getInstance";
+    private static final String STATES = "states";
     
     /*
      * 

@@ -38,19 +38,19 @@ public final class Parser
 {
     private static final boolean debug = false;
 
-    private static final String PUBLIC = "public".intern();
-    private static final String PRIVATE = "private".intern();
-    private static final String PROTECTED = "protected".intern();
-    private static final String ASTERISK = "*".intern();
-    private static final String DEFAULT = "default".intern();
-    private static final String AS3 = "AS3".intern();
-    public static final String CONFIG = "CONFIG".intern();
-    private static final String GET = "get".intern();
-    private static final String NAMESPACE = "namespace".intern();
-    private static final String SET = "set".intern();
-    private static final String VEC = "vec".intern();
-    private static final String VECTOR = "Vector".intern();
-    private static final String __AS3__ = "__AS3__".intern();
+    private static final String PUBLIC = "public";
+    private static final String PRIVATE = "private";
+    private static final String PROTECTED = "protected";
+    private static final String ASTERISK = "*";
+    private static final String DEFAULT = "default";
+    private static final String AS3 = "AS3";
+    public static final String CONFIG = "CONFIG";
+    private static final String GET = "get";
+    private static final String NAMESPACE = "namespace";
+    private static final String SET = "set";
+    private static final String VEC = "vec";
+    private static final String VECTOR = "Vector";
+    private static final String __AS3__ = "__AS3__";
 
     private static final int abbrevIfElse_mode       = ELSE_TOKEN;  // lookahead uses this value. don't change.
     private static final int abbrevDoWhile_mode      = WHILE_TOKEN; // ditto.

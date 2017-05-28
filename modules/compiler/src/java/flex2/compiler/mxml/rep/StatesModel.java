@@ -62,33 +62,33 @@ public final class StatesModel
     private final Set<String> statesDefined;
    
     // Interned constants used for AST generation.
-    private static final String _FACTORY = "_factory".intern();
-    private static final String ADDITEMS = "AddItems".intern();
-    private static final String DESTINATION = "destination".intern();
-    private static final String DESTRUCTIONPOLICY = "destructionPolicy".intern();
-    private static final String HANDLERFUNCTION = "handlerFunction".intern();
-    private static final String INITIALIZEFROMOBJECT = "initializeFromObject".intern();
-    private static final String ISARRAY = "isArray".intern();
-    private static final String ISBASEVALUEDATABOUND = "isBaseValueDataBound".intern();
-    private static final String ISSTYLE = "isStyle".intern();
-    private static final String ITEMSFACTORY = "itemsFactory".intern();
+    private static final String _FACTORY = "_factory";
+    private static final String ADDITEMS = "AddItems";
+    private static final String DESTINATION = "destination";
+    private static final String DESTRUCTIONPOLICY = "destructionPolicy";
+    private static final String HANDLERFUNCTION = "handlerFunction";
+    private static final String INITIALIZEFROMOBJECT = "initializeFromObject";
+    private static final String ISARRAY = "isArray";
+    private static final String ISBASEVALUEDATABOUND = "isBaseValueDataBound";
+    private static final String ISSTYLE = "isStyle";
+    private static final String ITEMSFACTORY = "itemsFactory";
     private static final String LESS_THAN = "<";
-    private static final String NAME = "name".intern();
-    private static final String OVERRIDES = "overrides".intern();
-    private static final String ORIGINALHANDLERFUNCTION = "originalHandlerFunction".intern();
-    private static final String POSITION = "position".intern();
-    private static final String PROPERTYNAME = "propertyName".intern();
-    private static final String RELATIVETO = "relativeTo".intern();
-    private static final String SETPROPERTY = "SetProperty".intern();
-    private static final String SETSTYLE = "SetStyle".intern();
-    private static final String SETEVENTHANDLER = "SetEventHandler".intern();
-    private static final String STATE = "State".intern();
-    private static final String STATEGROUPS = "stateGroups".intern();
-    private static final String TARGET = "target".intern();
-    private static final String UNDEFINED = "undefined".intern();
-    private static final String VALUE = "value".intern();
-    private static final String VALUEFACTORY = "valueFactory".intern();
-    private static final String VECTORCLASS = "vectorClass".intern();
+    private static final String NAME = "name";
+    private static final String OVERRIDES = "overrides";
+    private static final String ORIGINALHANDLERFUNCTION = "originalHandlerFunction";
+    private static final String POSITION = "position";
+    private static final String PROPERTYNAME = "propertyName";
+    private static final String RELATIVETO = "relativeTo";
+    private static final String SETPROPERTY = "SetProperty";
+    private static final String SETSTYLE = "SetStyle";
+    private static final String SETEVENTHANDLER = "SetEventHandler";
+    private static final String STATE = "State";
+    private static final String STATEGROUPS = "stateGroups";
+    private static final String TARGET = "target";
+    private static final String UNDEFINED = "undefined";
+    private static final String VALUE = "value";
+    private static final String VALUEFACTORY = "valueFactory";
+    private static final String VECTORCLASS = "vectorClass";
 
     /*
      * Constructor

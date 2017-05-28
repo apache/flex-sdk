@@ -61,10 +61,10 @@ class SkinPartEvaluator extends EvaluatorAdapter
     private Context currentContext;
     
     //String Defs
-    private static final String SKINPARTS = "skinParts".intern();
-    private static final String _SKINPARTS = "_skinParts".intern();
-    private static final String OVERRIDE = "override".intern();
-    private static final String OBJECT = "Object".intern();
+    private static final String SKINPARTS = "skinParts";
+    private static final String _SKINPARTS = "_skinParts";
+    private static final String OVERRIDE = "override";
+    private static final String OBJECT = "Object";
 
     public SkinPartEvaluator(SymbolTable symbolTable)
     {

@@ -1157,7 +1157,7 @@ public class AbcData implements java.io.Externalizable
 
         size = buf.readU32();
         this.strings = new String[size];
-        this.strings[0] = "".intern();
+        this.strings[0] = "";
         for (int i = 1; i < size; i++)
         {
             int length = buf.readU32();

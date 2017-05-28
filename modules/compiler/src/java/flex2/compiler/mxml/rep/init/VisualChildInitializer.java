@@ -94,10 +94,10 @@ public class VisualChildInitializer extends ValueInitializer
 	}
 
     // intern all identifier constants
-    private static final String PUSH = "push".intern();
-    private static final String ADD_CHILD = "addChild".intern();
-    private static final String INITIALIZE_REPEATER = "initializeRepeater".intern();
-    private static final String REPEATER = "repeater".intern();
+    private static final String PUSH = "push";
+    private static final String ADD_CHILD = "addChild";
+    private static final String INITIALIZE_REPEATER = "initializeRepeater";
+    private static final String REPEATER = "repeater";
 
 	public StatementListNode generateAssignExpr(NodeFactory nodeFactory,
                                                 HashSet<String> configNamespaces,

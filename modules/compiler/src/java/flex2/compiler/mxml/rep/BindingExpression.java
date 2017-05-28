@@ -239,7 +239,7 @@ public class BindingExpression implements Comparable<BindingExpression>
         return result;
     }
 
-    private static final String NODE_VALUE = "nodeValue".intern();
+    private static final String NODE_VALUE = "nodeValue";
 
     public MemberExpressionNode generateDestinationAssignment(NodeFactory nodeFactory, String rvalue)
     {
@@ -295,8 +295,8 @@ public class BindingExpression implements Comparable<BindingExpression>
         return nodeFactory.memberExpression(base, selector);
     }
 
-    private static final String SET_STYLE = "setStyle".intern();
-    private static final String _SOURCE_FUNCTION_RETURN_VALUE = "_sourceFunctionReturnValue".intern();
+    private static final String SET_STYLE = "setStyle";
+    private static final String _SOURCE_FUNCTION_RETURN_VALUE = "_sourceFunctionReturnValue";
 
     public MemberExpressionNode generateDestinationSetStyle(NodeFactory nodeFactory, String rvalue)
     {
@@ -876,7 +876,7 @@ public class BindingExpression implements Comparable<BindingExpression>
 	}
 
     // intern all identifier constants
-    private static final String NAMESPACE = "Namespace".intern();
+    private static final String NAMESPACE = "Namespace";
 
     public StatementListNode generateNamespaceDeclarations(Context context, StatementListNode statementList)
     {
