@@ -131,14 +131,14 @@ public class SizeReport
         
         if (definitions.size() > 0) 
         {
-            buffer.append( "\n" + indent + "<!-- " + data.description + " -->\n" );
-            buffer.append( indent + "<" + data.pluralMoniker + " " );
+            buffer.append("\n").append(indent).append("<!-- ").append(data.description).append(" -->\n");
+            buffer.append(indent).append("<").append(data.pluralMoniker).append(" ");
             buffer.append( "totalSize=\"" );
             buffer.append(data.totalSize);
             buffer.append( "\">\n" );
             for (DefinitionEntry n : definitions) 
             {               
-                buffer.append( indent + "  <" + data.singularMoniker + " ");
+                buffer.append(indent).append("  <").append(data.singularMoniker).append(" ");
                 String name = (type == FRAME || type == SCRIPT) ? n.stringData : symbols.get(n.id);
                 if (name != null)
                 {
@@ -170,7 +170,7 @@ public class SizeReport
                 
                 buffer.append("\"/>\n");
             }
-            buffer.append( indent + "</" + data.pluralMoniker + ">\n" );
+            buffer.append(indent).append("</").append(data.pluralMoniker).append(">\n");
         }
     }
         

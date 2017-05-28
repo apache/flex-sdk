@@ -503,22 +503,22 @@ public class ExpressionCache
 		sb.append("  "); //$NON-NLS-1$
 
 		if (v.isAttributeSet(VariableAttribute.DONT_ENUMERATE))
-			sb.append(", " + getLocalizationManager().getLocalizedTextString("variableAttribute_dontEnumerate")); //$NON-NLS-1$ //$NON-NLS-2$
+			sb.append(", ").append(getLocalizationManager().getLocalizedTextString("variableAttribute_dontEnumerate")); //$NON-NLS-1$ //$NON-NLS-2$
 
 		if (v.isAttributeSet(VariableAttribute.READ_ONLY))
-			sb.append(", " + getLocalizationManager().getLocalizedTextString("variableAttribute_readOnly")); //$NON-NLS-1$ //$NON-NLS-2$
+			sb.append(", ").append(getLocalizationManager().getLocalizedTextString("variableAttribute_readOnly")); //$NON-NLS-1$ //$NON-NLS-2$
 
 		if (v.isAttributeSet(VariableAttribute.IS_LOCAL))
-			sb.append(", " + getLocalizationManager().getLocalizedTextString("variableAttribute_localVariable")); //$NON-NLS-1$ //$NON-NLS-2$
+			sb.append(", ").append(getLocalizationManager().getLocalizedTextString("variableAttribute_localVariable")); //$NON-NLS-1$ //$NON-NLS-2$
 
 		if (v.isAttributeSet(VariableAttribute.IS_ARGUMENT))
-			sb.append(", " + getLocalizationManager().getLocalizedTextString("variableAttribute_functionArgument")); //$NON-NLS-1$ //$NON-NLS-2$
+			sb.append(", ").append(getLocalizationManager().getLocalizedTextString("variableAttribute_functionArgument")); //$NON-NLS-1$ //$NON-NLS-2$
 
 		if (v.isAttributeSet(VariableAttribute.HAS_GETTER))
-			sb.append(", " + getLocalizationManager().getLocalizedTextString("variableAttribute_getterFunction")); //$NON-NLS-1$ //$NON-NLS-2$
+			sb.append(", ").append(getLocalizationManager().getLocalizedTextString("variableAttribute_getterFunction")); //$NON-NLS-1$ //$NON-NLS-2$
 
 		if (v.isAttributeSet(VariableAttribute.HAS_SETTER))
-			sb.append(", " + getLocalizationManager().getLocalizedTextString("variableAttribute_setterFunction")); //$NON-NLS-1$ //$NON-NLS-2$
+			sb.append(", ").append(getLocalizationManager().getLocalizedTextString("variableAttribute_setterFunction")); //$NON-NLS-1$ //$NON-NLS-2$
 
 		if (v.isAttributeSet(VariableAttribute.IS_DYNAMIC))
 			sb.append(", dynamic"); //$NON-NLS-1$
@@ -542,7 +542,7 @@ public class ExpressionCache
 			sb.append(", internal"); //$NON-NLS-1$
 
 		if (v.isAttributeSet(VariableAttribute.NAMESPACE_SCOPE))
-			sb.append(", " + getLocalizationManager().getLocalizedTextString("variableAttribute_hasNamespace")); //$NON-NLS-1$ //$NON-NLS-2$
+			sb.append(", ").append(getLocalizationManager().getLocalizedTextString("variableAttribute_hasNamespace")); //$NON-NLS-1$ //$NON-NLS-2$
 	}
 
     private String escapeIfIde(String s)

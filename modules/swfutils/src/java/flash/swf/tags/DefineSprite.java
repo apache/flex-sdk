@@ -139,10 +139,7 @@ public class DefineSprite extends DefineTag
     {
         StringBuilder stringBuffer = new StringBuilder();
 
-        stringBuffer.append("DefineSprite: name = " + name +
-                            ", framecount = " + framecount +
-                            ", tagList = " + tagList +
-                            ", initAction = " + initAction);
+        stringBuffer.append("DefineSprite: name = ").append(name).append(", framecount = ").append(framecount).append(", tagList = ").append(tagList).append(", initAction = ").append(initAction);
 
         return stringBuffer.toString();
     }

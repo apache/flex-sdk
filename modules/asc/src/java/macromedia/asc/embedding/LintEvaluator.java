@@ -3007,7 +3007,7 @@ public final class LintEvaluator extends Emitter implements Evaluator, ErrorCons
 	{
 		// Just the arguments for sanities, no message (since they chang often)
 		if(ContextStatics.useSanityStyleErrors) {
-			out.append("code=" + code + "; arg1=" + pRec.errStringArg1 + "; arg2=" + pRec.errStringArg2 + "; arg3=" + pRec.errStringArg3);
+			out.append("code=").append(code).append("; arg1=").append(pRec.errStringArg1).append("; arg2=").append(pRec.errStringArg2).append("; arg3=").append(pRec.errStringArg3);
 		}
 		// else: standard message
 		else

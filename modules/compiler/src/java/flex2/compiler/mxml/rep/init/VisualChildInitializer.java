@@ -82,9 +82,9 @@ public class VisualChildInitializer extends ValueInitializer
 				"Repeater parent lacks childRepeaters[] property";
 			String cr = lvalueBase + "." + StandardDefs.NAMESPACE_MX_INTERNAL_LOCALNAME + "::" + StandardDefs.PROP_CONTAINER_CHILDREPEATERS;
             StringBuilder stringBuilder = new StringBuilder();
-            stringBuilder.append("var repeater:" + standardDefs.CLASS_REPEATER_DOT + " = " + getValueExpr() + ";\n");
-            stringBuilder.append("\trepeater.initializeRepeater(" + lvalueBase + ", true);\n");
-            stringBuilder.append("\t(" + cr + " ? " + cr + " : (" + cr + "=[])).push(repeater)");
+            stringBuilder.append("var repeater:").append(standardDefs.CLASS_REPEATER_DOT).append(" = ").append(getValueExpr()).append(";\n");
+            stringBuilder.append("\trepeater.initializeRepeater(").append(lvalueBase).append(", true);\n");
+            stringBuilder.append("\t(").append(cr).append(" ? ").append(cr).append(" : (").append(cr).append("=[])).push(repeater)");
             return stringBuilder.toString();
         }
 		else

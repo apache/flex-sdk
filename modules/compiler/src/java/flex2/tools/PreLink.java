@@ -891,9 +891,9 @@ public class PreLink implements flex2.compiler.PreLink
         sb.append(codegenResourceBundleMetadata(externalResourceBundleNames));
         
         sb.append("\n[Mixin]\n");
-        sb.append("public class " + flexInitClassName + "\n");
+        sb.append("public class ").append(flexInitClassName).append("\n");
         sb.append("{\n");
-        sb.append("   public function " + flexInitClassName + "()\n");
+        sb.append("   public function ").append(flexInitClassName).append("()\n");
         sb.append("   {\n");
         sb.append("       super();\n");
         sb.append("   }\n");
@@ -1261,7 +1261,7 @@ public class PreLink implements flex2.compiler.PreLink
         {
             for (Iterator<String> it = accessibilityImplementations.iterator(); it.hasNext();)
             {
-                sb.append("import " + it.next() + ";\n");
+                sb.append("import ").append(it.next()).append(";\n");
             }
         }
 
@@ -1463,12 +1463,10 @@ public class PreLink implements flex2.compiler.PreLink
             // start new object
             buf.append("new RSLData(");
             String url = rslUrls.get(i);
-            buf.append("\"" + url + "\",\n");
+            buf.append("\"").append(url).append("\",\n");
 
             // write policy url
-            buf.append("\"" +
-                    info.getPolicyFileUrls().get(i) +
-                    "\",\n");
+            buf.append("\"").append(info.getPolicyFileUrls().get(i)).append("\",\n");
             
             // get the swc for current rsl
             String swcPath = info.getSwcVirtualFile().getName();
@@ -1496,11 +1494,11 @@ public class PreLink implements flex2.compiler.PreLink
                 return;
             }
             
-            buf.append("\"" + digest.getValue() + "\",\n");
-            buf.append("\"" + digest.getType() + "\",");
-            buf.append(info.getSignedFlags().get(i) + ",");
-            buf.append(secureRsls + ",");
-            buf.append("\"" +  rslSettingsConfig.getApplicationDomain(swcPath) + "\"");
+            buf.append("\"").append(digest.getValue()).append("\",\n");
+            buf.append("\"").append(digest.getType()).append("\",");
+            buf.append(info.getSignedFlags().get(i)).append(",");
+            buf.append(secureRsls).append(",");
+            buf.append("\"").append(rslSettingsConfig.getApplicationDomain(swcPath)).append("\"");
             
             // end of one object in the array
             buf.append(")");
@@ -1524,7 +1522,7 @@ public class PreLink implements flex2.compiler.PreLink
                 
                 ThreadLocalToolkit.log(new RequiredRslUrl(rslUrl)); 
                 
-                rb.append("{url: \"" + rslUrl + "\", size: -1}");
+                rb.append("{url: \"").append(rslUrl).append("\", size: -1}");
                 if (it.hasNext())
                 {
                     rb.append(", ");
@@ -1611,11 +1609,7 @@ public class PreLink implements flex2.compiler.PreLink
             String fontName = (String) e.getKey();
             FontInfo fontInfo = (FontInfo) e.getValue();
 
-            sb.append("\"" + fontName + "\" : {" +
-                      "regular:" + (fontInfo.plain? "true":"false") +
-                      ", bold:" + (fontInfo.bold? "true":"false") +
-                      ", italic:" + (fontInfo.italic? "true":"false") +
-                      ", boldItalic:" + (fontInfo.bolditalic? "true":"false") + "}\n");
+            sb.append("\"").append(fontName).append("\" : {").append("regular:").append(fontInfo.plain ? "true" : "false").append(", bold:").append(fontInfo.bold ? "true" : "false").append(", italic:").append(fontInfo.italic ? "true" : "false").append(", boldItalic:").append(fontInfo.bolditalic ? "true" : "false").append("}\n");
             if (it.hasNext())
             {
                 sb.append(",\n");
@@ -1641,7 +1635,7 @@ public class PreLink implements flex2.compiler.PreLink
             sb.append("       if (Capabilities.hasAccessibility) {\n");
             for (Iterator<String> it = accessibilityImplementations.iterator(); it.hasNext();)
             {
-                sb.append("          " + it.next() + ".enableAccessibility();\n");
+                sb.append("          ").append(it.next()).append(".enableAccessibility();\n");
             }
             sb.append("       }\n");
         }
@@ -1676,7 +1670,7 @@ public class PreLink implements flex2.compiler.PreLink
         for (Iterator<String> it = remoteClassAliases.keySet().iterator(); it.hasNext(); )
         {
             String className = it.next();
-            sb.append( "import " + className + ";\n" );
+            sb.append("import ").append(className).append(";\n");
         }
         return sb.toString();
 
@@ -1691,12 +1685,12 @@ public class PreLink implements flex2.compiler.PreLink
         {
             String className = (String) e.getKey();
             String alias = (String) e.getValue();
-            sb.append( "       // " + className + "\n");
+            sb.append("       // ").append(className).append("\n");
             sb.append( "       try \n");
             sb.append( "       { \n");
-            sb.append( "           if (flash.net.getClassByAlias(\"" + alias + "\") != " + className + ") \n");
+            sb.append("           if (flash.net.getClassByAlias(\"").append(alias).append("\") != ").append(className).append(") \n");
             sb.append( "           { \n");
-            sb.append( "               flash.net.registerClassAlias(\"" + alias + "\", " + className + "); \n");
+            sb.append("               flash.net.registerClassAlias(\"").append(alias).append("\", ").append(className).append("); \n");
             // Only generate the diagnostic code if compiling for debug.
             if (configuration.debug())
             {
@@ -1704,16 +1698,14 @@ public class PreLink implements flex2.compiler.PreLink
                 sb.append( "               { \n");
                 sb.append( "                   trace(ResourceManager.getInstance().getString( \"core\", \n");
                 sb.append( "                         \"remoteClassMemoryLeak\",\n");
-                sb.append( "                         [\"" + className + "\",\"" + 
-                                                     configuration.getMainDefinition() + "\",\"" +  
-                                                     initClassName + "\"]));\n");
+                sb.append("                         [\"").append(className).append("\",\"").append(configuration.getMainDefinition()).append("\",\"").append(initClassName).append("\"]));\n");
                 sb.append( "               } \n");
             }
             sb.append( "           } \n");
             sb.append( "       } \n");
             sb.append( "       catch (e:Error) \n");
             sb.append( "       { \n");
-            sb.append( "           flash.net.registerClassAlias(\"" + alias + "\", " + className + "); \n");
+            sb.append("           flash.net.registerClassAlias(\"").append(alias).append("\", ").append(className).append("); \n");
             // Only generate the diagnostic code if compiling for debug.
             if (configuration.debug())
             {
@@ -1721,9 +1713,7 @@ public class PreLink implements flex2.compiler.PreLink
                 sb.append( "           { \n");
                 sb.append( "               trace(ResourceManager.getInstance().getString( \"core\", \n");
                 sb.append( "                     \"remoteClassMemoryLeak\",\n");
-                sb.append( "                     [\"" + className + "\",\"" + 
-                                                 configuration.getMainDefinition() + "\",\"" +  
-                                                 initClassName + "\"]));\n");
+                sb.append("                     [\"").append(className).append("\",\"").append(configuration.getMainDefinition()).append("\",\"").append(initClassName).append("\"]));\n");
                 sb.append( "           } \n");
             }
             sb.append( "       } \n\n");
@@ -1753,7 +1743,7 @@ public class PreLink implements flex2.compiler.PreLink
             String name = (String) e.getKey();
             String event = (String) e.getValue();
 
-            sb.append( "       EffectManager.mx_internal::registerEffectTrigger(\"" + name + "\", \"" + event + "\");\n");
+            sb.append("       EffectManager.mx_internal::registerEffectTrigger(\"").append(name).append("\", \"").append(event).append("\");\n");
         }
 
         return sb.toString();
@@ -1769,7 +1759,7 @@ public class PreLink implements flex2.compiler.PreLink
         while ( iterator.hasNext() )
         {
             String styleName = iterator.next();
-            sb.append("\"" + styleName + "\"");
+            sb.append("\"").append(styleName).append("\"");
             if ( iterator.hasNext() )
             {
                 sb.append(", ");
@@ -2025,7 +2015,7 @@ public class PreLink implements flex2.compiler.PreLink
         StringBuilder codePieces = new StringBuilder();
         for (Iterator<String> i = resourceBundleNames.iterator(); i.hasNext(); )
         {
-            codePieces.append("[ResourceBundle(\"" + i.next() + "\")]" + lineSep);
+            codePieces.append("[ResourceBundle(\"").append(i.next()).append("\")]").append(lineSep);
         }
 
         return codePieces.toString();

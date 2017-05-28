@@ -459,7 +459,7 @@ public abstract class ValueInitializer implements Initializer, Cloneable
         {
             Vector vector = (Vector) value;
 
-            stringBuilder.append("new " + selfTypeName + "(" + vector.size());
+            stringBuilder.append("new ").append(selfTypeName).append("(").append(vector.size());
             
             if (vector.isFixed())
             {
@@ -473,7 +473,7 @@ public abstract class ValueInitializer implements Initializer, Cloneable
         else
         {
             // TODO confirm the availability of a 0-arg ctor!! but do it upstream from here, like when Model is built
-            stringBuilder.append("new " + selfTypeName + "()");
+            stringBuilder.append("new ").append(selfTypeName).append("()");
         }
 
         stringBuilder.append(";");

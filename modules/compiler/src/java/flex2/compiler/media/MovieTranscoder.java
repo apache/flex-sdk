@@ -309,7 +309,7 @@ public class MovieTranscoder extends AbstractTranscoder
         StringBuilder source = new StringBuilder( 1024 );
         source.append( "package " );
         source.append( packageName );
-        source.append( "\n{\nimport " + standardDefs.getCorePackage() + ".MovieClipLoaderAsset;\n" );
+        source.append("\n{\nimport ").append(standardDefs.getCorePackage()).append(".MovieClipLoaderAsset;\n");
         source.append( "import flash.utils.ByteArray;\n\n" );
         source.append( "public class " );
         source.append( className );

@@ -119,7 +119,7 @@ public class PBJTranscoder extends AbstractTranscoder
         sb.append("\tpublic function ").append(className).append("()\n");
         sb.append("    {\n");
         sb.append("        super();\n");
-        sb.append("        byteCode = new " + byteArrayClassName + "();\n");
+        sb.append("        byteCode = new ").append(byteArrayClassName).append("();\n");
         sb.append("    }\n");
         sb.append("}\n");
         sb.append("}\n");

@@ -258,7 +258,7 @@ public final class Context implements ErrorConstants
         // Just the arguments for sanities, no message (since they change often)
         if(ContextStatics.useSanityStyleErrors)
         {
-            out.append("code=" + error + "; arg1=" + arg1 + "; arg2=" + arg2 + "; arg3=" + arg3);
+            out.append("code=").append(error).append("; arg1=").append(arg1).append("; arg2=").append(arg2).append("; arg3=").append(arg3);
         }
         else
         {
@@ -1691,11 +1691,11 @@ public final class Context implements ErrorConstants
                 	// config namespace directive to make the namespace
                 	// a configuration namespace.
                 	namespaces.add(cv.ns);
-                	code_buffer.append("config namespace " + cv.ns + ";\n");
+                	code_buffer.append("config namespace ").append(cv.ns).append(";\n");
                 }
                 code_buffer.append( cv.ns );
                 code_buffer.append( " const ");
-                code_buffer.append( cv.name + "=" + cv.value + ";\n");
+                code_buffer.append(cv.name).append("=").append(cv.value).append(";\n");
             }
             code = code_buffer.toString();
         }

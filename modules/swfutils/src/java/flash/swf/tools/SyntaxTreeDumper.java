@@ -1067,7 +1067,7 @@ public class SyntaxTreeDumper implements Evaluator
         {
             buffer.append(" prototype='true'");
         }
-        buffer.append("" + (showPositions ? " position=\"" + node.pos() + "\"" : "") + ">");
+        buffer.append("").append(showPositions ? " position=\"" + node.pos() + "\"" : "").append(">");
         output( buffer.toString() );
         indent++;
         // for (Node n : node.items)

@@ -236,7 +236,7 @@ public class StringUtils
             {
                 buf.append(chars[i]);
             } else {
-            	buf.append("&#x" + Integer.toString((chars[i+1]), 16) + ";");
+            	buf.append("&#x").append(Integer.toString((chars[i + 1]), 16)).append(";");
             	i++;
             }
         }

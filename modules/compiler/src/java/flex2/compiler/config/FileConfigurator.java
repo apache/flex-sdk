@@ -554,7 +554,7 @@ public class FileConfigurator
     {
         StringBuilder buf = new StringBuilder( 1024 );
 
-        buf.append( indent + "<" + node.shortname + ">\n" );
+        buf.append(indent).append("<").append(node.shortname).append(">\n");
         if (node.children != null) {
         for (Iterator it = node.children.entrySet().iterator(); it.hasNext(); )
         {
@@ -570,13 +570,13 @@ public class FileConfigurator
                 String description = lmgr.getLocalizedTextString( prefix + "." + child.fullname );
 
                 if (description != null)
-                    buf.append( indent + pad + "<!-- " + child.fullname + ": " + description + "-->\n" );
+                    buf.append(indent).append(pad).append("<!-- ").append(child.fullname).append(": ").append(description).append("-->\n");
 
                 if ((child.values == null) || !child.info.isDisplayed())
                 {
                     boolean newline = false;
-                    buf.append( indent + pad + "<!-- " + child.fullname + " usage:\n" );
-                    buf.append( indent + pad + "<" + child.shortname + ">");
+                    buf.append(indent).append(pad).append("<!-- ").append(child.fullname).append(" usage:\n");
+                    buf.append(indent).append(pad).append("<").append(child.shortname).append(">");
 
                     int i = 0;
                     while (true)
@@ -588,7 +588,7 @@ public class FileConfigurator
                         }
                         else
                         {
-                            buf.append( "\n" + indent + pad + pad + "<" + child.info.getArgName( i ) + ">" + classToArgName( child.info.getArgType( i ) ) + "</" + child.info.getArgName( i ) + ">");
+                            buf.append("\n").append(indent).append(pad).append(pad).append("<").append(child.info.getArgName(i)).append(">").append(classToArgName(child.info.getArgType(i))).append("</").append(child.info.getArgName(i)).append(">");
                             newline = true;
                         }
                         if (child.info.getArgCount() == -1)
@@ -620,10 +620,10 @@ public class FileConfigurator
                         ++i;
                     }
                     if (newline)
-                        buf.append( "\n" + indent + pad);
+                        buf.append("\n").append(indent).append(pad);
 
-                    buf.append( "</" + child.shortname + ">\n");
-                    buf.append( indent + pad + "-->\n" );
+                    buf.append("</").append(child.shortname).append(">\n");
+                    buf.append(indent).append(pad).append("-->\n");
                 }
                 else
                 {
@@ -633,7 +633,7 @@ public class FileConfigurator
                     {
                         ConfigurationValue cv = (ConfigurationValue) valit.next();
 
-                        buf.append( indent + pad + "<" + child.shortname + ">" );
+                        buf.append(indent).append(pad).append("<").append(child.shortname).append(">");
 
                         int argCount = child.info.getArgCount();
                         // var may have multiple values...
@@ -651,18 +651,18 @@ public class FileConfigurator
                             {
                                 String argname = child.info.getArgName( argc++ );
                                 newline = true;
-                                buf.append( "\n" + indent + pad + pad + "<" + argname + ">" + arg + "</" + argname + ">" );
+                                buf.append("\n").append(indent).append(pad).append(pad).append("<").append(argname).append(">").append(arg).append("</").append(argname).append(">");
                             }
                         }
                         if (newline)
-                            buf.append( "\n" + indent + pad);
-                        buf.append( "</" + child.shortname + ">\n" );
+                            buf.append("\n").append(indent).append(pad);
+                        buf.append("</").append(child.shortname).append(">\n");
                     }
                 }
             }
         }
         }
-        buf.append( indent + "</" + node.shortname + ">\n" );
+        buf.append(indent).append("</").append(node.shortname).append(">\n");
 
         return buf.toString();
     }

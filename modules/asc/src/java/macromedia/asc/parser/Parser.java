@@ -273,7 +273,7 @@ public final class Parser
         // Just the arguments for sanities, no message (since they change often)
         if(ContextStatics.useSanityStyleErrors)
         {
-            out.append("code=" + errCode + "; arg1=" + arg1 + "; arg2=" + arg2);
+            out.append("code=").append(errCode).append("; arg1=").append(arg1).append("; arg2=").append(arg2);
         }
         else
         {

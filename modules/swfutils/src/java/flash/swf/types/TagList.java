@@ -68,7 +68,7 @@ public class TagList extends TagHandler
 
         for (int i = 0; i < tags.size(); i++)
         {
-            stringBuffer.append( "\t" + i + " = " +tags.get(i) + "\n");
+            stringBuffer.append("\t").append(i).append(" = ").append(tags.get(i)).append("\n");
         }
 
         return stringBuffer.toString();

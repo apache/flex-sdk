@@ -64,7 +64,7 @@ public class MetadataConfiguration
         {
             if ((localizedTitles.size() == 1) && (localizedTitles.get("x-default") != null))
             {
-                sb.append("<dc:title>" + f(localizedTitles.get("x-default")) + "</dc:title>");
+                sb.append("<dc:title>").append(f(localizedTitles.get("x-default"))).append("</dc:title>");
             }
             else
             {
@@ -72,7 +72,7 @@ public class MetadataConfiguration
                 for (Iterator it = localizedTitles.entrySet().iterator(); it.hasNext();)
                 {
                     Map.Entry e = (Map.Entry) it.next();
-                    sb.append("<rdf:li xml:lang='" + e.getKey() + "'>" + f((String) e.getValue()) + "</rdf:li>");
+                    sb.append("<rdf:li xml:lang='").append(e.getKey()).append("'>").append(f((String) e.getValue())).append("</rdf:li>");
                 }
                 sb.append("</rdf:Alt></dc:title>");
             }
@@ -81,7 +81,7 @@ public class MetadataConfiguration
         {
             if ((localizedDescriptions.size() == 1) && (localizedDescriptions.get("x-default") != null))
             {
-                sb.append("<dc:description>" + f(localizedDescriptions.get("x-default")) + "</dc:description>");
+                sb.append("<dc:description>").append(f(localizedDescriptions.get("x-default"))).append("</dc:description>");
             }
             else
             {
@@ -89,7 +89,7 @@ public class MetadataConfiguration
                 for (Iterator it = localizedDescriptions.entrySet().iterator(); it.hasNext();)
                 {
                     Map.Entry e = (Map.Entry) it.next();
-                    sb.append("<rdf:li xml:lang='" + (String) e.getKey() + "'>" + f((String) e.getValue()) + "</rdf:li>");
+                    sb.append("<rdf:li xml:lang='").append((String) e.getKey()).append("'>").append(f((String) e.getValue())).append("</rdf:li>");
                 }
                 sb.append("</rdf:Alt></dc:description>");
             }
@@ -98,22 +98,22 @@ public class MetadataConfiguration
 
         for (Iterator<String> it = publishers.iterator(); it.hasNext();)
         {
-            sb.append("<dc:publisher>" + f(it.next()) + "</dc:publisher>");
+            sb.append("<dc:publisher>").append(f(it.next())).append("</dc:publisher>");
         }
 
         for (Iterator<String> it = creators.iterator(); it.hasNext();)
         {
-            sb.append("<dc:creator>" + f(it.next()) + "</dc:creator>");
+            sb.append("<dc:creator>").append(f(it.next())).append("</dc:creator>");
         }
 
         for (Iterator<String> it = contributors.iterator(); it.hasNext();)
         {
-            sb.append("<dc:contributor>" + f(it.next()) + "</dc:contributor>");
+            sb.append("<dc:contributor>").append(f(it.next())).append("</dc:contributor>");
         }
 
         for (Iterator<String> it = langs.iterator(); it.hasNext();)
         {
-            sb.append("<dc:language>" + f(it.next()) + "</dc:language>");
+            sb.append("<dc:language>").append(f(it.next())).append("</dc:language>");
         }
 
 	    if (date == null)
@@ -121,7 +121,7 @@ public class MetadataConfiguration
 		    date = DateFormat.getDateInstance().format(new Date());
 	    }
 
-        sb.append("<dc:date>" + f(date) + "</dc:date>");
+        sb.append("<dc:date>").append(f(date)).append("</dc:date>");
         sb.append("</rdf:Description></rdf:RDF>");
         return sb.toString();
     }
