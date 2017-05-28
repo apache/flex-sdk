@@ -92,7 +92,7 @@ public class CubicCurveTest extends TestCase
 
             //Create a SWF Movie shell
             Movie m = getMovie(1);
-            Frame frame1 = (Frame)m.frames.get(0);
+            Frame frame1 = m.frames.get(0);
             Matrix mt = new Matrix(0, 0);
             frame1.controlTags.add(new PlaceObject(mt, tag, 1, null));
 

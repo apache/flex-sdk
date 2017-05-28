@@ -260,7 +260,7 @@ public abstract class SVGUtilities implements SVGConstants, ErrorConstants {
             if (uriStr.length() == 0) { // exit if no more xlink:href
                 return "";
             }
-            String baseURI = ((AbstractNode) e).getBaseURI();
+            String baseURI = e.getBaseURI();
             ParsedURL purl = new ParsedURL(baseURI, uriStr);
 
             Iterator iter = refs.iterator();

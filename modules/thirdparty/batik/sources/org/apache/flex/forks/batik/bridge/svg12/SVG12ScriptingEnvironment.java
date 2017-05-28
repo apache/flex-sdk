@@ -161,7 +161,7 @@ public class SVG12ScriptingEnvironment extends ScriptingEnvironment {
                 String prefix = DOMUtilities.getPrefix(eventType);
                 eventType = DOMUtilities.getLocalName(eventType);
                 eventNamespaceURI
-                    = ((AbstractElement) elt).lookupNamespaceURI(prefix);
+                    = elt.lookupNamespaceURI(prefix);
             }
 
             EventListener listener = new HandlerScriptingEventListener
@@ -197,7 +197,7 @@ public class SVG12ScriptingEnvironment extends ScriptingEnvironment {
                 String prefix = DOMUtilities.getPrefix(eventType);
                 eventType = DOMUtilities.getLocalName(eventType);
                 eventNamespaceURI
-                    = ((AbstractElement) elt).lookupNamespaceURI(prefix);
+                    = elt.lookupNamespaceURI(prefix);
             }
 
             EventListener listener =

@@ -1254,7 +1254,7 @@ public class ImplementationGenerator extends AbstractGenerator
         TypedIdentifierNode typedIdentifier = nodeFactory.typedIdentifier(qualifiedIdentifier, typeExpression);
         VariableBindingNode variableBinding = nodeFactory.variableBinding(null, kind, typedIdentifier, null);
         ListNode list = nodeFactory.list(null, variableBinding);
-        return (VariableDefinitionNode) nodeFactory.variableDefinition(null, kind, list);
+        return nodeFactory.variableDefinition(null, kind, list);
     }
 
     private StatementListNode generateBindingInitializers(StatementListNode statementList)
@@ -1495,7 +1495,7 @@ public class ImplementationGenerator extends AbstractGenerator
         TypedIdentifierNode typedIdentifier = nodeFactory.typedIdentifier(qualifiedIdentifier, typeExpression);
         VariableBindingNode variableBinding = nodeFactory.variableBinding(null, kind, typedIdentifier, null);
         ListNode list = nodeFactory.list(null, variableBinding);
-        return (VariableDefinitionNode) nodeFactory.variableDefinition(null, kind, list);
+        return nodeFactory.variableDefinition(null, kind, list);
     }
 
     private FunctionCommonNode generateDestinationFunction(BindingExpression bindingExpression)
@@ -2986,7 +2986,7 @@ public class ImplementationGenerator extends AbstractGenerator
         VariableBindingNode variableBinding = nodeFactory.variableBinding(attributeList, kind, typedIdentifier,
                                                                           literalBoolean);
         ListNode list = nodeFactory.list(null, variableBinding);
-        return (VariableDefinitionNode) nodeFactory.variableDefinition(attributeList, kind, list);
+        return nodeFactory.variableDefinition(attributeList, kind, list);
     }
 
     private Node generateTargetVariable()
@@ -3244,7 +3244,7 @@ public class ImplementationGenerator extends AbstractGenerator
         VariableBindingNode variableBinding = nodeFactory.variableBinding(null, kind, typedIdentifier, memberExpression);
         ListNode list = nodeFactory.list(null, variableBinding);
                 
-        return (VariableDefinitionNode) nodeFactory.variableDefinition(null, kind, list);
+        return nodeFactory.variableDefinition(null, kind, list);
 
     }
     

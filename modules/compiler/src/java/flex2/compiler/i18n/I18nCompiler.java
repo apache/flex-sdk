@@ -392,7 +392,7 @@ public class I18nCompiler extends AbstractSubCompiler implements flex2.compiler.
     	{
     		public String itemToString(Object obj)
     		{
-    			return "import " + (String)obj + ";";
+    			return "import " + obj + ";";
     		}
     	};
     	return StringJoiner.join(imports, lineSep, itemStringer) + lineSep + lineSep;

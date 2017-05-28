@@ -145,7 +145,7 @@ public class StatesGenerator {
         {
             SharedObject symbol = shared.get(iter.next());
             
-            String varName = ((String)symbol.name + _FACTORY).intern();
+            String varName = (symbol.name + _FACTORY).intern();
             String typeName = NameFormatter.retrieveClassName( DEFERREDINSTANCEFROMFUNCTION );
             String factory = symbol.name + (symbol.model.isDeclared() ? _I : _C);
             String resetFunc = symbol.name + _R;
@@ -185,7 +185,7 @@ public class StatesGenerator {
     {
         for (Iterator<StatesModel.Override> iter = bindingsQueue.iterator(); iter.hasNext(); )
         {
-            StatesModel.Override symbol = (StatesModel.Override)iter.next();            
+            StatesModel.Override symbol = iter.next();
             list.add(indent, NameFormatter.toDot(standardDefs.CLASS_BINDINGMANAGER),
                     ".executeBindings(this, \"" + symbol.declaration + "\", " + symbol.declaration + ");", 0);
         }
@@ -200,7 +200,7 @@ public class StatesGenerator {
         
         for (Iterator<StatesModel.Override> iter = bindingsQueue.iterator(); iter.hasNext(); )
         {
-            StatesModel.Override symbol = (StatesModel.Override)iter.next();
+            StatesModel.Override symbol = iter.next();
             
             QualifiedIdentifierNode qualifiedIdentifier =
                 AbstractSyntaxTreeUtil.generateQualifiedIdentifier(nodeFactory, 
@@ -260,7 +260,7 @@ public class StatesGenerator {
         for (Iterator<String> iter = objects.iterator(); iter.hasNext(); )
         {
             String symbol = iter.next();
-            String identifier = ((String)symbol + "_factory").intern();
+            String identifier = (symbol + "_factory").intern();
             IdentifierNode idNode = nodeFactory.identifier(identifier, false);
             GetExpressionNode getIndexExpression = nodeFactory.getExpression(idNode);
             MemberExpressionNode base = nodeFactory.memberExpression(null, getIndexExpression);
@@ -295,7 +295,7 @@ public class StatesGenerator {
             indent += StatesGenerator.INDENT;
             for (Iterator<String> iter = states.iterator(); iter.hasNext();  )
             {
-                State state = (State) model.stateByName((String)iter.next());
+                State state = model.stateByName(iter.next());
                 if (state != null)
                 {
                     state.getDefinitionBody(list, indent, bindingsQueue);
@@ -322,7 +322,7 @@ public class StatesGenerator {
             
             for (Iterator<String> iter = states.iterator(); iter.hasNext();  )
             {
-                State state = (State) model.stateByName((String)iter.next());
+                State state = model.stateByName(iter.next());
                 if (state != null)
                 {
                     MemberExpressionNode stateExpression = state.generateDefinitionBody(nodeFactory, configNamespaces,
@@ -353,7 +353,7 @@ public class StatesGenerator {
         int count = 0;
         for (Iterator<String> iter = states.iterator(); iter.hasNext();  )
         {
-            State state = (State) model.stateByName((String)iter.next());
+            State state = model.stateByName(iter.next());
             if (state != null)
             {
                 // Declaration initializer
@@ -387,7 +387,7 @@ public class StatesGenerator {
         int count = 0;
         for (Iterator<String> iter = states.iterator(); iter.hasNext();  )
         {
-            State state = (State) model.stateByName((String)iter.next());
+            State state = model.stateByName(iter.next());
             if (state != null)
             {
                 String identifier = state.getId().intern();

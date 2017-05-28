@@ -56,7 +56,7 @@ public abstract class MagicNumberRegistryEntry
          */
         public MagicNumber(int offset, byte[]magicNumber) {
             this.offset = offset;
-            this.magicNumber = (byte[])magicNumber.clone();
+            this.magicNumber = magicNumber.clone();
             buffer = new byte[magicNumber.length];
         }
 

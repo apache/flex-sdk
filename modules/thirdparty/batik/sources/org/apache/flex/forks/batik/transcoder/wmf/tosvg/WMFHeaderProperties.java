@@ -311,7 +311,7 @@ public class WMFHeaderProperties extends AbstractWMFReader {
                     int italic = (int)is.readByte();
                     int underline = (int)is.readByte();
                     int strikeOut = (int)is.readByte();
-                    int charset = (int)(is.readByte() & 0x00ff);
+                    int charset = is.readByte() & 0x00ff;
                     int lfOutPrecision = is.readByte();
                     int lfClipPrecision = is.readByte();
                     int lfQuality = is.readByte();

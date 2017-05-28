@@ -616,19 +616,19 @@ public abstract class AbstractElement
                                          String newv, short change) {
         switch (change) {
         case MutationEvent.ADDITION:
-            if (((AbstractAttr)node).isId())
+            if (node.isId())
                 ownerDocument.addIdEntry(this, newv);
             attrAdded(node, newv);
             break;
 
         case MutationEvent.MODIFICATION:
-            if (((AbstractAttr)node).isId())
+            if (node.isId())
                 ownerDocument.updateIdEntry(this, oldv, newv);
             attrModified(node, oldv, newv);
             break;
 
         default: // MutationEvent.REMOVAL:
-            if (((AbstractAttr)node).isId())
+            if (node.isId())
                 ownerDocument.removeIdEntry(this, oldv);
             attrRemoved(node, oldv);
         }

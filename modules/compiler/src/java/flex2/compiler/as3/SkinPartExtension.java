@@ -40,7 +40,7 @@ public final class SkinPartExtension implements Extension
         spEvaluator.setLocalizationManager(ThreadLocalToolkit.getLocalizationManager());
         Node node = (Node) unit.getSyntaxTree();
         CompilerContext context = unit.getContext();
-        Context cx = (Context) context.getAscContext();
+        Context cx = context.getAscContext();
         node.evaluate(cx, spEvaluator);
     }
 

@@ -309,7 +309,7 @@ public class DataBindingFirstPassEvaluator extends EvaluatorAdapter
                 (node.expr instanceof IdentifierNode) &&
                 ((IdentifierNode) node.expr).name.equals("getItemAt"))
             {
-                skipInitSet.add((ArgumentListNode) node.args);
+                skipInitSet.add(node.args);
                 node.args.evaluate(context, this);
             }
             else
@@ -334,7 +334,7 @@ public class DataBindingFirstPassEvaluator extends EvaluatorAdapter
                     }
                     else
                     {
-                        skipInitSet.add((ArgumentListNode) node.args);
+                        skipInitSet.add(node.args);
                     }
                 }
                 else
@@ -1261,7 +1261,7 @@ public class DataBindingFirstPassEvaluator extends EvaluatorAdapter
         }
 
         PropertyWatcher dataProviderWatcher =
-            (PropertyWatcher) repeaterWatcher.getChild("dataProvider");
+                repeaterWatcher.getChild("dataProvider");
 
         if (dataProviderWatcher == null)
         {

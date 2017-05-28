@@ -366,11 +366,11 @@ public class ImageHelper
 
         int dxa = slt;
         int dxb = srt - slt;
-        int dxc = (int)(bitmap.width * SwfConstants.TWIPS_PER_PIXEL) - srt;
+        int dxc = bitmap.width * SwfConstants.TWIPS_PER_PIXEL - srt;
 
         int dya = stt;
         int dyb = sbt - stt;
-        int dyc = (int)(bitmap.height * SwfConstants.TWIPS_PER_PIXEL) - sbt;
+        int dyc = bitmap.height * SwfConstants.TWIPS_PER_PIXEL - sbt;
 
         // border
         shapeRecords.add(new StyleChangeRecord(0, dya, 0, 0, 1));

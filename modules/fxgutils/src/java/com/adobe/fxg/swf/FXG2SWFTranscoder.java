@@ -465,14 +465,14 @@ public class FXG2SWFTranscoder implements FXGTranscoder
                 List<GraphicContentNode> children = node.children;
                 if (children != null)
                 {
-                    GraphicContentNode gcNode0 = (GraphicContentNode) children.get(0);
+                    GraphicContentNode gcNode0 = children.get(0);
                     filters = gcNode0.filters;
                     if (filters != null)
                     {
                         //check if all the nodes share the same filter
                         for (int i = 1; ((i < children.size()) && filters!= null); i++)
                         {
-                            GraphicContentNode gcNodeI = (GraphicContentNode) children.get(i);
+                            GraphicContentNode gcNodeI = children.get(i);
                             if (gcNodeI.filters != filters)
                                 filters = null;
                         }
@@ -482,7 +482,7 @@ public class FXG2SWFTranscoder implements FXGTranscoder
                     {
                         for (int i = 0; (i < children.size()) ; i++)
                         {
-                            GraphicContentNode gcNodeI = (GraphicContentNode) children.get(i);
+                            GraphicContentNode gcNodeI = children.get(i);
                             gcNodeI.filters = null;
                         }                        
                     }

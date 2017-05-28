@@ -996,7 +996,7 @@ public class TagEncoder extends TagHandler
 
         for (int i = 0; i < count; i++)
         {
-            encodeLineStyle((LineStyle)linestyles.get(i), w, shape);
+            encodeLineStyle(linestyles.get(i), w, shape);
         }
     }
 
@@ -1046,7 +1046,7 @@ public class TagEncoder extends TagHandler
             Iterator<FillStyle> it = fillstyles.iterator();
             while (it.hasNext())
             {
-                FillStyle style = (FillStyle) it.next();
+                FillStyle style = it.next();
                 encodeFillStyle(style, w, shape);
             }
         }
@@ -1726,7 +1726,7 @@ public class TagEncoder extends TagHandler
         w.writeUI8( count );
         for (Iterator<Filter> it = filters.iterator(); it.hasNext();)
         {
-            Filter f = (Filter) it.next();
+            Filter f = it.next();
             w.writeUI8(f.getID());
             // I've never quite understood why the serialization code isn't in the tags themselves..
             switch(f.getID())
@@ -2016,7 +2016,7 @@ public class TagEncoder extends TagHandler
         Iterator<ImportRecord> it = tag.importRecords.iterator();
         while (it.hasNext())
         {
-            ImportRecord record = (ImportRecord) it.next();
+            ImportRecord record = it.next();
             int id = dict.add(record);
             tagw.writeUI16(id);
             tagw.writeString(record.name);

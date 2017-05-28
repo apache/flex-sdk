@@ -89,7 +89,7 @@ public class MetadataConfiguration
                 for (Iterator it = localizedDescriptions.entrySet().iterator(); it.hasNext();)
                 {
                     Map.Entry e = (Map.Entry) it.next();
-                    sb.append("<rdf:li xml:lang='" + (String) e.getKey() + "'>" + f((String) e.getValue()) + "</rdf:li>");
+                    sb.append("<rdf:li xml:lang='" + e.getKey() + "'>" + f((String) e.getValue()) + "</rdf:li>");
                 }
                 sb.append("</rdf:Alt></dc:description>");
             }

@@ -107,17 +107,17 @@ public class SwcDependencyUtil
             for (Iterator<SwcLibrary> swcLibraryIter = swcEntry.getValue().getLibraryIterator();
                  swcLibraryIter.hasNext();)
             {
-                SwcLibrary swcLibrary = (SwcLibrary)swcLibraryIter.next();
+                SwcLibrary swcLibrary = swcLibraryIter.next();
                 
                 // loop thru the script in a library and build the list of definitions
                 for (Iterator<SwcScript> scriptIter = swcLibrary.getScriptIterator(); 
                      scriptIter.hasNext();)
                 {
-                    SwcScript swcScript = (SwcScript)scriptIter.next();
+                    SwcScript swcScript = scriptIter.next();
 
                     for (Iterator<String> defIter = swcScript.getDefinitionIterator(); defIter.hasNext();)
                     {
-                        String definition = (String)defIter.next();
+                        String definition = defIter.next();
                         defMap.put(definition, swcScript);
                     }
                 }
@@ -126,12 +126,12 @@ public class SwcDependencyUtil
                 for (Iterator<SwcScript> scriptIter = swcLibrary.getScriptIterator(); 
                      scriptIter.hasNext();)
                 {
-                    SwcScript swcScript = (SwcScript)scriptIter.next();
+                    SwcScript swcScript = scriptIter.next();
 
                     for (Iterator<String> typeIter = swcScript.getDependencySet().getTypeIterator(); 
                              typeIter.hasNext();)
                     {
-                        String type = (String)typeIter.next();
+                        String type = typeIter.next();
                          
                         // filter the list of dependency types we care about.
                         if (scriptDependencyTypes != null)
@@ -144,7 +144,7 @@ public class SwcDependencyUtil
                         for (Iterator<String> scriptDepIter = swcScript.getDependencySet().getDependencyIterator(type);
                              scriptDepIter.hasNext();)
                         {
-                            String scriptDep = (String)scriptDepIter.next();
+                            String scriptDep = scriptDepIter.next();
                             
                             // does the script definition live in its own swc?
                             SwcScript dependentScript = defMap.get(scriptDep);
@@ -521,17 +521,17 @@ public class SwcDependencyUtil
         for (Iterator<SwcLibrary> swcLibraryIter = swc.getLibraryIterator();
              swcLibraryIter.hasNext();)
         {
-            SwcLibrary swcLibrary = (SwcLibrary)swcLibraryIter.next();
+            SwcLibrary swcLibrary = swcLibraryIter.next();
             
             // loop thru the script in a library and build the list of definitions
             for (Iterator<SwcScript> scriptIter = swcLibrary.getScriptIterator(); 
                  scriptIter.hasNext();)
             {
-                SwcScript swcScript = (SwcScript)scriptIter.next();
+                SwcScript swcScript = scriptIter.next();
 
                 for (Iterator<String> defIter = swcScript.getDefinitionIterator(); defIter.hasNext();)
                 {
-                    String definition = (String)defIter.next();
+                    String definition = defIter.next();
                     scripts.add(definition);
                 }
             }
@@ -571,13 +571,13 @@ public class SwcDependencyUtil
         for (Iterator<SwcLibrary> swcLibraryIter = swc.getLibraryIterator();
              swcLibraryIter.hasNext();)
         {
-            SwcLibrary swcLibrary = (SwcLibrary)swcLibraryIter.next();
+            SwcLibrary swcLibrary = swcLibraryIter.next();
             
             // loop thru the script in a library and build the list of definitions
             for (Iterator<SwcScript> scriptIter = swcLibrary.getScriptIterator(); 
                  scriptIter.hasNext();)
             {
-                SwcScript swcScript = (SwcScript)scriptIter.next();
+                SwcScript swcScript = scriptIter.next();
 
                 for (String dependencyType : dependencyTypes)
                 {
@@ -585,7 +585,7 @@ public class SwcDependencyUtil
                             getDependencyIterator(dependencyType);
                      depIter != null && depIter.hasNext();)
                     {
-                    String definition = (String)depIter.next();
+                    String definition = depIter.next();
                     dependencies.add(definition);
                     }
                 }

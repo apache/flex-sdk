@@ -102,7 +102,7 @@ public final class ThreadLocalToolkit
     {
         Map<String, VirtualFile> resolvedMap = resolved.get();
         assert resolvedMap != null;
-        return (VirtualFile) resolvedMap.get(path);
+        return resolvedMap.get(path);
     }
 
     //---------------

@@ -232,8 +232,8 @@ public class SwcChecksums
             for (Map.Entry<QName, Long> entry : signatureChecksums.entrySet())
             {                
                 // lookup definition in swc context 
-                QName qName = (QName) entry.getKey();
-                Long dataSignatureChecksum = (Long)entry.getValue();
+                QName qName = entry.getKey();
+                Long dataSignatureChecksum = entry.getValue();
                 Long swcSignatureChecksum = swcContext.getChecksum(qName);
                 if (swcSignatureChecksum == null && qName != null)
                 {
@@ -508,7 +508,7 @@ public class SwcChecksums
      */
     protected int[] copy()
     {
-        int[] copy = (int[])this.checksums.clone();
+        int[] copy = this.checksums.clone();
         return copy;
     }
     

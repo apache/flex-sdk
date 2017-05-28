@@ -195,7 +195,7 @@ public abstract class AbstractSVGGradientElementBridge
                 return null; // no xlink:href found, exit
             }
             // check if there is circular dependencies
-            String baseURI = ((AbstractNode) paintElement).getBaseURI();
+            String baseURI = paintElement.getBaseURI();
             ParsedURL purl = new ParsedURL(baseURI, uri);
 
             if (contains(refs, purl)) {

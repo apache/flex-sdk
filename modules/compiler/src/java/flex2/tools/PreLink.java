@@ -163,7 +163,7 @@ public class PreLink implements flex2.compiler.PreLink
         
         for (int i = 0, length = units.size(); i < length; i++)
         {
-            CompilationUnit u = (CompilationUnit) units.get(i);
+            CompilationUnit u = units.get(i);
 
             if (u.isRoot())
             {
@@ -316,7 +316,7 @@ public class PreLink implements flex2.compiler.PreLink
 
         for (int i = 0, length = units.size(); i < length; i++)
         {
-            CompilationUnit compilationUnit = (CompilationUnit) units.get(i);
+            CompilationUnit compilationUnit = units.get(i);
             assert compilationUnit != null : "Must have missed a forcedToStop() check after the most recent batch()";
             Source source = compilationUnit.getSource();
 
@@ -354,7 +354,7 @@ public class PreLink implements flex2.compiler.PreLink
 
         for (int i = 0, length = units.size(); i < length; i++)
         {
-            CompilationUnit u = (CompilationUnit) units.get(i);
+            CompilationUnit u = units.get(i);
 
             if (u.isRoot())
             {
@@ -973,7 +973,7 @@ public class PreLink implements flex2.compiler.PreLink
                            break;
                        }
                    }
-                   ThreadLocalToolkit.log(new ClassesMappedToSameRemoteAlias((String)key, (String)existingKey, (String)value));
+                   ThreadLocalToolkit.log(new ClassesMappedToSameRemoteAlias(key, (String)existingKey, value));
                 }
                 return super.put(key, value);
             }
@@ -1319,7 +1319,7 @@ public class PreLink implements flex2.compiler.PreLink
         int i = 0;      // keep track of rsl index;
         for (Iterator<Configuration.RslPathInfo> iter = cdRsls.iterator(); iter.hasNext(); i++)
         {
-            Configuration.RslPathInfo info = (Configuration.RslPathInfo)iter.next();
+            Configuration.RslPathInfo info = iter.next();
 
             // skip if the associated swc is filtered from our context.
             if (swcContext.getSwc(info.getSwcVirtualFile().getName()) == null)
@@ -1476,7 +1476,7 @@ public class PreLink implements flex2.compiler.PreLink
 
             // write digest for each rsl in the list
             boolean secureRsls = configuration.getVerifyDigests();
-            Boolean isSigned = (Boolean)info.getSignedFlags().get(i);
+            Boolean isSigned = info.getSignedFlags().get(i);
             Digest digest = swc.getDigest(Swc.LIBRARY_SWF,
                     Digest.SHA_256,
                     isSigned.booleanValue());
@@ -1520,7 +1520,7 @@ public class PreLink implements flex2.compiler.PreLink
             rb.append("[");
             for (Iterator<String> it = rsls.iterator(); it.hasNext();)
             {
-                String rslUrl = (String)it.next();
+                String rslUrl = it.next();
                 
                 ThreadLocalToolkit.log(new RequiredRslUrl(rslUrl)); 
                 
@@ -1689,8 +1689,8 @@ public class PreLink implements flex2.compiler.PreLink
 
         for (Map.Entry<String, String> e : remoteClassAliases.entrySet())
         {
-            String className = (String) e.getKey();
-            String alias = (String) e.getValue();
+            String className = e.getKey();
+            String alias = e.getValue();
             sb.append( "       // " + className + "\n");
             sb.append( "       try \n");
             sb.append( "       { \n");

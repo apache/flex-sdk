@@ -216,7 +216,7 @@ public class URLHelper
 			while (it.hasNext())
 			{
 				Map.Entry<String,String> entry = it.next();
-				String name = (String) entry.getKey();
+				String name = entry.getKey();
 				String value = String.valueOf(entry.getValue());
 				queryString.append(name);
 				if ((value != null) && (!value.equals(""))) //$NON-NLS-1$

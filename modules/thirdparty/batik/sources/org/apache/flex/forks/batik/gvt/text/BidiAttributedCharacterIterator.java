@@ -411,7 +411,7 @@ public class BidiAttributedCharacterIterator implements AttributedCharacterItera
     public Object clone() {
         return new BidiAttributedCharacterIterator
             ((AttributedCharacterIterator)reorderedACI.clone(),
-             frc, chunkStart, (int [])newCharOrder.clone());
+             frc, chunkStart, newCharOrder.clone());
     }
 
     /**

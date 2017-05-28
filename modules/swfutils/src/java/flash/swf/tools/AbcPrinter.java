@@ -843,7 +843,7 @@ public class AbcPrinter
             {
                 for (int x = start; x < offset; x++)
                 {
-                    out.print(hex(abc[(int)x]) + " ");
+                    out.print(hex(abc[x]) + " ");
                 }
             }
             out.print(m.name + "(");
@@ -885,7 +885,7 @@ public class AbcPrinter
             {
                 for (int x = start; x < offset; x++)
                 {
-                    out.print(hex(abc[(int)x]) + " ");
+                    out.print(hex(abc[x]) + " ");
                 }
             }
             out.println(s);
@@ -927,7 +927,7 @@ public class AbcPrinter
             {
                 for (int x = start; x < offset; x++)
                 {
-                    out.print(hex(abc[(int)x]) + " ");
+                    out.print(hex(abc[x]) + " ");
                 }
             }
             out.print("Instance Traits for: " + name + " ");
@@ -993,7 +993,7 @@ public class AbcPrinter
                 {
                     for (int x = start; x < offset; x++)
                     {
-                        out.print(hex(abc[(int)x]) + " ");
+                        out.print(hex(abc[x]) + " ");
                     }
                 }
                 out.println(s);
@@ -1015,7 +1015,7 @@ public class AbcPrinter
             {
                 for (int x = start; x < offset; x++)
                 {
-                    out.print(hex(abc[(int)x]) + " ");
+                    out.print(hex(abc[x]) + " ");
                 }
             }
             out.print("Class Traits for: " + name + " ");
@@ -1079,7 +1079,7 @@ public class AbcPrinter
                 {
                     for (int x = start; x < offset; x++)
                     {
-                        out.print(hex(abc[(int)x]) + " ");
+                        out.print(hex(abc[x]) + " ");
                     }
                 }
                 out.println(s);
@@ -1108,7 +1108,7 @@ public class AbcPrinter
             {
                 for (int x = start; x < offset; x++)
                 {
-                    out.print(hex(abc[(int)x]) + " ");
+                    out.print(hex(abc[x]) + " ");
                 }
             }
             out.println(name + " ");
@@ -1174,7 +1174,7 @@ public class AbcPrinter
                 {
                     for (int x = start; x < offset; x++)
                     {
-                        out.print(hex(abc[(int)x]) + " ");
+                        out.print(hex(abc[x]) + " ");
                     }
                 }
                 out.println(s);
@@ -1203,7 +1203,7 @@ public class AbcPrinter
             {
                 for (int x = start; x < offset; x++)
                 {
-                    out.print(hex(abc[(int)x]) + " ");
+                    out.print(hex(abc[x]) + " ");
                 }
                 for (int x = offset - start; x < 7; x++)
                 {
@@ -1382,7 +1382,7 @@ public class AbcPrinter
                 {
                     for (int x = start; x < offset; x++)
                     {
-                        out.print(hex(abc[(int)x]) + " ");
+                        out.print(hex(abc[x]) + " ");
                     }
                     for (int x = offset - start; x < 7; x++)
                     {
@@ -1407,7 +1407,7 @@ public class AbcPrinter
                 {
                     for (int x = start; x < offset; x++)
                     {
-                        out.print(hex(abc[(int)x]) + " ");
+                        out.print(hex(abc[x]) + " ");
                     }
                 }
                 out.print(multiNameConstants[nameIndex] + " ");
@@ -1464,7 +1464,7 @@ public class AbcPrinter
                 {
                     for (int x = start; x < offset; x++)
                     {
-                        out.print(hex(abc[(int)x]) + " ");
+                        out.print(hex(abc[x]) + " ");
                     }
                 }
                 out.println(s);

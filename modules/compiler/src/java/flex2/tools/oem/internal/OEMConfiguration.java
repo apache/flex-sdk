@@ -170,7 +170,7 @@ public class OEMConfiguration implements Configuration, ConfigurationConstants, 
 		
 		for (Iterator<String> i = args.keySet().iterator(); i.hasNext(); )
 		{
-			String key = (String) i.next();
+			String key = i.next();
 			Object value = args.get(key);
 
 			if (value instanceof Boolean)
@@ -430,7 +430,7 @@ public class OEMConfiguration implements Configuration, ConfigurationConstants, 
 		
 		for (Iterator<String> i = more.keySet().iterator(); i.hasNext(); )
 		{
-			String key = (String) i.next();
+			String key = i.next();
 			Object value = more.get(key);
 
 			if (value instanceof String[])
@@ -2358,7 +2358,7 @@ public class OEMConfiguration implements Configuration, ConfigurationConstants, 
 		List<RslPathInfo> rslList = c.getRslPathInfo();
 		boolean first = true;
 		for (Iterator<RslPathInfo> iter = rslList.iterator(); iter.hasNext();) {
-			RslPathInfo info = (RslPathInfo)iter.next();
+			RslPathInfo info = iter.next();
 			String[] rslUrls = info.getRslUrls().toArray(new String[0]);
 			String[] policyUrls = info.getPolicyFileUrls().toArray(new String[0]);
 			if (first) {

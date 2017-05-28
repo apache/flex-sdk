@@ -812,7 +812,7 @@ public abstract class SVG12BridgeEventSupport extends BridgeEventSupport {
                                           (EventTarget) relatedElement,
                                           modifiers);
 
-                ((AbstractEvent) mouseEvt).setBubbleLimit(bubbleLimit);
+                mouseEvt.setBubbleLimit(bubbleLimit);
 
                 try {
                     ((EventTarget) targetElement).dispatchEvent(mouseEvt);

@@ -626,8 +626,8 @@ public abstract class SVGAnimationElementBridge extends AbstractSVGBridge
          * element in document order.
          */
         public boolean isBefore(TimedElement other) {
-            Element e = ((SVGTimedElement) other).getElement();
-            int pos = ((AbstractNode) element).compareDocumentPosition(e);
+            Element e = other.getElement();
+            int pos = element.compareDocumentPosition(e);
             return (pos & AbstractNode.DOCUMENT_POSITION_PRECEDING) != 0;
         }
 

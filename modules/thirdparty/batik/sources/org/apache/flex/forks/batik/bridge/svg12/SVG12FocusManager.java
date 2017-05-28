@@ -173,7 +173,7 @@ public class SVG12FocusManager extends FocusManager {
                             0);     // detailArg
         int limit = DefaultXBLManager.computeBubbleLimit((Node) relatedTarget,
                                                          (Node) target);
-        ((AbstractEvent) uiEvt).setBubbleLimit(limit);
+        uiEvt.setBubbleLimit(limit);
         target.dispatchEvent(uiEvt);
     }
 
@@ -196,7 +196,7 @@ public class SVG12FocusManager extends FocusManager {
                             0);     // detailArg
         int limit = DefaultXBLManager.computeBubbleLimit((Node) target,
                                                          (Node) relatedTarget);
-        ((AbstractEvent) uiEvt).setBubbleLimit(limit);
+        uiEvt.setBubbleLimit(limit);
         target.dispatchEvent(uiEvt);
     }
 }

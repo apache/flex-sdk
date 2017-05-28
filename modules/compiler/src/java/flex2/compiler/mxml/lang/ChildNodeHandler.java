@@ -241,7 +241,7 @@ public abstract class ChildNodeHandler extends DeclarationHandler
 
         public void invoke(Type type, String namespace, String localPart)
         {
-            invoke(type, namespace, localPart, (String) null);
+            invoke(type, namespace, localPart, null);
         }
     }
 

@@ -96,7 +96,7 @@ public class EventbaseTimingSpecifier
      * to the owner's instance time list or setting up any event listeners.
      */
     public void initialize() {
-        ((NodeEventTarget) eventTarget).addEventListenerNS
+        eventTarget.addEventListenerNS
             (eventNamespaceURI, eventType, this, false, null);
     }
 
@@ -104,7 +104,7 @@ public class EventbaseTimingSpecifier
      * Deinitializes this timing specifier by removing any event listeners.
      */
     public void deinitialize() {
-        ((NodeEventTarget) eventTarget).removeEventListenerNS
+        eventTarget.removeEventListenerNS
             (eventNamespaceURI, eventType, this, false);
     }
 

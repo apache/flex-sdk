@@ -134,6 +134,6 @@ public abstract class DeclarationHandler
 	 */
 	protected void invoke(Type type, String namespace, String localPart)
 	{
-		invoke(type, namespace, localPart, (String) null);
+		invoke(type, namespace, localPart, null);
 	}
 }

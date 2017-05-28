@@ -279,7 +279,7 @@ public abstract class GraphicContentNode extends AbstractFXGNode
             if (isForMobile() && (maskType == MaskType.LUMINOSITY))
             {
                 FXGLog.getLogger().log(FXGLogger.WARN, "MobileUnsupportedLuminosityMask", null, 
-                		((AbstractFXGNode)this).getDocumentName(), startLine, startColumn);           
+                		this.getDocumentName(), startLine, startColumn);
                 maskTypeSet = false;
             }
             else
