@@ -2317,7 +2317,7 @@ public class DManager implements DProtocolNotifierIF, SourceLocator {
 
 		case DMessage.kBooleanType: {
 			int bval = msg.getByte();
-			value = new Boolean((bval == 0) ? false : true);
+			value = Boolean.valueOf((bval == 0) ? false : true);
 			isPrimitive = true;
 			break;
 		}

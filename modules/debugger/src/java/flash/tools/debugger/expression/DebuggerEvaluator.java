@@ -185,7 +185,7 @@ class DebuggerEvaluator implements Evaluator
 
 	public Value evaluate(macromedia.asc.util.Context cx, LiteralBooleanNode node)
 	{
-		return new DebuggerValue(new Boolean(node.value));
+		return new DebuggerValue(Boolean.valueOf(node.value));
 	}
 
 	public Value evaluate(macromedia.asc.util.Context cx, LiteralNumberNode node)
@@ -694,7 +694,7 @@ class DebuggerEvaluator implements Evaluator
 		case Tokens.NOT_TOKEN:
 		{
 			// ECMA 11.4.9
-			return new DebuggerValue(new Boolean(!ECMA.toBoolean(eeContext(cx).toValue(arg.debuggerValue))));
+			return new DebuggerValue(Boolean.valueOf(!ECMA.toBoolean(eeContext(cx).toValue(arg.debuggerValue))));
 		}
 		default:
 			cx.internalError(ASTBuilder.getLocalizationManager().getLocalizedTextString("unrecognizedUnaryOperator")); //$NON-NLS-1$
@@ -928,25 +928,25 @@ class DebuggerEvaluator implements Evaluator
 		case Tokens.EQUALS_TOKEN:
 		{
 			// ECMA 11.9.1
-			return new DebuggerValue(new Boolean(ECMA.equals(session, eeContext.toValue(lhs.debuggerValue), eeContext
+			return new DebuggerValue(Boolean.valueOf(ECMA.equals(session, eeContext.toValue(lhs.debuggerValue), eeContext
 					.toValue(rhs.debuggerValue))));
 		}
 		case Tokens.NOTEQUALS_TOKEN:
 		{
 			// ECMA 11.9.2
-			return new DebuggerValue(new Boolean(!ECMA.equals(session, eeContext.toValue(lhs.debuggerValue), eeContext
+			return new DebuggerValue(Boolean.valueOf(!ECMA.equals(session, eeContext.toValue(lhs.debuggerValue), eeContext
 					.toValue(rhs.debuggerValue))));
 		}
 		case Tokens.STRICTEQUALS_TOKEN:
 		{
 			// ECMA 11.9.4
-			return new DebuggerValue(new Boolean(ECMA.strictEquals(eeContext.toValue(lhs.debuggerValue), eeContext
+			return new DebuggerValue(Boolean.valueOf(ECMA.strictEquals(eeContext.toValue(lhs.debuggerValue), eeContext
 					.toValue(rhs.debuggerValue))));
 		}
 		case Tokens.STRICTNOTEQUALS_TOKEN:
 		{
 			// ECMA 11.9.5
-			return new DebuggerValue(new Boolean(!ECMA.strictEquals(eeContext.toValue(lhs.debuggerValue), eeContext
+			return new DebuggerValue(Boolean.valueOf(!ECMA.strictEquals(eeContext.toValue(lhs.debuggerValue), eeContext
 					.toValue(rhs.debuggerValue))));
 		}
 		case Tokens.BITWISEAND_TOKEN:
