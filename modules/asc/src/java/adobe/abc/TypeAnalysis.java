@@ -19,14 +19,14 @@
 
 package adobe.abc;
 
+import adobe.abc.Algorithms.EdgeMap;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.TreeMap;
 import java.util.TreeSet;
-
-import adobe.abc.Algorithms.EdgeMap;
+import java.util.Collections;
 
 import static adobe.abc.Algorithms.*;
 import static adobe.abc.OptimizerConstants.BOTTOM;
@@ -38,12 +38,9 @@ import static adobe.abc.OptimizerConstants.OP_phi;
 import static adobe.abc.OptimizerConstants.OP_xarg;
 import static adobe.abc.OptimizerConstants.UNDEFINED;
 import static adobe.abc.OptimizerConstants.opNames;
-import static adobe.abc.TypeAnalysis.isPointer;
-import static adobe.abc.TypeAnalysis.type;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import static macromedia.asc.embedding.avmplus.ActionBlockConstants.*;
-
 
 public abstract class TypeAnalysis 
 {
@@ -85,8 +82,7 @@ public abstract class TypeAnalysis
 					Block b = edge.to;
 					ready.addAll(b.exprs);
 					ssaWork.addAll(b.exprs);
-					for (Edge x: b.xsucc)
-						flowWork.add(x);
+					Collections.addAll(flowWork, b.xsucc);
 				}
 			}
 			while (!ssaWork.isEmpty())
@@ -483,8 +479,7 @@ public abstract class TypeAnalysis
 			{
 				Object v1 = values.get(e.args[0]);
 				if (v1 == BOTTOM)
-					for (Edge s: e.succ)
-						flowWork.add(s);
+					Collections.addAll(flowWork, e.succ);
 				else
 				{
 					// input is const

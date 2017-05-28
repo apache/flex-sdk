@@ -42,13 +42,11 @@ public abstract class AbstractRegistryEntry
         this.priority = priority;
 
         this.exts     = new ArrayList(exts.length);
-        for (int i=0; i<exts.length; i++)
-            this.exts.add(exts[i]);
+        Collections.addAll(this.exts, exts);
         this.exts = Collections.unmodifiableList(this.exts);
 
         this.mimeTypes     = new ArrayList(mimeTypes.length);
-        for (int i=0; i<mimeTypes.length; i++)
-            this.mimeTypes.add(mimeTypes[i]);
+        Collections.addAll(this.mimeTypes, mimeTypes);
         this.mimeTypes = Collections.unmodifiableList(this.mimeTypes);
     }
 

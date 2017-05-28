@@ -22,15 +22,7 @@ package flex2.tools.oem.internal;
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Locale;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.util.*;
 import java.util.Map.Entry;
 
 import macromedia.asc.embedding.ConfigVar;
@@ -412,10 +404,7 @@ public class OEMConfiguration implements Configuration, ConfigurationConstants, 
                 
                 for (String[] adArgs : valueList) 
                 {
-                    for (int j = 0; j < adArgs.length; j++)
-                    {
-                        buffer.add(adArgs[j]);
-                    }
+					Collections.addAll(buffer, adArgs);
                 }
             }
 			else if (value != null)

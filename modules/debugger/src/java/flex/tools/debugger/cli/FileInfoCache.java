@@ -19,19 +19,10 @@
 
 package flex.tools.debugger.cli;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.HashMap;
-import java.util.Iterator;
-
-import flash.tools.debugger.InProgressException;
-import flash.tools.debugger.Isolate;
-import flash.tools.debugger.NoResponseException;
-import flash.tools.debugger.Session;
-import flash.tools.debugger.SourceFile;
-import flash.tools.debugger.SwfInfo;
+import flash.tools.debugger.*;
 import flash.util.IntMap;
+
+import java.util.*;
 
 /**
  * FileInfoCache manages a list of files that are unique
@@ -150,8 +141,7 @@ public class FileInfoCache implements Comparator<SourceFile>
 				swfs = new SwfInfo[0];
 			}
 
-			for (SwfInfo swf : swfs)
-				result.add(swf);
+			Collections.addAll(result, swfs);
 		}
 
 		return result.toArray(new SwfInfo[0]);

@@ -39,7 +39,7 @@ import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
 import java.util.Vector;
-
+import java.util.Collections;
 
 import macromedia.asc.embedding.ConfigVar;
 import macromedia.asc.util.ObjectList;
@@ -4994,8 +4994,7 @@ public class GlobalOptimizer
 					Block b = edge.to;
 					ready.addAll(b.exprs);
 					ssaWork.addAll(b.exprs);
-					for (Edge x: b.xsucc)
-						flowWork.add(x);
+					Collections.addAll(flowWork, b.xsucc);
 				}
 			}
 			while (!ssaWork.isEmpty())
@@ -5464,8 +5463,7 @@ public class GlobalOptimizer
 			{
 				Object v1 = values.get(e.args[0]);
 				if (v1 == BOTTOM)
-					for (Edge s: e.succ)
-						flowWork.add(s);
+					Collections.addAll(flowWork, e.succ);
 				else
 				{
 					// input is const
