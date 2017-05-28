@@ -746,8 +746,7 @@ public class IndexImage{
                         break;
                     j++;
                 }
-                for (int i=nCubes; i>j; i--)
-                    cubes[i] = cubes[i-1];
+                System.arraycopy(cubes, j, cubes, j + 1, nCubes - j);
                 cubes[j++] = nc;
                 nCubes++;
             }

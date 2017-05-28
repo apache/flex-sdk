@@ -396,9 +396,7 @@ public class PlayerSessionManager implements SessionManager2
 					launchCommand[1] = "-a";
 					launchCommand[2] = httpExe.toString();
 					launchCommand[3] = "--args";
-					for ( int i = 0; i < customParams.length; i++) {
-						launchCommand[i + prependLen] = customParams[i];
-					}
+					System.arraycopy(customParams, 0, launchCommand, 4, customParams.length);
 				}
 			}
 			else if (launchInfo.isPlayerNativeLaunch())
@@ -427,9 +425,7 @@ public class PlayerSessionManager implements SessionManager2
 					final int prependLen = 1;
 					launchCommand = new String[customParams.length + prependLen];
 					launchCommand[0] = httpExe.toString();
-					for ( int i = 0; i < customParams.length; i++) {
-						launchCommand[i + prependLen] = customParams[i];
-					}
+					System.arraycopy(customParams, 0, launchCommand, 1, customParams.length);
 				}
 			}
 			else if (launchInfo.isPlayerNativeLaunch())

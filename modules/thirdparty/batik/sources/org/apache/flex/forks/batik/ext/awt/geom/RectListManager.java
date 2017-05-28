@@ -891,8 +891,7 @@ public class RectListManager implements Collection {
         ensureCapacity(size+len);
 
         // Move everything after pos up...
-        for (int i=size-1; i>=dstPos; i--)
-            this.rects[i+len] = this.rects[i];
+        System.arraycopy(this.rects, dstPos, this.rects, dstPos + len, size - dstPos);
 
         // Put the new rects in.
         System.arraycopy( rects, srcPos, this.rects, dstPos, len );

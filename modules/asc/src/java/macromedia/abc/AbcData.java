@@ -531,8 +531,7 @@ public class AbcData implements java.io.Externalizable
                 int count = nd.params.length - 2;
                 assert( count == nd.params[1]);
                 int[] plist = new int[count];
-                for( int i = 0; i < count; ++i )
-                    plist[i] = nd.params[i+2];
+				System.arraycopy(nd.params, 2, plist, 0, count);
                 this.binaryMultinames[idx] = new BinaryMN(nd.kind, name_index, plist);
                 break;
             case ActionBlockConstants.CONSTANT_Multiname:
