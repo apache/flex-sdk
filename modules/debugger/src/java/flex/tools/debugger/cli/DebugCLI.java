@@ -150,7 +150,7 @@ public class DebugCLI implements Runnable, SourceLocator {
     public static final boolean WORKER_DISPLAY_INTERNAL_SWAP_INFO = true;
 
     /* Enum for the state of the initial prompt shown when a swf is loaded */
-    public static enum InitialPromptState {
+    public enum InitialPromptState {
         NEVER_SHOWN, SHOWN_ONCE, DONE
     }
 
