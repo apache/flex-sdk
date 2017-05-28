@@ -145,7 +145,7 @@ public abstract class AbstractValue implements Value {
      * Creates an INVALID_ACCESS_ERR exception.
      */
     protected DOMException createDOMException() {
-        Object[] p = new Object[] { new Integer(getCssValueType()) };
+        Object[] p = new Object[] {(int) getCssValueType()};
         String s = Messages.formatMessage("invalid.value.access", p);
         return new DOMException(DOMException.INVALID_ACCESS_ERR, s);
     }

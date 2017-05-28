@@ -78,7 +78,7 @@ public abstract class AbstractParentNode extends AbstractNode {
             throw createDOMException
                 (DOMException.NOT_FOUND_ERR,
                  "child.missing",
-                 new Object[] { new Integer(refChild.getNodeType()),
+                 new Object[] {(int) refChild.getNodeType(),
                                 refChild.getNodeName() });
 
         checkAndRemove(newChild, false);
@@ -119,7 +119,7 @@ public abstract class AbstractParentNode extends AbstractNode {
             throw createDOMException
                 (DOMException.NOT_FOUND_ERR,
                  "child.missing",
-                 new Object[] { new Integer(oldChild.getNodeType()),
+                 new Object[] {(int) oldChild.getNodeType(),
                                 oldChild.getNodeName() });
 
         checkAndRemove(newChild, true);
@@ -171,13 +171,13 @@ public abstract class AbstractParentNode extends AbstractNode {
             throw createDOMException
                 (DOMException.NOT_FOUND_ERR,
                  "child.missing",
-                 new Object[] { new Integer(oldChild.getNodeType()),
+                 new Object[] {(int) oldChild.getNodeType(),
                                 oldChild.getNodeName() });
         }
         if (isReadonly()) {
             throw createDOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR,
                                      "readonly.node",
-                                     new Object[] { new Integer(getNodeType()),
+                                     new Object[] {(int) getNodeType(),
                                                     getNodeName() });
         }
 
@@ -457,13 +457,13 @@ public abstract class AbstractParentNode extends AbstractNode {
         if (isReadonly())
             throw createDOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR,
                                      "readonly.node",
-                                     new Object[] { new Integer(getNodeType()),
+                                     new Object[] {(int) getNodeType(),
                                                     getNodeName() });
 
         if (n.getOwnerDocument() != getCurrentDocument())
             throw createDOMException(DOMException.WRONG_DOCUMENT_ERR,
                                      "node.from.wrong.document",
-                                     new Object[] { new Integer(getNodeType()),
+                                     new Object[] {(int) getNodeType(),
                                                     getNodeName() });
         if (this == n)
             throw createDOMException
@@ -479,7 +479,7 @@ public abstract class AbstractParentNode extends AbstractNode {
                 throw createDOMException
                     (DOMException.HIERARCHY_REQUEST_ERR,
                      "add.ancestor",
-                     new Object[] { new Integer(getNodeType()),
+                     new Object[] {(int) getNodeType(),
                                     getNodeName() });
         }
 
@@ -835,7 +835,7 @@ public abstract class AbstractParentNode extends AbstractNode {
             throw createDOMException
                 (DOMException.NOT_FOUND_ERR,
                  "child.missing",
-                 new Object[] { new Integer(r.getNodeType()),
+                 new Object[] {(int) r.getNodeType(),
                                 r.getNodeName() });
         }
 
@@ -901,7 +901,7 @@ public abstract class AbstractParentNode extends AbstractNode {
             throw createDOMException
                 (DOMException.NOT_FOUND_ERR,
                  "child.missing",
-                 new Object[] { new Integer(o.getNodeType()),
+                 new Object[] {(int) o.getNodeType(),
                                 o.getNodeName() });
         }
 
@@ -959,7 +959,7 @@ public abstract class AbstractParentNode extends AbstractNode {
             throw createDOMException
                 (DOMException.NOT_FOUND_ERR,
                  "child.missing",
-                 new Object[] { new Integer(n.getNodeType()),
+                 new Object[] {(int) n.getNodeType(),
                                 n.getNodeName() });
         }
     }

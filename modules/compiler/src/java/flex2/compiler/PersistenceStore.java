@@ -1111,7 +1111,7 @@ final class PersistenceStore
 			String name = (String) pool[readU32()];
 			if (!"null".equals(name))
 			{
-				owners.put(name, new Integer(readU8()));
+				owners.put(name, readU8());
 				if (sources != null) sources.add(name);
 			}
 			else
@@ -1132,7 +1132,7 @@ final class PersistenceStore
 		{
 			QName qName = (QName) pool[readU32()];
 			long ts = readLong();
-			if (swcDefSignatureChecksums != null) swcDefSignatureChecksums.put(qName, new Long(ts));
+			if (swcDefSignatureChecksums != null) swcDefSignatureChecksums.put(qName, ts);
 		}
 
 		return true;
@@ -1146,7 +1146,7 @@ final class PersistenceStore
 		{
 			String fileName = (String) pool[readU32()];
 			long ts = readLong();
-            if (m != null) m.put(fileName, new Long(ts));
+            if (m != null) m.put(fileName, ts);
 		}
 
 		return true;
@@ -1654,7 +1654,7 @@ final class PersistenceStore
         if (hasSignatureChecksum)
         {
             assert hasUnit;
-            signatureChecksum = new Long(readLong(in));
+            signatureChecksum = readLong(in);
             // SignatureExtension.debug("READ      CRC32: " + signatureChecksum + "\t--> " + name);
         }
 
@@ -1675,7 +1675,7 @@ final class PersistenceStore
 			}
 
 			includes.add(f);
-			includeTimes.put(f, new Long(ts));
+			includeTimes.put(f, ts);
 		}
 
 		size = readU32(in);
@@ -1905,7 +1905,7 @@ final class PersistenceStore
 				String preLoader = (String) pool[readU32(in)];
 				u.auxGenerateInfo.put("preloaderClass", preLoader.length() > 0 ? preLoader : null);
 
-				u.auxGenerateInfo.put("usePreloader", new Boolean(readU8(in) == 1));
+				u.auxGenerateInfo.put("usePreloader", readU8(in) == 1);
 
 				Map<String, Object> rootAttributeMap = new HashMap<String, Object>();
 				u.auxGenerateInfo.put("rootAttributes", rootAttributeMap);

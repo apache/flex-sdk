@@ -282,7 +282,7 @@ public class ZipFile {
             off += 4;
 
             // LFH offset
-            entries.put(ze, new Long((new ZipLong(cfh, off)).getValue()));
+            entries.put(ze, (new ZipLong(cfh, off)).getValue());
 
             byte[] fileName = new byte[fileNameLen];
             archive.readFully(fileName);
@@ -409,8 +409,8 @@ public class ZipFile {
             archive.readFully(localExtraData);
             ze.setExtra(localExtraData);
             dataOffsets.put(ze,
-                            new Long(offset + LFH_OFFSET_FOR_FILENAME_LENGTH
-                                     + 2 + 2 + fileNameLen + extraFieldLen));
+                    offset + LFH_OFFSET_FOR_FILENAME_LENGTH
+                            + 2 + 2 + fileNameLen + extraFieldLen);
         }
     }
 

@@ -45,7 +45,7 @@ import org.apache.flex.forks.batik.transcoder.wmf.WMFConstants;
  */
 public class WMFHeaderProperties extends AbstractWMFReader {
 
-    private static final Integer INTEGER_0 = new Integer( 0 );
+    private static final Integer INTEGER_0 = 0;
 
     protected DataInputStream stream;
     private int _bleft, _bright, _btop, _bbottom, _bwidth, _bheight;

@@ -41,7 +41,7 @@ public class Dictionary
 
     public boolean contains(int id)
     {
-        return ids.containsKey(new Integer(id));
+        return ids.containsKey(id);
     }
 
     public boolean contains(DefineTag tag)
@@ -110,7 +110,7 @@ public class Dictionary
         }
         else
         {
-            Integer key = new Integer(nextId++);
+            Integer key = nextId++;
             tags.put(tag, key);
             ids.put(key, tag);
             return key.intValue();
@@ -127,7 +127,7 @@ public class Dictionary
     public void add(int id, DefineTag s)
         throws IllegalArgumentException
     {
-        Integer key = new Integer(id);
+        Integer key = id;
         Tag t = ids.get(key);
         if (t == null)
         {
@@ -181,7 +181,7 @@ public class Dictionary
     public DefineTag getTag(int idref)
             throws IllegalArgumentException
     {
-        Integer key = new Integer(idref);
+        Integer key = idref;
         DefineTag t = ids.get(key);
         if (t == null)
         {

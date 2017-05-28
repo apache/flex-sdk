@@ -181,7 +181,7 @@ public class Benchmark
             startTimes = new HashMap<String, Long>();
         }
 
-        startTimes.put(id, new Long(System.currentTimeMillis()));
+        startTimes.put(id, System.currentTimeMillis());
     }
 
 	/**

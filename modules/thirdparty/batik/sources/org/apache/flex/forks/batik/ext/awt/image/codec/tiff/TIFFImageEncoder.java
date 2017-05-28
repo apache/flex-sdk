@@ -712,13 +712,13 @@ public class TIFFImageEncoder extends ImageEncoderImpl {
             Iterator fieldIter = fields.iterator();
             while(fieldIter.hasNext()) {
                 TIFFField fld = (TIFFField)fieldIter.next();
-                extantTags.add(new Integer(fld.getTag()));
+                extantTags.add(fld.getTag());
             }
 
             int numExtraFields = extraFields.length;
             for(int i = 0; i < numExtraFields; i++) {
                 TIFFField fld = extraFields[i];
-                Integer tagValue = new Integer(fld.getTag());
+                Integer tagValue = fld.getTag();
                 if(!extantTags.contains(tagValue)) {
                     fields.add(fld);
                     extantTags.add(tagValue);

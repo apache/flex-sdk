@@ -444,7 +444,7 @@ public class SVGOMSVGElement
         if (!ctx.unsuspendRedraw(suspend_handle_id)) {
             throw createDOMException
                 (DOMException.NOT_FOUND_ERR, "invalid.suspend.handle",
-                 new Object[] { new Integer(suspend_handle_id) });
+                 new Object[] {suspend_handle_id});
         }
     }
 

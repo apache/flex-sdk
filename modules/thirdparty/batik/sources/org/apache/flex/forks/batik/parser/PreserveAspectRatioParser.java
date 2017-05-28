@@ -335,7 +335,7 @@ public class PreserveAspectRatioParser extends AbstractParser {
         skipSpaces();
         if (current != -1) {
             reportError("end.of.stream.expected",
-                        new Object[] { new Integer(current) });
+                        new Object[] {current});
         }
 
         preserveAspectRatioHandler.endPreserveAspectRatio();

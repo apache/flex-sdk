@@ -493,7 +493,7 @@ public class BaseScriptingEnvironment {
                         (INLINE_SCRIPT_DESCRIPTION,
                          new Object [] {d.getURL(),
                                         "<"+script.getNodeName()+">",
-                                        new Integer(line)});
+                                 line});
                     // Inline script.
                     Node n = script.getFirstChild();
                     if (n != null) {
@@ -608,7 +608,7 @@ public class BaseScriptingEnvironment {
             (EVENT_SCRIPT_DESCRIPTION,
              new Object [] {d.getURL(),
                             SVGConstants.SVG_ONLOAD_ATTRIBUTE,
-                            new Integer(line)});
+                     line});
 
         EventListener l = new EventListener() {
                 public void handleEvent(Event evt) {

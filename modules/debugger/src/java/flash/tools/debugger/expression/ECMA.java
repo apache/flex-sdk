@@ -297,7 +297,7 @@ public class ECMA
 		{
 			String sx = px.getValueAsString();
 			String sy = py.getValueAsString();
-			return DValue.forPrimitive(new Boolean(sx.compareTo(sy) < 0), x.getIsolateId());
+			return DValue.forPrimitive(sx.compareTo(sy) < 0, x.getIsolateId());
 		}
 		else
 		{
@@ -305,7 +305,7 @@ public class ECMA
 			double dy = toNumber(session, py);
 			if (Double.isNaN(dx) || Double.isNaN(dy))
 				return DValue.forPrimitive(Value.UNDEFINED, x.getIsolateId());
-			return DValue.forPrimitive(new Boolean(dx < dy), x.getIsolateId());
+			return DValue.forPrimitive(dx < dy, x.getIsolateId());
 		}
 	}
 
@@ -357,9 +357,9 @@ public class ECMA
 				return dx == dy;
 			}
 			if (x instanceof Boolean)
-				return equals(session, DValue.forPrimitive(new Double(toNumber(session, xv)), xv.getIsolateId()), yv);
+				return equals(session, DValue.forPrimitive(toNumber(session, xv), xv.getIsolateId()), yv);
 			if (y instanceof Boolean)
-				return equals(session, xv, DValue.forPrimitive(new Double(toNumber(session, yv)), xv.getIsolateId()));
+				return equals(session, xv, DValue.forPrimitive(toNumber(session, yv), xv.getIsolateId()));
 			if ((x instanceof String || x instanceof Double) && yv.getType() == VariableType.OBJECT)
 			{
 				return equals(session, xv, toPrimitive(session, yv, null, yv.getIsolateId()));

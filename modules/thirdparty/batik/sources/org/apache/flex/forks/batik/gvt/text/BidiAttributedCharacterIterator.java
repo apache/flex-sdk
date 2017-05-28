@@ -43,7 +43,7 @@ public class BidiAttributedCharacterIterator implements AttributedCharacterItera
     private FontRenderContext frc;
     private int chunkStart;
     private int [] newCharOrder;
-    private static final Float FLOAT_NAN = new Float(Float.NaN);
+    private static final Float FLOAT_NAN = Float.NaN;
 
 
     protected BidiAttributedCharacterIterator
@@ -138,7 +138,7 @@ public class BidiAttributedCharacterIterator implements AttributedCharacterItera
             if (newBiDi != currBiDi) {
                 as.addAttribute
                     (GVTAttributedCharacterIterator.TextAttribute.BIDI_LEVEL,
-                     new Integer(currBiDi), runStart, i);
+                            currBiDi, runStart, i);
                 runStart = i;
                 currBiDi  = newBiDi;
                 if (newBiDi > maxBiDi) maxBiDi = newBiDi;
@@ -146,7 +146,7 @@ public class BidiAttributedCharacterIterator implements AttributedCharacterItera
         }
         as.addAttribute
             (GVTAttributedCharacterIterator.TextAttribute.BIDI_LEVEL,
-             new Integer(currBiDi), runStart, numChars);
+                    currBiDi, runStart, numChars);
 
         aci = as.getIterator();
 

@@ -134,7 +134,7 @@ public abstract class AbstractAttr extends AbstractParentNode implements Attr {
         if (isReadonly()) {
             throw createDOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR,
                                      "readonly.node",
-                                     new Object[] { new Integer(getNodeType()),
+                                     new Object[] {(int) getNodeType(),
                                                     getNodeName() });
         }
 
@@ -314,9 +314,9 @@ public abstract class AbstractAttr extends AbstractParentNode implements Attr {
             throw createDOMException
                 (DOMException.HIERARCHY_REQUEST_ERR,
                  "child.type",
-                 new Object[] { new Integer(getNodeType()),
+                 new Object[] {(int) getNodeType(),
                                             getNodeName(),
-                                new Integer(n.getNodeType()),
+                         (int) n.getNodeType(),
                                             n.getNodeName() });
         }
     }

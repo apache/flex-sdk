@@ -52,7 +52,7 @@ public abstract class AbstractCharacterData
         if (isReadonly()) {
             throw createDOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR,
                                      "readonly.node",
-                                     new Object[] { new Integer(getNodeType()),
+                                     new Object[] {(int) getNodeType(),
                                                     getNodeName() });
         }
         // Node modification
@@ -110,7 +110,7 @@ public abstract class AbstractCharacterData
         if (isReadonly()) {
             throw createDOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR,
                                      "readonly.node",
-                                     new Object[] { new Integer(getNodeType()),
+                                     new Object[] {(int) getNodeType(),
                                                     getNodeName() });
         }
         setNodeValue(getNodeValue() + ((arg == null) ? "" : arg));
@@ -124,13 +124,13 @@ public abstract class AbstractCharacterData
         if (isReadonly()) {
             throw createDOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR,
                                      "readonly.node",
-                                     new Object[] { new Integer(getNodeType()),
+                                     new Object[] {(int) getNodeType(),
                                                     getNodeName() });
         }
         if (offset < 0 || offset > getLength()) {
             throw createDOMException(DOMException.INDEX_SIZE_ERR,
                                      "offset",
-                                     new Object[] { new Integer(offset) });
+                                     new Object[] {offset});
         }
         String v = getNodeValue();
         setNodeValue(v.substring(0, offset) + 
@@ -145,7 +145,7 @@ public abstract class AbstractCharacterData
         if (isReadonly()) {
             throw createDOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR,
                                      "readonly.node",
-                                     new Object[] { new Integer(getNodeType()),
+                                     new Object[] {(int) getNodeType(),
                                                     getNodeName() });
         }
         checkOffsetCount(offset, count);
@@ -165,7 +165,7 @@ public abstract class AbstractCharacterData
         if (isReadonly()) {
             throw createDOMException(DOMException.NO_MODIFICATION_ALLOWED_ERR,
                                      "readonly.node",
-                                     new Object[] { new Integer(getNodeType()),
+                                     new Object[] {(int) getNodeType(),
                                                     getNodeName() });
         }
         checkOffsetCount(offset, count);
@@ -185,12 +185,12 @@ public abstract class AbstractCharacterData
         if (offset < 0 || offset >= getLength()) {
             throw createDOMException(DOMException.INDEX_SIZE_ERR,
                                      "offset",
-                                     new Object[] { new Integer(offset) });
+                                     new Object[] {offset});
         }
         if (count < 0) {
             throw createDOMException(DOMException.INDEX_SIZE_ERR,
                                      "negative.count",
-                                     new Object[] { new Integer(count) });
+                                     new Object[] {count});
         }
     }
 

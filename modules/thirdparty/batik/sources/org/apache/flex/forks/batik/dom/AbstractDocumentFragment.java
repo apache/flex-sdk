@@ -66,9 +66,9 @@ public abstract class AbstractDocumentFragment
             throw createDOMException
                 (DOMException.HIERARCHY_REQUEST_ERR,
                  "child.type",
-                 new Object[] { new Integer(getNodeType()),
+                 new Object[] {(int) getNodeType(),
                                 getNodeName(),
-                                new Integer(n.getNodeType()),
+                         (int) n.getNodeType(),
                                 n.getNodeName() });
         }
     }

@@ -571,7 +571,7 @@ public class MemoryMonitor extends JFrame implements ActionMap {
             freeMemory  = free;
 
             // Add a new point to the data
-            data.add(new Long(totalMemory - freeMemory));
+            data.add(totalMemory - freeMemory);
             if (data.size() > 190) {
                 data.remove(0);
                 xShift = (xShift + 1) % 10;

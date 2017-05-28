@@ -501,7 +501,7 @@ public class OrderedProperties extends Properties implements Serializable
 		if(!super.containsKey(key))
             keys.addElement(key);
         super.put(key, value);
-        lines.put(key, new Integer(lineNumber));
+        lines.put(key, lineNumber);
 
         return key;
     }

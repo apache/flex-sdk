@@ -58,7 +58,7 @@ public class MetaRecord /*implements Serializable*/ {
      * @param iValue  the value to add to ptVector, wrapped in an Integer
      */
     public final void addElement( int iValue ){
-        ptVector.add( new Integer( iValue ) );
+        ptVector.add(iValue);
     }
 
     /**

@@ -73,7 +73,7 @@ public abstract class AbstractElementNS extends AbstractElement {
                 throw createDOMException
                     (DOMException.NAMESPACE_ERR,
                      "namespace.uri",
-                     new Object[] { new Integer(getNodeType()),
+                     new Object[] {(int) getNodeType(),
                                     getNodeName(),
                                     nsURI });
             }

@@ -746,7 +746,7 @@ public class PrintTranscoder extends SVGAbstractTranscoder
         String str = System.getProperty(property);
         if(str != null){
             try{
-                Float value = new Float(Float.parseFloat(str));
+                Float value = Float.parseFloat(str);
                 transcoder.addTranscodingHint(key, value);
             }catch(NumberFormatException e){
                 handleValueError(property, str);

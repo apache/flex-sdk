@@ -267,7 +267,7 @@ public final class SignatureExtension implements Extension
             
             final Checksum checksum = new Adler32(); // much faster than CRC32, almost as reliable
             checksum.update(bytes, 0, bytes.length);
-            chksum = new Long(checksum.getValue());
+            chksum = checksum.getValue();
             
            // debug("COMPUTE   CRC32: " + chksum + "\t--> " + unit.getSource().getNameForReporting());
         }

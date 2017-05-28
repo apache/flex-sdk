@@ -31,7 +31,7 @@ public final class IntegerPool
 		constants = new Integer[max-min];
 		for (int i = 0; i < max-min; i++)
 		{
-			constants[i] = new Integer(i+min);
+			constants[i] = i + min;
 		}
 	}
 

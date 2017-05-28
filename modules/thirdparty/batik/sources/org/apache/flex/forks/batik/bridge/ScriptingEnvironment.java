@@ -1306,7 +1306,7 @@ public class ScriptingEnvironment extends BaseScriptingEnvironment {
             int line = dl.getLineNumber(elt);
             final String desc = Messages.formatMessage
                 (EVENT_SCRIPT_DESCRIPTION,
-                 new Object [] {d.getURL(), attribute, new Integer(line)});
+                 new Object [] {d.getURL(), attribute, line});
 
             // Find the scripting language
             Element e = elt;

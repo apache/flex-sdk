@@ -39,7 +39,7 @@ public abstract class CachedFontManager extends FontManager
 {
     public static final short PURGE_SIZE = 2;
     public static final float DEFAULT_FONT_SIZE = 240f; //12pt * 20 - authoring tool multiplies size by 20 to increase granularity in twips
-    public static final Float DEFAULT_FONT_SIZE_OBJECT = new Float(DEFAULT_FONT_SIZE);
+    public static final Float DEFAULT_FONT_SIZE_OBJECT = DEFAULT_FONT_SIZE;
     public static final String DEFAULT_FONT_SIZE_STRING = "240";
 	public static final String COMPATIBILITY_VERSION = "CompatibilityVersion";
 

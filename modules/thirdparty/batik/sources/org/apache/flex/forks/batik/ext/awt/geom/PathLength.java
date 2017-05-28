@@ -133,7 +133,7 @@ public class PathLength {
 
         while (!pi.isDone()) {
             origIndex++;
-            indexes.add(new Integer(index));
+            indexes.add(index);
             segType = pi.currentSegment(seg);
             switch (segType) {
                 case PathIterator.SEG_MOVETO:

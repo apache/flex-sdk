@@ -374,7 +374,7 @@ public class Scanner {
                 nextChar();
                 if (current != '!') {
                     throw new ParseException("character",
-                                             new Object[] { new Character((char) current) },
+                                             new Object[] {(char) current},
                                              reader.getLine(),
                                              reader.getColumn());
                 }
@@ -388,7 +388,7 @@ public class Scanner {
                     }
                 }
                 throw new ParseException("character",
-                                         new Object[] { new Character((char) current) },
+                                         new Object[] {(char) current},
                                          reader.getLine(),
                                          reader.getColumn());
             case '-':
@@ -406,7 +406,7 @@ public class Scanner {
                     return;
                 }
                 throw new ParseException("character",
-                                         new Object[] { new Character((char) current) },
+                                         new Object[] {(char) current},
                                          reader.getLine(),
                                          reader.getColumn());
             case '|':
@@ -422,7 +422,7 @@ public class Scanner {
                     return;
                 }
                 throw new ParseException("character",
-                                         new Object[] { new Character((char) current) },
+                                         new Object[] {(char) current},
                                          reader.getLine(),
                                          reader.getColumn());
             case '~':
@@ -433,7 +433,7 @@ public class Scanner {
                     return;
                 }
                 throw new ParseException("character",
-                                         new Object[] { new Character((char) current) },
+                                         new Object[] {(char) current},
                                          reader.getLine(),
                                          reader.getColumn());
             case '#':
@@ -453,7 +453,7 @@ public class Scanner {
                     return;
                 }
                 throw new ParseException("character",
-                                         new Object[] { new Character((char) current) },
+                                         new Object[] {(char) current},
                                          reader.getLine(),
                                          reader.getColumn());
             case '@':
@@ -545,7 +545,7 @@ public class Scanner {
                     if (!ScannerUtilities.isCSSIdentifierStartCharacter
                         ((char)current)) {
                         throw new ParseException("identifier.character",
-                                                 new Object[] { new Character((char) current) },
+                                                 new Object[] {(char) current},
                                                  reader.getLine(),
                                                  reader.getColumn());
                     }
@@ -578,7 +578,7 @@ public class Scanner {
                                              reader.getColumn());
                 } else {
                     throw new ParseException("character",
-                                             new Object[] { new Character((char) current) },
+                                             new Object[] {(char) current},
                                              reader.getLine(),
                                              reader.getColumn());
                 }
@@ -646,7 +646,7 @@ public class Scanner {
                         default:
                            if (!ScannerUtilities.isCSSSpace((char)current)) {
                                throw new ParseException("character",
-                                       new Object[] {new Character((char)current)},
+                                       new Object[] {(char) current},
                                        reader.getLine(),
                                        reader.getColumn());
                            }
@@ -686,7 +686,7 @@ public class Scanner {
                                 if (current != ')') {
                                     throw new ParseException
                                         ("character",
-                                         new Object[] { new Character((char) current) },
+                                         new Object[] {(char) current},
                                          reader.getLine(),
                                          reader.getColumn());
                                 }
@@ -711,7 +711,7 @@ public class Scanner {
                                 if (current != ')') {
                                     throw new ParseException
                                         ("character",
-                                         new Object[] { new Character((char) current) },
+                                         new Object[] {(char) current},
                                          reader.getLine(),
                                          reader.getColumn());
                                 }
@@ -720,7 +720,7 @@ public class Scanner {
                                 return;
                             case ')':
                                 throw new ParseException("character",
-                                                         new Object[] { new Character((char) current) },
+                                                         new Object[] {(char) current},
                                                          reader.getLine(),
                                                          reader.getColumn());
                             default:
@@ -728,7 +728,7 @@ public class Scanner {
                                     ((char)current)) {
                                     throw new ParseException
                                         ("character",
-                                         new Object[] { new Character((char) current) },
+                                         new Object[] {(char) current},
                                          reader.getLine(),
                                          reader.getColumn());
                                 }
@@ -754,7 +754,7 @@ public class Scanner {
                                 if (current != ')') {
                                     throw new ParseException
                                         ("character",
-                                         new Object[] { new Character((char) current) },
+                                         new Object[] {(char) current},
                                          reader.getLine(),
                                          reader.getColumn());
                                 }
@@ -772,7 +772,7 @@ public class Scanner {
             		int tmp = current;
                     nextChar();
                     throw new ParseException("identifier.character",
-                                             new Object[] { new Character((char) tmp) },
+                                             new Object[] {(char) tmp},
                                              reader.getLine(),
                                              reader.getColumn());
             	}
@@ -859,7 +859,7 @@ public class Scanner {
             default:
                 if (!ScannerUtilities.isCSSStringCharacter((char)current)) {
                     throw new ParseException("character",
-                                             new Object[] { new Character((char) current) },
+                                             new Object[] {(char) current},
                                              reader.getLine(),
                                              reader.getColumn());
                 }
@@ -896,7 +896,7 @@ public class Scanner {
             default:
                 if (!ScannerUtilities.isCSSStringCharacter((char)current)) {
                     throw new ParseException("character",
-                                             new Object[] { new Character((char) current) },
+                                             new Object[] {(char) current},
                                              reader.getLine(),
                                              reader.getColumn());
                 }
@@ -919,7 +919,7 @@ public class Scanner {
                     return dotNumber();
                 }
                 throw new ParseException("character",
-                                         new Object[] { new Character((char) current) },
+                                         new Object[] {(char) current},
                                          reader.getLine(),
                                          reader.getColumn());
             default:
@@ -1367,7 +1367,7 @@ public class Scanner {
             return;
         }
         throw new ParseException("character",
-                                 new Object[] { new Character((char) current) },
+                                 new Object[] {(char) current},
                                  reader.getLine(),
                                  reader.getColumn());
     }

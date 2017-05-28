@@ -131,7 +131,7 @@ public class TIFFDecodeParam implements ImageDecodeParam {
      * the directory at that offset.
      */
     public void setIFDOffset(long offset) {
-        ifdOffset = new Long(offset);
+        ifdOffset = offset;
     }
 
     /**

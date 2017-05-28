@@ -185,7 +185,7 @@ public class BridgeException extends RuntimeException {
         else              uri = doc.getURL();
         Object [] fullparams = new Object[params.length+3];
         fullparams[0] = uri;
-        fullparams[1] = new Integer(line);
+        fullparams[1] = line;
         fullparams[2] = lname;
         System.arraycopy( params, 0, fullparams, 3, params.length );
         return Messages.formatMessage(code, fullparams);

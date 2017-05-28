@@ -584,7 +584,7 @@ public class PNGRed extends AbstractRed {
             encodeParam.setBitDepth(bitDepth);
         }
         if (emitProperties) {
-            properties.put("bit_depth", new Integer(bitDepth));
+            properties.put("bit_depth", bitDepth);
         }
 
         if (performGammaCorrection) {
@@ -594,7 +594,7 @@ public class PNGRed extends AbstractRed {
                 encodeParam.setGamma(gamma);
             }
             if (emitProperties) {
-                properties.put("gamma", new Float(gamma));
+                properties.put("gamma", gamma);
             }
         }
 
@@ -1075,14 +1075,14 @@ public class PNGRed extends AbstractRed {
             encodeParam.setChromaticity(chromaticity);
         }
         if (emitProperties) {
-            properties.put("white_point_x", new Float(chromaticity[0]));
-            properties.put("white_point_y", new Float(chromaticity[1]));
-            properties.put("red_x", new Float(chromaticity[2]));
-            properties.put("red_y", new Float(chromaticity[3]));
-            properties.put("green_x", new Float(chromaticity[4]));
-            properties.put("green_y", new Float(chromaticity[5]));
-            properties.put("blue_x", new Float(chromaticity[6]));
-            properties.put("blue_y", new Float(chromaticity[7]));
+            properties.put("white_point_x", chromaticity[0]);
+            properties.put("white_point_y", chromaticity[1]);
+            properties.put("red_x", chromaticity[2]);
+            properties.put("red_y", chromaticity[3]);
+            properties.put("green_x", chromaticity[4]);
+            properties.put("green_y", chromaticity[5]);
+            properties.put("blue_x", chromaticity[6]);
+            properties.put("blue_y", chromaticity[7]);
         }
     }
 
@@ -1100,7 +1100,7 @@ public class PNGRed extends AbstractRed {
             encodeParam.setGamma(fileGamma*exp);
         }
         if (emitProperties) {
-            properties.put("gamma", new Float(fileGamma*exp));
+            properties.put("gamma", fileGamma * exp);
         }
     }
 
@@ -1142,10 +1142,10 @@ public class PNGRed extends AbstractRed {
                                              unitSpecifier);
         }
         if (emitProperties) {
-            properties.put("x_pixels_per_unit", new Integer(xPixelsPerUnit));
-            properties.put("y_pixels_per_unit", new Integer(yPixelsPerUnit));
+            properties.put("x_pixels_per_unit", xPixelsPerUnit);
+            properties.put("y_pixels_per_unit", yPixelsPerUnit);
             properties.put("pixel_aspect_ratio",
-                           new Float((float)xPixelsPerUnit/yPixelsPerUnit));
+                    (float) xPixelsPerUnit / yPixelsPerUnit);
             if (unitSpecifier == 1) {
                 properties.put("pixel_units", "Meters");
             } else if (unitSpecifier != 0) {
@@ -1207,15 +1207,15 @@ public class PNGRed extends AbstractRed {
                 encodeParam.setChromaticity(chromaticity);
             }
             if (emitProperties) {
-                properties.put("gamma", new Float(gamma));
-                properties.put("white_point_x", new Float(chromaticity[0]));
-                properties.put("white_point_y", new Float(chromaticity[1]));
-                properties.put("red_x", new Float(chromaticity[2]));
-                properties.put("red_y", new Float(chromaticity[3]));
-                properties.put("green_x", new Float(chromaticity[4]));
-                properties.put("green_y", new Float(chromaticity[5]));
-                properties.put("blue_x", new Float(chromaticity[6]));
-                properties.put("blue_y", new Float(chromaticity[7]));
+                properties.put("gamma", gamma);
+                properties.put("white_point_x", chromaticity[0]);
+                properties.put("white_point_y", chromaticity[1]);
+                properties.put("red_x", chromaticity[2]);
+                properties.put("red_y", chromaticity[3]);
+                properties.put("green_x", chromaticity[4]);
+                properties.put("green_y", chromaticity[5]);
+                properties.put("blue_x", chromaticity[6]);
+                properties.put("blue_y", chromaticity[7]);
             }
         }
     }

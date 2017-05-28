@@ -636,7 +636,7 @@ public class MxmlScanner extends DefaultHandler implements TokenManager,
             {
                 if (lineNumMethod != null)
                 {
-                    line = Integer.parseInt(lineNumMethod.invoke(attributes, new Object[] {new Integer(i)}).toString());
+                    line = Integer.parseInt(lineNumMethod.invoke(attributes, new Object[] {i}).toString());
                 }
             }
             catch (IllegalAccessException ex)

@@ -136,13 +136,13 @@ public class SwcChecksums
         {
             String filename = entry.getKey();
             VirtualFile file = entry.getValue();
-            swcFileChecksums.put(filename, new Long(file.getLastModified()));             
+            swcFileChecksums.put(filename, file.getLastModified());
         }
 
         for (VirtualFile themeStyleSheet : swcContext.getThemeStyleSheets())
         {
             swcFileChecksums.put(themeStyleSheet.getName(),
-                                 new Long(themeStyleSheet.getLastModified()));
+                    themeStyleSheet.getLastModified());
         }
     }
 
@@ -164,7 +164,7 @@ public class SwcChecksums
         for (Map.Entry<String, VirtualFile> entry : m.entrySet())
         {
             VirtualFile file = entry.getValue();
-            archiveFileChecksums.put(file.getName(), new Long(file.getLastModified()));            
+            archiveFileChecksums.put(file.getName(), file.getLastModified());
         }        
    }
 
@@ -240,7 +240,7 @@ public class SwcChecksums
                     Source source = swcContext.getSource(qName.getNamespace(), qName.getLocalPart());
                     if (source != null)
                     {
-                        swcSignatureChecksum = new Long(source.getLastModified());
+                        swcSignatureChecksum = source.getLastModified();
                     }
                 }
                 if (Trace.swcChecksum)
@@ -335,7 +335,7 @@ public class SwcChecksums
         if (signatureChecksum == null)
         {
             SwcScript script = (SwcScript) unit.getSource().getOwner();
-            signatureChecksum = new Long(script.getLastModified());
+            signatureChecksum = script.getLastModified();
         }
 
         if (swcDefSignatureChecksums != null)
@@ -393,7 +393,7 @@ public class SwcChecksums
             VirtualFile swcFile = swcFiles.get(filename);
             if (swcFile != null)
             {
-                swcFileLastModified = new Long(swcFile.getLastModified());
+                swcFileLastModified = swcFile.getLastModified();
             }
             
             if (!dataFileLastModified.equals(swcFileLastModified))
@@ -443,7 +443,7 @@ public class SwcChecksums
             Long localFileLastModified = null;
 
             LocalFile localFile = new LocalFile(new File(filename));
-            localFileLastModified = new Long(localFile.getLastModified());
+            localFileLastModified = localFile.getLastModified();
             
             if (!dataFileLastModified.equals(localFileLastModified))
             {

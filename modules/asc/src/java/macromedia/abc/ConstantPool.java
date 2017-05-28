@@ -593,12 +593,12 @@ public class ConstantPool
 
     private Long createLong(long number)
     {
-        return new Long(number);
+        return number;
     }
 
     private Double createDouble(double number)
     {
-        return new Double(number);
+        return number;
     }
 
     private QName createQName(String ns, String name)
