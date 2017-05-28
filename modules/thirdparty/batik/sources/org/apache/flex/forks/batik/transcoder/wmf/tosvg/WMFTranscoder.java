@@ -127,8 +127,8 @@ public class WMFTranscoder extends ToSVGAbstractTranscoder {
         float conv = 1.0f; // conversion factor
 
         if (hints.containsKey(KEY_INPUT_WIDTH)) {
-            wmfwidth = ((Integer)hints.get(KEY_INPUT_WIDTH)).intValue();
-            wmfheight = ((Integer)hints.get(KEY_INPUT_HEIGHT)).intValue();
+            wmfwidth = (Integer) hints.get(KEY_INPUT_WIDTH);
+            wmfheight = (Integer) hints.get(KEY_INPUT_HEIGHT);
         } else {
             wmfwidth = currentStore.getWidthPixels();
             wmfheight = currentStore.getHeightPixels();
@@ -138,7 +138,7 @@ public class WMFTranscoder extends ToSVGAbstractTranscoder {
 
         // change the output width and height if required
         if (hints.containsKey(KEY_WIDTH)) {
-            width = ((Float)hints.get(KEY_WIDTH)).floatValue();
+            width = (Float) hints.get(KEY_WIDTH);
             conv = width / wmfwidth;
             height = height * width / wmfwidth;
         }
@@ -147,10 +147,10 @@ public class WMFTranscoder extends ToSVGAbstractTranscoder {
         int xOffset = 0;
         int yOffset = 0;
         if (hints.containsKey(KEY_XOFFSET)) {
-            xOffset = ((Integer)hints.get(KEY_XOFFSET)).intValue();
+            xOffset = (Integer) hints.get(KEY_XOFFSET);
         }
         if (hints.containsKey(KEY_YOFFSET)) {
-            yOffset = ((Integer)hints.get(KEY_YOFFSET)).intValue();
+            yOffset = (Integer) hints.get(KEY_YOFFSET);
         }
 
         // Set the size and viewBox on the output document
@@ -163,8 +163,8 @@ public class WMFTranscoder extends ToSVGAbstractTranscoder {
         int vpH;
         // if we took only a part of the image, we use its dimension for computing
         if (hints.containsKey(KEY_INPUT_WIDTH)) {
-            vpW = (int)(((Integer)hints.get(KEY_INPUT_WIDTH)).intValue() * conv);
-            vpH = (int)(((Integer)hints.get(KEY_INPUT_HEIGHT)).intValue() * conv);
+            vpW = (int)((Integer) hints.get(KEY_INPUT_WIDTH) * conv);
+            vpH = (int)((Integer) hints.get(KEY_INPUT_HEIGHT) * conv);
         // else we took the whole image dimension
         } else {
             vpW = (int)(currentStore.getWidthUnits() * sizeFactor);

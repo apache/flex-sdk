@@ -580,8 +580,8 @@ public class LocalLogger implements Logger
 			return (new StringBuilder(" [")
 				.append(new GeneratedCodeMarker().getMessage())).append(": ")
 				.append(new PathInfo(p).getMessage()).append(", ")
-				.append(new LineInfo(line == null ? 0 : line.intValue()).getMessage()).append(", ")
-				.append(new ColumnInfo(col == null ? 0 : col.intValue()).getMessage()).append("]")
+				.append(new LineInfo(line == null ? 0 : line).getMessage()).append(", ")
+				.append(new ColumnInfo(col == null ? 0 : col).getMessage()).append("]")
 				.toString();
 		}
 		else
@@ -620,11 +620,11 @@ public class LocalLogger implements Logger
 			pw.println(new PathInfo(p).getMessage());
 			if (line != null)
 			{
-				pw.println(new LineInfo(line.intValue()).getMessage());
+				pw.println(new LineInfo(line).getMessage());
 			}
 			if (col != null)
 			{
-				pw.println(new ColumnInfo(col.intValue()).getMessage());
+				pw.println(new ColumnInfo(col).getMessage());
 			}
 			if (msg != null)
 			{
@@ -636,7 +636,7 @@ public class LocalLogger implements Logger
 			}
 			if (errorCode != null)
 			{
-				pw.println(new ErrorCodeInfo(errorCode.intValue()).getMessage());
+				pw.println(new ErrorCodeInfo(errorCode).getMessage());
 			}
 			new Exception(new StackTraceInfo().getMessage()).printStackTrace(pw);
 			return misrouteInfo.toString();
@@ -756,7 +756,7 @@ public class LocalLogger implements Logger
 				}
 				else if (w.line == null && w.col == null && w.source == null && w.errorCode != null)
 				{
-					logger.logWarning(w.path, w.warning, w.errorCode.intValue());
+					logger.logWarning(w.path, w.warning, w.errorCode);
 				}
 				else if (w.line == null && w.col == null && w.source != null && w.errorCode == null)
 				{
@@ -764,7 +764,7 @@ public class LocalLogger implements Logger
 				}
 				else if (w.line == null && w.col == null && w.source != null && w.errorCode != null)
 				{
-					logger.logWarning(w.path, w.warning, w.errorCode.intValue());
+					logger.logWarning(w.path, w.warning, w.errorCode);
 				}
 				else if (w.line == null && w.col != null && w.source == null && w.errorCode == null)
 				{
@@ -772,7 +772,7 @@ public class LocalLogger implements Logger
 				}
 				else if (w.line == null && w.col != null && w.source == null && w.errorCode != null)
 				{
-					logger.logWarning(w.path, w.warning, w.errorCode.intValue());
+					logger.logWarning(w.path, w.warning, w.errorCode);
 				}
 				else if (w.line == null && w.col != null && w.source != null && w.errorCode == null)
 				{
@@ -780,39 +780,39 @@ public class LocalLogger implements Logger
 				}
 				else if (w.line == null && w.col != null && w.source != null && w.errorCode != null)
 				{
-					logger.logWarning(w.path, w.warning, w.errorCode.intValue());
+					logger.logWarning(w.path, w.warning, w.errorCode);
 				}
 				else if (w.line != null && w.col == null && w.source == null && w.errorCode == null)
 				{
-					logger.logWarning(w.path, w.line.intValue(), w.warning);
+					logger.logWarning(w.path, w.line, w.warning);
 				}
 				else if (w.line != null && w.col == null && w.source == null && w.errorCode != null)
 				{
-					logger.logWarning(w.path, w.line.intValue(), w.warning, w.errorCode.intValue());
+					logger.logWarning(w.path, w.line, w.warning, w.errorCode);
 				}
 				else if (w.line != null && w.col == null && w.source != null && w.errorCode == null)
 				{
-					logger.logWarning(w.path, w.line.intValue(), w.warning);
+					logger.logWarning(w.path, w.line, w.warning);
 				}
 				else if (w.line != null && w.col == null && w.source != null && w.errorCode != null)
 				{
-					logger.logWarning(w.path, w.line.intValue(), w.warning, w.errorCode.intValue());
+					logger.logWarning(w.path, w.line, w.warning, w.errorCode);
 				}
 				else if (w.line != null && w.col != null && w.source == null && w.errorCode == null)
 				{
-					logger.logWarning(w.path, w.line.intValue(), w.col.intValue(), w.warning);
+					logger.logWarning(w.path, w.line, w.col, w.warning);
 				}
 				else if (w.line != null && w.col != null && w.source == null && w.errorCode != null)
 				{
-					logger.logWarning(w.path, w.line.intValue(), w.warning, w.errorCode.intValue());
+					logger.logWarning(w.path, w.line, w.warning, w.errorCode);
 				}
 				else if (w.line != null && w.col != null && w.source != null && w.errorCode == null)
 				{
-					logger.logWarning(w.path, w.line.intValue(), w.col.intValue(), w.warning, w.source);
+					logger.logWarning(w.path, w.line, w.col, w.warning, w.source);
 				}
 				else if (w.line != null && w.col != null && w.source != null && w.errorCode != null)
 				{
-					logger.logWarning(w.path, w.line.intValue(), w.col.intValue(), w.warning, w.source, w.errorCode.intValue());
+					logger.logWarning(w.path, w.line, w.col, w.warning, w.source, w.errorCode);
 				}
 			}
 			else

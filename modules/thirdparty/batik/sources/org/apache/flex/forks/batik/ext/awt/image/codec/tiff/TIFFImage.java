@@ -235,7 +235,7 @@ public class TIFFImage extends AbstractRed {
         // Read the specified directory.
         TIFFDirectory dir = param.getIFDOffset() == null ?
             new TIFFDirectory(stream, directory) :
-            new TIFFDirectory(stream, param.getIFDOffset().longValue(),
+            new TIFFDirectory(stream, param.getIFDOffset(),
                               directory);
 
         // Get the number of samples per pixel

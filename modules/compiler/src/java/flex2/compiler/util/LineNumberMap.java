@@ -66,7 +66,7 @@ public class LineNumberMap {
 	public int get(int newLine) {
 		lookup.start = newLine;
 		Integer delta = map.get(lookup);
-		return delta == null ? 0 : newLine - delta.intValue();
+		return delta == null ? 0 : newLine - delta;
 	}
 
 	private final class Range implements Comparable {

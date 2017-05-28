@@ -87,7 +87,7 @@ public class ExpressionContext implements Context
 		try
 		{
 			Integer o = (Integer)m_cache.get(DebugCLI.LIST_MODULE);
-			s = m_cache.getPackageName(o.intValue());
+			s = m_cache.getPackageName(o);
 		}
 		catch(NullPointerException npe)
 		{
@@ -484,7 +484,7 @@ public class ExpressionContext implements Context
 			// So we query for our current stack depth and use that
 			// as the context for our base computation
 			long baseId = Value.BASE_ID;
-			int depth = ((Integer)m_cache.get(DebugCLI.DISPLAY_FRAME_NUMBER)).intValue();
+			int depth = (Integer) m_cache.get(DebugCLI.DISPLAY_FRAME_NUMBER);
 			baseId -= depth;
 
 			// obtain data about our current state

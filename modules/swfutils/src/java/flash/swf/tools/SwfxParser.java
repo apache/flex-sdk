@@ -1058,7 +1058,7 @@ public class SwfxParser extends DefaultHandler
 
     private boolean parseBoolean(String attribute)
     {
-        return Boolean.valueOf(attribute).booleanValue();
+        return Boolean.valueOf(attribute);
     }
 
     /**

@@ -405,7 +405,7 @@ public class XMLListBuilder extends AbstractBuilder
             }
             else
             {
-                int num = counts.get(child.image).intValue() + 1;
+                int num = counts.get(child.image) + 1;
                 counts.put(child.image, IntegerPool.getNumber(num));
                 child.setIndex(num);
             }

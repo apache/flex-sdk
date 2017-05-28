@@ -2436,7 +2436,7 @@ public class DManager implements DProtocolNotifierIF, SourceLocator {
 		// it is already in our cache, then we just want to modify the
 		// existing object with the new values.
 		if (value instanceof Long) {
-			valueObject = getValue(((Long) value).longValue(), isolateId);
+			valueObject = getValue((Long) value, isolateId);
 		}
 
 		if (valueObject == null) {
@@ -2452,7 +2452,7 @@ public class DManager implements DProtocolNotifierIF, SourceLocator {
 
 			if (value instanceof Long
 					&& (toAttributes(flags) & VariableAttribute.HAS_GETTER) == 0)
-				putValue(((Long) value).longValue(), valueObject, isolateId);
+				putValue((Long) value, valueObject, isolateId);
 		} else {
 			// we found it in the cache, so just modify the properties
 			// of the old Value

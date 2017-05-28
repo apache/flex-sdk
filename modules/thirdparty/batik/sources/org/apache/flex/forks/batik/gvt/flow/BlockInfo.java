@@ -93,7 +93,7 @@ public class BlockInfo {
         float fontSize = 12;
         Float fsFloat = (Float)fontAttrs.get(TextAttribute.SIZE);
         if (fsFloat != null)
-            fontSize = fsFloat.floatValue();
+            fontSize = fsFloat;
 
         Iterator i = fontList.iterator();
         while (i.hasNext()) {

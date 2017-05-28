@@ -228,7 +228,7 @@ outer:  while (i < len) {
         len = keyTimes.size();
         float[] ret = new float[len];
         for (int j = 0; j < len; j++) {
-            ret[j] = ((Float) keyTimes.get(j)).floatValue();
+            ret[j] = (Float) keyTimes.get(j);
         }
         return ret;
     }
@@ -304,7 +304,7 @@ outer:  while (i < len) {
         len = keySplines.size();
         float[] ret = new float[len];
         for (int j = 0; j < len; j++) {
-            ret[j] = ((Float) keySplines.get(j)).floatValue();
+            ret[j] = (Float) keySplines.get(j);
         }
         return ret;
     }

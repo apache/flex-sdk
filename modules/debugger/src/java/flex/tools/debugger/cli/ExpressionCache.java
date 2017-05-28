@@ -352,7 +352,7 @@ public class ExpressionCache
             case VariableType.BOOLEAN:
             {
                 Boolean b = (Boolean)val.getValueAsObject();
-                if (b.booleanValue())
+                if (b)
                     sb.append("true"); //$NON-NLS-1$
                 else
                     sb.append("false"); //$NON-NLS-1$

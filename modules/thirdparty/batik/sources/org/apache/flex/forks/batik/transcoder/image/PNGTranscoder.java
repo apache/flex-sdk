@@ -97,8 +97,8 @@ public class PNGTranscoder extends ImageTranscoder {
 
         if (hints.containsKey(PNGTranscoder.KEY_FORCE_TRANSPARENT_WHITE)) {
             forceTransparentWhite =
-                ((Boolean)hints.get
-                 (PNGTranscoder.KEY_FORCE_TRANSPARENT_WHITE)).booleanValue();
+                    (Boolean) hints.get
+                            (PNGTranscoder.KEY_FORCE_TRANSPARENT_WHITE);
         }
 
         if (forceTransparentWhite) {

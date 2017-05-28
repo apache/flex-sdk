@@ -279,7 +279,7 @@ public class ScriptCompiler
 
 		for (int i = 0, length = filespecs.size(); i < length; i++)
 		{
-			boolean importFlag = imported.get(i).booleanValue();
+			boolean importFlag = imported.get(i);
 
 			File f = new File(filespecs.get(i));
 			if (f.exists() && f.isFile())

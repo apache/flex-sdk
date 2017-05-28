@@ -121,7 +121,7 @@ public class PlayerSessionManager implements SessionManager2
 		Integer i = (Integer)m_prefs.get(pref);
 		if (i == null)
 			throw new NullPointerException();
-		val = i.intValue();
+		val = i;
 		return val;
 	}
 

@@ -368,7 +368,7 @@ public class ZipEntry extends java.util.zip.ZipEntry implements Cloneable {
     public long getCompressedSize() {
         if (compressedSize != null) {
             // has been set explicitly and we are running in a 1.1 VM
-            return compressedSize.longValue();
+            return compressedSize;
         }
         return super.getCompressedSize();
     }

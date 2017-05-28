@@ -246,7 +246,7 @@ abstract class AnonymousObjectGraphBuilder extends AbstractBuilder
             }
             else
             {
-                int count = counts.get(localPart).intValue() + 1;
+                int count = counts.get(localPart) + 1;
                 counts.put(localPart, IntegerPool.getNumber(count));
             }
         }
@@ -273,7 +273,7 @@ abstract class AnonymousObjectGraphBuilder extends AbstractBuilder
             }
             else
             {
-                int num = counts.get(localPart).intValue() + 1;
+                int num = counts.get(localPart) + 1;
                 counts.put(localPart, IntegerPool.getNumber(num));
             }
         }
@@ -289,7 +289,7 @@ abstract class AnonymousObjectGraphBuilder extends AbstractBuilder
         {
             String localPart = i.next();
 
-            if (counts.get(localPart).intValue() > 1)
+            if (counts.get(localPart) > 1)
             {
                 Array a = new Array(document, parent, parent.getXmlLineNumber(), typeTable.objectType);
                 a.setId(localPart, false);

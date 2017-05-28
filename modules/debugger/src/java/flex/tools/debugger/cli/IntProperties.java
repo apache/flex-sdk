@@ -28,7 +28,7 @@ public class IntProperties
 
 	/* getters */
 	public Integer					getInteger(String s)	{ return m_map.get(s); }
-	public int						get(String s)			{ return getInteger(s).intValue(); }
+	public int						get(String s)			{ return getInteger(s); }
 	public Set<String>				keySet()				{ return m_map.keySet(); }
 	public HashMap<String, Integer>	map()					{ return m_map; }
 

@@ -686,12 +686,12 @@ public class WMFPainter extends AbstractWMFPainter {
                 case WMFConstants.META_RESTOREDC:
                     bkgdColor = (Color)dcStack.pop();
                     frgdColor = (Color)dcStack.pop();
-                    fontObject = ((Integer)(dcStack.pop())).intValue();
-                    penObject = ((Integer)(dcStack.pop())).intValue();
-                    brushObject = ((Integer)(dcStack.pop())).intValue();
-                    startY = ((Float)(dcStack.pop())).floatValue();
-                    startX = ((Float)(dcStack.pop())).floatValue();
-                    penWidth = ((Float)(dcStack.pop())).floatValue();
+                    fontObject = (Integer) (dcStack.pop());
+                    penObject = (Integer) (dcStack.pop());
+                    brushObject = (Integer) (dcStack.pop());
+                    startY = (Float) (dcStack.pop());
+                    startX = (Float) (dcStack.pop());
+                    penWidth = (Float) (dcStack.pop());
                     break;
 
                 case WMFConstants.META_POLYBEZIER16:
@@ -755,7 +755,7 @@ public class WMFPainter extends AbstractWMFPainter {
                     //UPDATED : added SETROP2
                 case WMFConstants.META_SETROP2:
                     {
-                        float rop = (float)(mr.ElementAt( 0 ).intValue());
+                        float rop = (float)(mr.ElementAt(0));
                         Paint paint = null;
                         boolean ok = false;
                         if (rop == WMFConstants.META_BLACKNESS) {
@@ -874,19 +874,19 @@ public class WMFPainter extends AbstractWMFPainter {
                     break;                                        
                 case WMFConstants.META_DIBBITBLT:
                     {
-                        int rop = mr.ElementAt( 0 ).intValue();
-                        float height = (mr.ElementAt( 1 ).intValue() *
+                        int rop = mr.ElementAt(0);
+                        float height = (mr.ElementAt(1) *
                                         conv * currentStore.getVpWFactor());
-                        float width  = (mr.ElementAt( 2 ).intValue() *
+                        float width  = (mr.ElementAt(2) *
                                         conv * currentStore.getVpHFactor());
-                        int sy = mr.ElementAt( 3 ).intValue();
-                        int sx = mr.ElementAt( 4 ).intValue();
+                        int sy = mr.ElementAt(3);
+                        int sx = mr.ElementAt(4);
                         float dy = (conv * currentStore.getVpWFactor() *
                                     (vpY + yOffset +
-                                     (float)mr.ElementAt( 5 ).intValue()));
+                                     (float) mr.ElementAt(5)));
                         float dx = (conv * currentStore.getVpHFactor() *
                                     (vpX + xOffset +
-                                     (float)mr.ElementAt( 6 ).intValue()));
+                                     (float) mr.ElementAt(6)));
                         if (mr instanceof MetaRecord.ByteRecord) {
                             byte[] bitmap = ((MetaRecord.ByteRecord)mr).bstr;
 

@@ -2926,7 +2926,7 @@ public class Encoder implements Visitor
         {
             int newIndex = calcIndex(poolIndex, oldIndex);
             Integer i = indexes.get(IntegerPool.getNumber(newIndex));
-            return i != null ? i.intValue() : -1;
+            return i != null ? i : -1;
         }
 
         int size()
@@ -3013,7 +3013,7 @@ public class Encoder implements Visitor
 			Integer i = offsets.get(IntegerPool.getNumber((int) offset));
 			if (i != null)
 			{
-				return i.intValue();
+				return i;
 			}
 			else
 			{

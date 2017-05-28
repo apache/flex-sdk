@@ -276,7 +276,7 @@ public class SpriteTranscoder extends XMLAbstractTranscoder
 		{
 			if (SpriteTranscoder.this.hints.containsKey(KEY_PIXEL_TO_MM))
 			{
-				return ((Float) SpriteTranscoder.this.hints.get(KEY_PIXEL_TO_MM)).floatValue();
+				return (Float) SpriteTranscoder.this.hints.get(KEY_PIXEL_TO_MM);
 			}
 			else
 			{
@@ -333,8 +333,8 @@ public class SpriteTranscoder extends XMLAbstractTranscoder
 		 */
 		public final boolean isXMLParserValidating()
 		{
-			return ((Boolean) SpriteTranscoder.this.hints.get
-					(KEY_XML_PARSER_VALIDATING)).booleanValue();
+			return (Boolean) SpriteTranscoder.this.hints.get
+					(KEY_XML_PARSER_VALIDATING);
 		}
 
 		/**
@@ -440,7 +440,7 @@ public class SpriteTranscoder extends XMLAbstractTranscoder
 		{
 			if (SpriteTranscoder.this.hints.containsKey(KEY_PIXEL_TO_MM))
 			{
-				return ((Float) SpriteTranscoder.this.hints.get(KEY_PIXEL_TO_MM)).floatValue();
+				return (Float) SpriteTranscoder.this.hints.get(KEY_PIXEL_TO_MM);
 			}
 			else
 			{
@@ -521,8 +521,8 @@ public class SpriteTranscoder extends XMLAbstractTranscoder
 			if (SpriteTranscoder.this.hints.containsKey(KEY_CONSTRAIN_SCRIPT_ORIGIN))
 			{
 				constrainOrigin =
-						((Boolean) SpriteTranscoder.this.hints.get
-						(KEY_CONSTRAIN_SCRIPT_ORIGIN)).booleanValue();
+						(Boolean) SpriteTranscoder.this.hints.get
+								(KEY_CONSTRAIN_SCRIPT_ORIGIN);
 			}
 
 			if (constrainOrigin)

@@ -153,7 +153,7 @@ public class DModule implements SourceFile
 		{
 			Integer i = m_line2Offset.get(line);
 			if (i != null)
-				offset = i.intValue();
+				offset = i;
 		}
 		return offset;
 	}
@@ -164,7 +164,7 @@ public class DModule implements SourceFile
         primeAllFncNames(s);
 		Integer i = m_func2FirstLine.get(name);
 		if (i != null)
-			value = i.intValue();
+			value = i;
 
 		return value;
 	}
@@ -282,8 +282,8 @@ public class DModule implements SourceFile
 		Arrays.sort(funcNames, new Comparator<String>() {
 
 			public int compare(String o1, String o2) {
-				int line1 = m_func2FirstLine.get(o1).intValue();
-				int line2 = m_func2FirstLine.get(o2).intValue();
+				int line1 = m_func2FirstLine.get(o1);
+				int line2 = m_func2FirstLine.get(o2);
 				return line1 - line2;
 			}
 			
@@ -292,8 +292,8 @@ public class DModule implements SourceFile
 		for (int i=0; i<funcNames.length; ++i)
 		{
 			String name = funcNames[i];
-			int firstLine = m_func2FirstLine.get(name).intValue();
-			int lastLine = m_func2LastLine.get(name).intValue();
+			int firstLine = m_func2FirstLine.get(name);
+			int lastLine = m_func2LastLine.get(name);
 
 			sb.append(" "); //$NON-NLS-1$
 			sb.append(name);

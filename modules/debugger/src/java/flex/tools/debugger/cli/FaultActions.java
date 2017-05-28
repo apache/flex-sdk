@@ -86,8 +86,8 @@ public class FaultActions
 	 */
 	public boolean is(String fault, String action)
 	{
-		int mask  = getAction(action).intValue();
-		int bits = get(fault).intValue();
+		int mask  = getAction(action);
+		int bits = get(fault);
 
 		boolean set = ( (bits & mask) == mask ) ? true : false;
 		return set;
@@ -115,8 +115,8 @@ public class FaultActions
 			throw new IllegalArgumentException(action);
 
 		// now do the math
-		int old = current.intValue();
-		int mask = bit.intValue();
+		int old = current;
+		int mask = bit;
 
 		int n = (old & (~mask));  // turn it off
 		n = (no) ? n : (n | mask); // leave it off or turn it on

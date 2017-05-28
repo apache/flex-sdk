@@ -359,7 +359,7 @@ public class TIFFDirectory implements Serializable {
         if (i == null) {
             return null;
         } else {
-            return fields[i.intValue()];
+            return fields[i];
         }
     }
 
@@ -380,7 +380,7 @@ public class TIFFDirectory implements Serializable {
         int i = 0;
 
         while (iter.hasNext()) {
-            tags[i++] = ((Integer)iter.next()).intValue();
+            tags[i++] = (Integer) iter.next();
         }
 
         return tags;
@@ -402,7 +402,7 @@ public class TIFFDirectory implements Serializable {
      */
     public byte getFieldAsByte(int tag, int index) {
         Integer i = (Integer)fieldIndex.get(new Integer(tag));
-        byte [] b = (fields[i.intValue()]).getAsBytes();
+        byte [] b = (fields[i]).getAsBytes();
         return b[index];
     }
 
@@ -424,7 +424,7 @@ public class TIFFDirectory implements Serializable {
      */
     public long getFieldAsLong(int tag, int index) {
         Integer i = (Integer)fieldIndex.get(new Integer(tag));
-        return (fields[i.intValue()]).getAsLong(index);
+        return (fields[i]).getAsLong(index);
     }
 
     /**
@@ -445,7 +445,7 @@ public class TIFFDirectory implements Serializable {
      */
     public float getFieldAsFloat(int tag, int index) {
         Integer i = (Integer)fieldIndex.get(new Integer(tag));
-        return fields[i.intValue()].getAsFloat(index);
+        return fields[i].getAsFloat(index);
     }
 
     /**
@@ -465,7 +465,7 @@ public class TIFFDirectory implements Serializable {
      */
     public double getFieldAsDouble(int tag, int index) {
         Integer i = (Integer)fieldIndex.get(new Integer(tag));
-        return fields[i.intValue()].getAsDouble(index);
+        return fields[i].getAsDouble(index);
     }
 
     /**

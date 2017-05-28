@@ -189,9 +189,9 @@ public class DebugDecoder
 		int i = 0, size = lineRecords.size();
 		while (i < size)
 		{
-			int id = ((Integer) lineRecords.get(i)).intValue();
+			int id = (Integer) lineRecords.get(i);
 			LineRecord lr = (LineRecord) lineRecords.get(i + 1);
-			int offset = ((Integer) lineRecords.get(i + 2)).intValue();
+			int offset = (Integer) lineRecords.get(i + 2);
 			lr.module = (DebugModule) modules.get(id);
 
 			if (lr.module != null)
@@ -231,14 +231,14 @@ public class DebugDecoder
 			LineRecord lr = (LineRecord) lineRecords.get(i + 1);
 			Integer offset = (Integer) lineRecords.get(i + 2);
 
-			if (id.intValue() == moduleId)
+			if (id == moduleId)
 			{
                 lr.module = module;
 
 				if (lr.module != null)
 				{
-					lr.module.addOffset(lr, offset.intValue());
-					handler.offset(offset.intValue(), lr);
+					lr.module.addOffset(lr, offset);
+					handler.offset(offset, lr);
 				}
 				else
 				{

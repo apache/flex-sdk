@@ -428,7 +428,7 @@ public class StrokingTextPainter extends BasicTextPainter {
             float fontSize = 12;
             Float fsFloat = (Float)aci.getAttribute(TextAttribute.SIZE);
             if (fsFloat != null)
-                fontSize = fsFloat.floatValue();
+                fontSize = fsFloat;
 
             // if could not resolve at least one of the fontFamilies
             // then use the default font
@@ -718,25 +718,25 @@ public class StrokingTextPainter extends BasicTextPainter {
             if (layout.isVertical()) {
                 if (lengthAdj == ADJUST_SPACING) {
                     yScale = (float)
-                        ((length.floatValue()-lastH)/
+                        ((length -lastH)/
                          (advance.getY()-lastMetrics.getVerticalAdvance()));
                 } else {
                     double adv =(advance.getY()-
                                  lastMetrics.getVerticalAdvance() + lastH);
-                    yScale = (float)(length.floatValue()/adv);
+                    yScale = (float)(length /adv);
                 }
-                visualAdvance = new Point2D.Float(0, length.floatValue());
+                visualAdvance = new Point2D.Float(0, length);
             } else {
                 if (lengthAdj == ADJUST_SPACING) {
                     xScale = (float)
-                        ((length.floatValue()-lastW)/
+                        ((length -lastW)/
                          (advance.getX()-lastMetrics.getHorizontalAdvance()));
                 } else {
                     double adv = (advance.getX() + lastW -
                                   lastMetrics.getHorizontalAdvance());
-                    xScale = (float)(length.floatValue()/adv);
+                    xScale = (float)(length /adv);
                 }
-                visualAdvance = new Point2D.Float(length.floatValue(), 0);
+                visualAdvance = new Point2D.Float(length, 0);
             }
 
             // System.out.println("Adv: " + advance + " Len: " + length +
@@ -791,12 +791,12 @@ public class StrokingTextPainter extends BasicTextPainter {
         // Of course X and Y override that, but they don't apply for
         // text on a path.
         if ((runX != null) && (!runX.isNaN())) {
-            absX = runX.floatValue();
+            absX = runX;
             tpShiftX = absX;
         }
 
         if ((runY != null) && (!runY.isNaN())) {
-            absY = runY.floatValue();
+            absY = runY;
             tpShiftY = absY;
         }
 
@@ -824,12 +824,12 @@ public class StrokingTextPainter extends BasicTextPainter {
             if (vertical) {
                 runX = (Float) runaci.getAttribute(XPOS);
                 if ((runX != null) && (!runX.isNaN())) {
-                    absX = runX.floatValue();
+                    absX = runX;
                 }
             } else {
                 runY = (Float) runaci.getAttribute(YPOS);
                 if ((runY != null) && (!runY.isNaN())) {
-                    absY = runY.floatValue();
+                    absY = runY;
                 }
             }
 

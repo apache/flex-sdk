@@ -183,12 +183,12 @@ public class PrintTranscoder extends SVGAbstractTranscoder
         Float pageWidth = (Float)hints.get(KEY_PAGE_WIDTH);
         Float pageHeight = (Float)hints.get(KEY_PAGE_HEIGHT);
         if(pageWidth != null){
-            paper.setSize(pageWidth.floatValue(),
+            paper.setSize(pageWidth,
                           paper.getHeight());
         }
         if(pageHeight != null){
             paper.setSize(paper.getWidth(),
-                          pageHeight.floatValue());
+                    pageHeight);
         }
 
         float x=0, y=0;
@@ -201,18 +201,18 @@ public class PrintTranscoder extends SVGAbstractTranscoder
         Float bottomMargin = (Float)hints.get(KEY_MARGIN_BOTTOM);
 
         if(leftMargin != null){
-            x      = leftMargin.floatValue();
-            width -= leftMargin.floatValue();
+            x      = leftMargin;
+            width -= leftMargin;
         }
         if(topMargin != null){
-            y       = topMargin.floatValue();
-            height -= topMargin.floatValue();
+            y       = topMargin;
+            height -= topMargin;
         }
         if(rightMargin != null){
-            width -= rightMargin.floatValue();
+            width -= rightMargin;
         }
         if(bottomMargin != null){
-            height -= bottomMargin.floatValue();
+            height -= bottomMargin;
         }
 
         paper.setImageableArea(x, y, width, height);
@@ -235,7 +235,7 @@ public class PrintTranscoder extends SVGAbstractTranscoder
         // If required, pop up a dialog to adjust the page format
         //
         Boolean showPageFormat = (Boolean)hints.get(KEY_SHOW_PAGE_DIALOG);
-        if ((showPageFormat != null) && (showPageFormat.booleanValue())) {
+        if ((showPageFormat != null) && (showPageFormat)) {
             PageFormat tmpPageFormat = printerJob.pageDialog(pageFormat);
             if(tmpPageFormat == pageFormat){
                 // Dialog was cancelled, meaning that the print process should
@@ -255,7 +255,7 @@ public class PrintTranscoder extends SVGAbstractTranscoder
         //
         Boolean showPrinterDialog;
         showPrinterDialog = (Boolean)hints.get(KEY_SHOW_PRINTER_DIALOG);
-        if(showPrinterDialog != null && showPrinterDialog.booleanValue()){
+        if(showPrinterDialog != null && showPrinterDialog){
             if(!printerJob.printDialog()){
                 // Dialog was cancelled, meaning that the print process
                 // should be stopped.
@@ -378,7 +378,7 @@ public class PrintTranscoder extends SVGAbstractTranscoder
     protected void setImageSize(float docWidth, float docHeight) {
         // Check hint to know if scaling is really needed
         Boolean scaleToPage = (Boolean)hints.get(KEY_SCALE_TO_PAGE);
-        if(scaleToPage != null && !scaleToPage.booleanValue()) {
+        if(scaleToPage != null && !scaleToPage) {
             float w = docWidth;
             float h = docHeight;
             if (hints.containsKey(KEY_AOI)) {

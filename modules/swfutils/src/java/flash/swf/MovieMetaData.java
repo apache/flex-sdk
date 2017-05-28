@@ -1072,12 +1072,12 @@ class MFUCache
 		{
 			count = new Integer(0);
 		}
-		count = new Integer(count.intValue() + 1);
+		count = new Integer(count + 1);
 		cache.put(m, count);
 
-		if (count.intValue() > topCount)
+		if (count > topCount)
 		{
-			topCount = count.intValue();
+			topCount = count;
 			topModule = m;
 		}
 	}

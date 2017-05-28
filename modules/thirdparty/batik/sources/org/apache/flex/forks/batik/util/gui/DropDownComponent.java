@@ -136,7 +136,7 @@ public class DropDownComponent extends JPanel {
                  new PropertyChangeListener() {
                      public void propertyChange(PropertyChangeEvent evt) {
                          setEnabled
-                            (((Boolean) evt.getNewValue()).booleanValue());
+                            ((Boolean) evt.getNewValue());
                      }
                  });
 

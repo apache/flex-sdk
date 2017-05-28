@@ -258,7 +258,7 @@ public class FileConfigurator
                     try
                     {
                         if (a.equalsIgnoreCase( "true" ) || a.equalsIgnoreCase( "false" ))
-                            ctx.append = Boolean.valueOf( a ).booleanValue();
+                            ctx.append = Boolean.valueOf(a);
                         else
                             throw new SAXConfigurationException( new ConfigurationException.BadAppendValue( ctx.var, source, locator.getLineNumber() ),
                                                                  locator );

@@ -203,7 +203,7 @@ public class ConfigurationEvaluator implements Evaluator, ErrorConstants {
 		            	else
 		            	{
 			                Boolean b = toBoolean(cx, (ObjectValue)r.getValue(cx));
-			                if( b != null && b.booleanValue())
+			                if( b != null && b)
 			                {
 			                	list.items.set(i, l.items.at(1));
 			                }
@@ -380,7 +380,7 @@ public class ConfigurationEvaluator implements Evaluator, ErrorConstants {
 		Double d = toNumber(cx, obj);
 		if( d != null )
 		{
-			if( d.isInfinite() || d.isNaN() || d.doubleValue() == 0.0 )
+			if( d.isInfinite() || d.isNaN() || d == 0.0 )
 				i = IntegerPool.getNumber(0);
 			else
 				i = IntegerPool.getNumber((int)d.doubleValue());
@@ -394,7 +394,7 @@ public class ConfigurationEvaluator implements Evaluator, ErrorConstants {
 		Double d = toNumber(cx, obj);
 		if( d != null )
 		{
-			if( d.isInfinite() || d.isNaN() || d.doubleValue() == 0.0 )
+			if( d.isInfinite() || d.isNaN() || d == 0.0 )
 				l = new Long(0);
 			else
 				l = new Long((long)d.doubleValue());
@@ -517,7 +517,7 @@ public class ConfigurationEvaluator implements Evaluator, ErrorConstants {
 					Boolean b2 = toBoolean(cx, rhs_ov);
 					if( b != null && b2 != null )
 					{
-						val = getBooleanObjectValue(cx, b.booleanValue() || b2.booleanValue());
+						val = getBooleanObjectValue(cx, b || b2);
 					}
 					break;
 				}
@@ -527,7 +527,7 @@ public class ConfigurationEvaluator implements Evaluator, ErrorConstants {
 					Boolean b2 = toBoolean(cx, rhs_ov);
 					if( b != null && b2 != null )
 					{
-						val = getBooleanObjectValue(cx, b.booleanValue() && b2.booleanValue());
+						val = getBooleanObjectValue(cx, b && b2);
 					}
 					break;
 				}
@@ -537,9 +537,9 @@ public class ConfigurationEvaluator implements Evaluator, ErrorConstants {
 					Boolean b = compare(cx, lhs_ov, rhs_ov);
 					if( b != null )
 						if( node.op == NOTEQUALS_TOKEN)
-							val = getBooleanObjectValue(cx, !b.booleanValue());
+							val = getBooleanObjectValue(cx, !b);
 						else
-							val = getBooleanObjectValue(cx, b.booleanValue());
+							val = getBooleanObjectValue(cx, b);
 					break;
 				}
 				
@@ -563,7 +563,7 @@ public class ConfigurationEvaluator implements Evaluator, ErrorConstants {
 							b = Boolean.TRUE;
 					}
 					if( b != null )
-						val = getBooleanObjectValue(cx, b.booleanValue());
+						val = getBooleanObjectValue(cx, b);
 					break;
 				}
 				
@@ -587,7 +587,7 @@ public class ConfigurationEvaluator implements Evaluator, ErrorConstants {
 							b = Boolean.TRUE;
 					}
 					if( b != null )
-						val = getBooleanObjectValue(cx, b.booleanValue());
+						val = getBooleanObjectValue(cx, b);
 					break;
 				}
 				
@@ -673,7 +673,7 @@ public class ConfigurationEvaluator implements Evaluator, ErrorConstants {
 			
 			if( ld.isInfinite() )
 			{
-				if( ld.doubleValue() > 0)
+				if(ld > 0)
 					return FALSE;
 				else
 					return TRUE;
@@ -681,13 +681,13 @@ public class ConfigurationEvaluator implements Evaluator, ErrorConstants {
 			
 			if( rd.isInfinite() )
 			{
-				if( rd.doubleValue() < 0 )
+				if(rd < 0 )
 					return FALSE;
 				else
 					return TRUE;
 			}
 			
-			if( ld.doubleValue() < rd.doubleValue() )
+			if(ld < rd)
 				return TRUE;
 			else
 				return FALSE;

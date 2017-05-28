@@ -306,7 +306,7 @@ public class OEMReport implements Report
 			Long ts = timestamps.get(path);
 			File f = new File(path);
 			
-			if (!f.exists() || f.lastModified() != ts.longValue())
+			if (!f.exists() || f.lastModified() != ts)
 			{
 				return true;
 			}
