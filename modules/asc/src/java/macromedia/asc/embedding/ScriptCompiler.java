@@ -21,26 +21,21 @@ package macromedia.asc.embedding;
 
 import macromedia.abc.AbcParser;
 import macromedia.abc.Optimizer;
-
 import macromedia.asc.embedding.avmplus.ActionBlockEmitter;
 import macromedia.asc.embedding.avmplus.Features;
 import macromedia.asc.embedding.avmplus.GlobalBuilder;
 import macromedia.asc.parser.*;
 import macromedia.asc.semantics.*;
 import macromedia.asc.util.*;
-import macromedia.asc.util.graph.DependencyGraph;
 import macromedia.asc.util.graph.Algorithms;
-import macromedia.asc.util.graph.Visitor;
+import macromedia.asc.util.graph.DependencyGraph;
 import macromedia.asc.util.graph.Vertex;
-
-import static macromedia.asc.embedding.avmplus.Features.*;
+import macromedia.asc.util.graph.Visitor;
 
 import java.io.*;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
+
+import static macromedia.asc.embedding.avmplus.Features.*;
 
 /**
  * asc batch compiler
@@ -135,9 +130,8 @@ public class ScriptCompiler
 		boolean use_static_semantics = false;
 		boolean decimalFlag = false;
         boolean useas3 = false;
-		int apiVersion = -1;
 
-        int target = TARGET_AVM2;
+		int target = TARGET_AVM2;
 
         args = expandArguments(args);
 
@@ -193,7 +187,7 @@ public class ScriptCompiler
             else if (args[i].equals("-import"))
 			{
 				filespecs.add(args[++i]);
-				imported.add(new Boolean(true));
+				imported.add(true);
 			}
             else if(args[i].equals("-config"))
             {
@@ -248,7 +242,7 @@ public class ScriptCompiler
             else
 			{
 				filespecs.add(args[i]);
-				imported.add(new Boolean(false));
+				imported.add(false);
 			}
 		}
 
@@ -279,7 +273,7 @@ public class ScriptCompiler
 
 		for (int i = 0, length = filespecs.size(); i < length; i++)
 		{
-			boolean importFlag = imported.get(i).booleanValue();
+			boolean importFlag = imported.get(i);
 
 			File f = new File(filespecs.get(i));
 			if (f.exists() && f.isFile())
@@ -341,7 +335,7 @@ public class ScriptCompiler
             {
                 String filename = args[i].substring(1);
                 BufferedReader bf = new BufferedReader(new FileReader(filename));
-                String s = null;
+                String s;
                 String expanded_args = "";
                 while ( (s = bf.readLine()) != null)
                 {
@@ -906,13 +900,11 @@ public class ScriptCompiler
                 if(ref.isAttributeIdentifier())
                     continue;
 
-                boolean found = false;
 				for (int j = 0, size = (ref.getImmutableNamespaces() != null) ? ref.getImmutableNamespaces().size() : 0; j < size; j++)
 				{
 					QName qname = new QName(ref.getImmutableNamespaces().get(j), ref.name);
                     if (qname.ns instanceof UnresolvedNamespace && ((UnresolvedNamespace) qname.ns).resolved)
 					{
-						found = true;
 						break;
 					}
 					int where = findDefinition(qname);
@@ -923,17 +915,10 @@ public class ScriptCompiler
                         {
                             expr.add(p);
                         }
-						found = true;
 						break;
 					}
 				}
-/*              Expressions might not be resolved at CT for any number of valid reasons - strict mode will catch
-                the error cases if there are any.
-				if (!found)
-				{
-					System.err.println(ref.toMultiName() + " on line " + cx.get(i).getInputLine(ref.getPosition()) + " of file " + file.get(i) + " not resolved");
-				}
-*/			}
+			}
 
 			node.get(i).rt_unresolved.clear();
 		}
@@ -1017,21 +1002,13 @@ public class ScriptCompiler
 		int i, where;
 		boolean processed;
 
-		public boolean equals(Object obj)
-		{
-			if (obj instanceof Pair)
-			{
-				return i == ((Pair) obj).i && where == ((Pair) obj).where;
-			}
-			else
-			{
-				return false;
-			}
+		public boolean equals(Object obj) {
+			return obj instanceof Pair && i == ((Pair) obj).i && where == ((Pair) obj).where;
 		}
 
 		public int hashCode()
 		{
-			return (((1 * 17) + i) * 17) + where;
+			return (17 + i) * 17 + where;
 		}
 	}
 }

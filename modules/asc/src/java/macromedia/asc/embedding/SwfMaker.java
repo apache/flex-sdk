@@ -54,7 +54,7 @@ public class SwfMaker
 		public int ymin;
 		public int ymax;
 	};
-	
+
     int bitPos;
     int bitBuf;
     ByteList buffer = new ByteList();

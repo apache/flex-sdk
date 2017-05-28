@@ -198,7 +198,7 @@ public class Shell
 			Set<String> names = new HashSet<String>(targets.keySet());
 			for (Iterator i = names.iterator(); i.hasNext();)
 			{
-				process("clear " + (String) i.next());
+				process("clear " + i.next());
 			}
 
 			exit = true;
@@ -246,11 +246,11 @@ public class Shell
 		        Long used = (Long)getUsedMeth.invoke(memUsageObj, emptyObj);
 		        if (heapField.get(typeCls) == memTypeObj)
 		        {
-		            heapUsed += used.longValue();
+		            heapUsed += used;
 		        }
 		        else
 		        {
-			        nonHeapUsed += used.longValue();
+			        nonHeapUsed += used;
 		        }
 		        resetPeakUsageMeth.invoke(memPoolObj, emptyObj);
 	        }
@@ -325,7 +325,7 @@ public class Shell
 			p.destroy();
 		}
 
-		Target s = (Target) targets.remove(target);
+		targets.remove(target);
 	}
 
 	private static void info(String target)
@@ -496,7 +496,7 @@ public class Shell
 		try
 		{
 			file = new BufferedReader(new InputStreamReader(new FileInputStream(f)));
-			String s = null;
+			String s;
 			while ((s = file.readLine()) != null)
 			{
 				buffer.append(s);
@@ -527,13 +527,9 @@ public class Shell
 		}
 	}
 
-	public static void writeFile(String fileName, String output) throws FileNotFoundException, IOException
+	public static void writeFile(String fileName, String output) throws IOException
 	{
 		File file = new File(fileName);
-		if (file == null)
-		{
-			throw new FileNotFoundException(fileName);
-		}
 
 		Writer out = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file), "UTF8"));
 		try
@@ -552,7 +548,7 @@ public class Shell
 		File parent = new File(System.getProperty("user.home"));
 
 		File f = new File(parent, "mm.cfg");
-		if (f != null && f.exists())
+		if (f.exists())
 		{
 			String mmcfg = readFile(f);
 			int index = mmcfg.indexOf(key);
@@ -578,7 +574,7 @@ public class Shell
 		System.out.println("ash: Trying to open mm.cfg in " + parent);
 
 		File f = new File(parent, "mm.cfg");
-		if (f != null && f.exists())
+		if (f.exists())
 		{
 			System.out.println(readFile(f).trim());
 		}

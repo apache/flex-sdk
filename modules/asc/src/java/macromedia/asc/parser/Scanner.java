@@ -17,15 +17,18 @@
 
 package macromedia.asc.parser;
 //import java.util.concurrent.*;
-import java.util.HashMap;
-import macromedia.asc.util.*;
 import macromedia.asc.embedding.ErrorConstants;
+import macromedia.asc.util.Context;
+import macromedia.asc.util.ContextStatics;
+import macromedia.asc.util.IntList;
 
 import java.io.InputStream;
-import static macromedia.asc.parser.Tokens.*;
-import static macromedia.asc.parser.States.*;
+import java.util.HashMap;
+
+import static macromedia.asc.embedding.avmplus.Features.HAS_HASHPRAGMAS;
 import static macromedia.asc.parser.CharacterClasses.*;
-import static macromedia.asc.embedding.avmplus.Features.*;
+import static macromedia.asc.parser.States.*;
+import static macromedia.asc.parser.Tokens.*;
 
 /**
  * Partitions input character stream into tokens.
@@ -190,7 +193,7 @@ public final class Scanner implements ErrorConstants
     }
 
 
-    private final int makeCommentToken(int id, String text)
+    private int makeCommentToken(int id, String text)
     {
         currentToken.id = id;
         // leave currentToken.lookback alone, comments dont count.
@@ -198,7 +201,7 @@ public final class Scanner implements ErrorConstants
         return id;
     }
     
-    private final int makeToken(int id, String text)
+    private int makeToken(int id, String text)
     {
         currentToken.id = id;
         currentToken.lookback = id;
@@ -206,7 +209,7 @@ public final class Scanner implements ErrorConstants
         return id;
     }
     
-    private final int makeToken(int id)
+    private int makeToken(int id)
     {
         currentToken.id = id;
         currentToken.lookback = id;
@@ -462,7 +465,7 @@ public final class Scanner implements ErrorConstants
                             case '\'':
                             case '\"':
                             {
-                                char startquote = (char) c;
+                                char startquote = c;
                                 boolean needs_escape = false;
 
                                 while ( (c=nextchar()) != startquote )
@@ -718,7 +721,7 @@ public final class Scanner implements ErrorConstants
                                 return makeToken( EOS_TOKEN );
                                 
                             default:
-                                switch (input.nextcharClass((char)c,true))
+                                switch (input.nextcharClass(c,true))
                                 {
                                 case Lu: case Ll: case Lt: case Lm: case Lo: case Nl:
                                     maybe_reserved = false;
@@ -792,7 +795,7 @@ public final class Scanner implements ErrorConstants
                     {
                         Integer i = reservedWord.get(s); 
                         if ( i != null )
-                            return makeToken( (int) i );
+                            return makeToken(i);
                     }
                     return makeToken(IDENTIFIER_TOKEN,s);
                 }
@@ -1019,7 +1022,7 @@ public final class Scanner implements ErrorConstants
                 				if ( c == '\r' || c == '\n' )
                 				{
                 					isFirstTokenOnLine = true;
-                					if (save_comments == false)
+                					if (!save_comments)
                 					{
                 						break line_comment;
                 					}
@@ -1030,7 +1033,7 @@ public final class Scanner implements ErrorConstants
                 		continue;
 
                 	case '*':
-                		if (save_comments == false)
+                		if (!save_comments)
                 		{
                 			block_comment:
                 				while ( (c=nextchar()) != 0)
@@ -1399,7 +1402,7 @@ public final class Scanner implements ErrorConstants
                     case '*':
                         if ( nextchar() == '/' ){
                             state = start_state;
-                            return makeCommentToken( BLOCKCOMMENT_TOKEN, new String());
+                            return makeCommentToken( BLOCKCOMMENT_TOKEN, "");
                         }
                         retract(); 
                         state = doccomment_state; 
@@ -1460,7 +1463,7 @@ public final class Scanner implements ErrorConstants
                     default:
                         if (doctextbuf == null) 
                             doctextbuf = getDocTextBuffer(doctagname);
-                        doctextbuf.append((char)(c));  
+                        doctextbuf.append(c);
                         continue;
                     }
                 }

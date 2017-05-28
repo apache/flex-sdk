@@ -19,14 +19,16 @@
 
 package adobe.abc;
 
-import java.io.*;
-import java.util.*;
+import adobe.abc.GlobalOptimizer.InputAbc;
 
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.*;
-import adobe.abc.GlobalOptimizer.*;
+import java.io.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
+
 import static adobe.abc.OptimizerConstants.*;
-import static java.lang.Boolean.TRUE;
 import static java.lang.Boolean.FALSE;
+import static java.lang.Boolean.TRUE;
  
 public class AbcThunkGen
 {
@@ -229,8 +231,6 @@ public class AbcThunkGen
 		for (Binding b: s.defs.values())
 		{
 			Namespace ns = b.getName().nsset(0);
-			String id = prefix + propLabel(b, ns);
-			String ctype = null;
 
 			if (b.method != null) 
 			{

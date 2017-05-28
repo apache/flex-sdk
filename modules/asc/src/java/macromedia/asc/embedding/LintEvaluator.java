@@ -19,22 +19,20 @@
 
 package macromedia.asc.embedding;
 
-import static macromedia.asc.embedding.avmplus.RuntimeConstants.TYPE_bool;
-import static macromedia.asc.embedding.avmplus.RuntimeConstants.TYPE_boolean;
-import static macromedia.asc.embedding.avmplus.RuntimeConstants.TYPE_double;
-import static macromedia.asc.embedding.avmplus.RuntimeConstants.TYPE_decimal;
-import static macromedia.asc.embedding.avmplus.RuntimeConstants.TYPE_int;
-import static macromedia.asc.embedding.avmplus.RuntimeConstants.TYPE_uint;
-import macromedia.asc.embedding.avmplus.*;
-import macromedia.asc.util.*;
+import macromedia.asc.embedding.avmplus.ActivationBuilder;
+import macromedia.asc.embedding.avmplus.InstanceBuilder;
+import macromedia.asc.embedding.avmplus.PackageBuilder;
 import macromedia.asc.parser.*;
 import macromedia.asc.semantics.*;
-import static macromedia.asc.parser.Tokens.*;
-import static macromedia.asc.embedding.WarningConstants.*;
-import static macromedia.asc.semantics.Slot.*;
+import macromedia.asc.util.*;
 
-import java.util.*;
 import java.io.*;
+import java.util.*;
+
+import static macromedia.asc.embedding.WarningConstants.*;
+import static macromedia.asc.embedding.avmplus.RuntimeConstants.*;
+import static macromedia.asc.parser.Tokens.*;
+import static macromedia.asc.semantics.Slot.PARAM_Rest;
 
 /**
  * This is the Evaluator for the -coach compiler option.  It gives warnings for
@@ -807,7 +805,7 @@ public final class LintEvaluator extends Emitter implements Evaluator, ErrorCons
                     }
                 }
 
-                if (unsupported == false && baseType != null ) // check for unsupported event handlers (StyleSheet.onLoad = new function() ... )
+                if (!unsupported && baseType != null ) // check for unsupported event handlers (StyleSheet.onLoad = new function() ... )
                 {
                     Map<TypeValue,Integer> search = unsupportedEventsMap.get(node.ref.name);
                     if (search != null && ! search.isEmpty()) // it matches a former auto-registered event handler name
@@ -834,8 +832,7 @@ public final class LintEvaluator extends Emitter implements Evaluator, ErrorCons
                                 if (type != null && type.includes(cx,searchType))  // it's defining Type matches one of the warning cases
                                 {
                                     warning(pos, cx.input, kWarning_DepricatedEventHandlerError, warningConstantsMap.get(search.get(type)));
-                                    unsupported = true;
-                                }
+								}
                             }
                         }
                     }
@@ -910,7 +907,7 @@ public final class LintEvaluator extends Emitter implements Evaluator, ErrorCons
 
 		int this_context = this_contexts.last();
 
-		ObjectValue  this_value = null;
+		ObjectValue  this_value;
 
 		switch( this_context )
 		{
@@ -1310,8 +1307,7 @@ public final class LintEvaluator extends Emitter implements Evaluator, ErrorCons
                     {
                         warning(item.getPosition(), cx.input, kWarning_BadNullAssignment, expectedType.name.toString());
                     }
-					else if ( expectedType == cx.booleanType() && result instanceof TypeValue && 
-						      result != cx.booleanType() && result != cx.noType() && result != cx.objectType())
+					else if (expectedType == cx.booleanType() && result != cx.booleanType() && result != cx.noType() && result != cx.objectType())
 					{
 						TypeValue rt = (TypeValue)result;
 						warning(item.getPosition(), cx.input, kWarning_BadBoolAssignment, rt.name.toString());
@@ -1404,9 +1400,7 @@ public final class LintEvaluator extends Emitter implements Evaluator, ErrorCons
 
 	public Value evaluate( Context cx, EmptyStatementNode node )
 	{
-		Value result = null;
-
-		return result;
+		return null;
 	}
 
 
@@ -1779,7 +1773,7 @@ public final class LintEvaluator extends Emitter implements Evaluator, ErrorCons
 			if (node.typeref == null && node.ref != null && node.variable.no_anno)
 				warning(node.getPosition(),cx.input, kWarning_NoTypeDecl, "variable", node.ref.name);
 			
-			Slot type_slot = null;
+			Slot type_slot;
 			if( node.typeref != null && (type_slot = node.typeref.getSlot(cx)) != null )
 			{
 				checkDeprecatedSlot(cx, node.variable.type, node.typeref, type_slot);
@@ -1910,7 +1904,7 @@ public final class LintEvaluator extends Emitter implements Evaluator, ErrorCons
 		}
 		ObjectValue  fun = node.fun;
 		cx.pushScope(fun.activation);
-		if( node.isFunctionDefinition() == false )  // if it not a defn then 'this' can be used and is dynamic (i.e. don't warn about undeclared props/methods)
+		if(!node.isFunctionDefinition())  // if it not a defn then 'this' can be used and is dynamic (i.e. don't warn about undeclared props/methods)
 		{
 			this_contexts.add(global_this);
 		}
@@ -1976,7 +1970,7 @@ public final class LintEvaluator extends Emitter implements Evaluator, ErrorCons
 
 
         open_namespaces.pop_back();
-		if( node.isFunctionDefinition() == false )
+		if(!node.isFunctionDefinition())
 		{
 			this_contexts.removeLast();
 		}
@@ -2082,7 +2076,7 @@ public final class LintEvaluator extends Emitter implements Evaluator, ErrorCons
 			return null;
 		}
 
-        if(initialized == false)
+        if(!initialized)
             initialize(cx); // initialize tables and maps
 
 		// Unlike the other evaluators, we evaluate the ProgramNode twice
@@ -2375,7 +2369,6 @@ public final class LintEvaluator extends Emitter implements Evaluator, ErrorCons
 		if (node.fexprs != null)
 		{
 			boolean found_constructor = false;
-            boolean has_instance_methods = false;
 			for(FunctionCommonNode fn : node.fexprs)
 			{
 				if (fn.ref.name.equals("$construct"))
@@ -2388,8 +2381,7 @@ public final class LintEvaluator extends Emitter implements Evaluator, ErrorCons
 				}
                 else
                 {
-                    has_instance_methods = true;
-                }
+				}
 
 				fn.evaluate(cx,this);
 				if (fn.ref.name.equals("$construct") && !node.isInterface() && !fn.isSynthetic() && !body_has_super)
@@ -2521,7 +2513,7 @@ public final class LintEvaluator extends Emitter implements Evaluator, ErrorCons
 	public Value evaluate( Context cx, SuperExpressionNode node )
 	{
 		TypeValue  super_type = cx.noType();
-		TypeValue  this_value = null;
+		TypeValue  this_value;
 
 		// All error cases handled by flow analyzer
 		if( node.expr != null )
@@ -2696,84 +2688,6 @@ public final class LintEvaluator extends Emitter implements Evaluator, ErrorCons
 		new DefaultTypeDesc(kFileReferenceListType,	"flash.net",			"FileReferenceList"),
 		new DefaultTypeDesc(kFileReferenceType,		"flash.net",			"FileReference")
 };
-
-	// simple versions of the the names for the above types (not including namespace decoration)
-	static final String[]   simpleTypeNames =
-			{
-				"null",
-				"Object",
-				"Function",
-				"String",
-				"Number",
-				"Boolean",
-				"Array",
-				"Date",
-				"Math",
-				"Error",
-				"RegExp",
-				"DisplayObject",
-				"MovieClip",
-				"TextField",
-				"TextFormat",
-				"Microphone",
-				"SimpleButton",
-				"Video",
-				"StyleSheet",
-				"Selection",
-				"Color",
-				"Stage",
-				"Mouse",
-				"Keyboard",
-				"Sound",
-				"System",
-				"XML",
-				"XMLSocket",
-				"XMLList",
-				"QName",
-				"LoadVars",
-				"Camera",
-				"ContextMenu",
-				"ContextMenuItem",
-				"MovieClipLoader",
-				"NetStream",
-				"Accessibility",
-				"ActivityEvent",
-				"ByteArray",
-				"ColorTransform",
-				"DisplayObjectContainer",
-				"CustomActions",
-				"DataEvent",
-				"ExternalInterface",
-				"ErrorEvent",
-				"Event",
-				"FocusEvent",
-				"Graphics",
-				"BitmapFilter",
-				"InteractiveObject",
-				"KeyboardEvent",
-				"Loader",
-				"LoaderInfo",
-				"LocalConnection",
-				"ContextMenuEvent",
-				"ProductManager",
-				"Point",
-				"Proxy",
-				"Profiler",
-				"ProgressEvent",
-				"Rectangle",
-				"SoundTransform",
-				"Socket",
-				"SharedObject",
-				"Sprite",
-				"IME",
-				"SWFLoaderInfo",
-				"TextSnapshot",
-				"URLLoader",
-				"URLStream",
-				"URLRequest",
-				"XMLDocument",
-				"XMLNode"
-			};
 
 	private Map<Integer, String> warningConstantsMap = new HashMap<Integer, String>(kNumWarningConstants);   // maps WarningCode enum to its warning string
 	// maps a property name and base type pair to a WarningCode for unsupported properties
@@ -3125,7 +3039,6 @@ public final class LintEvaluator extends Emitter implements Evaluator, ErrorCons
 		if(warningConstantsEN[0] == null) initWarningConstants();
 		initialized = true;
 
-		ReferenceValue typeRef;
 		Slot s;
 		int x;
 
@@ -3136,13 +3049,12 @@ public final class LintEvaluator extends Emitter implements Evaluator, ErrorCons
 		// lookup TypeValues for built in types we expect
 		for(x=0; x < kNumDefaultTypes; x++)
 		{
-			typeRef = new ReferenceValue(cx, null, typeDescriptors[x].name ,cx.getNamespace(typeDescriptors[x].nameSpace));
+			ReferenceValue typeRef = new ReferenceValue(cx, null, typeDescriptors[x].name ,cx.getNamespace(typeDescriptors[x].nameSpace));
 			// this getSlot is allowed to bind
 			s = typeRef.getSlot(cx,GET_TOKEN);
 			// c++ variant accesses union member typValue directly, java stores value in objValue
 			TypeValue t = (s != null && s.getObjectValue() instanceof TypeValue) ? (TypeValue)(s.getObjectValue()) : null;
 			types[ typeDescriptors[x].code ] = t;
-			typeRef = null;
 		}
 
 		types[kVoidType] = cx.nullType();
@@ -3437,11 +3349,8 @@ public final class LintEvaluator extends Emitter implements Evaluator, ErrorCons
 		slot_GetComplianceRecord(s).is_registered_for_event = isRegistered;
 	}
 
-	private boolean slot_isAlreadyDeclared(Slot s)
-	{
-		if (s != null && s.getEmbeddedData() != null)
-			return slot_GetComplianceRecord(s).has_been_declared;
-		return false;
+	private boolean slot_isAlreadyDeclared(Slot s) {
+		return s != null && s.getEmbeddedData() != null && slot_GetComplianceRecord(s).has_been_declared;
 	}
 
 //    private int slot_getOriginalDeclarationPosition(Slot s)
@@ -3463,11 +3372,8 @@ public final class LintEvaluator extends Emitter implements Evaluator, ErrorCons
 		return false;
 	}
 
-	private boolean slot_GetRegisteredForEvent(Slot s)
-	{
-		if (s != null && s.getEmbeddedData() != null)
-			return slot_GetComplianceRecord(s).is_registered_for_event;
-		return false;
+	private boolean slot_GetRegisteredForEvent(Slot s) {
+		return s != null && s.getEmbeddedData() != null && slot_GetComplianceRecord(s).is_registered_for_event;
 	}
 
 	static void clear_lintData(Slot s)

@@ -19,18 +19,13 @@
 
 package macromedia.asc.embedding;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.PrintStream;
-
 import macromedia.asc.util.Context;
 import macromedia.asc.util.ContextStatics;
 import macromedia.asc.util.ObjectList;
 import macromedia.asc.util.Version;
+
+import java.io.*;
+
 import static macromedia.asc.embedding.avmplus.Features.*;
 
 public class Main
@@ -78,8 +73,8 @@ public class Main
 
 	public static void main(String[] args) throws Exception
 	{
-		String filename = "";
-		String ext = "";
+		String filename;
+		String ext;
 
 		if (args.length == 0)
 		{
@@ -216,7 +211,7 @@ public class Main
 						{
 							++i;
 							swf_options = args[i];
-							if (swf_options.indexOf("-g") > -1) // -g means make it a debuggable swf
+							if (swf_options.contains("-g")) // -g means make it a debuggable swf
 								emit_debug_info = true;
 						}
 						break;
@@ -343,7 +338,7 @@ public class Main
 				// assume it's a filename
 				else
 				{
-					filename = new String(args[i].trim());
+					filename = args[i].trim();
 					if (filename.endsWith(".as"))
 					{
 						ext = ".as";
@@ -532,8 +527,7 @@ public class Main
 					filespec = f.getPath();
 					pathspec = new File(f.getCanonicalPath()).getParent();
 					filename = f.getAbsolutePath();
-					scriptname = f.getName().substring(0,
-							f.getName().length() - ext.length());
+					scriptname = f.getName().substring(0, f.getName().length() - ext.length());
 					in = new BufferedInputStream(new FileInputStream(f));
 
 					IncludeInfo iinfo = new IncludeInfo();

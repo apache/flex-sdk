@@ -177,7 +177,6 @@ public class GlobalOptimizer
  		List<InputAbc> a = new ArrayList<InputAbc>();
  		List<Integer> lengths = new ArrayList<Integer>();
 		String filename = null;
-		byte[] before = null;
 		//  Index of first export in the file list.
 		int first_exported_file = 0;
  		boolean obscure_natives = false; 
@@ -334,7 +333,7 @@ public class GlobalOptimizer
 		}
 		
 		// Optimize the combined ABC file and emit.
-		byte[] after = null;
+		byte[] after;
 
 		go.optimize(first);
 		after = go.emit(first, filename, initScripts, no_c_gen);
@@ -1837,7 +1836,7 @@ public class GlobalOptimizer
 				{
 					int ii = p.readU30();
 					if (!STRIP_DEBUG_INFO)
-						b.add(e = new Expr(m,op, strings[ii]));
+						b.add(new Expr(m,op, strings[ii]));
 					addTraceAttr("file", strings[ii]);
 					break;
 				}	
@@ -1847,7 +1846,7 @@ public class GlobalOptimizer
 				{
 					int ii = p.readU30();
 					if (!STRIP_DEBUG_INFO)
-						b.add(e = new Expr(m,op, ii));
+						b.add(new Expr(m,op, ii));
 					addTraceAttr("line", ii);
 					break;
 				}
@@ -2813,7 +2812,7 @@ public class GlobalOptimizer
 		for (int n=m.getParams().length; i < n; i++)
 		{
 			String argname = (i == 0) ? 
-								((m.getParams()[i].toString().indexOf("$") >= 0) ? "classself" : "self") : 
+								((m.getParams()[i].toString().contains("$")) ? "classself" : "self") :
 								m.paramNames[i].name;
 			if (m.getParams()[i].t==NUMBER())
 			{
@@ -3003,8 +3002,7 @@ public class GlobalOptimizer
 			}
 		}
 		verboseStatus("name count "+abc.namePool.size()+ " size " + (w.size()-pos));
-		pos = w.size();
-			
+
 		w.writeU30(abc.methodPool2.size());
 		int method_id=0;
 		for (Method m: abc.methodPool1.values)
@@ -6925,7 +6923,7 @@ public class GlobalOptimizer
 	
 	Expr coerceExpr(Method m, Type t, Expr a)
 	{
-		Expr result = null;
+		Expr result;
 		
 		assert(t != null);
 		
@@ -7318,7 +7316,7 @@ public class GlobalOptimizer
 	
 	Typeref typeMeet(Typeref t1, Typeref t2)
 	{
-		Typeref result = null;
+		Typeref result;
 		
 		Type merged_type = typeMeet(t1.t, t2.t);
 
@@ -8428,27 +8426,27 @@ public class GlobalOptimizer
 		
 	static boolean isSlot(Binding b)
 	{
-		return (b != null)? b.isSlot(): false;
+		return b != null && b.isSlot();
 	}
 	static boolean isConst(Binding b)
 	{
-		return (b != null)? b.isConst(): false;
+		return b != null && b.isConst();
 	}
 	static boolean isClass(Binding b)
 	{
-		return (b != null)? b.isClass(): false;
+		return b != null && b.isClass();
 	}
 	static boolean isMethod(Binding b)
 	{
-		return (b != null)? b.isMethod() :false;
+		return b != null && b.isMethod();
 	}
 	static boolean isGetter(Binding b)
 	{
-		return (b != null)? b.isGetter(): false;
+		return b != null && b.isGetter();
 	}
 	static boolean isSetter(Binding b)
 	{
-		return (b != null)? b.isSetter(): false;
+		return b != null && b.isSetter();
 	}
 	
 	/**
@@ -8660,7 +8658,7 @@ public class GlobalOptimizer
 
 
 		
-		int i = 0;
+		int i;
 		for ( i = 0; i < m.local_count; i++ )
 		{
 			traceEntry("Local");

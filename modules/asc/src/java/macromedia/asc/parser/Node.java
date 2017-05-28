@@ -19,10 +19,15 @@
 
 package macromedia.asc.parser;
 
+import macromedia.asc.semantics.ReferenceValue;
+import macromedia.asc.semantics.TypeValue;
+import macromedia.asc.semantics.Value;
+import macromedia.asc.util.BitSet;
+import macromedia.asc.util.Block;
+import macromedia.asc.util.Context;
+
 import java.util.HashMap;
 import java.util.TreeMap;
-import macromedia.asc.util.*;
-import macromedia.asc.semantics.*;
 
 /**
  * The base Node class.
@@ -48,7 +53,7 @@ public class Node
     
 	public static void tally(Object o) 
     {
-        if (profiling_on==false)
+        if (!profiling_on)
             return;
         
 		Class c = o.getClass();
@@ -58,7 +63,7 @@ public class Node
     
 	static {
         
-        if (profiling_on==true)
+        if (profiling_on)
         {
             
             nodecounts = new HashMap<Class,Integer>();

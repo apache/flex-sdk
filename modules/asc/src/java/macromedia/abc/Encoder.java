@@ -19,14 +19,15 @@
 
 package macromedia.abc;
 
-import static macromedia.asc.embedding.avmplus.ActionBlockConstants.*;
-import macromedia.asc.util.IntegerPool;
 import macromedia.asc.util.IntList;
+import macromedia.asc.util.IntegerPool;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.*;
+
+import static macromedia.asc.embedding.avmplus.ActionBlockConstants.*;
 
 /**
  * abc encoder. If the encoder is provided with multiple constant pools, it will use do merging.
@@ -391,7 +392,7 @@ public class Encoder implements Visitor
 				break;
 			}
 
-			int newIndex = 0;
+			int newIndex;
 
 			switch(value_kinds[i])
 			{
@@ -716,7 +717,7 @@ public class Encoder implements Visitor
 			break;
 		}
 
-		int newIndex = 0;
+		int newIndex;
 		switch(value_kind)
 		{
 		case 0:
@@ -797,8 +798,7 @@ public class Encoder implements Visitor
 	int[] window = new int[W];
     int window_size = 0;
 	int head = 0;
-	boolean reachable = true;
-	
+
 	void clearWindow()
 	{
 		for (int i=0; i < W; i++)
@@ -2926,7 +2926,7 @@ public class Encoder implements Visitor
         {
             int newIndex = calcIndex(poolIndex, oldIndex);
             Integer i = indexes.get(IntegerPool.getNumber(newIndex));
-            return i != null ? i.intValue() : -1;
+            return i != null ? i : -1;
         }
 
         int size()
@@ -3013,7 +3013,7 @@ public class Encoder implements Visitor
 			Integer i = offsets.get(IntegerPool.getNumber((int) offset));
 			if (i != null)
 			{
-				return i.intValue();
+				return i;
 			}
 			else
 			{

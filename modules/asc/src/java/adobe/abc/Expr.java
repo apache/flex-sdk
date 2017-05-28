@@ -37,7 +37,6 @@ public class Expr implements Comparable<Expr>
 	public Type c; // only if OP_newclass
 	public Method m; // only if OP_newfunction | callstatic
 	boolean is_live_out = false;
-	Typeref inferred_type = null;
 
 	public Expr(Method m, int op)
 	{

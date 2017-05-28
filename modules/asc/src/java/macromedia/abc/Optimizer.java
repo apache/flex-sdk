@@ -123,7 +123,7 @@ public class Optimizer
 
         Encoder encoder = new Encoder(majorVersion, minorVersion);
         encoder.enablePeepHole();
-        Decoder decoder = null;
+        Decoder decoder;
         // all the constant pools are merged here...
         try
         {

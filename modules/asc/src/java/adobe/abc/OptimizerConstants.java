@@ -23,16 +23,16 @@ import adobe.abc.GlobalOptimizer.Metadata;
 
 public interface OptimizerConstants 
 {
-	static final Expr[] noexprs = new Expr[] {};
-	static final Edge[] noedges = new Edge[] {};
-	static final Handler[] nohandlers = new Handler[] {};
-	static Type[] notypes = new Type[] {};
-	static Typeref[] notyperefs = new Typeref[] {};
-	static final Metadata[] nometadata = new Metadata[0];
+	Expr[] noexprs = new Expr[] {};
+	Edge[] noedges = new Edge[] {};
+	Handler[] nohandlers = new Handler[] {};
+	Type[] notypes = new Type[] {};
+	Typeref[] notyperefs = new Typeref[] {};
+	Metadata[] nometadata = new Metadata[0];
 	
-	static final Object UNDEFINED = new Object() { public String toString() { return "undefined"; }};
-	static final Object BOTTOM = new Object() { public String toString() { return "?"; }};
-	static final Double NAN = Double.NaN;
+	Object UNDEFINED = new Object() { public String toString() { return "undefined"; }};
+	Object BOTTOM = new Object() { public String toString() { return "?"; }};
+	Double NAN = Double.NaN;
 
 	int OP_arg = 0x00; // argument provided by the vm in a pre-assigned local var.
     int OP_phi = 0x0a; // compiler only
@@ -40,26 +40,26 @@ public interface OptimizerConstants
     int OP_hasnext2_i = 0x33; // hasnext2 index
     int OP_hasnext2_o = 0x34; // hasnext2 object
     
-    final static int CTYPE_VOID			= 0;
-	final static int CTYPE_ATOM			= 1;
-	final static int CTYPE_BOOLEAN		= 2;
-	final static int CTYPE_INT			= 3;
-	final static int CTYPE_UINT			= 4;
-	final static int CTYPE_DOUBLE		= 5;
-	final static int CTYPE_STRING		= 6;
-	final static int CTYPE_NAMESPACE	= 7;
-	final static int CTYPE_OBJECT		= 8;
+    int CTYPE_VOID			= 0;
+	int CTYPE_ATOM			= 1;
+	int CTYPE_BOOLEAN		= 2;
+	int CTYPE_INT			= 3;
+	int CTYPE_UINT			= 4;
+	int CTYPE_DOUBLE		= 5;
+	int CTYPE_STRING		= 6;
+	int CTYPE_NAMESPACE	= 7;
+	int CTYPE_OBJECT		= 8;
 
-	public static final int OPER=1;
-	public static final int EFFECT=2; // has data side effects. 
-	public static final int COERCE=4; // coerce or one of its shorthands
-	public static final int PX=8; // potential exception
-	public static final int SYNTH=0x10; //synthetic opcode, not to appear in a real abc 
-	public static final int SCPVAL=0x20; // produces value on scope stack
-	public static final int STKVAL=0x40; // produces value on stack
-	public static final int LOCVAL=0x80; // produces result in a local variable
+	int OPER=1;
+	int EFFECT=2; // has data side effects.
+	int COERCE=4; // coerce or one of its shorthands
+	int PX=8; // potential exception
+	int SYNTH=0x10; //synthetic opcode, not to appear in a real abc
+	int SCPVAL=0x20; // produces value on scope stack
+	int STKVAL=0x40; // produces value on stack
+	int LOCVAL=0x80; // produces result in a local variable
 	
-	static int[] flagTable = new int[] {
+	int[] flagTable = new int[] {
 		LOCVAL|SYNTH,//"arg",
 	    EFFECT,//"bkpt",
 	    0,//"nop",
@@ -317,7 +317,7 @@ public interface OptimizerConstants
 	    SYNTH,//   "verifyop",
 	    SYNTH,//   "decode"
 	};
-	static String[] opNames =
+	String[] opNames =
 	{
     "arg",		// synthetic
     "bkpt",

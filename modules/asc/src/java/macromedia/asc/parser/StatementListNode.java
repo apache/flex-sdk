@@ -53,14 +53,7 @@ public class StatementListNode extends Node
 
 	public Value evaluate(Context cx, Evaluator evaluator)
 	{
-		if (evaluator.checkFeature(cx, this))
-		{
-			return evaluator.evaluate(cx, this);
-		}
-		else
-		{
-			return null;
-		}
+		return evaluator.checkFeature(cx, this) ? evaluator.evaluate(cx, this) : null;
 	}
 
 	public Node first()
@@ -124,10 +117,7 @@ public class StatementListNode extends Node
 
 	public String toString()
 	{
-		if(Node.useDebugToStrings)
-         return "StatementListNode@" + pos();
-      else
-         return items.last().toString();
+		return Node.useDebugToStrings ? "StatementListNode@" + pos() : items.last().toString();
 	}
 
     public boolean definesCV()

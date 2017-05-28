@@ -99,9 +99,7 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
 	public Value evaluate(Context cx, MetaDataNode node)
 	{
 		current = node;
-
-		if (node.data == null ||
-			node.data.elementlist == null)
+		if (node.data == null || node.data.elementlist == null)
 		{
 		}
 		else if (node.data.elementlist.size() > 1)
@@ -150,7 +148,7 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
                     // by the CallExpressionNode block above.
 					GetExpressionNode getexpr = (GetExpressionNode) selector;
 
-					if (getexpr != null && getexpr.expr != null)
+					if (getexpr.expr != null)
 					{
 						KeylessValue value = (KeylessValue) getexpr.expr.evaluate(cx, this);
 						current.setId(value.obj);
@@ -254,7 +252,7 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
 		if (node.expr != null)
 		{
 			KeylessValue val = (KeylessValue) node.expr.evaluate(cx, this);
-			name = (val != null) ? (String) val.obj : name;
+			name = (val != null) ? val.obj : name;
 		}
 		if (node.args != null)
 		{
@@ -290,16 +288,7 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
 
 	public Value evaluate(Context cx, LiteralBooleanNode node)
 	{
-		KeylessValue val;
-		if (node.value)
-		{
-			val = new KeylessValue("true");
-		}
-		else
-		{
-			val = new KeylessValue("false");
-		}
-		return val;
+		return node.value ? new KeylessValue("true") : new KeylessValue("false");
 	}
 
 	public Value evaluate(Context cx, LiteralNumberNode node)
@@ -601,14 +590,12 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
 		if (node.list != null)
 			node.list.evaluate(cx,this);
 
-        VariableDefinitionNode vdn = node;
-
-        if (addGoToDefinitionHelpPosition)
-            addPositionMetadata(cx, vdn);
+		if (addGoToDefinitionHelpPosition)
+            addPositionMetadata(cx, node);
 
         if( node.metaData != null )
         {
-            for(Node it : vdn.list.items)
+            for(Node it : node.list.items)
             {
                 VariableBindingNode binding = it instanceof VariableBindingNode ? (VariableBindingNode)it : null;
                 if (binding != null)
@@ -619,7 +606,7 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
                         slot = ref.getSlot(cx);
                     if ( slot != null && slot.getMetadata() == null )
                     {
-                        for( Node meta_node : vdn.metaData.items)
+                        for( Node meta_node : node.metaData.items)
                         {
                             if( meta_node instanceof MetaDataNode)
                                 addMetadataToSlot(cx, slot, (MetaDataNode)meta_node);
@@ -674,26 +661,25 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
 
 	public Value evaluate(Context cx, FunctionDefinitionNode node)
 	{
-         FunctionDefinitionNode fdn = node;
-        int kind = fdn.fexpr.kind;
-        ReferenceValue ref = fdn.fexpr.ref;
+		int kind = node.fexpr.kind;
+        ReferenceValue ref = node.fexpr.ref;
         Slot func_slot = null;
         if( ref != null )
             func_slot = ref.getSlot(cx, kind);
 
         if (addGoToDefinitionHelpPosition)
-            addPositionMetadata(cx, fdn);
+            addPositionMetadata(cx, node);
 
-        if( func_slot != null && func_slot.getMetadata() == null && fdn.metaData != null)
+        if( func_slot != null && func_slot.getMetadata() == null && node.metaData != null)
         {
-            for( Node meta_node : fdn.metaData.items)
+            for( Node meta_node : node.metaData.items)
             {
                 if( meta_node instanceof MetaDataNode)
                 {
                     addMetadataToSlot(cx, func_slot, (MetaDataNode)meta_node);
                     int i = isVersionMetadata(cx, (MetaDataNode)meta_node);
                     if( i > -1)
-                        fdn.version = i;
+                        node.version = i;
                 }
             }
         }
@@ -825,25 +811,24 @@ public class MetaDataEvaluator implements Evaluator, ErrorConstants
         cx.popStaticClassScopes(node);
 
 
-        ClassDefinitionNode cdn = node;
-        ReferenceValue ref = cdn.ref;
+		ReferenceValue ref = node.ref;
         Slot classSlot = null;
         if( ref != null )
             classSlot = ref.getSlot(cx);
         if (addGoToDefinitionHelpPosition)
         {
-            addPositionMetadata(cx, cdn);
+            addPositionMetadata(cx, node);
         }
-        if( classSlot != null && classSlot.getMetadata() == null && cdn.metaData != null )
+        if( classSlot != null && classSlot.getMetadata() == null && node.metaData != null )
         {
-            for( Node meta_node : cdn.metaData.items)
+            for( Node meta_node : node.metaData.items)
             {
                 if( meta_node instanceof MetaDataNode)
                 {
                     addMetadataToSlot(cx, classSlot, (MetaDataNode)meta_node);
                     int i = isVersionMetadata(cx, (MetaDataNode)meta_node);
                     if( i > -1)
-                        cdn.version = i;
+                        node.version = i;
                 }
             }
         }

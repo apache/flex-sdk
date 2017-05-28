@@ -69,7 +69,7 @@ public class RuntimeConstants
 	public static final int FUNC_iinit = FUNC_method + 4;
 	public static final int FUNC_unbound = FUNC_method + 5;
 
-	public static final int TYPE_boolean = 0x1 << 0;
+	public static final int TYPE_boolean = 0x1;
 	public static final int TYPE_number = 0x1 << 1;
 	public static final int TYPE_string = 0x1 << 2;
 	public static final int TYPE_null = 0x1 << 4;
@@ -90,7 +90,7 @@ public class RuntimeConstants
     public static final int TYPE_none = 0x1 << 15;
     public static final int TYPE_decimal = 0x1 << 16;
 
-    public static final String typeToString(int type_id)
+    public static String typeToString(int type_id)
 	{
 		switch (type_id)
 		{
@@ -322,7 +322,7 @@ public class RuntimeConstants
     public static final int BINARY_AsLateOp = BINARY_BinaryPlusOp + 49;
 	public static final int BINARY_NumberOfOpCodes = BINARY_AsLateOp + 1;
 
-	public static final int getUnaryOp(int slot_index)
+	public static int getUnaryOp(int slot_index)
 	{
 		switch (slot_index)
 		{
@@ -390,7 +390,7 @@ public class RuntimeConstants
 		}
 	}
 
-	public static final int getBinaryOp(int slot_index)
+	public static int getBinaryOp(int slot_index)
 	{
 		switch (slot_index)
 		{

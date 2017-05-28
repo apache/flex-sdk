@@ -43,14 +43,7 @@ public class IncrementNode extends SelectorNode
 
 	public Value evaluate(Context cx, Evaluator evaluator)
 	{
-		if (evaluator.checkFeature(cx, this))
-		{
-			return evaluator.evaluate(cx, this);
-		}
-		else
-		{
-			return null;
-		}
+		return evaluator.checkFeature(cx, this) ? evaluator.evaluate(cx, this) : null;
 	}
 
 	public boolean void_result;
@@ -64,17 +57,17 @@ public class IncrementNode extends SelectorNode
     public boolean isQualified()
     {
         QualifiedIdentifierNode qin = expr instanceof QualifiedIdentifierNode ? (QualifiedIdentifierNode) expr : null;
-        return qin!=null?qin.qualifier!=null:false;
+        return qin != null && qin.qualifier != null;
     }
     
     public boolean isAttributeIdentifier()
     {
-    	return expr instanceof IdentifierNode ? ((IdentifierNode)expr).isAttr() : false;
+    	return expr instanceof IdentifierNode && ((IdentifierNode) expr).isAttr();
     }
     
     public boolean isAny()
     {
-    	return expr instanceof IdentifierNode ? ((IdentifierNode)expr).isAny() : false;
+    	return expr instanceof IdentifierNode && ((IdentifierNode) expr).isAny();
     }
 
     public String toString()

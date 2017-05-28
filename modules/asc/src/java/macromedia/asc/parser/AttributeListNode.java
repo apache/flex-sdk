@@ -124,11 +124,7 @@ public class AttributeListNode extends Node
 
 	public boolean isLabel()
 	{
-		if (items.size() == 1 && items.last().isLabel())
-		{
-			return true;
-		}
-		return false;
+		return items.size() == 1 && items.last().isLabel();
 	}
 	
 	public ObjectValue getUserNamespace()

@@ -19,13 +19,11 @@
 
 package macromedia.asc.parser;
 
+import macromedia.asc.semantics.TypeInfo;
 import macromedia.asc.semantics.Value;
-import macromedia.asc.util.ObjectList;
 import macromedia.asc.util.ByteList;
 import macromedia.asc.util.Context;
-import macromedia.asc.semantics.Slot;
-import macromedia.asc.semantics.TypeInfo;
-import static macromedia.asc.parser.Tokens.*;
+import macromedia.asc.util.ObjectList;
 
 public class ParameterListNode extends Node
 {
@@ -43,14 +41,7 @@ public class ParameterListNode extends Node
 
     public Value evaluate( Context cx, Evaluator evaluator )
     {
-        if( evaluator.checkFeature(cx,this) )
-        {
-            return evaluator.evaluate( cx, this );
-        }
-        else
-        {
-            return null;
-        }
+		return evaluator.checkFeature(cx, this) ? evaluator.evaluate(cx, this) : null;
     }
 
     public int size()
@@ -143,4 +134,4 @@ public class ParameterListNode extends Node
 		return buf;
 	}
 	
-};
+}

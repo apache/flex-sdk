@@ -32,197 +32,197 @@
 package macromedia.asc.embedding;
 public interface ErrorConstants
 {
-   static final int kNumLanguages = 19;
-   static final int kNumErrorConstants = 178;
+   int kNumLanguages = 19;
+   int kNumErrorConstants = 178;
 
 
-      public static final int kError_OverrideOfFuncNotMarkedForOverride = 1024;
-      public static final int kError_FinalMethodRedefinition = 1025;
-      public static final int kError_ConstructorsMustBeInstanceMethods = 1026;
-      public static final int kError_FuncIsStaticAndOverride = 1027;
-      public static final int kError_FuncIsStaticAndVirtual = 1028;
-      public static final int kError_FuncIsVirtualAndFinal = 1029;
-      public static final int kError_RestParameterNotNamed = 1030;
-      public static final int kError_VirtualVars = 1033;
-      public static final int kError_NativeVars = 1034;
-      public static final int kError_VarIsFinalAndVirtual = 1035;
-      public static final int kError_NestedPackage = 1037;
-      public static final int kError_BreakHasNoTarget = 1038;
-      public static final int kError_ContinueHasNoTarget = 1039;
-      public static final int kError_DuplicateLabel = 1040;
-      public static final int kError_AttributesAreNotCallable = 1041;
-      public static final int kError_ThisUsedInStaticFunction = 1042;
-      public static final int kError_UndefinedNamespace = 1043;
-      public static final int kError_UnknownInterfaceMethod = 1044;
-      public static final int kError_UnknownInterface = 1045;
-      public static final int kError_UnknownType = 1046;
-      public static final int kError_NonConstantParamInitializer = 1047;
-      public static final int kError_MethodIsNotAConstructor = 1048;
-      public static final int kError_AssignmentToConstVar = 1049;
-      public static final int kError_AssignmentToNonRefVar = 1050;
-      public static final int kError_ReturnTypeMustBeUndefined = 1051;
-      public static final int kError_ConstInitializerNotConst = 1052;
-      public static final int kError_AccessorTypesMustMatch = 1053;
-      public static final int kError_BadSetterReturnType = 1054;
-      public static final int kError_PropertyIsWriteOnly = 1058;
-      public static final int kError_PropertyIsReadOnly = 1059;
-      public static final int kError_Strict_UndefinedMethod = 1061;
-      public static final int kError_UnableToOpenFile = 1063;
-      public static final int kError_InvalidMetaData = 1064;
-      public static final int kError_MetaDataAttributesHasMoreThanOneElement = 1065;
-      public static final int kError_ImplicitCoercisionOfUnrelatedType = 1067;
-      public static final int kError_Parser_UnableToOpenFile = 1068;
-      public static final int kError_Parser_DefinitionOrDirectiveExpected = 1069;
-      public static final int kError_Parser_ExpectingAnnotatableDirectiveAfterAttributes = 1071;
-      public static final int kError_Parser_ExpectedXMLBeforeNameSpace = 1072;
-      public static final int kError_Parser_ExpectingCatchOrFinally = 1073;
-      public static final int kError_Parser_EachWithoutIn = 1075;
-      public static final int kError_Parser_ExpectedLeftParen = 1076;
-      public static final int kError_Parser_ExpectedCaseLabel = 1077;
-      public static final int kError_Parser_LabelIsNotIdentifier = 1078;
-      public static final int kError_Parser_WrongNumberOfSuperArgs = 1079;
-      public static final int kError_Parser_ExpectingIncrOrDecrOperator = 1080;
-      public static final int kError_Parser_ExpectingASingleExpressionWithinParenthesis = 1082;
-      public static final int kError_Parser_ExpectedPrimaryExprBefore = 1083;
-      public static final int kError_Parser_ExpectedToken = 1084;
-      public static final int kError_Parser_ExpectedSemicolon = 1086;
-      public static final int kError_Parser_ExtraCharsAfterEndOfProgram = 1087;
-      public static final int kError_Lexical_General = 1093;
-      public static final int kError_Lexical_LineTerminatorInSingleQuotedStringLiteral = 1094;
-      public static final int kError_Lexical_LineTerminatorInDoubleQuotedStringLiteral = 1095;
-      public static final int kError_Lexical_EndOfStreamInStringLiteral = 1097;
-      public static final int kError_Lexical_SyntaxError = 1099;
-      public static final int kError_Lexical_NoMatchingTag = 1100;
-      public static final int kError_CannotDeleteSuperDecendants = 1102;
-      public static final int kError_DuplicateNamespaceDefinition = 1103;
-      public static final int kError_ErrorNodeError = 1104;
-      public static final int kError_AssignmentTargetNotRefVal = 1105;
-      public static final int kError_IncrementOperatorNotAReference = 1106;
-      public static final int kError_InvalidIncrementOperand = 1107;
-      public static final int kError_InvalidDecrementOperand = 1108;
-      public static final int kError_ExpectingExpression = 1109;
-      public static final int kError_MissingXMLTagName = 1110;
-      public static final int kError_InvalidAbcFile = 1111;
-      public static final int kError_Parser_FileIncludesItself = 1112;
-      public static final int kError_CircularReference = 1113;
-      public static final int kError_InvalidPublic = 1114;
-      public static final int kError_InvalidInternal = 1115;
-      public static final int kError_InvalidNamespace = 1116;
-      public static final int kError_ImplicitCoercionToSubtype = 1118;
-      public static final int kError_UndefinedProperty = 1119;
-      public static final int kError_UnfoundProperty = 1120;
-      public static final int kError_GetterCannotHaveParameters = 1121;
-      public static final int kError_SetterMustHaveOneParameter = 1122;
-      public static final int kError_SetterCannotHaveOptional = 1123;
-      public static final int kError_BadGetterReturnType = 1124;
-      public static final int kError_InterfaceMethodWithBody = 1125;
-      public static final int kError_FunctionWithoutBody = 1126;
-      public static final int kError_DuplicateAttribute = 1127;
-      public static final int kError_DuplicateInterfaceDefinition = 1129;
-      public static final int kError_CtorWithReturnType = 1130;
-      public static final int kError_InvalidClassNesting = 1131;
-      public static final int kError_InvalidFinalUsage = 1132;
-      public static final int kError_InvalidNative = 1133;
-      public static final int kError_InvalidDynamic = 1134;
-      public static final int kError_Parser_keywordInsteadOfTypeExpr = 1135;
-      public static final int kError_WrongNumberOfArguments = 1136;
-      public static final int kError_TooManyArguments = 1137;
-      public static final int kError_BadRequiredParameter = 1138;
-      public static final int kError_VarInInterface = 1139;
-      public static final int kError_InvalidRestDecl = 1140;
-      public static final int kError_CannotExtendInterface = 1141;
-      public static final int kError_CannotExtendClass = 1142;
-      public static final int kError_InvalidOverrideUsage = 1143;
-      public static final int kError_IncompatibleInterfaceMethod = 1144;
-      public static final int kError_NativeMethodWithBody = 1145;
-      public static final int kError_ConstructorCannnotBeGetterSetter = 1146;
-      public static final int kError_MissingFilespec = 1147;
-      public static final int kError_CannotReturnFromStaticInit = 1149;
-      public static final int kError_InvalidProtected = 1150;
-      public static final int kError_ConflictingNameInNamespace = 1151;
-      public static final int kError_ConflictingInheritedNameInNamespace = 1152;
-      public static final int kError_ConstructorMustBePublic = 1153;
-      public static final int kError_ConflictingAccessSpecifiers = 1154;
-      public static final int kError_InvalidNestedAccessor = 1155;
-      public static final int kError_CannotInstantiateInterface = 1156;
-      public static final int kError_BadAccessInterfaceMember = 1157;
-      public static final int kError_Parser_ExpectedLeftBrace = 1158;
-      public static final int kError_CannotReturnFromPackageInit = 1159;
-      public static final int kError_InvalidInterfaceNative = 1160;
-      public static final int kError_MultipleNamespaceAttributes = 1162;
-      public static final int kError_ConflictingInheritedNameInInterface = 1163;
-      public static final int kError_InvalidInterfaceAttribute = 1165;
-      public static final int kError_NamespaceInInterface = 1166;
-      public static final int kError_DuplicateImplements = 1167;
-      public static final int kError_AssignmentToDefinedFunction = 1168;
-      public static final int kError_InterfaceNamespaceAttribute = 1169;
-      public static final int kError_MustReturnValue = 1170;
-      public static final int kError_InvalidNamespaceInitializer = 1171;
-      public static final int kError_DefinitionNotFound = 1172;
-      public static final int kError_InvalidLabel = 1173;
-      public static final int kError_IncompatableValueComparison = 1176;
-      public static final int kError_CannotReturnFromGlobalInit = 1177;
-      public static final int kError_InaccessiblePropertyReference = 1178;
-      public static final int kError_ColonObjectAnnoOutOfService = 1179;
-      public static final int kError_Strict_PlainUndefinedMethod = 1180;
-      public static final int kError_ForwardReferenceToBaseClass = 1181;
-      public static final int kError_IllegalPackageReference = 1182;
-      public static final int kError_IncompatibleDefaultValue = 1184;
-      public static final int kError_MultipleSwitchDefaults = 1185;
-      public static final int kError_AssignmentToDefinedClass = 1188;
-      public static final int kError_Strict_AttemptToDeleteFixedProperty = 1189;
-      public static final int kError_InvalidBaseTypeExpression = 1190;
-      public static final int kError_InvalidInterfaceTypeExpression = 1191;
-      public static final int kError_StaticModifiedNamespace = 1192;
-      public static final int kError_InvalidInterfaceNesting = 1193;
-      public static final int kError_PrototypeIsAnInvalidAttribute = 1194;
-      public static final int kError_InaccessibleMethodReference = 1195;
-      public static final int kError_Parser_ThrowWithoutExpression = 1196;
-      public static final int kError_Authoring_SymbolClassInheritance = 1197;
-      public static final int kError_AttributesOnPackage = 1198;
-      public static final int kError_InternalError = 1199;
-      public static final int kError_ParserInvalidForInInitializer = 1200;
-      public static final int kError_IllegalSuperStatement = 1201;
-      public static final int kError_UnfoundPackageProperty = 1202;
-      public static final int kError_NoDefaultBaseclassCtor = 1203;
-      public static final int kError_BlockCommentNotTerminated = 1204;
-      public static final int kError_ParserExpectingLeftBraceOrStringLiteral = 1205;
-      public static final int kError_InvalidES4SuperStatement = 1206;
-      public static final int kError_ThisUsedInInitializer = 1207;
-      public static final int kError_NonConstantConfigInit = 1208;
-      public static final int kError_NonConstConfigVar = 1209;
-      public static final int kError_InvalidConfigLocation = 1210;
-      public static final int kError_ShadowedConfigNamespace = 1211;
-      public static final int kError_InvalidPrecision = 1212;
-      public static final int kError_WrongVersion = 1214;
-      public static final int kError_LossyConversion = 1215;
-      public static final int kError_AmbiguousReference = 1000;
-      public static final int kError_NamespaceAccessSpecifiers = 1003;
-      public static final int kError_Unknown_Namespace = 1004;
-      public static final int kError_InvalidSuperExpression = 1006;
-      public static final int kError_InvalidSuperStatement = 1007;
-      public static final int kError_InvalidAttribute = 1008;
-      public static final int kError_InvalidOverride = 1010;
-      public static final int kError_InvalidVirtual = 1011;
-      public static final int kError_InvalidStatic = 1012;
-      public static final int kError_InvalidPrivate = 1013;
-      public static final int kError_Unsupported_Intrinsic = 1014;
-      public static final int kError_BaseClassIsFinal = 1016;
-      public static final int kError_UnknownBaseClass = 1017;
-      public static final int kError_DuplicateClassDefinition = 1018;
-      public static final int kError_OverrideNotFound = 1020;
-      public static final int kError_DuplicateFunction = 1021;
-      public static final int kError_OverrideFinalAccessor = 1022;
-      public static final int kError_IncompatibleOverride = 1023;
+      int kError_OverrideOfFuncNotMarkedForOverride = 1024;
+      int kError_FinalMethodRedefinition = 1025;
+      int kError_ConstructorsMustBeInstanceMethods = 1026;
+      int kError_FuncIsStaticAndOverride = 1027;
+      int kError_FuncIsStaticAndVirtual = 1028;
+      int kError_FuncIsVirtualAndFinal = 1029;
+      int kError_RestParameterNotNamed = 1030;
+      int kError_VirtualVars = 1033;
+      int kError_NativeVars = 1034;
+      int kError_VarIsFinalAndVirtual = 1035;
+      int kError_NestedPackage = 1037;
+      int kError_BreakHasNoTarget = 1038;
+      int kError_ContinueHasNoTarget = 1039;
+      int kError_DuplicateLabel = 1040;
+      int kError_AttributesAreNotCallable = 1041;
+      int kError_ThisUsedInStaticFunction = 1042;
+      int kError_UndefinedNamespace = 1043;
+      int kError_UnknownInterfaceMethod = 1044;
+      int kError_UnknownInterface = 1045;
+      int kError_UnknownType = 1046;
+      int kError_NonConstantParamInitializer = 1047;
+      int kError_MethodIsNotAConstructor = 1048;
+      int kError_AssignmentToConstVar = 1049;
+      int kError_AssignmentToNonRefVar = 1050;
+      int kError_ReturnTypeMustBeUndefined = 1051;
+      int kError_ConstInitializerNotConst = 1052;
+      int kError_AccessorTypesMustMatch = 1053;
+      int kError_BadSetterReturnType = 1054;
+      int kError_PropertyIsWriteOnly = 1058;
+      int kError_PropertyIsReadOnly = 1059;
+      int kError_Strict_UndefinedMethod = 1061;
+      int kError_UnableToOpenFile = 1063;
+      int kError_InvalidMetaData = 1064;
+      int kError_MetaDataAttributesHasMoreThanOneElement = 1065;
+      int kError_ImplicitCoercisionOfUnrelatedType = 1067;
+      int kError_Parser_UnableToOpenFile = 1068;
+      int kError_Parser_DefinitionOrDirectiveExpected = 1069;
+      int kError_Parser_ExpectingAnnotatableDirectiveAfterAttributes = 1071;
+      int kError_Parser_ExpectedXMLBeforeNameSpace = 1072;
+      int kError_Parser_ExpectingCatchOrFinally = 1073;
+      int kError_Parser_EachWithoutIn = 1075;
+      int kError_Parser_ExpectedLeftParen = 1076;
+      int kError_Parser_ExpectedCaseLabel = 1077;
+      int kError_Parser_LabelIsNotIdentifier = 1078;
+      int kError_Parser_WrongNumberOfSuperArgs = 1079;
+      int kError_Parser_ExpectingIncrOrDecrOperator = 1080;
+      int kError_Parser_ExpectingASingleExpressionWithinParenthesis = 1082;
+      int kError_Parser_ExpectedPrimaryExprBefore = 1083;
+      int kError_Parser_ExpectedToken = 1084;
+      int kError_Parser_ExpectedSemicolon = 1086;
+      int kError_Parser_ExtraCharsAfterEndOfProgram = 1087;
+      int kError_Lexical_General = 1093;
+      int kError_Lexical_LineTerminatorInSingleQuotedStringLiteral = 1094;
+      int kError_Lexical_LineTerminatorInDoubleQuotedStringLiteral = 1095;
+      int kError_Lexical_EndOfStreamInStringLiteral = 1097;
+      int kError_Lexical_SyntaxError = 1099;
+      int kError_Lexical_NoMatchingTag = 1100;
+      int kError_CannotDeleteSuperDecendants = 1102;
+      int kError_DuplicateNamespaceDefinition = 1103;
+      int kError_ErrorNodeError = 1104;
+      int kError_AssignmentTargetNotRefVal = 1105;
+      int kError_IncrementOperatorNotAReference = 1106;
+      int kError_InvalidIncrementOperand = 1107;
+      int kError_InvalidDecrementOperand = 1108;
+      int kError_ExpectingExpression = 1109;
+      int kError_MissingXMLTagName = 1110;
+      int kError_InvalidAbcFile = 1111;
+      int kError_Parser_FileIncludesItself = 1112;
+      int kError_CircularReference = 1113;
+      int kError_InvalidPublic = 1114;
+      int kError_InvalidInternal = 1115;
+      int kError_InvalidNamespace = 1116;
+      int kError_ImplicitCoercionToSubtype = 1118;
+      int kError_UndefinedProperty = 1119;
+      int kError_UnfoundProperty = 1120;
+      int kError_GetterCannotHaveParameters = 1121;
+      int kError_SetterMustHaveOneParameter = 1122;
+      int kError_SetterCannotHaveOptional = 1123;
+      int kError_BadGetterReturnType = 1124;
+      int kError_InterfaceMethodWithBody = 1125;
+      int kError_FunctionWithoutBody = 1126;
+      int kError_DuplicateAttribute = 1127;
+      int kError_DuplicateInterfaceDefinition = 1129;
+      int kError_CtorWithReturnType = 1130;
+      int kError_InvalidClassNesting = 1131;
+      int kError_InvalidFinalUsage = 1132;
+      int kError_InvalidNative = 1133;
+      int kError_InvalidDynamic = 1134;
+      int kError_Parser_keywordInsteadOfTypeExpr = 1135;
+      int kError_WrongNumberOfArguments = 1136;
+      int kError_TooManyArguments = 1137;
+      int kError_BadRequiredParameter = 1138;
+      int kError_VarInInterface = 1139;
+      int kError_InvalidRestDecl = 1140;
+      int kError_CannotExtendInterface = 1141;
+      int kError_CannotExtendClass = 1142;
+      int kError_InvalidOverrideUsage = 1143;
+      int kError_IncompatibleInterfaceMethod = 1144;
+      int kError_NativeMethodWithBody = 1145;
+      int kError_ConstructorCannnotBeGetterSetter = 1146;
+      int kError_MissingFilespec = 1147;
+      int kError_CannotReturnFromStaticInit = 1149;
+      int kError_InvalidProtected = 1150;
+      int kError_ConflictingNameInNamespace = 1151;
+      int kError_ConflictingInheritedNameInNamespace = 1152;
+      int kError_ConstructorMustBePublic = 1153;
+      int kError_ConflictingAccessSpecifiers = 1154;
+      int kError_InvalidNestedAccessor = 1155;
+      int kError_CannotInstantiateInterface = 1156;
+      int kError_BadAccessInterfaceMember = 1157;
+      int kError_Parser_ExpectedLeftBrace = 1158;
+      int kError_CannotReturnFromPackageInit = 1159;
+      int kError_InvalidInterfaceNative = 1160;
+      int kError_MultipleNamespaceAttributes = 1162;
+      int kError_ConflictingInheritedNameInInterface = 1163;
+      int kError_InvalidInterfaceAttribute = 1165;
+      int kError_NamespaceInInterface = 1166;
+      int kError_DuplicateImplements = 1167;
+      int kError_AssignmentToDefinedFunction = 1168;
+      int kError_InterfaceNamespaceAttribute = 1169;
+      int kError_MustReturnValue = 1170;
+      int kError_InvalidNamespaceInitializer = 1171;
+      int kError_DefinitionNotFound = 1172;
+      int kError_InvalidLabel = 1173;
+      int kError_IncompatableValueComparison = 1176;
+      int kError_CannotReturnFromGlobalInit = 1177;
+      int kError_InaccessiblePropertyReference = 1178;
+      int kError_ColonObjectAnnoOutOfService = 1179;
+      int kError_Strict_PlainUndefinedMethod = 1180;
+      int kError_ForwardReferenceToBaseClass = 1181;
+      int kError_IllegalPackageReference = 1182;
+      int kError_IncompatibleDefaultValue = 1184;
+      int kError_MultipleSwitchDefaults = 1185;
+      int kError_AssignmentToDefinedClass = 1188;
+      int kError_Strict_AttemptToDeleteFixedProperty = 1189;
+      int kError_InvalidBaseTypeExpression = 1190;
+      int kError_InvalidInterfaceTypeExpression = 1191;
+      int kError_StaticModifiedNamespace = 1192;
+      int kError_InvalidInterfaceNesting = 1193;
+      int kError_PrototypeIsAnInvalidAttribute = 1194;
+      int kError_InaccessibleMethodReference = 1195;
+      int kError_Parser_ThrowWithoutExpression = 1196;
+      int kError_Authoring_SymbolClassInheritance = 1197;
+      int kError_AttributesOnPackage = 1198;
+      int kError_InternalError = 1199;
+      int kError_ParserInvalidForInInitializer = 1200;
+      int kError_IllegalSuperStatement = 1201;
+      int kError_UnfoundPackageProperty = 1202;
+      int kError_NoDefaultBaseclassCtor = 1203;
+      int kError_BlockCommentNotTerminated = 1204;
+      int kError_ParserExpectingLeftBraceOrStringLiteral = 1205;
+      int kError_InvalidES4SuperStatement = 1206;
+      int kError_ThisUsedInInitializer = 1207;
+      int kError_NonConstantConfigInit = 1208;
+      int kError_NonConstConfigVar = 1209;
+      int kError_InvalidConfigLocation = 1210;
+      int kError_ShadowedConfigNamespace = 1211;
+      int kError_InvalidPrecision = 1212;
+      int kError_WrongVersion = 1214;
+      int kError_LossyConversion = 1215;
+      int kError_AmbiguousReference = 1000;
+      int kError_NamespaceAccessSpecifiers = 1003;
+      int kError_Unknown_Namespace = 1004;
+      int kError_InvalidSuperExpression = 1006;
+      int kError_InvalidSuperStatement = 1007;
+      int kError_InvalidAttribute = 1008;
+      int kError_InvalidOverride = 1010;
+      int kError_InvalidVirtual = 1011;
+      int kError_InvalidStatic = 1012;
+      int kError_InvalidPrivate = 1013;
+      int kError_Unsupported_Intrinsic = 1014;
+      int kError_BaseClassIsFinal = 1016;
+      int kError_UnknownBaseClass = 1017;
+      int kError_DuplicateClassDefinition = 1018;
+      int kError_OverrideNotFound = 1020;
+      int kError_DuplicateFunction = 1021;
+      int kError_OverrideFinalAccessor = 1022;
+      int kError_IncompatibleOverride = 1023;
    
-   public class AscError
+   class AscError
    {
       public int code;  // enum used to identify or lookup this message/problem
       public String errorMsg; // a particular error message    '
       public AscError(int c, String s) { code = c; errorMsg = s; }
-   } ;
-   
-   public static final AscError[] errorConstantsEN = { 
+   }
+
+   AscError[] errorConstantsEN = {
            new AscError(kError_AmbiguousReference, "Ambiguous reference to %s." ),
            new AscError(kError_NamespaceAccessSpecifiers, "Access specifiers are not allowed with namespace attributes." ),
            new AscError(kError_Unknown_Namespace, "Namespace was not found or is not a compile-time constant." ),
@@ -403,7 +403,7 @@ public interface ErrorConstants
            new AscError(kError_LossyConversion, "Invalid initialization: conversion to type %s loses data." ),
    };
 
-   public static final AscError[] errorConstantsCN = { 
+   AscError[] errorConstantsCN = {
            new AscError(kError_AmbiguousReference, "对 %s 的引用有歧义。" ),
            new AscError(kError_NamespaceAccessSpecifiers, "不允许将访问说明符与 namespace 属性一同使用。" ),
            new AscError(kError_Unknown_Namespace, "namespace 要么找不到，要么不是编译时常数。" ),
@@ -584,7 +584,7 @@ public interface ErrorConstants
            new AscError(kError_LossyConversion, "初始化无效: 转换为类型 %s 会丢失数据。" ),
    };
 
-   public static final AscError[] errorConstantsCS = { 
+   AscError[] errorConstantsCS = {
            new AscError(kError_AmbiguousReference, "Nejednoznačný odkaz na  %s." ),
            new AscError(kError_NamespaceAccessSpecifiers, "Specifikátory přístupu nejsou povoleny u atributů prostoru názvů." ),
            new AscError(kError_Unknown_Namespace, "Prostor názvů nebyl nalezen nebo se jedná o konstantu v době kompilace." ),
@@ -765,7 +765,7 @@ public interface ErrorConstants
            new AscError(kError_LossyConversion, "Invalid initialization: conversion to type %s loses data." ),
    };
 
-   public static final AscError[] errorConstantsDA = { 
+   AscError[] errorConstantsDA = {
            new AscError(kError_AmbiguousReference, "Tvetydig henvisning til %s." ),
            new AscError(kError_NamespaceAccessSpecifiers, "Adgangsangivelser må ikke bruges med navneområdeattributter." ),
            new AscError(kError_Unknown_Namespace, "Navneområdet blev ikke fundet eller det er ikke en kompileringstidspunktskonstant." ),
@@ -946,7 +946,7 @@ public interface ErrorConstants
            new AscError(kError_LossyConversion, "Ugyldig initialisering: Der mistes data ved konvertering til typen %s." ),
    };
 
-   public static final AscError[] errorConstantsDE = { 
+   AscError[] errorConstantsDE = {
            new AscError(kError_AmbiguousReference, "Unklarer Verweis auf %s." ),
            new AscError(kError_NamespaceAccessSpecifiers, "Zugriffsspezifikatoren sind in Kombination mit Namespace-Attributen nicht zulässig." ),
            new AscError(kError_Unknown_Namespace, "Namespace wurde nicht gefunden oder ist keine Kompilierungszeit-Konstante." ),
@@ -1127,7 +1127,7 @@ public interface ErrorConstants
            new AscError(kError_LossyConversion, "Ungültige Initialisierung: Konvertierung in Typ „%s“ führt zu Datenverlust." ),
    };
 
-   public static final AscError[] errorConstantsES = { 
+   AscError[] errorConstantsES = {
            new AscError(kError_AmbiguousReference, "Referencia ambigua a %s." ),
            new AscError(kError_NamespaceAccessSpecifiers, "No se permiten los especificadores de acceso con atributos de espacio de nombres." ),
            new AscError(kError_Unknown_Namespace, "No se encontró el espacio de nombres o no es una constante en tiempo de compilación." ),
@@ -1308,7 +1308,7 @@ public interface ErrorConstants
            new AscError(kError_LossyConversion, "Inicialización no válida: la conversión a tipo %s pierde datos." ),
    };
 
-   public static final AscError[] errorConstantsFI = { 
+   AscError[] errorConstantsFI = {
            new AscError(kError_AmbiguousReference, "Epäselvä viite kohteeseen %s." ),
            new AscError(kError_NamespaceAccessSpecifiers, "Access-määritteet eivät ole sallittuja namespace-attribuuttien kanssa." ),
            new AscError(kError_Unknown_Namespace, "Nimitilaa ei löytynyt tai se ei ole kokoamisenaikainen vakio." ),
@@ -1489,7 +1489,7 @@ public interface ErrorConstants
            new AscError(kError_LossyConversion, "Virheellinen alustus: muunnoksessa tyyppiin %s menetetään tietoja." ),
    };
 
-   public static final AscError[] errorConstantsFR = { 
+   AscError[] errorConstantsFR = {
            new AscError(kError_AmbiguousReference, "Référence ambiguë à %s." ),
            new AscError(kError_NamespaceAccessSpecifiers, "Les spécificateurs d'accès sont interdits avec les attributs des espaces de nom." ),
            new AscError(kError_Unknown_Namespace, "Cet espace de nom est introuvable ou n'est pas une constante de compilation." ),
@@ -1670,7 +1670,7 @@ public interface ErrorConstants
            new AscError(kError_LossyConversion, "Initialisation non valide : la conversion au type %s provoque une perte de données." ),
    };
 
-   public static final AscError[] errorConstantsIT = { 
+   AscError[] errorConstantsIT = {
            new AscError(kError_AmbiguousReference, "Riferimento ambiguo a %s." ),
            new AscError(kError_NamespaceAccessSpecifiers, "Specificatori di accesso non consentiti con gli attributi namespace." ),
            new AscError(kError_Unknown_Namespace, "Namespace non trovato o non è una costante specificata in fase di compilazione." ),
@@ -1851,7 +1851,7 @@ public interface ErrorConstants
            new AscError(kError_LossyConversion, "Inizializzazione non valida: la conversione al tipo %s causa la perdita di dati." ),
    };
 
-   public static final AscError[] errorConstantsJP = { 
+   AscError[] errorConstantsJP = {
            new AscError(kError_AmbiguousReference, "%s への参照があいまいです。" ),
            new AscError(kError_NamespaceAccessSpecifiers, "名前空間の属性にはアクセス指定子を使用できません。" ),
            new AscError(kError_Unknown_Namespace, "名前空間が見つからないか、コンパイル時定数ではありません。" ),
@@ -2032,7 +2032,7 @@ public interface ErrorConstants
            new AscError(kError_LossyConversion, "無効な初期化 : タイプ %s に変換すると、データが失われます。" ),
    };
 
-   public static final AscError[] errorConstantsKR = { 
+   AscError[] errorConstantsKR = {
            new AscError(kError_AmbiguousReference, "%s에 대한 참조가 모호합니다." ),
            new AscError(kError_NamespaceAccessSpecifiers, "액세스 지정자는 네임스페이스 속성과 함께 사용할 수 없습니다." ),
            new AscError(kError_Unknown_Namespace, "네임스페이스가 없거나 컴파일 타임 상수가 아닙니다." ),
@@ -2213,7 +2213,7 @@ public interface ErrorConstants
            new AscError(kError_LossyConversion, "잘못된 초기화: 유형 %s(으)로 변환하면 데이터가 손실됩니다." ),
    };
 
-   public static final AscError[] errorConstantsNB = { 
+   AscError[] errorConstantsNB = {
            new AscError(kError_AmbiguousReference, "Tvetydig referanse til %s." ),
            new AscError(kError_NamespaceAccessSpecifiers, "Tilgangsspesifikasjoner er ikke tillatt med navneområdeattributter." ),
            new AscError(kError_Unknown_Namespace, "Finner ikke navneområde, eller så er det ikke en konstant under kompilering." ),
@@ -2394,7 +2394,7 @@ public interface ErrorConstants
            new AscError(kError_LossyConversion, "Ugyldig initialisering: konvertering til type %s medfører datatap." ),
    };
 
-   public static final AscError[] errorConstantsNL = { 
+   AscError[] errorConstantsNL = {
            new AscError(kError_AmbiguousReference, "Dubbelzinnige verwijzing naar %s." ),
            new AscError(kError_NamespaceAccessSpecifiers, "Toegangsspecificaties zijn niet toegestaan met naamruimtekenmerken." ),
            new AscError(kError_Unknown_Namespace, "Naamruimte niet gevonden of geen constante bij compilatie." ),
@@ -2575,7 +2575,7 @@ public interface ErrorConstants
            new AscError(kError_LossyConversion, "Ongeldige initialisatie: bij conversie naar type %s gaan gegevens verloren." ),
    };
 
-   public static final AscError[] errorConstantsPL = { 
+   AscError[] errorConstantsPL = {
            new AscError(kError_AmbiguousReference, "Niejednoznaczne odniesienie do %s." ),
            new AscError(kError_NamespaceAccessSpecifiers, "Dla atrybutów namespace nie są dozwolone specyfikatory dostępu." ),
            new AscError(kError_Unknown_Namespace, "Nie znaleziono przestrzeni nazw lub nie jest ona stałą czasu kompilacji." ),
@@ -2756,7 +2756,7 @@ public interface ErrorConstants
            new AscError(kError_LossyConversion, "Invalid initialization: conversion to type %s loses data." ),
    };
 
-   public static final AscError[] errorConstantsPT = { 
+   AscError[] errorConstantsPT = {
            new AscError(kError_AmbiguousReference, "Referência ambígua a %s." ),
            new AscError(kError_NamespaceAccessSpecifiers, "Os especificadores de acesso não são permitidos com atributo de namespace." ),
            new AscError(kError_Unknown_Namespace, "O namespace não foi encontrado ou não é uma constante de tempo de compilação." ),
@@ -2937,7 +2937,7 @@ public interface ErrorConstants
            new AscError(kError_LossyConversion, "Inicialização inválida: a conversão no tipo %s perde dados." ),
    };
 
-   public static final AscError[] errorConstantsRU = { 
+   AscError[] errorConstantsRU = {
            new AscError(kError_AmbiguousReference, "Неоднозначная ссылка на %s." ),
            new AscError(kError_NamespaceAccessSpecifiers, "Спецификаторы уровня доступа с атрибутами пространства имен недопустимы." ),
            new AscError(kError_Unknown_Namespace, "Пространство имен не найдено или не является константой времени компиляции." ),
@@ -3118,7 +3118,7 @@ public interface ErrorConstants
            new AscError(kError_LossyConversion, "Недопустимая инициализация: при преобразовании в тип %s происходит потеря данных." ),
    };
 
-   public static final AscError[] errorConstantsSV = { 
+   AscError[] errorConstantsSV = {
            new AscError(kError_AmbiguousReference, "Tvetydig referens till %s." ),
            new AscError(kError_NamespaceAccessSpecifiers, "Åtkomstspecifikationer är inte tillåtna med namnutrymmesattribut." ),
            new AscError(kError_Unknown_Namespace, "Namnutrymmet hittades inte eller är inte en kompileringskonstant." ),
@@ -3299,7 +3299,7 @@ public interface ErrorConstants
            new AscError(kError_LossyConversion, "Ogiltig initiering: konvertering till typ %s kan orsaka dataförlust." ),
    };
 
-   public static final AscError[] errorConstantsTR = { 
+   AscError[] errorConstantsTR = {
            new AscError(kError_AmbiguousReference, "%s öğesine belirsiz referans." ),
            new AscError(kError_NamespaceAccessSpecifiers, "Erişim belirticilere ad alanı nitelikleri ile birlikte izin verilmez." ),
            new AscError(kError_Unknown_Namespace, "Ad alanı bulunamadı veya derleme zamanı sabiti değil." ),
@@ -3480,7 +3480,7 @@ public interface ErrorConstants
            new AscError(kError_LossyConversion, "Invalid initialization: conversion to type %s loses data." ),
    };
 
-   public static final AscError[] errorConstantsTW = { 
+   AscError[] errorConstantsTW = {
            new AscError(kError_AmbiguousReference, "%s 的參考模稜兩可。" ),
            new AscError(kError_NamespaceAccessSpecifiers, "存取規範不允許使用 namespace 屬性。" ),
            new AscError(kError_Unknown_Namespace, "找不到 namespace，或它不是編譯時期常數。" ),
@@ -3661,7 +3661,7 @@ public interface ErrorConstants
            new AscError(kError_LossyConversion, "初始化無效: 轉換為類型 %s 將遺失資料。" ),
    };
 
-        public static final AscError[][] allErrorConstants =
+        AscError[][] allErrorConstants =
         {
              errorConstantsEN,
              errorConstantsCN,
@@ -3686,4 +3686,4 @@ public interface ErrorConstants
    
    
    
-};
+}

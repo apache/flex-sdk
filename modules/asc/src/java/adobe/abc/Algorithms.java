@@ -19,21 +19,9 @@
 
 package adobe.abc;
 
-import static adobe.abc.OptimizerConstants.OP_phi;
+import java.util.*;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.BitSet;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
-import java.util.TreeSet;
+import static adobe.abc.OptimizerConstants.OP_phi;
 
 public abstract class Algorithms
 {
@@ -415,7 +403,7 @@ public abstract class Algorithms
 	{
 		public interface DependencyChecker<T>
 		{
-			public boolean depends(T dep, T parent);
+			boolean depends(T dep, T parent);
 		}
 		
 		public List<T> toplogicalSort(List<T> unsorted, DependencyChecker<T> checker)

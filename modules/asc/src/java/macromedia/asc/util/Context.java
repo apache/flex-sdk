@@ -17,34 +17,25 @@
 
 package macromedia.asc.util;
 
-import static macromedia.asc.parser.Tokens.*;
-import static macromedia.asc.util.BitSet.*;
-import macromedia.asc.parser.ClassDefinitionNode;
-import macromedia.asc.parser.InputBuffer;
-import macromedia.asc.parser.Node;
-import macromedia.asc.parser.NodeFactory;
-import macromedia.asc.parser.Parser;
-import macromedia.asc.parser.ConditionalExpressionNode;
-import macromedia.asc.parser.ListNode;
-import macromedia.asc.parser.BinaryExpressionNode;
-
-import macromedia.asc.semantics.*;
 import macromedia.asc.embedding.CompilerHandler;
 import macromedia.asc.embedding.ConfigVar;
-
-import macromedia.asc.embedding.avmplus.ClassBuilder;
 import macromedia.asc.embedding.ErrorConstants;
-
+import macromedia.asc.embedding.avmplus.ByteCodeFactory;
+import macromedia.asc.embedding.avmplus.ClassBuilder;
 import macromedia.asc.embedding.avmplus.GlobalBuilder;
 import macromedia.asc.embedding.avmplus.InstanceBuilder;
-import macromedia.asc.embedding.avmplus.ByteCodeFactory;
+import macromedia.asc.parser.*;
+import macromedia.asc.semantics.*;
 
+import java.io.File;
 import java.io.PrintWriter;
 import java.io.Writer;
-import java.io.File;
 import java.util.*;
 
 import static macromedia.asc.embedding.avmplus.RuntimeConstants.*;
+import static macromedia.asc.parser.Tokens.*;
+import static macromedia.asc.util.BitSet.isEmpty;
+import static macromedia.asc.util.BitSet.nextSetBit;
 
 /**
  * Execution context.
@@ -606,7 +597,7 @@ public final class Context implements ErrorConstants
         for(int i=nextSetBit(bits,0); i>=0; i=nextSetBit(bits,i+1))
         {
             int diff = 0;
-            if ((diff = i - def_types.size()) >= 0)
+            if (i - def_types.size() >= 0)
             {
                 if (true)
                 {
