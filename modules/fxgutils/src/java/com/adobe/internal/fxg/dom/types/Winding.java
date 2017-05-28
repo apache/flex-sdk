@@ -39,5 +39,5 @@ public enum Winding
    /**
     * The enum representing a 'nonZero' winding.
     */
-   NON_ZERO;
+   NON_ZERO
 }

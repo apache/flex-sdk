@@ -48,5 +48,5 @@ public enum JustificationRule
     /**
      * The enum representing an 'eastAsian' JustificationRule.
      */    
-    EASTASIAN;
+    EASTASIAN
 }

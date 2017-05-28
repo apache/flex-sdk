@@ -2084,7 +2084,7 @@ public class ImplementationGenerator extends AbstractGenerator
     {
         MemberExpressionNode leftResultMemberExpression =
             AbstractSyntaxTreeUtil.generateGetterSelector(nodeFactory, RESULT, false);
-        LiteralNumberNode leftLiteralNumber = nodeFactory.literalNumber(leftValueId);;
+        LiteralNumberNode leftLiteralNumber = nodeFactory.literalNumber(leftValueId);
         ArgumentListNode leftGetExpressionArgumentList = nodeFactory.argumentList(null, leftLiteralNumber);
         GetExpressionNode leftGetExpression = nodeFactory.getExpression(leftGetExpressionArgumentList);
         leftGetExpression.setMode(Tokens.LEFTBRACKET_TOKEN);
@@ -3009,7 +3009,7 @@ public class ImplementationGenerator extends AbstractGenerator
     {
         MemberExpressionNode leftResultMemberExpression =
             AbstractSyntaxTreeUtil.generateGetterSelector(nodeFactory, RESULT, false);
-        LiteralNumberNode leftLiteralNumber = nodeFactory.literalNumber(leftValueId);;
+        LiteralNumberNode leftLiteralNumber = nodeFactory.literalNumber(leftValueId);
         ArgumentListNode leftGetExpressionArgumentList = nodeFactory.argumentList(null, leftLiteralNumber);
         GetExpressionNode leftGetExpression = nodeFactory.getExpression(leftGetExpressionArgumentList);
         leftGetExpression.setMode(Tokens.LEFTBRACKET_TOKEN);
@@ -3018,7 +3018,7 @@ public class ImplementationGenerator extends AbstractGenerator
         IdentifierNode twoWayCounterpartIdentifier = nodeFactory.identifier(TWO_WAY_COUNTERPART, false);
         MemberExpressionNode rightResultMemberExpression =
             AbstractSyntaxTreeUtil.generateGetterSelector(nodeFactory, RESULT, false);
-        LiteralNumberNode rightLiteralNumber = nodeFactory.literalNumber(rightValueId);;
+        LiteralNumberNode rightLiteralNumber = nodeFactory.literalNumber(rightValueId);
         ArgumentListNode rightGetExpressionArgumentList = nodeFactory.argumentList(null, rightLiteralNumber);
         GetExpressionNode rightGetExpression = nodeFactory.getExpression(rightGetExpressionArgumentList);
         rightGetExpression.setMode(Tokens.LEFTBRACKET_TOKEN);

@@ -49,5 +49,5 @@ public enum DigitWidth
     /**
      * The enum representing an 'tabular' DigitWidth.
      */
-    TABULAR;
+    TABULAR
 }

@@ -63,5 +63,5 @@ public enum TypographicCase
     /**
      * The enum representing an 'lowercaseToSmallCaps' TypographicCase.
      */
-    LOWERCASETOSMALLCAPS;
+    LOWERCASETOSMALLCAPS
 }

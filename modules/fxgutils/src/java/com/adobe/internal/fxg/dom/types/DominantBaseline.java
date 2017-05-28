@@ -76,6 +76,6 @@ public enum DominantBaseline
     /**
      * The enum representing an 'ideographicBottom' DominantBaseline.
      */
-    IDEOGRAPHICBOTTOM;       
-    
+    IDEOGRAPHICBOTTOM
+
 }

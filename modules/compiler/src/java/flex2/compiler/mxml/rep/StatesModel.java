@@ -1341,8 +1341,8 @@ public final class StatesModel
     public abstract class Override
     {
         public String declaration;
-        public Override(){};
-        
+        public Override(){}
+
         /*
          * The declaration property is used only when an override serves as a binding
          * target.  Binding initializers are generated for any overrides that are data
@@ -2046,7 +2046,7 @@ public final class StatesModel
     public static class IncompatibleStatefulNode extends CompilerMessage.CompilerError
     {
         private static final long serialVersionUID = 4393031143519097900L;
-        public IncompatibleStatefulNode() {};
+        public IncompatibleStatefulNode() {}
     }
     
     public static class DuplicateState extends CompilerMessage.CompilerError

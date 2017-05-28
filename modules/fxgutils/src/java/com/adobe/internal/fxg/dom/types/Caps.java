@@ -48,5 +48,5 @@ public enum Caps
     /**
      * The enum representing a 'square' cap type.
      */
-    SQUARE;
+    SQUARE
 }

@@ -63,5 +63,5 @@ public enum LigatureLevel
     /**
      * The enum representing an 'exotic' LigatureLevel.
      */
-    EXOTIC;    
+    EXOTIC
 }

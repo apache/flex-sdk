@@ -480,7 +480,7 @@ public class Main
 			plug.in = in;
 			plug.pathspec = pathspec;
 			plug.filename = f.getPath();
-			; // TODO errorname
+			// TODO errorname
 			plug.scriptname = scriptname;
 			plug.emit_debug_info = emit_debug_info;
 			plug.emit_doc_info = emit_doc_info;

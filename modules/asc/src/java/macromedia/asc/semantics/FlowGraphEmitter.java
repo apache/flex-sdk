@@ -150,7 +150,6 @@ public final class FlowGraphEmitter extends Emitter
 		int i = 0, n = succs.size();
 		for (; i < n && succs.get(i) != b2; i++)
 		{
-			;
 		}
 		if (i == n)
 		{
@@ -163,7 +162,6 @@ public final class FlowGraphEmitter extends Emitter
 		n = preds.size();
 		for (; i < n && preds.get(i) != b1; i++)
 		{
-			;
 		}
 		if (i == n)
 		{

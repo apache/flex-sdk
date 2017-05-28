@@ -138,8 +138,8 @@ public abstract class AbstractRichTextLeafNode extends AbstractRichTextNode
     /** The background alpha: Alpha (transparency) value for the 
      * background. A value of 0 is fully transparent, and a value of 1 is 
      * fully opaque. Default value is 1. Non-inheriting. */
-    public NumberInherit backgroundAlpha = NumberInherit.newInstance(1.0);;
-    
+    public NumberInherit backgroundAlpha = NumberInherit.newInstance(1.0);
+
     /** Text Leaf Attribute: The background color. */
     public ColorWithEnum backgroundColor = ColorWithEnum.newInstance(ColorEnum.TRANSPARENT);
     

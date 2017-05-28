@@ -54,5 +54,5 @@ public enum ScaleMode
     /**
      * The enum representing a 'horizontal' stroke scale mode.
      */
-    HORIZONTAL;
+    HORIZONTAL
 }

@@ -17,35 +17,19 @@
 
 package macromedia.asc.embedding.avmplus;
 
-import static java.lang.System.*;
 import macromedia.abc.BytecodeBuffer;
 import macromedia.asc.parser.LiteralNumberNode;
 import macromedia.asc.parser.MetaDataEvaluator;
-import macromedia.asc.parser.MetaDataNode;
 import macromedia.asc.semantics.*;
-import macromedia.asc.util.ByteList;
-import macromedia.asc.util.Context;
-import macromedia.asc.util.IntList;
-import macromedia.asc.util.Names;
-import macromedia.asc.util.Namespaces;
-import macromedia.asc.util.ObjectList;
-import macromedia.asc.util.Qualifiers;
-import macromedia.asc.util.Slots;
-import macromedia.asc.util.IntegerPool;
-import macromedia.asc.util.Decimal128;
-import macromedia.asc.util.NumberUsage;
-import macromedia.asc.util.NumberConstant;
-import macromedia.asc.util.DoubleNumberConstant;
-import macromedia.asc.util.DecimalNumberConstant;
-import macromedia.asc.util.IntNumberConstant;
-import macromedia.asc.util.UintNumberConstant;
+import macromedia.asc.util.*;
 
 import java.io.PrintWriter;
 import java.util.*;
 
-import static macromedia.asc.embedding.avmplus.RuntimeConstants.*;
 import static macromedia.asc.embedding.avmplus.ActionBlockConstants.*;
+import static macromedia.asc.embedding.avmplus.ByteCodeFactory.Byte;
 import static macromedia.asc.embedding.avmplus.ByteCodeFactory.*;
+import static macromedia.asc.embedding.avmplus.RuntimeConstants.*;
 import static macromedia.asc.parser.Tokens.*;
 
 
@@ -464,7 +448,8 @@ public class ActionBlockEmitter extends Emitter
         public boolean hasFinally = false;           // set if try block has a finally
         public int cur_locals = 0;
         public int loop_index = -1;
-    };
+    }
+
     protected ObjectList<ExceptionBlock> exceptionBlocks = new ObjectList<ExceptionBlock>();
 
     protected IntList if_addrs = new IntList();

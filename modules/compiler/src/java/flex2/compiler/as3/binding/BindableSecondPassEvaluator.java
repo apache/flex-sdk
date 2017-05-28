@@ -334,7 +334,7 @@ public class BindableSecondPassEvaluator extends GenerativeSecondPassEvaluator
         IdentifierNode dispatchEventIdentifier = nodeFactory.identifier(DISPATCH_EVENT, false);
 
         MemberExpressionNode propertyChangeEventMemberExpression =
-            AbstractSyntaxTreeUtil.generateGetterSelector(nodeFactory, MX_EVENTS, PROPERTY_CHANGE_EVENT, false);;
+            AbstractSyntaxTreeUtil.generateGetterSelector(nodeFactory, MX_EVENTS, PROPERTY_CHANGE_EVENT, false);
         IdentifierNode createUpdateEventIdentifier = nodeFactory.identifier(CREATE_UPDATE_EVENT, false);
         ThisExpressionNode thisExpression = nodeFactory.thisExpression(0);
         ArgumentListNode createUpdateEventArgumentList = nodeFactory.argumentList(null, innerThisExpression);
@@ -787,7 +787,7 @@ public class BindableSecondPassEvaluator extends GenerativeSecondPassEvaluator
             StatementListNode then = generateSetterAssignment(nodeFactory, qualifiedBackingPropertyName);
             then = generateDispatchEventCall(nodeFactory, then, accessorInfo.getQualifiedPropertyName());
 
-            Node ifStatement = nodeFactory.ifStatement(test, then, null);;
+            Node ifStatement = nodeFactory.ifStatement(test, then, null);
             functionStatementList = nodeFactory.statementList(functionStatementList, ifStatement);
         }
 
@@ -865,7 +865,7 @@ public class BindableSecondPassEvaluator extends GenerativeSecondPassEvaluator
         IdentifierNode dispatchEventIdentifier = nodeFactory.identifier(DISPATCH_EVENT, false);
 
         MemberExpressionNode propertyChangeEventMemberExpression =
-            AbstractSyntaxTreeUtil.generateGetterSelector(nodeFactory, MX_EVENTS, PROPERTY_CHANGE_EVENT, false);;
+            AbstractSyntaxTreeUtil.generateGetterSelector(nodeFactory, MX_EVENTS, PROPERTY_CHANGE_EVENT, false);
         IdentifierNode createUpdateEventIdentifier = nodeFactory.identifier(CREATE_UPDATE_EVENT, false);
         MemberExpressionNode getterSelector =
             AbstractSyntaxTreeUtil.generateGetterSelector(nodeFactory, className, false);

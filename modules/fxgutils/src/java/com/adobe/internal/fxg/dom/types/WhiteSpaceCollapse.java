@@ -44,5 +44,5 @@ public enum WhiteSpaceCollapse
     /**
      * The enum representing 'collapse' whitespace.
      */
-    COLLAPSE;
+    COLLAPSE
 }

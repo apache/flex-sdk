@@ -41,5 +41,5 @@ public enum InterpolationMethod
     /**
      * The enum representing a 'linearRGB' interpolation type.
      */
-    LINEAR_RGB;
+    LINEAR_RGB
 }

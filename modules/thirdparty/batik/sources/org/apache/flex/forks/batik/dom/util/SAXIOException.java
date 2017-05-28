@@ -40,4 +40,4 @@ public class SAXIOException extends IOException {
 
     public SAXException getSAXException() { return saxe; }
     public Throwable    getCause() { return saxe; }
-};
+}

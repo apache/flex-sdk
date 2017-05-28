@@ -48,7 +48,7 @@ public enum MaskType
     /**
      * The enum representing an 'luminosity' mask type.
      */
-    LUMINOSITY;
-    
-    
+    LUMINOSITY
+
+
 }

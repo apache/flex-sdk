@@ -47,5 +47,5 @@ public enum Joints
     /**
      * The enum representing a 'miter' joint type.
      */
-    MITER;
+    MITER
 }

@@ -38,5 +38,5 @@ public enum FontStyle
     /**
      * The enum representing an 'italic' Font Style.
      */
-    ITALIC;
+    ITALIC
 }

@@ -629,7 +629,7 @@ public class DebugCLI implements Runnable, SourceLocator {
                 m_in = popStream();
                 process();
             } catch (EOFException eof) {
-                ; /* quite allright */
+                /* quite allright */
             } catch (IOException io) {
                 Map<String, Object> args = new HashMap<String, Object>();
                 args.put("exceptionMessage", io); //$NON-NLS-1$
@@ -6428,11 +6428,11 @@ public class DebugCLI implements Runnable, SourceLocator {
                 break;
 
             case CMD_COMMENT:
-                ; // nop
+                // nop
                 break;
 
             case INFO_STACK_CMD:
-                ; // from bt
+                // from bt
                 doInfoStack();
                 break;
 
@@ -6872,21 +6872,21 @@ public class DebugCLI implements Runnable, SourceLocator {
 
 class FileLocation {
 
-    public FileLocation () {};
+    public FileLocation () {}
 
     public FileLocation(int isolateId, int module, int line, int wasFunc) {
         setIsolateId(isolateId);
         setModule(module);
         setLine(line);
         setWasFunc(wasFunc);
-    };
+    }
 
     public FileLocation(int isolateId, int module, int line) {
         setIsolateId(isolateId);
         setModule(module);
         setLine(line);
         setWasFunc(0);
-    };
+    }
 
 
     public int getIsolateId() {

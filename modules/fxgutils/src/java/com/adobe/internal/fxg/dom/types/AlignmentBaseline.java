@@ -72,6 +72,6 @@ public enum AlignmentBaseline
     /**
      * The enum representing an 'ideographicBottom' AlignmentBaseline.
      */
-    IDEOGRAPHICBOTTOM;       
-    
+    IDEOGRAPHICBOTTOM
+
 }

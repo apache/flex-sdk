@@ -49,5 +49,5 @@ public enum LineBreak
     /**
      * The enum representing an 'inherit' line break type.
      */
-    INHERIT;
+    INHERIT
 }
