@@ -780,7 +780,7 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
      */
     private function doPhasedInstantiation():void
     {
-        // trace(">>DoPhasedInstantation");
+        // trace(">>DoPhasedInstantiation");
 
         // If phasing, do only one phase: validateProperties(),
         // validateSize(), or validateDisplayList().
