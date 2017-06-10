@@ -6,6 +6,8 @@ package mx.managers {
     import mx.core.mx_internal;
     import mx.events.FlexEvent;
 
+    import org.flexunit.assertThat;
+
     import org.flexunit.asserts.assertEquals;
     import org.flexunit.asserts.assertNotNull;
     import org.flexunit.asserts.assertNull;
@@ -28,7 +30,7 @@ package mx.managers {
             _creationCompleteCalls = 0;
             _objectWhichIsRemovedAtValidation = new SomeComponent();
             _objectWhichIsRemovedAtValidation.addEventListener(FlexEvent.CREATION_COMPLETE, onCreationComplete);
-            UIImpersonator.addChild(_objectWhichIsRemovedAtValidation);
+            UIImpersonator.addElement(_objectWhichIsRemovedAtValidation);
         }
 
         [After]
@@ -45,7 +47,6 @@ package mx.managers {
         //
         //--------------------------------------------------------------------------
 
-
         [Test]
         public function test_object_removed_from_stage_via_code_is_not_initialized():void
         {
@@ -54,10 +55,14 @@ package mx.managers {
             _objectWhichIsRemovedAtValidation.removeFromStageOnValidateProperties = true;
 
             //when
+            _objectWhichIsRemovedAtValidation.invalidateProperties();
+            _objectWhichIsRemovedAtValidation.invalidateSize();
+            _objectWhichIsRemovedAtValidation.invalidateDisplayList();
             _objectWhichIsRemovedAtValidation.validateNow();
 
             //then
             then_assert_not_initialized();
+            assert_validation_count(1, 0, 0);
         }
 
 
@@ -67,7 +72,6 @@ package mx.managers {
         //  Test method
         //
         //--------------------------------------------------------------------------
-
 
         [Test(async, timeout=500)]
         public function test_object_removed_from_stage_via_user_action_is_not_initialized():void
@@ -84,7 +88,7 @@ package mx.managers {
             //then wait 1 frame
             noEnterFramesRemaining = 1;
             UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
-            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, then_remove_from_stage_via_callLater, 300, then_assert_not_initialized);
+            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, then_remove_from_stage_via_callLater, 300, {nextStep:then_assert_not_initialized_but_partially_validated, afterNumFrames:3});
         }
 
 
@@ -111,7 +115,7 @@ package mx.managers {
             //then wait 1 frame
             noEnterFramesRemaining = 1;
             UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
-            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, then_remove_from_stage_via_callLater, 300, then_readd_object);
+            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, then_remove_from_stage_via_callLater, 300, {nextStep:then_readd_object, afterNumFrames:1});
         }
 
         private function then_readd_object(event:Event, passThroughData:Object):void
@@ -122,8 +126,8 @@ package mx.managers {
             //when
             UIImpersonator.addElement(_objectWhichIsRemovedAtValidation);
 
-            //then wait 4 frames, to make sure validation is done
-            noEnterFramesRemaining = 4;
+            //then wait 3 frames, to make sure validation is done
+            noEnterFramesRemaining = 3;
             UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
             Async.handleEvent(this, _finishNotifier, Event.COMPLETE, then_assert_one_initialization_only, 400);
         }
@@ -132,7 +136,9 @@ package mx.managers {
         {
             //then
             assertNotNull("The object should be on stage...", _objectWhichIsRemovedAtValidation.parent);
+            assertThat("If it's on stage, the nestLevel should be positive", _objectWhichIsRemovedAtValidation.nestLevel > 0);
             assertEquals("When validation is interrupted half-way it should be complete once the object is re-added to stage", 1, _creationCompleteCalls);
+            assert_validation_count(2, 2, 1);
         }
 
 
@@ -150,13 +156,14 @@ package mx.managers {
             assertEquals("Nor validateDisplayList()", 0, _objectWhichIsRemovedAtValidation.numValidateDisplayListCalls);
 
             //given
-            const whereToGoNext:Function = passThroughData as Function;
+            const whereToGoNext:Function = passThroughData.nextStep as Function;
+            const afterHowManyFrames:int = passThroughData.afterNumFrames as int;
 
             //when
             _objectWhichIsRemovedAtValidation.pretendUserAskedForComponentRemovalInNextFrame();
 
-            //then wait 2 frames
-            noEnterFramesRemaining = 3;
+            //then wait
+            noEnterFramesRemaining = afterHowManyFrames;
             UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
             Async.handleEvent(this, _finishNotifier, Event.COMPLETE, whereToGoNext, 300);
         }
@@ -166,6 +173,21 @@ package mx.managers {
             //then
             assertNull("The object was actually not removed from stage. Huh?", _objectWhichIsRemovedAtValidation.parent);
             assertEquals("Yep, this is the bug. Why call initialized=true on an object that's not on stage?", 0, _creationCompleteCalls);
+        }
+
+        private function then_assert_not_initialized_but_partially_validated(event:Event = null, passThroughData:Object = null):void
+        {
+            //then
+            then_assert_not_initialized(event, passThroughData);
+            assert_validation_count(1, 1, 0);
+        }
+
+        private function assert_validation_count(numPropertiesValidations:int = 1, numSizeValidations:int = 1, numDisplayListValidations:int = 1):void
+        {
+            //then
+            assertEquals("Properties should have been validated", numPropertiesValidations, _objectWhichIsRemovedAtValidation.numValidatePropertiesCalls);
+            assertEquals("Size should have been validated", numSizeValidations, _objectWhichIsRemovedAtValidation.numValidateSizeCalls);
+            assertEquals("Display list should have been validated", numDisplayListValidations, _objectWhichIsRemovedAtValidation.numValidateDisplayListCalls);
         }
 
 
