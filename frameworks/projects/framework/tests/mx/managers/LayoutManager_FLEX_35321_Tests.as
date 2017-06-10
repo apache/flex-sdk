@@ -19,101 +19,108 @@ package mx.managers {
         private static var noEnterFramesRemaining:int = NaN;
         private static const _finishNotifier:EventDispatcher = new EventDispatcher();
 
-        private var _objectWhichIsRemovedOnSizeValidation:SomeComponent;
+        private var _objectWhichIsRemovedAtValidation:SomeComponent;
         private var _creationCompleteCalls:int;
 
         [Before]
         public function setUp():void
         {
             _creationCompleteCalls = 0;
-            _objectWhichIsRemovedOnSizeValidation = new SomeComponent();
-            _objectWhichIsRemovedOnSizeValidation.addEventListener(FlexEvent.CREATION_COMPLETE, onCreationComplete);
-            UIImpersonator.addElement(_objectWhichIsRemovedOnSizeValidation);
+            _objectWhichIsRemovedAtValidation = new SomeComponent();
+            _objectWhichIsRemovedAtValidation.addEventListener(FlexEvent.CREATION_COMPLETE, onCreationComplete);
+            UIImpersonator.addChild(_objectWhichIsRemovedAtValidation);
         }
 
         [After]
         public function tearDown():void
         {
             UIImpersonator.removeAllChildren();
-            _objectWhichIsRemovedOnSizeValidation = null;
+            _objectWhichIsRemovedAtValidation = null;
         }
+
+
+        //--------------------------------------------------------------------------
+        //
+        //  Test method
+        //
+        //--------------------------------------------------------------------------
+
 
         [Test]
         public function test_object_removed_from_stage_via_code_is_not_initialized():void
         {
             //given
             UIComponentGlobals.mx_internal::layoutManager.usePhasedInstantiation = false;
-            _objectWhichIsRemovedOnSizeValidation.removeFromStageOnValidateProperties = true;
+            _objectWhichIsRemovedAtValidation.removeFromStageOnValidateProperties = true;
 
             //when
-            _objectWhichIsRemovedOnSizeValidation.validateNow();
+            _objectWhichIsRemovedAtValidation.validateNow();
 
             //then
-            assertNull("The object was actually not removed from stage. Huh?", _objectWhichIsRemovedOnSizeValidation.parent);
-            assertEquals("Yep, this is the bug. Why call initialized=true on an object that's not on stage?", 0, _creationCompleteCalls);
+            then_assert_not_initialized();
         }
+
+
+
+        //--------------------------------------------------------------------------
+        //
+        //  Test method
+        //
+        //--------------------------------------------------------------------------
+
 
         [Test(async, timeout=500)]
         public function test_object_removed_from_stage_via_user_action_is_not_initialized():void
         {
             //given
             UIComponentGlobals.mx_internal::layoutManager.usePhasedInstantiation = true;
-            _objectWhichIsRemovedOnSizeValidation.removeFromStageOnValidateProperties = false;
+            _objectWhichIsRemovedAtValidation.removeFromStageOnValidateProperties = false;
 
             //when
-            _objectWhichIsRemovedOnSizeValidation.invalidateDisplayList();
-            _objectWhichIsRemovedOnSizeValidation.invalidateProperties();
-            _objectWhichIsRemovedOnSizeValidation.invalidateSize();
+            _objectWhichIsRemovedAtValidation.invalidateDisplayList();
+            _objectWhichIsRemovedAtValidation.invalidateProperties();
+            _objectWhichIsRemovedAtValidation.invalidateSize();
 
             //then wait 1 frame
             noEnterFramesRemaining = 1;
             UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
-            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, then_remove_from_stage_in_next_frame, 300);
+            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, then_remove_from_stage_via_callLater, 300, then_assert_not_initialized);
         }
 
-        private function then_remove_from_stage_in_next_frame(event:Event, passThroughData:Object):void
-        {
-            //when
-            _objectWhichIsRemovedOnSizeValidation.pretendUserAskedForComponentRemovalInNextFrame();
 
-            //then wait 2 frames
-            noEnterFramesRemaining = 2;
-            UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
-            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, then_assert_not_initialized, 300);
-        }
 
-        private function then_assert_not_initialized(event:Event, passThroughData:Object):void
-        {
-            //then
-            assertNull("The object was actually not removed from stage. Huh?", _objectWhichIsRemovedOnSizeValidation.parent);
-            assertEquals("Yep, this is the bug. Why call initialized=true on an object that's not on stage?", 0, _creationCompleteCalls);
-        }
 
+        //--------------------------------------------------------------------------
+        //
+        //  Test method
+        //
+        //--------------------------------------------------------------------------
 
         [Test(async, timeout=750)]
         public function test_object_removed_from_stage_then_readded_is_initialized_once():void
         {
             //given
             UIComponentGlobals.mx_internal::layoutManager.usePhasedInstantiation = true;
-            _objectWhichIsRemovedOnSizeValidation.removeFromStageOnValidateProperties = false;
+            _objectWhichIsRemovedAtValidation.removeFromStageOnValidateProperties = false;
 
             //when
-            _objectWhichIsRemovedOnSizeValidation.validateNow();
-            _objectWhichIsRemovedOnSizeValidation.pretendUserAskedForComponentRemovalInNextFrame();
+            _objectWhichIsRemovedAtValidation.invalidateDisplayList();
+            _objectWhichIsRemovedAtValidation.invalidateProperties();
+            _objectWhichIsRemovedAtValidation.invalidateSize();
 
             //then wait 1 frame
             noEnterFramesRemaining = 1;
             UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
-            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, then_readd_object, 200);
+            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, then_remove_from_stage_via_callLater, 300, then_readd_object);
         }
 
         private function then_readd_object(event:Event, passThroughData:Object):void
         {
             //then
-            assertNull("The object was actually not removed from stage. Huh?", _objectWhichIsRemovedOnSizeValidation.parent);
+            assertNull("The object was actually not removed from stage. Huh?", _objectWhichIsRemovedAtValidation.parent);
 
             //when
-            UIImpersonator.addElement(_objectWhichIsRemovedOnSizeValidation);
+            UIImpersonator.addElement(_objectWhichIsRemovedAtValidation);
 
             //then wait 4 frames, to make sure validation is done
             noEnterFramesRemaining = 4;
@@ -124,10 +131,42 @@ package mx.managers {
         private function then_assert_one_initialization_only(event:Event, passThroughData:Object):void
         {
             //then
-            assertNotNull("The object should be on stage...", _objectWhichIsRemovedOnSizeValidation.parent);
+            assertNotNull("The object should be on stage...", _objectWhichIsRemovedAtValidation.parent);
             assertEquals("When validation is interrupted half-way it should be complete once the object is re-added to stage", 1, _creationCompleteCalls);
         }
 
+
+        //--------------------------------------------------------------------------
+        //
+        //  Shared test methods
+        //
+        //--------------------------------------------------------------------------
+
+        private function then_remove_from_stage_via_callLater(event:Event, passThroughData:Object):void
+        {
+            //then
+            assertEquals("The first validation step should have completed by now", 1, _objectWhichIsRemovedAtValidation.numValidatePropertiesCalls);
+            assertEquals("But not validateSize()", 0, _objectWhichIsRemovedAtValidation.numValidateSizeCalls);
+            assertEquals("Nor validateDisplayList()", 0, _objectWhichIsRemovedAtValidation.numValidateDisplayListCalls);
+
+            //given
+            const whereToGoNext:Function = passThroughData as Function;
+
+            //when
+            _objectWhichIsRemovedAtValidation.pretendUserAskedForComponentRemovalInNextFrame();
+
+            //then wait 2 frames
+            noEnterFramesRemaining = 3;
+            UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
+            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, whereToGoNext, 300);
+        }
+
+        private function then_assert_not_initialized(event:Event = null, passThroughData:Object = null):void
+        {
+            //then
+            assertNull("The object was actually not removed from stage. Huh?", _objectWhichIsRemovedAtValidation.parent);
+            assertEquals("Yep, this is the bug. Why call initialized=true on an object that's not on stage?", 0, _creationCompleteCalls);
+        }
 
 
 
@@ -147,19 +186,20 @@ package mx.managers {
     }
 }
 
-import flash.events.TimerEvent;
-import flash.utils.Timer;
-
 import mx.core.IVisualElementContainer;
 import mx.core.UIComponent;
 
 class SomeComponent extends UIComponent
 {
     private var _removeFromStageOnValidateProperties:Boolean = false;
+    private var _numValidatePropertiesCalls:int = 0;
+    private var _numValidateSizeCalls:int = 0;
+    private var _numValidateDisplayListCalls:int = 0;
 
     override public function validateProperties():void
     {
         super.validateProperties();
+        _numValidatePropertiesCalls++;
         if(_removeFromStageOnValidateProperties)
             removeFromStage();
     }
@@ -167,11 +207,13 @@ class SomeComponent extends UIComponent
     override public function validateSize(recursive:Boolean = false):void
     {
         super.validateSize(recursive);
+        _numValidateSizeCalls++;
     }
 
     override public function validateDisplayList():void
     {
         super.validateDisplayList();
+        _numValidateDisplayListCalls++;
     }
 
     private function removeFromStage():void
@@ -193,5 +235,20 @@ class SomeComponent extends UIComponent
     public function set removeFromStageOnValidateProperties(value:Boolean):void
     {
         _removeFromStageOnValidateProperties = value;
+    }
+
+    public function get numValidateDisplayListCalls():int
+    {
+        return _numValidateDisplayListCalls;
+    }
+
+    public function get numValidateSizeCalls():int
+    {
+        return _numValidateSizeCalls;
+    }
+
+    public function get numValidatePropertiesCalls():int
+    {
+        return _numValidatePropertiesCalls;
     }
 }
