@@ -846,11 +846,14 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 			var obj:ILayoutManagerClient = ILayoutManagerClient(updateCompleteQueue.removeLargest());
             while (obj)
             {
-                if (!obj.initialized && obj.processedDescriptors)
-                    obj.initialized = true;
-                if (obj.hasEventListener(FlexEvent.UPDATE_COMPLETE))
-                    obj.dispatchEvent(new FlexEvent(FlexEvent.UPDATE_COMPLETE));
-                obj.updateCompletePendingFlag = false;
+                if(obj.nestLevel)
+                {
+                    if (!obj.initialized && obj.processedDescriptors)
+                        obj.initialized = true;
+                    if (obj.hasEventListener(FlexEvent.UPDATE_COMPLETE))
+                        obj.dispatchEvent(new FlexEvent(FlexEvent.UPDATE_COMPLETE));
+                    obj.updateCompletePendingFlag = false;
+                }
                 obj = ILayoutManagerClient(updateCompleteQueue.removeLargest());
             }
 
@@ -1094,12 +1097,15 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
                 obj = ILayoutManagerClient(updateCompleteQueue.removeLargestChild(target));
                 while (obj)
                 {
-                    if (!obj.initialized)
-                        obj.initialized = true;
-                    
-                    if (obj.hasEventListener(FlexEvent.UPDATE_COMPLETE))
-                        obj.dispatchEvent(new FlexEvent(FlexEvent.UPDATE_COMPLETE));
-                    obj.updateCompletePendingFlag = false;
+                    if(obj.nestLevel)
+                    {
+                        if (!obj.initialized)
+                            obj.initialized = true;
+
+                        if (obj.hasEventListener(FlexEvent.UPDATE_COMPLETE))
+                            obj.dispatchEvent(new FlexEvent(FlexEvent.UPDATE_COMPLETE));
+                        obj.updateCompletePendingFlag = false;
+                    }
                     obj = ILayoutManagerClient(updateCompleteQueue.removeLargestChild(target));
                 }
             }
