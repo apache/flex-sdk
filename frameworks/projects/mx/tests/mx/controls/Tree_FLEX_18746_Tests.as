@@ -46,7 +46,7 @@ package mx.controls {
         //--------------------------------------------------------------------------
 
         [Test(async, timeout=1000)]
-        public function test_object_removed_from_stage_via_code_is_not_initialized():void
+        public function test_closing_previously_opened_folder_with_0_children_does_not_throw_fatal():void
         {
             //given
             const dataProvider:ArrayCollection = new ArrayCollection();
@@ -59,7 +59,7 @@ package mx.controls {
             //then wait a few frames
             noEnterFramesToWait = 2;
             UIImpersonator.testDisplay.addEventListener(Event.ENTER_FRAME, onEnterFrame);
-            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, then_expand_second_folder, 200);
+            Async.handleEvent(this, _finishNotifier, Event.COMPLETE, then_expand_second_folder, 300);
         }
 
 
