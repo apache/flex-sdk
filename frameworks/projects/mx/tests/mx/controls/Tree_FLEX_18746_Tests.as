@@ -43,12 +43,6 @@ package mx.controls {
         }
 
 
-        //--------------------------------------------------------------------------
-        //
-        //  Test method
-        //
-        //--------------------------------------------------------------------------
-
         [Test(async, timeout=1000)]
         public function test_closing_previously_opened_folder_with_0_children_without_animation_does_not_throw_fatal():void
         {
