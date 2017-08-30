@@ -19,14 +19,10 @@
 
 package mx.managers
 {
-import flash.display.DisplayObject;
-import flash.display.Sprite;
 import flash.display.Stage;
 import flash.events.Event;
 import flash.events.EventDispatcher;
 
-import mx.core.ILayoutElement;
-import mx.core.UIComponent;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.DynamicEvent;
@@ -852,8 +848,9 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
                         obj.initialized = true;
                     if (obj.hasEventListener(FlexEvent.UPDATE_COMPLETE))
                         obj.dispatchEvent(new FlexEvent(FlexEvent.UPDATE_COMPLETE));
-                    obj.updateCompletePendingFlag = false;
                 }
+
+                obj.updateCompletePendingFlag = false;
                 obj = ILayoutManagerClient(updateCompleteQueue.removeLargest());
             }
 
@@ -930,7 +927,6 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 		var lastCurrentObject:ILayoutManagerClient = currentObject;
 		
         var obj:ILayoutManagerClient;
-        var i:int = 0;
         var done:Boolean = false;
         var oldTargetLevel:int = targetLevel;
 
@@ -1104,8 +1100,9 @@ public class LayoutManager extends EventDispatcher implements ILayoutManager
 
                         if (obj.hasEventListener(FlexEvent.UPDATE_COMPLETE))
                             obj.dispatchEvent(new FlexEvent(FlexEvent.UPDATE_COMPLETE));
-                        obj.updateCompletePendingFlag = false;
                     }
+
+                        obj.updateCompletePendingFlag = false;
                     obj = ILayoutManagerClient(updateCompleteQueue.removeLargestChild(target));
                 }
             }
