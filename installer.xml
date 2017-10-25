@@ -467,7 +467,7 @@
 	    </exec>
 	</target>
     
-	<target name="air-setup-mac-init" if="isMac">
+	<target name="air-setup-mac-init" unless="isWindows">
 		<antcall target="air-setup-mac" />
 	</target>
 	
