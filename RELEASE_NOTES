@@ -1,19 +1,19 @@
-Apache Flex 4.17.0
+Apache Flex 4.16.1
 ==================
-
-
-New Features
-------------
-
 
 AIR and Flash Player Support
 ----------------------------
-
+- Support Flash Player 21.0, 22.0, 23.0, 24.0, 25.0, 26.0 and 27.0
+- Support for AIR 21.0, 22.0, 23.0, 24.0, 25.0, 26.0 and 27.0
 
 Bug Fixes
 ---------
-FLEX-35329  Initializing member variable/constant that is [Deprecated]
+FLEX-35364 Flex installer.xml is failing occasionally
+FLEX-35329 Initializing member variable/constant that is [Deprecated]
             incorrectly throws extra warning
+FLEX-35321 LayoutManager initializes components which are no longer on stage
+FLEX-35267 Spark DataGrid's GridHeaderViewLayout.getHeaderIndexAt() returns wrong header index when leftPadding is comparable to a column's width
+FLEX-27509 AdvancedListBase itemMaskFreeList is null 
 
 Known Issues
 ------------
