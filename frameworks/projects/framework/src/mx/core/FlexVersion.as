@@ -58,7 +58,21 @@ public class FlexVersion
      */
     public static const CURRENT_VERSION:uint = 0x04100000;
 	
-		/** 
+	/** 
+	 *  The <code>compatibilityVersion</code> value of Flex 4.16.1,
+	 *  encoded numerically as a <code>uint</code>.
+	 *  Code can compare this constant against
+	 *  the <code>compatibilityVersion</code>
+	 *  to implement version-specific behavior.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 11
+	 *  @playerversion AIR 3
+	 *  @productversion Apache Flex 4.16.1
+	 */
+	public static const VERSION_4_16_1:uint = 0x04100001;
+	
+	/** 
 	 *  The <code>compatibilityVersion</code> value of Flex 4.16,
 	 *  encoded numerically as a <code>uint</code>.
 	 *  Code can compare this constant against
