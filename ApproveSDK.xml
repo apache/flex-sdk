@@ -325,6 +325,7 @@
                 <exclude name="licenseParts/NOTICE.asc"/>
                 <exclude name="licenseParts/NOTICE.base"/>
                 <exclude name="licenseParts/NOTICE.pb"/>
+                <exclude name="licenseParts/saxon9-NOTICES/*"/>
                 <exclude name="modules/thirdparty/batik/lib/**/LICENSE*.txt"/>
                 <exclude name="modules/thirdparty/batik/lib/**/README*.txt"/>
                 <exclude name="frameworks/projects/flatspark/src/flatspark/assets/fonts/**/OFL.txt"/>
