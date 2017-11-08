@@ -215,6 +215,10 @@ flash-integration.
 On Windows, download the Adobe Extension Manager from:
 
     http://download.macromedia.com/pub/dw_exchange/extension_manager/win/AdobeExtensionManager5All.zip
+	
+On Windows 10, download the Adobe Extension Manager CS6 from:
+
+	http://download.macromedia.com/pub/dw_exchange/extension_manager/win/AdobeExtensionManager6_0_8All.zip
 
 and set ADOBE_EXTENSION_MANAGER to the absolute path of
 'Adobe Extension Manager CS5.exe'
