@@ -117,7 +117,8 @@
         depends="check-compile-env,check-runtime-env,check-adobe-extension-manager-env,source-release,binary-release,rat-check"
         description="Creates source and binary kits for Apache Flex."/>
 
-    <target name="release-notests" depends="check-compile-env,source-release,setup-binary-release,main,frameworks-rsls,sample-themes,doc,other.locales,binary-package,additional-packages,rat-check"
+    <target name="release-notests"
+	depends="check-compile-env,source-release,main,frameworks-rsls,sample-themes,doc,other.locales,binary-package,additional-packages,rat-check"
         description="Creates source and binary kits for Apache Flex."/>
         
     <target name="release-pixelbender"
