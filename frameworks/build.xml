@@ -108,7 +108,9 @@
        Should consider updating the OSMF and TLF versions in use.
     -->
     
-    <target name="compile" description="Builds all SWCs but not their resource bundles" depends="flex-config,flash-integration.compile">
+    <target name="compile" description="Builds all SWCs but not their resource bundles" depends="flex-config,all.compile,flash-integration.compile,automation.compile" />
+
+    <target name="all.compile">
         <antcall target="framework"/>
         <antcall target="mx"/>
         <antcall target="textLayout"/>
@@ -119,9 +121,9 @@
         <antcall target="sparkskins"/>
         <antcall target="spark_dmv"/>
         <antcall target="airframework"/>
-        <antcall target="airspark"/>        
-        <antcall target="mobilecomponents"/>        
-        <antcall target="mobiletheme"/>     
+        <antcall target="airspark"/>
+        <antcall target="mobilecomponents"/>
+        <antcall target="mobiletheme"/>
         <antcall target="core"/>
         <antcall target="authoringsupport"/>
         <antcall target="halo"/>
@@ -130,12 +132,15 @@
     	<antcall target="apache"/>
     	<antcall target="experimental"/>
     	<antcall target="experimental_mobile"/>
-        <antcall target="compile-automation"/>
         <antcall target="flatspark"/>
     </target>
 
     <target name="flash-integration.compile" unless="isLinux">
         <antcall target="flash_integration" />
+    </target>
+
+    <target name="automation.compile">
+        <antcall target="compile-automation"/>
     </target>
 	
     <target name="test" description="Runs the tests for all projects that have FlexUnit tests">
