@@ -116,6 +116,9 @@
     <target name="release" 
         depends="check-compile-env,check-runtime-env,check-adobe-extension-manager-env,source-release,binary-release,rat-check"
         description="Creates source and binary kits for Apache Flex."/>
+
+    <target name="release-notests" depends="check-compile-env,source-release,setup-binary-release,main,frameworks-rsls,sample-themes,doc,other.locales,binary-package,additional-packages,rat-check"
+        description="Creates source and binary kits for Apache Flex."/>
         
     <target name="release-pixelbender"
         depends="check-compile-env,check-runtime-env,source-package-pixelbender,binary-package-pixelbender"
@@ -1417,7 +1420,7 @@ There are no known issues.
     <target name="oldcheckintests" depends="dependencychecker-framework,checkintests-mustella" description="Run these tests before every checkin"/>
     
     <!-- FixMe: add dependency checker and mobile tests -->
-    <target name="checkintests" depends="basictests-mustella" description="Run these tests before every checkin" />
+    <target name="checkintests" depends="basictests-mustella" description="Run these tests before every checkin" unless="no.checkintests" />
     <!--<target name="checkintests" depends="dependencychecker-framework,basictests-mustella,checkintests-mobile" description="Run these tests before every checkin"/-->
     
     <target name="checkintests-mobile" depends="airmobile-basictests-mustella" description="Run these tests before every checkin to mobile SDK code"/>
