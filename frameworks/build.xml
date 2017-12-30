@@ -258,16 +258,21 @@
     <!--
         automation: tool was formerly qtp and tool_air was formerly qtp_air
     -->
-    <target name="compile-automation" description="Builds all automation SWCs but not their resource bundles">
+    <target name="compile-automation" description="Builds all automation SWCs but not their resource bundles" depends="compile-automation-others, compile-automation-flashflexkit" />
+
+    <target name="compile-automation-others" unless="isLinux">
         <antcall target="automation_agent"/>
         <antcall target="automation_dmv"/>
         <antcall target="tool"/>
         <antcall target="automation"/>
         <antcall target="tool_air"/>
         <antcall target="automation_spark"/>
-        <antcall target="automation_flashflexkit"/>
         <antcall target="automation_air"/>
         <antcall target="automation_airspark"/>
+    </target>
+
+    <target name="compile-automation-flashflexkit" unless="isLinux">
+        <antcall target="automation_flashflexkit"/>
     </target>
     
     <target name="other.locales" depends="flash-integration.other.locales" description ="Builds resource SWCs for all locales">
