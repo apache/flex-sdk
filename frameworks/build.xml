@@ -300,7 +300,7 @@
         <ant dir="${basedir}/projects/flash-integration" target="other.locales"/>
     </target>
     
-    <target name="doc" depends="flash-integration.doc">
+    <target name="doc" depends="flash-integration.doc, mobiletheme.doc">
         <ant dir="${basedir}/projects/framework" target="doc" />
         <ant dir="${basedir}/projects/mx" target="doc" />
         <ant dir="${basedir}/projects/textLayout" target="doc" />
@@ -313,7 +313,6 @@
         <ant dir="${basedir}/projects/airframework" target="doc" />
         <ant dir="${basedir}/projects/airspark" target="doc" />
         <ant dir="${basedir}/projects/mobilecomponents" target="doc" />
-        <ant dir="${basedir}/projects/mobiletheme" target="doc" />
         <ant dir="${basedir}/projects/core" target="doc" />
         <ant dir="${basedir}/projects/authoringsupport" target="doc" />
         <ant dir="${basedir}/projects/wireframe" target="doc" />
@@ -329,6 +328,10 @@
 
     <target name="flash-integration.doc" unless="isLinux">
         <ant dir="${basedir}/projects/flash-integration" target="doc" />
+    </target>
+
+    <target name="mobiletheme.doc" unless="isLinux">
+        <ant dir="${basedir}/projects/mobiletheme" target="doc" />
     </target>
    
     <!--
