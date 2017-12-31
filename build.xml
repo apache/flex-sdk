@@ -920,7 +920,7 @@ There are no known issues.
         </copy>
 
         <!-- frameworks/libs -->
-        <copy todir="${basedir}/temp/frameworks/libs">
+        <copy todir="${basedir}/temp/frameworks/libs" failonerror="false">
             <fileset dir="${basedir}/frameworks/libs">
                 <include name="air/airframework.swc"/>
                 <include name="air/airspark.swc"/>
@@ -947,7 +947,7 @@ There are no known issues.
         </copy>
 
         <!-- frameworks/libs/automation -->
-        <copy todir="${basedir}/temp/frameworks/libs/automation">
+        <copy todir="${basedir}/temp/frameworks/libs/automation" failonerror="false">
             <fileset dir="${basedir}/frameworks/libs/automation">
                 <include name="automation.swc"/>
                 <include name="automation_agent.swc"/>
