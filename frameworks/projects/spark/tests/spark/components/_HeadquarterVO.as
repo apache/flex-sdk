@@ -16,10 +16,27 @@
 //  limitations under the License.
 //
 ////////////////////////////////////////////////////////////////////////////////
-import mx.core.mx_internal;
 
-/**
- *  @private
- *  Version string for this class.
- */
-mx_internal static const VERSION:String = "4.16.1.0";
+package spark.components {
+    [Bindable]
+    public class _HeadquarterVO {
+        public var name:String;
+        public var address:String;
+
+        public function _HeadquarterVO(name:String, address:String)
+        {
+            this.name = name;
+            this.address = address;
+        }
+
+        public function get label():String
+        {
+            return name;
+        }
+
+        public function toString():String
+        {
+            return "HeadquarterVO{name=" + String(name) + "}";
+        }
+    }
+}

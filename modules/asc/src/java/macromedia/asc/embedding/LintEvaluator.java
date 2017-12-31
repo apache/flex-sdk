@@ -749,8 +749,14 @@ public final class LintEvaluator extends Emitter implements Evaluator, ErrorCons
 			boolean is_unbound_ref       = is_unbound_dotref || is_unbound_lexref || is_unbound_globalref;
 
 
-			if (slot != null )
+			if (slot != null && !(node.expr instanceof QualifiedIdentifierNode))
+			{
+				//if it's a qualified identifier node, then it's a member/static
+				//variable on a class that is being initialized, like this:
+				//public var memberVar:String = "hi";
+				//this case should not have a warning!
 				checkDeprecatedSlot(cx, node.expr, node.ref, slot);
+			}
 			
 			// special case to avoid warning on access to a Class's prototype property.  This
 			//  property can't be expressed in global.as because you can't both declare a class

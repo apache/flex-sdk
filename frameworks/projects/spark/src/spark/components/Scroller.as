@@ -759,8 +759,8 @@ public class Scroller extends SkinnableComponent
     
     /**
      *  @private
-     *  These are the minimum and maximum scroll possitions allowed
-     *  for both axes.  They determine the points at which bounce and
+     *  These are the minimum and maximum scroll positions allowed
+     *  for both axes. They determine the points at which bounce and
      *  pull occur.
      */
     private var minVerticalScrollPosition:Number = 0;

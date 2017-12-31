@@ -54,10 +54,10 @@
 	
     <property name="src.rat.report" value="${basedir}/rat-report-src.txt"/>
     <property name="bin.rat.report" value="${basedir}/rat-report-bin.txt"/>
-    <property name="apache.rat.jar" value="apache-rat-0.11.jar" />
-    <property name="apache.rat.tasks.jar" value="apache-rat-tasks-0.11.jar" />
-    <property name="apache.rat.url" value="http://search.maven.org/remotecontent?filepath=org/apache/rat/apache-rat/0.11" />
-    <property name="apache.rat.tasks.url" value="http://search.maven.org/remotecontent?filepath=org/apache/rat/apache-rat-tasks/0.11" />
+    <property name="apache.rat.jar" value="apache-rat-0.12.jar" />
+    <property name="apache.rat.tasks.jar" value="apache-rat-tasks-0.12.jar" />
+    <property name="apache.rat.url" value="http://central.maven.org/maven2/org/apache/rat/apache-rat/0.12" />
+    <property name="apache.rat.tasks.url" value="http://central.maven.org/maven2/org/apache/rat/apache-rat-tasks/0.12" />
 	   
     <property file="${basedir}/approvesdk.properties"/>
     
@@ -325,6 +325,7 @@
                 <exclude name="licenseParts/NOTICE.asc"/>
                 <exclude name="licenseParts/NOTICE.base"/>
                 <exclude name="licenseParts/NOTICE.pb"/>
+                <exclude name="licenseParts/saxon9-NOTICES/*"/>
                 <exclude name="modules/thirdparty/batik/lib/**/LICENSE*.txt"/>
                 <exclude name="modules/thirdparty/batik/lib/**/README*.txt"/>
                 <exclude name="frameworks/projects/flatspark/src/flatspark/assets/fonts/**/OFL.txt"/>

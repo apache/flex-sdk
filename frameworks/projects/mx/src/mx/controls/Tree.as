@@ -1783,7 +1783,7 @@ public class Tree extends List implements IIMESupport
             // is the item on screen?
             if (visibleData[uid])
             {
-                //find the rowindex of the row after the open thats opening/closing
+                //find the row index of the first row after the one that's opening/closing
                 var n:int = listItems.length;
                 for (rowIndex = 0; rowIndex < n; rowIndex++)
                 {

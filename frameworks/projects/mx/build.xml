@@ -229,4 +229,10 @@
         <delete dir="${FLEX_HOME}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
         <delete file="${basedir}/bundles/en_US/packages.dita" failonerror="false"/>
     </target>
+
+    <target name="test" description="Runs the FlexUnit tests for this project">
+        <ant antfile="${FLEX_HOME}/flexunit-tests.xml">
+            <property name="project.root" value="${basedir}"/>
+        </ant>
+    </target>
 </project>

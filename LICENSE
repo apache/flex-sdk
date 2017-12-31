@@ -258,6 +258,9 @@ see frameworks/projects/flatspark/src/flatspark/assets/fonts/awesome
 The Lato font is available under OFL. For details
 see frameworks/projects/flatspark/src/flatspark/assets/fonts/lato
 
+The AwesomeUtils is available under MIT. For details
+see frameworks/projects/flatspark/src/flatspark/utils/AwesomeUtils.as
+
 This product includes a fork of Apache Batik which includes files available under
 the 2002 W3C Software license.  For details, see 
 modules/thirdparty/batik/LICENSE.W3C2002.

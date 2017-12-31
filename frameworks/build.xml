@@ -142,6 +142,7 @@
         <antcall target="spark-test"/>
         <antcall target="advancedgrids-test"/>
         <antcall target="framework-test"/>
+        <antcall target="mx-test"/>
     </target>
 
 	<target name="flex-config" depends="playerglobal-setswfversion" description="Copy the flex/air/airmobile config templates to flex/air/airmobile-config.xml and inject version numbers">
@@ -550,6 +551,9 @@
     </target>
     <target name="framework-test" description="Tests for 'framework' project">
         <ant dir="${basedir}/projects/framework" target="test"/>
+    </target>
+    <target name="mx-test" description="Tests for the 'mx' project">
+        <ant dir="${basedir}/projects/mx" target="test"/>
     </target>
 
     <target name="experimental" description="Clean build of experimental.swc">

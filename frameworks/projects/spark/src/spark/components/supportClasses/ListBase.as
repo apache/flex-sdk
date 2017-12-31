@@ -1877,9 +1877,9 @@ public class ListBase extends SkinnableDataContainer implements IDataProviderEnh
         
         // We want to wait one frame after validation has occured before turning off 
         // selection transitions again.  We tried using dataGroup's updateComplete event listener, 
-        // but because some validateNows() occur (before all of the event handling code has finished), 
-        // this was occuring too early.  We also tried just using callLater or ENTER_FRAME, but that 
-        // occurs before the LayoutManager has run, so we add an ENTER_FRAME handler with a 
+        // but because some validateNow() calls occur (before all of the event handling code has
+        // finished), this was occurring too early.  We also tried just using callLater or ENTER_FRAME,
+        // but that occurs before the LayoutManager has run, so we add an ENTER_FRAME handler with a
         // low priority to make sure it occurs after the LayoutManager pass.
         systemManager.addEventListener(Event.ENTER_FRAME, allowSelectionTransitions_enterFrameHandler, false, -100);
     }

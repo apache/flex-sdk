@@ -500,33 +500,25 @@ public class GridHeaderViewLayout extends LayoutBase
      */
     public function getHeaderIndexAt(x:Number, y:Number):int
     {
-        return gridView.gridViewLayout.gridDimensionsView.getColumnIndexAt(x, y);
-        
-        // TODO: restore the special case handling below
-        /*
-        const gridColumnHeaderGroup:GridColumnHeaderGroup = this.gridColumnHeaderGroup;
-        const grid:Grid = this.grid;
-        const columnsView:IList = this.columnsView;
-        
-        if (!gridColumnHeaderGroup || !grid || !columnsView)
-            return -1; 
-        
-        const paddingLeft:Number = gridColumnHeaderGroup.getStyle("paddingLeft");
-        const paddedX:Number = x + paddingLeft;
-        var columnIndex:int = grid.getColumnIndexAt(paddedX, 0);
-        
-        // Special case for the stretched renderer above the vertical scrollbar
-        // TODO (klin): Rethink this case if we change how the last header looks.
-        if (columnIndex < 0)
+        var headerIndex:int = -1;
+        var globalPoint:Point = gridColumnHeaderGroup.localToGlobal(new Point(x - horizontalScrollPosition, y));
+
+        if(gridColumnHeaderGroup.areCoordinatesOverAHeaderView(globalPoint))
         {
-            const contentWidth:Number = gridColumnHeaderGroup.contentWidth;
-            const totalWidth:Number = horizontalScrollPosition + gridColumnHeaderGroup.width - gridColumnHeaderGroup.getStyle("paddingRight");
-            if (paddedX >= contentWidth && paddedX < totalWidth)
-                columnIndex = grid.getPreviousVisibleColumnIndex(columnsView.length)
+            var paddingLeftStyle:Number = gridColumnHeaderGroup.getStyle("paddingLeft");
+            var paddingLeft:Number = isNaN(paddingLeftStyle) ? 0 : paddingLeftStyle;
+
+            headerIndex = gridView.gridViewLayout.gridDimensionsView.getColumnIndexAt(x - paddingLeft, y);
+
+            if(headerIndex == -1)
+            {
+                //then the point is either over the right padding, over the width of the vertical
+                //scroll bar, or over the space between the last separator and the width of the grid
+                headerIndex = grid.getPreviousVisibleColumnIndex(columnsView.length);
+            }
         }
-        
-        return columnIndex;
-        */
+
+        return headerIndex;
     }
     
     /**
