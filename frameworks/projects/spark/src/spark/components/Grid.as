@@ -2452,7 +2452,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
                     clearSelection();
                 else
                     setSelectedIndex(rowIndex);
-            }
+            };
             deferredOperations.push(f);  // function f() to be called by commitProperties()
             invalidateProperties();
         }
@@ -4515,14 +4515,14 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
         
         if (dataProviderChanged || columnsChanged)
         {
-            
+            var selectionChanged:Boolean = false;
             // Remove the current selection and, if requireSelection, make
             // sure the selection is reset to row 0 or cell 0,0.
             if (gridSelection)
             {
                 var savedRequireSelection:Boolean = gridSelection.requireSelection;
                 gridSelection.requireSelection = false;
-                gridSelection.removeAll();
+                selectionChanged = gridSelection.removeAll();
                 gridSelection.requireSelection = savedRequireSelection;
             } 
             
@@ -4543,6 +4543,9 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
             if (!anchorChanged)
                 initializeAnchorPosition();
             
+            if(selectionChanged)
+                dispatchFlexEvent(FlexEvent.VALUE_COMMIT);
+
             dataProviderChanged = false;
             columnsChanged = false;
         }
