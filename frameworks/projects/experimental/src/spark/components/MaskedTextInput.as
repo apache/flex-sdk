@@ -498,14 +498,32 @@ package spark.components {
             }
         }
 
-        //----------------------------------
-        //  PRIVATE
-        //----------------------------------
-
+        /**
+         * Manage template rules:
+         *      # - numeric-only,
+         *      @ - alphabetic-only,
+         *      ? - any
+         * @param inputChar
+         * @param position
+         * @return the restricted character or the mask character
+         */
+        protected function restrictToMaskPattern(inputChar:String, position:int):String {
+            var maskChar:String = getMaskCharAt(position);
+            switch (maskChar) {
+                case "#":
+                    return StringUtil.restrict(inputChar, "0-9");
+                case "@":
+                    return StringUtil.restrict(inputChar, "a-zA-Z");
+                case "?":
+                    return inputChar;
+            }
+            return maskChar;
+        }
+		
         /**
          * update prompt
          */
-        private function updatePrompt():void {
+        protected function updatePrompt():void {
             var _prompt:String = "";
             var textLength:int = super.text.length;
             for (var i:int = 0; i < textLength; i++) {
@@ -524,28 +542,6 @@ package spark.components {
             }
 
             prompt = _prompt;
-        }
-
-        /**
-         * Manage template rules:
-         *      # - numeric-only,
-         *      @ - alphabetic-only,
-         *      ? - any
-         * @param inputChar
-         * @param position
-         * @return the restricted character or the mask character
-         */
-        private function restrictToMaskPattern(inputChar:String, position:int):String {
-            var maskChar:String = getMaskCharAt(position);
-            switch (maskChar) {
-                case "#":
-                    return StringUtil.restrict(inputChar, "0-9");
-                case "@":
-                    return StringUtil.restrict(inputChar, "a-zA-Z");
-                case "?":
-                    return inputChar;
-            }
-            return maskChar;
         }
 
 
