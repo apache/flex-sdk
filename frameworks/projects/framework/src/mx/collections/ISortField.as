@@ -42,7 +42,7 @@ public interface ISortField
      *  and <code>sort()</code> methods. Other uses of this property are not 
      *  supported.
      *  Returns -1 if this ISortField shouldn't be used by the <code>Sort</code>
-     *  class to sort the field (there is no compareFunction or no name). Otherwise, returns a bitmask of sort options..
+     *  class to sort the field (there is no compareFunction or no name). Otherwise, returns a bitmask of sort options.
      * 
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -77,6 +77,11 @@ public interface ISortField
      *  @productversion Flex 4.5
      */
     function get compareFunction():Function;
+
+    /**
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
+     */
     function set compareFunction(c:Function):void;
 
     /**
@@ -91,6 +96,11 @@ public interface ISortField
      *  @productversion Flex 4.5
      */
     function get descending():Boolean;
+
+    /**
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
+     */
     function set descending(value:Boolean):void;
 
     /**
@@ -102,6 +112,11 @@ public interface ISortField
      *  @productversion Flex 4.5
      */
     function get name():String;
+
+    /**
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
+     */
     function set name(n:String):void;
 
     /**
@@ -137,6 +152,11 @@ public interface ISortField
      *  @productversion Flex 4.5
      */
     function get numeric():Object;
+
+    /**
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
+     */
     function set numeric(value:Object):void;
 
 
@@ -152,6 +172,11 @@ public interface ISortField
      *  @productversion Flex 4.11
      */
     function get sortCompareType():String;
+
+    /**
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
+     */
     function set sortCompareType(value:String):void;
 
 
@@ -202,6 +227,10 @@ public interface ISortField
      *  update when the <code>ISortFields</code> are modified; call its 
      *  <code>refresh()</code> method to update the view.</p>
      *
+     *  <p>Note: a future release of Apache Flex SDK will change the signature
+     *  of this function to return a reversed clone of this SortField instance.
+     *  See FLEX-34853 for more details.</p>
+     *
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
@@ -213,6 +242,9 @@ public interface ISortField
     /**
      *  This changes the internal compare function used by the <code>SortField</code> based
      *  on the value of <code>sortCompareType</code>.
+     *
+     *  @deprecated A future release of Apache Flex SDK will remove this function in favour of
+     *  making ISortField instances immutable.
      * 
      *  @return true for successfully matched or false for failure to match the <code>sortCompareType</code>.
      * 
@@ -222,5 +254,19 @@ public interface ISortField
      *  @productversion Flex 4.11
      */
     function updateSortCompareType():Boolean;
+
+    /**
+     *  Returns true if the object has the field required by this <code>ISortField</code> instance.
+     *  In  the case of <code>ComplexSortField</code>, returns true if the object has a field with
+     *  an identical name to the first part of the <code>namePath</code>.
+     *
+     *  @return true if the object has the field required by this <code>ISortField</code> instance.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 11.8
+     *  @playerversion AIR 3.8
+     *  @productversion Flex 4.15
+     */
+    function objectHasSortField(object:Object):Boolean;
 }
 }

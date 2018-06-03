@@ -21,7 +21,6 @@
 	//  limitations under the License.
 	//
 	////////////////////////////////////////////////////////////////////////////////
-	@author Bogdan Dinu (http://www.badu.ro)
 	-->
     <containers:layout>
         <s:HorizontalLayout horizontalAlign="center" verticalAlign="middle"/>

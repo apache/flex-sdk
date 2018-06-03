@@ -28,8 +28,6 @@ import java.util.Set;
  * This class represents a set of QNames.  It includes handy methods,
  * like contains(String, String), which allow performing collection
  * operations without having to create a new QName.
- *
- * @author Clement Wong
  */
 public class QNameSet extends HashSet<QName>
 {

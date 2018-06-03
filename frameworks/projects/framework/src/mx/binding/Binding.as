@@ -426,7 +426,7 @@ public class Binding
         catch(error:Error)
         {
 			if (error is ItemPendingError) {
-	            error.addResponder(new EvalBindingResponder(this, object));
+	            (error as ItemPendingError).addResponder(new EvalBindingResponder(this, object));
 	            if (BindingManager.debugDestinationStrings[destString])
 	            {
 	                trace("Binding: destString = " + destString + ", error = " + error);
@@ -468,9 +468,9 @@ public class Binding
 
 	/**
 	 *	@private
-	 *  true iff XMLLists x and y contain the same node sequence.
+	 *  true if XMLLists x and y contain the same node sequence.
 	 */
-	private function nodeSeqEqual(x:XMLList, y:XMLList):Boolean
+	private static function nodeSeqEqual(x:XMLList, y:XMLList):Boolean
 	{
 		var n:uint = x.length();
 		if (n == y.length())

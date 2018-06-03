@@ -31,8 +31,6 @@ import flex2.compiler.util.CompilerMessage;
  * This analyzer is used to check that RemoteObject tags have
  * Arguments child tags without attributes and Method child tags with
  * a "name" attribute.
- *
- * @author Clement Wong
  */
 public class RemoteObjectAnalyzer extends AnalyzerAdapter
 {

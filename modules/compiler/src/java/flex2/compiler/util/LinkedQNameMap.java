@@ -23,8 +23,6 @@ import java.util.LinkedHashMap;
 
 /**
  * A QNameMap implementation that maintains order.
- *
- * @author Clement Wong
  */
 public class LinkedQNameMap<V extends Object> extends LinkedHashMap<QName, V>
 {

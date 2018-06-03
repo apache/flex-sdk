@@ -33,8 +33,6 @@ import java.util.Map;
  * functions, getters, setters, and variables.  None of this
  * information has been validated.  It's only intended to guide
  * downstream code generation.
- *
- * @author Paul Reilly
  * @see flex2.compiler.as3.binding.TypeAnalyzer
  */
 public class ClassInfo extends Info

@@ -54,8 +54,6 @@ import macromedia.asc.parser.Node;
 
 /**
  * This class handles processing [SkinPart] metadata.
- *
- * @author Greg Burch
  */
 class SkinPartEvaluator extends EvaluatorAdapter
 {

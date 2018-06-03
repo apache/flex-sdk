@@ -22,8 +22,6 @@ package flash.tools.debugger;
  * closely follows more that of a web worker than an actual OS Thread.
  * 
  * By default there is a default isolate object with id DEFAULT_ID.
- * @author anirudhs
- *
  */
 public interface Isolate {
 	

@@ -27,8 +27,6 @@ import flex2.compiler.Source;
  * with conflicting "inheriting" values.  Until the Flex framework
  * supports scoped styling, a style can't be inheriting and
  * non-inheriting in the same application.
- *
- * @author Paul Reilly
  */
 public class StyleConflictException extends CompilerMessage.CompilerError
 {

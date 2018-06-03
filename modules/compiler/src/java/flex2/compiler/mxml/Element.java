@@ -28,8 +28,6 @@ import java.io.StringWriter;
 
 /**
  * This is the common base class for all DOM nodes.  It is not used directly.
- *
- * @author Clement Wong
  */
 public abstract class Element extends Token
 {

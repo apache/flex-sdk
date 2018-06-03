@@ -39,8 +39,6 @@ import macromedia.asc.util.ObjectList;
  * This class handles the direct AST generation for the first pass
  * skeleton implemenation.
  *
- * @author Prakash Raghavendra
- * @author Paul Reilly
  */
 public class InterfaceGenerator extends AbstractGenerator
 {

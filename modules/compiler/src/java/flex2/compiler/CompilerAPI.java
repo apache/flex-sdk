@@ -97,7 +97,6 @@ import macromedia.asc.util.Names;
  * @see flex2.compiler.fxg.FXGCompiler
  * @see flex2.compiler.i18n.I18nCompiler
  * @see flex2.compiler.mxml.MxmlCompiler
- * @author Clement Wong
  */
 public final class CompilerAPI
 {

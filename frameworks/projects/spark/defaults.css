@@ -50,6 +50,12 @@ ButtonBar
     skinClass: ClassReference("spark.skins.spark.ButtonBarSkin");
 }
 
+BusyIndicator
+{
+	skinClass: ClassReference("spark.skins.spark.BusyIndicatorSkin");
+	rotationInterval: 30;  /* Must be multiples of 30 */
+}
+
 Callout
 {
     backgroundColor: #ffffff;

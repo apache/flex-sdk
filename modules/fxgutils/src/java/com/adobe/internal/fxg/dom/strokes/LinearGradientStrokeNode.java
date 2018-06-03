@@ -36,8 +36,6 @@ import com.adobe.internal.fxg.dom.types.SpreadMethod;
 
 /**
  * The Class LinearGradientStrokeNode.
- * 
- * @author Peter Farland
  */
 public class LinearGradientStrokeNode extends AbstractStrokeNode implements ScalableGradientNode
 {

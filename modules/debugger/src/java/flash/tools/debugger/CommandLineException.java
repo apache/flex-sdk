@@ -25,8 +25,6 @@ import java.io.IOException;
  * Represents an error that occurred while invoking a command-line
  * program.  Saves the text error message that was reported
  * by the command-line program.
- * 
- * @author mmorearty
  */
 public class CommandLineException extends IOException
 {

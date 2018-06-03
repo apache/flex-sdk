@@ -27,8 +27,6 @@ import java.awt.geom.AffineTransform;
 /**
  * This class is used to construct a Matrix object from a
  * AffineTransform object.
- *
- * @author Peter Farland
  */
 public final class MatrixBuilder
 {

@@ -36,7 +36,6 @@ import flash.swf.types.Rect;
 /**
  * Utility class that allows writing out a DefineSprite to an Output Stream
  * 
- * @author Sujata Das
  */
 public class SWFWriter
 {

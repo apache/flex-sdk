@@ -29,8 +29,6 @@ import macromedia.asc.util.Context;
 /**
  * This value object holds the information collected during the first
  * pass and is used in the second pass to generate code.
- *
- * @author Paul Reilly
  */
 public class BindableInfo extends GenerativeClassInfo
 {

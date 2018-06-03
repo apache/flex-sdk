@@ -24,7 +24,6 @@ import flash.tools.debugger.SwfInfo;
 
 /**
  * Thread-safe wrapper for flash.tools.debugger.SwfInfo
- * @author Mike Morearty
  */
 public class ThreadSafeSwfInfo extends ThreadSafeDebuggerObject implements SwfInfo {
 	

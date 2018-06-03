@@ -33,8 +33,6 @@ import flex2.compiler.config.ConfigurationInfo;
  * subcompiler configuration options are declared and
  * flex2.compiler.common.CompilerConfiguration, which is where
  * flex2.compiler.mxml.MxmlConfiguration is defined.
- *
- * @author Clement Wong
  */
 public class MxmlConfiguration
 {
@@ -48,6 +46,10 @@ public class MxmlConfiguration
     //
     // 'compiler.mxml.compatibility-version' option
     //
+	public static final int VERSION_4_16_1 = 0x04100001;
+	public static final int VERSION_4_16 = 0x04100000;
+    public static final int VERSION_4_15 = 0x040f0000;
+    public static final int VERSION_4_14_1 = 0x040e0001;
 	public static final int VERSION_4_14 = 0x040e0000;
 	public static final int VERSION_4_13 = 0x040d0000;
 	public static final int VERSION_4_12_1 = 0x040c0001;
@@ -63,10 +65,10 @@ public class MxmlConfiguration
     public static final int VERSION_3_0 = 0x03000000;
     public static final int VERSION_2_0_1 = 0x02000001;
     public static final int VERSION_2_0 = 0x02000000;
-    public static final int CURRENT_VERSION = VERSION_4_14;
+    public static final int CURRENT_VERSION = VERSION_4_16_1;
     public static final int EARLIEST_MAJOR_VERSION = 3;
     public static final int LATEST_MAJOR_VERSION = 4;
-    public static final int LATEST_MINOR_VERSION = 14;
+    public static final int LATEST_MINOR_VERSION = 16;
 
 	private int major = LATEST_MAJOR_VERSION;
 	private int minor = LATEST_MINOR_VERSION;

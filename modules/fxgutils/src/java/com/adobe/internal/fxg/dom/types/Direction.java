@@ -31,7 +31,6 @@ package com.adobe.internal.fxg.dom.types;
  *   1 = rtl
  * </pre>
  * 
- * @author Min Plunkett
  */
 public enum Direction
 {

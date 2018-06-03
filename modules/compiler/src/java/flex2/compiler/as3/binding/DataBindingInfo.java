@@ -30,8 +30,6 @@ import java.util.Set;
 /**
  * This value object is used to pass information from the
  * DataBindingFirstPassEvaluator back to DataBindingExtension.
- * 
- * @author Paul Reilly
  */
 public class DataBindingInfo
 {

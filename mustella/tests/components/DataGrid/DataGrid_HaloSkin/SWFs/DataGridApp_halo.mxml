@@ -749,20 +749,18 @@
 		var dg:DataGrid = DataGrid(event.target);
 		var dgc:DataGridColumn = dg.columns[event.columnIndex] as DataGridColumn;
 		var s:Sort = new Sort();
-		var sf:SortField = new SortField(dgc.dataField);
+
+        var numeric:Object = null;
+        if(dgc.headerText == "numeric")
+            numeric = true;
+        else if(dgc.headerText == "alpha")
+            numeric = false;
+
+		var sf:SortField = new SortField(dgc.dataField, false, !dgc.sortDescending, numeric);
 		var dp:ICollectionView = dg.dataProvider as ICollectionView;
 
 		event.preventDefault();
-		
-		sf.descending = !dgc.sortDescending;
 
-		if(dgc.headerText == "numeric")
-			sf.numeric = true;
-		else if(dgc.headerText == "alpha")
-			sf.numeric = false;
-		else
-			sf.numeric = null;
-			
 		dgc.sortDescending = sf.descending;
 		s.fields = [ sf ];
 		

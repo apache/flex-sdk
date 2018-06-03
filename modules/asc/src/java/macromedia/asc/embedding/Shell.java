@@ -26,9 +26,6 @@ import java.util.*;
 import java.lang.reflect.Method;
 import java.lang.reflect.Field;
 
-/**
- * @author Clement Wong
- */
 public class Shell
 {
 	public static void main(String[] args) throws IOException
@@ -590,7 +587,7 @@ public class Shell
 	private static void intro()
 	{
 		System.out.println("Actionscript compiler SHell (ash)");
-		System.out.println("Copyright 2014 The Apache Software Foundation");
+		System.out.println("Copyright 2017 The Apache Software Foundation");
 		System.out.println("");
 	}
 

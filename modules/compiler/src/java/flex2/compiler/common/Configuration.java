@@ -117,9 +117,6 @@ import org.xml.sax.SAXException;
  * You can force one configuration option to be set before another,
  * and avoid race conditions, by using the
  * ConfigurationInfo.getSoftPrerequisites() method.
- *
- * @author Roger Gonzalez
- * @author Gordon Smith (notes below)
  */
 public class Configuration implements LinkerConfiguration, Cloneable
 {
@@ -1170,14 +1167,43 @@ public class Configuration implements LinkerConfiguration, Cloneable
         this.useNetwork = b;
     }
 
+    //
+    // 'broker-local-connection' option
+    //
+    
+    private boolean brokerLocalConnection;
+    
+    public boolean brokerLocalConnection()
+    {
+        return brokerLocalConnection;
+    }
+    
+    public void cfgBrokerLocalConnection( ConfigurationValue cv, boolean b)
+    {
+        this.brokerLocalConnection = b;
+    }
+    
+    //
+    // 'broker-product-manager' option
+    //
+    
+    private boolean brokerProductManager;
+    
+    public boolean brokerProductManager()
+    {
+        return brokerProductManager;
+    }
+    
+    public void cfgBrokerProductManager( ConfigurationValue cv, boolean b)
+    {
+        this.brokerProductManager = b;
+    }
+    
     
 
 	/**
 	 * Capture the information in one argument specifing -runtime-shared-libraries-path
 	 * information.
-	 * 
-	 * @author dloverin
-	 * 
 	 */
 	public class RslPathInfo
 	{

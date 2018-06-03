@@ -31,8 +31,6 @@ import java.util.Map;
 
 /**
  * Options for the digest tool.
- * 
- * @author dloverin
  */
 public class DigestConfiguration 
 {

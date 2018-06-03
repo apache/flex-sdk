@@ -24,8 +24,6 @@ import java.io.StringWriter;
 /**
  * This class is used to track and report the line number during code
  * generation.
- *
- * @author Clement Wong
  */
 public final class SourceCodeBuffer extends StringWriter
 {

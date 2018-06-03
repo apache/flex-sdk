@@ -25,8 +25,6 @@ import flash.swf.ActionConstants;
 
 /**
  * Represents an AS2 "set target" byte code.
- *
- * @author Clement Wong
  */
 public class SetTarget extends Action
 {

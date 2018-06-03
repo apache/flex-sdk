@@ -597,8 +597,8 @@ public class VectorList extends EventDispatcher
     }
     
     /**
-     *  Called whenever any of the contained items in the list fire an
-     *  ObjectChange event.  
+     *  Called whenever any of the contained items in the list fires a
+     *  <code>PropertyChangeEvent</code>.
      *  Wraps it in a CollectionEventKind.UPDATE.
      */    
     protected function itemUpdateHandler(event:PropertyChangeEvent):void

@@ -53,7 +53,6 @@ import flex2.tools.oem.Report;
  * A Report implementation.
  * 
  * @version 2.0.1
- * @author Clement Wong
  */
 public class OEMReport implements Report
 {

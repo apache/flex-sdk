@@ -782,7 +782,29 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     {
         return (_visibleSortIndicatorIndices.indexOf(columnIndex) != -1);
     }
-    
+
+    /**
+     *  True if either of this GridColumnHeaderGroup's views contains the global
+     *  coordinates in the event, or if they fall over this component's padding.
+     */
+    public function containsMouseEvent(event:MouseEvent):Boolean
+    {
+        return containsGlobalCoordinates(new Point(event.stageX, event.stageY));
+    }
+
+    public function containsGlobalCoordinates(coordinates:Point):Boolean
+    {
+        var globalPosition:Point = localToGlobal(new Point(getLayoutBoundsX(), getLayoutBoundsY()));
+        var bounds:Rectangle = new Rectangle(globalPosition.x, globalPosition.y, getLayoutBoundsWidth(), getLayoutBoundsHeight());
+
+        return bounds.containsPoint(coordinates);
+    }
+
+    public function areCoordinatesOverAHeaderView(coordinates:Point):Boolean
+    {
+        return getHeaderViewUnderGlobalCoordinates(coordinates) != null;
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Methods 
@@ -804,28 +826,28 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
 	 */
 	public function configureGridColumnHeaderViews():void
 	{
-        const ghl:GridHeaderLayout = layout as GridHeaderLayout;
-        if (!ghl)
+        const headerLayout:GridHeaderLayout = layout as GridHeaderLayout;
+        if (!headerLayout)
             return;
         
-		if (ghl.centerGridColumnHeaderView == null)
-			ghl.centerGridColumnHeaderView = createGridColumnHeaderView();
+		if (headerLayout.centerGridColumnHeaderView == null)
+			headerLayout.centerGridColumnHeaderView = createGridColumnHeaderView();
 		
 		if (dataGrid.lockedColumnCount > 0)
 		{
-			ghl.leftGridColumnHeaderView = createGridColumnHeaderView();
+			headerLayout.leftGridColumnHeaderView = createGridColumnHeaderView();
 		}
-		else if (ghl.leftGridColumnHeaderView)
+		else if (headerLayout.leftGridColumnHeaderView)
 		{
-			removeElement(ghl.leftGridColumnHeaderView);
-			ghl.leftGridColumnHeaderView = null;
+			removeElement(headerLayout.leftGridColumnHeaderView);
+			headerLayout.leftGridColumnHeaderView = null;
 		}
 		
 		const gridLayout:GridLayout = dataGrid.grid.layout as GridLayout;
 
-		GridHeaderViewLayout(ghl.centerGridColumnHeaderView.layout).gridView = gridLayout.centerGridView;
-		if (ghl.leftGridColumnHeaderView)
-			GridHeaderViewLayout(ghl.leftGridColumnHeaderView.layout).gridView = gridLayout.leftGridView;
+		GridHeaderViewLayout(headerLayout.centerGridColumnHeaderView.layout).gridView = gridLayout.centerGridView;
+		if (headerLayout.leftGridColumnHeaderView)
+			GridHeaderViewLayout(headerLayout.leftGridColumnHeaderView.layout).gridView = gridLayout.leftGridView;
 	}
 	
 	/**
@@ -850,7 +872,6 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
      */
     public function getHeaderIndexAt(x:Number, y:Number):int
     {
-        // TODO: fix this: x coordinate has to be adjusted
 		const view:Group = getColumnHeaderViewAtX(x);
         return GridHeaderViewLayout(view.layout).getHeaderIndexAt(x, y);
     }
@@ -1000,16 +1021,16 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
 	 *  comparison is based strictly on the event's location and the GridViews' bounds.
 	 *  The event's target can be anything.
 	 */
-	private function mouseEventHeaderView(event:MouseEvent):GridColumnHeaderView
+	private function getHeaderViewUnderGlobalCoordinates(globalCoordinates:Point):GridColumnHeaderView
 	{
 		const ghl:GridHeaderLayout = layout as GridHeaderLayout;
 
-		const centerGridColumnHeaderView:GridColumnHeaderView = GridColumnHeaderView(ghl.centerGridColumnHeaderView)
-		if (centerGridColumnHeaderView && centerGridColumnHeaderView.containsMouseEvent(event))
+		const centerGridColumnHeaderView:GridColumnHeaderView = GridColumnHeaderView(ghl.centerGridColumnHeaderView);
+		if (centerGridColumnHeaderView && centerGridColumnHeaderView.containsGlobalPoint(globalCoordinates))
 			return centerGridColumnHeaderView;
 		
 		const leftGridColumnHeaderView:GridColumnHeaderView = GridColumnHeaderView(ghl.leftGridColumnHeaderView);
-		if (leftGridColumnHeaderView && leftGridColumnHeaderView.containsMouseEvent(event))
+		if (leftGridColumnHeaderView && leftGridColumnHeaderView.containsGlobalPoint(globalCoordinates))
 			return leftGridColumnHeaderView;
 		
 		return null;
@@ -1018,18 +1039,18 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
     // TODO: apologize for stashing the separatorIndex in headerCP.rowIndex
     private function eventToHeaderLocations(event:MouseEvent, headerCP:CellPosition, headerXY:Point):Boolean
     {
-        const view:Group = mouseEventHeaderView(event);
+        const stageXY:Point = new Point(event.stageX, event.stageY);
+        const view:Group = getHeaderViewUnderGlobalCoordinates(stageXY);
         if (!view)
             return false;
 
-		const stageXY:Point = new Point(event.stageX, event.stageY);
         const viewXY:Point = view.globalToLocal(stageXY);
         const viewLayout:GridHeaderViewLayout = view.layout as GridHeaderViewLayout;
         const gdv:GridDimensionsView = viewLayout.gridView.gridViewLayout.gridDimensionsView;
         const separatorIndex:int = viewLayout.getSeparatorIndexAt(viewXY.x, 0);
         
         headerCP.rowIndex = (separatorIndex != -1) ? separatorIndex + gdv.viewColumnIndex : -1;
-        headerCP.columnIndex = (separatorIndex == -1) ? viewLayout.getHeaderIndexAt(viewXY.x, 0) + gdv.viewColumnIndex : -1;
+        headerCP.columnIndex = (separatorIndex == -1) ? viewLayout.getHeaderIndexAt(viewXY.x, viewXY.y) + gdv.viewColumnIndex : -1;
         
         headerXY.x = viewXY.x + gdv.viewOriginX;
         headerXY.y = viewXY.y;
@@ -1109,7 +1130,9 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
         }
         
         const columnIndex:int = (pressSeparatorIndex != -1) ? pressSeparatorIndex : eventColumnIndex;
-        dispatchGridEvent(event, gridEventType, eventHeaderXY, columnIndex);
+	if (columnIndex != -1) {
+        	dispatchGridEvent(event, gridEventType, eventHeaderXY, columnIndex);
+	}
     }
     
     /**

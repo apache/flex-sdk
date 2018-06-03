@@ -35,8 +35,6 @@ import flex2.compiler.common.Configuration;
 /**
  * Defines the API for extensions, which run before each PreLink run.
  * PreLink's run can be executed multiple times.
- *
- * @author Andrew Westberg
  */
 public interface IPreLinkExtension
     extends IExtension

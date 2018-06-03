@@ -30,8 +30,6 @@ import java.util.List;
  * (based on the identity, styleName (class) or state (pseudo-element)
  * of a component), or descendant (based on the position in the
  * display list).
- *
- * @author Pete Farland
  */
 public class StyleSelector
 {

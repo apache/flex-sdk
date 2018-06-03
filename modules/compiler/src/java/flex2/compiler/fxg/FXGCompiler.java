@@ -82,7 +82,6 @@ import flex2.compiler.util.ThreadLocalToolkit;
  * instantiate instances of RichText and link them to a DefineSprite in the
  * appropriate location in the SWF primitive display list.
  * </p>
- * @author Pete Farland
  */
 public class FXGCompiler extends AbstractSubCompiler
 {

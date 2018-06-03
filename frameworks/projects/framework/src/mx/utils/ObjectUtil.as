@@ -61,7 +61,7 @@ public class ObjectUtil
 
     /**
      *  Compares the Objects and returns an integer value 
-     *  indicating if the first item is less than greater than or equal to
+     *  indicating if the first item is less than, greater than, or equal to
      *  the second item.
      *  This method will recursively compare properties on nested objects and
      *  will return as soon as a non-zero result is found.
@@ -88,7 +88,7 @@ public class ObjectUtil
      *  In this case the <code>info</code> property will be turned into a string
      *  when performing the comparison.</p>
      *
-     *  @return Return 0 if a and b are null, NaN, or equal. 
+     *  @return Return 0 if a and b are equal, or both null or NaN.
      *  Return 1 if a is null or greater than b. 
      *  Return -1 if b is null or greater than a. 
      *  
@@ -204,8 +204,8 @@ public class ObjectUtil
      */
     public static function isSimple(value:Object):Boolean
     {
-        var type:String = typeof(value);
-        switch (type)
+        var objectType:String = typeof(value);
+        switch (objectType)
         {
             case "number":
             case "string":
@@ -394,7 +394,7 @@ public class ObjectUtil
      *   (somepackage::MyCustomClass)#0
      *      clazz = (Date)</pre>
      *
-     *  @param obj Object to be pretty printed.
+     *  @param value Object to be pretty printed.
      * 
      *  @param namespaceURIs Array of namespace URIs for properties 
      *  that should be included in the output.
@@ -567,8 +567,8 @@ public class ObjectUtil
                                              exclude:Array = null):String
     {
         var str:String;
-        var type:String = value == null ? "null" : typeof(value);
-        switch (type)
+        var objectType:String = value == null ? "null" : typeof(value);
+        switch (objectType)
         {
             case "boolean":
             case "number":
@@ -710,7 +710,7 @@ public class ObjectUtil
 
             default:
             {
-                return "(" + type + ")";
+                return "(" + objectType + ")";
             }
         }
         
@@ -791,7 +791,7 @@ public class ObjectUtil
                     if (aRef == bRef)
                         return 0;
                     // the cool thing about our dictionary is that if 
-                    // we've seen objects and determined that they are inequal, then 
+                    // we've seen objects and determined that they are unequal, then
                     // we would've already exited out of this compare() call.  So the 
                     // only info in the dictionary are sets of equal items
                     
@@ -831,10 +831,10 @@ public class ObjectUtil
                         
                         // if the objects are dynamic they could have different 
                         // # of properties and should be treated on that basis first
-                        var isDynamicObject:Boolean = isDynamicObject(a);
+                        var isObjectDynamic:Boolean = isDynamicObject(a);
                         
                         // if it's dynamic, check to see that they have all the same properties
-                        if (isDynamicObject)
+                        if (isObjectDynamic)
                         {
                             bProps = getClassInfo(b).properties;
                             result = arrayCompare(aProps, bProps, currentDepth, newDepth, refs);
@@ -860,7 +860,7 @@ public class ObjectUtil
                     }
                     else
                     {
-                        // We must be inequal, so return 1
+                        // We must be unequal, so return 1
                         return 1;
                     }
                     break;
@@ -881,7 +881,7 @@ public class ObjectUtil
      *
      *  @param obj The Object to inspect.
      *
-     *  @param exclude Array of Strings specifying the property names that should be 
+     *  @param excludes Array of Strings specifying the property names that should be
      *  excluded from the returned result. For example, you could specify 
      *  <code>["currentTarget", "target"]</code> for an Event object since these properties 
      *  can cause the returned result to become large.
@@ -938,7 +938,7 @@ public class ObjectUtil
         var classAlias:String;
         var properties:XMLList;
         var prop:XML;
-        var dynamic:Boolean = false;
+        var isDynamic:Boolean = false;
         var metadataInfo:Object;
 
         if (typeof(obj) == "xml")
@@ -954,7 +954,7 @@ public class ObjectUtil
             var classInfo:XML = DescribeTypeCache.describeType(obj).typeDescription;
             className = classInfo.@name.toString();
             classAlias = classInfo.@alias.toString();
-            dynamic = (classInfo.@isDynamic.toString() == "true");
+            isDynamic = classInfo.@isDynamic.toString() == "true";
 
             if (options.includeReadOnly)
                 properties = classInfo..accessor.(@access != "writeonly") + classInfo..variable;
@@ -965,7 +965,7 @@ public class ObjectUtil
         }
 
         // If type is not dynamic, check our cache for class info...
-        if (!dynamic)
+        if (!isDynamic)
         {
             cacheKey = getCacheKey(obj, excludes, options);
             result = CLASS_INFO_CACHE[cacheKey];
@@ -977,7 +977,7 @@ public class ObjectUtil
         result["name"] = className;
         result["alias"] = classAlias;
         result["properties"] = propertyNames;
-        result["dynamic"] = dynamic;
+        result["dynamic"] = isDynamic;
         result["metadata"] = metadataInfo = recordMetadata(properties);
         
         var excludeObject:Object = {};
@@ -1003,7 +1003,7 @@ public class ObjectUtil
                 propertyNames.push(key);
             }
         }
-        else if (dynamic)
+        else if (isDynamic)
         {
             for (var p:String in obj)
             {
@@ -1110,12 +1110,11 @@ public class ObjectUtil
             }
         }
 
-        propertyNames.sort(Array.CASEINSENSITIVE |
-                           (numericIndex ? Array.NUMERIC : 0));
+        propertyNames.sort(Array.CASEINSENSITIVE | (numericIndex ? Array.NUMERIC : 0));
 
         // dictionary keys can be indexed by an object reference
         // there's a possibility that two keys will have the same toString()
-        // so we don't want to remove dupes
+        // so we don't want to remove duplicates
         if (!isDict)
         {
             // for Arrays, etc., on the other hand...
@@ -1134,7 +1133,7 @@ public class ObjectUtil
 
         // For normal, non-dynamic classes we cache the class info
 		// Don't cache XML as it can be dynamic
-        if (!dynamic && className != "XML")
+        if (!isDynamic && className != "XML")
         {
             cacheKey = getCacheKey(obj, excludes, options);
             CLASS_INFO_CACHE[cacheKey] = result;
@@ -1174,7 +1173,7 @@ public class ObjectUtil
     /**
      *  Returns <code>true</code> if the object is an instance of a dynamic class.
      *
-     *  @param obj The object.
+     *  @param object The object.
      *
      *  @return <code>true</code> if the object is an instance of a dynamic class.
      *  
@@ -1183,23 +1182,159 @@ public class ObjectUtil
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public static function isDynamicObject(obj:Object):Boolean
+    public static function isDynamicObject(object:Object):Boolean
     {
         try
         {
             // this test for checking whether an object is dynamic or not is 
             // pretty hacky, but it assumes that no-one actually has a 
             // property defined called "wootHackwoot"
-            obj["wootHackwoot"];
+            object["wootHackwoot"];
         }
         catch (e:Error)
         {
-            // our object isn't from a dynamic class
+            // our object isn't an instance of a dynamic class
             return false;
         }
         return true;
     }
-    
+
+    /**
+     *  Returns all the properties defined dynamically on an object.
+     *
+     *  @param object The object to inspect.
+     *
+     *  @return an <code>Array</code> of the enumerable properties of the object.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function getEnumerableProperties(object:Object):Array
+    {
+        var result:Array = [];
+
+        if(!isDynamicObject(object))
+            return result;
+
+        for (var property:Object in object)
+            result.push(property);
+
+        return result;
+    }
+
+
+    /**
+     *  Verifies if the first object is dynamic and is a subset of the second object.
+     *
+     *  @param values The values which need to be shared by <code>object</code>
+     *  @param object The object to verify against.
+     *
+     *  @return true if and only if the objects are the same, or if <code>values</code>
+     *  is dynamic and <code>object</code> shares all its properties and values.
+     *  (Even if <code>object</code> contains other properties and values, we still
+     *  consider it a match).
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function valuesAreSubsetOfObject(values:Object, object:Object):Boolean
+    {
+        if(!object && !values)
+            return true;
+
+        if(!object || !values)
+            return false;
+
+        if(object === values)
+            return true;
+
+        var enumerableProperties:Array = ObjectUtil.getEnumerableProperties(values);
+        var matches:Boolean = enumerableProperties.length > 0 || ObjectUtil.isDynamicObject(values);
+
+        for each(var property:String in enumerableProperties)
+        {
+            if (!object.hasOwnProperty(property) || object[property] != values[property])
+            {
+                matches = false;
+                break;
+            }
+        }
+
+        return matches;
+    }
+
+    /**
+     *  Returns the value at the end of the property chain <code>path</code>.
+     *  If the value cannot be reached due to null links on the chain,
+     *  <code>undefined</code> is returned.
+     *
+     *  @param obj The object at the beginning of the property chain
+     *  @param path The path to inspect (e.g. "address.street")
+     *
+     *  @return the value at the end of the property chain, <code>undefined</code>
+     *  if it cannot be reached, or the object itself when <code>path</code> is empty.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function getValue(obj:Object, path:Array):*
+    {
+        if(!obj)
+            return undefined;
+
+        if(!path || !path.length)
+            return obj;
+
+        var result:* = obj;
+        var i:int = -1;
+        while(++i < path.length && result)
+            result = result.hasOwnProperty(path[i]) ? result[path[i]] : undefined;
+
+        return result;
+    }
+
+
+    /**
+     *  Sets a new value at the end of the property chain <code>path</code>.
+     *  If the value cannot be reached due to null links on the chain,
+     *  <code>false</code> is returned.
+     *
+     *  @param obj The object at the beginning of the property chain
+     *  @param path The path to traverse (e.g. "address.street")
+     *  @param newValue The value to set (e.g. "Fleet Street")
+     *
+     *  @return <code>true</code> if the value is successfully set,
+     *  <code>false</code> otherwise. Note that the function does not
+     *  use a try/catch block. You can implement one in the calling
+     *  function if there's a risk of type mismatch or other errors during
+     *  the assignment.
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 9
+     *  @playerversion AIR 1.1
+     *  @productversion Flex 3
+     */
+    public static function setValue(obj:Object, path:Array, newValue:*):Boolean
+    {
+        if(!obj || !path || !path.length)
+            return false;
+
+        var secondToLastLink:* = getValue(obj, path.slice(0, -1));
+        if(secondToLastLink && secondToLastLink.hasOwnProperty(path[path.length - 1]))
+        {
+            secondToLastLink[path[path.length - 1]] = newValue;
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      *  @private
      */

@@ -29,9 +29,6 @@ import macromedia.asc.semantics.MetaData;
 
 import java.util.*;
 
-/**
- * @author Clement Wong
- */
 public class ContextStatics
 {
 	// HACK: Flex hack -- setting this to false removes the "[Compiler] Error#..." header from error output.

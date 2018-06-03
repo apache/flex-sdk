@@ -34,8 +34,6 @@ import macromedia.asc.util.Context;
 /**
  * This base class all the common data and logic of the two direct AST
  * generators.
- *
- * @author Paul Reilly
  */
 public abstract class AbstractGenerator
 {

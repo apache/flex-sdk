@@ -22,8 +22,6 @@ package flex2.compiler.as3.binding;
 /**
  * This value object is used by Watcher to store a change event's name
  * and whether it's committing as a pair.
- *
- * @author Paul Reilly
  * @see flex2.compiler.as3.binding.Watcher
  */
 public class ChangeEvent

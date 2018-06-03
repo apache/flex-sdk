@@ -23,9 +23,6 @@ package spark.events
 // for asdoc
 [Experimental]
 
-/**
-	 * @author Bogdan Dinu (http://www.badu.ro)
-	 */
 	public class ColorChangeEvent extends Event
 	{
 		public static const CHOOSE:String = "choose";

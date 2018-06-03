@@ -31,8 +31,6 @@ import flex2.compiler.io.VirtualFile;
 /**
  * Provides a bridge between mxmlc's SinglePathResolver and fxgutils'
  * FXGResourceResolver.
- *
- * @author Pete Farland
  */
 public class FlexResourceResolver implements FXGResourceResolver
 {

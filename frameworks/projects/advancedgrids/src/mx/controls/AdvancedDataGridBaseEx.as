@@ -2798,7 +2798,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
      */
     override public function itemToLabel(data:Object):String
     {
-        return displayableColumns[sortIndex == -1 ? 0 : sortIndex].itemToLabel(data);
+        var column:AdvancedDataGridColumn = displayableColumns[sortIndex == -1 ? 0 : sortIndex];
+        return column ? column.itemToLabel(data) : "";
     }
 
     //--------------------------------------------------------------------------
@@ -2866,7 +2867,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 
         var n:int = headerInfos ? headerInfos.length : 0;
         var i:int;
-        var k:int= 0;;
+        var k:int= 0;
         
         for ( i = 0; i < n; i++)
         {
@@ -2902,18 +2903,17 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
     /**
      *  @private
 	 * 
-	 * Note columns may not of been committed at this point.
+	 * Note columns may not have been committed at this point.
      */
     protected function initializeHeaderInfo(columns:Array):Array
     {
-        var newArray:Array = [];
+        var result:Array = [];
         var n:int = columns.length;
         for(var i:int = 0; i < n; i++)
         {
-            var headerInfo:AdvancedDataGridHeaderInfo = new AdvancedDataGridHeaderInfo(columns[i],null,i, 0) ;
-            newArray.push(headerInfo);
+            result.push(new AdvancedDataGridHeaderInfo(columns[i], null, i, 0));
         }
-        return newArray;
+        return result;
     }
 	
 	/**
@@ -5015,8 +5015,6 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             actualRowIndex = rowIndex;
         }
 
-        var bm:EdgeMetrics = borderMetrics;
-
         var len:uint = /*(headerItems && headerItems[0]) ? headerItems[0].length :*/ visibleColumns.length;
         var lastColIndex:int = horizontalScrollPosition + len - 1;
 
@@ -5072,7 +5070,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         {
             var evt:ListEvent = new ListEvent(ListEvent.CHANGE);
             evt.columnIndex = coord.columnIndex;
-            evt.rowIndex = coord.rowIndex;;
+            evt.rowIndex = coord.rowIndex;
             evt.itemRenderer = item;
             dispatchEvent(evt);
         }
@@ -6133,13 +6131,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         }
 
         column.sortDescending = desc;
-        var field:ISortField = new SortField(columnName);
-        field.sortCompareType = column.sortCompareType;
-        field.descending = desc;
-        
-        if (column.sortCompareFunction != null)
-            field.compareFunction = column.sortCompareFunction;
-		
+        var field:ISortField = new SortField(columnName, false, desc, null, column.sortCompareType, column.sortCompareFunction);
+
 		fields = collection.sort.fields;
 		if (fields == null)
 			fields = [];
@@ -6892,17 +6885,17 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
      *  @private
      *  Catches any events from the model. Optimized for editing one item.
      *  Creates columns when there are none. Inherited from list.
-     *  @param eventObj
+     *  @param event
      */
     override protected function collectionChangeHandler(event:Event):void
     {
-        //if the iterator is null that indicates we havent been validated yet so we'll bail. 
+        //if the iterator is null that indicates we haven't been validated yet so we'll bail.
         if (iterator == null)
             return;
 
         if (event is CollectionEvent)
         {
-            var ceEvent:CollectionEvent = CollectionEvent(event)
+            var ceEvent:CollectionEvent = CollectionEvent(event);
             if (ceEvent.kind == CollectionEventKind.mx_internal::EXPAND)
             {
                 //we ignore expand in list/tree
@@ -6913,7 +6906,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                 //this prevents listbase from invalidating the displaylist too early. 
                 event.stopPropagation();
                 //we only want to update the displaylist if an updated item was visible
-                //but dont have a sufficient test for that yet
+                //but don't have a sufficient test for that yet
                 itemsSizeChanged = true;
                 invalidateDisplayList();
             }
@@ -7296,7 +7289,6 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 
         var advancedDataGridEvent:AdvancedDataGridEvent;
         var r:IListItemRenderer;
-        var s:Sprite;
         var n:int;
         var i:int;
         var pos:Point;
@@ -8150,8 +8142,6 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
     {
         var columnName:String = event.dataField;
         var columnNumber:int  = event.columnIndex;
-        var sortFields:Array;
-        var sort:ISort;
 
         if (!sortableColumns || !_columns[columnNumber].sortable)
             return;

@@ -44,8 +44,6 @@ import org.apache.flex.forks.velocity.VelocityContext;
  * subclassing them and adding IBorder, IFlexAsset, and
  * IFlexDisplayObject implementations as necessary.  This makes it
  * easier to bring the skin into a Flex application.
- *
- * @author Paul Reilly
  */
 public class SkinTranscoder extends AbstractTranscoder
 {

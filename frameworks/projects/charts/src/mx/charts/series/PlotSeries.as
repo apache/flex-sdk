@@ -204,6 +204,9 @@ public class PlotSeries extends Series
         _instanceCache.creationCallback = applyItemRendererProperties;
         
         dataTransform = new CartesianTransform();
+
+        // our style settings
+        initStyles();
     }
     
 
@@ -632,18 +635,26 @@ public class PlotSeries extends Series
 	/**
      *  @private
      */
-    private function initStyles():Boolean
+    private function initStyles():void
     {
         HaloDefaults.init(styleManager);
 		
 		var plotSeriesStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.series.PlotSeries");
+
+
 		if (plotSeriesStyle)
 		{
 			plotSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.DiamondItemRenderer));
 			plotSeriesStyle.setStyle("fill", new SolidColor(0x4444AA));
 			plotSeriesStyle.setStyle("fills", []);
-		}		
-        return true;
+		}
+        else
+        {
+            //Fallback to set the style to this chart directly.
+			setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.DiamondItemRenderer));
+			setStyle("fill", new SolidColor(0x4444AA));
+			setStyle("fills", []);
+        }
     }
 
     
@@ -663,9 +674,6 @@ public class PlotSeries extends Series
             return;
         
         _moduleFactoryInitialized[factory] = true;
-        
-        // our style settings
-        initStyles();
     }
     
     /**

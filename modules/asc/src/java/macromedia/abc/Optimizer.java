@@ -25,9 +25,6 @@ import macromedia.asc.util.ObjectList;
 import java.io.IOException;
 import java.io.FileOutputStream;
 
-/**
- * @author Erik Tierney
- */
 public class Optimizer
 {
     public static void main(String[] args)

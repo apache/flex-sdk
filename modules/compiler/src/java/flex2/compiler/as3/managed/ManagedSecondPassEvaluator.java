@@ -44,8 +44,6 @@ import java.util.Map;
  * variables, with getter/setter pairs, which logic to enable data
  * services.  See the functions, getProperty() and setProperty(), in
  * the ActionScript class, mx.data.utils.Managed, for more info.
- *
- * @author Paul Reilly
  */
 public class ManagedSecondPassEvaluator extends GenerativeSecondPassEvaluator
 {

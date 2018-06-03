@@ -26,8 +26,6 @@ import flash.localization.LocalizationManager;
 /**
  * A partial Logger implemenation, which adds some localization
  * related functionality.
- *
- * @author Roger Gonzalez
  */
 public abstract class AbstractLogger implements Logger
 {

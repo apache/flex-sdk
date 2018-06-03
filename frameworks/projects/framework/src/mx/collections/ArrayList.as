@@ -22,7 +22,6 @@ package mx.collections
  
 import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
-import flash.system.ApplicationDomain;
 import flash.utils.IDataInput;
 import flash.utils.IDataOutput;
 import flash.utils.IExternalizable;
@@ -410,14 +409,26 @@ public class ArrayList extends EventDispatcher
      */
     public function addItemAt(item:Object, index:int):void
     {
-        if (index < 0 || index > length) 
+        const spliceUpperBound:int = length;
+
+        if (index < spliceUpperBound && index > 0)
+        {
+            source.splice(index, 0, item);
+        }
+        else if (index == spliceUpperBound)
+        {
+            source.push(item);
+        }
+        else if (index == 0)
+        {
+            source.unshift(item);
+        }
+        else
         {
             var message:String = resourceManager.getString(
                 "collections", "outOfBounds", [ index ]);
             throw new RangeError(message);
         }
-            
-        source.splice(index, 0, item);
 
         startTrackUpdates(item);
         internalDispatchEvent(CollectionEventKind.ADD, item, index);
@@ -526,14 +537,28 @@ public class ArrayList extends EventDispatcher
      */
     public function removeItemAt(index:int):Object
     {
-        if (index < 0 || index >= length)
+        const spliceUpperBound:int = length - 1;
+        var removed:Object;
+
+        if (index > 0 && index < spliceUpperBound)
+        {
+            removed = source.splice(index, 1)[0];
+        }
+        else if (index == spliceUpperBound)
+        {
+            removed = source.pop();
+        }
+        else if (index == 0)
+        {
+            removed = source.shift();
+        }
+        else
         {
             var message:String = resourceManager.getString(
                 "collections", "outOfBounds", [ index ]);
             throw new RangeError(message);
         }
 
-        var removed:Object = source.splice(index, 1)[0];
         stopTrackUpdates(removed);
         internalDispatchEvent(CollectionEventKind.REMOVE, removed, index);
         return removed;
@@ -595,8 +620,7 @@ public class ArrayList extends EventDispatcher
                                  oldValue:Object = null, 
                                  newValue:Object = null):void
     {
-        var event:PropertyChangeEvent =
-            new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
+        var event:PropertyChangeEvent = new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
         
         event.kind = PropertyChangeEventKind.UPDATE;
         event.source = item;
@@ -604,7 +628,13 @@ public class ArrayList extends EventDispatcher
         event.oldValue = oldValue;
         event.newValue = newValue;
         
-        itemUpdateHandler(event);        
+        if(!property)
+        {
+            stopTrackUpdates(oldValue);
+            startTrackUpdates(newValue);
+        }
+
+        itemUpdateHandler(event);
     }    
     
     /**
@@ -628,7 +658,7 @@ public class ArrayList extends EventDispatcher
     }
     
     /**
-     *  Ensures that only the source property is seralized.
+     *  Ensures that only the source property is serialized.
      *  @private
      */
     public function readExternal(input:IDataInput):void
@@ -717,10 +747,10 @@ public class ArrayList extends EventDispatcher
         {
             if (hasEventListener(CollectionEvent.COLLECTION_CHANGE))
             {
-                var event:CollectionEvent =
-                    new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+                var event:CollectionEvent = new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
                 event.kind = kind;
-                event.items.push(item);
+				if(kind != CollectionEventKind.RESET && kind != CollectionEventKind.REFRESH)
+				    event.items.push(item);
                 event.location = location;
                 dispatchEvent(event);
             }
@@ -729,8 +759,7 @@ public class ArrayList extends EventDispatcher
             if (hasEventListener(PropertyChangeEvent.PROPERTY_CHANGE) && 
                (kind == CollectionEventKind.ADD || kind == CollectionEventKind.REMOVE))
             {
-                var objEvent:PropertyChangeEvent =
-                    new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
+                var objEvent:PropertyChangeEvent = new PropertyChangeEvent(PropertyChangeEvent.PROPERTY_CHANGE);
                 objEvent.property = location;
                 if (kind == CollectionEventKind.ADD)
                     objEvent.newValue = item;
@@ -742,11 +771,11 @@ public class ArrayList extends EventDispatcher
     }
     
     /**
-     *  Called when any of the contained items in the list dispatch an
-     *  ObjectChange event.  
+     *  Called when any of the contained items in the list dispatches a
+     *  <code>PropertyChangeEvent</code>.
      *  Wraps it in a <code>CollectionEventKind.UPDATE</code> object.
      *
-     *  @param event The event object for the ObjectChange event.
+     *  @param event The event object for the <code>PropertyChangeEvent</code>.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -782,9 +811,7 @@ public class ArrayList extends EventDispatcher
     {
         if (item && (item is IEventDispatcher))
         {
-            IEventDispatcher(item).addEventListener(
-                                        PropertyChangeEvent.PROPERTY_CHANGE, 
-                                        itemUpdateHandler, false, 0, true);
+            IEventDispatcher(item).addEventListener(PropertyChangeEvent.PROPERTY_CHANGE, itemUpdateHandler, false, 0, true);
         }
     }
     
@@ -805,12 +832,8 @@ public class ArrayList extends EventDispatcher
     {
         if (item && item is IEventDispatcher)
         {
-            IEventDispatcher(item).removeEventListener(
-                                        PropertyChangeEvent.PROPERTY_CHANGE, 
-                                        itemUpdateHandler);    
+            IEventDispatcher(item).removeEventListener(PropertyChangeEvent.PROPERTY_CHANGE, itemUpdateHandler);
         }
     }
-    
 }
-
 }

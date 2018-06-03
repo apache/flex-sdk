@@ -33,8 +33,6 @@ import java.util.*;
  * Represents one SWF frame.  Each frame runs its initActions,
  * doActions, and control tags in a specific order, so we group them
  * this way while forming the movie.
- *
- * @author Edwin Smith
  */
 public class Frame
 {

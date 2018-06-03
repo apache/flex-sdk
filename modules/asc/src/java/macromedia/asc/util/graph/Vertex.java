@@ -21,9 +21,6 @@ package macromedia.asc.util.graph;
 
 import java.util.*;
 
-/**
- * @author Clement Wong
- */
 public final class Vertex <W>
 {
 	private static final int INITIAL_CAPACITY = 5;

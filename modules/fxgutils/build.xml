@@ -56,8 +56,8 @@
     <target name="jar" depends="compile" description="compile and create fxgutils.jar">
         <mkdir dir="${lib.dir}" />
 		<mkdir dir="${module.classes}/META-INF"/>
-        <copy file="${FLEX_HOME}/LICENSE" todir="${module.classes}/META-INF"/>
-        <copy file="${FLEX_HOME}/NOTICE" todir="${module.classes}/META-INF"/>
+        <copy file="${FLEX_HOME}/licenseParts/LICENSE.base" tofile="${module.classes}/META-INF/LICENSE"/>
+        <copy file="${FLEX_HOME}/licenseParts/NOTICE.base" tofile="${module.classes}/META-INF/NOTICE"/>
         
 		<echo message="Building lib/fxgutils.jar"/>
         <jar file="${lib.dir}/fxgutils.jar" basedir="${module.classes}" includes="**/*">

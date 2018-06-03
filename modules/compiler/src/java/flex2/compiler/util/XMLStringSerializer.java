@@ -447,10 +447,6 @@ class UTF8Encoder {
  *
  * Accordingly, this stack is implemented as a single array, will null
  * values used to indicate frame boundaries.
- *
- * @author James Snell
- * @author Glen Daniels (gdaniels@apache.org)
- * @author Sam Ruby (rubys@us.ibm.com)
  */
 class NSStack {
 

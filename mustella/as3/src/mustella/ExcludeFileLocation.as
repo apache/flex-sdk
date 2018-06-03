@@ -123,8 +123,6 @@ public class ExcludeFileLocation
 
 		triedBrowser = true;
 
-		var currentOS:String = Capabilities.os;
-
 		var useFile:String = "http://localhost/" + excludeFile;
 
 		trace ("try excludes from here: " + useFile);
@@ -169,8 +167,6 @@ public class ExcludeFileLocation
 
 		trace ("excludes loadTryFile " + new Date().toString());
 
-		var currentOS:String = Capabilities.os;
-
 		var useFile:String;
 
 		useFile = mustellaTestDir +"/" + excludeFile;
@@ -212,7 +208,7 @@ public class ExcludeFileLocation
 		delimiter = new RegExp("\n", "g");
 		data = data.replace(delimiter, ",");
 
-		UnitTester.excludeList = new Object();
+		UnitTester.excludeList = {};
 		var items:Array = data.split(",");
 		var n:int = items.length;
 		for (var i:int = 0; i < n; i++)
@@ -220,7 +216,6 @@ public class ExcludeFileLocation
 			var s:String = items[i];
 			if (s.length)
 				UnitTester.excludeList[s] = 1;
-
 		}
 		
 		UnitTester.waitForExcludes = false;

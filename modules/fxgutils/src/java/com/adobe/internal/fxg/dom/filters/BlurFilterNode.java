@@ -24,9 +24,6 @@ import static com.adobe.fxg.FXGConstants.*;
 import com.adobe.fxg.FXGException;
 import com.adobe.internal.fxg.dom.DOMParserHelper;
 
-/**
- * @author Peter Farland
- */
 public class BlurFilterNode extends AbstractFilterNode
 {
     //--------------------------------------------------------------------------

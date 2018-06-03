@@ -31,8 +31,6 @@ import java.util.TreeSet;
 /**
  * This class represents the information needed to construct the code
  * for a runtime watcher.
- *
- * @author Paul Reilly
  */
 public abstract class Watcher
 {

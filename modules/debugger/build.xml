@@ -78,8 +78,8 @@ build outputs: sdk/lib/fdb.jar
     <target name="jar" depends="compile" description="compile and create fdb.jar">
         <mkdir dir="${lib.dir}" />
         <mkdir dir="${module.classes}/META-INF"/>
-        <copy file="${FLEX_HOME}/LICENSE" todir="${module.classes}/META-INF"/>
-        <copy file="${FLEX_HOME}/NOTICE" todir="${module.classes}/META-INF"/>
+        <copy file="${FLEX_HOME}/licenseParts/LICENSE.base" tofile="${module.classes}/META-INF/LICENSE"/>
+        <copy file="${FLEX_HOME}/licenseParts/NOTICE.base" tofile="${module.classes}/META-INF/NOTICE"/>
 		<echo message="Building lib/fdb.jar"/>
         <jar file="${lib.dir}/fdb.jar" basedir="${module.classes}" includes="**/*" excludes="dependencies.txt">
             <manifest>

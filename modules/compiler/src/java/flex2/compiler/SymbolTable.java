@@ -39,8 +39,6 @@ import java.util.*;
  * This class supports looking up information for a class or a style
  * and looking up a <code>Source</code> by QName or by resource bundle
  * name.
- *
- * @author Clement Wong
  */
 public final class SymbolTable
 {

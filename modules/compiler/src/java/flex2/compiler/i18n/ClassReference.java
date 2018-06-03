@@ -21,8 +21,6 @@ package flex2.compiler.i18n;
 
 /**
  * Represents a ClassReference(...) resource value in a .properties file.
- * 
- * @author Gordon Smith
  */
 public class ClassReference
 {

@@ -32,7 +32,6 @@ package com.adobe.internal.fxg.dom.types;
  *   2 = oldStyle
  * </pre>
  * 
- * @author Min Plunkett
  */
 public enum DigitCase
 {

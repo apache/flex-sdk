@@ -28,8 +28,6 @@ package com.adobe.internal.fxg.dom.types;
  * 
  *   0 = Even Odd
  *   1 = Non Zero
- * 
- * @author Peter Farland
  */
 public enum Winding
 {

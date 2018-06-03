@@ -25,8 +25,6 @@ import flash.swf.types.ActionList;
 
 /**
  * Represents an AS2 "label" byte code.
- *
- * @author Edwin Smith
  */
 public class Label extends Action
 {

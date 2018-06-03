@@ -27,7 +27,6 @@ package com.adobe.internal.fxg.dom.types;
  *   1 = underline
  * </pre>
  * 
- * @author Min Plunkett
  */
 public enum TextDecoration
 {

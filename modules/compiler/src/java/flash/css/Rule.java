@@ -21,8 +21,6 @@ package flash.css;
 
 /**
  * This class represents an individual rule in a CSS ruleset.
- *
- * @author Paul Reilly
  */
 public abstract class Rule
 {

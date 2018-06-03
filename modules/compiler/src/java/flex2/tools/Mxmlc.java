@@ -51,8 +51,6 @@ import java.util.Map.Entry;
  * A command line tool for compiling Flex applications.  Despite the
  * name, in addition to .mxml files, this tool can be used to compile
  * other file formats, like .as and .css.
- *
- * @author Clement Wong
  */
 public final class Mxmlc extends Tool implements FlexTool
 {

@@ -24,9 +24,6 @@ import java.io.File;
 import flash.tools.debugger.Browser;
 import flash.tools.debugger.Player;
 
-/**
- * @author mmorearty
- */
 public abstract class AbstractPlayer implements Player
 {
 	private Browser m_browser;

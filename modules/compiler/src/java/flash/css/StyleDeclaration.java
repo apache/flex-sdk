@@ -59,8 +59,6 @@ import java.util.Map.Entry;
  * the SAC based CSS parser, into simpler StyleProperty instances for
  * ActionScript code gen. It would be nice if this was encapsulated and not a
  * concern of StyleDef.
- *
- * @author Peter Farland
  */
 public class StyleDeclaration
 {

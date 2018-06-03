@@ -27,8 +27,6 @@ import java.net.URLConnection;
 /**
  * A VirtualFile implemenation, which is backed by a file not on a
  * local disk.
- *
- * @author Clement Wong
  */
 public class NetworkFile implements VirtualFile
 {

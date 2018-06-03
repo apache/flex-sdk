@@ -20,38 +20,36 @@
 package mx.managers
 {
 
-import flash.display.DisplayObject;
-import flash.events.Event;
-import flash.events.EventDispatcher;
-import flash.events.IEventDispatcher;
-import flash.events.MouseEvent;
-import flash.events.TimerEvent;
-import flash.geom.Point;
-import flash.geom.Rectangle;
-import flash.utils.Timer;
+    import flash.display.DisplayObject;
+    import flash.events.Event;
+    import flash.events.EventDispatcher;
+    import flash.events.MouseEvent;
+    import flash.events.TimerEvent;
+    import flash.geom.Point;
+    import flash.geom.Rectangle;
+    import flash.utils.Timer;
 
-import mx.controls.ToolTip;
-import mx.core.FlexGlobals;
-import mx.core.FlexVersion;
-import mx.core.IFlexDisplayObject;
-import mx.core.IFlexModule;
-import mx.core.IInvalidating;
-import mx.core.ILayoutDirectionElement;
-import mx.core.IToolTip;
-import mx.core.IUIComponent;
-import mx.core.IVisualElement;
-import mx.core.LayoutDirection;
-import mx.core.mx_internal;
-import mx.effects.EffectManager;
-import mx.effects.IAbstractEffect;
-import mx.events.DynamicEvent;
-import mx.events.EffectEvent;
-import mx.events.ToolTipEvent;
-import mx.managers.IToolTipManagerClient;
-import mx.styles.IStyleClient;
-import mx.validators.IValidatorListener;
+    import mx.controls.ToolTip;
+    import mx.core.FlexGlobals;
+    import mx.core.FlexVersion;
+    import mx.core.IFlexDisplayObject;
+    import mx.core.IFlexModule;
+    import mx.core.IInvalidating;
+    import mx.core.ILayoutDirectionElement;
+    import mx.core.IToolTip;
+    import mx.core.IUIComponent;
+    import mx.core.IVisualElement;
+    import mx.core.LayoutDirection;
+    import mx.core.mx_internal;
+    import mx.effects.EffectManager;
+    import mx.effects.IAbstractEffect;
+    import mx.events.DynamicEvent;
+    import mx.events.EffectEvent;
+    import mx.events.ToolTipEvent;
+    import mx.styles.IStyleClient;
+    import mx.validators.IValidatorListener;
 
-use namespace mx_internal;
+    use namespace mx_internal;
 
 [ExcludeClass]
 
@@ -627,7 +625,7 @@ public class ToolTipManagerImpl extends EventDispatcher
             // If the mouse is over the object whose toolTip
             // is being removed, hide the tip.
             if (mouseIsOver(target))
-            	hideImmediately(target);
+            	hideImmediately();
         }
     }
 
@@ -680,7 +678,7 @@ public class ToolTipManagerImpl extends EventDispatcher
             // If the mouse is over the object whose toolTip
             // is being removed, hide the tip.
             if (mouseIsOver(target))
-            	hideImmediately(target);
+            	hideImmediately();
         }
     }
     
@@ -688,7 +686,7 @@ public class ToolTipManagerImpl extends EventDispatcher
      *  @private
      *  Returns true if the mouse is over the specified target.
      */
-    private function mouseIsOver(target:DisplayObject):Boolean
+    private static function mouseIsOver(target:DisplayObject):Boolean
     {
     	if (!target || !target.stage)
     		return false;
@@ -726,7 +724,7 @@ public class ToolTipManagerImpl extends EventDispatcher
      * @param target DisplayObject
      * @return Boolean true is all parents are visible, false if one of them is invisible
      */
-    private function isVisibleParentsIncluded(target:DisplayObject):Boolean 
+    private static function isVisibleParentsIncluded(target:DisplayObject):Boolean
     {
         if (target == null) return false;
         return isTopLevelApplication(target) ? target.visible :
@@ -742,7 +740,7 @@ public class ToolTipManagerImpl extends EventDispatcher
      * @param target UIComponent
      * @return Boolean true is is topLevelApplication, otherwise false
      */
-    private function isTopLevelApplication(target:DisplayObject):Boolean 
+    private static function isTopLevelApplication(target:DisplayObject):Boolean
     {
         return target == FlexGlobals.topLevelApplication;
     }
@@ -765,7 +763,7 @@ public class ToolTipManagerImpl extends EventDispatcher
      *  Hides the tip immediately when the toolTip or errorTip property 
      *  becomes null and the mouse is over the target.
      */
-    private function hideImmediately(target:DisplayObject):void
+    private function hideImmediately():void
     {
     	checkIfTargetChanged(null);
     }
@@ -829,7 +827,6 @@ public class ToolTipManagerImpl extends EventDispatcher
                 if (displayObject is IStyleClient)
                     showErrorTip = FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_0 ||
                                    IStyleClient(displayObject).getStyle("showErrorTip");
-                                   ;
                 if (currentText != null && currentText != "" && showErrorTip)
                 {
                     currentTarget = displayObject;
@@ -870,7 +867,7 @@ public class ToolTipManagerImpl extends EventDispatcher
     {
         // Do lazy creation of the Timer objects this class uses.
         if (!initialized)
-            initialize()
+            initialize();
 
         var event:ToolTipEvent;
         
@@ -1186,7 +1183,7 @@ public class ToolTipManagerImpl extends EventDispatcher
             // we have to force a remeasurement and change its size.
             // This is because objects in the toolTips layer
             // don't undergo normal measurement and layout.
-            sizeTip(currentToolTip)
+            sizeTip(currentToolTip);
             
             // If we changed the tooltip max size, we change it back.
             // Otherwise, if RTL, and x wasn't set for maxWidth, reposition 
@@ -1589,7 +1586,7 @@ public class ToolTipManagerImpl extends EventDispatcher
     /**
      *  @private
      */
-    private function getGlobalBounds(obj:DisplayObject, 
+    private static function getGlobalBounds(obj:DisplayObject,
                                      parent:DisplayObject, 
                                      mirror:Boolean):Rectangle
     {

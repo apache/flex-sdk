@@ -33,8 +33,6 @@ import flex2.compiler.util.graph.Vertex;
  * needed so to provide those classes.  If SWC A is used as an RSL,
  * SWC B will need to be loaded before SWC A if there is an
  * inheritance dependency between the two SWCs.
- * 
- * @author dloverin
  */
 public interface SwcDependencyInfo
 {

@@ -14,7 +14,6 @@
 
 # building
 target
-[Bb]uild/
 null
 tmp
 temp
@@ -79,10 +78,10 @@ airsdk.xml
 *.sdf
 ipch/
 obj/
-[Bb]in
 [Dd]ebug*/
 !debugger/
 modules/debugger/classes/
+modules/asc/build/java/classes/
 [Rr]elease*/
 Ankh.NoLoad
 
@@ -136,5 +135,8 @@ AIR SDK license.pdf
 air-sdk-description.xml
 samples/descriptor-sample.xml
 include/FlashRuntimeExtensions.h
-
 visualcomps
+
+#FlexUnit tests
+test-reports
+FlexUnitCompilerApplication.mxml

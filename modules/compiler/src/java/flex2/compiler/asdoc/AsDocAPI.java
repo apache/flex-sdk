@@ -94,8 +94,6 @@ import flash.localization.LocalizationManager;
  * and Compc do. Parameters go through the Flex configuration scheme and the ASC call uses
  * Flex's infastructure for compiling. The XSLT processing is done by calling
  * net.sf.saxon.Transform process.
- *
- * @author Brian Deitte
  */
 public class AsDocAPI
 {

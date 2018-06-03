@@ -26,8 +26,6 @@ import flash.swf.ActionHandler;
 
 /**
  * This class represents an array of AS2 byte codes.
- *
- * @author Clement Wong
  */
 public class ActionList extends ActionHandler
 {

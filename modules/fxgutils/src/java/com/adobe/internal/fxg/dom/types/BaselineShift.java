@@ -39,7 +39,6 @@ package com.adobe.internal.fxg.dom.types;
  *   1 = subscript
  * </pre>
  * 
- * @author Min Plunkett
  */
 public class BaselineShift
 {

@@ -24,8 +24,6 @@ import java.awt.geom.PathIterator;
 /**
  * This class wraps a PathIterator and adds a ShapeIterator
  * implemenation.
- *
- * @author Peter Farland
  */
 public class PathIteratorWrapper implements ShapeIterator
 {

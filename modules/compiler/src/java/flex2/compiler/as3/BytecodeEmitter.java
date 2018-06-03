@@ -39,8 +39,6 @@ import java.util.Set;
  * This class overrides DebugSlot(), DebugFile(), and DebugLine() to
  * add support for mapping generated as3 line numbers back to the
  * original MXML, CSS, etc line numbers.
- *
- * @author Clement Wong
  */
 public final class BytecodeEmitter extends ActionBlockEmitter
 {

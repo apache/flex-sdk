@@ -27,7 +27,6 @@ import flash.tools.debugger.events.FaultEvent;
 
 /**
  * Thread-safe wrapper for flash.tools.debugger.Variable
- * @author Mike Morearty
  */
 public class ThreadSafeVariable extends ThreadSafeDebuggerObject implements Variable {
 

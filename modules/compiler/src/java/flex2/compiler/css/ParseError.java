@@ -23,8 +23,6 @@ import flex2.compiler.util.CompilerMessage.CompilerError;
 
 /**
  * Error used to report when an exception is thrown during CSS parsing.
- *
- * @author Paul Reilly
  */
 public class ParseError extends CompilerError
 {

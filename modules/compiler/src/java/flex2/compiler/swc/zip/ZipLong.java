@@ -21,7 +21,6 @@ package flex2.compiler.swc.zip;
  * Utility class that represents a four byte integer with conversion
  * rules for the big endian byte order of ZIP files.
  *
- * @author Stefan Bodewig
  * @version $Revision: 1.1 $
  */
 public final class ZipLong implements Cloneable {

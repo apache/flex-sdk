@@ -38,8 +38,6 @@ import macromedia.asc.util.ContextStatics;
 
 /**
  * Fcsh helper class.
- *
- * @author Clement Wong
  */
 public class Target
 {

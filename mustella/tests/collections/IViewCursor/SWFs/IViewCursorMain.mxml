@@ -107,9 +107,7 @@
 	    public function initPlayers():void 
 	    {
  	                var sortArr:Sort = new Sort();
-	                var f:SortField = new SortField("jerseyNumber");
-	                f.descending = true;
-	                f.numeric = true;
+	                var f:SortField = new SortField("jerseyNumber", false, true, true);
 	                sortArr.fields = [f];
 	                colArr_AS.sort = sortArr;
 	                colArr_AS.refresh();

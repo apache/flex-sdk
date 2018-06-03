@@ -23,8 +23,6 @@ import java.util.Arrays;
 
 /**
  * A value object for sound info.
- *
- * @author Clement Wong
  */
 public class SoundInfo
 {

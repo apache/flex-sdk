@@ -633,8 +633,8 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
 	}
 
     /**
-     *  Called whenever any of the contained items in the list fire an
-     *  ObjectChange event.  
+     *  Called whenever any of the contained items in the list fires a
+     *  <code>PropertyChangeEvent</code>.
      *  Wraps it in a CollectionEventKind.UPDATE.
      *  
      *  @langversion 3.0

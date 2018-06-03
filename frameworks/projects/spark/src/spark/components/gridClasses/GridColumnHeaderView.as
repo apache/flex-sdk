@@ -106,8 +106,13 @@ public class GridColumnHeaderView extends Group
      */
     public function containsMouseEvent(event:MouseEvent):Boolean
     {
-        const eventStageX:Number = event.stageX;
-        const eventStageY:Number = event.stageY;
+        return containsGlobalPoint(new Point(event.stageX, event.stageY));
+    }
+
+    public function containsGlobalPoint(globalCoordinates:Point):Boolean
+    {
+        const stageX:Number = globalCoordinates.x;
+        const stageY:Number = globalCoordinates.y;
         const origin:Point = localToGlobal(zeroPoint);
 
         origin.x += horizontalScrollPosition;
@@ -115,9 +120,11 @@ public class GridColumnHeaderView extends Group
             origin.x -= width;
 
         origin.y += verticalScrollPosition;
-        
-        return (eventStageX >= origin.x) && (eventStageY >= origin.y) && 
-            (eventStageX < (origin.x + width)) && (eventStageY < (origin.y + height));
+
+        var headerViewContainsGlobalCoordinates:Boolean = (stageX >= origin.x) && (stageY >= origin.y) &&
+                (stageX < (origin.x + width)) && (stageY < (origin.y + height));
+
+        return headerViewContainsGlobalCoordinates;
     }   
 }
 }

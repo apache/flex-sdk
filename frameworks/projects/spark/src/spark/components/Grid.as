@@ -2377,7 +2377,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
             var f:Function = function():void
             {
                 doSetSelectedIndices(valueCopy);
-            }
+            };
             deferredOperations.push(f);  // function f() to be called by commitProperties()
             invalidateProperties();
         }
@@ -4329,7 +4329,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
      *  Create and/or configure this Grid's GridViews.  We're assuming that the
      *  Grid's viewFactory, columns and dataProvider are specified.
 	 * 
-	 *  If GridVeiws are added or removed, a "gridViewsChanged" event is dispatched.
+	 *  If GridViews are added or removed, a "gridViewsChanged" event is dispatched.
      */
     private function configureGridViews():void
     {
@@ -4805,7 +4805,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
             {
                 currentObject = dataProvider.getItemAt(loopingIndex);
 
-                if (currentObject.hasOwnProperty(field) == true && currentObject[field].search(pattern) != -1)
+                if (currentObject.hasOwnProperty(field) == true && pattern.test(currentObject[field]) == true)
                 {
                     return loopingIndex;
                 }
@@ -4862,7 +4862,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
                 //Loop through regex patterns from the values array.
                 for (loopingValuesIndex = 0; loopingValuesIndex < valuesTotal; loopingValuesIndex++)
                 {
-                    if (currentObject[field].search(regexList[loopingValuesIndex]) != -1)
+                    if (regexList[loopingValuesIndex].test(currentObject[field]) == true)
                     {
                         matchedIndices.push(loopingDataProviderIndex);
 
@@ -5396,7 +5396,10 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
                 {
                     const oldLocation:int = event.oldLocation;
                     if ((oldCaretRowIndex >= oldLocation) && (oldCaretRowIndex < (oldLocation + itemsLength)))
+                    {
                         caretRowIndex += location - oldLocation;
+                        ensureCellIsVisible(caretRowIndex, -1);
+                    }
                 }
                 break;                        
                 
@@ -5924,5 +5927,39 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
             dispatchEvent(caretChangeEvent);
         }
     }
+    
+    
+    /**
+     *  @private
+     *  Renders a background for the container, if necessary.  It is used to fill in
+     *  a transparent background fill as necessary to support the _mouseEnabledWhereTransparent flag.  It 
+     *  is also used in ItemRenderers when handleBackgroundColor is set to true.
+     *  We assume for now that we are the first layer to be rendered into the graphics
+     *  context.
+     * 
+     *  This is mostly copied from GroupBase, but always chooses the virtualLayout path.  The Grid's
+     *  layout has useVirtualLayout=false but the Grid's GridView always has useVirtualLayout=true
+     *  which causes the GroupBase logic to go down the wrong path.  It also always positions at 0,0
+     *  because the grid itself doesn't scroll, it scrols the layers
+     */
+    override mx_internal function drawBackground():void
+    {
+        if (!mouseEnabledWhereTransparent || !hasMouseListeners)
+            return;
+        
+        var w:Number = (resizeMode == ResizeMode.SCALE) ? measuredWidth : unscaledWidth;
+        var h:Number = (resizeMode == ResizeMode.SCALE) ? measuredHeight : unscaledHeight;
+        
+        if (isNaN(w) || isNaN(h))
+            return;
+        
+        graphics.clear();
+        graphics.beginFill(0xFFFFFF, 0);
+        
+        graphics.drawRect(0, 0, w, h);
+        
+        graphics.endFill();
+    }
+
 }
 }

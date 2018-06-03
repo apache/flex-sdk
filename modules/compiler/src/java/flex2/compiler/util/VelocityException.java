@@ -21,8 +21,6 @@ package flex2.compiler.util;
 
 /**
  * Encapsulates the exceptions thrown during Velocity template usage.
- *
- * @author Paul Reilly
  */
 public class VelocityException
 {

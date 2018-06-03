@@ -25,8 +25,6 @@ import java.util.*;
 
 /**
  * Represents a node in a graph.
- *
- * @author Clement Wong
  */
 public final class Vertex <VertexWeight,EdgeWeight>
 {

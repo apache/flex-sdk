@@ -21,8 +21,6 @@ package flex2.compiler.mxml.dom;
 
 /**
  * Represents a &lt;WebService&gt; tag in the MXML language namespace.
- *
- * @author Clement Wong
  */
 public class WebServiceNode extends Node
 {

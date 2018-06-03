@@ -46,7 +46,6 @@ import macromedia.asc.util.ObjectList;
  * benefit of the application cache would be lost.
  *
  * @since 4.5
- * @author Paul Reilly
  */
 public class ApplicationCache extends CacheBase
 {

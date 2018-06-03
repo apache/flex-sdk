@@ -28,8 +28,6 @@ import flash.localization.LocalizationManager;
  * exceptions thrown by the compiler.  It can be used in catch
  * statements, but it shouldn't be constructed directly.  A subclass
  * should be used when reporting an error or warning.
- *
- * @author Roger Gonzalez
  */
 public class CompilerMessage extends CompilerException implements ILocalizableMessage
 {

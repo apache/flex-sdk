@@ -1,0 +1,217 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008">
+  <Group>
+    <Group x="26">
+      <mask>
+        <Group>
+          <Path winding="nonZero" data="M4 14 0 14 0 0 4 0 4 14Z">
+            <fill>
+              <SolidColor color="#FFFFFF"/>
+            </fill>
+          </Path>
+        </Group>
+      </mask>
+      <Path winding="nonZero" data="M4 12C4 13.1006 3.09961 14 2 14 0.900391 14 0 13.1006 0 12L0 2C0 0.899414 0.900391 0 2 0 3.09961 0 4 0.899414 4 2L4 12Z">
+        <fill>
+          <SolidColor color="#EEEEEE"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group x="12.4971" y="2.60596">
+      <mask>
+        <Group>
+          <Path winding="nonZero" data="M10.4639 12.1245 7 14.1245 0 2 3.46387 0 10.4639 12.1245Z">
+            <fill>
+              <SolidColor color="#FFFFFF"/>
+            </fill>
+          </Path>
+        </Group>
+      </mask>
+      <Path x="0.733521" y="0.733643" winding="nonZero" data="M8.73035 9.65894C9.28064 10.6121 8.95056 11.8411 7.99841 12.3909 7.04626 12.9407 5.81677 12.6121 5.26648 11.6589L0.266479 2.99878C-0.283813 2.04565 0.0462646 0.816162 0.998413 0.266357 1.95056 -0.283447 3.18005 0.0456543 3.73035 0.998779L8.73035&#xD;&#xA; 9.65894Z">
+        <fill>
+          <SolidColor color="#333333"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group x="3.10596" y="11.8823">
+      <mask>
+        <Group>
+          <Path winding="nonZero" data="M14.1245 7.00049 12.1245 10.4644 0 3.46436 2 0 14.1245 7.00049Z">
+            <fill>
+              <SolidColor color="#FFFFFF"/>
+            </fill>
+          </Path>
+        </Group>
+      </mask>
+      <Path x="0.733643" y="0.733887" winding="nonZero" data="M11.6589 5.2666C12.6121 5.81689 12.9407 7.04639 12.3909 7.99854 11.8411 8.95068 10.6121 9.28076 9.65894 8.73047L0.998779 3.73047C0.0456543 3.18018 -0.283447 1.95068 0.266357 0.998047 0.816162 0.0458984 2.04517 -0.283691 2.99829 0.266602L11.6589&#xD;&#xA; 5.2666Z">
+        <fill>
+          <SolidColor color="#444444"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group x="0.343262" y="25.3438">
+      <mask>
+        <Group>
+          <Path winding="nonZero" data="M14.0005 0 14.0005 4 0 4 0 0 14.0005 0Z">
+            <fill>
+              <SolidColor color="#FFFFFF"/>
+            </fill>
+          </Path>
+        </Group>
+      </mask>
+      <Path winding="nonZero" data="M12.0005 0C13.1011 0 14.0005 0.900391 14.0005 2 14.0005 3.09961 13.1011 4 12.0005 4L2.00049 4C0.899902 4 0 3.09961 0 1.99951 0 0.900391 0.899902 0.000488281 2 0.000488281L12.0005 0Z">
+        <fill>
+          <SolidColor color="#555555"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group x="2.94922" y="32.3828">
+      <mask>
+        <Group>
+          <Path winding="nonZero" data="M12.125 0 14.125 3.46387 2 10.4639 0 7 12.125 0Z">
+            <fill>
+              <SolidColor color="#FFFFFF"/>
+            </fill>
+          </Path>
+        </Group>
+      </mask>
+      <Path x="0.733765" y="0.733215" winding="nonZero" data="M9.6593 0.266785C10.6124 -0.283997 11.8414 0.0460815 12.3912 0.99823 12.941 1.95135 12.6124 3.17987 11.6593 3.73065L2.99915 8.73065C2.04602 9.28046 0.81604 8.95135 0.266235 7.99823 -0.283569 7.04608 0.0460205 5.81757 0.998657 5.26678L9.6593 0.266785Z">
+        <fill>
+          <SolidColor color="#666666"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group x="12.2256" y="38.1133">
+      <mask>
+        <Group>
+          <Path winding="nonZero" data="M7.00098 0 10.4648 2 3.46436 14.125 0 12.125 7.00098 0Z">
+            <fill>
+              <SolidColor color="#FFFFFF"/>
+            </fill>
+          </Path>
+        </Group>
+      </mask>
+      <Path x="0.734314" y="0.733459" winding="nonZero" data="M5.26666 0.998962C5.81647 0.0448608 7.04596 -0.283264 7.99811 0.266541 8.95074 0.816345 9.28082 2.04486 8.73053 2.99799L3.73053 11.6581C3.18024 12.6113 1.95026 12.9413 0.99762 12.3906 0.0454712 11.8408 -0.283142 10.6122 0.266174 9.65912L5.26666&#xD;&#xA; 0.998962Z">
+        <fill>
+          <SolidColor color="#777777"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group x="25.6875" y="41">
+      <mask>
+        <Group>
+          <Path winding="nonZero" data="M0 0 4 0 4 14.001 0 14.001 0 0Z">
+            <fill>
+              <SolidColor color="#FFFFFF"/>
+            </fill>
+          </Path>
+        </Group>
+      </mask>
+      <Path winding="nonZero" data="M0 2C-0.000976563 0.899414 0.900391 0 2 0 3.09961 0 4 0.898438 4 1.99902L4 11.999C4 13.0996 3.09961 14.001 1.99902 14 0.899414 14 0.000976563 13.1006 0 12L0 2Z">
+        <fill>
+          <SolidColor color="#888888"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group x="32.7266" y="38.2695">
+      <mask>
+        <Group>
+          <Path winding="nonZero" data="M0 2 3.46387 0 10.4648 12.125 7 14.125 0 2Z">
+            <fill>
+              <SolidColor color="#FFFFFF"/>
+            </fill>
+          </Path>
+        </Group>
+      </mask>
+      <Path x="0.732788" y="0.733398" winding="nonZero" data="M0.267212 2.99805C-0.284546 2.0459 0.0465088 0.816406 0.998657 0.266602 1.95178 -0.283203 3.1803 0.0449219 3.73108 0.998047L8.73108 9.6582C9.28088 10.6113 8.95178 11.8418 7.99866 12.3916 7.04553 12.9414 5.81799 12.6113 5.26721 11.6592L0.267212&#xD;&#xA; 2.99805Z">
+        <fill>
+          <SolidColor color="#999999"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group x="38.457" y="32.6533">
+      <mask>
+        <Group>
+          <Path winding="nonZero" data="M0 3.46387 2 0 14.125 7 12.125 10.4648 0 3.46387Z">
+            <fill>
+              <SolidColor color="#FFFFFF"/>
+            </fill>
+          </Path>
+        </Group>
+      </mask>
+      <Path x="0.733398" y="0.73291" winding="nonZero" data="M0.998047 3.73096C0.0449219 3.18213 -0.283203 1.95166 0.266602 0.999512 0.816406 0.0463867 2.04492 -0.283691 2.99805 0.266113L11.6582 5.26611C12.6113 5.81689 12.9414 7.04736 12.3906 7.99951 11.8398 8.95264 10.6123 9.28076 9.65918 8.73096L0.998047&#xD;&#xA; 3.73096Z">
+        <fill>
+          <SolidColor color="#AAAAAA"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group x="41.3438" y="25.6558">
+      <mask>
+        <Group>
+          <Path winding="nonZero" data="M0 4.00049 0 0.000488281 14.001 0 14.001 4.00049 0 4.00049Z">
+            <fill>
+              <SolidColor color="#FFFFFF"/>
+            </fill>
+          </Path>
+        </Group>
+      </mask>
+      <Path winding="nonZero" data="M1.99902 4.00049C0.899414 4.00146 0 3.1001 0 2.00098 0 0.900391 0.898438 0.000488281 1.99902 0L11.999 0C13.0996 0.000488281 14.001 0.900879 14 2.00098 13.999 3.10156 13.1006 3.99951 12 4.00049L1.99902 4.00049Z">
+        <fill>
+          <SolidColor color="#BBBBBB"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group x="38.6133" y="12.1523">
+      <mask>
+        <Group>
+          <Path winding="nonZero" data="M2 10.4648 0 7.00098 12.125 0 14.125 3.46436 2 10.4648Z">
+            <fill>
+              <SolidColor color="#FFFFFF"/>
+            </fill>
+          </Path>
+        </Group>
+      </mask>
+      <Path x="0.733398" y="0.734619" winding="nonZero" data="M2.99805 8.73071C2.0459 9.28149 0.816406 8.95044 0.266602 7.99878 -0.283203 7.04565 0.0449219 5.81714 0.99707 5.26636L9.65723 0.266357C10.6113 -0.283447 11.8418 0.0456543 12.3906 0.998779 12.9404 1.95239 12.6113 3.17944 11.6592 3.73022L2.99805&#xD;&#xA; 8.73071Z">
+        <fill>
+          <SolidColor color="#CCCCCC"/>
+        </fill>
+      </Path>
+    </Group>
+    <Group x="32.9971" y="2.76123">
+      <mask>
+        <Group>
+          <Path winding="nonZero" data="M3.46387 14.1255 0 12.1255 7 0 10.4639 2 3.46387 14.1255Z">
+            <fill>
+              <SolidColor color="#FFFFFF"/>
+            </fill>
+          </Path>
+        </Group>
+      </mask>
+      <Path x="0.73291" y="0.73468" winding="nonZero" data="M3.73096 11.6594C3.18115 12.6125 1.95166 12.9406 0.999512 12.3913 0.0463867 11.8405 -0.283691 10.6125 0.266113 9.65936L5.26514 0.999207C5.81689 0.0460815 7.04736 -0.283997 7.99854 0.266785 8.95166 0.818054 9.28076 2.0451 8.73096 2.99823L3.73096&#xD;&#xA; 11.6594Z">
+        <fill>
+          <SolidColor color="#DDDDDD"/>
+        </fill>
+      </Path>
+    </Group>
+    <Path visible="false" winding="nonZero" data="M0 0 53 0 53 53 0 53 0 0Z"/>
+  </Group>
+</Graphic>

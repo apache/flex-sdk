@@ -27,9 +27,6 @@ import flash.swf.TagHandler;
  * 20 times the resolution. The EM square units are converted to twips
  * to allow fractional resolution to 1/20th of a unit. The DefineFont3
  * tag was introduced in SWF 8.
- * 
- * @author Clement Wong
- * @author Peter Farland
  */
 public class DefineFont3 extends DefineFont2
 {

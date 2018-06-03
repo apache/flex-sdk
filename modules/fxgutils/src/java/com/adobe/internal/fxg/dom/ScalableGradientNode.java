@@ -24,8 +24,6 @@ import com.adobe.internal.fxg.dom.transforms.MatrixNode;
 /**
  * A marker interface to denote that an FXG node represents a type of 
  * scalable gradient. 
- * 
- * @author Peter Farland
  */
 public interface ScalableGradientNode
 {

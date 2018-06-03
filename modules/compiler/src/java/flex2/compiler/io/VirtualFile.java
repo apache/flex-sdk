@@ -26,8 +26,6 @@ import java.io.InputStream;
 
 /**
  * Defines the API to by used by all virtual files.
- *
- * @author Clement Wong
  */
 public interface VirtualFile extends SinglePathResolver
 {

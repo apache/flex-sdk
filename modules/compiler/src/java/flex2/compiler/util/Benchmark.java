@@ -28,8 +28,6 @@ import java.util.Map;
 
 /**
  * A utility class used to record how long certain tasks take to run.
- *
- * @author Clement Wong
  */
 public class Benchmark
 {

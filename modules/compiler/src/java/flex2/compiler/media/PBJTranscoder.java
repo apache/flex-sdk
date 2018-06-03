@@ -31,8 +31,6 @@ import flex2.compiler.util.NameFormatter;
 
 /**
  * Transcodes a compiled PBJ shader file to an ActionScript class.
- * 
- * @author Peter Farland
  */
 public class PBJTranscoder extends AbstractTranscoder
 {

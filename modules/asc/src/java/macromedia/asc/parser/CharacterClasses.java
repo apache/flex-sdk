@@ -19,8 +19,6 @@ package macromedia.asc.parser;
 
 /**
  * Node
- *
- * @author Jeff Dyer
  */
 public interface CharacterClasses
 {

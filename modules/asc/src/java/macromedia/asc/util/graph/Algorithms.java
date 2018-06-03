@@ -22,9 +22,6 @@ package macromedia.asc.util.graph;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-/**
- * @author Clement Wong
- */
 public final class Algorithms
 {
 	public static void topologicalSort(Graph g, Visitor visitor)

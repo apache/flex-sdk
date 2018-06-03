@@ -44,7 +44,7 @@ limitations under the License.
 
 			/* Define the skin elements that should not be colorized. 
 			For button, the graphics are colorized but the label is not. */
-			static private const exclusions:Array = ["iconDisplay", "labelDisplay"];
+			static private const exclusions:Array = ["labelDisplay"];
 			
 			/** 
 			 * @private
@@ -59,6 +59,9 @@ limitations under the License.
 				useChromeColor = true;
 				hostComponent.useHandCursor=true;
 				hostComponent.buttonMode=true;
+				// Set 'fontSize' here cause doing this inside the 'labelDisplay' results in an error
+				(labelDisplay as Label).setStyle("fontSize", fontSize);
+				(iconFont as Label).setStyle("fontSize", iconSize);
 				super.initializationComplete();
 			}  
 			
@@ -72,68 +75,79 @@ limitations under the License.
 				if (cornerRadius != cr)
 				{
 					cornerRadius = cr;
-					fill_up.radiusX = cornerRadius;
-					fill_over.radiusX = cornerRadius;
-					fill_down.radiusX = cornerRadius;
-					fill_disabled.radiusX = cornerRadius;
+					fill.radiusX = cornerRadius;
 				}
 				
-				/*var larguraIcone:int = 0;
-				if (iconFont.text != null && iconFont.text != "")
-				{
-					larguraIcone = 60;
-				}*/
 				super.updateDisplayList(unscaledWidth, unscaledHeight);
 			}
 			
 			private var cornerRadius:Number = 2;
 			
-			private static function getFontSize(height:int):int
+			private function get fontSize():Number
 			{
-				var altura:int = 15;
+				var fontHeight:int = 14;
 				
-				switch (height)
+				if (hostComponent.fixedFontSize)
 				{
-					case ButtonSizeEnum.Large:
-						altura = 17;
-						break;
-					case ButtonSizeEnum.Normal:
-						altura = 14;
-						break;
-					case ButtonSizeEnum.Small:
-						altura = 13;
-						break;
-					case ButtonSizeEnum.ExtraSmall:
-						altura = 12;
-						break;
+					switch (hostComponent.height)
+					{
+						case ButtonSizeEnum.Large:
+							fontHeight = 17;
+							break;
+						case ButtonSizeEnum.Normal:
+							fontHeight = 14;
+							break;
+						case ButtonSizeEnum.Small:
+							fontHeight = 13;
+							break;
+						case ButtonSizeEnum.ExtraSmall:
+							fontHeight = 12;
+							break;
+						default:
+							fontHeight = hostComponent.getStyle("fontSize");
+							break;
+					}
+				}
+				else
+				{
+					fontHeight = hostComponent.getStyle("fontSize");
 				}
 				
-				return altura;
+				return fontHeight;
 			}
 			
-			private static function getIconSize(height:int):int
+			private function get iconSize():Number
 			{
-				var altura:int = 17;
+				var iconHeight:int = 17;				
 				
-				switch (height)
+				if (hostComponent.fixedFontSize)
 				{
-					case ButtonSizeEnum.Large:
-						altura = 19;
-						break;
-					case ButtonSizeEnum.Normal:
-						altura = 17;
-						break;
-					case ButtonSizeEnum.Small:
-						altura = 15;
-						break;
-					case ButtonSizeEnum.ExtraSmall:
-						altura = 12;
-						break;
+					switch (hostComponent.height)
+					{
+						case ButtonSizeEnum.Large:
+							iconHeight = 19;
+							break;
+						case ButtonSizeEnum.Normal:
+							iconHeight = 17;
+							break;
+						case ButtonSizeEnum.Small:
+							iconHeight = 15;
+							break;
+						case ButtonSizeEnum.ExtraSmall:
+							iconHeight = 12;
+							break;
+						default:
+							iconHeight = hostComponent.getStyle("iconFontSize");
+							break;
+					}
+				}
+				else
+				{
+					iconHeight = hostComponent.getStyle("iconFontSize");
 				}
 				
-				return altura;
+				return iconHeight;
 			}
-			
 		]]>        
 	</fx:Script>
 	
@@ -148,43 +162,27 @@ limitations under the License.
 	
 	<!-- layer 2: fill -->
 	<!--- @private -->
-	<s:Rect id="fill_up" left="1" right="1" top="1" bottom="1" radiusX="6" includeIn="up">
+	<s:Rect id="fill" left="1" right="1" top="1" bottom="1" radiusX="6">
 		<s:fill>
-			<s:SolidColor color="{ColorUtils.ButtonColor(hostComponent.brand,stateUp)}"/>
+			<s:SolidColor color.up="{ColorUtils.ButtonColor(hostComponent.brand,stateUp)}"
+						  color.over="{ColorUtils.ButtonColor(hostComponent.brand,stateOver)}"
+						  color.down="{ColorUtils.ButtonColor(hostComponent.brand,stateDown)}"
+						  color.disabled="{ColorUtils.ButtonColor(hostComponent.brand,stateDisabled)}"/>
 		</s:fill>
 	</s:Rect>
-	
-	<s:Rect id="fill_over" left="1" right="1" top="1" bottom="1" radiusX="6" includeIn="over">
-		<s:fill>
-			<s:SolidColor color="{ColorUtils.ButtonColor(hostComponent.brand,stateOver)}"/>
-		</s:fill>
-	</s:Rect>
-	
-	<s:Rect id="fill_down" left="1" right="1" top="1" bottom="1" radiusX="6" includeIn="down">
-		<s:fill>
-			<s:SolidColor color="{ColorUtils.ButtonColor(hostComponent.brand,stateDown)}"/>
-		</s:fill>
-	</s:Rect>
-	
-	<s:Rect id="fill_disabled" left="1" right="1" top="1" bottom="1" radiusX="6" includeIn="disabled">
-		<s:fill>
-			<s:SolidColor color="{ColorUtils.ButtonColor(hostComponent.brand,stateDisabled)}"/>
-		</s:fill>
-	</s:Rect>
-	
 	
 	<!-- layer 8: text -->
 	<!--- @copy spark.components.supportClasses.ButtonBase#labelDisplay  -->
 	<s:HGroup verticalAlign="middle" verticalCenter="0" horizontalAlign="center" horizontalCenter="0" left="10" right="10" top="2" bottom="2">
 		<s:Label id="iconFont" color="0xFFFFFF" color.disabled="0xE3E3E3" text="{hostComponent.iconFont}"
-				 textAlign="left" fontSize="{getIconSize(hostComponent.height)}" fontFamily="FontAwesome"
+				 textAlign="left" fontFamily="FontAwesome"
 				 maxDisplayedLines="1" includeInLayout="{hostComponent.iconFont != null}"
-				 horizontalCenter="0" verticalCenter="0" verticalAlign="middle">
+				 horizontalCenter="0" verticalCenter="0" verticalAlign="middle" fontWeight="normal">
 		</s:Label>
 		
 		<s:Label id="labelDisplay" color="0xFFFFFF" color.disabled="0xE3E3E3"
-				 textAlign="center" fontSize="{getFontSize(hostComponent.height)}" fontFamily="Lato"
-				 maxDisplayedLines="1"
+				 textAlign="center" fontFamily="Lato"
+				 maxDisplayedLines="1" includeInLayout="{hostComponent.label != ''}"
 				 horizontalCenter="0" verticalCenter="1" verticalAlign="middle">
 		</s:Label>
 	</s:HGroup>

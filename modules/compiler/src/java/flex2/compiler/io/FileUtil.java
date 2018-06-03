@@ -26,8 +26,6 @@ import java.util.List;
  * A helper class used by classes doing file operations.  Part of it's
  * original purpose was to consolidate J# handling, but J# support was
  * dropped many years ago.
- *
- * @author Clement Wong
  */
 public final class FileUtil
 {

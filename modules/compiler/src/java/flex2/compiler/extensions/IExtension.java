@@ -22,8 +22,6 @@ package flex2.compiler.extensions;
 /**
  * The base extension interface.  Extensions should implement one of
  * the IExtension subinterfaces.
- *
- * @author Andrew Westberg
  */
 public interface IExtension
 {

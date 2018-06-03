@@ -19,72 +19,73 @@
 
 package spark.components
 {
-import flash.display.DisplayObject;
-import flash.display.Graphics;
-import flash.events.Event;
-import flash.events.FocusEvent;
-import flash.events.KeyboardEvent;
-import flash.events.MouseEvent;
-import flash.geom.Point;
-import flash.geom.Rectangle;
-import flash.ui.Keyboard;
+    import flash.display.DisplayObject;
+    import flash.display.Graphics;
+    import flash.events.Event;
+    import flash.events.FocusEvent;
+    import flash.events.KeyboardEvent;
+    import flash.events.MouseEvent;
+    import flash.geom.Point;
+    import flash.geom.Rectangle;
+    import flash.ui.Keyboard;
 
-import mx.collections.ArrayCollection;
-import mx.collections.ICollectionView;
-import mx.collections.IList;
-import mx.collections.ISort;
-import mx.collections.ISortField;
-import mx.core.DragSource;
-import mx.core.EventPriority;
-import mx.core.IFactory;
-import mx.core.IFlexDisplayObject;
-import mx.core.IIMESupport;
-import mx.core.IUID;
-import mx.core.IVisualElement;
-import mx.core.InteractionMode;
-import mx.core.LayoutDirection;
-import mx.core.ScrollPolicy;
-import mx.core.UIComponent;
-import mx.core.mx_internal;
-import mx.events.DragEvent;
-import mx.events.FlexEvent;
-import mx.events.SandboxMouseEvent;
-import mx.events.TouchInteractionEvent;
-import mx.managers.CursorManager;
-import mx.managers.CursorManagerPriority;
-import mx.managers.DragManager;
-import mx.managers.IFocusManagerComponent;
-import mx.styles.AdvancedStyleClient;
-import mx.utils.ObjectUtil;
-import mx.utils.UIDUtil;
+    import mx.collections.ArrayCollection;
+    import mx.collections.ComplexFieldChangeWatcher;
+    import mx.collections.ICollectionView;
+    import mx.collections.IComplexSortField;
+    import mx.collections.IList;
+    import mx.collections.ISort;
+    import mx.collections.ISortField;
+    import mx.collections.ListCollectionView;
+    import mx.core.DragSource;
+    import mx.core.EventPriority;
+    import mx.core.IFactory;
+    import mx.core.IFlexDisplayObject;
+    import mx.core.IIMESupport;
+    import mx.core.IUID;
+    import mx.core.IVisualElement;
+    import mx.core.InteractionMode;
+    import mx.core.LayoutDirection;
+    import mx.core.ScrollPolicy;
+    import mx.core.UIComponent;
+    import mx.core.mx_internal;
+    import mx.events.DragEvent;
+    import mx.events.FlexEvent;
+    import mx.events.SandboxMouseEvent;
+    import mx.events.TouchInteractionEvent;
+    import mx.managers.CursorManager;
+    import mx.managers.CursorManagerPriority;
+    import mx.managers.DragManager;
+    import mx.managers.IFocusManagerComponent;
+    import mx.styles.IAdvancedStyleClient;
+    import mx.utils.ObjectUtil;
+    import mx.utils.UIDUtil;
 
-import spark.collections.Sort;
-import spark.components.gridClasses.CellPosition;
-import spark.components.gridClasses.CellRegion;
-import spark.components.gridClasses.DataGridEditor;
-import spark.components.gridClasses.GridDoubleClickMode;
-import spark.components.gridClasses.GridColumn;
-import spark.components.gridClasses.GridHeaderLayout;
-import spark.components.gridClasses.GridItemEditorActivationMouseEvent;
-import spark.components.gridClasses.GridLayout;
-import spark.components.gridClasses.GridSelection;
-import spark.components.gridClasses.GridSelectionMode;
-import spark.components.gridClasses.GridSortField;
-import spark.components.gridClasses.GridView;
-import spark.components.gridClasses.IDataGridElement;
-import spark.components.gridClasses.IGridItemEditor;
-import spark.components.supportClasses.IDataProviderEnhance;
-import spark.components.supportClasses.RegExPatterns;
-import spark.components.supportClasses.SkinnableContainerBase;
-import spark.core.NavigationUnit;
-import spark.events.GridCaretEvent;
-import spark.events.GridEvent;
-import spark.events.GridSelectionEvent;
-import spark.events.GridSelectionEventKind;
-import spark.events.GridSortEvent;
-import spark.layouts.supportClasses.DropLocation;
+    import spark.collections.Sort;
+    import spark.components.gridClasses.CellPosition;
+    import spark.components.gridClasses.CellRegion;
+    import spark.components.gridClasses.DataGridEditor;
+    import spark.components.gridClasses.GridColumn;
+    import spark.components.gridClasses.GridItemEditorActivationMouseEvent;
+    import spark.components.gridClasses.GridLayout;
+    import spark.components.gridClasses.GridSelection;
+    import spark.components.gridClasses.GridSelectionMode;
+    import spark.components.gridClasses.GridView;
+    import spark.components.gridClasses.GridViewLayout;
+    import spark.components.gridClasses.IDataGridElement;
+    import spark.components.gridClasses.IGridItemEditor;
+    import spark.components.supportClasses.IDataProviderEnhance;
+    import spark.components.supportClasses.RegExPatterns;
+    import spark.components.supportClasses.SkinnableContainerBase;
+    import spark.core.NavigationUnit;
+    import spark.events.GridCaretEvent;
+    import spark.events.GridEvent;
+    import spark.events.GridSelectionEvent;
+    import spark.events.GridSelectionEventKind;
+    import spark.events.GridSortEvent;
+    import spark.layouts.supportClasses.DropLocation;
 
-use namespace mx_internal;
+    use namespace mx_internal;
 
 //--------------------------------------
 //  Styles
@@ -861,16 +862,7 @@ public class DataGrid extends SkinnableContainerBase
      *  comitting the selection until mouse up.
      */
     private var pendingSelectionOnMouseUp:Boolean = false;
-    
-    /**
-     *  @private
-     */
-    private var pendingSelectionShiftKey:Boolean;
-    
-    /**
-     *  @private
-     */
-    private var pendingSelectionCtrlKey:Boolean;
+
     
     //--------------------------------------------------------------------------
     //
@@ -1022,7 +1014,7 @@ public class DataGrid extends SkinnableContainerBase
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public var grid:spark.components.Grid;    
+    public var grid:Grid;
     
     //----------------------------------
     //  hoverIndicator
@@ -1578,7 +1570,6 @@ public class DataGrid extends SkinnableContainerBase
     *  @playerversion AIR 3.4
     *  @productversion Flex 4.10
     */
-
     public function get doubleClickMode():String
     {
         return grid.doubleClickMode;
@@ -1589,13 +1580,10 @@ public class DataGrid extends SkinnableContainerBase
     */
     public function set doubleClickMode(newValue:String):void
     {
-        if (grid.doubleClickMode == newValue)
+        if (setGridProperty("doubleClickMode", newValue))
         {
-           return;
+            dispatchChangeEvent("doubleClickModeChanged");
         }
-
-        grid.doubleClickMode = newValue;
-        dispatchChangeEvent("doubleClickModeChanged");
     }
 
 
@@ -1858,7 +1846,7 @@ public class DataGrid extends SkinnableContainerBase
      * 
      *  @default false
      * 
-     *  @see #sortable 
+     *  @see #sortableColumns
      *  @see spark.components.gridClasses.GridColumn#sortable
 
      *  @langversion 3.0
@@ -2004,7 +1992,7 @@ public class DataGrid extends SkinnableContainerBase
      * 
      *  @default null.
      *
-     *  @see #dataField 
+     *  @see spark.components.gridClasses.GridColumn#dataField
      *  @see spark.components.gridClasses.IGridItemEditor
      * 
      *  @langversion 3.0
@@ -2599,7 +2587,7 @@ public class DataGrid extends SkinnableContainerBase
     }
     
     /**
-     *  @copy spark.components.Grid#invalidateTypicalItem()
+     *  @copy spark.components.Grid#invalidateTypicalItemRenderer()
      *
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -3722,7 +3710,7 @@ public class DataGrid extends SkinnableContainerBase
             var f:Function = function(g:Grid):void
             {
                 g.selectedCell = valueCopy;
-            }
+            };
             deferredGridOperations.push(f);
         }
     }    
@@ -3760,7 +3748,7 @@ public class DataGrid extends SkinnableContainerBase
             var f:Function = function(g:Grid):void
             {
                 g.selectedCells = valueCopy;
-            }
+            };
             deferredGridOperations.push(f);
         }
     }       
@@ -3803,7 +3791,7 @@ public class DataGrid extends SkinnableContainerBase
             var f:Function = function(g:Grid):void
             {
                 g.selectedIndex = value;
-            }
+            };
             deferredGridOperations.push(f);
         }
     }
@@ -3842,7 +3830,7 @@ public class DataGrid extends SkinnableContainerBase
             var f:Function = function(g:Grid):void
             {
                 g.selectedIndices = valueCopy;
-            }
+            };
             deferredGridOperations.push(f);
         }
     }    
@@ -3886,7 +3874,7 @@ public class DataGrid extends SkinnableContainerBase
             var f:Function = function(g:Grid):void
             {
                 g.selectedItem = value;
-            }
+            };
             deferredGridOperations.push(f);
         }
     }    
@@ -3933,7 +3921,7 @@ public class DataGrid extends SkinnableContainerBase
             var f:Function = function(g:Grid):void
             {
                 g.selectedItems = valueCopy;
-            }
+            };
             deferredGridOperations.push(f);
         }
     }      
@@ -4487,11 +4475,7 @@ public class DataGrid extends SkinnableContainerBase
      *  @param columnCount If <code>selectionEventKind</code> is for a cell region, 
      *  the number  of columns in the cell region.  The default is -1 to 
      *  indicate this parameter is not being used.
-     * 
-     *  @param indices If <code>selectionEventKind</code> is for multiple rows,
-     *  the 0-based row indices of the rows in the selection.  The default is 
-     *  null to indicate this parameter is not being used.
-     * 
+     *
      *  @return <code>true</code> if the selection was committed or did not change, or 
      *  <code>false</code> if the selection was canceled or could not be committed due to 
      *  an error, such as index out of range or the <code>selectionEventKind</code> is not 
@@ -4788,7 +4772,7 @@ public class DataGrid extends SkinnableContainerBase
 	}
 	
 	/**
-	 *  Override to make a datagrid cell editabe based on the data item.
+	 *  Override to make a datagrid cell editable based on the data item.
 	 * 
 	 *  @langversion 3.0
 	 *  @playerversion Flash 10
@@ -4870,46 +4854,67 @@ public class DataGrid extends SkinnableContainerBase
     {
         return new DataGridEditor(this);    
     }
-    
+
     //--------------------------------------------------------------------------
     //
     //  Sorting Methods
     //
     //--------------------------------------------------------------------------
 
+    private function ensureComplexFieldsMonitoring(sortFields:Array):void
+    {
+        if(!(dataProvider is ListCollectionView))
+            return;
+
+        for (var i:int = 0; i < sortFields.length; i++)
+        {
+            var sortField:ISortField = sortFields[i];
+            if(sortField is IComplexSortField)
+                break;
+        }
+
+        if(i < sortFields.length)
+        {
+            if(!ListCollectionView(dataProvider).complexFieldWatcher)
+                ListCollectionView(dataProvider).complexFieldWatcher = new ComplexFieldChangeWatcher();
+        }
+        else
+            ListCollectionView(dataProvider).complexFieldWatcher = null;
+    }
+
     /**
      *  Sort the DataGrid by one or more columns, and refresh the display.
-     * 
+     *
      *  <p>If the <code>dataProvider</code> is an ICollectionView, then it's <code>sort</code> property is
      *  set to a value based on each column's <code>dataField</code>, <code>sortCompareFunction</code>,
      *  and <code>sortDescending</code> flag.
      *  Then, the data provider's <code>refresh()</code> method is called. </p>
-     *  
+     *
      *  <p>If the <code>dataProvider</code> is not an ICollectionView, then this method has no effect.</p>
-     * 
-     *  <p>If isInteractive is true then a <code>GridSortEvent.SORT_CHANGING</code> is dispatched before the 
+     *
+     *  <p>If isInteractive is true then a <code>GridSortEvent.SORT_CHANGING</code> is dispatched before the
      *  sort is applied.  Listeners can change modify the event to change the sort or cancel
      *  the event to cancel the sort.   If isInteractive is true and the sort is not cancelled, then a
      *  <code>GridSortEvent.SORT_CHANGE</code> event is dispatched after the dataProvider's sort has been
      *  updated.</p>
-     * 
+     *
      *  <p>If the sort has not be cancelled, the columnHeaderGroup's <code>visibleSortIndicatorIndices</code> is updated.</p>
-     * 
+     *
      *  @param columnIndices The indices of the columns by which to sort the <code>dataProvider</code>.
-     * 
+     *
      *  @param isInteractive If true, <code>GridSortEvent.SORT_CHANGING</code> and
      *  <code>GridSortEvent.SORT_CHANGE</code> events are dispatched.
-     * 
+     *
      *  @return <code>true</code> if the <code>dataProvider</code> was sorted with the provided
      *  column indicies.
-     * 
+     *
      *  @see spark.components.DataGrid#dataProvider
      *  @see spark.components.gridClasses.GridColumn#sortCompareFunction
      *  @see spark.components.gridClasses.GridColumn#sortDescending
      *  @see spark.components.gridClasses.GridColumn#sortField
-     *  @see spark.components.gridClasses.GridColumnHeaderGroup#visibleSortIndicatorIndices
+     *  @see spark.components.GridColumnHeaderGroup#visibleSortIndicatorIndices
      *  @see spark.events.GridSortEvent
-     * 
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10
      *  @playerversion AIR 2.5
@@ -4920,19 +4925,19 @@ public class DataGrid extends SkinnableContainerBase
        const dataProvider:ICollectionView = this.dataProvider as ICollectionView;
         if (!dataProvider)
             return false;
-        
+
         var sort:ISort = dataProvider.sort;
         if (sort)
             sort.compareFunction = null;
         else
             sort = new Sort();
-        
+
         var sortFields:Array = createSortFields(columnIndices, sort.fields);
-        if (!sortFields || (sortFields.length == 0)) 
+        if (!sortFields || (sortFields.length == 0))
             return false;
-        
+
         var oldSortFields:Array = (dataProvider.sort) ? dataProvider.sort.fields : null;
-        
+
         // Dispatch the "changing" event. If preventDefault() is called
         // on this event, the sort operation will be cancelled.  If columnIndices or
         // sortFields are changed, the new values will be used.
@@ -4942,83 +4947,85 @@ public class DataGrid extends SkinnableContainerBase
             // are copied to the new Array, not the ISortField objects themselves.
             if (oldSortFields)
                 oldSortFields = oldSortFields.concat();
-            
+
             if (hasEventListener(GridSortEvent.SORT_CHANGING))
             {
-                const changingEvent:GridSortEvent = 
+                const changingEvent:GridSortEvent =
                     new GridSortEvent(GridSortEvent.SORT_CHANGING,
-                        false, true, 
-                        columnIndices, 
+                        false, true,
+                        columnIndices,
                         oldSortFields,  /* intended to be read-only but no way to enforce this */
-                        sortFields); 
-                
+                        sortFields);
+
                 // The event was cancelled so don't sort.
                 if (!dispatchEvent(changingEvent))
                     return false;
-                
+
                 // Update the sort columns since they might have changed.
                 columnIndices = changingEvent.columnIndices;
                 if (!columnIndices)
                     return false;
-                
+
                 // Update the new sort fields since they might have changed.
                 sortFields = changingEvent.newSortFields;
                 if (!sortFields)
                     return false;
             }
         }
-        
+
         // Remove each old SortField that's not a member of the new sortFields Array
         // as a "styleClient" of this DataGrid.
-        
+
         if (oldSortFields)
         {
             for each (var oldSortField:ISortField in oldSortFields)
             {
-                var oldASC:AdvancedStyleClient = oldSortField as AdvancedStyleClient;
+                var oldASC:IAdvancedStyleClient = oldSortField as IAdvancedStyleClient;
                 if (!oldASC || (oldASC.styleParent != this) || (sortFields.indexOf(oldASC) != -1))
                     continue;
                 removeStyleClient(oldASC);
             }
         }
-        
+
         // Add new SortFields as "styleClients" of this DataGrid so that they
-        // inherit this DataGrid's locale style. 
-        
+        // inherit this DataGrid's locale style.
+
         for each (var newSortField:ISortField in sortFields)
         {
-            var newASC:AdvancedStyleClient = newSortField as AdvancedStyleClient;
+            var newASC:IAdvancedStyleClient = newSortField as IAdvancedStyleClient;
             if (!newASC || (newASC.styleParent == this))
                 continue;
             addStyleClient(newASC);
         }
-        
+
+        ensureComplexFieldsMonitoring(sortFields);
+
         sort.fields = sortFields;
-        
+
         dataProvider.sort = sort;
         dataProvider.refresh();
-        
+
         if (isInteractive)
         {
             // Dispatch the "change" event.
             if (hasEventListener(GridSortEvent.SORT_CHANGE))
             {
-                const changeEvent:GridSortEvent = 
+                const changeEvent:GridSortEvent =
                     new GridSortEvent(GridSortEvent.SORT_CHANGE,
-                        false, true, 
-                        columnIndices, 
-                        oldSortFields, sortFields); 
+                        false, true,
+                        columnIndices,
+                        oldSortFields, sortFields);
                 dispatchEvent(changeEvent);
             }
-            
+
             // Update the visible sort indicators.
             if (columnHeaderGroup)
-                columnHeaderGroup.visibleSortIndicatorIndices = columnIndices;            
-        }           
-        
+                columnHeaderGroup.visibleSortIndicatorIndices = columnIndices;
+        }
+
         return true;
     }
-    
+
     /**
      *  @private
      *  Return an array of ISortFields, one per column.   If a matching sort field is found in 
@@ -5036,9 +5043,7 @@ public class DataGrid extends SkinnableContainerBase
             if (!col || (!col.dataField && (col.labelFunction == null) && (col.sortCompareFunction == null)))
                 return null;
 
-            var dataField:String = col.dataField;
-            var isComplexDataField:Boolean = (dataField && (dataField.indexOf(".") != -1));
-            var sortField:ISortField = findSortField(dataField, previousFields, isComplexDataField);
+            var sortField:ISortField = findSortField(col.dataField, previousFields);
             
             if (!sortField)
             {
@@ -5059,27 +5064,18 @@ public class DataGrid extends SkinnableContainerBase
     /**
      *  @private
      *  Finds a SortField using the provided dataField and returns it.
-     *  If the dataField is complex, it tries to find a GridSortField
-     *  with a matching dataFieldPath.
-     * 
+     *
      *  @param dataField The dataField of the column.
      *  @param fields The array of SortFields to search through.
-     *  @param isComplexDataField true if the dataField is a path.
      */
-    private static function findSortField(dataField:String, fields:Array, isComplexDataField:Boolean):ISortField
+    private static function findSortField(dataField:String, fields:Array):ISortField
     {
         if (dataField == null)
             return null;
         
         for each (var field:ISortField in fields)
         {
-            var name:String = field.name;
-            if (isComplexDataField && (field is GridSortField))
-            {
-                name = GridSortField(field).dataFieldPath;
-            }
-            
-            if (name == dataField)
+            if (field.name == dataField)
                 return field;
         }
         
@@ -5427,14 +5423,11 @@ public class DataGrid extends SkinnableContainerBase
         // Cancel so another component doesn't handle this event.
         event.preventDefault(); 
         
-        var selectionChanged:Boolean = false;
-        
         if (event.shiftKey)
         {
             // The shift key-nav key combination extends the selection and 
             // updates the caret.
-            selectionChanged = 
-                extendSelection(newPosition.rowIndex, newPosition.columnIndex);
+            extendSelection(newPosition.rowIndex, newPosition.columnIndex);
         }
         else if (event.ctrlKey)
         {
@@ -5604,6 +5597,8 @@ public class DataGrid extends SkinnableContainerBase
             grid.hoverColumnIndex = event.columnIndex;
             updateHoverOnRollOver = true;
         }
+
+        removeMouseHandlersForDragStart(event);
     }
     
     /**
@@ -5623,41 +5618,16 @@ public class DataGrid extends SkinnableContainerBase
         // position.
         if (rowIndex == -1 || isCellSelection && columnIndex == -1)
             return;
-        
+
         if (dragEnabled && isRowSelectionMode() && selectionContainsIndex(rowIndex))
         {
             pendingSelectionOnMouseUp = true;
-            pendingSelectionShiftKey = event.shiftKey;
-            pendingSelectionCtrlKey = event.ctrlKey;            
         }
         else
         {
-            if (event.ctrlKey)
-            {
-                // ctrl-click toggles the selection and updates caret and anchor.
-                if (!toggleSelection(rowIndex, columnIndex))
-                    return;
-                
-                grid.anchorRowIndex = rowIndex;
-                grid.anchorColumnIndex = columnIndex;
-            }
-            else if (event.shiftKey)
-            {
-                // shift-click extends the selection and updates the caret.
-                if  (grid.selectionMode == GridSelectionMode.MULTIPLE_ROWS || 
-                    grid.selectionMode == GridSelectionMode.MULTIPLE_CELLS)
-                {    
-                    if (!extendSelection(rowIndex, columnIndex))
-                        return;
-                }
-            }
-            else
-            {
-                // click sets the selection and updates the caret and anchor positions.
-                setSelectionAnchorCaret(rowIndex, columnIndex);
-            }
+            adjustSelection(event, rowIndex, columnIndex);
         }
-        
+
         // If selection is pending on mouse up then we have just moused down on
         // an item, part of an already commited selection.
         // However if we moused down on an item that's not currently selected,
@@ -5671,14 +5641,14 @@ public class DataGrid extends SkinnableContainerBase
         mouseDownRowIndex = rowIndex;
         mouseDownColumnIndex = columnIndex;
         
-        var listenForDrag:Boolean = (dragEnabled && 
+        var listenForDrag:Boolean = dragEnabled &&
             getStyle("interactionMode") == InteractionMode.MOUSE && selectedIndices && 
-            this.selectedIndices.indexOf(rowIndex) != -1);
+            this.selectedIndices.indexOf(rowIndex) != -1;
         // Handle any drag gestures that may have been started
         if (listenForDrag)
         {
             // Listen for GRID_MOUSE_DRAG.
-            // The user may have cliked on the item renderer close
+            // The user may have clicked on the item renderer close
             // to the edge of the list, and we still want to start a drag
             // operation if they move out of the list.
             grid.addEventListener(GridEvent.GRID_MOUSE_DRAG, grid_mouseDragHandler);
@@ -5702,6 +5672,30 @@ public class DataGrid extends SkinnableContainerBase
         
     }
     
+    private function adjustSelection(event:MouseEvent, rowIndex:int, columnIndex:int):void
+    {
+        if (event.ctrlKey)
+        {
+            // ctrl-click toggles the selection and updates caret and anchor.
+            if (!toggleSelection(rowIndex, columnIndex))
+                return;
+
+            grid.anchorRowIndex = rowIndex;
+            grid.anchorColumnIndex = columnIndex;
+        }
+        else if (event.shiftKey)
+        {
+            // shift-click extends the selection and updates the caret.
+            if  (grid.selectionMode == GridSelectionMode.MULTIPLE_ROWS || grid.selectionMode == GridSelectionMode.MULTIPLE_CELLS)
+                extendSelection(rowIndex, columnIndex);
+        }
+        else
+        {
+            // click sets the selection and updates the caret and anchor positions.
+            setSelectionAnchorCaret(rowIndex, columnIndex);
+        }
+    }
+
     /**
      *  @private
      *  Redispatch the grid's "caretChange" event.
@@ -6098,7 +6092,7 @@ public class DataGrid extends SkinnableContainerBase
      *  a drag-and-drop operation.
      *  Override this method to add other data to the drag source.
      * 
-     *  @param ds The DragSource object to which to add the data.
+     *  @param dragSource The DragSource object to which to add the data.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 11
@@ -6193,40 +6187,11 @@ public class DataGrid extends SkinnableContainerBase
         }
     }
     
-    private function removeMouseHandlersForDragStart(event:GridEvent):void
+    private function removeMouseHandlersForDragStart(event:MouseEvent):void
     {
         // If dragging failed, but we had a pending selection, commit it here
         if (pendingSelectionOnMouseUp && !DragManager.isDragging)
-        {
-            const rowIndex:int = mouseDownRowIndex;
-            const columnIndex:int = mouseDownColumnIndex;
-            
-            if (event.ctrlKey)
-            {
-                // ctrl-click toggles the selection and updates caret and anchor.
-                if (!toggleSelection(rowIndex, columnIndex))
-                    return;
-                
-                grid.anchorRowIndex = rowIndex;
-                grid.anchorColumnIndex = columnIndex;
-            }
-            else if (event.shiftKey)
-            {
-                // shift-click extends the selection and updates the caret.
-                if  (grid.selectionMode == GridSelectionMode.MULTIPLE_ROWS || 
-                    grid.selectionMode == GridSelectionMode.MULTIPLE_CELLS)
-                {    
-                    if (!extendSelection(rowIndex, columnIndex))
-                        return;
-                }
-            }
-            else
-            {
-                // click sets the selection and updates the caret and anchor 
-                // positions.
-                setSelectionAnchorCaret(rowIndex, columnIndex);
-            }           
-        }
+            adjustSelection(event, mouseDownRowIndex, mouseDownColumnIndex);
         
         // Always clean up the flag, even if currently dragging.
         pendingSelectionOnMouseUp = false;
@@ -6268,20 +6233,13 @@ public class DataGrid extends SkinnableContainerBase
     //
     //--------------------------------------------------------------------------
     
-    private function calculateDropLocation(event:DragEvent):DropLocation
-    {
-        // Verify data format
-        if (!enabled || !event.dragSource.hasFormat("itemsByIndex"))
-            return null;
-        
-        // Calculate the drop location
-        var location:DropLocation = grid.layout.calculateDropLocation(event);
-		if (location.dropIndex > dataProvider.length) 
-			location.dropIndex = dataProvider.length;
-		
-		return location;
-    }
-    
+    /**
+    *  @private
+    *  Used in drag n drop methods for drop location / drop indicators.
+    */
+    private var _gridViewLayout:GridViewLayout = null;
+
+
     /**
      *  Creates and instance of the dropIndicator class that is used to
      *  display the visuals of the drop location during a drag and drop
@@ -6304,10 +6262,12 @@ public class DataGrid extends SkinnableContainerBase
     public function createDropIndicator():DisplayObject
     {
         // Do we have a drop indicator already?
-        if (grid.layout.dropIndicator)
-            return grid.layout.dropIndicator;
-        
+        if (_gridViewLayout.dropIndicator)
+            return _gridViewLayout.dropIndicator;
+
+
         var dropIndicatorInstance:DisplayObject;
+
         if (dropIndicator)
         {
             dropIndicatorInstance = DisplayObject(createDynamicPartInstance("dropIndicator"));
@@ -6318,11 +6278,13 @@ public class DataGrid extends SkinnableContainerBase
             if (dropIndicatorClass)
                 dropIndicatorInstance = new dropIndicatorClass();
         }
+
         if (dropIndicatorInstance is IVisualElement)
             IVisualElement(dropIndicatorInstance).owner = this;
         
         // Set it in the layout
-        grid.layout.dropIndicator = dropIndicatorInstance;
+        _gridViewLayout.dropIndicator = dropIndicatorInstance;
+
         return dropIndicatorInstance;
     }
     
@@ -6344,15 +6306,17 @@ public class DataGrid extends SkinnableContainerBase
      */
     public function destroyDropIndicator():DisplayObject
     {
-        var dropIndicatorInstance:DisplayObject = grid.layout.dropIndicator;
+        var dropIndicatorInstance:DisplayObject = _gridViewLayout.dropIndicator;
+
         if (!dropIndicatorInstance)
             return null;
         
         // Release the reference from the layout
-        grid.layout.dropIndicator = null;
+        _gridViewLayout.dropIndicator = null;
         
         // Release it if it's a dynamic skin part
         var count:int = numDynamicParts("dropIndicator");
+
         for (var i:int = 0; i < count; i++)
         {
             if (dropIndicatorInstance == getDynamicPartAt("dropIndicator", i))
@@ -6362,6 +6326,7 @@ public class DataGrid extends SkinnableContainerBase
                 break;
             }
         }
+
         return dropIndicatorInstance;
     }
     
@@ -6375,8 +6340,8 @@ public class DataGrid extends SkinnableContainerBase
      *
      *  @param event The DragEvent object.
      * 
-     *  @see spark.layouts.LayoutBase#showDropIndicator
-     *  @see spark.layouts.LayoutBase#hideDropIndicator
+     *  @see spark.layouts.supportClasses.LayoutBase#showDropIndicator
+     *  @see spark.layouts.supportClasses.LayoutBase#hideDropIndicator
      *  
      *  @langversion 3.0
      *  @playerversion Flash 11
@@ -6387,8 +6352,17 @@ public class DataGrid extends SkinnableContainerBase
     {
         if (event.isDefaultPrevented())
             return;
-        
-        var dropLocation:DropLocation = calculateDropLocation(event); 
+
+
+        if (!_gridViewLayout)
+        {
+            //Store a current gridview layout.
+            _gridViewLayout = (grid.layout as GridLayout).centerGridView.layout as GridViewLayout;
+        }
+
+
+        var dropLocation:DropLocation = _gridViewLayout.calculateDropLocation(event);
+
         if (dropLocation)
         {
             DragManager.acceptDragDrop(this);
@@ -6405,7 +6379,7 @@ public class DataGrid extends SkinnableContainerBase
             DragManager.showFeedback(event.ctrlKey ? DragManager.COPY : DragManager.MOVE);
             
             // Show drop indicator
-            grid.layout.showDropIndicator(dropLocation);
+            _gridViewLayout.showDropIndicator(dropLocation);
         }
         else
         {
@@ -6423,8 +6397,8 @@ public class DataGrid extends SkinnableContainerBase
      *
      *  @param event The DragEvent object.
      *  
-     *  @see spark.layouts.LayoutBase#showDropIndicator
-     *  @see spark.layouts.LayoutBase#hideDropIndicator
+     *  @see spark.layouts.supportClasses.LayoutBase#showDropIndicator
+     *  @see spark.layouts.supportClasses.LayoutBase#hideDropIndicator
      *  
      *  @langversion 3.0
      *  @playerversion Flash 11
@@ -6435,8 +6409,10 @@ public class DataGrid extends SkinnableContainerBase
     {
         if (event.isDefaultPrevented())
             return;
-        
-        var dropLocation:DropLocation = calculateDropLocation(event);
+
+
+        var dropLocation:DropLocation = _gridViewLayout.calculateDropLocation(event);
+
         if (dropLocation)
         {
             // Show focus
@@ -6447,12 +6423,12 @@ public class DataGrid extends SkinnableContainerBase
             DragManager.showFeedback(event.ctrlKey ? DragManager.COPY : DragManager.MOVE);
             
             // Show drop indicator
-            grid.layout.showDropIndicator(dropLocation);
+            _gridViewLayout.showDropIndicator(dropLocation);
         }
         else
         {
             // Hide if previously showing
-            grid.layout.hideDropIndicator();
+            _gridViewLayout.hideDropIndicator();
             
             // Hide focus
             drawFocus(false);
@@ -6472,8 +6448,8 @@ public class DataGrid extends SkinnableContainerBase
      *
      *  @param event The DragEvent object.
      *  
-     *  @see spark.layouts.LayoutBase#showDropIndicator
-     *  @see spark.layouts.LayoutBase#hideDropIndicator
+     *  @see spark.layouts.supportClasses.LayoutBase#showDropIndicator
+     *  @see spark.layouts.supportClasses.LayoutBase#hideDropIndicator
      *  
      *  @langversion 3.0
      *  @playerversion Flash 11
@@ -6484,9 +6460,9 @@ public class DataGrid extends SkinnableContainerBase
     {
         if (event.isDefaultPrevented())
             return;
-        
+
         // Hide if previously showing
-        grid.layout.hideDropIndicator();
+        _gridViewLayout.hideDropIndicator();
         
         // Hide focus
         drawFocus(false);
@@ -6495,25 +6471,7 @@ public class DataGrid extends SkinnableContainerBase
         // Destroy the dropIndicator instance
         destroyDropIndicator();
     }
-    
-    /**
-     *  @private
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    private function touchInteractionStartHandler(event:TouchInteractionEvent):void
-    {
-        // cancel actual selection
-        mouseDownRowIndex = -1;
-        mouseDownColumnIndex = -1;
-        mouseDownObject = null;
-        mouseDownPoint = null;
-        pendingSelectionOnMouseUp = false;
-    }
-    
+
     /**
      *  @private
      *  Handles <code>DragEvent.DRAG_DROP events</code>. This method  hides
@@ -6539,9 +6497,10 @@ public class DataGrid extends SkinnableContainerBase
     {
         if (event.isDefaultPrevented())
             return;
-        
+
+
         // Hide the drop indicator
-        grid.layout.hideDropIndicator();
+		_gridViewLayout.hideDropIndicator();
         destroyDropIndicator();
         
         // Hide focus
@@ -6549,7 +6508,8 @@ public class DataGrid extends SkinnableContainerBase
         drawFocusAnyway = false;
         
         // Get the dropLocation
-        var dropLocation:DropLocation = calculateDropLocation(event);
+		var dropLocation:DropLocation = _gridViewLayout.calculateDropLocation(event);
+
         if (!dropLocation)
             return;
         

@@ -64,8 +64,6 @@ import static macromedia.asc.semantics.Slot.*;
  *  instance object, var_offset might be 4 indicating that their are 4 instance
  *  variable in the base class, so the 0th variable in the current class would
  *  be at slot 4.
- *
- * @author Jeff Dyer
  */
 
 public abstract class Builder

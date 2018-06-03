@@ -43,8 +43,6 @@ import java.util.Map;
 /**
  * This builder handles building a Model instance from a Node and it's
  * children.
- *
- * @author Clement Wong
  */
 public class ComponentBuilder extends AbstractBuilder
 {

@@ -239,15 +239,6 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     public function set localeChain(value:Array /* of String */):void
     {
         _localeChain = value;
-		
-		for each (var locale:String in value)
-		{
-			if (!localeMap.hasOwnProperty(locale))
-			{
-				throw new Error(
-					"Could not find compiled locale '" + locale + "'.");	
-			}
-		}
         
         update();
     }
@@ -539,7 +530,7 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
 
             if (updateFlag)
                 update();
-        }
+        };
         moduleInfo.addEventListener(ModuleEvent.READY, readyHandler,
                                     false, 0, true);
 
@@ -563,7 +554,7 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
             {
                 throw new Error(message);
             }
-        }
+        };
         moduleInfo.addEventListener(ModuleEvent.ERROR, errorHandler,
                                     false, 0, true);
 
@@ -585,7 +576,7 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
 
             // Start loading the module.
             moduleInfo.load(applicationDomain, securityDomain);
-        }
+        };
         timer.addEventListener(TimerEvent.TIMER, timerHandler,
                                false, 0, true);
         timer.start();
@@ -936,8 +927,7 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
                               parameters:Array = null,
                               locale:String = null):String
     {
-        var resourceBundle:IResourceBundle =
-            findBundle(bundleName, resourceName, locale);
+        var resourceBundle:IResourceBundle = findBundle(bundleName, resourceName, locale);
         if (!resourceBundle)
             return null;
 
@@ -1261,7 +1251,7 @@ class ResourceModuleInfo
     /**
      *  @private
      */
-    public var moduleInfo:IModuleInfo
+    public var moduleInfo:IModuleInfo;
     
     //----------------------------------
     //  readyHandler

@@ -21,8 +21,6 @@ package flex2.compiler.mxml.dom;
 
 /**
  * Represents a &lt;HTTPService&gt; tag.
- *
- * @author Clement Wong
  */
 public class HTTPServiceNode extends Node
 {

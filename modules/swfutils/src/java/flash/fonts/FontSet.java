@@ -26,8 +26,6 @@ import flash.util.IntMapLRUCache;
  * given font.  Each <code>FontFace</code> is associated with a
  * <code>java.awt.Font</code> instance and contains a cache of
  * converted glyphs, or character shape outlines.
- *
- * @author Peter Farland
  */
 public class FontSet
 {

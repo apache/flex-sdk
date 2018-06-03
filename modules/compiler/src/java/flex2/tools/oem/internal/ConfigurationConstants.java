@@ -23,11 +23,12 @@ package flex2.tools.oem.internal;
  * Contains constants for all the configuration options.
  *
  * @version 2.0.1
- * @author Clement Wong
  */
 interface ConfigurationConstants
 {
     String USE_NETWORK                                          = "--use-network";
+    String BROKER_LOCAL_CONNECTION                              = "--broker-local-connection";
+    String BROKER_PRODUCT_MANAGER                               = "--broker-product-manager";
     String RUNTIME_SHARED_LIBRARIES                             = "--runtime-shared-libraries";
     String RAW_METADATA                                         = "--raw-metadata";
     String PROJECTOR                                            = "--projector";

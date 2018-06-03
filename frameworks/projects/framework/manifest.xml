@@ -89,6 +89,8 @@
     <component id="SolidColorStroke" class="mx.graphics.SolidColorStroke"/>
     <component id="Sort" class="mx.collections.Sort"/>
     <component id="SortField" class="mx.collections.SortField"/>
+    <component id="ComplexSortField" class="mx.collections.ComplexSortField"/>
+    <component id="ComplexFieldChangeWatcher" class="mx.collections.ComplexFieldChangeWatcher"/>
     <component id="SoundEffect" class="mx.effects.SoundEffect"/>
     <component id="Spacer" class="mx.controls.Spacer"/>
     <component id="Sprite" class="flash.display.Sprite" lookupOnly="true"/>
@@ -101,6 +103,7 @@
     <component id="Transition" class="mx.states.Transition"/>
     <component id="UIComponent" class="mx.core.UIComponent"/>
     <component id="Validator" class="mx.validators.Validator"/>
+    <component id="VectorUtil" class="mx.utils.VectorUtil"/>
     <component id="XMLListCollection" class="mx.collections.XMLListCollection"/>
     <component id="ZipCodeFormatter" class="mx.formatters.ZipCodeFormatter"/>
     <component id="ZipCodeValidator" class="mx.validators.ZipCodeValidator"/>

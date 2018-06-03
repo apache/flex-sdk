@@ -27,9 +27,6 @@ import macromedia.asc.semantics.Slot;
 import macromedia.asc.semantics.TypeInfo;
 import static macromedia.asc.parser.Tokens.*;
 
-/**
- * @author Jeff Dyer
- */
 public class ParameterListNode extends Node
 {
 	public ObjectList<ParameterNode> items = new ObjectList<ParameterNode>();

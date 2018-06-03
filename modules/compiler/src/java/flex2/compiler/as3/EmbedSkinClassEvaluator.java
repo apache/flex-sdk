@@ -33,8 +33,6 @@ import macromedia.asc.util.Context;
  * Evaluator that is meant to be used during the parse1 phase to
  * insure that skin classes are parsed, so the EmbedEvaluator, which
  * runs in parse2 phase, can look up information about the skin class.
- *
- * @author Paul Reilly
  */
 class EmbedSkinClassEvaluator extends EvaluatorAdapter
 {

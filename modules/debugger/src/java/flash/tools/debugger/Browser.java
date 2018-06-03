@@ -23,8 +23,6 @@ import java.io.File;
 
 /**
  * Describes a web browser.
- * 
- * @author mmorearty
  */
 public interface Browser
 {

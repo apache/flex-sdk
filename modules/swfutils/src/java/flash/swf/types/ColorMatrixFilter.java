@@ -21,8 +21,6 @@ package flash.swf.types;
 
 /**
  * A value object for color matrix filter data.
- *
- * @author Roger Gonzalez
  */
 public class ColorMatrixFilter extends Filter
 {

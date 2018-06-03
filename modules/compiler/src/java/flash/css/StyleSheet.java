@@ -31,8 +31,6 @@ import flex2.compiler.Logger;
 /**
  * Represents a CSS stylesheet.  Consumers will typically call one of
  * the parse() methods and then getCssRules().
- *
- * @author Paul Reilly
  */
 public class StyleSheet
 {

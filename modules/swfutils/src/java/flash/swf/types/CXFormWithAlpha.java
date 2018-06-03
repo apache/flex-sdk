@@ -23,8 +23,6 @@ import flash.swf.SwfEncoder;
 
 /**
  * This class extends CXForm by adding support for alpha.
- *
- * @author Clement Wong
  */
 public class CXFormWithAlpha extends CXForm
 {

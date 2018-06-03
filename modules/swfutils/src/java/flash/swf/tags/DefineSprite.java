@@ -29,8 +29,6 @@ import java.util.Iterator;
 
 /**
  * Represents a DefineSprite SWF tag.
- *
- * @author Clement Wong
  */
 public class DefineSprite extends DefineTag
 {

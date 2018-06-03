@@ -1,0 +1,141 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<project name="flexunit-tests" default="test">
+
+  <property name="FLEX_HOME" location="${basedir}"/>
+  <property name="FLEXUNIT_HOME" value="${FLEX_HOME}/../flex-flexunit"/>
+
+  <property name="exit" value="false"/>
+  
+  <target name="test" depends="test-check, test-run, test-clean"
+    description="Runs FlexUnit tests"/>
+
+  <target name="test-check">
+
+    <available
+      type="dir" file="${FLEXUNIT_HOME}" 
+      property="FLEXUNIT_HOME.set" />
+
+    <fail message="The FLEXUNIT_HOME variable is not set to a directory" 
+        unless="FLEXUNIT_HOME.set"/>
+
+    <echo message="FLEXUNIT_HOME is set: ${FLEXUNIT_HOME}"/>
+
+    <available
+      type="dir" file="${project.root}" 
+      property="project.root.set" />
+
+    <fail message="The 'project.root' variable is not set to a directory" 
+        unless="project.root.set"/>
+
+    <echo message="'project.root' is set: ${project.root}"/>
+
+  </target>
+
+
+  <target name="-test-run-prepare">
+
+    <property name="tests.bin" location="${basedir}/bin-tests"/>
+    <condition property="project.needs.extra.libs">
+      <isset property="project.libs"/>
+    </condition>
+
+    <taskdef resource="flexUnitTasks.tasks">
+      <classpath>
+        <fileset dir="${FLEXUNIT_HOME}/FlexUnit4AntTasks/target">
+          <include name="flexUnitTasks*.jar"/>
+        </fileset>
+      </classpath>
+    </taskdef>
+
+    <echo message="Unit tests for '${project.root}'"/>
+
+    <mkdir dir="${tests.bin}"/>
+  </target>
+
+  <target name="-test-run-execute" unless="project.needs.extra.libs">
+    <flexunit
+            workingDir="${tests.bin}"
+            toDir="${tests.bin}/report"
+            haltonfailure="false"
+            verbose="true"
+            debug="true"
+            localTrusted="true">
+
+      <source dir="${project.root}/src"/>
+
+      <testSource dir="${project.root}/tests">
+        <include name="**/*Tests.as"/>
+      </testSource>
+
+      <library file="${FLEXUNIT_HOME}/FlexUnit4/target/flexunit-4.3.0-20140410-flex_4.12.0.swc"/>
+      <library dir="${FLEXUNIT_HOME}/FlexUnit4CIListener/target"/>
+    </flexunit>
+  </target>
+
+  <target name="-test-run-execute-with-extra-lib" if="project.needs.extra.libs">
+    <flexunit
+            workingDir="${tests.bin}"
+            toDir="${tests.bin}/report"
+            haltonfailure="false"
+            verbose="true"
+            debug="true"
+            localTrusted="true">
+
+      <source dir="${project.root}/src"/>
+
+      <testSource dir="${project.root}/tests">
+        <include name="**/*Tests.as"/>
+      </testSource>
+
+      <library file="${FLEXUNIT_HOME}/FlexUnit4/target/flexunit-4.3.0-20140410-flex_4.12.0.swc"/>
+      <library dir="${FLEXUNIT_HOME}/FlexUnit4CIListener/target"/>
+      <library dir="${project.libs}"/>
+    </flexunit>
+  </target>
+
+  <target name="-test-run-report">
+    <mkdir dir="${FLEX_HOME}/test-reports"/>
+
+    <copy todir="${FLEX_HOME}/test-reports">
+      <fileset dir="${project.root}">
+        <include name="TEST-*.xml" />
+      </fileset>
+    </copy>
+  </target>
+
+  <target name="test-run" depends="-test-run-prepare, -test-run-execute, -test-run-execute-with-extra-lib, -test-run-report" unless="${exit}"/>
+
+  <target name="test-clean" unless="${exit}">
+
+    <echo message="Clean up test artefacts"/>
+
+    <delete dir="${tests.bin}"/>
+
+    <delete>
+      <fileset dir="${project.root}">
+        <include name="TEST-*.xml" />
+      </fileset>
+    </delete>
+
+  </target>
+  
+</project>

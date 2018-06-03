@@ -34,6 +34,7 @@ import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.system.Capabilities;
+import flash.utils.Dictionary;
 
 import mx.automation.IAutomationObject;
 import mx.core.FlexGlobals;
@@ -176,6 +177,14 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
      *  An array of information about currently active popups
      */
     mx_internal var popupInfo:Array = [];
+    
+    /**
+     *  @private
+     *  The first popup to use a blur per systemManager.
+     *  We need to track that in order to know when to remove the blur
+     *  if stacks of modal popups are created and then taken down. 
+     */
+    private var blurOwners:Dictionary = new Dictionary(true);
 
     //--------------------------------------------------------------------------
     //
@@ -956,6 +965,9 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             
             if (blurAmount)
             {
+                if (blurOwners[sm] == null)
+                    blurOwners[sm] = o.owner;
+                
                 // Ensure we blur the appropriate top level document.
                 if (DisplayObject(sm).parent is Stage)
                 {
@@ -1031,12 +1043,10 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             fade.play();
             
             var sm:ISystemManager = o.systemManager;
-            var awm:IActiveWindowManager = 
-                IActiveWindowManager(sm.getImplementation("mx.managers::IActiveWindowManager"));
-            // don't remove blur unless this is the last modal window
-            if (awm.numModalWindows == 1)
+            
+            // don't remove blur unless this is the first modal window to put up the blur
+            if (blurOwners[sm] != null && blurOwners[sm] == o.owner)
             {
-                
                 // Blur effect on the application
                 const blurAmount:Number = popUpStyleClient.getStyle("modalTransparencyBlur");
                 
@@ -1268,6 +1278,20 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
     				awm.numModalWindows--;
                 }
 
+                if (blurOwners[sm] == o.owner)
+                {
+                    blurOwners[sm] = null;
+                    // FLEX-34774 Assign new blurOwner if stack of modals
+                    // is programmatically manipulated and owner goes away
+                    // before others
+                    for (var j:int = 0; j < n; j++)
+                    {
+                        var p:PopUpData               = popupInfo[j];
+                        if (p != o && p.systemManager == sm && p.modalWindow != null)
+                            blurOwners[sm] = p.owner;
+                    }
+
+                }
                 popupInfo.splice(i, 1);
                 break;
             }
@@ -1326,7 +1350,6 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 			if (obj.parent)	// Mustella can already take you off stage
 				obj.parent.removeChild(obj);
 		}
-		
     }
     
     /**

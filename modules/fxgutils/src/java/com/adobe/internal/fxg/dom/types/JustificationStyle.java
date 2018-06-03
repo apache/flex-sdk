@@ -37,7 +37,6 @@ package com.adobe.internal.fxg.dom.types;
  *   3 = pushOutOnly
  * </pre>
  * 
- * @author Min Plunkett
  */
 public enum JustificationStyle
 {

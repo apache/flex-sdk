@@ -52,8 +52,6 @@ import macromedia.asc.util.Context;
  * CompilationUnit's inheritance dependencies will be parsed before
  * the parse2 phase begins.  TypeAnalyzer requires this to work
  * properly.
- *
- * @author Paul Reilly
  @ @see flex2.compiler.as3.binding.TypeAnalyzer
  */
 public class InheritanceEvaluator extends EvaluatorAdapter

@@ -43,7 +43,6 @@ import flex2.tools.oem.Report;
  * Command line utility for compiling libraries using the OEM API.
  *
  * @version 2.0.1
- * @author Clement Wong
  */
 public class LibraryCompiler
 {

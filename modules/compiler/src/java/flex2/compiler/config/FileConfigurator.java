@@ -55,8 +55,6 @@ import flash.localization.LocalizationManager;
  * configuration options and populate a ConfigurationBuffer.  A
  * counterpart of CommandLineConfigurator and
  * SystemPropertyConfigurator.
- *
- * @author Roger Gonzalez
  */
 public class FileConfigurator
 {

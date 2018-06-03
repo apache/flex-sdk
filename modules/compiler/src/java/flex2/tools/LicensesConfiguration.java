@@ -29,7 +29,6 @@ import java.util.Map;
  * A sub-configuration of ToolsConfiguration.
  *
  * @see flex2.tools.ToolsConfiguration
- * @author Paul Reilly
  */
 public class LicensesConfiguration
 {

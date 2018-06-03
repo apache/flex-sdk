@@ -45,15 +45,10 @@ package flatspark.utils
 		public static const Concrete:uint = 0x95A5A6;
 		public static const Asbestos:uint = 0x7F8C8D;
 		
-		public function ColorUtils()
-		{
-			
-		}		
-		
 		public static function ButtonColor(brand:int, estado:State):uint
 		{
 			// All the possible colors
-			var cores:Array = new Array(
+			var cores:Array = [
 				ButtonColorEnum.PrimaryUp, ButtonColorEnum.PrimaryHover, ButtonColorEnum.PrimaryDown, ButtonColorEnum.PrimaryDisabled,
 				ButtonColorEnum.SuccessUp, ButtonColorEnum.SuccessHover, ButtonColorEnum.SuccessDown, ButtonColorEnum.SuccessDisabled,
 				ButtonColorEnum.WarningUp, ButtonColorEnum.WarningHover, ButtonColorEnum.WarningDown, ButtonColorEnum.WarningDisabled,
@@ -61,7 +56,7 @@ package flatspark.utils
 				ButtonColorEnum.DefaultUp, ButtonColorEnum.DefaultHover, ButtonColorEnum.DefaultDown, ButtonColorEnum.DefaultDisabled,
 				ButtonColorEnum.InfoUp, ButtonColorEnum.InfoHover, ButtonColorEnum.InfoDown, ButtonColorEnum.InfoDisabled,
 				ButtonColorEnum.DangerUp, ButtonColorEnum.DangerHover, ButtonColorEnum.DangerDown, ButtonColorEnum.DangerDisabled
-				);
+				];
 			
 			// Map all the allowed states
 			var numeroEstado:int = 1;
@@ -80,11 +75,8 @@ package flatspark.utils
 					numeroEstado = 3;
 					break;
 			}
-			
-			var posicao:int = 1;
-			posicao = 4 * (brand - 1) + (numeroEstado - 1); 
-			
-			return cores[posicao];
+
+			return cores[4 * (brand - 1) + (numeroEstado - 1)];
 		}
 	}
 }

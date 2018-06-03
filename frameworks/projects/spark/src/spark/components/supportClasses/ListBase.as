@@ -1311,7 +1311,7 @@ public class ListBase extends SkinnableDataContainer implements IDataProviderEnh
             {
                 currentObject = dataProvider.getItemAt(loopingIndex);
 
-                if (currentObject.hasOwnProperty(field) == true && currentObject[field].search(pattern) != -1)
+                if (currentObject.hasOwnProperty(field) == true && pattern.test(currentObject[field]) == true)
                 {
                     return loopingIndex;
                 }
@@ -1368,7 +1368,7 @@ public class ListBase extends SkinnableDataContainer implements IDataProviderEnh
                 //Loop through regex patterns from the values array.
                 for (loopingValuesIndex = 0; loopingValuesIndex < valuesTotal; loopingValuesIndex++)
                 {
-                    if (currentObject[field].search(regexList[loopingValuesIndex]) != -1)
+                    if (regexList[loopingValuesIndex].test(currentObject[field]) == true)
                     {
                         matchedIndices.push(loopingDataProviderIndex);
 
@@ -1877,9 +1877,9 @@ public class ListBase extends SkinnableDataContainer implements IDataProviderEnh
         
         // We want to wait one frame after validation has occured before turning off 
         // selection transitions again.  We tried using dataGroup's updateComplete event listener, 
-        // but because some validateNows() occur (before all of the event handling code has finished), 
-        // this was occuring too early.  We also tried just using callLater or ENTER_FRAME, but that 
-        // occurs before the LayoutManager has run, so we add an ENTER_FRAME handler with a 
+        // but because some validateNow() calls occur (before all of the event handling code has
+        // finished), this was occurring too early.  We also tried just using callLater or ENTER_FRAME,
+        // but that occurs before the LayoutManager has run, so we add an ENTER_FRAME handler with a
         // low priority to make sure it occurs after the LayoutManager pass.
         systemManager.addEventListener(Event.ENTER_FRAME, allowSelectionTransitions_enterFrameHandler, false, -100);
     }
@@ -1980,13 +1980,13 @@ public class ListBase extends SkinnableDataContainer implements IDataProviderEnh
 
     /**
      *  @private
-     *  Called when an item has been removed from this component.
+     *  Called on rollover or roll out.
      */
     private function item_mouseEventHandler(event:MouseEvent):void
     {
         var type:String = event.type;
         type = TYPE_MAP[type];
-        if (hasEventListener(type))
+        if (hasEventListener(type) && dataProvider != null)
         {
             var itemRenderer:IItemRenderer = event.currentTarget as IItemRenderer;
             
@@ -1995,7 +1995,11 @@ public class ListBase extends SkinnableDataContainer implements IDataProviderEnh
                 itemIndex = itemRenderer.itemIndex;
             else
                 itemIndex = dataGroup.getElementIndex(event.currentTarget as IVisualElement);
-            
+			// The event can be called by an item renderer which has already been removed from the dataProvider.
+			// In that case, bail out.
+            if(itemIndex < 0 || itemIndex >= dataProvider.length)
+				return;
+			
             var listEvent:ListEvent = new ListEvent(type, false, false,
                                                     event.localX,
                                                     event.localY,

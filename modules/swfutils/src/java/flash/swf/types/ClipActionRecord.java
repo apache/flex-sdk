@@ -21,8 +21,6 @@ package flash.swf.types;
 
 /**
  * A value object for clip action record data.
- *
- * @author Clement Wong
  */
 public class ClipActionRecord
 {

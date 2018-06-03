@@ -34,8 +34,6 @@ import java.util.*;
  *
  * This is handy since dependencies in Flex are a transposed DAG
  * (edges point to predecessors, not successors).
- *
- * @author Roger Gonzalez
  */
 public class DependencyWalker
 {

@@ -31,8 +31,6 @@ import java.util.*;
 
 /**
  * MXML parser: JavaCC + SAXParser as the tokenizer...
- *
- * @author Clement Wong
  */
 public class Parser implements MXMLNamespaces
 {

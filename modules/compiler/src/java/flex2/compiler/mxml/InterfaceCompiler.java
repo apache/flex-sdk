@@ -100,8 +100,6 @@ import java.util.regex.Matcher;
  * <p>At the end of the InterfaceCompiler phases, the workflow switches to ImplementationCompiler for generation of the
  * complete AS code. (As noted above, the additional dependencies outside those needed purely for the document's
  * component tags, are detected and registered during that phase.)
- *
- * @author Clement Wong
  * 
  * Changed to extend AbstractSubCompiler to clean up benchmarking code and enble 
  * embedded compiler benchmarking - bfrazer
@@ -1798,6 +1796,11 @@ public class InterfaceCompiler extends flex2.compiler.AbstractSubCompiler implem
         {
             String className = (String) getLanguageAttributeValue(node, StandardDefs.PROP_TYPE);
             requestType(NameFormatter.toColon(className), node);
+
+            // the items in a Vector may be subclasses of the Vector's type, and
+            // those subclasses may not have been used anywhere else, so we
+            // can't assume that requesting the Vector's type is enough.
+            analyze((Node) node);
         }
 
         public void analyze(DefinitionNode node)

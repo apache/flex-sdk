@@ -28,8 +28,6 @@ import flash.swf.types.GlyphEntry;
  * now, the font size is not considered in the face as a FontBuilder
  * does not depend on size to generate a DefineFont or DefineFont2
  * tag.
- *
- * @author Peter Farland
  */
 public abstract class FontFace
 {

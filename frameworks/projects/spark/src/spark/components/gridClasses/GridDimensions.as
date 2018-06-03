@@ -1183,28 +1183,31 @@ public class GridDimensions
      */
     public function getColumnIndexAt(x:Number, y:Number):int
     {
-        var cur:Number = x;
+        var current:Number = x;
         var i:int;
-        
+
+        if(current < 0)
+            return -1;
+
         for (i = 0; i < _columnCount; i++)
         {
-            var temp:Number = _columnWidths[i];
+            var columnWidth:Number = _columnWidths[i];
             
             // fall back on typical widths if the actual width isn't set.
-            if (isNaN(temp))
+            if (isNaN(columnWidth))
             {
-                temp = typicalCellWidths[i];
-                if (temp == 0) // invisible column
+                columnWidth = typicalCellWidths[i];
+                if (columnWidth == 0) // invisible column
                     continue;
             }
             
             // fall back on defaultColumnWidth
-            if (isNaN(temp))
-                temp = defaultColumnWidth;
+            if (isNaN(columnWidth))
+                columnWidth = defaultColumnWidth;
             
-            cur -= temp + columnGap;
+            current -= columnWidth + columnGap;
 
-            if (cur < 0)
+            if (current < 0)
                 return i;
         }
         

@@ -31,8 +31,6 @@ import java.util.List;
 /**
  * Represents the root tag of an MXML document or the first child tag
  * of an &lt;InlineComponent&gt; tag.
- *
- * @author Clement Wong
  */
 public class DocumentNode extends Node
 {

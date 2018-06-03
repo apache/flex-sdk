@@ -78,9 +78,6 @@ import java.util.Iterator;
  * <p>
  * Royale emits no kDebugBreakpoint tags in its SWDs, but if it did
  * they would come last, ordered by offset.
- *
- * @author Edwin Smith
- * @author Gordon Smith
  */
 public class DebugEncoder implements DebugHandler
 {

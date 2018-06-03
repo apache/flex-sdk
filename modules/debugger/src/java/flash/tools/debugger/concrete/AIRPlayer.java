@@ -24,9 +24,6 @@ import java.io.File;
 import flash.tools.debugger.Browser;
 import flash.tools.debugger.Player;
 
-/**
- * @author Mike Morearty
- */
 public class AIRPlayer implements Player
 {
 	File m_adl;

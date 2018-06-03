@@ -20,18 +20,16 @@
 package mx.validators
 {
 
-import flash.events.Event;
-import flash.events.EventDispatcher;
-import flash.events.IEventDispatcher;
-import mx.binding.BindingManager;
-import mx.core.IMXMLObject;
-import mx.events.FlexEvent;
-import mx.events.ValidationResultEvent;
-import mx.managers.ISystemManager;
-import mx.managers.SystemManager;
-import mx.resources.IResourceManager;
-import mx.resources.ResourceManager;
-import mx.validators.IValidator;
+    import flash.events.Event;
+    import flash.events.EventDispatcher;
+    import flash.events.IEventDispatcher;
+
+    import mx.core.IMXMLObject;
+    import mx.events.FlexEvent;
+    import mx.events.ValidationResultEvent;
+    import mx.resources.IResourceManager;
+    import mx.resources.ResourceManager;
+    import mx.utils.ObjectUtil;
 
 //--------------------------------------
 //  Events
@@ -179,53 +177,7 @@ public class Validator extends EventDispatcher implements IMXMLObject,IValidator
         return result;
     }
     
-    /**
-     *  @private
-     */
-    private static function findObjectFromString(doc:Object,
-                                                 value:String):Object
-    {
-        var obj:Object = doc;
-        var parts:Array = value.split(".");
 
-        var n:int = parts.length;
-        for (var i:int = 0; i < n; i++)
-        {
-            try
-            {
-                obj = obj[parts[i]];
-                
-                // There's no guarantee that the objects have
-                // already been created when this function fires;
-                // for example, in the deferred instantiation case,
-                // this function fires before the object for validation
-                // has been created.
-                if (obj == null)
-                {
-                    //return true;
-                }
-            }
-            catch(error:Error)
-            {
-                if ((error is TypeError) &&
-                    (error.message.indexOf("null has no properties") != -1))
-                {
-                    var resourceManager:IResourceManager =
-                        ResourceManager.getInstance();
-                    var message:String = resourceManager.getString(
-                        "validators", "fieldNotFound", [ value ]);
-                    throw new Error(message);
-                }
-                else
-                {                    
-                    throw error;
-                }
-            }
-        }
-        
-        return obj;
-    }
-    
     /**
      *  @private
      */
@@ -483,20 +435,30 @@ public class Validator extends EventDispatcher implements IMXMLObject,IValidator
     //  required
     //----------------------------------
 
+    private var _required:Boolean = true;
+
     [Inspectable(category="General", defaultValue="true")]
-    
+
     /**
-     *  If <code>true</code>, specifies that a missing or empty 
-     *  value causes a validation error. 
-     *  
+     *  If <code>true</code>, specifies that a missing or empty
+     *  value causes a validation error.
+     *
      *  @default true
-     *  
+     *
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public var required:Boolean = true;
+    public function get required():Boolean
+    {
+        return _required;
+    }
+
+    public function set required(value:Boolean):void
+    {
+        _required = value;
+    }
     
     //----------------------------------
     //  resourceManager
@@ -957,11 +919,10 @@ public class Validator extends EventDispatcher implements IMXMLObject,IValidator
         {
             // We assume if value is null and required is false that
             // validation was successful.
-            var resultEvent:ValidationResultEvent = 
-                new ValidationResultEvent(ValidationResultEvent.VALID);
+            var resultEvent:ValidationResultEvent = handleResults(null);
             if (!suppressEvents && _enabled)
             {
-            	dispatchEvent(resultEvent);
+                dispatchEvent(resultEvent);
             }
             return resultEvent; 
         } 
@@ -986,7 +947,7 @@ public class Validator extends EventDispatcher implements IMXMLObject,IValidator
 
         if (_source && _property)
         {
-            return _source[_property];
+            return _property.indexOf(".") == -1 ? _source[_property] : ObjectUtil.getValue(_source, _property.split("."));
         }
 
         else if (!_source && _property)
@@ -1118,7 +1079,7 @@ public class Validator extends EventDispatcher implements IMXMLObject,IValidator
     {
         var resultEvent:ValidationResultEvent;
         
-        if (errorResults.length > 0)
+        if (errorResults != null && errorResults.length > 0)
         {
             resultEvent =
                 new ValidationResultEvent(ValidationResultEvent.INVALID);
@@ -1171,7 +1132,7 @@ public class Validator extends EventDispatcher implements IMXMLObject,IValidator
     /**
      *  @private
      */
-    private function triggerHandler(event:Event):void
+    protected function triggerHandler(event:Event):void
     {
         validate();
     }
@@ -1183,6 +1144,5 @@ public class Validator extends EventDispatcher implements IMXMLObject,IValidator
     {
         resourcesChanged();
     }
-}   
-
+}
 }

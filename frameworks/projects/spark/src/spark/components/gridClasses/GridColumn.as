@@ -19,25 +19,25 @@
 
 package spark.components.gridClasses
 {
-import flash.events.Event;
-import flash.events.EventDispatcher;
+    import flash.events.Event;
+    import flash.events.EventDispatcher;
 
-import mx.core.ClassFactory;
-import mx.core.IFactory;
-import mx.core.mx_internal;
-import mx.events.CollectionEvent;
-import mx.events.CollectionEventKind;
-import mx.events.PropertyChangeEvent;
-import mx.formatters.IFormatter;
-import mx.styles.IAdvancedStyleClient;
-import mx.utils.ObjectUtil;
+    import mx.collections.ComplexFieldChangeWatcher;
+    import mx.collections.ISortField;
+    import mx.collections.ListCollectionView;
+    import mx.core.ClassFactory;
+    import mx.core.IFactory;
+    import mx.events.CollectionEvent;
+    import mx.events.CollectionEventKind;
+    import mx.events.PropertyChangeEvent;
+    import mx.formatters.IFormatter;
+    import mx.styles.IAdvancedStyleClient;
+    import mx.utils.ObjectUtil;
+    import mx.core.mx_internal;
+    import spark.collections.SortField;
+    import spark.components.Grid;
 
-import spark.collections.SortField;
-import spark.components.Grid;
-import spark.components.gridClasses.DefaultGridItemEditor;
-import spark.components.gridClasses.GridSortField;
-
-use namespace mx_internal;
+    use namespace mx_internal;
 
 /**
  *  The GridColumn class defines a column of a Spark grid control,
@@ -115,7 +115,7 @@ public class GridColumn extends EventDispatcher
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public static const ERROR_TEXT:String = new String(" ");
+    public static const ERROR_TEXT:String = " ";
     
     //--------------------------------------------------------------------------
     //
@@ -138,43 +138,13 @@ public class GridColumn extends EventDispatcher
             _defaultItemEditorFactory = new ClassFactory(DefaultGridItemEditor);
         return _defaultItemEditorFactory;
     }
-    
-    /**
-     *  @private
-     *  A default compare function for sorting if the dataField is a complex path.
-     */
-    private static function dataFieldPathSortCompare(obj1:Object, obj2:Object, column:GridColumn):int
-    {
-        if (!obj1 && !obj2)
-            return 0;
-        
-        if (!obj1)
-            return 1;
-        
-        if (!obj2)
-            return -1;
-        
-        const dataFieldPath:Array = column.dataField.split(".");
-        const formatter:IFormatter = column.formatter;
-        
-        const obj1String:String = column.itemToString(obj1, dataFieldPath, null, formatter);
-        const obj2String:String = column.itemToString(obj2, dataFieldPath, null, formatter);
-        
-        if ( obj1String < obj2String )
-            return -1;
-        
-        if ( obj1String > obj2String )
-            return 1;
-        
-        return 0;
-    }
 
     //--------------------------------------------------------------------------
     //
     //  Constructor
     //
     //--------------------------------------------------------------------------
-    
+
     /**
      *  Constructor. 
      * 
@@ -336,7 +306,7 @@ public class GridColumn extends EventDispatcher
         {
             dataFieldPath = [value];
         }
-        
+
         invalidateGrid();
         if (grid)
             grid.clearGridLayoutCache(true);
@@ -1035,6 +1005,7 @@ public class GridColumn extends EventDispatcher
     private var _width:Number = NaN;
     
     [Bindable("widthChanged")]    
+    [PercentProxy("percentWidth")]
     
     /**
      *  The width of this column in pixels. 
@@ -1181,7 +1152,6 @@ public class GridColumn extends EventDispatcher
     }
     
     [Inspectable(category="General")]
-    [PercentProxy("percentWidth")]
     
     /**
      *  @private
@@ -1606,62 +1576,40 @@ public class GridColumn extends EventDispatcher
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function get sortField():SortField
+    public function get sortField():ISortField
     {
         const column:GridColumn = this;
         const isComplexDataField:Boolean = dataFieldPath.length > 1;
-        
-        // A complex dataField requires a GridSortField for the DataGrid
-        // to reverse a previous sort on this column by matching dataFieldPath
-        // to the dataField.
+
         // TODO (klin): Might be fixed in Spark Sort. The only reason this is
         // required is because MX Sort RTEs when the dataField doesn't exist on the
         // data object even though a sortCompareFunction is defined.
-        var sortField:SortField;
-        if (isComplexDataField)
-        {
-            sortField = new GridSortField();
-            GridSortField(sortField).dataFieldPath = dataField;
-        }
-        else
-        {
-            sortField = new SortField(dataField);
-        }
+        var sortField:ISortField = isComplexDataField ? new GridSortFieldComplex(this, dataField) : new GridSortFieldSimple(this, dataField);
 
         sortField.sortCompareType = column._sortCompareType;
 
-        var cF:Function = null;
+        var compareFunc:Function = null;
         if (_sortCompareFunction != null)
         {
-            cF = function (a:Object, b:Object):int
+            compareFunc = function (a:Object, b:Object):int
             { 
                 return _sortCompareFunction(a, b, column);
             };
         }
         else
         {
-            // If no sortCompareFunction is specified, there are defaults for
-            // two special cases: complex dataFields and labelFunctions without dataFields.
-            
-            if (isComplexDataField)
+            // If no sortCompareFunction is specified, there is a default for
+            // labelFunctions without dataFields.
+            if(dataField == null && _labelFunction != null)
             {
-                // use custom compare function for a complex dataField if one isn't provided.
-                cF = function (a:Object, b:Object):int
-                { 
-                    return dataFieldPathSortCompare(a, b, column);
-                };
-            }
-            else if (dataField == null && _labelFunction != null)
-            {
-                // use basic string compare on the labelFunction results
-                cF = function (a:Object, b:Object):int
+                compareFunc = function (a:Object, b:Object):int
                 { 
                     return ObjectUtil.stringCompare(_labelFunction(a, column), _labelFunction(b, column));
                 };
             }
         }
         
-        sortField.compareFunction = cF;
+        sortField.compareFunction = compareFunc;
         sortField.descending = column.sortDescending;
         return sortField;
     }
@@ -1856,10 +1804,10 @@ public class GridColumn extends EventDispatcher
     /**
      *  @private
      */
-    private function dispatchChangeEvent(type:String):void
+    private function dispatchChangeEvent(eventType:String):void
     {
-        if (hasEventListener(type))
-            dispatchEvent(new Event(type));
+        if (hasEventListener(eventType))
+            dispatchEvent(new Event(eventType));
     }
     
     /**

@@ -32,9 +32,6 @@ import com.adobe.internal.fxg.dom.DOMParserHelper;
 import com.adobe.internal.fxg.dom.GradientEntryNode;
 import com.adobe.internal.fxg.dom.types.BevelType;
 
-/**
- * @author Peter Farland
- */
 public class GradientBevelFilterNode extends AbstractFilterNode
 {
     //--------------------------------------------------------------------------

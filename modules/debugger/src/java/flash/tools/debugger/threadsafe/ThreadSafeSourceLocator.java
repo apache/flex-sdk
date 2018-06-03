@@ -23,9 +23,6 @@ import java.io.InputStream;
 
 import flash.tools.debugger.SourceLocator;
 
-/**
- * @author Mike Morearty
- */
 public class ThreadSafeSourceLocator extends ThreadSafeDebuggerObject implements SourceLocator
 {
 	private SourceLocator fSourceLocator;

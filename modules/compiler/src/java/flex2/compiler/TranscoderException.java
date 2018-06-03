@@ -36,8 +36,6 @@ import flex2.compiler.util.CompilerMessage;
  * Notenote: origin/line re-added, won't be fed by the transcoder, but
  * post-filled-in by the handler.  Kind of weird, but will make L10N
  * easier, I think.  --rg
- *
- * @author Brian Deitte
  */
 public class TranscoderException extends CompilerMessage.CompilerError implements ILocalizableMessage
 {

@@ -41,8 +41,6 @@ import java.util.TreeSet;
 
 /**
  * Used to read in the catalog.xml from a SWC.
- *
- * @author Brian Deitte
  */
 public class CatalogReader
 {

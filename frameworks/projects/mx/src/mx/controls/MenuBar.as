@@ -1410,8 +1410,7 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
         var i:int;
         super.styleChanged(styleProp);
 
-        var n:int = menuBarItems.length;
-        for (i = 0; i < n; i++)
+        for (i = 0; i < menuBarItems.length; i++)
         {
             getMenuAt(i).styleChanged(styleProp);
         }
@@ -1447,8 +1446,7 @@ public class MenuBar extends UIComponent implements IFocusManagerComponent
     {
         super.notifyStyleChangeInChildren(styleProp, recursive);
 
-        var n:int = menuBarItems.length;
-        for (var i:int = 0; i < n; i++)
+        for (var i:int = 0; i < menuBarItems.length; i++)
         {
             getMenuAt(i).notifyStyleChangeInChildren(styleProp, recursive);
         }

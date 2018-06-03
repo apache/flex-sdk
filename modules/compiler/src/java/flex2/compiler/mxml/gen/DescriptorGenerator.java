@@ -38,8 +38,6 @@ import java.util.Set;
  * This utility class is used to generate the code for legacy Halo
  * descriptor trees, which are used at runtime to implement deferred
  * instantiation.
- *
- * @author Basil Hosmer
  */
 public class DescriptorGenerator
 {

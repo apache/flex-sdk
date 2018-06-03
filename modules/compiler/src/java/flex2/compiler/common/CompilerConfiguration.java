@@ -55,8 +55,6 @@ import java.util.Set;
  * of these options have an optional prefix of "compiler", as long as
  * the option can be resolved unambiguously.  For example,
  * "-compiler.debug", can be abbreviated to "-debug".
- *
- * @author Roger Gonzalez
  */
 public class CompilerConfiguration implements As3Configuration,
                                               flex2.compiler.mxml.MxmlConfiguration, Cloneable

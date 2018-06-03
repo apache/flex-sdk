@@ -24,8 +24,6 @@ import macromedia.asc.semantics.*;
 
 /**
  * Node
- *
- * @author Dick Sweet
  */
 
 

@@ -74,8 +74,6 @@ import flex2.compiler.io.VirtualFile;
  *   of other prerequisites for this var.  You will be guaranteed that the deps are committed before
  *   your var, or else a configurationexception will be thrown if a prerequsite was unset.  (Note that
  *   infinite cycles are not checked, so be careful.)<br>
- *
- * @author Roger Gonzalez
  */
 public final class ConfigurationBuffer
 {

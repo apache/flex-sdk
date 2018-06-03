@@ -33,8 +33,6 @@ import java.util.Iterator;
 /**
  * A default analyzer adapter, which calls traverse() for most Nodes
  * and provides a number of convenient logging methods.
- *
- * @author Clement Wong
  */
 public abstract class AnalyzerAdapter implements Analyzer
 {

@@ -25,8 +25,6 @@ import flash.swf.types.SoundInfo;
 
 /**
  * This represents a StartSound SWF tag.
- *
- * @author Clement Wong
  */
 public class StartSound extends Tag
 {

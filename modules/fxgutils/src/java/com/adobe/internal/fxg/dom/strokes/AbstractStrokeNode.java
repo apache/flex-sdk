@@ -33,8 +33,6 @@ import com.adobe.internal.fxg.dom.types.ScaleMode;
 
 /**
  * Base class for all FXG stroke nodes.
- * 
- * @author Peter Farland
  */
 public abstract class AbstractStrokeNode extends AbstractFXGNode implements StrokeNode
 {

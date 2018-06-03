@@ -33,8 +33,6 @@ import flash.util.Trace;
 
 /**
  * This class handles processing [Style] metadata.
- *
- * @author Paul Reilly
  */
 class StyleEvaluator extends EvaluatorAdapter
 {

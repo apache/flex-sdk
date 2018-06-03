@@ -23,8 +23,6 @@ import java.util.*;
 
 /**
  * This class represents a map of MultiNames to QNames.
- *
- * @author Clement Wong
  */
 //TODO This class should just extend HashMap, it doesn't need to be an adapter
 public class MultiNameMap

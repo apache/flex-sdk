@@ -31,8 +31,6 @@ package com.adobe.internal.fxg.dom.types;
  *   1 = outer
  *   2 = full
  * </pre>
- * 
- * @author Peter Farland
  */
 public enum BevelType
 {

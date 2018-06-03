@@ -101,9 +101,8 @@ package spark.components {
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
-     */ /**
-     * @author Bogdan Dinu (http://www.badu.ro)
-     */ public class Alert extends Panel {
+     */
+	 public class Alert extends Panel {
         [SkinPart(required="false")]
         public var messageDisplay:TextBase;
 
@@ -540,7 +539,8 @@ package spark.components {
          *  @playerversion Flash 9
          *  @playerversion AIR 1.1
          *  @productversion Flex 3
-         */ public function get defaultButtonFlag():int {
+         */
+	public function get defaultButtonFlag():int {
             return _defaultButtonFlag;
         }
 
@@ -640,7 +640,7 @@ package spark.components {
         }
 
         override protected function partRemoved(partName:String, instance:Object):void {
-            super.partAdded(partName, instance);
+            super.partRemoved(partName, instance);
             if (partName == "buttonGroup") {
                 destroyButtons(Group(instance));
             }
@@ -839,7 +839,7 @@ package spark.components {
          */
         private function onKeyDown(e:KeyboardEvent):void {
             if (e.charCode == Keyboard.ESCAPE) {
-                removeAlert(identifyButton(_buttons[ _defaultButtonFlag ] as Button));
+                removeAlert(identifyButton(getDefaultButton()));
             }
         }
     }

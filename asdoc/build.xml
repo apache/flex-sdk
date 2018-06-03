@@ -69,7 +69,7 @@
 
 	<target name="doc">
 
-	    <condition property="asdoc.jvm.args" value="-Xmx512m">
+	    <condition property="asdoc.jvm.args" value="-Xmx1024m">
 	        <os family="windows"/>
 	    </condition>
 

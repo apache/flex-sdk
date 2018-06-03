@@ -3986,12 +3986,7 @@ public class AdvancedListBase extends ScrollControlBase
     
     private function makeRowsAndColumnsWithExtraRows(unscaledWidth:Number,unscaledHeight:Number):void
     {
-        var lastPrefixRow:ListRowInfo;
-        var lastOnscreenRow:ListRowInfo;
-        var lastOffscreenRow:ListRowInfo;
-        var onscreenRowIndex:int;
         var pt:Point;
-
         var desiredExtraRowsTop:int = offscreenExtraRows / 2;
         var desiredExtraRowsBottom:int = offscreenExtraRows / 2;
         
@@ -5058,7 +5053,7 @@ public class AdvancedListBase extends ScrollControlBase
         
         clearIndicators();
         
-        visibleData = {}
+        visibleData = {};
         
         makeRowsAndColumns(0, 0, listContent.width, listContent.height, 0, 0);
         
@@ -5236,7 +5231,10 @@ public class AdvancedListBase extends ScrollControlBase
             }
             else if (item && item.mask)
             {
-                itemMaskFreeList.push(item.mask);
+                if(itemMaskFreeList)
+                {
+                    itemMaskFreeList.push(item.mask);
+                }
                 item.mask = null;
             }
         }
@@ -5406,7 +5404,6 @@ public class AdvancedListBase extends ScrollControlBase
         var selectionChange:Boolean = false;
         var placeHolder:CursorBookmark = iterator.bookmark;
         var index:int = itemRendererToIndex(item);
-        var data:Object;
         var uid:String = itemToUID(item.data);
 
         if (!allowMultipleSelection || (!shiftKey && !ctrlKey))
@@ -5513,7 +5510,7 @@ public class AdvancedListBase extends ScrollControlBase
             iterator.seek(placeHolder, 0);
 
             // if user is clicking with ctl key then
-            // seletion gets changed always.
+            // selection gets changed always.
             selectionChange = true;
         }
 
@@ -6001,7 +5998,7 @@ public class AdvancedListBase extends ScrollControlBase
 
             }
             index = indices[0];
-            indices.shift()
+            indices.shift();
 
             var data:Object = collectionIterator.current;
             if (firstTime)

@@ -39,8 +39,6 @@ import java.util.List;
 /**
  * This class is used to construct a DefineText SWF tag from a list of
  * FontBuilders.
- *
- * @author Peter Farland
  *         <p/>
  *         Modified by s. gong
  */

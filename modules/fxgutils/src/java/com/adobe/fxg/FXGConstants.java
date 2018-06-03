@@ -23,9 +23,6 @@ package com.adobe.fxg;
  * Constants for the FXG document format.
  * 
  * Currently covers FXG 1.0 and FXG 2.0 for the "http://ns.adobe.com/fxg/2008" namespace.
- * 
- * @author Peter Farland
- * @author Sujata Das
  */
 public final class FXGConstants
 {

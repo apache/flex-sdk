@@ -29,8 +29,6 @@ import java.util.Set;
 /**
  * This interface is used to restrict consumers of
  * CompilerConfiguration to mxml compiler specific options.
- *
- * @author Clement Wong
  */
 public interface MxmlConfiguration
 {

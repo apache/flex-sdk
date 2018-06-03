@@ -39,8 +39,6 @@ import com.adobe.internal.fxg.types.FXGMatrix;
  * Base class for all nodes that present graphic content or represent groups
  * of graphic content. Children inherit parent context information for
  * transforms, blend modes and masks.
- * 
- * @author Peter Farland
  */
 public abstract class GraphicContentNode extends AbstractFXGNode
         implements MaskableNode

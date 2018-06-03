@@ -20,24 +20,14 @@
 package spark.collections
 {
 
-import flash.errors.IllegalOperationError;
-import flash.events.Event;
-import flash.events.EventDispatcher;
+    import flash.events.Event;
+    import mx.styles.IAdvancedStyleClient;
+    import mx.collections.ISortField;
+    import mx.core.FlexGlobals;
+    import mx.core.IFlexModule;
+    import mx.core.IMXMLObject;
 
-import mx.collections.ISort;
-import mx.collections.ISortField;
-import mx.collections.errors.SortError;
-import mx.core.FlexGlobals;
-import mx.core.UIComponent;
-import mx.managers.ISystemManager;
-import mx.managers.SystemManager;
-import mx.resources.IResourceManager;
-import mx.resources.ResourceManager;
-import mx.styles.AdvancedStyleClient;
-import mx.styles.IAdvancedStyleClient;
-import mx.utils.ObjectUtil;
-
-[DefaultProperty("fields")]
+    [DefaultProperty("fields")]
 [ResourceBundle("collections")]
 
 //--------------------------------------
@@ -136,8 +126,8 @@ import mx.utils.ObjectUtil;
  *  </p>
  *
  *  <p>The default comparison provided by the <code>SortField</code> class 
- *  provides correct language specific
- *  sorting for strings. The language is selected by the setting the locale
+ *  provides correct language-specific
+ *  sorting for strings. The language is selected by setting the locale
  *  style on an instance of the class in one of the following ways:
  *  </p>
  *  <ul>
@@ -170,6 +160,11 @@ import mx.utils.ObjectUtil;
  *  UIComponent's <code>addStyleClient()</code> method.
  *  </li>
  *  </ul>
+ *
+ *  Note: to prevent problems like
+ *  <a href="https://issues.apache.org/jira/browse/FLEX-34853">FLEX-34853</a>
+ *  it is recommended to use SortField
+ *  instances as immutable objects (by not changing their state).
  *  
  *  @mxml
  *
@@ -184,9 +179,9 @@ import mx.utils.ObjectUtil;
  *  /&gt;
  *  </pre>
  *
- *  <p>In case items have inconsistent data types or items have complex data types, use of default
- *  built-in compare functions is not desired. Inconsistent sort result may occur in such cases.
- *  To avoid such problem, provide custom compare function and/or make item types consistent.</p>
+ *  <p>In case items have inconsistent data types or items have complex data types, the use of the default
+ *  built-in compare functions is not recommended. Inconsistent sorting results may occur in such cases.
+ *  To avoid such problem, provide a custom compare function and/or make the item types consistent.</p>
  *
  *  @includeExample examples/SortExample1.mxml
  *  @includeExample examples/SortExample2.mxml
@@ -199,9 +194,10 @@ import mx.utils.ObjectUtil;
  *  @playerversion AIR 2.5
  *  @productversion Flex 4.5
  */
-public class Sort extends AdvancedStyleClient implements ISort
+public class Sort extends mx.collections.Sort implements IAdvancedStyleClient, IFlexModule, IMXMLObject
 {
     include "../core/Version.as";
+    include "AdvancedStyleClientImplementation.as";
 
     //--------------------------------------------------------------------------
     //
@@ -250,14 +246,23 @@ public class Sort extends AdvancedStyleClient implements ISort
      *
      *  <p>Creates a new Sort with no fields set and no custom comparator.</p>
      *
+     *  @param fields An <code>Array</code> of <code>ISortField</code> objects that
+     *  specifies the fields to compare.
+     *  @param customCompareFunction Use a custom function to compare the
+     *  objects in the collection to which this sort will be applied.
+     *  @param unique Indicates if the sort should be unique.
+     *
      *  @langversion 3.0
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    public function Sort()
+    public function Sort(fields:Array = null, customCompareFunction:Function = null, unique:Boolean = false)
     {
-        super();
+        super(fields, customCompareFunction, unique);
+        mx_internal::useSortOn = false;
+
+        initAdvancedStyleClient();
     }
 
     //--------------------------------------------------------------------------
@@ -265,13 +270,6 @@ public class Sort extends AdvancedStyleClient implements ISort
     //  Variables
     //
     //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     *  Used for accessing localized Error messages.
-     */
-    private var resourceManager:IResourceManager =
-                                    ResourceManager.getInstance();
 
     /**
      *  @private
@@ -288,133 +286,7 @@ public class Sort extends AdvancedStyleClient implements ISort
     //
     //--------------------------------------------------------------------------
 
-    //----------------------------------
-    //  compareFunction
-    //----------------------------------
 
-    /**
-     *  @private
-     *  Storage for the compareFunction property.
-     */
-    private var _compareFunction:Function;
-
-    /**
-     *  @private
-     */
-    private var usingCustomCompareFunction:Boolean;
-
-    [Inspectable(category="General")]
-
-    /**
- *  @inheritDoc
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4.5
-     */
-    public function get compareFunction():Function
-    {
-        return usingCustomCompareFunction ? _compareFunction : internalCompare;
-    }
-
-    /**
-     *  @private
-     */
-    public function set compareFunction(value:Function):void
-    {
-        _compareFunction = value;
-        usingCustomCompareFunction = _compareFunction != null;
-    }
-
-    //----------------------------------
-    //  fields
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the fields property.
-     */
-    private var _fields:Array;
-
-    /**
-     *  @private
-     */
-    private var fieldList:Array = [];
-
-    [Inspectable(category="General", arrayType="spark.globalization.ISortField")]
-    [Bindable("fieldsChanged")]
-
-    /**
-     *  @inheritDoc
-     *
-     *  @default null
-     *
-     *  @see SortField
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function get fields():Array
-    {
-        return _fields;
-    }
-
-    /**
-     *  @private
-     */
-    public function set fields(value:Array):void
-    {
-        _fields = value;
-        fieldList = [];
-        if (_fields)
-        {
-            var field:ISortField;
-            for (var i:int = 0; i<_fields.length; i++)
-            {
-                field = ISortField(_fields[i]);
-                fieldList.push(field.name);
-            }
-        }
-        dispatchEvent(new Event("fieldsChanged"));
-    }
-
-    //----------------------------------
-    //  unique
-    //----------------------------------
-
-    /**
-     *  @private
-     *  Storage for the unique property.
-     */
-    private var _unique:Boolean;
-
-    [Inspectable(category="General")]
-
-    /**
-     *  @inheritDoc
-     *
-     *  @default false
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4.5
-     */
-    public function get unique():Boolean
-    {
-        return _unique;
-    }
-
-    /**
-     *  @inheritDoc
-     */
-    public function set unique(value:Boolean):void
-    {
-        _unique = value;
-    }
 
     //--------------------------------------------------------------------------
     //
@@ -425,10 +297,10 @@ public class Sort extends AdvancedStyleClient implements ISort
     /**
     *  @private
     */
-    override public function getStyle(styleProp:String):*
+    private function _getStyle(styleProp:String):*
     {
         if (styleProp != "locale")
-            return super.getStyle(styleProp);
+            return _advancedStyleClient.getStyleImpl(styleProp);
 
         if ((localeStyle !== undefined) && (localeStyle !== null))
             return localeStyle;
@@ -453,9 +325,9 @@ public class Sort extends AdvancedStyleClient implements ISort
      *  the class to be updated immediately when the locale style is
      *  set directly on this class instance.
      */
-    override public function setStyle(styleProp:String, newValue:*):void
+    private function _setStyle(styleProp:String, newValue:*):void
     {
-        super.setStyle(styleProp, newValue);
+        _advancedStyleClient.setStyleImpl(styleProp, newValue);
 
         if (styleProp != "locale")
             return;
@@ -483,357 +355,10 @@ public class Sort extends AdvancedStyleClient implements ISort
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
      */
-    override public function styleChanged(styleProp:String):void
+    private function _styleChanged(styleProp:String):void
     {
         localeChanged();
-        super.styleChanged(styleProp);
-    }
-
-    /**
-     *  @private
-     *  A pretty printer for Sort that lists the sort fields and their
-     *  options.
-     */
-    override public function toString():String
-    {
-        return ObjectUtil.toString(this);
-    }
-
-    //--------------------------------------------------------------------------
-    //
-    //  Methods
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @inheritDoc
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-    */
-    public function findItem(items:Array,
-                             values:Object,
-                             mode:String,
-                             returnInsertionIndex:Boolean = false,
-                             compareFunction:Function = null):int
-    {
-        var compareForFind:Function;
-        var fieldsForCompare:Array;
-        var message:String;
-
-        if (!items)
-        {
-            message = resourceManager.getString(
-                "collections", "noItems");
-            throw new SortError(message);
-        }
-        else if (items.length == 0)
-        {
-            return returnInsertionIndex ? 1 : -1;
-        }
-
-        if (compareFunction == null)
-        {
-            compareForFind = this.compareFunction;
-            // configure the search criteria
-            if (values && fieldList.length > 0)
-            {
-                fieldsForCompare = [];
-                //build up the fields we can compare, if we skip a field in the
-                //middle throw an error.  it is ok to not have all the fields
-                //though
-                var fieldName:String;
-                var hadPreviousFieldName:Boolean = true;
-                for (var i:int = 0; i < fieldList.length; i++)
-                {
-                    fieldName = fieldList[i];
-                    if (fieldName)
-                    {
-                        var hasFieldName:Boolean = false;
-                        
-						try
-                        {
-                            hasFieldName = values[fieldName] !== undefined;
-                        }
-                        catch(e:Error)
-                        {
-                        }
-                        if (hasFieldName)
-                        {
-                            if (!hadPreviousFieldName)
-                            {
-                                message = resourceManager.getString(
-                                    "collections", "findCondition", [ fieldName ]);
-                                throw new SortError(message);
-                            }
-                            else
-                            {
-                                fieldsForCompare.push(fieldName);
-                            }
-                        }
-                        else
-                        {
-                            hadPreviousFieldName = false;
-                        }
-                    }
-                    else
-                    {
-                        //this is ok because sometimes a sortfield might
-                        //have a custom comparator
-                        fieldsForCompare.push(null);
-                    }
-                }
-                if (fieldsForCompare.length == 0)
-                {
-                    message = resourceManager.getString(
-                        "collections", "findRestriction");
-                    throw new SortError(message);
-                }
-                else
-                {
-                    try
-                    {
-                        initSortFields(items[0]);
-                    }
-                    catch(initSortError:SortError)
-                    {
-                        //oh well, use the default comparators...
-                    }
-                }
-            }
-        }
-        else
-        {
-            compareForFind = compareFunction;
-        }
-
-        // let's begin searching
-        var found:Boolean = false;
-        var objFound:Boolean = false;
-        var index:int = 0;
-        var lowerBound:int = 0;
-        var upperBound:int = items.length -1;
-        var obj:Object = null;
-        var direction:int = 1;
-        while(!objFound && (lowerBound <= upperBound))
-        {
-            index = Math.round((lowerBound+ upperBound)/2);
-            obj = items[index];
-            //if we were given fields for comparison use that method, but
-            //if not the comparator may be for SortField in which case
-            //it'd be an error to pass a 3rd parameter
-            direction = fieldsForCompare
-                ? compareForFind(values, obj, fieldsForCompare)
-                : compareForFind(values, obj);
-
-            switch(direction)
-            {
-                case -1:
-                    upperBound = index -1;
-                break;
-
-                case 0:
-                    objFound = true;
-                    switch(mode)
-                    {
-                        case ANY_INDEX_MODE:
-                            found = true;
-                        break;
-
-                        case FIRST_INDEX_MODE:
-                            found = (index == lowerBound);
-                            // start looking towards bof
-                            var objIndex:int = index - 1;
-                            var match:Boolean = true;
-                            while(match && !found && (objIndex >= lowerBound))
-                            {
-                                obj = items[objIndex];
-                                var prevCompare:int = fieldsForCompare
-                                    ? compareForFind(values, obj, fieldsForCompare)
-                                    : compareForFind(values, obj);
-                                match = (prevCompare == 0);
-                                if (!match || (match && (objIndex == lowerBound)))
-                                {
-                                    found= true;
-                                    index = objIndex + (match ? 0 : 1);
-                                } // if match
-                                objIndex--;
-                            } // while
-                        break;
-
-                        case LAST_INDEX_MODE:
-                            // if we where already at the edge case then we already found the last value
-                            found = (index == upperBound);
-                            // start looking towards eof
-                            objIndex = index + 1;
-                            match = true;
-                            while(match && !found && (objIndex <= upperBound))
-                            {
-                                obj = items[objIndex];
-                                var nextCompare:int = fieldsForCompare
-                                    ? compareForFind(values, obj, fieldsForCompare)
-                                    : compareForFind(values, obj);
-                                match = (nextCompare == 0);
-                                if (!match || (match && (objIndex == upperBound)))
-                                {
-                                    found= true;
-                                    index = objIndex - (match ? 0 : 1);
-                                } // if match
-                                objIndex++;
-                            } // while
-                        break;
-                        default:
-                        {
-                            message = resourceManager.getString(
-                                "collections", "unknownMode");
-                            throw new SortError(message);
-                        }
-                    } // switch
-                break;
-
-                case 1:
-                    lowerBound = index +1;
-                break;
-            } // switch
-        } // while
-        if (!found && !returnInsertionIndex)
-        {
-            return -1;
-        }
-        else
-        {
-            return (direction > 0) ? index + 1 : index;
-        }
-    }
-
-    /**
-     *  @inheritDoc
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function propertyAffectsSort(property:String):Boolean
-    {
-        if (usingCustomCompareFunction || !fields) return true;
-        for (var i:int = 0; i < fields.length; i++)
-        {
-            var field:ISortField = fields[i];
-            if (field.name == property || field.usingCustomCompareFunction)
-            {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     *  @inheritDoc
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function reverse():void
-    {
-        if (fields)
-        {
-            for (var i:int = 0; i < fields.length; i++)
-            {
-                ISortField(fields[i]).reverse();
-            }
-        }
-        noFieldsDescending = !noFieldsDescending;
-    }
-
-    /**
-     *  @inheritDoc
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    public function sort(items:Array):void
-    {
-        if (!items || items.length <= 1)
-        {
-            return;
-        }
-
-        if (usingCustomCompareFunction)
-        {
-            // bug 185872
-            // the Sort.internalCompare function knows to use Sort._fields; that same logic
-            // needs to be part of calling a custom compareFunction. Of course, a user shouldn't
-            // be doing this -- so I wrap calls to compareFunction with _fields as the last parameter
-            const fixedCompareFunction:Function =
-                function (a:Object, b:Object):int
-                {
-                    // append our fields to the call, since items.sort() won't
-                    return compareFunction(a, b, _fields);
-                };
-
-            var message:String;
-
-            if (unique)
-            {
-                var uniqueRet1:Object = items.sort(fixedCompareFunction, Array.UNIQUESORT);
-                if (uniqueRet1 == 0)
-                {
-                    message = resourceManager.getString(
-                        "collections", "nonUnique");
-                    throw new SortError(message);
-                }
-            }
-            else
-            {
-                items.sort(fixedCompareFunction);
-            }
-        }
-        else
-        {
-            var fields:Array = this.fields;
-            if (fields && fields.length > 0)
-            {
-                var i:int;
-                //doing the init value each time may be a little inefficient
-                //but allows for the data to change and the comparators
-                //to update correctly
-                //the sortArgs is an object that if non-null means
-                //we can use Array.sortOn which will be much faster
-                //than going through internalCompare.  However
-                //if the Sort is supposed to be unique and fields.length > 1
-                //we cannot use sortOn since it only tests uniqueness
-                //on the first field
-                var sortArgs:Object = initSortFields(items[0], true);
-
-                if (unique)
-                {
-                    var uniqueRet2:Object;
-                    uniqueRet2 = items.sort(internalCompare,
-                                            Array.UNIQUESORT);
-                    if (uniqueRet2 == 0)
-                    {
-                        message = resourceManager.getString(
-                            "collections", "nonUnique");
-                        throw new SortError(message);
-                    }
-                }
-                else
-                {
-                    items.sort(internalCompare);
-                }
-            }
-            else
-            {
-                items.sort(internalCompare);
-            }
-        }
+        _advancedStyleClient.styleChangedImpl(styleProp);
     }
 
     //--------------------------------------------------------------------------
@@ -868,116 +393,18 @@ public class Sort extends AdvancedStyleClient implements ISort
         }
     }
 
-    /**
-     *  @private
-     *  Make sure all SortFields are ready to execute their comparators.
-     */
-    private function initSortFields(item:Object, buildArraySortArgs:Boolean = false):Object
-    {
-        var arraySortArgs:Object = null;
-        var i:int;
-        for (i = 0; i<fields.length; i++)
-        {
-            ISortField(fields[i]).initializeDefaultCompareFunction(item);
-        }
-        if (buildArraySortArgs)
-        {
-            arraySortArgs = {fields: [], options: []};
-            for (i = 0; i<fields.length; i++)
-            {
-                var field:ISortField = fields[i];
-                var options:int = field.arraySortOnOptions;
-                if (options == -1)
-                {
-                    return null;
-                }
-                else
-                {
-                    arraySortArgs.fields.push(field.name);
-                    arraySortArgs.options.push(options);
-                }
-            }
 
-        }
-        return arraySortArgs;
-    }
-
-    /**
-     *  @private
-     *  Compares the values specified based on the sort field options specified
-     *  for this sort.  The fields parameter is really just used to get the
-     *  number of fields to check.  We don't look at the actual values
-     *  to see if they match the actual sort.
-     */
-    private function internalCompare(a:Object, b:Object, fields:Array = null):int
-    {
-        var result:int = 0;
-        if (!_fields)
-        {
-            result = noFieldsCompare(a, b);
-        }
-        else
-        {
-            var i:int = 0;
-            var len:int = fields ? fields.length : _fields.length;
-            while (result == 0 && (i < len))
-            {
-                var sf:ISortField = ISortField(_fields[i]);
-                result = sf.compareFunction(a, b);
-                if (sf.descending)
-                    result *= -1;
-                i++;
-            }
-        }
-
-        return result;
-    }
 
     private var defaultEmptyField:SortField;
-    private var noFieldsDescending:Boolean = false;
 
-    /**
-     *  If the sort does not have any sort fields nor a custom comparator
-     *  just use an empty SortField object and have it use its default
-     *  logic.
-     *
-     *  @langversion 3.0
-     *  @playerversion Flash 10.1
-     *  @playerversion AIR 2.5
-     *  @productversion Flex 4.5
-     */
-    private function noFieldsCompare(a:Object, b:Object, fields:Array = null):int
+    override protected function createEmptySortField():ISortField
     {
-        if (!defaultEmptyField)
-        {
-            ensureStyleSource();
-
-            defaultEmptyField = new SortField();
-            const locale:* = getStyle("locale");
-            if (locale !== undefined)
-                defaultEmptyField.setStyle("locale", locale);
-
-            try
-            {
-                defaultEmptyField.initializeDefaultCompareFunction(a);
-            }
-            catch(e:SortError)
-            {
-                //this error message isn't as useful in this case so replace
-                var message:String = resourceManager.getString(
-                    "collections", "noComparator", [ a ]);
-                throw new SortError(message);
-            }
-        }
-
-        var result:int = defaultEmptyField.compareFunction(a, b);
-
-        if (noFieldsDescending)
-        {
-            result *= -1;
-        }
-
-        return result;
+        ensureStyleSource();
+        var sortField:SortField = new SortField();
+        const locale:* = getStyle("locale");
+        if (locale !== undefined)
+            sortField.setStyle("locale", locale);
+        return sortField;
     }
 
     /**
@@ -993,16 +420,16 @@ public class Sort extends AdvancedStyleClient implements ISort
      */
     private function localeChanged():void
     {
-        const newlocaleStyle:* = super.getStyle("locale");
+        const newLocaleStyle:* = _advancedStyleClient.getStyleImpl("locale");
 
-        if (localeStyle === newlocaleStyle)
+        if (localeStyle === newLocaleStyle)
             return;
 
-        localeStyle = newlocaleStyle;
+        localeStyle = newLocaleStyle;
         if (defaultEmptyField)
             defaultEmptyField.setStyle("locale", localeStyle);
 
         dispatchEvent(new Event(Event.CHANGE));
     }
-}
+    }
 }

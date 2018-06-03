@@ -21,8 +21,6 @@ package flex2.compiler.asdoc;
 
 /**
  * This class is used to store package level asdoc descriptions.
- * 
- * @author Brian Deitte
  */
 public class PackageInfo
 {

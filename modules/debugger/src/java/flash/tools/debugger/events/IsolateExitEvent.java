@@ -21,7 +21,6 @@ import flash.tools.debugger.Isolate;
 /**
  * IsolateExitEvent is received when the player stops
  * a worker.
- * @author anirudhs
  */
 public class IsolateExitEvent extends DebugEvent {
 	

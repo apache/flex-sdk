@@ -21,8 +21,6 @@ package flash.swf.types;
 
 /**
  * A value object for blur filter data.
- *
- * @author Roger Gonzalez
  */
 public class BlurFilter extends Filter
 {

@@ -22,9 +22,6 @@ package macromedia.asc.parser;
 import macromedia.asc.util.Context;
 import macromedia.asc.semantics.Value;
 
-/**
- * @author Erik Tierney
- */
 public class BinaryFunctionDefinitionNode extends FunctionDefinitionNode
 {
     public BinaryFunctionDefinitionNode(Context cx, PackageDefinitionNode pkgdef, AttributeListNode attrs, FunctionNameNode name, FunctionCommonNode fexpr)

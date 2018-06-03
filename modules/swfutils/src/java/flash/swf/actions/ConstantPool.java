@@ -27,8 +27,6 @@ import flash.swf.ActionConstants;
 
 /**
  * Represents an AS2 "contant pool" byte code.
- *
- * @author Clement Wong
  */
 public class ConstantPool extends Action
 {

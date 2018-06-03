@@ -72,8 +72,6 @@ import java.util.zip.InflaterInputStream;
 /**
  * A SWF tag decoder.  It is typically used by passing an InputStream
  * to the constructor and then calling parse() with a TagHandler.
- *
- * @author Clement Wong
  */
 public final class TagDecoder
         implements TagValues
@@ -2790,15 +2788,20 @@ public final class TagDecoder
     {
         FileAttributes tag = new FileAttributes();
         r.syncBits();
+        
         r.readUBits(1); //reserved
         tag.useDirectBlit = r.readBit();
         tag.useGPU = r.readBit();
         tag.hasMetadata = r.readBit();
+        
         tag.actionScript3 = r.readBit();
         tag.suppressCrossDomainCaching = r.readBit();
         tag.swfRelativeUrls = r.readBit();
         tag.useNetwork = r.readBit();
-        r.readUBits(24); //reserved
+        
+        tag.brokerProductManager = r.readBit();
+        tag.brokerLocalConnection = r.readBit();
+        r.readUBits(22); //reserved
         return tag;
     }
     

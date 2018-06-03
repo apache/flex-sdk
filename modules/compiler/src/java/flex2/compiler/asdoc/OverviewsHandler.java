@@ -32,8 +32,6 @@ import flex2.tools.ASDocConfiguration;
 
 /**
  * SAX Handler for parsing Overviews_Base.xml and writing out overviews.xml
- *
- * @author Brian Deitte
  */
 public class OverviewsHandler extends DefaultHandler
 {

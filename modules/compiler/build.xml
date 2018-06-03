@@ -59,7 +59,7 @@
     
 	<!-- Including Adobe proprietary font and license code.  -->
 	<property name="mxmlc.mpl_excludes.classpath" value="${opt.dir}/afe.jar ${opt.dir}/aglj40.jar ${opt.dir}/rideau.jar ${opt.dir}/flex-fontkit.jar "/>
-    <property name="mxmlc.adobe.classpath" value="${mxmlc.mpl_excludes.classpath} asc.jar ${ext.dir}/xml-apis.jar batik-all-flex.jar velocity-dep-1.4-flex.jar ${ext.dir}/commons-collections.jar ${ext.dir}/commons-discovery.jar ${ext.dir}/commons-logging.jar swfutils.jar fxgutils.jar ${opt.dir}/flex-messaging-common.jar ${localized.mxmlc.jars} ${ext.dir}/xalan.jar flex-tool-api.jar"/>
+    <property name="mxmlc.adobe.classpath" value="${mxmlc.mpl_excludes.classpath} asc.jar ${ext.dir}/xml-apis.jar batik-all-flex.jar velocity-dep-1.4-flex.jar ${ext.dir}/commons-collections.jar ${ext.dir}/commons-discovery.jar ${ext.dir}/commons-logging.jar swfutils.jar fxgutils.jar flex-messaging-common.jar ${localized.mxmlc.jars} ${ext.dir}/xalan.jar flex-tool-api.jar"/>
     <property name="mxmlc.classpath" value="${mxmlc.adobe.classpath} ${ext.dir}/xml-apis-ext.jar ${env.property.dir}"/>
     
 	<property name="compc.main" value="flex2.tools.Compc"/>
@@ -164,11 +164,14 @@
 
     <target name="jar" depends="javacc,compile,set-build-num,templates,localization" description="compile and create compiler jars">
         <mkdir dir="${module.classes}/META-INF"/>
-        <copy file="${FLEX_HOME}/LICENSE" todir="${module.classes}/META-INF"/>
-        <copy file="${FLEX_HOME}/NOTICE" todir="${module.classes}/META-INF"/>
+        <copy file="${FLEX_HOME}/licenseParts/LICENSE.base" tofile="${module.classes}/META-INF/LICENSE"/>
+        <copy file="${FLEX_HOME}/licenseParts/NOTICE.base" tofile="${module.classes}/META-INF/NOTICE"/>
 
         <!-- Copy the flex-tool-api jar -->
         <copy file="${lib.in.dir}/flex-tool-api.jar" todir="${lib.dir}"/>
+
+        <!-- Copy the blazeds jar -->
+        <copy file="${lib.in.dir}/flex-messaging-common.jar" todir="${lib.dir}"/>
 
         <echo message="Building lib/mxmlc.jar"/>
         <jar file="${module.jar}" basedir="${module.classes}"

@@ -37,8 +37,6 @@ import static macromedia.asc.parser.Tokens.*;
  * - objValue, value, or intValue if used to store a constant value
  * - method_id if used to identify a native method or operation
  * - call_seq used to invoke
- *
- * @author Jeff Dyer
  */
 public abstract class Slot
 {

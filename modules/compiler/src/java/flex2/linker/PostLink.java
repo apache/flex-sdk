@@ -23,8 +23,6 @@ import flash.swf.Movie;
 
 /**
  * Defines the API for post-link processing.
- *
- * @author Clement Wong
  */
 public interface PostLink
 {

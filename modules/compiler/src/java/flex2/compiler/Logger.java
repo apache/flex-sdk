@@ -23,8 +23,6 @@ import flash.localization.LocalizationManager;
 
 /**
  * The base interface of all loggers in the compiler.
- *
- * @author Clement Wong
  */
 public interface Logger
 {

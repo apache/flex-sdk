@@ -50,8 +50,6 @@ import java.util.HashMap;
 
 /**
  * This utility supports printing AS2 byte codes.
- *
- * @author Edwin Smith
  */
 public class Disassembler extends ActionHandler
 {

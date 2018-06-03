@@ -267,7 +267,7 @@ public class HierarchicalCollectionView extends EventDispatcher
 			var modelCursor:IViewCursor = treeData.createCursor();
 			if (modelCursor.beforeFirst)
 			{
-				// indicates that an IPE occured on the first item
+				// indicates that an IPE occurred on the first item
 				return treeData.length;
 			}
 			while (!modelCursor.afterLast)
@@ -315,8 +315,7 @@ public class HierarchicalCollectionView extends EventDispatcher
 			parentMap[uid] = parent;
 			if (node != null &&
 				openNodes[uid] &&
-				dataDescriptor.isBranch(node, treeData) &&
-				dataDescriptor.hasChildren(node, treeData))
+				dataDescriptor.isBranch(node, treeData))
 			{
 				childNodes = getChildren(node);
 				if (childNodes != null)
@@ -432,7 +431,7 @@ public class HierarchicalCollectionView extends EventDispatcher
     
     /**
 	 * @private
-	 * delegate getchildren in order to add event listeners for nested collections
+	 * delegate getChildren in order to add event listeners for nested collections
 	 */
 	private function getChildren(node:Object):ICollectionView
 	{

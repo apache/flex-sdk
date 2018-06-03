@@ -21,8 +21,6 @@ package flex2.compiler.mxml.dom;
 
 /**
  * Represents a &lt;Number&gt; tag in the MXML language namespace.
- *
- * @author Clement Wong
  */
 public class NumberNode extends PrimitiveNode
 {

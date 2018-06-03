@@ -128,10 +128,16 @@ public interface ISort
      *  @productversion Flex 4.5
      */
     function get compareFunction():Function;
+
+    /**
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
+     */
     function set compareFunction(value:Function):void;
 
     /**
-     *  An <code>Array</code> of <code>ISortField</code> objects that specifies the fields to compare.
+     *  An <code>Array</code> of <code>ISortField</code> objects that
+     *  specifies the fields to compare.
      *  The order of the ISortField objects in the array determines
      *  field priority order when sorting.
      *  The default sort comparator checks the sort fields in array
@@ -148,6 +154,11 @@ public interface ISort
      *  @productversion Flex 4.5
      */
     function get fields():Array;
+
+    /**
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
+     */
     function set fields(value:Array):void;
 
     /**
@@ -169,6 +180,11 @@ public interface ISort
      *  @productversion Flex 4.5
      */
     function get unique():Boolean;
+
+    /**
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
+     */
     function set unique(value:Boolean):void;
 
     //--------------------------------------------------------------------------
@@ -280,7 +296,7 @@ public interface ISort
      *  The function cannot determine a definitive answer if the sort uses a
      *  custom comparator; it always returns <code>true</code> in this case.
      *
-     *  @param property The name of the field that to test.
+     *  @param property The name of the field to test.
      *  @return Whether the property value might affect the sort outcome.
      *  If the sort uses the default compareFunction, returns
      *  <code>true</code> if the
@@ -304,6 +320,10 @@ public interface ISort
      *  <p>Note: an <code>ICollectionView</code> does not automatically 
      *  update when the objects in the <code>fields</code> array are modified; 
      *  call its <code>refresh()</code> method to update the view.</p>
+     *
+     *  <p>Note: a future release of Apache Flex SDK will change the signature
+     *  of this function to return a reversed clone of this Sort instance. See
+     *  FLEX-34853.</p>
      *
      *  @langversion 3.0
      *  @playerversion Flash 9

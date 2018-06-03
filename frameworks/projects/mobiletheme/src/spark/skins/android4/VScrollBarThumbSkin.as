@@ -20,10 +20,6 @@
 package spark.skins.android4
 {
 
-import flash.display.CapsStyle;
-import flash.display.JointStyle;
-import flash.display.LineScaleMode;
-
 import mx.core.DPIClassification;
 import mx.core.mx_internal;
 use namespace mx_internal;
@@ -108,6 +104,12 @@ public class VScrollBarThumbSkin extends MobileSkin
                 paddingVertical = PADDING_VERTICAL_240DPI;
                 break;
             }
+            case DPIClassification.DPI_120:
+            {
+                paddingRight = PADDING_RIGHT_120DPI;
+                paddingVertical = PADDING_VERTICAL_120DPI;
+                break;
+            }
             default:
             {
                 paddingRight = PADDING_RIGHT_DEFAULTDPI;
@@ -168,7 +170,7 @@ public class VScrollBarThumbSkin extends MobileSkin
 
         var thumbWidth:Number = unscaledWidth - paddingRight;
         
-        graphics.beginFill(getStyle("thumbColor"), 1);
+        graphics.beginFill(getStyle("color"), 1);
         graphics.drawRect(0.5, paddingVertical + 0.5,thumbWidth, unscaledHeight - 2 * paddingVertical);
         
         graphics.endFill();

@@ -30,8 +30,6 @@ import macromedia.asc.parser.Evaluator;
 /**
  * This extension extends GenerativeExtension by acting as a factory
  * for the Bindable specific first and second pass evaluators.
- *
- * @author Paul Reilly
  * @see flex2.compiler.as3.binding.BindableFirstPassEvaluator
  * @see flex2.compiler.as3.binding.BindableSecondPassEvaluator
  */

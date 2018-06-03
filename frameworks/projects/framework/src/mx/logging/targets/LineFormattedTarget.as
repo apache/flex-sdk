@@ -178,7 +178,7 @@ public class LineFormattedTarget extends AbstractTarget
      */
     override public function logEvent(event:LogEvent):void
     {
-        var date:String = ""
+        var date:String = "";
         if (includeDate || includeTime)
         {
             var d:Date = new Date();

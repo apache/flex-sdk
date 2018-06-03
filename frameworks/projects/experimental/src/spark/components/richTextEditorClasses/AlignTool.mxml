@@ -17,91 +17,18 @@ See the License for the specific language governing permissions and
 limitations under the License.
 
 -->
-<s:ButtonBar width="80" arrowKeysWrapFocus="true" change="handleChange(event);" mouseFocusEnabled="false" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
+<s:ButtonBar arrowKeysWrapFocus="true" mouseFocusEnabled="false" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
 			 xmlns:s="library://ns.adobe.com/flex/spark">
 	<fx:Script>
-		<![CDATA[
+		<![CDATA[			
 			import flashx.textLayout.formats.TextAlign;
-			import flashx.textLayout.formats.TextLayoutFormat;
-			import mx.collections.ArrayList;
-			import mx.events.FlexEvent;
-			import spark.components.TextArea;
-			import spark.events.TextOperationEvent;
-
-			[Embed(source = "../../../../assets/tools/center.png")]
-			private const CENTER:Class;
-			[Embed(source = "../../../../assets/tools/justify.png")]
-			private const JUSTIFY:Class;
-			[Embed(source = "../../../../assets/tools/left.png")]
-			private const LEFT:Class;
-			[Embed(source = "../../../../assets/tools/right.png")]
-			private const RIGHT:Class;
-
-			private var _textArea:TextArea;
-
+			
 			/**
-			 *  The textArea that this component interacts with
+			 *  The selected text align
 			 */
-			public function get textArea():TextArea
+			public function set selectedTextAlign(value:String):void
 			{
-				return _textArea;
-			}
-
-			/**
-			 *  @private
-			 */
-			public function set textArea(value:TextArea):void
-			{
-				if (_textArea)
-				{
-					_textArea.removeEventListener(FlexEvent.SELECTION_CHANGE, handleSelectionChange);
-				}
-				_textArea = value;
-				if (_textArea)
-				{
-					_textArea.addEventListener(FlexEvent.SELECTION_CHANGE, handleSelectionChange, false, 0, true);
-					handleSelectionChange();
-				}
-			}
-
-			/**
-			 *  @private
-			 */
-			protected override function createChildren():void
-			{
-				super.createChildren();
-
-				var dp:ArrayList = new ArrayList();
-				dp.addItem({icon: LEFT, toolTip: "Left align text", value: TextAlign.LEFT});
-				dp.addItem({icon: CENTER, toolTip: "Left align text", value: TextAlign.CENTER});
-				dp.addItem({icon: RIGHT, toolTip: "Left align text", value: TextAlign.RIGHT});
-				dp.addItem({icon: JUSTIFY, toolTip: "Left align text", value: TextAlign.JUSTIFY});
-				this.dataProvider = dp;
-			}
-
-			/**
-			 *  @private
-			 */
-			private function handleChange(e:Event):void
-			{
-				if (this.selectedItem)
-				{
-					var txtLayFmt:TextLayoutFormat = _textArea.getFormatOfRange(null, _textArea.selectionAnchorPosition, _textArea.selectionActivePosition);
-					txtLayFmt.textAlign = this.selectedItem.value;
-					_textArea.setFormatOfRange(txtLayFmt, _textArea.selectionAnchorPosition, _textArea.selectionActivePosition);
-					_textArea.setFocus();
-					_textArea.dispatchEvent(new TextOperationEvent(TextOperationEvent.CHANGE));
-				}
-			}
-
-			/**
-			 *  @private
-			 */
-			private function handleSelectionChange(e:FlexEvent = null):void
-			{
-				var format:TextLayoutFormat = _textArea.getFormatOfRange(null, _textArea.selectionAnchorPosition, _textArea.selectionActivePosition);
-
-				switch (format.textAlign)
+				switch (value)
 				{
 					case TextAlign.LEFT:
 						this.selectedIndex = 0;
@@ -118,6 +45,26 @@ limitations under the License.
 					default:
 						this.selectedIndex = -1;
 						break;
+				}
+			}
+			
+			/**
+			 *  The text align
+			 */
+			public function get selectedTextAlign():String
+			{
+				switch (selectedIndex)
+				{
+					case 0:
+						return TextAlign.LEFT;
+					case 1:
+						return TextAlign.CENTER;
+					case 2:
+						return TextAlign.RIGHT;
+					case 3:
+						return TextAlign.JUSTIFY;
+					default:
+						return "";
 				}
 			}
 		]]>

@@ -30,8 +30,6 @@ import java.util.Set;
 
 /**
  * Represents an &lt;Script&gt; tag in the MXML language namespace.
- *
- * @author Clement Wong
  */
 public class ScriptNode extends Node
 {

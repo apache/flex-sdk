@@ -36,8 +36,6 @@ import flex2.compiler.common.Configuration;
 
 /**
  * Defines the API for extensions, which run before each compilation.
- *
- * @author Andrew Westberg
  */
 public interface IPreCompileExtension
 {

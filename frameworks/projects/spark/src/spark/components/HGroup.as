@@ -53,6 +53,7 @@ import spark.layouts.supportClasses.LayoutBase;
  *    columnWidth="no default"
  *    gap="6"
  *    horizontalAlign="left"
+ *    padding="0"
  *    paddingBottom="0"
  *    paddingLeft="0"
  *    paddingRight="0"
@@ -157,6 +158,35 @@ public class HGroup extends Group
     {
         return horizontalLayout.columnCount;
     }
+	
+	//----------------------------------
+	//  padding
+	//----------------------------------
+	
+	[Inspectable(category="General", defaultValue="0.0")]
+	
+	/**
+	 *  @copy spark.layouts.HorizontalLayout#padding
+	 *  
+	 *  @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+	public function get padding():Number
+	{
+		return horizontalLayout.padding;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set padding(value:Number):void
+	{
+		horizontalLayout.padding = value;
+	}
     
     //----------------------------------
     //  paddingLeft

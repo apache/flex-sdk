@@ -22,10 +22,10 @@
 
 <flex-config>
     <!-- Specifies the minimum player version that will run the compiled SWF. -->
-   <target-player>11.1</target-player>
+   <target-player>18.0</target-player>
 
     <!-- Specifies the version of the compiled SWF -->
-   <swf-version>14</swf-version>
+   <swf-version>29</swf-version>
 
    <compiler>
 
@@ -406,7 +406,7 @@
 	    Flex Library project, FlashBuilder will allow "Link Type" to be external.
     -->
     <runtime-shared-library-path>
-		<path-element>libs/OSMF.swc</path-element>
+		<path-element>libs/osmf.swc</path-element>
 		<rsl-url>osmf_${build.number}.swf</rsl-url>
 	</runtime-shared-library-path>
 

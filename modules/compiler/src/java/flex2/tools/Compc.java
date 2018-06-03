@@ -46,8 +46,6 @@ import java.util.*;
 
 /**
  * Entry-point for compc, the command-line tool for compiling components.
- *
- * @author Brian Deitte
  */
 public class Compc extends Tool implements FlexTool
 {

@@ -22,8 +22,6 @@ package flex2.compiler.i18n;
 /**
  * An exception thrown by PropertyTranslationFormat when IOExceptions
  * occur and caught by I18nCompiler, which reports them.
- *
- * @author Brian Deitte
  */
 public class TranslationException extends Exception
 {

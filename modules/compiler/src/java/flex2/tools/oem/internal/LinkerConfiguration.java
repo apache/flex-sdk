@@ -36,7 +36,6 @@ import flex2.tools.ToolsConfiguration;
  * specific options.
  *
  * @version 2.0.1
- * @author Clement Wong
  */
 /*
  * TODO Jono: this should really *implement* flex2.linker.Configuration
@@ -339,6 +338,30 @@ public class LinkerConfiguration extends ToolsConfiguration implements flex2.lin
 		}
 	}
 
+    public boolean brokerProductManager()
+    {
+        if (args.contains(ConfigurationConstants.BROKER_PRODUCT_MANAGER))
+        {
+            return super.brokerProductManager();
+        }
+        else
+        {
+            return original.brokerProductManager();
+        }
+    }
+    
+    public boolean brokerLocalConnection()
+    {
+        if (args.contains(ConfigurationConstants.BROKER_LOCAL_CONNECTION))
+        {
+            return super.brokerLocalConnection();
+        }
+        else
+        {
+            return original.brokerLocalConnection();
+        }
+    }
+    
 	public String width()
 	{
 		return original.width();

@@ -20,43 +20,46 @@
 package mx.collections
 {
 
-import flash.events.Event;
-import flash.events.EventDispatcher;
-import mx.collections.ISort;
-import mx.collections.ISortField;
-import mx.collections.errors.SortError;
-import mx.managers.ISystemManager;
-import mx.managers.SystemManager;
-import mx.resources.IResourceManager;
-import mx.resources.ResourceManager;
-import mx.utils.ObjectUtil;
+    import flash.events.Event;
+    import flash.events.EventDispatcher;
 
-[DefaultProperty("fields")]
+    import mx.collections.errors.SortError;
+    import mx.core.mx_internal;
+    import mx.resources.IResourceManager;
+    import mx.resources.ResourceManager;
+    import mx.utils.ObjectUtil;
+
+    use namespace mx_internal;
+
+    [DefaultProperty("fields")]
 [ResourceBundle("collections")]
 [Alternative(replacement="spark.collections.Sort", since="4.5")]
 
 /**
  *  Provides the sorting information required to establish a sort on an
- *  existing view (ICollectionView interface or class that implements the
- *  interface). After you assign a Sort instance to the view's
+ *  existing view (<code>ICollectionView</code> interface or class that
+ *  implements the interface). After you assign a <code>Sort</code> instance to the view's
  *  <code>sort</code> property, you must call the view's
  *  <code>refresh()</code> method to apply the sort criteria.
  *
- *  Typically the sort is defined for collections of complex items, that is 
+ *  <p>Typically the sort is defined for collections of complex items, that is
  *  collections in which the sort is performed on one or more properties of 
  *  the objects in the collection.
- *  The following example shows this use:
+ *  The following example shows this use:</p>
  *  <pre><code>
  *     var col:ICollectionView = new ArrayCollection();
  *     // In the real world, the collection would have more than one item.
  *     col.addItem({first:"Anders", last:"Dickerson"});
+ *
  *     // Create the Sort instance.
- *     var sort:Sort = new Sort();
+ *     var sort:ISort = new Sort();
+ *
  *     // Set the sort field; sort on the last name first, first name second.
  *     // Both fields are case-insensitive.
  *     sort.fields = [new SortField("last",true), new SortField("first",true)];
  *       // Assign the Sort object to the view.
  *     col.sort = sort;
+ *
  *     // Apply the sort to the collection.
  *     col.refresh();
  *  </code></pre>
@@ -73,7 +76,8 @@ import mx.utils.ObjectUtil;
  *     col.addItem("California");
  *     col.addItem("Arizona");
  *     var sort:Sort = new Sort();
- *     // There is only one sort field, so use a <code>null</code> 
+ *
+ *     // There is only one sort field, so use a <code>null</code>
  *     // first parameter.
  *     sort.fields = [new SortField(null, true)];
  *     col.sort = sort;
@@ -81,8 +85,8 @@ import mx.utils.ObjectUtil;
  *  </code></pre>
  *  </p>
  *
- *  <p>The Flex implementations of the ICollectionView interface retrieve 
- *  all items from a remote location before executing a sort.
+ *  <p>The Flex implementations of the <code>ICollectionView</code> interface
+ *  retrieve all items from a remote location before executing a sort.
  *  If you use paging with a sorted list, apply the sort to the remote
  *  collection before you retrieve the data.
  *  </p>
@@ -91,6 +95,11 @@ import mx.utils.ObjectUtil;
  *  sorting for strings.  For this type of sorting please see the 
  *  <code>spark.collections.Sort</code> and 
  *  <code>spark.collections.SortField</code> classes.</p>
+ *
+ *  Note: to prevent problems like
+ *  <a href="https://issues.apache.org/jira/browse/FLEX-34853">FLEX-34853</a>
+ *  it is recommended to use SortField
+ *  instances as immutable objects (by not changing their state).
  * 
  *  @mxml
  *
@@ -180,14 +189,24 @@ public class Sort extends EventDispatcher implements ISort
      *
      *  <p>Creates a new Sort with no fields set and no custom comparator.</p>
      *
+     *  @param fields An <code>Array</code> of <code>ISortField</code> objects that
+     *  specifies the fields to compare.
+     *  @param customCompareFunction Use a custom function to compare the
+     *  objects in the collection to which this sort will be applied.
+     *  @param unique Indicates if the sort should be unique.
+     *
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    public function Sort()
+    public function Sort(fields:Array = null, customCompareFunction:Function = null, unique:Boolean = false)
     {
         super();
+
+        this.fields = fields;
+        this.compareFunction = customCompareFunction;
+        this.unique = unique;
     }
 
     //--------------------------------------------------------------------------
@@ -202,6 +221,12 @@ public class Sort extends EventDispatcher implements ISort
      */
     private var resourceManager:IResourceManager =
                                     ResourceManager.getInstance();
+
+    /**
+     *  @private
+     *  True if we should attempt to use Array.sortOn when possible.
+     */
+    mx_internal var useSortOn:Boolean = true;
 
     //--------------------------------------------------------------------------
     //
@@ -258,11 +283,6 @@ public class Sort extends EventDispatcher implements ISort
      */
     private var _fields:Array;
 
-    /**
-     *  @private
-     */
-    private var fieldList:Array = [];
-
     [Inspectable(category="General", arrayType="mx.collections.ISortField")]
     [Bindable("fieldsChanged")]
 
@@ -289,16 +309,7 @@ public class Sort extends EventDispatcher implements ISort
     public function set fields(value:Array):void
     {
         _fields = value;
-        fieldList = [];
-        if (_fields)
-        {
-            var field:ISortField;
-            for (var i:int = 0; i<_fields.length; i++)
-            {
-                field = ISortField(_fields[i]);
-                fieldList.push(field.name);
-            }
-        }
+
         dispatchEvent(new Event("fieldsChanged"));
     }
 
@@ -334,7 +345,7 @@ public class Sort extends EventDispatcher implements ISort
      */
     public function set unique(value:Boolean):void
     {
-        _unique = value;
+            _unique = value;
     }
 
     //--------------------------------------------------------------------------
@@ -392,38 +403,29 @@ public class Sort extends EventDispatcher implements ISort
         {
             compareForFind = this.compareFunction;
             // configure the search criteria
-            if (values && fieldList.length > 0)
+            if (values && fields && fields.length > 0)
             {
                 fieldsForCompare = [];
                 //build up the fields we can compare, if we skip a field in the
-                //middle throw an error.  it is ok to not have all the fields
-                //though
-                var fieldName:String;
+                //middle throw an error. It is ok to not have all the fields though
+                var field:ISortField;
                 var hadPreviousFieldName:Boolean = true;
-                for (var i:int = 0; i < fieldList.length; i++)
+                for (var i:int = 0; i < fields.length; i++)
                 {
-                    fieldName = fieldList[i];
-                    if (fieldName)
+                    field = fields[i] as ISortField;
+                    if (field.name)
                     {
-                        var hasFieldName:Boolean = false;     
-						try
-                        {
-                            hasFieldName = values[fieldName] !== undefined;
-                        }
-                        catch(e:Error)
-                        {
-                        }
-                        if (hasFieldName)
+                        if (field.objectHasSortField(values))
                         {
                             if (!hadPreviousFieldName)
                             {
                                 message = resourceManager.getString(
-                                    "collections", "findCondition", [ fieldName ]);
+                                    "collections", "findCondition", [field.name]);
                                 throw new SortError(message);
                             }
                             else
                             {
-                                fieldsForCompare.push(fieldName);
+                                fieldsForCompare.push(field.name);
                             }
                         }
                         else
@@ -433,7 +435,7 @@ public class Sort extends EventDispatcher implements ISort
                     }
                     else
                     {
-                        //this is ok because sometimes a sortfield might
+                        //this is ok because sometimes a SortField might
                         //have a custom comparator
                         fieldsForCompare.push(null);
                     }
@@ -571,7 +573,9 @@ public class Sort extends EventDispatcher implements ISort
      */
     public function propertyAffectsSort(property:String):Boolean
     {
-        if (usingCustomCompareFunction || !fields) return true;
+        if (usingCustomCompareFunction || !fields)
+            return true;
+
         for (var i:int = 0; i < fields.length; i++)
         {
             var field:ISortField = fields[i];
@@ -650,10 +654,8 @@ public class Sort extends EventDispatcher implements ISort
         }
         else
         {
-            var fields:Array = this.fields;
             if (fields && fields.length > 0)
             {
-                var i:int;
                 //doing the init value each time may be a little inefficient
                 //but allows for the data to change and the comparators
                 //to update correctly
@@ -668,14 +670,13 @@ public class Sort extends EventDispatcher implements ISort
                 if (unique)
                 {
                     var uniqueRet2:Object;
-                    if (sortArgs && fields.length == 1)
+                    if (useSortOn && sortArgs && fields.length == 1)
                     {
                         uniqueRet2 = items.sortOn(sortArgs.fields[0], sortArgs.options[0] | Array.UNIQUESORT);
                     }
                     else
                     {
-                        uniqueRet2 = items.sort(internalCompare,
-                                                Array.UNIQUESORT);
+                        uniqueRet2 = items.sort(internalCompare, Array.UNIQUESORT);
                     }
                     if (uniqueRet2 == 0)
                     {
@@ -686,7 +687,7 @@ public class Sort extends EventDispatcher implements ISort
                 }
                 else
                 {
-                    if (sortArgs)
+                    if (useSortOn && sortArgs)
                     {
                         items.sortOn(sortArgs.fields, sortArgs.options);
                     }
@@ -791,7 +792,7 @@ public class Sort extends EventDispatcher implements ISort
     {
         if (!defaultEmptyField)
         {
-            defaultEmptyField = new SortField();
+            defaultEmptyField = createEmptySortField();
             try
             {
                 defaultEmptyField.initializeDefaultCompareFunction(a);
@@ -813,6 +814,11 @@ public class Sort extends EventDispatcher implements ISort
         }
 
         return result;
+    }
+
+    protected function createEmptySortField():ISortField
+    {
+        return new SortField();
     }
 }
 }

@@ -34,8 +34,6 @@ import java.util.*;
  * SwcCache. This grouping is used instead of a List of SWCs because
  * it allows us to precompute certain information about the view, like
  * name mappings.
- * 
- * @author Brian Deitte
  */
 public class SwcGroup
 {

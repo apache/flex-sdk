@@ -88,7 +88,6 @@ import flex2.compiler.util.graph.Visitor;
  * @see flex2.tools.oem.Application
  * @see flex2.tools.oem.Library
  * @version 2.0.1
- * @author Clement Wong
  */
 public class Project
 {

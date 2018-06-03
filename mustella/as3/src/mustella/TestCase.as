@@ -181,7 +181,7 @@ public class TestCase extends EventDispatcher
 	 *
 	 *  @param root The SystemManager
 	 *  @param timer The shared Timer;
-	 *  @param the UnitTester that contains these tests
+	 *  @param context the UnitTester that contains these tests
 	 */
 	public function runTest(root:DisplayObject, timer:Timer, context:UnitTester):Boolean
 	{

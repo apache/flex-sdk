@@ -22,8 +22,6 @@ import flex2.compiler.util.CompilerMessage.CompilerWarning;
 
 /**
  * Warning used to report when a type selector is not fully qualified.
- *
- * @author Pete Farland
  */
 public class UnqualifiedTypeSelector extends CompilerWarning
 {

@@ -52,8 +52,8 @@
     <target name="jar" depends="compile" description="compile and create swfutils.jar">
         <mkdir dir="${lib.dir}" />
 		<mkdir dir="${basedir}/classes/META-INF"/>
-        <copy file="${FLEX_HOME}/LICENSE" todir="${basedir}/classes/META-INF"/>
-        <copy file="${FLEX_HOME}/NOTICE" todir="${basedir}/classes/META-INF"/>
+        <copy file="${FLEX_HOME}/licenseParts/LICENSE.base" tofile="${basedir}/classes/META-INF/LICENSE"/>
+        <copy file="${FLEX_HOME}/licenseParts/NOTICE.base" tofile="${basedir}/classes/META-INF/NOTICE"/>
         
 		<echo message="Building lib/swfutils.jar"/>
         <jar file="${lib.dir}/swfutils.jar" basedir="${module.classes}" includes="**/*">

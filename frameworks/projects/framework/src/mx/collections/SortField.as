@@ -20,17 +20,16 @@
 package mx.collections
 {
 
-import flash.events.Event;
-import flash.events.EventDispatcher;
-import mx.collections.errors.SortError;
-import mx.managers.ISystemManager;
-import mx.managers.SystemManager;
-import mx.resources.IResourceManager;
-import mx.resources.ResourceManager;
-import mx.utils.ObjectUtil;
-import mx.collections.SortFieldCompareTypes;
+    import flash.events.Event;
+    import flash.events.EventDispatcher;
 
-[ResourceBundle("collections")]
+    import mx.collections.errors.SortError;
+    import mx.core.mx_internal;
+    import mx.resources.IResourceManager;
+    import mx.resources.ResourceManager;
+    import mx.utils.ObjectUtil;
+
+    [ResourceBundle("collections")]
 [Alternative(replacement="spark.collections.SortField", since="4.5")]
 
 /**
@@ -69,10 +68,15 @@ import mx.collections.SortFieldCompareTypes;
  *
  *  <p>By default the comparison provided by the SortField class does
  *  not provide correct language specific
- *  sorting for strings.  For this type of sorting please see the 
- *  <code>spark.collections.Sort</code> and 
+ *  sorting for strings.  For this type of sorting please see the
+ *  <code>spark.collections.Sort</code> and
  *  <code>spark.collections.SortField</code> classes.</p>
- * 
+ *
+ *  Note: to prevent problems like
+ *  <a href="https://issues.apache.org/jira/browse/FLEX-34853">FLEX-34853</a>
+ *  it is recommended to use SortField
+ *  instances as immutable objects (by not changing their state).
+ *
  *  @mxml
  *
  *  <p>The <code>&lt;mx:SortField&gt;</code> tag has the following attributes:</p>
@@ -120,6 +124,10 @@ public class SortField extends EventDispatcher implements ISortField
      *              descending order.
      *  @param numeric Tells the comparator whether to compare sort items as
      *              numbers, instead of alphabetically.
+     *  @param sortCompareType Gives an indication to SortField which of the
+     *              default compare functions to use.
+     *  @param customCompareFunction Use a custom function to compare the
+     *              objects based on this SortField.
      *
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -129,7 +137,9 @@ public class SortField extends EventDispatcher implements ISortField
     public function SortField(name:String = null,
                               caseInsensitive:Boolean = false,
                               descending:Boolean = false,
-                              numeric:Object = null)
+                              numeric:Object = null,
+                              sortCompareType:String = null,
+                              customCompareFunction:Function = null)
     {
         super();
 
@@ -137,8 +147,13 @@ public class SortField extends EventDispatcher implements ISortField
         _caseInsensitive = caseInsensitive;
         _descending = descending;
         _numeric = numeric;
+        _sortCompareType = sortCompareType;
 
-        if (updateSortCompareType() == false)
+        if(customCompareFunction != null)
+        {
+            compareFunction = customCompareFunction;
+        }
+        else if (updateSortCompareType() == false)
         {
             _compareFunction = stringCompare;
         }
@@ -220,9 +235,10 @@ public class SortField extends EventDispatcher implements ISortField
     }
 
     /**
-     *  @private
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
      */
-    public function set caseInsensitive(value:Boolean):void
+    mx_internal function setCaseInsensitive(value:Boolean):void
     {
         if (value != _caseInsensitive)
         {
@@ -246,9 +262,10 @@ public class SortField extends EventDispatcher implements ISortField
     /**
      *  The function that compares two items during a sort of items for the
      *  associated collection. If you specify a <code>compareFunction</code>
-     *  property in an ISort object, Flex ignores any 
-     *  <code>compareFunction</code> properties of the ISort's SortField
-     *  objects.
+     *  property in an <code>ISort</code> object, Flex ignores any
+     *  <code>compareFunction</code> properties of the ISort's
+     *  <code>SortField</code> objects.
+     *
      *  <p>The compare function must have the following signature:</p>
      *
      *  <p><code>function myCompare(a:Object, b:Object):int</code></p>
@@ -256,25 +273,26 @@ public class SortField extends EventDispatcher implements ISortField
      *  <p>This function must return the following values:</p>
      *
      *   <ul>
-     *        <li>-1, if <code>a</code> should appear before <code>b</code> in
-     *        the sorted sequence</li>
-     *        <li>0, if <code>a</code> equals <code>b</code></li>
-     *        <li>1, if <code>a</code> should appear after <code>b</code> in the
-     *        sorted sequence</li>
+     *        <li>-1, if the <code>Object a</code> should appear before the
+     *        <code>Object b</code> in the sorted sequence</li>
+     *        <li>0, if the <code>Object a</code> equals the
+     *        <code>Object b</code></li>
+     *        <li>1, if the <code>Object a</code> should appear after the
+     *        <code>Object b</code> in the sorted sequence</li>
      *  </ul>
-     * 
+     *
      *  <p>The default value is an internal compare function that can perform
      *  a string, numeric, or date comparison in ascending or descending order,
      *  with case-sensitive or case-insensitive string comparisons.
      *  Specify your own function only if you need a need a custom comparison
      *  algorithm. This is normally only the case if a calculated field is
      *  used in a display.</p>
-     *  
-     *  Note if you need, language specific sorting then consider using the
+     *
+     *  Note if you need language-specific sorting then consider using the
      *  <code>spark.collections.SortField</code> class.
-     * 
+     *
      *  @see spark.collections.SortField
-     * 
+     *
      *  @langversion 3.0
      *  @playerversion Flash 9
      *  @playerversion AIR 1.1
@@ -286,7 +304,8 @@ public class SortField extends EventDispatcher implements ISortField
     }
 
     /**
-     *  @private
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
      */
     public function set compareFunction(c:Function):void
     {
@@ -321,7 +340,8 @@ public class SortField extends EventDispatcher implements ISortField
     }
 
     /**
-     *  @private
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
      */
     public function set descending(value:Boolean):void
     {
@@ -361,7 +381,8 @@ public class SortField extends EventDispatcher implements ISortField
     }
 
     /**
-     *  @private
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
      */
     public function set name(n:String):void
     {
@@ -398,7 +419,8 @@ public class SortField extends EventDispatcher implements ISortField
     }
 
     /**
-     *  @private
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
      */
     public function set numeric(value:Object):void
     {
@@ -434,7 +456,8 @@ public class SortField extends EventDispatcher implements ISortField
     }
 
     /**
-     *  @private
+     *  @deprecated A future release of Apache Flex SDK will remove this function. Please use the constructor
+     *  argument instead.
      */
     public function set sortCompareType(value:String):void
     {
@@ -443,7 +466,6 @@ public class SortField extends EventDispatcher implements ISortField
             _sortCompareType = value;
             dispatchEvent(new Event("sortCompareTypeChanged"));
         }
-
 
         updateSortCompareType();
     }
@@ -476,7 +498,7 @@ public class SortField extends EventDispatcher implements ISortField
 
     /**
      *  @private
-     *  A pretty printer for Sort that lists the sort fields and their
+     *  A pretty printer for SortField that lists the sort fields and their
      *  options.
      */
     override public function toString():String
@@ -522,13 +544,7 @@ public class SortField extends EventDispatcher implements ISortField
                 var value:Object;
                 if (_name)
                 {
-                    try
-                    {
-                        value = obj[_name];
-                    }
-                    catch(error:Error)
-                    {
-                    }
+                    value = getSortFieldValue(obj);
                 }
                 //this needs to be an == null check because !value will return true
                 //where value == 0 or value == false
@@ -593,7 +609,7 @@ public class SortField extends EventDispatcher implements ISortField
 
     /**
      *  @inheritDoc
-     * 
+     *
      *  @langversion 3.0
      *  @playerversion Flash 11.8
      *  @playerversion AIR 3.8
@@ -651,6 +667,33 @@ public class SortField extends EventDispatcher implements ISortField
     }
 
 
+    public function objectHasSortField(object:Object):Boolean
+    {
+        return getSortFieldValue(object) !== undefined;
+    }
+
+
+    //--------------------------------------------------------------------------
+    //
+    //  Protected Methods
+    //
+    //--------------------------------------------------------------------------
+
+    protected function getSortFieldValue(obj:Object):*
+    {
+        var result:* = undefined;
+
+        try
+        {
+            result = obj[_name];
+        }
+        catch(error:Error)
+        {
+        }
+
+        return result;
+    }
+
     //--------------------------------------------------------------------------
     //
     //  Private Methods
@@ -659,7 +702,6 @@ public class SortField extends EventDispatcher implements ISortField
 
     private function nullCompare(a:Object, b:Object):int
     {
-        var value:Object;
         var left:Object;
         var right:Object;
 
@@ -674,21 +716,8 @@ public class SortField extends EventDispatcher implements ISortField
         // we need to introspect the data a little bit
         if (_name)
         {
-            try
-            {
-                left = a[_name];
-            }
-            catch(error:Error)
-            {
-            }
-
-            try
-            {
-                right = b[_name];
-            }
-            catch(error:Error)
-            {
-            }
+            left = getSortFieldValue(a);
+            right = getSortFieldValue(b);
         }
 
         // return 0 (ie equal) if both are null
@@ -753,23 +782,8 @@ public class SortField extends EventDispatcher implements ISortField
      */
     private function numericCompare(a:Object, b:Object):int
     {
-        var fa:Number;
-        try
-        {
-            fa = _name == null ? Number(a) : Number(a[_name]);
-        }
-        catch(error:Error)
-        {
-        }
-
-        var fb:Number;
-        try
-        {
-            fb = _name == null ? Number(b) : Number(b[_name]);
-        }
-        catch(error:Error)
-        {
-        }
+        var fa:Number = _name == null ? Number(a) : Number(getSortFieldValue(a));
+        var fb:Number = _name == null ? Number(b) : Number(getSortFieldValue(b));
 
         return ObjectUtil.numericCompare(fa, fb);
     }
@@ -784,23 +798,8 @@ public class SortField extends EventDispatcher implements ISortField
      */
     private function dateCompare(a:Object, b:Object):int
     {
-        var fa:Date;
-        try
-        {
-            fa = _name == null ? a as Date : a[_name] as Date;
-        }
-        catch(error:Error)
-        {
-        }
-
-        var fb:Date;
-        try
-        {
-            fb = _name == null ? b as Date : b[_name] as Date;
-        }
-        catch(error:Error)
-        {
-        }
+        var fa:Date = _name == null ? a as Date : getSortFieldValue(a) as Date;
+        var fb:Date = _name == null ? b as Date : getSortFieldValue(b) as Date;
 
         return ObjectUtil.dateCompare(fa, fb);
     }
@@ -813,25 +812,10 @@ public class SortField extends EventDispatcher implements ISortField
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    private function stringCompare(a:Object, b:Object):int
+    protected function stringCompare(a:Object, b:Object):int
     {
-        var fa:String;
-        try
-        {
-            fa = _name == null ? String(a) : String(a[_name]);
-        }
-        catch(error:Error)
-        {
-        }
-
-        var fb:String;
-        try
-        {
-            fb = _name == null ? String(b) : String(b[_name]);
-        }
-        catch(error:Error)
-        {
-        }
+        var fa:String = _name == null ? String(a) : String(getSortFieldValue(a));
+        var fb:String = _name == null ? String(b) : String(getSortFieldValue(b));
 
         return ObjectUtil.stringCompare(fa, fb, _caseInsensitive);
     }
@@ -846,25 +830,10 @@ public class SortField extends EventDispatcher implements ISortField
      *  @playerversion AIR 1.1
      *  @productversion Flex 3
      */
-    private function xmlCompare(a:Object, b:Object):int
+    protected function xmlCompare(a:Object, b:Object):int
     {
-        var sa:String;
-        try
-        {
-            sa = _name == null ? a.toString() : a[_name].toString();
-        }
-        catch(error:Error)
-        {
-        }
-
-        var sb:String;
-        try
-        {
-            sb = _name == null ? b.toString() : b[_name].toString();
-        }
-        catch(error:Error)
-        {
-        }
+        var sa:String = _name == null ? a.toString() : getSortFieldValue(a).toString();
+        var sb:String = _name == null ? b.toString() : getSortFieldValue(b).toString();
 
         if (numeric == true)
         {

@@ -21,8 +21,6 @@ package flex2.compiler.mxml.dom;
 
 /**
  * Defines the API for DOM analyzers.
- *
- * @author Clement Wong
  */
 public interface Analyzer
 {

@@ -23,8 +23,6 @@ import flex2.compiler.util.CompilerMessage.CompilerWarning;
 
 /**
  * Warning used to report when an unsupported selector type is used.
- *
- * @author Paul Reilly
  */
 public class SelectorTypeNotSupported extends CompilerWarning
 {

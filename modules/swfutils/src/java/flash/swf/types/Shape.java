@@ -26,8 +26,6 @@ import java.util.List;
 
 /**
  * A value object for shape data.
- *
- * @author Clement Wong
  */
 public class Shape
 {

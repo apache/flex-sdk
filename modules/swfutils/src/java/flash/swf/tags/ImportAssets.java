@@ -27,8 +27,6 @@ import java.util.List;
 
 /**
  * This represents a ImportAssets SWF tag.
- *
- * @author Clement Wong
  */
 public class ImportAssets extends Tag
 {

@@ -26,8 +26,6 @@ import java.util.Map;
  * This class represents a pairing of a local part with a set of
  * namespace URI's.  For example: (["mx.controls", "mx.core"],
  * "Button")
- *
- * @author Clement Wong
  */
 public final class MultiName extends Name
 {

@@ -23,8 +23,6 @@ import java.awt.Color;
 
 /**
  * A utility methods for color, twips, and unicode conversion.
- *
- * @author Peter Farland
  */
 public class SwfUtils implements SwfConstants
 {

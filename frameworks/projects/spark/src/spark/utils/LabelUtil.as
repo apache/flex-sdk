@@ -70,8 +70,7 @@ public class LabelUtil
      *  @playerversion AIR 1.5
      *  @productversion Flex 4
      */
-    public static function itemToLabel(item:Object, labelField:String=null, 
-        labelFunction:Function=null):String
+    public static function itemToLabel(item:Object, labelField:String = null, labelFunction:Function = null):String
     {
         if (labelFunction != null)
             return labelFunction(item);

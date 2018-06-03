@@ -48,8 +48,6 @@ import static macromedia.asc.embedding.avmplus.RuntimeConstants.*;
 
 /**
  * Execution context.
- *
- * @author Jeff Dyer
  */
 public final class Context implements ErrorConstants
 {

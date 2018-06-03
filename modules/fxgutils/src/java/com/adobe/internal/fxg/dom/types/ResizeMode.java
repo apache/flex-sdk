@@ -28,7 +28,6 @@ package com.adobe.internal.fxg.dom.types;
  *   2 = scale
  * </pre>
  * 
- * @author Min Plunkett
  */
 public enum ResizeMode
 {

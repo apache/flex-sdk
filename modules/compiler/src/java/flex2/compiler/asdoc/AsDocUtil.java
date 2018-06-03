@@ -50,8 +50,6 @@ import org.w3c.dom.NodeList;
  * contains utility functions to convert description to short description, to
  * decompose class names, validation functions. It also performs conversion of
  * various html content to DITA format.
- * 
- * @author gauravj
  */
 public class AsDocUtil
 {

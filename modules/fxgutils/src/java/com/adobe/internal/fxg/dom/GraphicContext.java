@@ -32,8 +32,6 @@ import com.adobe.internal.fxg.types.FXGMatrix;
 /**
  * A simple context holding inheritable graphic transformation information to be
  * used for placing a symbol on stage.
- * 
- * @author Peter Farland
  */
 public class GraphicContext implements Cloneable
 {

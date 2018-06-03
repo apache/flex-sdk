@@ -283,6 +283,9 @@ public class AreaSeries extends Series implements IStackable2
         _instanceCache.creationCallback = applyItemRendererProperties;
         
         dataTransform = new CartesianTransform();
+
+		// our style settings
+		initStyles();
     }
 
     //--------------------------------------------------------------------------
@@ -869,11 +872,13 @@ public class AreaSeries extends Series implements IStackable2
 	/**
 	 *  @private
 	 */
-	private function initStyles():Boolean
+	private function initStyles():void
 	{
 		HaloDefaults.init(styleManager);
-		
+
 		var areaSeriesStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.series.AreaSeries");
+
+
 		if (areaSeriesStyle)
 		{
 			areaSeriesStyle.setStyle("areaRenderer", new ClassFactory(mx.charts.renderers.AreaRenderer));
@@ -882,10 +887,18 @@ public class AreaSeries extends Series implements IStackable2
 			areaSeriesStyle.setStyle("fills", []);
 			areaSeriesStyle.setStyle("stroke", HaloDefaults.pointStroke);
 		}
-		
-		return true;
+        else
+        {
+            //Fallback to set the style to this chart directly.
+			setStyle("areaRenderer", new ClassFactory(mx.charts.renderers.AreaRenderer));
+			setStyle("legendMarkerRenderer", new ClassFactory(AreaSeriesLegendMarker));
+			setStyle("areaFill", new SolidColor(0x000000));
+			setStyle("fills", []);
+			setStyle("stroke", HaloDefaults.pointStroke);
+        }
 	}
-	
+
+
 	/**
 	 *  @inheritDoc
 	 *  
@@ -902,9 +915,6 @@ public class AreaSeries extends Series implements IStackable2
 			return;
 		
 		_moduleFactoryInitialized[factory] = true;
-		
-		// our style settings
-		initStyles();
 	}
 	
     /**

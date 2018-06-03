@@ -943,7 +943,7 @@ public class DataGridEditor
      *  
      */
     private function endEdit():Boolean
-    {
+    {        
         // Focus is inside an item renderer
         if (!itemEditorInstance && editedItemRenderer)
         {
@@ -953,7 +953,7 @@ public class DataGridEditor
             return true;
         }
         
-        // this happens if the renderer is removed asynchronously ususally with FDS
+        // this happens if the renderer is removed asynchronously usually with FDS
         if (!itemEditorInstance)
             return false;
         
@@ -1373,7 +1373,7 @@ public class DataGridEditor
         {
             // if the user clicks outside the cell but we can't save the data,
             // say, because the data was invalid, then cancel the save.
-            if (!dataGrid.endItemEditorSession())
+            if (!inEndEdit && !dataGrid.endItemEditorSession())
             {
                 dataGrid.endItemEditorSession(true);
             }
@@ -1564,7 +1564,7 @@ public class DataGridEditor
         {
             // If we can't save the data, say, because the data was invalid, 
             // then cancel the save.
-            if (!dataGrid.endItemEditorSession())
+            if (!inEndEdit && !dataGrid.endItemEditorSession())
             {
                 dataGrid.endItemEditorSession(true);
             }
@@ -1582,7 +1582,7 @@ public class DataGridEditor
 		{
 			// If we can't save the data, say, because the data was invalid, 
 			// then cancel the save.
-			if (!dataGrid.endItemEditorSession())
+			if (!inEndEdit && !dataGrid.endItemEditorSession())
 			{
 				dataGrid.endItemEditorSession(true);
 			}
@@ -1614,7 +1614,7 @@ public class DataGridEditor
         {
             // If we can't save the data, say, because the data was invalid, 
             // then cancel the save.
-            if (!dataGrid.endItemEditorSession())
+            if (!inEndEdit && !dataGrid.endItemEditorSession())
             {
                 dataGrid.endItemEditorSession(true);
             }
@@ -1799,7 +1799,7 @@ public class DataGridEditor
         
         // If we can't save the data, say, because the data was invalid, 
         // then cancel the save.
-        if (!dataGrid.endItemEditorSession())
+        if (!inEndEdit && !dataGrid.endItemEditorSession())
         {
             dataGrid.endItemEditorSession(true);
         }

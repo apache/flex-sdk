@@ -685,7 +685,7 @@ public class GridViewLayout extends LayoutBase
         // so it could be seen when the indicator bounds are below the last row.
         // The issue is there may not be any space below the last row and the drop
         // indicator would not be visible if it started at the top of the next cell.
-        if (dropLocation.dropPoint.y > (bounds.top + (bounds.height * 1) / 2))
+        if (dropLocation.dropPoint.y > (bounds.top + bounds.height / 2))
             return new Rectangle(2, bounds.bottom - 2, bounds.width -4, 4);
         
         return new Rectangle(2, Math.max(0, bounds.y - 2), bounds.width - 4, 4);
@@ -708,7 +708,7 @@ public class GridViewLayout extends LayoutBase
         
         clearSelectionIndicators();
         
-        freeGridElement(hoverIndicator)
+        freeGridElement(hoverIndicator);
         hoverIndicator = null;
         
         freeGridElement(caretIndicator);
@@ -844,7 +844,7 @@ public class GridViewLayout extends LayoutBase
             if (vspChanged && hspChanged)
                 reason = "bothScrollPositions";
             else if (vspChanged)
-                reason = "verticalScrollPosition"
+                reason = "verticalScrollPosition";
             else if (hspChanged)
                 reason = "horizontalScrollPosition";
             
@@ -1389,7 +1389,6 @@ public class GridViewLayout extends LayoutBase
             return;  
         
         const columnCount:int = getColumnsLength();
-        const columnGap:int = gridDimensionsView.columnGap;
         const requestedColumnCount:int = grid.requestedColumnCount;  // TBD GridView...
         var measuredColumnCount:int = 0;
         
@@ -1673,7 +1672,7 @@ public class GridViewLayout extends LayoutBase
                 var colWidth:Number = gridDimensionsView.getColumnWidth(colIndex);
                 layoutItemRenderer(renderer, cellX, cellY, colWidth, rowHeight);                
                 
-                var preferredRowHeight:Number = renderer.getPreferredBoundsHeight()
+                var preferredRowHeight:Number = renderer.getPreferredBoundsHeight();
                 gridDimensionsView.setCellHeight(rowIndex, colIndex, preferredRowHeight);
                 cellX += colWidth + colGap;
             }
@@ -2438,9 +2437,6 @@ public class GridViewLayout extends LayoutBase
         return indicator;
     }
 
-    private var mouseXOffset:Number = 0;
-    private var mouseYOffset:Number = 0;
-       
     private function layoutHoverIndicator(layer:GridLayer):void
     {
         const rowIndex:int = gridRowIndexToViewIndex(grid.hoverRowIndex);

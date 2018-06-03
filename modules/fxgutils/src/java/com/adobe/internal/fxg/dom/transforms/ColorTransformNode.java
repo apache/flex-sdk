@@ -26,8 +26,6 @@ import com.adobe.internal.fxg.dom.DOMParserHelper;
 
 /**
  * The Class ColorTransformNode.
- * 
- * @author Peter Farland
  */
 public class ColorTransformNode extends AbstractTransformNode implements Cloneable
 {

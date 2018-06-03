@@ -103,11 +103,6 @@ public class HierarchicalCollectionView extends EventDispatcher
 
     /**
      *  @private
-     */
-    private var cursor:HierarchicalCollectionViewCursor;
-
-    /**
-     *  @private
      *  The total number of nodes we know about.
      */
     private var currentLength:int;
@@ -323,7 +318,9 @@ public class HierarchicalCollectionView extends EventDispatcher
     //----------------------------------
 
     /**
-     *  The length of the currently parsed collection.  
+     *  The length of the currently parsed collection (i.e. the number
+     *  of nodes that can be accessed by navigating the collection via
+     *  HierarchicalCollectionViewCursor)
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -375,7 +372,7 @@ public class HierarchicalCollectionView extends EventDispatcher
      *
      *  @return IViewCursor instance.
      *
-     *  @see mx.utils.IViewCursor
+     *  @see mx.collections.IViewCursor
      *  
      *  @langversion 3.0
      *  @playerversion Flash 9
@@ -393,9 +390,7 @@ public class HierarchicalCollectionView extends EventDispatcher
      *
      *  @param item The Object that defines the node to look for.
      *
-     *  @param <code>true</code> if the collection contains the item,
-     *
-     *  @return <code>true</code> if the data item is in the collection, 
+     *  @return <code>true</code> if the data item is in the collection,
      *  and <code>false</code> if not.
      *  
      *  @langversion 3.0
@@ -643,7 +638,18 @@ public class HierarchicalCollectionView extends EventDispatcher
         // check if the node is already opened
         if (_openNodes[uid] != null)
             return;
-        
+
+        // check if the node is accessible, abort if not
+        var parent:* = getParentItem(node);
+        while(parent)
+        {
+            parent = getParentItem(parent);
+        }
+
+        //undefined means an ancestor is not open, which means the node is inaccessible
+        if(parent === undefined)
+            return;
+
         // add the node to the openNodes object and update the length
         _openNodes[uid] = node;
         
@@ -792,14 +798,12 @@ public class HierarchicalCollectionView extends EventDispatcher
      *     </li>
      * </ul>
      *
-     *  @param node The Object that defines the parent node.
+     *  @param parent The Object that defines the parent node.
      * 
      *  @param newChild The Object that defines the child node.
      * 
      *  @param index The 0-based index of where to insert the child node.
-     * 
-     *  @param source The entire collection that this node is a part of.
-     * 
+     *
      *  @return <code>true</code> if the child is added successfully.
      *  
      *  @langversion 3.0
@@ -1152,7 +1156,7 @@ public class HierarchicalCollectionView extends EventDispatcher
     private function internalRefresh(dispatch:Boolean):Boolean
     {
         var obj:Object;
-        var coll:ICollectionView
+        var coll:ICollectionView;
         var needUpdate:Boolean = false;
         
         // apply filter function to all the collections including the child collections
@@ -1295,9 +1299,9 @@ public class HierarchicalCollectionView extends EventDispatcher
     
     /**
      * @private
-     * Force a recalulation of length   
+     * Force a recalculation of length
      */
-     private function updateLength(node:Object=null, parent:Object = null):void
+     private function updateLength():void
      {
         currentLength = calculateLength();
      }
@@ -1527,13 +1531,12 @@ public class HierarchicalCollectionView extends EventDispatcher
                 }
 
                 // prune the replacements from this list
-                var j:int = 0;
                 for (i = 0; i < n; i++)
                 {
                     node = ce.items[i].oldValue;
-                    while (convertedEvent.items[j] != node)
-                        j++;
-                    convertedEvent.items.splice(j, 1);
+                    var replacedNodePosition:int = convertedEvent.items.indexOf(node);
+                    if(replacedNodePosition != -1)
+                        convertedEvent.items.splice(replacedNodePosition, 1);
                 }
                 if (convertedEvent.items.length)
                 {
@@ -1648,15 +1651,15 @@ public class HierarchicalCollectionView extends EventDispatcher
                 }
 
                 // prune the replacements from this list
-                var j:int = 0;
                 for (i = 0; i < n; i++)
                 {
                     changingNode = ce.items[i].oldValue;
                     if (changingNode is XML)
                         stopTrackUpdates(changingNode);
-                    while (convertedEvent.items[j] != changingNode)
-                        j++;
-                    convertedEvent.items.splice(j, 1);
+
+                    var replacedNodePosition:int = convertedEvent.items.indexOf(changingNode);
+                    if(replacedNodePosition != -1)
+                        convertedEvent.items.splice(replacedNodePosition, 1);
                 }
                 if (convertedEvent.items.length)
                 {
@@ -1711,9 +1714,6 @@ public class HierarchicalCollectionView extends EventDispatcher
                                         value:Object, 
                                         detail:Object):void
     {
-        var prop:String;
-        var oldValue:Object;
-        var newValue:Object;
         var children:XMLListCollection;
         var location:int;
         var event:CollectionEvent;

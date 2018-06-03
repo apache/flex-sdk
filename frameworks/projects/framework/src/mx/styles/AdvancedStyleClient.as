@@ -20,18 +20,16 @@
 package mx.styles
 {
 
-import flash.events.*;
+    import flash.events.*;
 
-import mx.core.FlexGlobals;
-import mx.core.IFlexDisplayObject;
-import mx.core.IFlexModule;
-import mx.core.IFlexModuleFactory;
-import mx.core.IMXMLObject;
-import mx.core.UIComponent;
-import mx.styles.*;
-import mx.utils.NameUtil;
+    import mx.core.FlexGlobals;
+    import mx.core.IFlexModule;
+    import mx.core.IFlexModuleFactory;
+    import mx.core.IMXMLObject;
+    import mx.core.UIComponent;
+    import mx.utils.NameUtil;
 
-/**
+    /**
  *  A base class that can be used
  *  when implementing an object that uses the
  *  <code>IAdvancedStyleClient</code> interface.  The base class supplies
@@ -91,7 +89,7 @@ public class AdvancedStyleClient extends EventDispatcher
      *  Keeps track of the setStyles() calls that have been deferred
      *  until a moduleFactory is set.
      */
-    private var deferredSetStyles:Object;
+    protected var deferredSetStyles:Object;
 
     //--------------------------------------------------------------------------
     //
@@ -237,15 +235,14 @@ public class AdvancedStyleClient extends EventDispatcher
         return StyleManager.getStyleManager(moduleFactory);
     }
 
-    private function setDeferredStyles():void
+    protected function setDeferredStyles():void
     {
         if (!deferredSetStyles)
             return;
 
         for (var styleProp:String in deferredSetStyles)
         {
-            StyleProtoChain.setStyle(
-                                this, styleProp, deferredSetStyles[styleProp]);
+            StyleProtoChain.setStyle(this, styleProp, deferredSetStyles[styleProp]);
         }
 
         deferredSetStyles = null;

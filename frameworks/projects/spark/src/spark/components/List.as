@@ -25,12 +25,10 @@ import flash.display.DisplayObjectContainer;
 import flash.events.Event;
 import flash.events.KeyboardEvent;
 import flash.events.MouseEvent;
-import flash.events.TimerEvent;
 import flash.geom.Point;
 import flash.system.ApplicationDomain;
 import flash.text.TextField;
 import flash.ui.Keyboard;
-import flash.utils.Timer;
 
 import mx.collections.ArrayCollection;
 import mx.collections.IList;
@@ -44,8 +42,6 @@ import mx.core.InteractionMode;
 import mx.core.ScrollPolicy;
 import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
-import mx.events.CollectionEvent;
-import mx.events.CollectionEventKind;
 import mx.events.DragEvent;
 import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
@@ -54,7 +50,7 @@ import mx.managers.DragManager;
 import mx.managers.IFocusManagerComponent;
 import mx.utils.ObjectUtil;
 import mx.utils.UIDUtil;
-
+import mx.utils.VectorUtil;
 import spark.components.supportClasses.ListBase;
 import spark.core.NavigationUnit;
 import spark.events.IndexChangeEvent;
@@ -634,36 +630,7 @@ public class List extends ListBase implements IFocusManagerComponent
         super.useVirtualLayout = value;
     }
     
-    //----------------------------------
-    //  dataProvider
-    //----------------------------------
 
-    [Inspectable(category="Data")]
-    
-    /**
-     *  @private
-     *  
-     *  @langversion 3.0
-     *  @playerversion Flash 10
-     *  @playerversion AIR 1.5
-     *  @productversion Flex 4
-     */
-    override public function set dataProvider(value:IList):void
-    {
-        // Uconditionally clear the selection, see SDK-21645.  Can't wait
-        // to commit the selection because it could be set again before
-        // commitProperties runs and that selection gets lost.
-        if (!isEmpty(_proposedSelectedIndices) || !isEmpty(selectedIndices))
-        {
-            _proposedSelectedIndices.length = 0;
-            multipleSelectionChanged = true;
-            invalidateProperties();
-            UIComponentGlobals.layoutManager.validateClient(this, true);
-        }
-        super.dataProvider = value;
-    }
-        
-        
     //--------------------------------------------------------------------------
     //
     //  Properties
@@ -937,8 +904,9 @@ public class List extends ListBase implements IFocusManagerComponent
     /**
      *  @private
      *  Used internally to specify whether the selectedIndices changed programmatically or due to 
-     *  user interaction. 
-     * 
+     *  user interaction.
+     *
+     *  @param value the new indices.
      *  @param dispatchChangeEvent if true, the component will dispatch a "change" event if the
      *  value has changed. Otherwise, it will dispatch a "valueCommit" event. 
      * 
@@ -1242,7 +1210,7 @@ public class List extends ListBase implements IFocusManagerComponent
         }
         // Keep _proposedSelectedIndex in-sync with multiple selection properties. 
         if (!isEmpty(_proposedSelectedIndices))
-            _proposedSelectedIndex = getFirstItemValue(_proposedSelectedIndices); 
+            _proposedSelectedIndex = VectorUtil.getFirstItem(_proposedSelectedIndices);
         
         // need to store changeCaretOnSelection since super.commitSelection() may change it
         var currentChangeCaretOnSelection:Boolean = changeCaretOnSelection;
@@ -1572,19 +1540,6 @@ public class List extends ListBase implements IFocusManagerComponent
     
     /**
      *  @private
-     *  Given a Vector, returns the value of the first item, 
-     *  or -1 if there are no items in the Vector; 
-     */
-    private function getFirstItemValue(v:Vector.<int>):int
-    {
-        if (v && v.length > 0)
-            return v[0]; 
-        else 
-            return -1; 
-    }
-    
-    /**
-     *  @private
      *  Returns true if v is null or an empty Vector.
      */
     private function isEmpty(v:Vector.<int>):Boolean
@@ -1643,7 +1598,7 @@ public class List extends ListBase implements IFocusManagerComponent
                             if (_selectedIndices[i] == index)
                                 found = true; 
                             else if (_selectedIndices[i] != index)
-                                interval.splice(0, 0, _selectedIndices[i]);
+                                interval.push(_selectedIndices[i]);
                         }
                         if (!found)
                         {
@@ -1877,7 +1832,7 @@ public class List extends ListBase implements IFocusManagerComponent
             return;
         
         // Handle the fixup of selection
-        var newIndex:int
+        var newIndex:int;
         if (event.currentTarget is IItemRenderer)
             newIndex = IItemRenderer(event.currentTarget).itemIndex;
         else
@@ -2024,7 +1979,7 @@ public class List extends ListBase implements IFocusManagerComponent
                     (mouseDownObject is DisplayObjectContainer && 
                         DisplayObjectContainer(mouseDownObject).contains(event.target as DisplayObject)));
                 
-                // check to make sure they clciked on an item and selection should change
+                // check to make sure they clicked on an item and selection should change
                 if (selectionChange)
                 {
                     // now handle the cases where the item is being selected or de-selected
@@ -2684,7 +2639,7 @@ public class List extends ListBase implements IFocusManagerComponent
             // an "caretChange" event to update any bindings and update the 
             // caretIndex backing variable. 
             var oldIndex:Number = caretIndex; 
-            _caretIndex = getFirstItemValue(newInterval);
+            _caretIndex = VectorUtil.getFirstItem(newInterval);
             e = new IndexChangeEvent(IndexChangeEvent.CARET_CHANGE); 
             e.oldIndex = oldIndex; 
             e.newIndex = caretIndex; 
@@ -2706,7 +2661,7 @@ public class List extends ListBase implements IFocusManagerComponent
         
         var oldIndices:Vector.<int> = selectedIndices;  
         _selectedIndices = newInterval;
-        _selectedIndex = getFirstItemValue(newInterval);
+        _selectedIndex = VectorUtil.getFirstItem(newInterval);
         // If the selection has actually changed, trigger a pass to 
         // commitProperties where a change event will be 
         // fired to update any bindings to selection properties. 
@@ -2797,7 +2752,7 @@ public class List extends ListBase implements IFocusManagerComponent
      */
     mx_internal function findStringLoop(str:String, startIndex:int, stopIndex:int):Number
     {
-        // Try to find the item based on the start and stop indices. 
+        // Try to find the item based on the start and stop indices
         for (startIndex; startIndex != stopIndex; startIndex++)
         {
             var itmStr:String = itemToLabel(dataProvider.getItemAt(startIndex));
@@ -2828,7 +2783,7 @@ public class List extends ListBase implements IFocusManagerComponent
         if (isEditableTarget(event.target))
             return;
         
-        var touchMode:Boolean = (getStyle("interactionMode") == InteractionMode.TOUCH);
+        var touchMode:Boolean = getStyle("interactionMode") == InteractionMode.TOUCH;
         
         // 1. Was the space bar hit? or was the enter key hit and we're in 5-way mode
         // Hitting the space bar means the current caret item, 

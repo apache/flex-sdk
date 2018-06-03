@@ -27,7 +27,6 @@ import static com.adobe.fxg.FXGConstants.*;
  * <p>
  * This is an empty tag - text content or child tags are not expected.
  * </p>
- * @author Peter Farland
  */
 public class BRNode extends AbstractTextNode
 {

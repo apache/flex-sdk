@@ -1751,7 +1751,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                 virtualRendererIndices.splice(vrItemIndex, 1);
         }
         
-        // Remove the old renderer at index from indexToRenderer[], from the 
+        // Remove the old renderer at index (if any) from indexToRenderer[], from the
         // DataGroup, and clear its data property (if any).
         
         const oldRenderer:IVisualElement = indexToRenderer[index];
@@ -1759,15 +1759,18 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         if (indexToRenderer.length > index)
             indexToRenderer.splice(index, 1);
         
-        dispatchEvent(new RendererExistenceEvent(
-            RendererExistenceEvent.RENDERER_REMOVE, false, false, oldRenderer, index, item));
-        
-        if (oldRenderer is IDataRenderer && oldRenderer !== item)
-            IDataRenderer(oldRenderer).data = null;
-        
-        var child:DisplayObject = oldRenderer as DisplayObject;
-        if (child)
-            super.removeChild(child);
+        if (oldRenderer)
+        {
+            dispatchEvent(new RendererExistenceEvent(
+                RendererExistenceEvent.RENDERER_REMOVE, false, false, oldRenderer, index, item));
+            
+            if (oldRenderer is IDataRenderer && oldRenderer !== item)
+                IDataRenderer(oldRenderer).data = null;
+            
+            var child:DisplayObject = oldRenderer as DisplayObject;
+            if (child)
+                super.removeChild(child);
+        }
         
         invalidateSize();
         invalidateDisplayList();

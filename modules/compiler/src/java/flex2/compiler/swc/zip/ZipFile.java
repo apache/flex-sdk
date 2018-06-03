@@ -57,7 +57,6 @@ import java.util.zip.InflaterInputStream;
  *   <li>close is allowed to throw IOException.</li>
  * </ul>
  *
- * @author Stefan Bodewig
  * @version $Revision: 1.1 $
  */
 public class ZipFile {

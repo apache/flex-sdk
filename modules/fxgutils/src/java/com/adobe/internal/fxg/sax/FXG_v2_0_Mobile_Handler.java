@@ -31,7 +31,6 @@ import static com.adobe.fxg.FXGConstants.*;
 /**
  * FXGVersionHandler for FXG 2.0
  * 
- * @author Sujata Das
  */
 public class FXG_v2_0_Mobile_Handler extends FXG_v2_0_Handler
 {

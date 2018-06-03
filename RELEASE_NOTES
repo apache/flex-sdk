@@ -1,3 +1,424 @@
+Apache Flex 4.16.1
+==================
+
+AIR and Flash Player Support
+----------------------------
+- Support Flash Player 21.0, 22.0, 23.0, 24.0, 25.0, 26.0 and 27.0
+- Support for AIR 21.0, 22.0, 23.0, 24.0, 25.0, 26.0 and 27.0
+
+Bug Fixes
+---------
+FLEX-35364 Flex installer.xml is failing occasionally
+FLEX-35329 Initializing member variable/constant that is [Deprecated]
+            incorrectly throws extra warning
+FLEX-35321 LayoutManager initializes components which are no longer on stage
+FLEX-35267 Spark DataGrid's GridHeaderViewLayout.getHeaderIndexAt() returns wrong header index when leftPadding is comparable to a column's width
+FLEX-27509 AdvancedListBase itemMaskFreeList is null 
+
+Known Issues
+------------
+
+Adobe Flash Builder Integration
+
+Adobe Flash Builder 4.7 and Adobe Flash Builder 4.6 both contain a bug where,
+when generating the .mxml file for a new project that uses Apache Flex SDK
+4.10.0 or later Spark Application, Flash Builder will incorrectly insert the
+attribute:
+
+    layout="absolute"
+
+This results in a compile error in the new project.  The remedy is to simply
+remove the errant attribute.
+
+The following wiki page has been set up to contain the latest news on Adobe's
+attempt to correct this problem:
+
+    https://cwiki.apache.org/confluence/display/FLEX/Adobe+Flash+Builder+'New+Project'+Bug
+
+Adobe has provided a patch for Flash Builder 4.7 that resolves this issue:
+
+    http://helpx.adobe.com/flash-builder/kb/flex-new-project-issue--.html
+
+
+Apache Flex 4.16.0
+==================
+
+New Features
+____________
+FLEX-35122  Update to Font Awesome 4.7
+
+AIR and Flash Player Support
+----------------------------
+- Support Flash Player 21.0, 22.0, 23.0 and 24.0
+- Support for AIR 21.0, 22.0, 23.0 and 24.0
+
+Bug Fixes
+---------
+FLEX-35165  Remove bundling of Apache 1.0 licensed software
+FLEX-35126  DropDownController inside a pop up still listens to MOUSE_DOWN and
+		MOUSE_DOWN_SOMEWHERE after the popup has closed
+FLEX-35125  DropDownList inside a PopUpAnchor doesn't close when another DropDownList
+		is selected
+FLEX-35124  RTE 1009 in DropDownController.systemManager_mouseDownHandler() when inside
+		a PopUpAnchor and other item is removed on click
+FLEX-35123  DOM XSS vulnerability in history.js
+FLEX-35109  falcon compiler's build.xml error
+FLEX-35106  Incorrect date in datefield popup for fr_FR locale
+FLEX-35100  TextFlowLine.recreateTextLine() throws a null object reference error
+FLEX-35099  BusyIndicator has the wrong wrong rotation centre for iOS
+FLEX-35097  How to compile AIR beta 22 with Flex SDK?
+FLEX-35084  Ability to specify FileAttributes at compile time (mxmlc)
+FLEX-35082  moveIndexFindRow doesn't accept integer values
+FLEX-35078  Fatal when SelectionManager tries to reapply selection onto changed textFlow
+FLEX-35056  Pressing escape on s:Alert causes a RangeError when Alert.CANCEL is passed
+		as defaultButtonFlag
+FLEX-35046  Broken icon using FlatSpark ButtonIcon on mobile apps
+FLEX-35045  Flatspark ButtonIcon - icon does not display
+FLEX-35043  Unexpected behaviour of ListCollectionView.itemUpdated() when only one
+		parameter supplied
+FLEX-35042  Mistake in example for Pattern 'O' in ASDoc for DateFormatter.formatString
+FLEX-35039  ListCollectionView.setItemAt places the item in the wrong position if there
+		are duplicate items in the collection
+FLEX-35037  Add ArrayCollection unit tests donated by Justin
+FLEX-35031  HierarchicalCollectionViewCursor cannot find sealed class instance
+FLEX-35028  Error in DataGrid getHeaderRendererAt(-1)
+FLEX-35025  Validator results cannot be intercepted if the value is null
+FLEX-34935  Copy From Word Document And Pasting Into TextRegion Not Working Properly
+FLEX-34926  Misplaced [PercentProxy] metatag in GridColumn
+FLEX-34738  Not delete BusyIndicator
+FLEX-34811  Email validator show allow apostrophe in email address
+FLEX-34698  Flatspark ButtonIcon: Introduce 'iconFontPlacement' style
+FLEX-34391  ScrollableStageText with large y value crashes app
+FLEX-34088  CalloutButton closes when selecting an item in a spark Dropdown
+FLEX-33646  The "required" property on Validator should be a getter/setter
+FLEX-33311  Null pointer fatal in ConstraintLayout when executing Transition on
+		DropDownList
+FLEX-33058  RTE in HierarchicalCollectionViewCursor when a refresh occurs and old cursor
+		had an enumerable property that new cursor item doesn't
+FLEX-31948  When all the columns are invisible, pressing any character Key throws RTE
+FLEX-27509  AdvancedListBase itemMaskFreeList is null
+FLEX-26808  s:DataGrid Drag and Drop of multiple items doesn't work
+FLEX-20313  SelectItem on AdvancedDataGrid use weird code
+
+
+Known Issues
+------------
+
+Adobe Flash Builder Integration
+
+Adobe Flash Builder 4.7 and Adobe Flash Builder 4.6 both contain a bug where,
+when generating the .mxml file for a new project that uses Apache Flex SDK
+4.10.0 or later Spark Application, Flash Builder will incorrectly insert the
+attribute:
+
+    layout="absolute"
+
+This results in a compile error in the new project.  The remedy is to simply
+remove the errant attribute.
+
+The following wiki page has been set up to contain the latest news on Adobe's
+attempt to correct this problem:
+
+    https://cwiki.apache.org/confluence/display/FLEX/Adobe+Flash+Builder+'New+Project'+Bug
+
+Adobe has provided a patch for Flash Builder 4.7 that resolves this issue:
+
+    http://helpx.adobe.com/flash-builder/kb/flex-new-project-issue--.html
+
+
+
+Apache Flex 4.15.0
+==================
+
+New Features
+------------
+FLEX-34837    Full support for sorting on complex fields of DataGrid rows
+FLEX-34852    Sorting by complex fields in ListCollectionView
+FLEX-34927    Allow the setting of an arbitrary property on an object via
+                ObjectUtil
+FLEX-34941    Allow custom validators to use the triggerEvent
+FLEX-34945    Validators now able to validate nested properties
+
+AIR and Flash Player Support
+----------------------------
+- Support Flash Player 18.0, 19.0 and 20.0
+- Support for AIR 18.0, 19.0 and 20.0
+
+Bug Fixes
+---------
+FLEX-32249	AdvancedDataGrid.makeListData() incorrectly references 
+			HierarchicalCollectionViewCursor class instead of 
+			IHierarchicalCollectionViewCursor interface
+FLEX-33537	Spark TextArea writing in prompt text format
+FLEX-34028	Cannot Ctrl-Click A Datagrid Row to deselect it when dragEnabled 
+			is set to true
+FLEX-34728	HaloDefaults.findStyleDeclaration doesn't go through styleManager 
+			chains correctly
+FLEX-34741	Spark DataGrid Drag and Drop non functioning
+FLEX-34744	TextFlowElement parent nulled when addChild method used via 
+			parent reference
+FLEX-34751	Regression in fdb tool: VM is resumed if breakpoint can't be set
+FLEX-34753	Returning strongly typed object in Promise fails
+FLEX-34775	Application hangs (in infinite loop) when opening a node inside  
+			a HierarchicalCollectionView whose parent is closed and then  
+			trying to navigate the collection
+FLEX-34807	TLF - EditManager - TextFlowEdit -insertTextScrap
+FLEX-34812	Error "Could not find or load main class Flash" when running 
+			`ant frameworks-rsls`
+FLEX-34837  DataGrid sorted with complex dataField doesn't keep track of changes
+            to those fields, leading to RTE when trying to remove selected item
+FLEX-34838	getItemIndex returns -1 for item whose property was edited with 
+			GridItemEditor in a sorted DataGrid
+FLEX-34850	Applying sort with complex dataField on DataGrid results in 
+			unintuitive item ordering
+FLEX-34857	Adding an id to a fx:Vector when using -keep compiler argument 
+			results in a compiler error
+FLEX-34858	Adding a subclass of a Vector's type to the Vector in MXML 
+			results in an internal build error
+FLEX-34862	RTE on ListBase when dataProvider is changed
+FLEX-34876	Paste Problem with multiple paragraphs
+FLEX-34878	error property of NumberFormatter returns null and not it's 
+			default value
+FLEX-34879	FLEX-34853 Deprecate state setters and reverse() for mx and 
+			spark SortField and Sort classes
+FLEX-34891	TLF: pasted text doesn't get the format of the original text
+FLEX-34909	Embedded fonts not working on charts
+FLEX-34929	Error #1009 when copy/paste a text with style effect in a 
+			RichEditableText/RichTextEditor
+FLEX-34934	Spark Window - Closed Window
+FLEX-34944	GridItemRenderer overrides error tooltip
+FLEX-34954	SkinnableTextBase steals focus by callLater(textDisplay.setFocus)
+FLEX-34982	Charting components that are unable to find their style
+			declarations causing RTE
+FLEX-35003	Update to FontAwesome 4.5
+PR#8		Mxmlc accepts not only *.swc but also *.ane files
+PR#12		Fix MenuBar.styleChanged() crash bug
+
+
+
+
+Known Issues
+------------
+
+Adobe Flash Builder Integration
+
+Adobe Flash Builder 4.7 and Adobe Flash Builder 4.6 both contain a bug where,
+when generating the .mxml file for a new project that uses Apache Flex SDK
+4.10.0 or later Spark Application, Flash Builder will incorrectly insert the
+attribute:
+
+    layout="absolute"
+
+This results in a compile error in the new project.  The remedy is to simply
+remove the errant attribute.
+
+The following wiki page has been set up to contain the latest news on Adobe's
+attempt to correct this problem:
+
+    https://cwiki.apache.org/confluence/display/FLEX/Adobe+Flash+Builder+'New+Project'+Bug
+
+Adobe has provided a patch for Flash Builder 4.7 that resolves this issue:
+
+    http://helpx.adobe.com/flash-builder/kb/flex-new-project-issue--.html
+
+
+
+Apache Flex 4.14.1
+==================
+
+New Features
+------------
+FLEX-34772  Add padding property to VerticalLayout/VGroup,
+            HorizontalLayout/HGroup and TileLayout/TileGroup
+
+AIR and Flash Player Support
+----------------------------
+- Support Flash Player 17.0
+
+Bug Fixes
+---------
+FLEX-34712  Callout loses anchor to CalloutButton while callout open and screen 
+            rotates
+FLEX-34714  Fix to continue using legacy mobile theme removes iOS status bar 
+            padding
+FLEX-34746  Upscaling BusyIndicator leads to wrong rotation centre
+FLEX-34748  Spark ActionBar chromeColor is ignored in Flex 14
+FLEX-34750  BusyIndicatorSkin does not work with mx:Application
+FLEX-34758  IOS buttons does not look correct when disabled
+FLEX-34766  Android Button Skin transparency issue
+FLEX-34778  Application hangs when opening node, closing it, then replacing one 
+            of its children
+FLEX-34774  Blur effect remains if first modal Popup closes before other modal 
+            Popups
+FLEX-34732  TextInput/TextArea with borderColor style set gives compiler 
+            warnings
+FLEX-34805  Unable to set chromeColor property on TabbedViewNavigatorApplication
+FLEX-34806  Warning about font embedding on label component
+
+Performance Improvements
+---------
+FLEX-34759  ArrayList/ArrayCollection performance improvements
+ 
+Known Issues
+------------
+
+Adobe Flash Builder Integration
+
+Adobe Flash Builder 4.7 and Adobe Flash Builder 4.6 both contain a bug where,
+when generating the .mxml file for a new project that uses Apache Flex SDK
+4.10.0 or later Spark Application, Flash Builder will incorrectly insert the
+attribute:
+
+    layout="absolute"
+
+This results in a compile error in the new project.  The remedy is to simply
+remove the errant attribute.
+
+The following wiki page has been set up to contain the latest news on Adobe's
+attempt to correct this problem:
+
+    https://cwiki.apache.org/confluence/display/FLEX/Adobe+Flash+Builder+'New+Project'+Bug
+
+Adobe has provided a patch for Flash Builder 4.7 that resolves this issue:
+
+    http://helpx.adobe.com/flash-builder/kb/flex-new-project-issue--.html
+
+
+
+Apache Flex 4.14.0
+==================
+
+New Features
+------------
+- iOS 7+ and Android 4.x+ mobile theme support 
+  More info: https://cwiki.apache.org/confluence/x/7AAIAw
+- New Spark components skin: FlatSpark
+  More info: https://cwiki.apache.org/confluence/x/wQEIAw
+- Spark RichTextEditor
+- Native support for tables in TLF
+- Promises/A+
+  More info: https://cwiki.apache.org/confluence/x/cIH_Ag
+
+AIR and Flash Player Support
+----------------------------
+- Support Flash Player 16.0
+- Support for AIR 16.0
+
+Bug Fixes
+---------
+FLEX-34710  spark datagrid doubleClickMode throws Error #1009 when the 
+            application is run
+FLEX-34707  Flatspark: Update to current version "Font Awesome 4.2"
+FLEX-34701  BusyIndicator does not spin when itscontainer becomes visible
+FLEX-34694  Flatspark: Setting Applications "chromeColor" style throws error
+FLEX-34693  Flatspark ButtonIcon: Introduce property 'iconFontSize' to set icon
+            size directly
+FLEX-34692  Flatspark ButtonSkin: Icon defined by using the 'icon' style
+            property doesn't appear
+FLEX-34690  Skin for BusyIndicator cannot be found (legacy mobile skin)
+FLEX-34685  Allow legacy mobile theme to be used if needed
+FLEX-34657  SelectedIndices order is messed up
+FLEX-34649  (partial) Fatal errors in TextBlock after pasting text of specific
+            length in TextArea
+FLEX-34644  Datagrid - Rectangle bounds problem
+FLEX-34636  Release build does not work as described in README on OS X
+FLEX-34634  DataGroup fires RendererExistenceEvent with a null renderer when an
+            offscreen item is removed/replaced in the dataProvider
+FLEX-34633  HSlider track (Android4 skin) not being filled if thumb position set
+            in one case, text selection using the arrow keys doesn't work in
+            RichEditableText
+FLEX-34631  Cannot add source paths to a mustella test using a config file
+FLEX-34611  Application crash when textFlow property set to null with
+            preserveSelection
+FLEX-34609  ContainerController has superfluous null checks for _container
+FLEX-34608  IOS 7 Hslider (Scrubber) skin
+FLEX-34606  Redundant variable
+FLEX-34592  Can't use optionnal importer for TLF plainTextFormat and
+            TextLayoutFormat
+FLEX-34564  Minor changes to spelling, punctuation, grammar and logic.
+FLEX-34557  Platform.isBrowser does not work correctly
+FLEX-34556  Starting an app in portrait on an iPad results in wrong DPI
+FLEX-34543  Invalid event data when saving or cancelling grid item editor
+            session after data provider changes
+FLEX-34539  Callout skin assumes top level application is s:Application
+FLEX-34538  Spark Alert component does not add proper padding
+FLEX-34531  mx.charts.series.HLOCSeries excluding a style being used in example
+FLEX-34507  expected build.xml file missing from Linux binary tarball
+            apache-flex-sdk-4.13.0-bin.tar.gz
+FLEX-34476  Added RichTextEditor
+FLEX-34467  Spark DataGrid performance extremely decreased since "gridView" is 
+            introduced
+FLEX-34460  adt is missing in windows install
+FLEX-34458  HierarchicalCollectionViewCursor.current returns wrong item after
+            previous sibling is removed when current was "${L}"
+            (CursorBookmark.LAST)
+FLEX-34456  HierarchicalCollectionViewCursors interfere with each other's
+            operation
+FLEX-34454  Setting modalTransparencyBlur to 0 gives blur when Alert ist shown
+            on top of modal Dialog
+FLEX-34450  mx.validators.EmailValidator does not accept ".email" domain
+FLEX-34440  'Bookmark no longer valid' CursorError caused by
+            HierarchicalCollectionView's conversion of
+            CollectionEventKind.REPLACE into CollectionEventKind.REMOVE
+FLEX-34424  HierarchicalCollectionViewCursor.current returns null when previous
+            sibling is removed
+FLEX-34390  SkinnableTextBase bug (found in Flex 4.13.0 RC2)
+FLEX-34385  Document try..catch limitation
+FLEX-34378  mx:DateValidator allows multiple separator chars
+FLEX-34373  spark.components.Alert should set a focus to defaultButton
+FLEX-34336  Strange Trace Statements When Debugging
+FLEX-34323  Allow the mustella tests directory to be located anywhere
+FLEX-34318  [Mavenizer] Refactor the Mavenizer in preparation of future
+            mavenized releases of flex
+FLEX-34260  s:datagrid cacheAsBitmap caches an itemRenderer for every item in 
+            the dataProvider
+FLEX-34213  Flex mobile list performance
+FLEX-34212  invalidIndex RTE in LinearLayoutVector when mouse scrolling List
+FLEX-34119  mx.collections.HierarchicalCollectionViewCursor causes CursorError
+            RTE from ListCollectionView when the underlying collections change
+FLEX-34034  You can paste a newline code to a single-line TextInput.
+FLEX-33732  Mobile theme support Android 4.x look and feel
+FLEX-33054  Cursor Seek in HierarchicalCollectionViewCursor operates on wrong
+            child level
+FLEX-32541  sortable ou sortableColumns = false still shows box of sorting and
+            sortItemRenderer = null throws error
+FLEX-28291  Linear Vector Layout on the ComboBox
+FLEX-26478  Runtime error occured when a TextInput's text mouse selection isn't
+            finished yet but the TextInput instance is removed or its text
+            changes
+FLEX-34625  Setting focus with a zero size component and focusThickness causes
+            RTE
+
+Other fixes (no JIRA issue created):
+- correct case for osmf.swc so compiles on Linux work
+- Adding a mixin to set android os version during AIR simulation
+
+Known Issues
+------------
+
+Adobe Flash Builder Integration
+
+Adobe Flash Builder 4.7 and Adobe Flash Builder 4.6 both contain a bug where,
+when generating the .mxml file for a new project that uses Apache Flex SDK
+4.10.0 or later Spark Application, Flash Builder will incorrectly insert the
+attribute:
+
+    layout="absolute"
+
+This results in a compile error in the new project.  The remedy is to simply
+remove the errant attribute.
+
+The following wiki page has been set up to contain the latest news on Adobe's
+attempt to correct this problem:
+
+    https://cwiki.apache.org/confluence/display/FLEX/Adobe+Flash+Builder+'New+Project'+Bug
+
+Adobe has provided a patch for Flash Builder 4.7 that resolves this issue:
+
+    http://helpx.adobe.com/flash-builder/kb/flex-new-project-issue--.html
+
+
+
 Apache Flex 4.13.0
 =================
 

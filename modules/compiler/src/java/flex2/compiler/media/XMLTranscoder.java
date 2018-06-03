@@ -36,8 +36,6 @@ import flash.util.FileUtils;
 /**
  * Transcodes XML files by wrapping them in an AS3 class which a data
  * variable of type XML.
- *
- * @author Roger Gonzalez
  */
 public class XMLTranscoder extends AbstractTranscoder
 {

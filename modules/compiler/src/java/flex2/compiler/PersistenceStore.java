@@ -71,8 +71,6 @@ import flex2.compiler.util.LocalLogger.Warning;
  * need, so we don't duplicate it in the cache.  The cache is stored
  * as a single monolithic file.  Assets for each CompilationUnit are
  * encoded as a SWF and included in the cache file.
- *
- * @author Clement Wong
  */
 final class PersistenceStore
 {

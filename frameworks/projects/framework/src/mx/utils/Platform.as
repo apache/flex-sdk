@@ -51,11 +51,18 @@ public class Platform
 	protected static var _isBrowser:Boolean;
 	protected static var _isAir:Boolean;
     private static var _osVersion: String = null;
+
 	/**
-	 * This value is set from AndroidVersionMediaQueryParserOverride
+	 * This value is set from AndroidPlatformVersionOverride
 	 * 
 	 */
 	mx_internal static var androidVersionOverride:String;
+
+	/**
+	 * This value is set from IOSPlatformVersionOverride
+	 * 
+	 */
+	mx_internal static var iosVersionOverride:String;
 	
 	/**
 	 *  Returns true if the application is running on IOS.
@@ -235,13 +242,17 @@ public class Platform
     {
         //We needed to compute _osVersion later than getPlatforms, because it relies on resources that  ready later
         if (_osVersion == null){
-			if(mx_internal::androidVersionOverride == null)
+			if(mx_internal::androidVersionOverride == null && mx_internal::iosVersionOverride == null)
 			{
 				_osVersion = computeOSVersionString();	
 			}
-			else
+			else if(mx_internal::androidVersionOverride != null)
 			{
 				_osVersion = mx_internal::androidVersionOverride; 
+			}
+			else if(mx_internal::iosVersionOverride != null)
+			{
+				_osVersion = mx_internal::iosVersionOverride; 
 			}
         }
         return _osVersion;

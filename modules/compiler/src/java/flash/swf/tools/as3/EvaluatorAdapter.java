@@ -27,8 +27,6 @@ import flash.localization.LocalizationManager;
 /**
  * An adapter for visiting the nodes of an ASC AST.
  *
- * @author Clement Wong
- * @author Paul Reilly
  */
 public abstract class EvaluatorAdapter implements Evaluator
 {

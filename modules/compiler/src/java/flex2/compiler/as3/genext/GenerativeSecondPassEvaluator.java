@@ -44,8 +44,6 @@ import java.util.*;
  * A common base class for Bindable and Managed metadata second pass
  * evaluators.
  *
- * @author Basil Hosmer
- * @author Paul Reilly
  */
 public abstract class GenerativeSecondPassEvaluator extends EvaluatorAdapter
 {

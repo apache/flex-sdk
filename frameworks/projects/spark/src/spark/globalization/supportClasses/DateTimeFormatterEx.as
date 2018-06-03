@@ -681,12 +681,12 @@ public class DateTimeFormatterEx extends DateTimeFormatter
      *          because the current pattern does not contain either
      *          "H" or "h".
      */
-    public function getUse24HourFlag():Object
+    public function getUse24HourFlag():Boolean
     {
         const hourPattern:String = getHourPattern();
         
         if (!hourPattern)
-            return null;
+            return false;
         
         const use24Hour:Boolean = hourPattern.indexOf("H") >= 0;
         const use12Hour:Boolean = hourPattern.indexOf("h") >= 0;
@@ -694,8 +694,7 @@ public class DateTimeFormatterEx extends DateTimeFormatter
             return true;
         else if (!use24Hour && use12Hour)
             return false;
-        
-        return null;
+        else return false;
     }
     
     [Bindable("change")]

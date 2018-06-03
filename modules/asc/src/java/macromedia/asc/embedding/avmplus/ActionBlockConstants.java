@@ -17,9 +17,6 @@
 
 package macromedia.asc.embedding.avmplus;
 
-/**
- * @author Jeff Dyer
- */
 public interface ActionBlockConstants
 {
 	public static final int MINORwithDECIMAL = 17;

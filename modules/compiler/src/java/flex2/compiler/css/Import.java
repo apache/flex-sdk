@@ -22,8 +22,6 @@ package flex2.compiler.css;
 /**
  * Value object used to represent a CSS value and the line number
  * where it came from.
- *
- * @author Paul Reilly
  */
 public class Import
 {

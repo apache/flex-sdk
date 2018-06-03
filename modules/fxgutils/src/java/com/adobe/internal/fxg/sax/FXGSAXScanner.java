@@ -49,9 +49,6 @@ import static com.adobe.fxg.FXGConstants.*;
  * a graphical asset) to a simple object graph to serve as an intermediate
  * representation. The document must be in the FXG 1.0 namespace and the root
  * element must be a &lt;Graphic&gt; tag.
- * 
- * @author Peter Farland
- * @author Sujata Das
  */
 public class FXGSAXScanner extends DefaultHandler
 {

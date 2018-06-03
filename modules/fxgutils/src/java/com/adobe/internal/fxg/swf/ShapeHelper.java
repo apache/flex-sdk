@@ -41,10 +41,6 @@ import flash.swf.types.StyleChangeRecord;
 
 /**
  * A collection of utilities to help create SWF Shapes and ShapeRecords.
- * 
- * @author Peter Farland
- * @author Sujata Das
- * @author Min Plunkett
  */
 public class ShapeHelper implements SwfConstants
 {

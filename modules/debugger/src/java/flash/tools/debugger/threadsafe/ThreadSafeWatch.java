@@ -21,7 +21,6 @@ import flash.tools.debugger.Watch;
 
 /**
  * Thread-safe wrapper for flash.tools.debugger.Watch
- * @author Mike Morearty
  */
 public class ThreadSafeWatch extends ThreadSafeDebuggerObject implements Watch {
 	

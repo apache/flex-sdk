@@ -900,7 +900,7 @@ public class DropDownListBase extends List
             var proposedNewIndex:int = NO_SELECTION;
             var currentIndex:int;
                         
-            if (isDropDownOpen)
+            if (isDropDownOpen && layout)
             {   
                 // Normalize the proposed index for getNavigationDestinationIndex
                 currentIndex = userProposedSelectedIndex < NO_SELECTION ? NO_SELECTION : userProposedSelectedIndex;
@@ -992,7 +992,6 @@ public class DropDownListBase extends List
         {
             event.preventDefault();
         }
-        
     }
     
     /**

@@ -21,8 +21,6 @@ package flash.css;
 
 /**
  * Represents a local font location.
- *
- * @author Peter Farland
  */
 public class LocalSource
 {

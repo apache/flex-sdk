@@ -30,8 +30,6 @@ import flex2.compiler.util.CompilerMessage;
  * option.  For example, whether it's hidden, deprecated, advanced,
  * etc.  Subclasses should override ConfigurationInfo's methods to
  * change the defaults.
- *
- * @author Roger Gonzalez
  */
 public class ConfigurationInfo
 {

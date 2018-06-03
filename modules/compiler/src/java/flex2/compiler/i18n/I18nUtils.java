@@ -45,9 +45,6 @@ import flex2.tools.oem.internal.ApplicationCompilerConfiguration;
 /**
  * Helper class used by I18nCompiler and other parts of the compiler
  * to handle I18N related code generation and translation.
- *
- * @author Brian Deitte
- * @author Gordon Smith
  */
 public class I18nUtils
 {

@@ -47,10 +47,6 @@ import javax.imageio.stream.MemoryCacheImageOutputStream;
  * SWF tags.  Compression with quality is supported.  For compression,
  * we convert images to JPEG, then transcode them into DefineBitsJPEG3
  * SWF tags.
- *
- * @author Roger Gonzalez
- * @author Joa Ebert
- * @author Paul Reilly
  */
 public class LosslessImageTranscoder extends ImageTranscoder
 {

@@ -28,8 +28,6 @@ import flex2.compiler.util.QName;
 /**
  * Represents an &lt;Reparent&gt; tag in the MXML 2009 language
  * namespace.
- *
- * @author Corey Lucier
  */
 public class ReparentNode extends Node
 {

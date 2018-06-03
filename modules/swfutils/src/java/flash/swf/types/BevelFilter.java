@@ -21,8 +21,6 @@ package flash.swf.types;
 
 /**
  * A value object for bevel filter data.
- *
- * @author Roger Gonzalez
  */
 public class BevelFilter extends Filter
 {

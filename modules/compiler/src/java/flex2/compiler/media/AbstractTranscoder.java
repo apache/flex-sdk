@@ -50,8 +50,6 @@ import org.apache.flex.forks.velocity.VelocityContext;
  * This is the default transcoder implementation.  The only thing that
  * a subclass needs to do to override is to give the right information
  * in the constructor and provide an implementation of doTranscode().
- *
- * @author Brian Deitte
  */
 public abstract class AbstractTranscoder implements Transcoder
 {

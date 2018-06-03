@@ -62,9 +62,6 @@ import macromedia.asc.util.ContextStatics;
  * This class is used by the CssCompiler as an object model for a CSS
  * document.  StyleModule instances are used as input for code
  * generation.
- *
- * @author Paul Reilly
- * @author Pete Farland
  */
 public class StyleModule
 {

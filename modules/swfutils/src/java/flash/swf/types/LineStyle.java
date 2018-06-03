@@ -21,8 +21,6 @@ package flash.swf.types;
 
 /**
  * A value object for line style data.
- *
- * @author Clement Wong
  */
 public class LineStyle
 {

@@ -38,8 +38,6 @@ import java.util.ArrayList;
  * fill style. This is a separate class to decouple image processing
  * from the main Shape/Graphics2D processing required by more
  * complicated SWF entities.
- *
- * @author Peter Farland
  */
 public class ImageShapeBuilder
 {

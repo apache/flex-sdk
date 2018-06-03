@@ -31,8 +31,6 @@ import java.util.Set;
 
 /**
  * Represents a primitive tag in the MXML language namespace.
- *
- * @author Clement Wong
  */
 public abstract class PrimitiveNode extends Node
 {

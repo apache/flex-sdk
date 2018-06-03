@@ -23,8 +23,6 @@ import java.io.File;
 
 /**
  * Describes a Flash player.
- * 
- * @author mmorearty
  */
 public interface Player
 {

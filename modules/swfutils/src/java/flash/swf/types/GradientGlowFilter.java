@@ -21,8 +21,6 @@ package flash.swf.types;
 
 /**
  * A value object filter for gradient glow filter data.
- *
- * @author Roger Gonzalez
  */
 public class GradientGlowFilter extends GlowFilter
 {
