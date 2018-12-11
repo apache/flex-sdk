@@ -19,9 +19,9 @@
 package {
 
 import flash.display.DisplayObject;
+import flash.events.Event;
 import flash.net.URLLoader;
 import flash.net.URLRequest;
-import flash.events.Event;
 import flash.system.Capabilities;
 
 [Mixin]
@@ -40,7 +40,7 @@ public class ExcludeFileLocation
 	private static var loader:URLLoader;
 
 	public static var url:String;
-	public static var mustellaDir:String;
+	public static var mustellaTestDir:String;
 
 	public static var frontURL:String;
 	public static var domain:String;
@@ -65,51 +65,59 @@ public class ExcludeFileLocation
 
 		trace ("Hello from excludes at: " + new Date());
 
+    	_root = root;
 
-		var os:String = Capabilities.os;
+        // set up callback to load excludes after 
+        // UnitTester has initialized.
+        UnitTester.loadExcludeFile = loadExcludeFile;   
 
+    }
 
-		if (os.indexOf ("Windows") != -1) 
-		{
-			excludeFile = "ExcludeListWin.txt";
-		} else if (os.indexOf ("Mac") != -1) 
-		{
-			excludeFile = "ExcludeListMac.txt";
-		} else if (os.indexOf ("Linux") != -1) 
-		{
-			excludeFile = "ExcludeListLinux.txt";
-		} else 
-		{		
-			trace ("Excludes: bad: we didn't see an OS we liked: " + os);
-			excludeFile = "ExcludeListWin.txt";
-		}
+    public static function loadExcludeFile():void
+    {
+        var os:String = Capabilities.os;
+        
+        
+        if (os.indexOf ("Windows") != -1) 
+        {
+            excludeFile = "ExcludeListWin.txt";
+        } else if (os.indexOf ("Mac") != -1) 
+        {
+            excludeFile = "ExcludeListMac.txt";
+        } else if (os.indexOf ("Linux") != -1) 
+        {
+            excludeFile = "ExcludeListLinux.txt";
+        } else 
+        {		
+            trace ("Excludes: bad: we didn't see an OS we liked: " + os);
+            excludeFile = "ExcludeListWin.txt";
+        }
+        
+        url = _root.loaderInfo.url;
+        
+        // allow application to override mustella test dir
+        if (!UnitTester.mustellaTestDir)
+            mustellaTestDir = url.substring (0, url.indexOf ("mustella/tests")+14);
+        else
+            mustellaTestDir = UnitTester.mustellaTestDir;
+        
+        frontURL = url.substring (0, url.indexOf (":"));
+        
+        domain = url.substring (url.indexOf (":")+3);
+        domain = domain.substring (0, domain.indexOf ("/"));
+        
+        if (Capabilities.playerType == "PlugIn" || Capabilities.playerType == "ActiveX")
+        { 
+            loadTryBrowser();
+        } else
+        {
+            loadTryNormal();
+            
+        } 
+        
+    }
 
-
-		_root = root;
-
-		url = root.loaderInfo.url;
-
-		mustellaDir = url.substring (0, url.indexOf ("mustella/tests")+14);
-
-		frontURL = url.substring (0, url.indexOf (":"));
-
-		domain = url.substring (url.indexOf (":")+3);
-		domain = domain.substring (0, domain.indexOf ("/"));
-
-		if (Capabilities.playerType == "PlugIn" || Capabilities.playerType == "ActiveX")
-		{ 
-			loadTryBrowser();
-		} else
-		{
-			loadTryNormal();
-
-		} 
-
-	}
-
-
-
-	public static function loadTryBrowser():void
+    public static function loadTryBrowser():void
 	{
 		trace ("excludes loadTryBrowser at: " + new Date().toString());
 
@@ -148,10 +156,9 @@ public class ExcludeFileLocation
 	{ 
 	
 		trace ("Exclude: in the web read error handler");
-		if (!triedNormal) 
+        if (!triedNormal) 
 		{
-			loadTryNormal();	
-
+			loadTryNormal();
 		}
 
 	}
@@ -166,11 +173,11 @@ public class ExcludeFileLocation
 
 		var useFile:String;
 
-		useFile = mustellaDir +"/" + excludeFile;
+		useFile = mustellaTestDir +"/" + excludeFile;
 
 		trace ("Exclude: try load from: " + useFile);
 
-		var req:URLRequest = new URLRequest(useFile);
+        var req:URLRequest = new URLRequest(useFile);
 		loader = new URLLoader();
 		loader.addEventListener("complete", completeHandler2);
 		loader.addEventListener("ioError", errorHandler2);
@@ -181,8 +188,8 @@ public class ExcludeFileLocation
 
 	private static function errorHandler2(event:Event):void
 	{
-		trace ("Exclude: error in the exclude file load " +event);	
-		if (!triedBrowser) 
+		trace ("Exclude: error in the exclude file load " +event);
+        if (!triedBrowser) 
 		{
 			loadTryBrowser();
 		}
@@ -192,7 +199,7 @@ public class ExcludeFileLocation
 
 	private static function completeHandler2(event:Event):void
 	{
-		trace ("Excludes: Reading from file system at "+mustellaDir );
+		trace ("Excludes: Reading from file system at "+mustellaTestDir );
 		postProcessData(event);
 	}
 	private static function postProcessData(event:Event):void

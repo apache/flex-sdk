@@ -53,8 +53,6 @@ import macromedia.asc.util.Context;
 
 /**
  * This class handles processing [HostComponent] metadata.
- *
- * @author Corey Lucier
  */
 public final class HostComponentExtension implements Extension
 {

@@ -22,9 +22,6 @@ package macromedia.asc.semantics;
 import macromedia.asc.parser.Node;
 import macromedia.asc.util.Context;
 
-/**
- * @author Clement Wong
- */
 public class UnresolvedNamespace extends NamespaceValue
 {
 	public UnresolvedNamespace(Context cx, Node node, ReferenceValue ref)

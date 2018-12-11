@@ -27,8 +27,6 @@ import flex2.compiler.SymbolTable;
 /**
  * Defines the API to be used by classes, which participate in I18N
  * translation.
- *
- * @author Brian Deitte
  */
 public interface TranslationFormat
 {

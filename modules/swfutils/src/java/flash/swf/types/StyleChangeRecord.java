@@ -29,8 +29,6 @@ import java.util.List;
 /**
  * This class extends ShapeRecord by adding support for x and y move
  * deltas, fill styles and line styles.
- *
- * @author Clement Wong
  */
 public class StyleChangeRecord extends ShapeRecord
 {

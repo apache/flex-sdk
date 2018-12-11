@@ -622,9 +622,6 @@ public class AdvancedDataGridHeaderRenderer
         if (sortItemRendererWidth == 0)
             horizontalGap = 0;
 
-        // Size of label
-        const MINIMUM_SIZE:TextLineMetrics = measureText("w");
-
         // Adjust to given width
         var lineMetrics:TextLineMetrics = measureText(label.text);
         var labelWidth:Number  = lineMetrics.width + UITextField.TEXT_WIDTH_PADDING;
@@ -791,6 +788,9 @@ public class AdvancedDataGridHeaderRenderer
      */
     public function mouseEventToHeaderPart(event:MouseEvent):String
     {
+        if(sortItemRendererInstance == null)
+            return AdvancedDataGrid.HEADER_TEXT_PART;
+
         var point:Point = new Point(event.stageX, event.stageY);
         point = globalToLocal(point);
 

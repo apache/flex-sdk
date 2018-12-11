@@ -23,8 +23,6 @@ package flash.swf.debug;
  * This object holds the script for an AS2 debug module, and its name,
  * lines, and the offset value of each of the debug offsets that
  * points within this script.
- *
- * @author Edwin Smith
  */
 public class DebugModule
 {

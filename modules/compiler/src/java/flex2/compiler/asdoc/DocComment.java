@@ -27,9 +27,6 @@ import java.util.Map;
  * will return null, -1, or false if the attribute does not
  * exist. The easiest way to retrieve all the tags is through
  * the getAllTags() method.
- * 
- * @author klin
- *
  */
 public interface DocComment
 {

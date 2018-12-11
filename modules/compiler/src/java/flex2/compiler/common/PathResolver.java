@@ -31,8 +31,6 @@ import java.util.ArrayList;
  * PathResolver wraps a collection of SinglePathResolver's like
  * LocalFilePathResolver, SourcePath, SwcPathResolver, and
  * URLPathResolver.
- *
- * @author Brian Deitte
  */
 public class PathResolver implements SinglePathResolver
 {

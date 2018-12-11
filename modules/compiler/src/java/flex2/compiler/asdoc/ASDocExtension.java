@@ -48,8 +48,6 @@ import flash.util.Trace;
 
 /**
  * Compiler extension that creates the ASDoc xml file
- * 
- * @author Brian Deitte
  */
 public class ASDocExtension implements Extension
 {

@@ -28,7 +28,6 @@ import java.util.List;
 
 /**
  * Base class for Variable & Method - just a facade, that wraps a macromedi.asc.semantics.Slot.
- * @author Erik Tierney (tierney@adobe.com)
  */
 public class SlotReflect
 {

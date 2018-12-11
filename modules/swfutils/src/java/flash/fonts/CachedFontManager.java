@@ -33,8 +33,6 @@ import java.util.Map;
  * Provides a simple LRU caching mechanism for Font Manager implementations.
  *
  * A manager's caches and cache's members should be thread safe.
- *
- * @author Peter Farland
  */
 @SuppressWarnings("unchecked")
 public abstract class CachedFontManager extends FontManager

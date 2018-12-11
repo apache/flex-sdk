@@ -26,8 +26,6 @@ import java.util.Map;
 /**
  * Defines the API for loading, saving, closing a SWC and adding and
  * fetching files from a SWC.
- *
- * @author Roger Gonzalez
  */
 public interface SwcArchive
 {

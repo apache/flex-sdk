@@ -92,9 +92,6 @@ import java.util.zip.ZipInputStream;
 /**
  * This class supports printing out a SWF in a human readable XML
  * format.
- *
- * @author Clement Wong
- * @author Edwin Smith
  */
 public final class SwfxPrinter extends TagHandler
 	{

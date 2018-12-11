@@ -30,8 +30,6 @@ import flex2.compiler.util.MimeMappings;
 /**
  * Represents a VirtualFile implementation, which is backed by a SwcLazyReadArchive.
  *
- * @author Brian Deitte
- * @author Paul Reilly
  */
 public class VirtualZipFile implements VirtualFile
 {

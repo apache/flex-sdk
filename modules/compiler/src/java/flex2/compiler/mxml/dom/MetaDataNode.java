@@ -26,8 +26,6 @@ import flex2.compiler.util.QName;
 
 /**
  * Represents a &lt;metadata&gt; tag in the MXML language namespace.
- *
- * @author Clement Wong
  */
 public class MetaDataNode extends Node
 {

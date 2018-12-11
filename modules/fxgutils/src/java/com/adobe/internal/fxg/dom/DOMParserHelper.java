@@ -48,7 +48,6 @@ import com.adobe.internal.fxg.dom.types.SpreadMethod;
  * Utilities to help parsing FXG.
  * 
  * @since 2.0
- * @author Min Plunkett
  */
 public class DOMParserHelper
 {

@@ -27,8 +27,6 @@ import flash.swf.TagHandler;
  * information about the product, which was used to construct the SWF,
  * including it's edition, major version, minor version, and build
  * number, and the date the SWF was constructed.
- *
- * @author Paul Reilly
  */
 public class ProductInfo extends Tag
 {

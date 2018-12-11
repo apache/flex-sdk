@@ -28,7 +28,6 @@ package com.adobe.internal.fxg.dom.types;
  *   1 = inherit
  * </pre>
  * 
- * @author Min Plunkett
  */
 public class NumberAuto
 {

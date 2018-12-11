@@ -25,8 +25,6 @@ import flash.swf.TagHandler;
 
 /**
  * Represents a DefineSound SWF tag.
- *
- * @author Clement Wong
  */
 public class DefineSound extends DefineTag
 {

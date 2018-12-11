@@ -56,8 +56,6 @@ import java.util.*;
  * Compc specific PreLink implementation, which handles generating a
  * root class, which handles registring embedded fonts and setting up
  * for RSL's and resource bundles.
- *
- * @author Brian Deitte
  */
 public class CompcPreLink implements flex2.compiler.PreLink
 {

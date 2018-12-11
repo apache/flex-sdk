@@ -21,8 +21,6 @@ package flash.swf.types;
 
 /**
  * A value object for convolution filter data.
- *
- * @author Roger Gonzalez
  */
 public class ConvolutionFilter extends Filter
 {

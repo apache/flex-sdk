@@ -46,8 +46,6 @@ import java.util.TreeMap;
 
 /**
  * API for SWC creation.
- *
- * @author Brian Deitte
  * @see flex2.tools.Compc
  */
 public class SwcAPI

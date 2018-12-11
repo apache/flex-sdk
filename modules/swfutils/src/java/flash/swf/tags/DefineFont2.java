@@ -46,9 +46,6 @@ import flash.swf.types.Shape;
  * define a well formed tag.  A minimal Rect can be supplied for the
  * font bounds table and the kerning count can be set to 0 to omit the
  * kerning table. DefineFont2 was introduced in SWF version 3.
- * 
- * @author Clement Wong
- * @author Peter Farland
  */
 public class DefineFont2 extends DefineFont
 {

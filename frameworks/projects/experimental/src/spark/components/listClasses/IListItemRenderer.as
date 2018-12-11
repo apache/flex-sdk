@@ -20,9 +20,6 @@ package spark.components.listClasses
 {
 	import spark.components.IItemRenderer;
 	import spark.components.List;
-	/**
-	 * @author Bogdan Dinu (http://www.badu.ro)
-	 */
 	public interface IListItemRenderer extends IItemRenderer
 	{
 		function set listOwner(value:List):void;

@@ -101,9 +101,8 @@ package spark.components {
      *  @playerversion Flash 10.1
      *  @playerversion AIR 2.5
      *  @productversion Flex 4.5
-     */ /**
-     * @author Bogdan Dinu (http://www.badu.ro)
-     */ public class Alert extends Panel {
+     */
+	 public class Alert extends Panel {
         [SkinPart(required="false")]
         public var messageDisplay:TextBase;
 
@@ -396,7 +395,7 @@ package spark.components {
          *  @productversion Flex 4.5
          */
         public static function show(message:String = "", title:String = "", flags:uint = OK, parent:Sprite = null, closeHandler:Function = null,
-                                    iconClass:Class = null, defaultButtonFlag:uint = 0 /* Alert.OK */, moduleFactory:IFlexModuleFactory = null):Alert {
+                                    iconClass:Class = null, defaultButtonFlag:uint = Alert.OK, moduleFactory:IFlexModuleFactory = null):Alert {
 
             var modal:Boolean = (flags & Alert.NONMODAL) ? false : true;
 
@@ -640,7 +639,7 @@ package spark.components {
         }
 
         override protected function partRemoved(partName:String, instance:Object):void {
-            super.partAdded(partName, instance);
+            super.partRemoved(partName, instance);
             if (partName == "buttonGroup") {
                 destroyButtons(Group(instance));
             }
@@ -758,6 +757,42 @@ package spark.components {
             return result;
         }
 
+		/**
+		 *  @private
+		 */
+		private function getDefaultButton():Button 
+		{
+			var label:String;
+			switch (_defaultButtonFlag) 
+			{
+				case YES :
+					label = YES_LABEL;
+					break;
+				case NO :
+					label = NO_LABEL;
+					break;
+				case OK :
+					label = OK_LABEL;
+					break;
+				case CANCEL :
+					label = CANCEL_LABEL;
+					break;
+				default :
+					label = '';
+					break;
+			}
+			
+			for each (var button:Button in _buttons) 
+			{
+				if (button.label === label) 
+				{
+					return button;
+				}
+			}
+			
+			return null;
+		}
+		
         /**
          *  @private
          */
@@ -790,9 +825,10 @@ package spark.components {
                 awm.activate(this);
             }
             if (_buttons) {
-                if (_defaultButtonFlag >= 0 && _defaultButtonFlag < _buttons.length - 1) {
-                    _buttons[ _defaultButtonFlag ].setFocus();
-                    _buttons[ _defaultButtonFlag ].drawFocus(true);
+				var button:Button = getDefaultButton();
+				if (button) {
+					button.setFocus();
+					button.drawFocus(true);
                 }
             }
         }

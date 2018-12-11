@@ -38,7 +38,6 @@ package com.adobe.internal.fxg.dom.types;
  *   6 = approximateTextField
  * </pre>
  * 
- * @author Min Plunkett
  */
 public enum LeadingModel
 {

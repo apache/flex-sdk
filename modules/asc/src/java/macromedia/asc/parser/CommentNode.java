@@ -19,8 +19,6 @@ package macromedia.asc.parser;
 
 /**
  * CommentNode
- *
- * @author Chris Nuuja
  */
 public class CommentNode extends Node
 {

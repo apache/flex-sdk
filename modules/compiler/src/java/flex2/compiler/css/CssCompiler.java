@@ -70,8 +70,6 @@ import org.apache.flex.forks.velocity.VelocityContext;
  * into bytecode.  When the resulting SWF is loaded at runtime as a
  * CSS module, the StyleManager will be populated with the styles
  * defined in the CSS file.
- *
- * @author Paul Reilly
  */
 public class CssCompiler extends AbstractDelegatingSubCompiler
 {

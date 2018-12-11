@@ -38,8 +38,6 @@ import static com.adobe.fxg.FXGConstants.*;
  * that places an instance on the stage). Instances can provide their own values
  * that override the defaults from the definition.
  * </p>
- * 
- * @author Peter Farland
  */
 public class LibraryNode extends AbstractFXGNode
 {

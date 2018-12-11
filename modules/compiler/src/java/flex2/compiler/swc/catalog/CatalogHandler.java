@@ -25,8 +25,6 @@ import org.xml.sax.helpers.DefaultHandler;
 
 /**
  * SAX handler for reading in catalog.xml
- *
- * @author Brian Deitte
  */
 public class CatalogHandler extends DefaultHandler
 {

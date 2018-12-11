@@ -24,8 +24,6 @@ import java.io.IOException;
  * AlreadyActiveApplicationException is thrown when run/debug the application while there is 
  * an already running application. 
  * Exception is detected with ADL exit code 1 (Successful invocation of an already running AIR application. ADL exits immediately.)
- * 
- * @author sakkus
  */
 public class AlreadyActiveApplicationException extends IOException {
 	private static final long serialVersionUID = 0L;

@@ -23,8 +23,6 @@ import flex2.compiler.util.CompilerMessage.CompilerWarning;
 /**
  * Warning used to report when a qualified type selector could not be
  * resolved to a component.
- *
- * @author Paul Reilly
  */
 public class UnresolvedQualifiedTypeSelector extends CompilerWarning
 {

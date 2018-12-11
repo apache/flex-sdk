@@ -21,8 +21,6 @@ package flash.swf.builder.types;
 
 /**
  * Defines the API for iterating over a Shape.
- *
- * @author Peter Farland
  */
 public interface ShapeIterator
 {

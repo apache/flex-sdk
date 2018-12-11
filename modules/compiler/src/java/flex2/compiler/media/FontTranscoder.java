@@ -55,8 +55,6 @@ import java.util.Map;
 
 /**
  * Transcodes fonts into DefineFont SWF tags for embedding.
- *
- * @author Roger Gonzalez
  */
 public class FontTranscoder extends AbstractTranscoder
 {

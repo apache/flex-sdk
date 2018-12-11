@@ -55,8 +55,6 @@ import java.util.*;
 /**
  * This builder handles building a Model instance from the root node
  * of an MXML document.  This isn't just an &lt;Application/&gt;.
- *
- * @author Clement Wong
  */
 public class DocumentBuilder extends ComponentBuilder implements MXMLNamespaces
 {

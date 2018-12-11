@@ -32,7 +32,6 @@ import mx.core.IFactory;
 import mx.core.IInvalidating;
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
-import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.CollectionEvent;
 import mx.events.CollectionEventKind;
@@ -43,8 +42,6 @@ import mx.utils.MatrixUtil;
 
 import spark.components.supportClasses.GroupBase;
 import spark.events.RendererExistenceEvent;
-import spark.layouts.HorizontalAlign;
-import spark.layouts.VerticalLayout;
 import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;  // for mx_internal property contentChangeDelta
@@ -1754,7 +1751,7 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
                 virtualRendererIndices.splice(vrItemIndex, 1);
         }
         
-        // Remove the old renderer at index from indexToRenderer[], from the 
+        // Remove the old renderer at index (if any) from indexToRenderer[], from the
         // DataGroup, and clear its data property (if any).
         
         const oldRenderer:IVisualElement = indexToRenderer[index];
@@ -1762,15 +1759,18 @@ public class DataGroup extends GroupBase implements IItemRendererOwner
         if (indexToRenderer.length > index)
             indexToRenderer.splice(index, 1);
         
-        dispatchEvent(new RendererExistenceEvent(
-            RendererExistenceEvent.RENDERER_REMOVE, false, false, oldRenderer, index, item));
-        
-        if (oldRenderer is IDataRenderer && oldRenderer !== item)
-            IDataRenderer(oldRenderer).data = null;
-        
-        var child:DisplayObject = oldRenderer as DisplayObject;
-        if (child)
-            super.removeChild(child);
+        if (oldRenderer)
+        {
+            dispatchEvent(new RendererExistenceEvent(
+                RendererExistenceEvent.RENDERER_REMOVE, false, false, oldRenderer, index, item));
+            
+            if (oldRenderer is IDataRenderer && oldRenderer !== item)
+                IDataRenderer(oldRenderer).data = null;
+            
+            var child:DisplayObject = oldRenderer as DisplayObject;
+            if (child)
+                super.removeChild(child);
+        }
         
         invalidateSize();
         invalidateDisplayList();

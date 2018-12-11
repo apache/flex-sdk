@@ -24,7 +24,6 @@ package flex2.compiler.swc.zip;
  * <p>Assumes local file data and central directory entries are
  * identical - unless told the opposite.</p>
  *
- * @author Stefan Bodewig
  * @version $Revision: 1.1 $
  */
 public class UnrecognizedExtraField implements ZipExtraField {

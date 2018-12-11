@@ -26,8 +26,6 @@ import java.util.regex.Pattern;
 /**
  * This class converts the plain comment to the format expected by the
  * ClassTable.
- * 
- * @author gauravj
  */
 public class MxmlCommentUtil
 {

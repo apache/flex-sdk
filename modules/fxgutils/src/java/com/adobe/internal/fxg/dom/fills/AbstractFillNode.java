@@ -25,8 +25,6 @@ import com.adobe.internal.fxg.dom.FillNode;
 
 /**
  * A base class for all FXG nodes that represent a fill.
- * 
- * @author Peter Farland
  */
 public abstract class AbstractFillNode extends AbstractFXGNode implements FillNode
 {

@@ -22,8 +22,6 @@ package com.adobe.internal.fxg.dom.types;
 /**
  * A scaling grid is used to calculate the center rectangle that determines
  * how to apply 9-slice scaling to a graphic.
- * 
- * @author Peter Farland
  */
 public class ScalingGrid
 {    

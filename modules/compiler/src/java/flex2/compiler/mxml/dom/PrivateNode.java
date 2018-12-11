@@ -30,8 +30,6 @@ import flex2.compiler.util.QName;
  * 
  * A container for design-time private data, which is not available at
  * runtime.
- * 
- * @author dloverin
  */
 public class PrivateNode extends Node
 {

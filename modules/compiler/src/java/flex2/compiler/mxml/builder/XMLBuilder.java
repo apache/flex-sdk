@@ -58,8 +58,6 @@ import java.util.Stack;
 /**
  * This builder handles building an XML instance from an XMLNode and
  * it's children.
- *
- * @author Clement Wong
  */
 class XMLBuilder extends AbstractBuilder
 {

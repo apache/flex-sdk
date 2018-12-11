@@ -35,8 +35,6 @@ import flash.swf.tools.as3.PrettyPrinter;
  * Array elements and Function args when creating generating the code
  * for runtime Watchers.  It's only used by
  * EvaluationWatcher.getEvaluationPart().
- *
- * @author Paul Reilly
  * @see flex2.compiler.as3.binding.EvaluationWatcher
  */
 public class PrefixedPrettyPrinter extends PrettyPrinter

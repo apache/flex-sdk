@@ -32,8 +32,6 @@ import flex2.compiler.util.graph.Visitor;
  * Implementation to store the swc dependency graph, hiding the actual
  * implementation details. Also stores the externs of a SWC which can
  * be retrieved later via the API.
- * 
- * @author dloverin
  */
 class SwcDependencyInfoImpl implements SwcDependencyInfo
 {

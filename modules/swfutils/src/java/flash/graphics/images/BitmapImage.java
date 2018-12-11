@@ -21,8 +21,6 @@ package flash.graphics.images;
 
 /**
  * A value object for bitmap image data.
- *
- * @author Peter Farland
  */
 public abstract class BitmapImage
 {

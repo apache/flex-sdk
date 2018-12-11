@@ -27,8 +27,6 @@ import java.io.UTFDataFormatException;
 
 /**
  * A decoder for a whole SWF.
- *
- * @author Clement Wong
  */
 public final class SwfDecoder extends BufferedInputStream
 {

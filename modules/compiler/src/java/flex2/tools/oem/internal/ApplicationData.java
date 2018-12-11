@@ -44,7 +44,6 @@ import flex2.linker.SimpleMovie;
  * compilations of an application.
  *
  * @version 2.0.1
- * @author Clement Wong
  */
 public class ApplicationData
 {

@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<s:DropDownList dataProvider="{null}" mouseFocusEnabled="false" xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:mx="library://ns.adobe.com/flex/mx"
+				xmlns:s="library://ns.adobe.com/flex/spark">
+	<fx:Script>
+		<![CDATA[
+			import flashx.textLayout.formats.TextLayoutFormat;
+			import mx.collections.ArrayList;
+			import mx.collections.IList;
+			import mx.events.FlexEvent;
+			import mx.utils.ArrayUtil;
+			import spark.components.TextArea;
+			import spark.events.TextOperationEvent;
+
+			private const _defaultDataProvider:ArrayList = new ArrayList([8, 9, 10, 11, 12, 14, 16, 18, 20, 22, 24, 26, 28, 36, 48, 72]);
+
+			public override function set dataProvider(value:IList):void
+			{
+				if (value == null)
+				{
+					super.dataProvider = _defaultDataProvider;
+				}
+				else
+				{
+					super.dataProvider = value;
+				}
+			}
+			
+			/**
+			 *  The selected font size
+			 */
+			public function set selectedFontSize(value:String):void
+			{
+				this.selectedItem = value;
+			}
+			
+			/**
+			 *  The selected font family
+			 */
+			public function get selectedFontSize():String
+			{
+				return this.selectedItem;
+			}
+		]]>
+	</fx:Script>
+	<fx:Declarations>
+		<!-- Place non-visual elements (e.g., services, value objects) here -->
+	</fx:Declarations>
+</s:DropDownList>

@@ -27,7 +27,6 @@ import flash.swf.Tag;
  * Represents a DefineFontInfo SWF tag.
  *
  * @since SWF1
- * @author Clement Wong
  */
 public class DefineFontInfo extends Tag
 {

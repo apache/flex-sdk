@@ -39,8 +39,6 @@ import java.util.Iterator;
 
 /**
  * This base class contains code common to all the builders.
- *
- * @author Clement Wong
  */
 public abstract class AbstractBuilder extends AnalyzerAdapter
 {

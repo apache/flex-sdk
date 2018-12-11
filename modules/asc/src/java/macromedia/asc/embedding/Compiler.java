@@ -42,8 +42,6 @@ import java.util.Iterator;
 
 /**
  * The main interface to the compiler.
- *
- * @author Jeff Dyer
  */
 public class Compiler implements ErrorConstants
 {

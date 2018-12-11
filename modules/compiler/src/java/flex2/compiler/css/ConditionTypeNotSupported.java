@@ -24,8 +24,6 @@ import flex2.compiler.util.CompilerMessage.CompilerWarning;
 /**
  * Warning used to report when a CSS condition type is not supported
  * yet.
- *
- * @author Paul Reilly
  */
 public class ConditionTypeNotSupported extends CompilerWarning
 {

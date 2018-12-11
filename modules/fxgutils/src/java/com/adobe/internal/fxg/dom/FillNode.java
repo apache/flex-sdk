@@ -23,8 +23,6 @@ import com.adobe.fxg.dom.FXGNode;
 
 /**
  * A marker interface to denote that an FXG node represents a type of fill. 
- * 
- * @author Peter Farland
  */
 public interface FillNode extends FXGNode
 {

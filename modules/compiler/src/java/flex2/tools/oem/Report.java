@@ -28,7 +28,6 @@ import java.io.Writer;
  * 
  * @see flex2.tools.oem.Builder#getReport()
  * @version 2.0.1
- * @author Clement Wong
  */
 public interface Report
 {

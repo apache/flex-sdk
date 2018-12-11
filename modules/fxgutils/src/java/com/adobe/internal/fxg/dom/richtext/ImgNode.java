@@ -31,7 +31,6 @@ import com.adobe.internal.fxg.dom.types.NumberPercentAuto.NumberPercentAutoAsEnu
  * Represents a &lt;p /&gt; FXG image node.
  * 
  * @since 2.0
- * @author Min Plunkett
  */
 public class ImgNode extends AbstractRichTextLeafNode
 {

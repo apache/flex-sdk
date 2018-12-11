@@ -30,8 +30,6 @@ import java.util.HashMap;
  * flex.webtier.util.J2EEUtil.BootstrapClassLoader, which was
  * originally based on a version from ColdFusion.
  *
- * @author Brian Deitte
- * @author Paul Reilly
  */
 public class XercesClassLoader extends URLClassLoader
 {

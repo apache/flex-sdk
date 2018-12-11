@@ -325,8 +325,8 @@
     <delete dir="${build.dest}/meta-inf" quiet="true"/>
     
     <mkdir dir="${build.dest}/META-INF"/>
-    <copy file="${FLEX_HOME}/LICENSE" todir="${build.dest}/META-INF"/>
-    <copy file="${FLEX_HOME}/NOTICE" todir="${build.dest}/META-INF"/>
+    <copy file="${basedir}/../LICENSE" todir="${build.dest}/META-INF"/>
+    <copy file="${basedir}/../NOTICE" todir="${build.dest}/META-INF"/>
 
     <jar jarfile="${FLEX_LIB}/velocity-dep-1.4-flex.jar">
       <fileset dir="${build.dest}">

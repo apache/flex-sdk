@@ -21,8 +21,6 @@ package flash.swf.types;
 
 /**
  * A value object for focal gradient data.
- *
- * @author Roger Gonzalez
  */
 public class FocalGradient extends Gradient
 {

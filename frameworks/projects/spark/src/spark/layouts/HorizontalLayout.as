@@ -27,7 +27,6 @@ import mx.containers.utilityClasses.Flex;
 import mx.core.FlexVersion;
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
-import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 
@@ -106,6 +105,7 @@ use namespace mx_internal;
  *    <strong>Properties</strong>
  *    columnWidth="<i>calculated</i>"
  *    gap="6"
+ *    padding="0"
  *    paddingBottom="0"
  *    paddingLeft="0"
  *    paddingRight="0"
@@ -340,6 +340,48 @@ public class HorizontalLayout extends LayoutBase
         _columnCount = value;
         dispatchEvent(PropertyChangeEvent.createUpdateEvent(this, "columnCount", oldValue, value));
     }
+	
+	//----------------------------------
+	//  padding
+	//----------------------------------
+	
+	private var _padding:Number = 0;
+	
+	[Inspectable(category="General")]
+	
+	/**
+	 *  The minimum number of pixels between the container's edges and
+	 *  the edges of the layout element.
+	 * 
+	 *  @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+	public function get padding():Number
+	{
+		return _padding;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set padding(value:Number):void
+	{
+		if (_padding == value)
+			return;
+		
+		_padding = value;
+		
+		paddingBottom = _padding;
+		paddingLeft = _padding;
+		paddingRight = _padding;
+		paddingTop = _padding;
+		
+		invalidateTargetSizeAndDisplayList();
+	}    
         
     //----------------------------------
     //  paddingLeft
@@ -961,6 +1003,9 @@ public class HorizontalLayout extends LayoutBase
         if (!g || (index < 0) || (index >= g.numElements) || !llv) 
             return null;
 
+        // We need a valid LLV for this function
+        updateLLV(g);
+		
         return llv.getBounds(index);
     }    
     

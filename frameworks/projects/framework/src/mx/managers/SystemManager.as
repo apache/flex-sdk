@@ -1752,7 +1752,7 @@ public class SystemManager extends MovieClip
     {
         // Adjust the partition indexes before the 
         // "added" event is dispatched.
-        noTopMostIndex++;
+        noTopMostIndex = noTopMostIndex + 1;
 
         var oldParent:DisplayObjectContainer = child.parent;
         if (oldParent)
@@ -1790,7 +1790,7 @@ public class SystemManager extends MovieClip
     {
         // Adjust the partition indexes
         // before the "removed" event is dispatched.
-        noTopMostIndex--;
+        noTopMostIndex = noTopMostIndex - 1;
 
         return rawChildren_removeChild(child);
     }
@@ -1802,7 +1802,7 @@ public class SystemManager extends MovieClip
     {
         // Adjust the partition indexes
         // before the "removed" event is dispatched.
-        noTopMostIndex--;
+        noTopMostIndex = noTopMostIndex - 1;
 
         return rawChildren_removeChildAt(applicationIndex + index);
     }
@@ -2658,7 +2658,7 @@ public class SystemManager extends MovieClip
         mouseCatcher.name = "mouseCatcher";
         // Must use addChildAt because a creationComplete handler can create a
         // dialog and insert it at 0.
-        noTopMostIndex++;
+        noTopMostIndex = noTopMostIndex + 1;
         super.addChildAt(mouseCatcher, 0);  
         resizeMouseCatcher();
         if (!topLevel)
@@ -2668,7 +2668,7 @@ public class SystemManager extends MovieClip
         }
 
         // Add the application as child 1.
-        noTopMostIndex++;
+        noTopMostIndex = noTopMostIndex + 1;
         super.addChildAt(DisplayObject(app), 1);
 
         CONFIG::performanceInstrumentation

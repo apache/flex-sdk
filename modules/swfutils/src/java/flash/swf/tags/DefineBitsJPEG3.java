@@ -25,8 +25,6 @@ import flash.swf.TagHandler;
 
 /**
  * This class extends DefineBits by adding support for an alpha channel.
- *
- * @author Clement Wong
  */
 public class DefineBitsJPEG3 extends DefineBits
 {

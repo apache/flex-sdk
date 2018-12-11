@@ -21,8 +21,6 @@ package macromedia.abc;
 
 /**
  * Low-level visitor interface
- *
- * @author Clement Wong
  */
 public interface Visitor
 {

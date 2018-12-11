@@ -29,7 +29,6 @@ import mx.core.UIComponent;
 import mx.core.mx_internal;
 
 import spark.components.Application;
-import spark.components.HSlider;
 import spark.components.supportClasses.StyleableTextField;
 
 use namespace mx_internal;
@@ -191,9 +190,8 @@ public class HSliderDataTip extends UIComponent implements IDataRenderer
         
         switch (applicationDPI)
         {
-			case DPIClassification.DPI_320:
+			case DPIClassification.DPI_640:
 			{
-				// Note provisional may need changes
 				fontSize = "60";
 				leftTextPadding = 28;
 				leftRightTextPadding = 56;
@@ -205,7 +203,6 @@ public class HSliderDataTip extends UIComponent implements IDataRenderer
 			}
 			case DPIClassification.DPI_480:
 			{
-				// Note provisional may need changes
 				fontSize = "40";
 				leftTextPadding = 22;
 				leftRightTextPadding = 44;
@@ -239,7 +236,6 @@ public class HSliderDataTip extends UIComponent implements IDataRenderer
 			}
 			case DPIClassification.DPI_120:
 			{
-				// Note provisional may need changes
 				fontSize = "10";
 				leftTextPadding = 6;
 				leftRightTextPadding = 11;

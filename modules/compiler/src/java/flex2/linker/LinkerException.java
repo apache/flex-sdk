@@ -25,8 +25,6 @@ import flex2.compiler.util.ThreadLocalToolkit;
 
 /**
  * Exception specific to linking.
- *
- * @author Clement Wong
  */
 public class LinkerException extends Exception implements ILocalizableMessage
 {

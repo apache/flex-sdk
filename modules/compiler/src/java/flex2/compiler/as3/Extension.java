@@ -24,8 +24,6 @@ import flex2.compiler.as3.reflect.TypeTable;
 
 /**
  * SubCompiler extension interface.
- *
- * @author Clement Wong
  */
 public interface Extension
 {

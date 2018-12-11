@@ -23,8 +23,6 @@ import flex2.compiler.SymbolTable;
 
 /**
  * This class represents a namespace URI and local part.
- *
- * @author Clement Wong
  */
 public final class QName extends Name
 {

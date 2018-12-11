@@ -21,9 +21,6 @@ package flash.tools.debugger.concrete;
 
 import java.io.File;
 
-/**
- * @author mmorearty
- */
 public class StandalonePlayer extends AbstractPlayer
 {
 	/**

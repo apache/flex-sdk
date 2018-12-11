@@ -46,8 +46,6 @@ import flash.swf.tags.DefineTag;
 /**
  * This class represents the list of scripts, name to script mappings,
  * definition to symbol mappings, and digests within a SWC.
- *
- * @author Roger Gonzalez
  */
 public class SwcLibrary
 {

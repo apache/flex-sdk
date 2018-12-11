@@ -35,9 +35,6 @@ import java.util.Map;
 /**
  * This class supports looking up a set of sources specified by
  * -resource-bundle-path via findVirtualFiles().
- *
- * @author Clement Wong
- * @author Brian Deitte
  */
 public class ResourceBundlePath extends SourcePathBase
 {

@@ -62,8 +62,9 @@
 
     <target name="jar" depends="compile" description="compile and create xercesPatch.jar">
         <mkdir dir="${module.classes}/META-INF"/>
-        <copy file="../../../LICENSE" todir="${module.classes}/META-INF"/>
-        <copy file="../../../NOTICE" todir="${module.classes}/META-INF"/>
+        <copy file="../../../LICENSE.base" tofile="${module.classes}/META-INF/LICENSE"/>
+        <!--use copy of xerces NOTICE stored in our repo -->
+        <!--<copy file="../../../NOTICE" todir="${module.classes}/META-INF"/>-->
 
 		<echo message="Building lib/xercesPatch.jar"/>
         <jar file="${lib.ext.dir}/xercesPatch.jar" basedir="${module.classes}" includes="**/*">

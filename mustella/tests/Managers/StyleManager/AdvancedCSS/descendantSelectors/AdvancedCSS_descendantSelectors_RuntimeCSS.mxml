@@ -166,7 +166,7 @@
 	     </setup>
 		<body>
 		    <RunCode code="application.panel1.addChild(new comps.CanvasComp())" waitTarget="panel1" waitEvent="updateComplete" />
-		    <CompareBitmap url="../descendantSelectors/baselines/$testID_2.png" target="panel1.getChildAt(4).checkbox1" />
+		    <CompareBitmap url="../descendantSelectors/baselines/$testID_2.png" target="panel1.getChildAt(4).checkbox1" numColorVariances="1" maxColorVariance="16" />
 		</body>
 	</TestCase>
 	<TestCase testID="descendantSelector_subclassParent_style" keywords="[CSS, descendant selector]"

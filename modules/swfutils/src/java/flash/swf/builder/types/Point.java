@@ -21,8 +21,6 @@ package flash.swf.builder.types;
 
 /**
  * A value object for an x and y pair.
- *
- * @author Peter Farland
  */
 public class Point
 {

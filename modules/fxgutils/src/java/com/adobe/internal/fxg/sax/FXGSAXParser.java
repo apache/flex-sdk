@@ -34,8 +34,6 @@ import com.adobe.fxg.FXGParser;
 /**
  * FXGSAXParser implements a SAX parser for an input stream that represents a
  * FXG document
- * 
- * @author sdas
  */
 public class FXGSAXParser implements FXGParser
 {

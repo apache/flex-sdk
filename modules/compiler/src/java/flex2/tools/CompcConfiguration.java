@@ -42,8 +42,6 @@ import java.util.Map;
 
 /**
  * compc specific configuration.
- *
- * @author Brian Deitte
  */
 public class CompcConfiguration extends ToolsConfiguration
 {

@@ -25,8 +25,6 @@ import flash.swf.ActionConstants;
 
 /**
  * Represents an AS2 "strict mode" byte code.
- *
- * @author Clement Wong
  */
 public class StrictMode extends Action
 {

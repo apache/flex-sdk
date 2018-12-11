@@ -45,8 +45,6 @@ import macromedia.asc.util.IntegerPool;
 /**
  * This builder contains code common to ModelBuilder and
  * ServiceRequestBuilder.
- *
- * @author Matt Chotin
  */
 abstract class AnonymousObjectGraphBuilder extends AbstractBuilder
 {

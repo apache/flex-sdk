@@ -31,8 +31,6 @@ import macromedia.asc.parser.Evaluator;
 
 /**
  * A compiler extension used to process Managed metadata.
- *
- * @author Paul Reilly
  */
 public final class ManagedExtension extends GenerativeExtension
 {

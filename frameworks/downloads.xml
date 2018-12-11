@@ -26,8 +26,9 @@
 	<property file="${FLEX_HOME}/local.properties"/>
 
 	<property name="download.dir" value="${FLEX_HOME}/in"/>
-	
-    <!-- See note in modules/download.xml about this property. --> 
+
+    <property name="lib.dir" value="${FLEX_HOME}/lib"/>
+    <!-- See note in modules/download.xml about this property. -->
     <property name="lib.opt.dir" value="${FLEX_HOME}/lib/external/optional"/>
 
     <property name="adobe.flex.dir" value="adobe_flex_sdk_4.6"/>
@@ -62,7 +63,7 @@
     </target>
     
     <target name="optional-downloads" 
-        depends="blazeds-jar, font-jars, clean-adobe-flex-sdk" 
+        depends="font-jars, clean-adobe-flex-sdk"
         description="Downloads, after prompt for each, the optional thirdparty JARs"/>
 
     <target name="clean" depends="pixelbender-clean,swfobject-clean,swfobject-fabridge-clean,clean-adobe-flex-sdk"
@@ -82,27 +83,6 @@
         </delete>
         <delete dir="${lib.opt.dir}" failonerror="false"/>
      </target>
-
-	<!--
-        MPL 1.1 Licesense Notification
-        See http://www.apache.org/legal/3party.html#labeling-reciprocity
-        Section "Category B: Reciprocal Licenses"
-    -->
-    <target name="echo-mpl1.1-license">       
-        <input
-            message="Mozilla Public License Version 1.1:
-                ${line.separator}
-                ${line.separator}The contents of the file(s) are subject to the Mozilla Public License Version 1.1.
-                ${line.separator}You may not use the file(s) except in compliance with the License. 
-                ${line.separator}You may obtain a copy of the License here:
-                ${line.separator}    http://www.mozilla.org/MPL/. 
-                ${line.separator}By downloading, modifying, distributing, using and/or accessing the file(s), 
-                ${line.separator}you agree to the terms and conditions of the applicable license agreement.
-                ${line.separator}
-                ${line.separator}I have read the MPL1.1 license information above?"
-            validargs="y"
-            defaultvalue="y"/>
-    </target>
            
 	<!--
         osmf.swc (Version 1.0)
@@ -112,18 +92,7 @@
         <available file="${basedir}/libs/osmf.swc" property="osmf.swc.present"/>
     </target>
    
-    <!-- 
-        Notify before downloading file with MPL1.1 license.
-    -->
-    <target name="ask-osmf" unless="build.noprompt">
-        <echo message="The Open Source Media Framework (OSMF) used by the video components"/>
-        <echo message="is licensed under the Mozilla Public License Version 1.1."/>
-        <antcall target="echo-mpl1.1-license"/>
-        <property name="do.osmf.install" value="set" />
-    </target>
-    
     <target name="osmf-download" depends="osmf-check" unless="osmf.swc.present">
-        <antcall target="ask-osmf"/>     
         <available file="${download.dir}/osmf.swc" type="file" property="osmf.swc.exists"/>
         <antcall target="download-osmf-swc" />
     	<copy file="${download.dir}/osmf.swc" todir="${basedir}/libs" />
@@ -215,63 +184,12 @@
             </fileset>
         </delete>
     </target>
-    
-	<!--============================================================================= -->
+
+
+    <!--============================================================================= -->
 	<!--      Optional Jars.  Licenses are not compatible with Apache v2 license.     -->
 	<!--============================================================================= -->
 	
-	<!--
-        flex-messaging-common.jar - BlazeDS interface for -service compiler option
-        This does not get installed if build.noprompt is set.
-    -->
-    
-    <target name="blazeds-jar-check" unless="blazeds.donot.ask"
-        description="Checks if flex-messaging-common.jar is in optional lib directory.">
-        <available file="${lib.opt.dir}/flex-messaging-common.jar" property="blazeds.donot.ask"/>
-        <condition property="blazeds.donot.ask">
-            <isset property="build.noprompt"/>
-        </condition>
-    </target>
-    
-    <target name="blazeds-jar" depends="blazeds-jar-check,get-blazeds-jar" 
-        description="Downloads and copies flex-messaging-common.jar to the optional lib directory."/>
-
-    <!-- Prompt before downloading.  -->
-    <target name="ask-blazeds" unless="blazeds.donot.ask"
-        description="Prompt the user before downloading BlaseDS">
-
-        <property name="blazeds.prompt.text" 
-            value="Apache Flex can optionally integrate with Adobe BlazeDS.
-            ${line.separator}This feature requires flex-messaging-common.jar from the Adobe Flex SDK.
-            ${line.separator}The Adobe SDK license agreement for Adobe Flex 4.6 applies to this jar.
-            ${line.separator}This license is not compatible with the Apache v2 license.
-            ${adobe.flex.license}
-            ${line.separator}Do you want to install this jar from the Adobe Flex SDK?"/>
-        <input
-            message="${blazeds.prompt.text}"
-            validargs="y,n"
-            defaultvalue="n"
-            addproperty="input.blazeds.download"/>
-        <condition property="do.blazeds.install">
-            <equals arg1="y" arg2="${input.blazeds.download}"/>
-        </condition>
-        <!-- Only ask once per ant run.  -->
-        <property name="blazeds.donot.ask" value="set"/>
-    </target>
-        
-    <target name="get-blazeds-jar" depends="ask-blazeds" if="do.blazeds.install">
-
-        <available file="${download.dir}/${adobe.flex.dir}" type="dir"
-            property="adobe.flex.sdk.exists"/>
-        
-        <antcall target="get-adobe-flex-sdk"/>
-
-        <copy file="${download.dir}/${adobe.flex.dir}/lib/flex-messaging-common.jar" 
-            todir="${lib.opt.dir}" verbose="true"/>
-        <copy file="${download.dir}/${adobe.flex.dir}/license-adobesdk.htm" 
-            tofile="${lib.opt.dir}/flex-messaging-common-LICENSE.htm" verbose="true"/>
-    </target>
-
 	<!--
         Embedded Font Support
         This does not get installed if build.noprompt is set.
@@ -374,7 +292,7 @@
     <target name="clean-adobe-flex-sdk">
         <delete dir="${download.dir}/${adobe.flex.dir}"/>
     </target>
-    
+
     <target name="get_from_mirror">
         <condition property="usingmirror" value="true">
             <contains string="${server}" substring="mirrors.cgi" />

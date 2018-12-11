@@ -42,7 +42,6 @@ import flash.tools.debugger.concrete.DValue;
  * flash.tools.debugger.expression.Context.
  * 
  * @see DebuggerExpression
- * @author Mike Morearty
  */
 class DebuggerEvaluator implements Evaluator
 {

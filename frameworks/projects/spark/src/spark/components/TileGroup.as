@@ -56,6 +56,7 @@ import spark.layouts.supportClasses.LayoutBase;
  *    horizontalAlign="justify"
  *    horizontalGap="6"
  *    orientation="rows"
+ *    padding="0"
  *    paddingBottom="0"
  *    paddingLeft="0"
  *    paddingRight="0"
@@ -281,6 +282,35 @@ public class TileGroup extends Group
     {
         tileLayout.orientation = value;
     }
+	
+	//----------------------------------
+	//  padding
+	//----------------------------------
+	
+	[Inspectable(category="General", defaultValue="0.0")]
+	
+	/**
+	 *  @copy spark.layouts.TileLayout#padding
+	 *  
+	 *  @default 0
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 1.5
+	 *  @productversion Flex 4
+	 */
+	public function get padding():Number
+	{
+		return tileLayout.padding;
+	}
+	
+	/**
+	 *  @private
+	 */
+	public function set padding(value:Number):void
+	{
+		tileLayout.padding = value;
+	}
     
     //----------------------------------
     //  paddingLeft

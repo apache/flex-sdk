@@ -40,7 +40,6 @@ import flex2.compiler.util.MimeMappings;
  * 
  * @see flex2.tools.oem.VirtualLocalFileSystem 
  * @version 2.0.1
- * @author Clement Wong
  */
 public class VirtualLocalFile implements VirtualFile
 {

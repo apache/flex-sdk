@@ -1,0 +1,102 @@
+<DisplayList>
+  <fxgtemplate width="940" height="700">
+    <spark.skins.spark.ApplicationSkin width="940" height="700" blendMode="auto">
+      <spark.components.Group width="940" height="700" blendMode="auto">
+        <spark.components.Group width="940" height="700" blendMode="auto">
+          <comps.MyComp width="800" height="800" blendMode="auto">
+            <fxg.filters.dropshadowfilter width="502" height="670.75" blendMode="auto">
+              <flash.display.MovieClip x="50" y="50" width="452.25" height="621">
+                <flash.display.MovieClip width="442" height="591.15">
+                  <fxg.filters.dropshadowfilter_Text_1287187451 width="452" height="29" blendMode="auto">
+                    <spark.components.RichText x="10" y="10" width="442" height="19">
+                      <flash.display.Shape width="442" height="19"/>
+                      <flash.text.engine.TextLine y="13.75" width="441.45" height="18.15" ascent="13.7724609375" descent="4.32421875" atomCount="52" hasGraphicElement="false"/>
+                    </spark.components.RichText>
+                  </fxg.filters.dropshadowfilter_Text_1287187451>
+                  <flash.display.MovieClip width="311" height="521.6">
+                    <flash.display.MovieClip x="30" y="80" width="311" height="521.6">
+                      <flash.display.MovieClip width="300.5" height="101">
+                        <flash.display.MovieClip width="120" height="100" cacheAsBitmap="true" filters="[object DropShadowFilter]">
+                          <flash.display.MovieClip width="120" height="100">
+                            <flash.display.MovieClip width="101" height="99">
+                              <flash.display.Shape width="101" height="99"/>
+                            </flash.display.MovieClip>
+                            <flash.display.Shape width="120" height="100"/>
+                          </flash.display.MovieClip>
+                        </flash.display.MovieClip>
+                        <flash.display.MovieClip x="180" width="121" height="101">
+                          <flash.display.Shape width="121" height="101" cacheAsBitmap="true" filters="[object DropShadowFilter]"/>
+                        </flash.display.MovieClip>
+                      </flash.display.MovieClip>
+                      <flash.display.MovieClip y="20" width="311" height="131">
+                        <flash.display.MovieClip y="170" width="121" height="81">
+                          <flash.display.Shape width="121" height="81" cacheAsBitmap="true" filters="[object DropShadowFilter]"/>
+                        </flash.display.MovieClip>
+                        <flash.display.MovieClip x="180" y="170" width="121" height="121">
+                          <flash.display.Shape x="10" y="10" width="121" height="121" cacheAsBitmap="true" filters="[object DropShadowFilter]"/>
+                        </flash.display.MovieClip>
+                      </flash.display.MovieClip>
+                      <flash.display.MovieClip y="40" width="303" height="111.1">
+                        <flash.display.MovieClip y="370" width="120" height="80" cacheAsBitmap="true" filters="[object DropShadowFilter]">
+                          <flash.display.Shape width="120" height="80"/>
+                        </flash.display.MovieClip>
+                        <flash.display.MovieClip x="180" y="350" width="102" height="102.1">
+                          <flash.display.Shape y="30" width="102" height="102.1" cacheAsBitmap="true" filters="[object DropShadowFilter]"/>
+                        </flash.display.MovieClip>
+                      </flash.display.MovieClip>
+                    </flash.display.MovieClip>
+                  </flash.display.MovieClip>
+                  <flash.display.MovieClip x="30" y="10" width="366" height="427.05">
+                    <fxg.filters.dropshadowfilter_Text839550425 width="185" height="57" blendMode="auto">
+                      <spark.components.RichText y="30" width="185" height="27">
+                        <flash.display.Shape width="185" height="27"/>
+                        <flash.text.engine.TextLine y="9.15" width="87" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="16" hasGraphicElement="false"/>
+                        <flash.text.engine.TextLine y="23.55" width="184.3" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="35" hasGraphicElement="false"/>
+                      </spark.components.RichText>
+                    </fxg.filters.dropshadowfilter_Text839550425>
+                    <fxg.filters.dropshadowfilter_Text_550974594 width="336" height="57" blendMode="auto">
+                      <spark.components.RichText x="200" y="30" width="136" height="27">
+                        <flash.display.Shape width="136" height="27"/>
+                        <flash.text.engine.TextLine y="9.15" width="103.25" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="22" hasGraphicElement="false"/>
+                        <flash.text.engine.TextLine y="23.55" width="135.95" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="26" hasGraphicElement="false"/>
+                      </spark.components.RichText>
+                    </fxg.filters.dropshadowfilter_Text_550974594>
+                    <fxg.filters.dropshadowfilter_Text35119463 width="144" height="257" blendMode="auto">
+                      <spark.components.RichText y="230" width="144" height="27">
+                        <flash.display.Shape width="144" height="27"/>
+                        <flash.text.engine.TextLine y="9.15" width="102.5" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="22" hasGraphicElement="false"/>
+                        <flash.text.engine.TextLine y="23.55" width="143.05" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="26" hasGraphicElement="false"/>
+                      </spark.components.RichText>
+                    </fxg.filters.dropshadowfilter_Text35119463>
+                    <fxg.filters.dropshadowfilter_Text_1557575572 width="321" height="257" blendMode="auto">
+                      <spark.components.RichText x="200" y="230" width="121" height="27">
+                        <flash.display.Shape width="121" height="27"/>
+                        <flash.text.engine.TextLine y="9.15" width="58.75" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="13" hasGraphicElement="false"/>
+                        <flash.text.engine.TextLine y="23.55" width="120.85" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="23" hasGraphicElement="false"/>
+                      </spark.components.RichText>
+                    </fxg.filters.dropshadowfilter_Text_1557575572>
+                    <fxg.filters.dropshadowfilter_Text2117845637 width="183" height="457" blendMode="auto">
+                      <spark.components.RichText y="430" width="183" height="27">
+                        <flash.display.Shape width="183" height="27"/>
+                        <flash.text.engine.TextLine y="9.15" width="76.75" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="18" hasGraphicElement="false"/>
+                        <flash.text.engine.TextLine y="23.55" width="182.25" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="33" hasGraphicElement="false"/>
+                      </spark.components.RichText>
+                    </fxg.filters.dropshadowfilter_Text2117845637>
+                    <fxg.filters.dropshadowfilter_Text_277448286 width="366" height="457" blendMode="auto">
+                      <spark.components.RichText x="200" y="430" width="166" height="27">
+                        <flash.display.Shape width="166" height="27"/>
+                        <flash.text.engine.TextLine y="9.15" width="165.4" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="33" hasGraphicElement="false"/>
+                        <flash.text.engine.TextLine y="23.55" width="127.8" height="12.1" ascent="9.181640625" descent="2.8828125" atomCount="24" hasGraphicElement="false"/>
+                      </spark.components.RichText>
+                    </fxg.filters.dropshadowfilter_Text_277448286>
+                  </flash.display.MovieClip>
+                </flash.display.MovieClip>
+                <flash.display.Shape x="0.25" y="0.25" width="441" height="621"/>
+              </flash.display.MovieClip>
+            </fxg.filters.dropshadowfilter>
+          </comps.MyComp>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </fxgtemplate>
+</DisplayList>

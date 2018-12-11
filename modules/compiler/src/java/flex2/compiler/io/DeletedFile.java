@@ -27,8 +27,6 @@ import flex2.compiler.util.MimeMappings;
 /**
  * Represents a file, which has been deleted since the previous
  * compilation.
- *
- * @author Clement Wong
  */
 public class DeletedFile implements VirtualFile
 {

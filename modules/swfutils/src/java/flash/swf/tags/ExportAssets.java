@@ -33,8 +33,6 @@ import java.util.List;
  * font if one movie embeds the font and exports the font
  * character. Each exported character is identified by a string. Any
  * type of character can be exported.
- *
- * @author Clement Wong
  * @since SWF5
  */
 public class ExportAssets extends Tag

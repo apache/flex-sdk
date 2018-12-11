@@ -33,8 +33,6 @@ import macromedia.asc.util.IntegerPool;
 
 /**
  * LocalLogger keeps a local count of warnings of errors.
- *
- * @author Clement Wong
  */
 public class LocalLogger implements Logger
 {

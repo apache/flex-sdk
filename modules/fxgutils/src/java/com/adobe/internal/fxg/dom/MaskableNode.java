@@ -23,8 +23,6 @@ import com.adobe.internal.fxg.dom.types.MaskType;
 
 /**
  * This interface implies that a node may also have a mask.
- * 
- * @author Peter Farland
  */
 public interface MaskableNode extends FXGNode
 {

@@ -32,6 +32,8 @@
     <property name="lib.ext.dir" value="${lib.dir}/external"/>      
     <property name="lib.opt.dir" value="${lib.ext.dir}/optional"/>
 
+    <property name="lib.in.dir" value="${FLEX_HOME}/in"/>
+
     <property name="ext.dir" value="external"/>      
     <property name="opt.dir" value="${ext.dir}/optional"/>
 
@@ -57,7 +59,7 @@
     
 	<!-- Including Adobe proprietary font and license code.  -->
 	<property name="mxmlc.mpl_excludes.classpath" value="${opt.dir}/afe.jar ${opt.dir}/aglj40.jar ${opt.dir}/rideau.jar ${opt.dir}/flex-fontkit.jar "/>
-    <property name="mxmlc.adobe.classpath" value="${mxmlc.mpl_excludes.classpath} asc.jar ${ext.dir}/xml-apis.jar batik-all-flex.jar velocity-dep-1.4-flex.jar ${ext.dir}/commons-collections.jar ${ext.dir}/commons-discovery.jar ${ext.dir}/commons-logging.jar swfutils.jar fxgutils.jar ${opt.dir}/flex-messaging-common.jar ${localized.mxmlc.jars} ${ext.dir}/xalan.jar"/>
+    <property name="mxmlc.adobe.classpath" value="${mxmlc.mpl_excludes.classpath} asc.jar ${ext.dir}/xml-apis.jar batik-all-flex.jar velocity-dep-1.4-flex.jar ${ext.dir}/commons-collections.jar ${ext.dir}/commons-discovery.jar ${ext.dir}/commons-logging.jar swfutils.jar fxgutils.jar flex-messaging-common.jar ${localized.mxmlc.jars} ${ext.dir}/xalan.jar flex-tool-api.jar"/>
     <property name="mxmlc.classpath" value="${mxmlc.adobe.classpath} ${ext.dir}/xml-apis-ext.jar ${env.property.dir}"/>
     
 	<property name="compc.main" value="flex2.tools.Compc"/>
@@ -162,10 +164,13 @@
 
     <target name="jar" depends="javacc,compile,set-build-num,templates,localization" description="compile and create compiler jars">
         <mkdir dir="${module.classes}/META-INF"/>
-        <copy file="${FLEX_HOME}/LICENSE" todir="${module.classes}/META-INF"/>
-        <copy file="${FLEX_HOME}/NOTICE" todir="${module.classes}/META-INF"/>
+        <copy file="${FLEX_HOME}/LICENSE.base" tofile="${module.classes}/META-INF/LICENSE"/>
+        <copy file="${FLEX_HOME}/NOTICE.base" tofile="${module.classes}/META-INF/NOTICE"/>
 
-		<echo message="Building lib/mxmlc.jar"/>
+        <!-- Copy the flex-tool-api jar -->
+        <copy file="${lib.in.dir}/flex-tool-api.jar" todir="${lib.dir}"/>
+
+        <echo message="Building lib/mxmlc.jar"/>
         <jar file="${module.jar}" basedir="${module.classes}"
             includes="**/*.properties,flex2/compiler/**/*,flex2/license/**/*,flex2/linker/**/*,flex2/tools/*,flex2/tools/oem/Message.class,flex2/tools/oem/ProgressMeter.class,flex2/tools/oem/Component.class,flex2/tools/oem/Script.class,flash/**/*,flex/**/*"
             excludes="flex2/tools/Shell*,flex2/tools/Optimizer*,flex2/tools/Digest*,flex2/tools/SwcDependencies*">

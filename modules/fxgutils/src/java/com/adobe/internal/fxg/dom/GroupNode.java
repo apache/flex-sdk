@@ -28,9 +28,6 @@ import com.adobe.internal.fxg.dom.types.ScalingGrid;
 
 import static com.adobe.fxg.FXGConstants.*;
 
-/**
- * @author Peter Farland
- */
 public class GroupNode extends GraphicContentNode implements MaskingNode
 {
     //--------------------------------------------------------------------------

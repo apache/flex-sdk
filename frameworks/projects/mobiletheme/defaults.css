@@ -1,23 +1,24 @@
 /*
- *
- *  Licensed to the Apache Software Foundation (ASF) under one or more
- *  contributor license agreements.  See the NOTICE file distributed with
- *  this work for additional information regarding copyright ownership.
- *  The ASF licenses this file to You under the Apache License, Version 2.0
- *  (the "License"); you may not use this file except in compliance with
- *  the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *
- */
+*
+*  Licensed to the Apache Software Foundation (ASF) under one or more
+*  contributor license agreements.  See the NOTICE file distributed with
+*  this work for additional information regarding copyright ownership.
+*  The ASF licenses this file to You under the Apache License, Version 2.0
+*  (the "License"); you may not use this file except in compliance with
+*  the License.  You may obtain a copy of the License at
+*
+*      http://www.apache.org/licenses/LICENSE-2.0
+*
+*  Unless required by applicable law or agreed to in writing, software
+*  distributed under the License is distributed on an "AS IS" BASIS,
+*  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+*  See the License for the specific language governing permissions and
+*  limitations under the License.
+*
+*/
 
 @namespace "library://ns.adobe.com/flex/spark";
+
 
 /*
 Default Mobile Flex skins and styles. Defaults sizes are based on
@@ -26,153 +27,159 @@ application-dpi=240.
 
 ActionBar
 {
-    chromeColor: #484848;
-    defaultButtonAppearance: normal;
-    skinClass: ClassReference("spark.skins.mobile.ActionBarSkin");
-    textShadowAlpha: .65;
-    textShadowColor: #000000;
-    paddingBottom: 1;
-    paddingLeft: 0;
-    paddingRight: 0;
-    paddingTop: 1;
+	chromeColor: #484848;
+	defaultButtonAppearance: normal;
+	skinClass: ClassReference("spark.skins.mobile.ActionBarSkin");
+	textShadowAlpha: .65;
+	textShadowColor: #000000;
+	paddingBottom: 1;
+	paddingLeft: 0;
+	paddingRight: 0;
+	paddingTop: 1;
 }
 
 ActionBar.beveled
 {
-    paddingLeft: 7;
-    paddingRight: 7;
-    titleAlign: center;
+	paddingLeft: 7;
+	paddingRight: 7;
+	titleAlign: center;
 }
 
 ActionBar #titleDisplay
 {
-    color: #FFFFFF;
-    fontSize: 28;
-    fontWeight: bold;
+	color: #FFFFFF;
+	fontSize: 28;
+	fontWeight: bold;
 }
 
 ActionBar ButtonBase
 {
-    color: #FFFFFF;
+	color: #FFFFFF;
 }
 
 ActionBar Group#navigationGroup Button
 {
-    skinClass: ClassReference("spark.skins.mobile.TransparentNavigationButtonSkin");
+	skinClass: ClassReference("spark.skins.mobile.TransparentNavigationButtonSkin");
 }
 
 ActionBar Group#navigationGroup Button.emphasized
 {
-    skinClass: ClassReference("spark.skins.mobile.DefaultTransparentNavigationButtonSkin");
+	skinClass: ClassReference("spark.skins.mobile.DefaultTransparentNavigationButtonSkin");
 }
 
 ActionBar.beveled Group#navigationGroup Button
 {
-    fontSize: 18;
-    skinClass: ClassReference("spark.skins.mobile.BeveledBackButtonSkin");
+	fontSize: 18;
+	skinClass: ClassReference("spark.skins.mobile.BeveledBackButtonSkin");
 }
 
 ActionBar.beveled Group#navigationGroup Button.emphasized
 {
-    skinClass: ClassReference("spark.skins.mobile.DefaultBeveledBackButtonSkin");
+	skinClass: ClassReference("spark.skins.mobile.DefaultBeveledBackButtonSkin");
 }
 
 ActionBar Group#actionGroup Button
 {
-    skinClass: ClassReference("spark.skins.mobile.TransparentActionButtonSkin");
+	skinClass: ClassReference("spark.skins.mobile.TransparentActionButtonSkin");
 }
 
 ActionBar Group#actionGroup Button.emphasized
 {
-    skinClass: ClassReference("spark.skins.mobile.DefaultTransparentActionButtonSkin");
+	skinClass: ClassReference("spark.skins.mobile.DefaultTransparentActionButtonSkin");
 }
 
 ActionBar.beveled Group#actionGroup Button
 {
-    fontSize: 18;
-    skinClass: ClassReference("spark.skins.mobile.BeveledActionButtonSkin");
+	fontSize: 18;
+	skinClass: ClassReference("spark.skins.mobile.BeveledActionButtonSkin");
 }
 
 ActionBar.beveled Group#actionGroup Button.emphasized
 {
-    skinClass: ClassReference("spark.skins.mobile.DefaultBeveledActionButtonSkin");
+	skinClass: ClassReference("spark.skins.mobile.DefaultBeveledActionButtonSkin");
 }
 
 BusyIndicator
 {
-    rotationInterval: 50;
+	skinClass: ClassReference("spark.skins.mobile.BusyIndicatorSkin");
+	rotationInterval: 50;
 }
 
 Button
 {
-    fontWeight: "bold";
-    skinClass: ClassReference("spark.skins.mobile.ButtonSkin");
+	fontWeight: "bold";
+	skinClass: ClassReference("spark.skins.mobile.ButtonSkin");
 }
 
 Button.emphasized
 {
-    skinClass: ClassReference("spark.skins.mobile.DefaultButtonSkin");
+	skinClass: ClassReference("spark.skins.mobile.DefaultButtonSkin");
 }
 
 ButtonBar
 {
-    fontWeight: "bold";
-    skinClass: ClassReference("spark.skins.mobile.ButtonBarSkin");
+	fontWeight: "bold";
+	skinClass: ClassReference("spark.skins.mobile.ButtonBarSkin");
 }
 
 ButtonBase
 {
-    iconPlacement: "left";
+	iconPlacement: "left";
 }
 
 Callout
 {
-    backgroundColor: #484848;
-    contentBackgroundAppearance: inset;
-    contentBackgroundColor: #FFFFFF;
-    gap: 12;
-    skinClass: ClassReference("spark.skins.mobile.CalloutSkin");
-    borderThickness: NaN;
-    borderColor: 0;
+	backgroundColor: #484848;
+	contentBackgroundAppearance: inset;
+	contentBackgroundColor: #FFFFFF;
+	gap: 12;
+	skinClass: ClassReference("spark.skins.mobile.CalloutSkin");
+	borderThickness: NaN;
+	borderColor: 0;
+}
+
+CalloutButton
+{
+	rollOverOpenDelay: NaN;
 }
 
 Callout ViewNavigator
 {
-    skinClass: ClassReference("spark.skins.mobile.CalloutViewNavigatorSkin");
+	skinClass: ClassReference("spark.skins.mobile.CalloutViewNavigatorSkin");
 }
 
 Callout ViewNavigator ActionBar
 {
-    skinClass: ClassReference("spark.skins.mobile.CalloutActionBarSkin");
-    defaultButtonAppearance: beveled;
-    paddingLeft: 0;
-    paddingRight: 0;
+	skinClass: ClassReference("spark.skins.mobile.CalloutActionBarSkin");
+	defaultButtonAppearance: beveled;
+	paddingLeft: 0;
+	paddingRight: 0;
 }
 
 Callout ViewNavigator ActionBar.beveled
 {
-    paddingLeft: 0;
-    paddingRight: 0;
+	paddingLeft: 0;
+	paddingRight: 0;
 }
 
 Callout ViewNavigator ActionBar.beveled Group#navigationGroup Button
 {
-    skinClass: ClassReference("spark.skins.mobile.BeveledActionButtonSkin");
+	skinClass: ClassReference("spark.skins.mobile.BeveledActionButtonSkin");
 }
 
 Callout ViewNavigator ActionBar.beveled Group#navigationGroup Button.emphasized
 {
-    skinClass: ClassReference("spark.skins.mobile.DefaultBeveledActionButtonSkin");
+	skinClass: ClassReference("spark.skins.mobile.DefaultBeveledActionButtonSkin");
 }
 
 Callout#viewNavigatorPopUp
 {
-    contentBackgroundAppearance: none;
+	contentBackgroundAppearance: none;
 }
 
 CheckBox
 {
-    skinClass: ClassReference("spark.skins.mobile.CheckBoxSkin");
+	skinClass: ClassReference("spark.skins.mobile.CheckBoxSkin");
 }
 
 DateSpinner
@@ -182,85 +189,86 @@ DateSpinner
 
 HScrollBar
 {
-    skinClass: ClassReference("spark.skins.mobile.HScrollBarSkin");
+	skinClass: ClassReference("spark.skins.mobile.HScrollBarSkin");
 }
 
 HSlider
 {
-    skinClass: ClassReference("spark.skins.mobile.HSliderSkin");
+	skinClass: ClassReference("spark.skins.mobile.HSliderSkin");
 }
 
 IconItemRenderer
 {
-    paddingBottom: 12;
-    paddingTop: 12;
-    horizontalGap: 10;
-    verticalGap: 9;
-    iconDelay: 500;
-    messageStyleName: "iconItemRendererMessageStyle";
+	paddingBottom: 12;
+	paddingTop: 12;
+	horizontalGap: 10;
+	verticalGap: 9;
+	iconDelay: 500;
+	messageStyleName: "iconItemRendererMessageStyle";
 }
 
 .iconItemRendererMessageStyle
 {
-    fontSize: 20;
-    color: #333333;
+	fontSize: 20;
+	color: #333333;
 }
 
 Image
 {
-    skinClass: ClassReference("spark.skins.mobile.ImageSkin");
-    enableLoadingState: false;
-    showErrorSkin : false;
-    smoothingQuality: "default";
+	skinClass: ClassReference("spark.skins.mobile.ImageSkin");
+	enableLoadingState: false;
+	showErrorSkin : false;
+	smoothingQuality: "default";
 }
 
 LabelItemRenderer
 {
-    paddingBottom: 24;
-    paddingLeft: 15;
-    paddingRight: 15;
-    paddingTop: 24;
-    verticalAlign: "middle";
+	paddingBottom: 24;
+	paddingLeft: 15;
+	paddingRight: 15;
+	paddingTop: 24;
+	verticalAlign: "middle";
 }
 
 List
 {
-    skinClass: ClassReference("spark.skins.mobile.ListSkin");
-    borderColor: #000000;
-    borderAlpha: 1;
-    verticalScrollPolicy: on;
-    borderVisible: false;
+	skinClass: ClassReference("spark.skins.mobile.ListSkin");
+	borderColor: #000000;
+	borderAlpha: 1;
+	verticalScrollPolicy: on;
+	borderVisible: false;
 }
 
 RadioButton
 {
-    skinClass: ClassReference("spark.skins.mobile.RadioButtonSkin");
+	skinClass: ClassReference("spark.skins.mobile.RadioButtonSkin");
 }
 
 Scroller
 {
-    touchDelay: 100;
+	touchDelay: 100;
 }
 
 SkinnableContainer
 {
-    backgroundColor: #FFFFFF;
-    skinClass: ClassReference("spark.skins.mobile.SkinnableContainerSkin");
+	backgroundColor: #FFFFFF;
+	skinClass: ClassReference("spark.skins.mobile.SkinnableContainerSkin");
 }
 
 SkinnableTextBase:normalWithPrompt 
 {
-    fontStyle: normal;
+	fontStyle: normal;
 }
 
 SkinnableTextBase:disabledWithPrompt 
 {
-    fontStyle: normal;
+	fontStyle: normal;
 }
 
 SpinnerList
 {
 	skinClass: ClassReference("spark.skins.mobile.SpinnerListSkin");
+	useAccentColor: false;
 }
 
 SpinnerListContainer
@@ -279,146 +287,146 @@ SpinnerListItemRenderer
 SplitViewNavigator
 {
 	skinClass: ClassReference("spark.skins.mobile.SplitViewNavigatorSkin");
-    backgroundColor: #000000;
+	backgroundColor: #000000;
 }
 
 TabbedViewNavigatorApplication
 {
-    backgroundColor: #FFFFFF;
-    skinClass: ClassReference("spark.skins.mobile.TabbedViewNavigatorApplicationSkin");
+	backgroundColor: #FFFFFF;
+	skinClass: ClassReference("spark.skins.mobile.TabbedViewNavigatorApplicationSkin");
 }
 
 TabbedViewNavigator
 {
-    skinClass: ClassReference("spark.skins.mobile.TabbedViewNavigatorSkin");
+	skinClass: ClassReference("spark.skins.mobile.TabbedViewNavigatorSkin");
 }
 
 TabbedViewNavigator #tabBar
 {
-    chromeColor: #484848;
-    color: #FFFFFF;
-    fontSize: 20;
-    fontWeight: normal;
-    iconPlacement: top;
-    interactionMode: mouse;
-    skinClass: ClassReference("spark.skins.mobile.TabbedViewNavigatorTabBarSkin");
-    textShadowAlpha: .65;
-    textShadowColor: #000000;
+	chromeColor: #484848;
+	color: #FFFFFF;
+	fontSize: 20;
+	fontWeight: normal;
+	iconPlacement: top;
+	interactionMode: mouse;
+	skinClass: ClassReference("spark.skins.mobile.TabbedViewNavigatorTabBarSkin");
+	textShadowAlpha: .65;
+	textShadowColor: #000000;
 }
 
 TextArea
 {
-    paddingBottom: 9;
-    paddingLeft: 9;
-    paddingRight: 9;
-    paddingTop: 9;
-    showPromptWhenFocused: true;
-    skinClass: ClassReference("spark.skins.mobile.ScrollingStageTextAreaSkin");
+	paddingBottom: 9;
+	paddingLeft: 9;
+	paddingRight: 9;
+	paddingTop: 9;
+	showPromptWhenFocused: true;
+	skinClass: ClassReference("spark.skins.mobile.ScrollingStageTextAreaSkin");
 }
 
 TextArea VScrollBar
 {
-    skinClass: ClassReference("spark.skins.mobile.TextAreaVScrollBarSkin");
+	skinClass: ClassReference("spark.skins.mobile.TextAreaVScrollBarSkin");
 }
 
 TextArea HScrollBar
 {
-    skinClass: ClassReference("spark.skins.mobile.TextAreaHScrollBarSkin");
+	skinClass: ClassReference("spark.skins.mobile.TextAreaHScrollBarSkin");
 }
 
 TextInput
 {
-    paddingBottom: 9;
-    paddingLeft: 9;
-    paddingRight: 9;
-    paddingTop: 9;
-    showPromptWhenFocused: true;
-    skinClass: ClassReference("spark.skins.mobile.ScrollingStageTextInputSkin");
+	paddingBottom: 9;
+	paddingLeft: 9;
+	paddingRight: 9;
+	paddingTop: 9;
+	showPromptWhenFocused: true;
+	skinClass: ClassReference("spark.skins.mobile.ScrollingStageTextInputSkin");
 }
 
 ToggleSwitch
 {
-    accentColor: #3F7FBA;
-    color: #FFFFFF;
-    fontSize: 27;
-    skinClass: ClassReference("spark.skins.mobile.ToggleSwitchSkin");
-    slideDuration: 125;
-    textShadowAlpha: .65;
-    textShadowColor: #000000;
+	accentColor: #3F7FBA;
+	color: #FFFFFF;
+	fontSize: 27;
+	skinClass: ClassReference("spark.skins.mobile.ToggleSwitchSkin");
+	slideDuration: 125;
+	textShadowAlpha: .65;
+	textShadowColor: #000000;
 }
 
 View
 {
-    backgroundColor: #FFFFFF;
-    skinClass: ClassReference("spark.skins.mobile.SkinnableContainerSkin");
+	backgroundColor: #FFFFFF;
+	skinClass: ClassReference("spark.skins.mobile.SkinnableContainerSkin");
 }
 
 ViewMenu
 {
-    skinClass: ClassReference("spark.skins.mobile.ViewMenuSkin");
+	skinClass: ClassReference("spark.skins.mobile.ViewMenuSkin");
 }
 
 ViewMenuItem
 { 
-    iconPlacement : "top";
-    chromeColor : #FFFFFF;
-    paddingBottom: 8;
-    paddingLeft: 8;
-    paddingRight: 8;
-    paddingTop: 8;
-    skinClass : ClassReference("spark.skins.mobile.ViewMenuItemSkin");
+	iconPlacement : "top";
+	chromeColor : #FFFFFF;
+	paddingBottom: 8;
+	paddingLeft: 8;
+	paddingRight: 8;
+	paddingTop: 8;
+	skinClass : ClassReference("spark.skins.mobile.ViewMenuItemSkin");
 }
 
 ViewNavigator
 {
-    skinClass: ClassReference("spark.skins.mobile.ViewNavigatorSkin");
+	skinClass: ClassReference("spark.skins.mobile.ViewNavigatorSkin");
 }
 
 ViewNavigatorApplication
 {
-    backgroundColor: #FFFFFF;
-    skinClass: ClassReference("spark.skins.mobile.ViewNavigatorApplicationSkin");
+	backgroundColor: #FFFFFF;
+	skinClass: ClassReference("spark.skins.mobile.ViewNavigatorApplicationSkin");
 }
 
 VScrollBar
 {
-    skinClass: ClassReference("spark.skins.mobile.VScrollBarSkin");
+	skinClass: ClassReference("spark.skins.mobile.VScrollBarSkin");
 }
 
 global
 {
-    /* framework styles */
-    modalTransparency: 0;
-    modalTransparencyBlur: 0;
-    
-    /* Looks */
-    backgroundAlpha : 1;
-    backgroundImageFillMode : "scale";
-    borderVisible : true;
-    borderWeight : 1;
-    contentBackgroundColor: #F0F0F0;
-    downColor: #E0E0E0; /* set in here and not in framework's default.css because it only is really applicable for touch interactions*/
-    selectionColor: #E0E0E0;
-    alternatingItemColors: #FFFFFF;
-    focusThickness: 3;
-    symbolColor: #000000;
-    fontLookup: "embeddedCFF";
-    fontFamily: "_sans";
-    fontSize: 24;
-    color: #000000;
-    textShadowColor: #FFFFFF;
-    textShadowAlpha: .55;
-    
-    /* Behaviors */
-    autoThumbVisibility: true;
-    fixedThumbSize: false;
-    fullScreenHideControlsDelay: 3000;
-    interactionMode: "touch";
-    liveDragging: true;
-    rollOverOpenDelay: 200;
-    slideDuration: 300;
-    smoothScrolling: true;
-    touchDelay: 0; /* default to 0 here, but Scroller sets it to 100 */
+	/* framework styles */
+	modalTransparency: 0;
+	modalTransparencyBlur: 0;
+	
+	/* Looks */
+	backgroundAlpha : 1;
+	backgroundImageFillMode : "scale";
+	borderVisible : true;
+	borderWeight : 1;
+	contentBackgroundColor: #F0F0F0;
+	downColor: #E0E0E0; /* set in here and not in framework's default.css because it only is really applicable for touch interactions*/
+	selectionColor: #E0E0E0;
+	alternatingItemColors: #FFFFFF;
+	focusThickness: 3;
+	symbolColor: #000000;
+	fontLookup: "embeddedCFF";
+	fontFamily: "_sans";
+	fontSize: 24;
+	color: #000000;
+	textShadowColor: #FFFFFF;
+	textShadowAlpha: .55;
+	
+	/* Behaviors */
+	autoThumbVisibility: true;
+	fixedThumbSize: false;
+	fullScreenHideControlsDelay: 3000;
+	interactionMode: "touch";
+	liveDragging: true;
+	rollOverOpenDelay: 200;
+	slideDuration: 300;
+	smoothScrolling: true;
+	touchDelay: 0; /* default to 0 here, but Scroller sets it to 100 */
 }
 
 @media (application-dpi: 120)
@@ -522,61 +530,61 @@ global
 
 @media (application-dpi: 160)
 {
-    ActionBar
-    {
-        paddingBottom: 1;
-        paddingLeft: 0;
-        paddingRight: 0;
-        paddingTop: 1;
-    }
-    
-    ActionBar.beveled
-    {
-        paddingLeft: 5;
-        paddingRight: 5;
-    }
-    
-    ActionBar #titleDisplay
-    {
-        fontSize: 18;
-    }
-    
-    ActionBar.beveled Group#navigationGroup Button
-    {
-        fontSize: 12;
-    }
-    
-    ActionBar.beveled Group#actionGroup Button
-    {
-        fontSize: 12;
-    }
-    
-    Callout
-    {
-        gap: 8;
-    }
-    
-    IconItemRenderer
-    {
-        paddingBottom: 8;
-        paddingTop: 8;
-        horizontalGap: 8;
-        verticalGap: 6;
-    }
-    
-    .iconItemRendererMessageStyle
-    {
-        fontSize: 14;
-    }
-    
-    LabelItemRenderer
-    {
-        paddingBottom: 16;
-        paddingLeft: 10;
-        paddingRight: 10;
-        paddingTop: 16;
-    }
-    
+	ActionBar
+	{
+		paddingBottom: 1;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 1;
+	}
+	
+	ActionBar.beveled
+	{
+		paddingLeft: 5;
+		paddingRight: 5;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 18;
+	}
+	
+	ActionBar.beveled Group#navigationGroup Button
+	{
+		fontSize: 12;
+	}
+	
+	ActionBar.beveled Group#actionGroup Button
+	{
+		fontSize: 12;
+	}
+	
+	Callout
+	{
+		gap: 8;
+	}
+	
+	IconItemRenderer
+	{
+		paddingBottom: 8;
+		paddingTop: 8;
+		horizontalGap: 8;
+		verticalGap: 6;
+	}
+	
+	.iconItemRendererMessageStyle
+	{
+		fontSize: 14;
+	}
+	
+	LabelItemRenderer
+	{
+		paddingBottom: 16;
+		paddingLeft: 10;
+		paddingRight: 10;
+		paddingTop: 16;
+	}
+	
 	SpinnerListItemRenderer
 	{
 		paddingTop : 12;
@@ -585,96 +593,96 @@ global
 		paddingRight : 8;
 	}
 	
-    TextArea
-    {
-        paddingBottom: 6;
-        paddingLeft: 6;
-        paddingRight: 6;
-        paddingTop: 6;
-    }
-    
-    TextInput
-    {
-        paddingBottom: 6;
-        paddingLeft: 6;
-        paddingRight: 6;
-        paddingTop: 6;
-    }
-    
-    TabbedViewNavigator #tabBar
-    {
-        fontSize: 14;
-    }
-    
-    ToggleSwitch
-    {
-        fontSize: 18;
-    }
-    
-    global
-    {
-        fontSize: 16;
-        focusThickness: 2;
-    }
+	TextArea
+	{
+		paddingBottom: 6;
+		paddingLeft: 6;
+		paddingRight: 6;
+		paddingTop: 6;
+	}
+	
+	TextInput
+	{
+		paddingBottom: 6;
+		paddingLeft: 6;
+		paddingRight: 6;
+		paddingTop: 6;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 14;
+	}
+	
+	ToggleSwitch
+	{
+		fontSize: 18;
+	}
+	
+	global
+	{
+		fontSize: 16;
+		focusThickness: 2;
+	}
 }
 
 @media (application-dpi: 320)
 {
-    ActionBar
-    {
-        paddingBottom: 2;
-        paddingLeft: 0;
-        paddingRight: 0;
-        paddingTop: 2;
-    }
-    
-    ActionBar.beveled
-    {
-        paddingLeft: 10;
-        paddingRight: 10;
-    }
-    
-    ActionBar #titleDisplay
-    {
-        fontSize: 36;
-    }
-    
-    ActionBar.beveled Group#navigationGroup Button
-    {
-        fontSize: 24;
-    }
-    
-    ActionBar.beveled Group#actionGroup Button
-    {
-        fontSize: 24;
-    }
-    
-    Callout
-    {
-        gap: 16;
-    }
-    
-    IconItemRenderer
-    {
-        paddingBottom: 16;
-        paddingTop: 16;
-        horizontalGap: 16;
-        verticalGap: 12;
-    }
-    
-    .iconItemRendererMessageStyle
-    {
-        fontSize: 26;
-    }
-    
-    LabelItemRenderer
-    {
-        paddingBottom: 32;
-        paddingLeft: 20;
-        paddingRight: 20;
-        paddingTop: 32;  
-    }
-    
+	ActionBar
+	{
+		paddingBottom: 2;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 2;
+	}
+	
+	ActionBar.beveled
+	{
+		paddingLeft: 10;
+		paddingRight: 10;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 36;
+	}
+	
+	ActionBar.beveled Group#navigationGroup Button
+	{
+		fontSize: 24;
+	}
+	
+	ActionBar.beveled Group#actionGroup Button
+	{
+		fontSize: 24;
+	}
+	
+	Callout
+	{
+		gap: 16;
+	}
+	
+	IconItemRenderer
+	{
+		paddingBottom: 16;
+		paddingTop: 16;
+		horizontalGap: 16;
+		verticalGap: 12;
+	}
+	
+	.iconItemRendererMessageStyle
+	{
+		fontSize: 26;
+	}
+	
+	LabelItemRenderer
+	{
+		paddingBottom: 32;
+		paddingLeft: 20;
+		paddingRight: 20;
+		paddingTop: 32;  
+	}
+	
 	SpinnerListItemRenderer
 	{
 		paddingTop : 24;
@@ -683,36 +691,36 @@ global
 		paddingRight : 24;
 	}
 	
-    TextArea
-    {
-        paddingBottom: 12;
-        paddingLeft: 12;
-        paddingRight: 12;
-        paddingTop: 12;
-    }
-    
-    TextInput
-    {
-        paddingBottom: 12;
-        paddingLeft: 12;
-        paddingRight: 12;
-        paddingTop: 12;
-    }
-    
-    TabbedViewNavigator #tabBar
-    {
-        fontSize: 28;
-    }
-    
-    ToggleSwitch
-    {
-        fontSize: 36;
-    }
-    
-    global
-    {
-        fontSize: 32;
-    }
+	TextArea
+	{
+		paddingBottom: 12;
+		paddingLeft: 12;
+		paddingRight: 12;
+		paddingTop: 12;
+	}
+	
+	TextInput
+	{
+		paddingBottom: 12;
+		paddingLeft: 12;
+		paddingRight: 12;
+		paddingTop: 12;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 28;
+	}
+	
+	ToggleSwitch
+	{
+		fontSize: 36;
+	}
+	
+	global
+	{
+		fontSize: 32;
+	}
 }
 
 @media (application-dpi: 480)
@@ -914,61 +922,963 @@ global
 
 @media (application-dpi: 160) AND (os-platform:"IOS")
 {
-    TextArea
-    {
-        leading: 1.5;
-        paddingRight: 1.5;
-    }
+	TextArea
+	{
+		leading: 1.5;
+		paddingRight: 1.5;
+	}
 }
 
 @media (application-dpi: 320) AND (os-platform:"IOS")
 {
-    TextArea
-    {
-        leading: 4.5;
-        paddingRight: 3;
-    }
+	TextArea
+	{
+		leading: 4.5;
+		paddingRight: 3;
+	}
 }
 
-/* ios 7 status bar
- requires new os-version selector (cf FLEX-FLEX-33949)
- */
 
-@media (application-dpi: 120) AND (os-platform:"IOS") AND (min-os-version: 7)
+
+/* ios 7+ new theme */
+
+@media (os-platform:"IOS") AND (min-os-version: 7)
 {
-    Application
-    {
-        osStatusBarHeight: 15;
-    }
+
+	global
+	{
+		fontWeight: "normal";
+		fontSize: 24;
+		color: #000000;
+		highlightTextColor: #FFFFFF;
+		textShadowColor: #FFFFFF;
+		textShadowAlpha: 0;
+	}
+	
+	ActionBar
+	{
+		defaultButtonAppearance: normal;
+		skinClass: ClassReference("spark.skins.ios7.ActionBarSkin");
+		textShadowAlpha: 0;
+		textShadowColor: #000000;
+		paddingBottom: 1;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 1;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		color: #007AFF;
+		fontSize: 24;
+		fontFamily: RobotoRegular;
+		fontWeight: normal;
+	}
+	
+	ActionBar ButtonBase
+	{
+		color: #007AFF;
+		fontFamily: RobotoRegular;
+		fontWeight: normal;
+	}
+	
+	ActionBar Group#actionGroup Button
+	{
+		skinClass: ClassReference("spark.skins.ios7.ButtonSkin");
+	}
+	
+	BusyIndicator
+	{
+		skinClass: ClassReference("spark.skins.ios7.BusyIndicatorSkin");
+		rotationInterval: 30;  /* Must be multiples of 30 */
+	}	
+	
+	Button
+	{
+		skinClass: ClassReference("spark.skins.ios7.ButtonSkin");
+		fontFamily: RobotoRegular;
+		fontWeight: normal;
+	}
+	
+	Button.emphasized
+	{
+		skinClass: ClassReference("spark.skins.mobile.DefaultButtonSkin");
+	}
+	
+	ButtonBar
+	{
+		skinClass: ClassReference("spark.skins.ios7.ButtonBarSkin");
+		color: #007AFF;
+		fontFamily: RobotoRegular;
+		fontWeight: normal;
+	}
+	
+	Callout
+	{
+		skinClass: ClassReference("spark.skins.ios7.CalloutSkin");
+		backgroundColor: #F6F6F6;
+		contentBackgroundColor: #F6F6F6;
+		gap: 12;
+		borderThickness: 0;
+		frameThickness: 0;
+		contentBackgroundAppearance: flat;
+	}
+	
+	Callout ViewNavigator
+	{
+		skinClass: ClassReference("spark.skins.ios7.CalloutViewNavigatorSkin");
+		contentBackgroundColor: #FFFFFF;
+	}
+	
+	Callout ViewNavigator ActionBar
+	{
+		skinClass: ClassReference("spark.skins.ios7.CalloutActionBarSkin");
+		defaultButtonAppearance: normal;
+		textShadowAlpha: 0;
+		textShadowColor: #000000;
+		paddingBottom: 0;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 0;
+		contentBackgroundAppearance: flat;
+	}
+	
+	Callout ViewNavigator ActionBar.beveled
+	{
+		paddingLeft: 0;
+		paddingRight: 0;
+	}
+	
+	Callout ViewNavigator ActionBar.beveled Group#navigationGroup Button
+	{
+		skinClass: ClassReference("spark.skins.ios7.ButtonSkin");
+	}
+	
+	Callout ViewNavigator ActionBar.beveled Group#navigationGroup Button.emphasized
+	{
+		skinClass: ClassReference("spark.skins.ios7.ButtonSkin");
+	}
+	
+	Callout ViewNavigator ActionBar Group#navigationGroup Button
+	{
+		skinClass: ClassReference("spark.skins.ios7.ButtonSkin");
+	}
+	
+	Callout ViewNavigator ActionBar Group#navigationGroup Button.emphasized
+	{
+		skinClass: ClassReference("spark.skins.ios7.ButtonSkin");
+	}
+	
+	Callout#viewNavigatorPopUp
+	{
+		contentBackgroundAppearance: flat;
+	}
+
+	CheckBox
+	{
+		chromeColor: #FFFFFF;
+		skinClass: ClassReference("spark.skins.ios7.CheckBoxSkin");
+	}
+	
+	HScrollBar
+	{
+		skinClass: ClassReference("spark.skins.ios7.HScrollBarSkin");
+		color: #E6E6E6;
+	}
+	
+	HSlider
+	{
+		skinClass: ClassReference("spark.skins.ios7.HSliderSkin");
+		fontFamily: RobotoBold;
+	}
+	
+	RadioButton
+	{
+		skinClass: ClassReference("spark.skins.ios7.RadioButtonSkin");
+		chromeColor: #FFFFFF;
+	}
+	
+	SpinnerList
+	{
+		skinClass: ClassReference("spark.skins.ios7.SpinnerListSkin");
+		color: #999999;
+		accentColor: #333333;
+	    useAccentColor: true;
+	}
+	
+	SpinnerListContainer
+	{
+		skinClass: ClassReference("spark.skins.ios7.SpinnerListContainerSkin");
+	}
+	
+	SpinnerListItemRenderer
+	{
+		paddingTop : 9;
+		paddingBottom : 9;
+		paddingLeft : 6;
+		paddingRight : 6;
+	}
+	
+	SplitViewNavigator
+	{
+		backgroundColor: #FFFFFF;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontFamily: RobotoRegular;
+		chromeColor: #FFFFFF;
+		color: #007AFF;
+		highlightTextColor: #FFFFFF;
+		fontSize: 20;
+		fontWeight: normal;
+		iconPlacement: top;
+		interactionMode: mouse;
+		skinClass: ClassReference("spark.skins.ios7.TabbedViewNavigatorTabBarSkin");
+		textShadowAlpha: 0;
+		textShadowColor: #000000;
+	}
+	
+	TextInput
+	{
+		skinClass: ClassReference("spark.skins.ios7.StageTextInputSkin");
+		contentBackgroundAlpha: 0;
+		focusColor: #cccccc;
+		borderColor: #cccccc;
+		contentBackgroundColor: #DEDEDD;
+		contentBackgroundBorder: "roundedrect";
+		fontFamily: RobotoRegular;
+		fontWeight: normal;
+		selectionHighlighting: "never";
+		focusEnabled:"false";
+		focusThickness: 0;
+		focusAlpha: 0;
+	}
+	
+	TextArea
+	{
+		skinClass: ClassReference("spark.skins.ios7.StageTextAreaSkin");
+		contentBackgroundAlpha: 1;
+		contentBackgroundBorder: "rectangle";
+		contentBackgroundColor: #DEDEDD;
+		focusColor: #cccccc;
+		borderColor: #cccccc;
+		selectionHighlighting: "never";
+		focusEnabled:"false";
+		focusThickness: 0;
+		focusAlpha: 0;
+	} 
+	
+	ToggleSwitch
+	{
+		accentColor: #3F7FBA;
+		color: #FFFFFF;
+		skinClass: ClassReference("spark.skins.ios7.ToggleSwitchSkin");
+		slideDuration: 125;
+		textShadowAlpha: .65;
+		textShadowColor: #000000;
+	}
+	
+	VScrollBar
+	{
+		skinClass: ClassReference("spark.skins.ios7.VScrollBarSkin");
+		color: #E6E6E6;
+	}
+	
+	ViewMenu
+	{
+		skinClass: ClassReference("spark.skins.ios7.ViewMenuSkin");
+	}
+	
+	ViewMenuItem
+	{ 
+		iconPlacement : "left";
+		chromeColor : #FFFFFF;
+		focusColor: #DEDEDD;
+		paddingBottom: 8;
+		paddingLeft: 8;
+		paddingRight: 8;
+		paddingTop: 8;
+		skinClass : ClassReference("spark.skins.ios7.ViewMenuItemSkin");
+	}
+	
+	ViewNavigator
+	{
+		skinClass: ClassReference("spark.skins.mobile.ViewNavigatorSkin");
+	}
+	
 }
 
-@media (application-dpi: 160) AND (os-platform:"IOS") AND (min-os-version: 7)
+@media (os-platform:"IOS") AND (min-os-version: 7) AND (application-dpi: 120)
 {
-    Application {
-         osStatusBarHeight: 20;
-    }
+	global
+	{
+		fontSize: 12;
+		focusThickness: 2;
+	}
+	
+	ActionBar.beveled
+	{
+		paddingLeft: 4;
+		paddingRight: 4;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 14;
+	}
+	
+	Application
+	{
+		osStatusBarHeight: 15;
+	}
+
+	SpinnerListItemRenderer
+	{
+		paddingTop : 9;
+		paddingBottom : 9;
+		paddingLeft : 3;
+		paddingRight : 3;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 11;
+	}
 }
 
-@media (application-dpi: 240) AND (os-platform:"IOS") AND (min-os-version: 7)
+@media (os-platform:"IOS") AND (min-os-version: 7) AND (application-dpi: 160)
 {
-    Application
-    {
-        osStatusBarHeight: 30;
-    }
+	global
+	{
+		fontSize: 16;
+		focusThickness: 2;
+	}
+	
+	ActionBar
+	{
+		paddingBottom: 1;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 1;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 18;
+	}
+	
+	Application {
+		osStatusBarHeight: 20;
+	}
+
+	SpinnerListItemRenderer
+	{
+		paddingTop : 12;
+		paddingBottom : 12;
+		paddingLeft : 4;
+		paddingRight : 4;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 14;
+	}
 }
 
-@media (application-dpi: 320) AND (os-platform:"IOS") AND (min-os-version: 7)
+@media (os-platform:"IOS") AND (min-os-version: 7) AND (application-dpi: 240)
 {
-    Application
-    {
-        osStatusBarHeight: 40;
-    }
+	Application
+	{
+		osStatusBarHeight: 30;
+	}
 }
 
-@media (application-dpi: 480) AND (os-platform:"IOS") AND (min-os-version: 7)
+@media (os-platform:"IOS") AND (min-os-version: 7) AND (application-dpi: 320)
 {
-    Application
-    {
-        osStatusBarHeight: 60;
-    }
+	global
+	{
+		fontSize: 32;
+	}
+	
+	ActionBar
+	{
+		paddingBottom: 2;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 2;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 36;
+	}
+	
+	Application
+	{
+		osStatusBarHeight: 40;
+	}
+
+	SpinnerListItemRenderer
+	{
+		paddingTop : 24;
+		paddingBottom : 24;
+		paddingLeft : 8;
+		paddingRight : 8;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 28;
+	}
+}
+
+@media (os-platform:"IOS") AND (min-os-version: 7) AND (application-dpi: 480)
+{
+	global
+	{
+		fontSize: 48;
+		focusThickness: 6;
+	}
+	
+	ActionBar
+	{
+		paddingBottom: 4;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 4;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 54;
+	}
+	
+	Application
+	{
+		osStatusBarHeight: 60;
+	}
+	
+	SpinnerListItemRenderer
+	{
+		paddingTop : 36;
+		paddingBottom : 36;
+		paddingLeft : 12;
+		paddingRight : 12;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 42;
+	}	
+}
+
+@media (os-platform:"IOS") AND (min-os-version: 7) AND (application-dpi: 640)
+{
+	global
+	{
+		fontSize: 64;
+	}
+	
+	ActionBar
+	{
+		paddingBottom: 4;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 4;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 72;
+	}
+	
+	SpinnerListItemRenderer
+	{
+		paddingTop : 48;
+		paddingBottom : 48;
+		paddingLeft : 16;
+		paddingRight : 16;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 56;
+	}	
+}
+
+/*
+
+A special case where we want to continue using the legacy Flex mobile skins
+but still want to specify the status bar height for iOS7+ devices
+See https://issues.apache.org/jira/browse/FLEX-34714
+
+*/
+
+@media (os-platform:"IOS") AND (application-dpi: 120) AND (min-os-version: 6.0.1) 
+{
+	Application
+	{
+		osStatusBarHeight: 15;
+	}
+}
+
+@media (os-platform:"IOS") AND (application-dpi: 160) AND (min-os-version: 6.0.1)
+{
+	Application
+	{
+		osStatusBarHeight: 20;
+	}
+}
+
+@media (os-platform:"IOS") AND (application-dpi: 240) AND (min-os-version: 6.0.1)
+{
+	Application
+	{
+		osStatusBarHeight: 30;
+	}
+}
+ 
+@media (os-platform:"IOS") AND (application-dpi: 320) AND (min-os-version: 6.0.1)
+{
+	Application
+	{
+		osStatusBarHeight: 40;
+	}
+}
+
+@media (os-platform:"IOS") AND (application-dpi: 480) AND (min-os-version: 6.0.1)
+{
+	Application
+	{
+		osStatusBarHeight: 60;
+	}
+}
+
+@media (os-platform:"IOS") AND (application-dpi: 640) AND (min-os-version: 6.0.1)
+{
+	Application
+	{
+		osStatusBarHeight: 80;
+	}
+}
+
+
+/*
+Android 4.x specific Mobile Flex skins and styles. Defaults sizes are based on
+application-dpi=240.
+*/
+
+/*Roboto Fonts*/
+@font-face {
+	src: url("spark/skins/android4/assets/fonts/Roboto-Regular.ttf");
+	fontFamily: RobotoRegular;
+	embed-as-cff: false;
+}
+
+@font-face {
+	src: url("spark/skins/android4/assets/fonts/Roboto-Bold.ttf");
+	fontFamily: RobotoBold;
+	fontWeight: bold;
+	embed-as-cff: false;
+}
+
+@media (os-platform: "android") AND (min-os-version: "4.1.2") 
+{
+	global
+	{
+		primaryAccentColor: #33B5E5;
+		fontWeight: "normal";
+		fontSize: 24;
+		color: #000000;
+		textShadowColor: #FFFFFF;
+		textShadowAlpha: 0;
+	}
+	
+	ActionBar
+	{
+		chromeColor: #DEDEDD;
+		defaultButtonAppearance: normal;
+		skinClass: ClassReference("spark.skins.android4.ActionBarSkin");
+		textShadowAlpha: 0;
+		textShadowColor: #000000;
+		paddingBottom: 1;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 1;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		color: #333333;
+		fontSize: 24;
+		fontFamily: RobotoBold;
+	}
+	
+	ActionBar ButtonBase
+	{
+		color: #333333;
+		fontFamily: RobotoBold;
+		fontWeight: bold;
+	}
+	
+	ActionBar Group#actionGroup Button
+	{
+		skinClass: ClassReference("spark.skins.android4.TransparentActionButtonSkin");
+	}
+	
+	BusyIndicator
+	{
+		skinClass: ClassReference("spark.skins.android4.BusyIndicatorSkin");
+	}
+	
+	Button
+	{
+		fontFamily: RobotoBold;
+		fontWeight: "bold";
+		skinClass: ClassReference("spark.skins.android4.ButtonSkin");
+	}
+	
+	Button.emphasized
+	{
+		skinClass: ClassReference("spark.skins.mobile.DefaultButtonSkin");
+	}
+	
+	ButtonBar
+	{
+		skinClass: ClassReference("spark.skins.android4.ButtonBarSkin");
+		fontFamily: RobotoBold;
+		fontWeight: "bold";
+	}
+	
+	Callout
+	{
+		backgroundColor: #33B5E5;
+		contentBackgroundColor: #FFFFFF;
+		gap: 12;
+		skinClass: ClassReference("spark.skins.android4.CalloutSkin");
+		borderThickness: 0;
+		borderColor: 0;
+		contentBackgroundAppearance: flat;
+	}
+	
+	Callout ViewNavigator ActionBar
+	{
+		skinClass: ClassReference("spark.skins.mobile.CalloutActionBarSkin");
+		defaultButtonAppearance: none;
+		paddingLeft: 0;
+		paddingRight: 0;
+	}
+	
+	Callout ViewNavigator ActionBar.beveled
+	{
+		paddingLeft: 0;
+		paddingRight: 0;
+	}
+	
+	Callout ViewNavigator ActionBar.beveled Group#navigationGroup Button
+	{
+		skinClass: ClassReference("spark.skins.mobile.BeveledActionButtonSkin");
+	}
+	
+	Callout ViewNavigator ActionBar.beveled Group#navigationGroup Button.emphasized
+	{
+		skinClass: ClassReference("spark.skins.mobile.DefaultBeveledActionButtonSkin");
+	}
+	
+	Callout#viewNavigatorPopUp
+	{
+		contentBackgroundAppearance: none;
+	}
+	
+	CheckBox
+	{
+		skinClass: ClassReference("spark.skins.android4.CheckBoxSkin");
+		chromeColor: #FFFFFF;
+	}
+	
+	HScrollBar
+	{
+		skinClass: ClassReference("spark.skins.android4.HScrollBarSkin");
+		color: #333333;
+	}
+	
+	HSlider
+	{
+		skinClass: ClassReference("spark.skins.android4.HSliderSkin");
+		fontFamily: RobotoBold;
+	}
+	
+	RadioButton
+	{
+		skinClass: ClassReference("spark.skins.android4.RadioButtonSkin");
+		chromeColor: #FFFFFF;
+	}
+	
+	SpinnerList
+	{
+		skinClass: ClassReference("spark.skins.android4.SpinnerListSkin");
+	}
+	
+	SpinnerListContainer
+	{
+		skinClass: ClassReference("spark.skins.android4.SpinnerListContainerSkin");
+	}
+	
+	SpinnerListItemRenderer
+	{
+		paddingTop : 18;
+		paddingBottom : 18;
+		paddingLeft : 6;
+		paddingRight : 6;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontFamily: RobotoRegular;
+		chromeColor: #484848;
+		color: #000000;
+		fontSize: 20;
+		fontWeight: normal;
+		iconPlacement: top;
+		interactionMode: mouse;
+		skinClass: ClassReference("spark.skins.android4.TabbedViewNavigatorTabBarSkin");
+		textShadowAlpha: 0;
+		textShadowColor: #000000;
+	}
+	
+	TextInput
+	{ 
+		skinClass: ClassReference("spark.skins.android4.StageTextInputSkin");
+		contentBackgroundAlpha: 0; 
+		focusColor: #33B5E5;
+		contentBackgroundColor: #DEDEDD;
+		contentBackgroundBorder: "flat";
+		fontFamily: RobotoRegular;
+		selectionHighlighting: "never";
+		focusEnabled:"false";
+		focusThickness: 0;
+	}
+	
+	TextArea
+	{ 
+		skinClass: ClassReference("spark.skins.android4.StageTextAreaSkin");
+		contentBackgroundAlpha: 1;
+		contentBackgroundBorder: "rectangle";
+		contentBackgroundColor: #DEDEDD;
+		focusColor: #33B5E5;
+		fontFamily: RobotoRegular;
+		selectionHighlighting: "never";
+		focusEnabled:"false";
+		focusThickness: 0;
+	} 
+	
+	ToggleSwitch
+	{
+		accentColor: #3F7FBA;
+		color: #FFFFFF;
+		skinClass: ClassReference("spark.skins.android4.ToggleSwitchSkin");
+		slideDuration: 125;
+		textShadowAlpha: .65;
+		textShadowColor: #000000;
+	}
+	
+	VScrollBar
+	{
+		skinClass: ClassReference("spark.skins.android4.VScrollBarSkin");
+		color: #333333;
+	}
+	
+	ViewMenu
+	{
+		skinClass: ClassReference("spark.skins.android4.ViewMenuSkin");
+	}
+	
+	ViewMenuItem
+	{ 
+		iconPlacement : "left";
+		chromeColor : #FFFFFF;
+		focusColor: #DEDEDD;
+		paddingBottom: 8;
+		paddingLeft: 8;
+		paddingRight: 8;
+		paddingTop: 8;
+		skinClass : ClassReference("spark.skins.android4.ViewMenuItemSkin");
+	}
+	
+	ViewNavigator
+	{
+		skinClass: ClassReference("spark.skins.mobile.ViewNavigatorSkin");
+	}
+}
+@media (os-platform: "android") AND (min-os-version: "4.1.2") AND (application-dpi: 120) 
+{
+	global
+	{
+		fontSize: 12;
+		focusThickness: 2;
+	}
+	
+	ActionBar.beveled
+	{
+		paddingLeft: 4;
+		paddingRight: 4;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 14;
+	}
+	
+	SpinnerListItemRenderer
+	{
+		paddingTop : 9;
+		paddingBottom : 9;
+		paddingLeft : 3;
+		paddingRight : 3;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 11;
+	}
+}
+
+@media (os-platform: "android") AND (min-os-version: "4.1.2") AND (application-dpi: 160)
+{
+	global
+	{
+		fontSize: 16;
+		focusThickness: 2;
+	}
+	
+	ActionBar
+	{
+		paddingBottom: 1;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 1;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 18;
+	}
+	
+	SpinnerListItemRenderer
+	{
+		paddingTop : 12;
+		paddingBottom : 12;
+		paddingLeft : 4;
+		paddingRight : 4;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 14;
+	}
+}
+
+@media (os-platform: "android") AND (min-os-version: "4.1.2") AND (application-dpi: 320)
+{
+	global
+	{
+		fontSize: 32;
+	}
+	
+	ActionBar
+	{
+		paddingBottom: 2;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 2;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 36;
+	}
+	
+	SpinnerListItemRenderer
+	{
+		paddingTop : 24;
+		paddingBottom : 24;
+		paddingLeft : 8;
+		paddingRight : 8;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 28;
+	}
+}
+
+@media (os-platform: "android") AND (min-os-version: "4.1.2") AND (application-dpi: 480)
+{
+	global
+	{
+		fontSize: 48;
+		focusThickness: 6;
+	}
+	
+	ActionBar
+	{
+		paddingBottom: 4;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 4;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 54;
+	}
+	
+	SpinnerListItemRenderer
+	{
+		paddingTop : 36;
+		paddingBottom : 36;
+		paddingLeft : 12;
+		paddingRight : 12;
+	}
+	
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 42;
+	}	
+}
+
+@media (os-platform: "android") AND (min-os-version: "4.1.2") AND (application-dpi: 640)
+{
+	global
+	{
+		fontSize: 64;
+	}
+	
+	ActionBar
+	{
+		paddingBottom: 4;
+		paddingLeft: 0;
+		paddingRight: 0;
+		paddingTop: 4;
+	}
+	
+	ActionBar #titleDisplay
+	{
+		fontSize: 72;
+	}
+	
+	SpinnerListItemRenderer
+	{
+		paddingTop : 48;
+		paddingBottom : 48;
+		paddingLeft : 16;
+		paddingRight : 16;
+	}
+	
+	TabbedViewNavigator #tabBar
+	{
+		fontSize: 56;
+	}	
 }

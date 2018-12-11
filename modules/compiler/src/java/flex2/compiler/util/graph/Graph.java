@@ -27,8 +27,6 @@ import java.util.Set;
 
 /**
  * A base class for DependencyGraph.
- *
- * @author Clement Wong
  */
 public class Graph<VertexWeight,EdgeWeight>
 {

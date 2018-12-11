@@ -32,8 +32,6 @@ import static macromedia.asc.embedding.avmplus.ActionBlockConstants.*;
  *
  * Creates parse tree nodes. Keeps all created nodes in a vector so that
  * they can be deleted when the compiler is done with them.
- *
- * @author Jeff Dyer
  */
 public final class NodeFactory implements ErrorConstants
 {

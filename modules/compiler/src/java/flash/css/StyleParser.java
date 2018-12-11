@@ -49,8 +49,6 @@ import org.w3c.css.sac.InputSource;
  * are handed back to this class and stored in the <code>rules</code>.
  * Batik CSS Parser errors and warnings are reported via the passed in
  * Logger.
- *
- * @author Paul Reilly
  */
 public class StyleParser
 {

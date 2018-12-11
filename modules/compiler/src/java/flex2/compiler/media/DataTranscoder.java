@@ -32,8 +32,6 @@ import java.io.BufferedInputStream;
 
 /**
  * This transcoder supports embedding data using a ByteArray.
- *
- * @author Roger Gonzalez
  */
 public class DataTranscoder extends AbstractTranscoder
 {

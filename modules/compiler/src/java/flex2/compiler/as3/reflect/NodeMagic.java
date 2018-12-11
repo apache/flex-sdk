@@ -58,10 +58,6 @@ import java.util.StringTokenizer;
  * methods sometimes get nodes in an earlier state than the reflection
  * methods expect.  Again, these differences in node state should
  * ideally be made systematic in an ASC API.
- *
- * @author Basil Hosmer
- * @author Clement Wong
- * @author Paul Reilly
  */
 public class NodeMagic
 {

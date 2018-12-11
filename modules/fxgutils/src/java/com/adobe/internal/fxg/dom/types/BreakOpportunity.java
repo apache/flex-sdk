@@ -39,7 +39,6 @@ package com.adobe.internal.fxg.dom.types;
  *   3 = all
  * </pre>
  * 
- * @author Min Plunkett
  */
 public enum BreakOpportunity
 {

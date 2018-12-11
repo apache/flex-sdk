@@ -57,7 +57,6 @@ import macromedia.asc.embedding.WarningConstants;
  * </PRE>
  * 
  * @version 2.0.1
- * @author Clement Wong
  */
 public interface Configuration
 {

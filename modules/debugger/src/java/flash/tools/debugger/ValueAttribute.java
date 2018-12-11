@@ -19,9 +19,6 @@
 
 package flash.tools.debugger;
 
-/**
- * @author mmorearty
- */
 public interface ValueAttribute
 {
 

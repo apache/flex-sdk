@@ -25,8 +25,6 @@ import flash.swf.TagHandler;
 /**
  * This represents a Metadata SWF tag.  This should not be confused
  * with AS3 metadata.
- *
- * @author Roger Gonzalez
  */
 public class Metadata extends Tag
 {

@@ -27,8 +27,6 @@ import flash.swf.Tag;
 
 /**
  * A value object for a shape with style data.
- *
- * @author Clement Wong
  */
 public class ShapeWithStyle extends Shape
 {

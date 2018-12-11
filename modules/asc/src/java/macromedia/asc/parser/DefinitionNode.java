@@ -19,8 +19,6 @@ package macromedia.asc.parser;
 
 /**
  * Node
- *
- * @author Jeff Dyer
  */
 public abstract class DefinitionNode extends Node
 {

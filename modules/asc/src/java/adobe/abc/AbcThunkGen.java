@@ -28,9 +28,6 @@ import static adobe.abc.OptimizerConstants.*;
 import static java.lang.Boolean.TRUE;
 import static java.lang.Boolean.FALSE;
  
-/**
- * @author Steven Johnson
- */
 public class AbcThunkGen
 {
 	static class IndentingPrintWriter extends PrintWriter

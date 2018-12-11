@@ -32,8 +32,6 @@ import java.util.Set;
 /**
  * This class provides a base class for holding information common to
  * classes and interfaces.
- *
- * @author Paul Reilly
  * @see flex2.compiler.as3.binding.TypeAnalyzer
  */
 abstract class Info

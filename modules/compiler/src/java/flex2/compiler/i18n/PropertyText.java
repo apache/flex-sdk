@@ -41,9 +41,6 @@ import flex2.compiler.util.CompilerMessage.CompilerError;
 /**
  * Value object used to contain the information from an I18N
  * .properties file.
- *
- * @author Gordon Smith
- * @author Clement Wong
  */
 public class PropertyText extends OrderedProperties
 {

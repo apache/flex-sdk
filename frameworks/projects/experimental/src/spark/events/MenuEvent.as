@@ -25,9 +25,6 @@ package spark.events {
 // for asdoc
 [Experimental]
 
-/**
-     * @author Bogdan Dinu (http://www.badu.ro)
-     */
     public class MenuEvent extends IndexChangeEvent {
         public static const SELECTED:String = "selected";
         public static const CHECKED:String = "checked";

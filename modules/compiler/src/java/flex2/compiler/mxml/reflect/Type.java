@@ -23,8 +23,6 @@ package flex2.compiler.mxml.reflect;
  * The facade for the MXML compiler to AS3 type.  More API methods can
  * be added but they must be meaningful to MXML parsing, semantic
  * analysis and code generation.
- *
- * @author Clement Wong
  */
 public interface Type
 {

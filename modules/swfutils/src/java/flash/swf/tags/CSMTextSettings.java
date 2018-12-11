@@ -23,8 +23,6 @@ import flash.swf.TagHandler;
 
 /**
  * This class represents a CSMTextSettings SWF tag.
- *
- * @author Brian Deitte
  */
 public class CSMTextSettings extends DefineTag
 {

@@ -34,7 +34,6 @@ package flex2.tools.oem;
  * logging systems. As a result, the <code>log()</code> method also supports error codes.
  * 
  * @version 2.0.1
- * @author Clement Wong
  */
 public interface Logger
 {

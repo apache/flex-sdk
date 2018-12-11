@@ -45,15 +45,26 @@ import flex2.compiler.config.ConfigurationValue;
 import flex2.compiler.io.FileUtil;
 import flex2.compiler.util.CompilerMessage;
 import flex2.compiler.util.ThreadLocalToolkit;
+import org.apache.flex.tools.FlexTool;
 
 /**
  * The post-link optimizer as a command-line tool...
- * 
- * @author Clement Wong
- */
-public class Optimizer
+*/
+public class Optimizer implements FlexTool
 {
-	public static void main(String[] args)
+
+    @Override
+    public String getName() {
+        return FLEX_TOOL_OPTIMIZER;
+    }
+
+    @Override
+    public int execute(String[] args) {
+        main(args);
+        return 0;
+    }
+
+    public static void main(String[] args)
 	{
         flex2.compiler.CompilerAPI.useAS3();
 

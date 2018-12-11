@@ -19,9 +19,6 @@
 
 package macromedia.abc;
 
-/**
- * @author Clement Wong
- */
 public final class QName
 {
 	public QName(final String namespaceURI, final String localPart)

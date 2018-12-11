@@ -21,9 +21,6 @@ package macromedia.asc.semantics;
 
 import macromedia.asc.util.Context;
 
-/**
- * @author Gary Grossman
- */
 public class NamespaceValue extends ObjectValue
 {
 	public NamespaceValue()

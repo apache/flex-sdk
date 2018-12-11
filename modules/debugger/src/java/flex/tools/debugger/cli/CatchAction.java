@@ -23,9 +23,7 @@ package flex.tools.debugger.cli;
  * 
  * An object that relates a CLI debugger catchpoint with the
  * actual Catch obtained from the Session
- * 
- * @author Mike Morearty
- */
+*/
 public class CatchAction
 {
 	private final int m_id;

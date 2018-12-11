@@ -33,9 +33,6 @@ import java.io.Writer;
 import java.io.IOException;
 import java.io.File;
 
-/**
- * @author Peter Farland
- */
 public class DocumentUtils
 {
 	private DocumentUtils()

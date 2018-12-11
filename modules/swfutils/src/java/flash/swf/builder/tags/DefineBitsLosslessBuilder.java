@@ -25,9 +25,6 @@ import flash.swf.TagValues;
 /**
  * This class is used to construct a DefineBitsLossless SWF tag from a
  * array of pixels.
- *
- * @author Paul Reilly
- * @author Peter Farland
  */
 public class DefineBitsLosslessBuilder
 {

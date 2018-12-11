@@ -28,8 +28,6 @@ import macromedia.asc.util.Context;
 
 /**
  * This class handles invoking the StyleEvaluator in the parse1 phase.
- *
- * @author Paul Reilly
  * @see flex2.compiler.as3.StyleEvaluator.
  */
 public final class StyleExtension implements Extension

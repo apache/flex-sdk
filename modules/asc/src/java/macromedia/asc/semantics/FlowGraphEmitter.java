@@ -29,8 +29,6 @@ import static macromedia.asc.util.BitSet.*;
 
 /**
  * FlowGraphEmitter
- *
- * @author Jeff Dyer
  */
 public final class FlowGraphEmitter extends Emitter
 {

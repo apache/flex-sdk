@@ -32,8 +32,6 @@ import java.util.List;
 /**
  * This is the place command.  The encoded form can be PlaceObject or
  * PlaceObject2.
- *
- * @author Clement Wong
  */
 public class PlaceObject extends Tag
 {

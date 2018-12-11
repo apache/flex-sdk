@@ -25,8 +25,6 @@ import java.util.Map;
 
 /**
  * A utility for joining strings.
- *
- * @author Gordon Smith
  */
 public class StringJoiner
 {

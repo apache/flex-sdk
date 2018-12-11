@@ -46,8 +46,6 @@ import flash.swf.tags.FrameLabel;
  * This is similar to FlexMovie in that it cares about externs and
  * unresolved symbols, but unlike FlexMovie it tries to export all
  * CompilationUnits, not just ones that are referenced.
- *
- * @author Roger Gonzalez
  */
 public class SwcMovie extends SimpleMovie
 {

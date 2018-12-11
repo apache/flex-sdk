@@ -35,10 +35,6 @@ import flash.swf.tags.DefineBits;
 
 /**
  * Utilities to help create basic SWF data types.
- * 
- * @author Peter Farland
- * @author Kaushal Kantawala
- * @author Sujata Das
  */
 public class TypeHelper
 {

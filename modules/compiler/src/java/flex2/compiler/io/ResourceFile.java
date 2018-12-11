@@ -29,8 +29,6 @@ import java.util.Map;
  * Represents a VirtualFile impelemation, which is backed by a
  * collection of .properties with the same name, but coming from
  * different locales.
- *
- * @author Clement Wong
  */
 public class ResourceFile implements VirtualFile
 {

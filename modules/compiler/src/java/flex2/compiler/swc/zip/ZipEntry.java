@@ -27,7 +27,6 @@ import java.util.Vector;
  * Extension that adds better handling of extra fields and provides
  * access to the internal and external file attributes.
  *
- * @author Stefan Bodewig
  * @version $Revision: 1.1 $
  */
 public class ZipEntry extends java.util.zip.ZipEntry implements Cloneable {

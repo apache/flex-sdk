@@ -37,8 +37,6 @@ import java.util.Map;
  * the {@link #draw(Shape)}, {@link #fill(Shape)} and {@link
  * #drawString(String, float, float)) methods, as these typically need
  * to be turned into physical SWF records.
- *
- * @author Peter Farland
  * @version 0.9
  */
 public abstract class AbstractGraphics2D extends Graphics2D

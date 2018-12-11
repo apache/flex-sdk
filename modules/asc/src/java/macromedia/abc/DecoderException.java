@@ -19,9 +19,6 @@
 
 package macromedia.abc;
 
-/**
- * @author Clement Wong
- */
 public final class DecoderException extends Exception
 {
 	public DecoderException(String message)

@@ -24,8 +24,6 @@ package flex2.compiler.util;
  * 
  * Contains the number of times the method was called and the total
  * amount of time in the method.
- * 
- * @author dloverin
  */
 public class PerformanceData
 {

@@ -48,16 +48,16 @@
 	<testCases>
 		<TestCase testID="EmailValidator_valid_spark"  keywords="[valid, EmailValidator]">
 			<setup>
-				<ResetComponent target="myCustomEm" className="CustomEm"  waitEvent="updateComplete" waitTarget="myCustomEm"/> 
+				<ResetComponent target="myCustomEm" className="CustomEm"  waitEvent="updateComplete" waitTarget="myCustomEm"/>
 				<SetProperty target="myCustomEm.myEm" propertyName="property" value="text"/>
-				
+
 			</setup>
 			<body>
 				<SetProperty target="myCustomEm.ti1" propertyName="text" value="sarvatanayadatta@ydomain.com" waitEvent="updateComplete" waitTarget="myCustomEm.ti1"/>
 				<DispatchKeyEvent keys="[TAB, TAB]"/>
 				<AssertEvent target="myCustomEm.myEm" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
 				<AssertNoEvent target="myCustomEm.myEm" eventName="invalid" />
-			</body>  
+			</body>
 		</TestCase>
 
 		<TestCase testID="EmailValidator_invalidCharError1_spark"  keywords="[invalidCharError, EmailValidator]">
@@ -71,11 +71,11 @@
 				<DispatchKeyEvent keys="[TAB, TAB]"/>
 				<AssertEvent target="myCustomEm.myEm" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
 				<AssertNoEvent target="myCustomEm.myEm" eventName="valid" />
-			</body>  
+			</body>
 		</TestCase>
 		<TestCase testID="EmailValidator_invalidCharError2_spark"  keywords="[invalidCharError, EmailValidator]">
 			<setup>
-				
+
 				<ResetComponent target="myCustomEm" className="CustomEm"  waitEvent="updateComplete" waitTarget="myCustomEm"/>
 				<SetProperty target="myCustomEm.myEm" propertyName="property" value="text"/>
 				<SetProperty target="myCustomEm.ti1" propertyName="text" value="mavenki!ydomain.com" waitEvent="updateComplete" waitTarget="myCustomEm.ti1"/>
@@ -87,12 +87,12 @@
 				<AssertNoEvent target="myCustomEm.myEm" eventName="valid" />
 				<DispatchMouseEvent target="myCustomEm.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="myCustomEm.ti1"/>
 				<WaitForEffectsToEnd />
-				<CompareBitmap target="" url="../Properties/baselines/invalidCharError_spark.png" timeout="2000" numColorVariances="4" ignoreMaxColorVariance="true" />				
-			</body>  
+				<CompareBitmap target="" url="../Properties/baselines/invalidCharError_spark.png" timeout="2000" numColorVariances="4" ignoreMaxColorVariance="true" />
+			</body>
 		</TestCase>
 		<TestCase testID="EmailValidator_invalidDomainError_spark"  keywords="[invalidDomainError, EmailValidator]">
 			<setup>
-				
+
 				<ResetComponent target="myCustomEm" className="CustomEm"  waitEvent="updateComplete" waitTarget="myCustomEm"/>
 				<SetProperty target="myCustomEm.myEm" propertyName="property" value="text"/>
 				<SetProperty target="myCustomEm.ti1" propertyName="text" value="mavenki@ydomain.hello" waitEvent="updateComplete" waitTarget="myCustomEm.ti1"/>
@@ -100,16 +100,16 @@
 			</setup>
 			<body>
 				<DispatchKeyEvent keys="[TAB, TAB]"/>
-				<AssertEvent target="myCustomEm.myEm" eventName="invalid" eventClass="mx.events::ValidationResultEvent" />
-				<AssertNoEvent target="myCustomEm.myEm" eventName="valid" />
-				<DispatchMouseEvent target="myCustomEm.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="myCustomEm.ti1"/>
+				<AssertEvent target="myCustomEm.myEm" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
+				<AssertNoEvent target="myCustomEm.myEm" eventName="invalid" />
+				<DispatchMouseEvent target="myCustomEm.ti1" type="mouseOver" localX="10" localY="10"/>
 				<WaitForEffectsToEnd />
-				<CompareBitmap target="" url="../Properties/baselines/invalidDomainError_spark.png" timeout="2000" />				
-			</body>  
+				<CompareBitmap target="" url="../Properties/baselines/invalidDomainError_spark.png" timeout="2000" />
+			</body>
 		</TestCase>
 		<TestCase testID="EmailValidator_missingAtSignError_spark"  keywords="[missingAtSignError, EmailValidator]">
 			<setup>
-				
+
 				<ResetComponent target="myCustomEm" className="CustomEm"  waitEvent="updateComplete" waitTarget="myCustomEm"/>
 				<SetProperty target="myCustomEm.myEm" propertyName="property" value="text"/>
 				<SetProperty target="myCustomEm.ti1" propertyName="text" value="mavenkiydomain.com" waitEvent="updateComplete" waitTarget="myCustomEm.ti1"/>
@@ -121,12 +121,12 @@
 				<AssertNoEvent target="myCustomEm.myEm" eventName="valid" />
 				<DispatchMouseEvent target="myCustomEm.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="myCustomEm.ti1"/>
 				<WaitForEffectsToEnd />
-				<CompareBitmap target="" url="../Properties/baselines/missingAtSignError_spark.png" timeout="2000" numColorVariances="4" ignoreMaxColorVariance="true"/>				
-			</body>  
-		</TestCase>	
+				<CompareBitmap target="" url="../Properties/baselines/missingAtSignError_spark.png" timeout="2000" numColorVariances="4" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
 		<TestCase testID="EmailValidator_missingUsernameError_spark"  keywords="[missingUsernameError, EmailValidator]">
 			<setup>
-				
+
 				<ResetComponent target="myCustomEm" className="CustomEm"  waitEvent="updateComplete" waitTarget="myCustomEm"/>
 				<SetProperty target="myCustomEm.myEm" propertyName="property" value="text"/>
 				<SetProperty target="myCustomEm.ti1" propertyName="text" value="mavenkiydomain.com" waitEvent="updateComplete" waitTarget="myCustomEm.ti1"/>
@@ -138,12 +138,12 @@
 				<AssertNoEvent target="myCustomEm.myEm" eventName="valid" />
 				<DispatchMouseEvent target="myCustomEm.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="myCustomEm.ti1"/>
 				<WaitForEffectsToEnd />
-				<CompareBitmap target="" url="../Properties/baselines/missingUsernameError_spark.png" timeout="2000" numColorVariances="4" ignoreMaxColorVariance="true"/>				
-			</body>  
-		</TestCase>  
+				<CompareBitmap target="" url="../Properties/baselines/missingUsernameError_spark.png" timeout="2000" numColorVariances="4" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
 		<TestCase testID="EmailValidator_tooManyAtSignsError_spark"  keywords="[tooManyAtSignsError, EmailValidator]">
 			<setup>
-				
+
 				<ResetComponent target="myCustomEm" className="CustomEm"  waitEvent="updateComplete" waitTarget="myCustomEm"/>
 				<SetProperty target="myCustomEm.myEm" propertyName="property" value="text"/>
 				<SetProperty target="myCustomEm.ti1" propertyName="text" value="mavenki@satd@ydomain.com" waitEvent="updateComplete" waitTarget="myCustomEm.ti1"/>
@@ -155,12 +155,12 @@
 				<AssertNoEvent target="myCustomEm.myEm" eventName="valid" />
 				<DispatchMouseEvent target="myCustomEm.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="myCustomEm.ti1"/>
 				<WaitForEffectsToEnd />
-				<CompareBitmap target="" url="../Properties/baselines/tooManyAtSignsError_spark.png" timeout="2000" numColorVariances="6" ignoreMaxColorVariance="true"/>				
-			</body>  
-		</TestCase>		
+				<CompareBitmap target="" url="../Properties/baselines/tooManyAtSignsError_spark.png" timeout="2000" numColorVariances="6" ignoreMaxColorVariance="true"/>
+			</body>
+		</TestCase>
 		<TestCase testID="EmailValidator_invalidPeriodsInDomainError_spark"  keywords="[invalidPeriodsInDomainError, EmailValidator]">
 			<setup>
-				
+
 				<ResetComponent target="myCustomEm" className="CustomEm"  waitEvent="updateComplete" waitTarget="myCustomEm"/>
 				<SetProperty target="myCustomEm.myEm" propertyName="property" value="text"/>
 				<SetProperty target="myCustomEm.ti1" propertyName="text" value="mavenkisatd@ydomain..com" waitEvent="updateComplete" waitTarget="myCustomEm.ti1"/>
@@ -172,12 +172,12 @@
 				<AssertNoEvent target="myCustomEm.myEm" eventName="valid" />
 				<DispatchMouseEvent target="myCustomEm.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="myCustomEm.ti1"/>
 				<WaitForEffectsToEnd />
-				<CompareBitmap target="" url="../Properties/baselines/invalidPeriodsInDomainError_spark.png" timeout="2000" />				
-			</body>  
+				<CompareBitmap target="" url="../Properties/baselines/invalidPeriodsInDomainError_spark.png" timeout="2000" />
+			</body>
 		</TestCase>
 		<TestCase testID="EmailValidator_missingPeriodInDomainError_spark"  keywords="[missingPeriodInDomainError, EmailValidator]">
 			<setup>
-				
+
 				<ResetComponent target="myCustomEm" className="CustomEm"  waitEvent="updateComplete" waitTarget="myCustomEm"/>
 				<SetProperty target="myCustomEm.myEm" propertyName="property" value="text"/>
 				<SetProperty target="myCustomEm.ti1" propertyName="text" value="satd@ydomaincom" waitEvent="updateComplete" waitTarget="myCustomEm.ti1"/>
@@ -189,23 +189,23 @@
 				<AssertNoEvent target="myCustomEm.myEm" eventName="valid" />
 				<DispatchMouseEvent target="myCustomEm.ti1" type="mouseOver" localX="10" localY="10"  waitEvent="toolTipShown" waitTarget="myCustomEm.ti1"/>
 				<WaitForEffectsToEnd />
-				<CompareBitmap target="" url="../Properties/baselines/missingPeriodInDomainError_spark.png" timeout="2000" />				
-			</body>  
+				<CompareBitmap target="" url="../Properties/baselines/missingPeriodInDomainError_spark.png" timeout="2000" />
+			</body>
 		</TestCase>
-		
+
 		<TestCase testID="EmailValidator_plusSign_spark"  keywords="[valid, EmailValidator]">
 			<setup>
-				<ResetComponent target="myCustomEm" className="CustomEm"  waitEvent="updateComplete" waitTarget="myCustomEm"/> 
+				<ResetComponent target="myCustomEm" className="CustomEm"  waitEvent="updateComplete" waitTarget="myCustomEm"/>
 				<SetProperty target="myCustomEm.myEm" propertyName="property" value="text"/>
-				
+
 			</setup>
 			<body>
 				<SetProperty target="myCustomEm.ti1" propertyName="text" value="sarvat+anayadatta@ydomain.com" waitEvent="updateComplete" waitTarget="myCustomEm.ti1"/>
 				<DispatchKeyEvent keys="[TAB, TAB]"/>
 				<AssertEvent target="myCustomEm.myEm" eventName="valid" eventClass="mx.events::ValidationResultEvent" />
 				<AssertNoEvent target="myCustomEm.myEm" eventName="invalid" />
-			</body>  
-		</TestCase>		
-		
+			</body>
+		</TestCase>
+
 	</testCases>
 </UnitTester>

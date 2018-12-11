@@ -37,8 +37,6 @@ import flex2.compiler.mxml.rep.MxmlDocument;
 /**
  * This builder supports building a AnonymousObjectGraph from a
  * ArgumentsNode or RequestNode and it's children.
- *
- * @author Matt Chotin
  */
 public class ServiceRequestBuilder extends AnonymousObjectGraphBuilder
 {

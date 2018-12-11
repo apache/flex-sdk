@@ -27,8 +27,6 @@ import flex2.compiler.util.AbstractLogAdapter;
  * This is a Logger implementation for use with direct AST generation.
  * It handles offsetting the line number reported from ASC with the
  * line number of the code fragment in the MXML document.
- *
- * @author Paul Reilly
  */
 public final class CodeFragmentLogAdapter extends AbstractLogAdapter
 {

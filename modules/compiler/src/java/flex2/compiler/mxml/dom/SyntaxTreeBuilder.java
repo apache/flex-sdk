@@ -29,8 +29,6 @@ import java.util.List;
 /**
  * The visitor used by the MXML parser to construct the
  * flex2.compiler.mxml.dom.* based DOM from the parsed tokens.
- *
- * @author Clement Wong
  */
 public class SyntaxTreeBuilder implements MxmlVisitor
 {

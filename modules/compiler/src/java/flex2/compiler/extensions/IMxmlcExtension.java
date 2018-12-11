@@ -22,8 +22,6 @@ package flex2.compiler.extensions;
 /**
  * Defines the API for extensions, which run at the end of a command
  * line application compilation.
- *
- * @author Andrew Westberg
  */
 public interface IMxmlcExtension
     extends IExtension

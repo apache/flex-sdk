@@ -29,8 +29,6 @@ import macromedia.asc.parser.ArgumentListNode;
 
 /**
  * This is a common base class for Watcher's which have args.
- *
- * @author Paul Reilly
  */
 public abstract class EvaluationWatcher extends Watcher
 {

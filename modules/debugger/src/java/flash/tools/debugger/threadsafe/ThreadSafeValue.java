@@ -26,7 +26,6 @@ import flash.tools.debugger.Variable;
 
 /**
  * Thread-safe wrapper for flash.tools.debugger.Value
- * @author Mike Morearty
  */
 public class ThreadSafeValue extends ThreadSafeDebuggerObject implements Value {
 

@@ -28,9 +28,6 @@ import org.w3c.css.sac.LexicalUnit;
 /**
  * This class represents a descriptor/property within a CSS rule
  * declaration.
- *
- * @author Peter Farland
- * @author Paul Reilly
  */
 public class Descriptor
 {

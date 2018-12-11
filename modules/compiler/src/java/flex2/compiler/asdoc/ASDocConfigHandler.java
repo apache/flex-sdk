@@ -33,8 +33,6 @@ import flex2.tools.ASDocConfiguration;
 
 /**
  * SAX Handler for parsing ASDoc_Config_Base.xml and writing out ASDoc_Config.xml
- *
- * @author Brian Deitte
  */
 public class ASDocConfigHandler extends DefaultHandler
 {

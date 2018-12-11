@@ -25,8 +25,6 @@ import java.lang.reflect.Modifier;
 
 /**
  * A utility class for looking up localized text.
- *
- * @author Roger Gonzalez
  */
 public class LocalizationManager
 {

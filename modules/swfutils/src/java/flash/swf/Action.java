@@ -21,7 +21,6 @@ package flash.swf;
 
 /**
  * Base class for all actionscript opcodes
- * @author Clement Wong
  */
 public class Action implements ActionConstants
 {

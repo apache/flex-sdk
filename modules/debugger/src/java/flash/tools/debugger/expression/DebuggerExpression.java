@@ -37,8 +37,6 @@ import flash.tools.debugger.expression.DebuggerEvaluator.ExpressionEvaluatorScop
  * edge cases that this class can't handle.  For most cases where you
  * need an on-the-fly expression evaluator, you would be better off
  * using the code from the "esc" project.
- * 
- * @author Mike Morearty
  */
 class DebuggerExpression implements ValueExp {
 

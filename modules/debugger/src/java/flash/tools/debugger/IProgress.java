@@ -21,8 +21,6 @@ package flash.tools.debugger;
 
 /**
  * A simple interface to report progress on some operation.
- * 
- * @author mmorearty
  */
 public interface IProgress
 {

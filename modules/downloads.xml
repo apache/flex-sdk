@@ -43,7 +43,11 @@
     <property name="velocity.zip.dir" value="velocity-1.4"/>
     <property name="velocity.dir" value="thirdparty/velocity"/>
     
-	<!-- 
+    <property name="maven.search.url" value="https://search.maven.org/remotecontent?filepath="/>
+    <property name="flexToolApi.name" value="flex-tool-api"/>
+    <property name="flexToolApi.version" value="1.0.0"/>
+    
+	<!--
 	   Notes:
 	       For Apache, the JARS must be removed from the repository.
 	       Every attempt was made to use the same versions that were used for Flex 4.6 even
@@ -82,7 +86,7 @@
         they are each downloaded only if they don't already exist. 
     -->
     
-	<target name="main" depends="batik-jars, commons-jars, javacc-jar, saxon9-jar, velocity-jars, xalan-jar, xerces-jars" 
+	<target name="main" depends="batik-jars, commons-jars, javacc-jar, saxon9-jar, velocity-jars, xalan-jar, xerces-jars, flex-tool-api-jar"
 		description="Downloads all the required thirdparty JARs"/>
 
     <!--
@@ -273,6 +277,15 @@
                 <include name="README.xml-apis-ext*"/>
             </fileset>            
         </copy>
+        <unzip src="${lib.ext.dir}/xml-apis-ext.jar" dest="${lib.ext.dir}/xml-apis-ext-LICENSES">
+            <patternset>
+                <include name="license/**" />
+            </patternset>
+        </unzip>
+        <copy toDir="${lib.ext.dir}/xml-apis-ext-LICENSES/" flatten="true">
+            <fileset dir="${lib.ext.dir}/xml-apis-ext-LICENSES/license" />
+        </copy>
+        <delete dir="${lib.ext.dir}/xml-apis-ext-LICENSES/license" />
 
         <delete dir="${download.dir}/${batik.zip.dir}"/>
     </target>
@@ -510,6 +523,13 @@
           <param name="destJarFile" value="${lib.ext.dir}/xalan.jar"/>
         </antcall>
         
+        <unzip src="${lib.ext.dir}/xalan.jar" dest="${lib.ext.dir}/xalan-LICENSES">
+            <patternset>
+                <include name="*LICENSE*" />
+                <include name="*README*" />
+            </patternset>
+        </unzip>
+
         <copy todir="${lib.ext.dir}">
             <fileset dir="${download.dir}/xalan-j_2_6_0">
                 <include name="LICENSE"/>
@@ -545,7 +565,16 @@
         </antcall>
 
         <copy toDir="${lib.ext.dir}" file="${download.dir}/${xerces.dir}/xml-apis.jar" />
-        
+        <unzip src="${lib.ext.dir}/xml-apis.jar" dest="${lib.ext.dir}/xml-apis-LICENSES">
+            <patternset>
+                <include name="license/**" />
+            </patternset>
+        </unzip>
+        <copy toDir="${lib.ext.dir}/xml-apis-LICENSES/" flatten="true">
+            <fileset dir="${lib.ext.dir}/xml-apis-LICENSES/license" />
+        </copy>
+        <delete dir="${lib.ext.dir}/xml-apis-LICENSES/license" />
+
         <copy todir="${lib.ext.dir}">
             <fileset dir="${download.dir}/${xerces.dir}">
                 <include name="*NOTICE*"/>
@@ -559,5 +588,24 @@
             <globmapper from="*" to="xerces-LICENSE/*"/>
         </copy>
         <delete dir="${download.dir}/${xerces.dir}"/>
-    </target>    
+    </target>
+
+    <!--
+        flex-tool-api
+    -->
+
+    <target name="flex-tool-api-jar-check" description="Checks if flex-tool-api.jar is in lib directory.">
+        <available file="${lib.ext.dir}/flex-tool-api.jar" property="flexToolApi.jar.exists"/>
+    </target>
+
+    <target name="flex-tool-api-jar" depends="flex-tool-api-jar-check" unless="flexToolApi.jar.exists"
+            description="Downloads and copies flex-tool-api.jar to the lib directory.">
+
+        <get src="${maven.search.url}/org/apache/flex/${flexToolApi.name}/${flexToolApi.version}/${flexToolApi.name}-${flexToolApi.version}.jar"
+             dest="${download.dir}/flex-tool-api.jar"
+             verbose="false"/>
+
+        <copy file="${download.dir}/flex-tool-api.jar" toDir="${lib.ext.dir}" verbose="true"/>
+    </target>
+
 </project>

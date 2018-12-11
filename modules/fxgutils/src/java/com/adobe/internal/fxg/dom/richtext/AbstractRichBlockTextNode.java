@@ -38,7 +38,6 @@ import com.adobe.internal.fxg.dom.types.NumberInherit.NumberInheritAsEnum;
  * An base class that represents a block text.
  * 
  * @since 2.0
- * @author Min Plunkett
  */
 public abstract class AbstractRichBlockTextNode extends AbstractRichParagraphNode
 {    

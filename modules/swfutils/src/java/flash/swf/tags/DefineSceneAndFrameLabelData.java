@@ -24,8 +24,6 @@ import flash.swf.TagHandler;
 
 /**
  * Represents a DefineSceneAndFrameLabelData SWF tag.
- *
- * @author Roger Gonzalez
  */
 public class DefineSceneAndFrameLabelData extends Tag
 {

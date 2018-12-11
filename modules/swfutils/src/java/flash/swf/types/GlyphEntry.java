@@ -23,8 +23,6 @@ import flash.swf.tags.ZoneRecord;
 
 /**
  * A value object for glyph entry data.
- *
- * @author Clement Wong
  */
 public class GlyphEntry implements Cloneable
 {

@@ -149,28 +149,59 @@ fi
 # Copy files first, then directories.
 
 echo Copying the AIR SDK files to directory "${IDE_SDK_DIR}"
-
-files=(
-    "AIR SDK license.pdf" 
-    "AIR SDK Readme.txt" 
-    bin/adl.exe 
-    bin/adt.bat 
-    frameworks/libs/air
-    frameworks/libs/player/11.1
-    frameworks/projects/air
-    include
-    install/android
-    lib/adt.jar 
-    lib/android
-    lib/aot
-    lib/nai
-    lib/win
-    runtimes
-    samples/badge
-    samples/descriptor-sample.xml
-    samples/icons
-    templates/air
-    templates/extensions)
+OS=`uname`
+cygwinCheck=`echo $OS|awk '{print match($0,"CYGWIN")}'`;
+mingwCheck=`echo $OS|awk '{print match($0,"MINGW")}'`;
+if  [ $cygwinCheck -gt 0 ] || [ $mingwCheck -gt 0 ]
+then
+    echo "Emulated environment on windows detected: $OS"
+    # set files for emulated environment on windows, we do not need to copy adt and adl as adl.exe and adt.bat will be copied and used
+    files=(
+        "AIR SDK license.pdf"
+        "AIR SDK Readme.txt"
+        bin/adl.exe
+        bin/adt.bat
+        frameworks/libs/air
+        frameworks/libs/player/11.1
+        frameworks/projects/air
+        include
+        install/android
+        lib/adt.jar 
+        lib/android
+        lib/aot
+        lib/nai
+        lib/win
+        runtimes
+        samples/badge
+        samples/descriptor-sample.xml
+        samples/icons
+        templates/air
+        templates/extensions)
+else
+    # set files for any other environment, assuming will be unix compatible
+    echo "Unix environment detected"
+    files=(
+        "AIR SDK license.pdf"
+        "AIR SDK Readme.txt"
+        bin/adl
+        bin/adt
+        frameworks/libs/air
+        frameworks/libs/player/11.1
+        frameworks/projects/air
+        include
+        install/android
+        lib/adt.jar
+        lib/android
+        lib/aot
+        lib/nai
+        lib/win
+        runtimes
+        samples/badge
+        samples/descriptor-sample.xml
+        samples/icons
+        templates/air
+        templates/extensions)
+fi
 for file in "${files[@]}" 
 do
     copyFileOrDirectory "$file"

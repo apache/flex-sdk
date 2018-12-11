@@ -38,8 +38,6 @@ import flex2.compiler.util.graph.Visitor;
 
 /**
  * The equivalent of FlexMovie when building a projector, ie a .exe.
- *
- * @author Clement Wong
  */
 public class ConsoleApplication
 {

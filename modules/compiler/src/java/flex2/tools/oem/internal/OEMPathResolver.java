@@ -31,7 +31,6 @@ import flex2.tools.oem.PathResolver;
  * This is used by FB to resolve using Eclipse's API's.
  * 
  * @version 3.0
- * @author Clement Wong
  */
 public class OEMPathResolver implements SinglePathResolver
 {

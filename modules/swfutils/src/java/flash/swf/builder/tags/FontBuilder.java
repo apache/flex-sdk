@@ -47,8 +47,6 @@ import java.util.Map;
  * must supply a font family name and style to establish a default
  * font face and a <code>FontManager</code> to locate and cache fonts
  * and glyphs.
- *
- * @author Peter Farland
  */
 @SuppressWarnings("unchecked")
 public final class FontBuilder implements TagBuilder

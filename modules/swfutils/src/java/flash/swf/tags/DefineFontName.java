@@ -21,8 +21,6 @@ package flash.swf.tags;
 
 /**
  * Stores the name and copyright information for a font.
- *
- * @author Brian Deitte
  */
 public class DefineFontName extends DefineTag
 {

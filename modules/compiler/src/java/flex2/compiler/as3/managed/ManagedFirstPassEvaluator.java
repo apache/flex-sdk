@@ -36,8 +36,6 @@ import java.util.*;
 /**
  * This evaluator handles processing class level Managed metadata and
  * reporting errors for Managed metadata used elsewhere.
- *
- * @author Paul Reilly
  */
 public class ManagedFirstPassEvaluator extends GenerativeFirstPassEvaluator
 {

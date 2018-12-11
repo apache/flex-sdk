@@ -23,8 +23,6 @@ import java.util.Comparator;
 
 /** 
  * This class is used to sort the string based on the length of the string
- *    
- * @author gauravj
  */
 public class SortComparator implements Comparator<String>
 {

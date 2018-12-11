@@ -26,8 +26,6 @@ import java.util.List;
 /**
  * This interface defines the common methods executed during the
  * prelink phase.
- *
- * @author Clement Wong
  */
 public interface PreLink
 {

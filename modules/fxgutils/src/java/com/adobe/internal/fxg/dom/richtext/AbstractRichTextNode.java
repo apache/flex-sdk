@@ -35,7 +35,6 @@ import com.adobe.internal.fxg.dom.TextNode;
  * A base class for all FXG nodes concerned with formatted text.
  * 
  * @since 2.0
- * @author Min Plunkett
  */
 public abstract class AbstractRichTextNode extends AbstractFXGNode implements TextNode
 {

@@ -67,10 +67,6 @@ import flash.graphics.g2d.SpriteGraphics2D;
  * <tt>JPEGTranscoder</tt> that produced a JPEG image.  It was
  * modified to produce SWF tags instead.  Batik's GVT module already
  * renders to any Graphics2D.
- *
- * @author <a href="mailto:Thierry.Kormann@sophia.inria.fr">Thierry Kormann</a>
- * @author Edwin Smith
- * @author Peter Farland
  */
 public class SpriteTranscoder extends XMLAbstractTranscoder
 {

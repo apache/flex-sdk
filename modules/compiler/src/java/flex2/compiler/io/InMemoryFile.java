@@ -27,9 +27,7 @@ import java.io.InputStream;
 
 /**
  * Represents a VirtualFile implementation, which is backed by a byte[].
- * 
- * @author Clement Wong
- */
+*/
 public class InMemoryFile implements VirtualFile
 {
 	public InMemoryFile(InputStream stream, long size, String name, String mimeType, long lastModified)

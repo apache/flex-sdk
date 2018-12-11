@@ -29,8 +29,6 @@ import java.util.Map;
 /**
  * Resolves files found in a given Map&lt;String, VirtualFile&gt;,
  * where the String is the path.
- *
- * @author Brian Deitte
  */
 public class SwcPathResolver implements SinglePathResolver
 {

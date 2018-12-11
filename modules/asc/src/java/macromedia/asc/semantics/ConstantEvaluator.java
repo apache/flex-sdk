@@ -45,8 +45,6 @@ import static macromedia.asc.util.BitSet.*;
  * of an expression. In this case, the constant evaluator
  * uses the prototype of that type as a stand-in for the
  * actual runtime value.
- *
- * @author Jeff Dyer
  */
 public final class ConstantEvaluator extends Emitter implements Evaluator, ErrorConstants
 {

@@ -30,9 +30,6 @@ import flash.swf.types.ShapeRecord;
 
 /**
  * A base class for all FXG nodes that represent a stroke.
- * 
- * @author Peter Farland
- * @author Sujata Das
  */
 public abstract class AbstractShapeNode extends GraphicContentNode
 {

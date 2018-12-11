@@ -32,8 +32,6 @@ import flex2.compiler.util.CompilerMessage;
  * This analyzer is used to check that WebService tags have Request
  * child tags with no attributes or only a "format" attribute and
  * Operation child tags with a "name" attribute.
- *
- * @author Clement Wong
  */
 public class WebServiceAnalyzer extends AnalyzerAdapter
 {

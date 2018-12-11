@@ -4767,6 +4767,9 @@ package spark.components
                             TextClipboard.importToScrap(pastedText, 
                                 TextConverter.PLAIN_TEXT_FORMAT);
                     }
+                    // don't do anything if nothing left on clipboard
+                    if (pastedText.length == 0)
+                        event.preventDefault();
                 }
             }
             else if (op is DeleteTextOperation || op is CutOperation)

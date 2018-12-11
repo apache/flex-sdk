@@ -26,8 +26,6 @@ import flex2.compiler.util.MultiName;
  * after the parse phase.  This includes the imports, inheritance,
  * functions, getters, and setters.  None of this information has been
  * validated.  It's only intended to guide downstream code generation.
- *
- * @author Paul Reilly
  * @see flex2.compiler.as3.binding.TypeAnalyzer
  */
 public class InterfaceInfo extends Info

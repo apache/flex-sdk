@@ -24,8 +24,6 @@ import java.io.Serializable;
 
 /**
  * Represents a font on the local disk.
- *
- * @author Brian Deitte
  */
 public class LocalFont implements Serializable
 {

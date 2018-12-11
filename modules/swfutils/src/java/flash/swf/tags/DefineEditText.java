@@ -28,8 +28,6 @@ import java.util.LinkedList;
 
 /**
  * This class represents a DefineEditText SWF tag.
- *
- * @author Clement Wong
  */
 public class DefineEditText extends DefineTag
 {

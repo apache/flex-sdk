@@ -22,8 +22,6 @@ package flex2.tools.oem;
 /**
  * Defines the API for SWC Script information.
  * 
- * @author Clement Wong
- * @author Roger Gonzalez
  * @version 3.0
  */
 public interface Script

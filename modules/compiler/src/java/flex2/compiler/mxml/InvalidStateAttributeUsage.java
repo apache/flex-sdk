@@ -23,8 +23,6 @@ import flex2.compiler.util.CompilerMessage;
 
 /**
  * This error is reported when a state attribute is not valid.
- *
- * @author Corey Lucier
  */
 public class InvalidStateAttributeUsage extends CompilerMessage.CompilerError
 {

@@ -64,8 +64,6 @@ import java.util.Iterator;
  * To adjust bytecode, we use BCEL's InstructionFinder, which lets us do regexp
  * matching on instruction sequences.  Once we find a match, we make the necessary
  * changes to a method's existing InstructionList.
- *
- * @author Edwin Smith
  */
 public class Downgrader implements Constants
 {

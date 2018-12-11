@@ -25,8 +25,6 @@ import flash.swf.ActionConstants;
 
 /**
  * Represents an AS2 "store register" byte code.
- *
- * @author Clement Wong
  */
 public class StoreRegister extends Action
 {

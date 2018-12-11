@@ -29,8 +29,6 @@ import java.util.NoSuchElementException;
 
 /**
  * This class represents a DefineButton SWF tag.
- *
- * @author Clement Wong
  */
 public class DefineButton extends DefineTag
 {

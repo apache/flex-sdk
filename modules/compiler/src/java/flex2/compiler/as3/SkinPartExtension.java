@@ -30,7 +30,6 @@ import macromedia.asc.util.Context;
  * This extension handles running the SkinPartEvaluator in the parse2
  * phase.
  *
- * @author Greg Burch
  * @see flex2.compiler.as3.SkinPartEvaluator
  */
 public final class SkinPartExtension implements Extension

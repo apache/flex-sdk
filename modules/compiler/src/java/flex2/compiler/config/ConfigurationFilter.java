@@ -22,8 +22,6 @@ package flex2.compiler.config;
 /**
  * Defines the API for configuration filters, which can be used to
  * restrict the valid configuration options.
- *  
- * @author dloverin
  */
 public interface ConfigurationFilter
 {

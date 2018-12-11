@@ -73,7 +73,6 @@ import java.util.Set;
  * the primary interface with ASC, this class also handles invoking
  * the compiler extensions and collecting benchmark data.
  *
- * @author Clement Wong
  * @see macromedia.asc.parser.Parser
  * @see macromedia.asc.semantics.ConstantEvaluator
  * @see macromedia.asc.semantics.FlowAnalyzer

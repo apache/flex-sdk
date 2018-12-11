@@ -27,8 +27,6 @@ import flex2.compiler.util.ThreadLocalToolkit;
 
 /**
  * An adapter to bridge the FXGUtils and Flex compiler logging systems.
- * 
- * @author Peter Farland
  */
 public class FlexLoggerAdapter extends AbstractLogger
 {

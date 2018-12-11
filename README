@@ -1,599 +1,505 @@
-Apache Flex (Flex)
-==================
+The Apache Flex SDK
+===================
 
-    Apache Flex SDK is an application development framework for easily building
-    Flash-based applications for mobile devices, web browsers, and desktops.
+The Apache Flex SDK is the evolution of the popular Adobe Flex SDK. The Apache
+Flex SDK is an application development framework for easily building Flash
+based applications for mobile devices, web browsers, and desktop platforms.
+Currently supported platforms include:
 
-    Apache Flex 4.13.0 is a follow up release to Apache Flex 4.12.1. This version
-    adds new features and implements bug fixes that were unavailable in previous
-    versions.  It is compatible with most code written to target Adobe Flex 4.6.
+    Microsoft Windows
+    Mac OS X
+    Apple iOS
+    Google Android
+    RIM BlackBerry
+    (Linux)
 
-    For detailed information about Apache Flex please visit
+Linux support is currently experimental and you may run into issues. The Apache
+Flex project would like to see a fully supported Linux release, but we need
+help from the community in order to do that. Please help out if you can.
+
+For more information about the Apache Flex project, please visit:
+
     http://flex.apache.org/
 
-    Apache Flex is a large project with many pieces.  The framework is
-    implemented in ActionScript and the compiler is implemented in Java.
-
-    Currently supported platforms include:
-
-        Microsoft Windows
-        Mac OS X
-        Apple iOS
-        Google Android
-        RIM BlackBerry
-        Linux
-
-    Apache Flex is the software evolution of the popular Adobe Flex SDK project.
-
-    The community surrounding Flex is vast, diverse, distributed globally, and
-    with all levels of proficiency in software development.
-
-    There has been more that 30,000 installs of Apache Flex. The Apache Flex web
-    site gets 3 quarters of a million page views a year and more than 250,000
-    unique visitors a year.
+The Apache Flex SDK 4.14.1 is a follow up release to version 4.14.0. It is
+compatible with most code written for the original Adobe Flex 4.6 SDK.
 
 
-Getting the convenience packages for Apache Flex
-================================================
 
-    The Apache Flex SDK Installer is an application that simplifies the download
-    and installation of the Apache Flex SDK and its (required) components. It is
-    aimed at anyone who wants to use the latest release of the Apache Flex SDK,
-    but who might not necessarily be familiar with the tools and procedures
-    required to compile the Apache Flex SDK from source code. The application
-    will grab the binary distribution of the SDK from apache.org or one of its
-    mirrors, install it onto your computer and prepare it for use with your
-    favorite IDE such as Adobe Flash Builder or JetBrains IntelliJ IDEA.
+Installing the Apache Flex SDK
+==============================
 
-    You can get the SDK Installer from the Apache Flex website at
+The Apache Flex SDK Installer is an AIR application that simplifies the 
+download and installation of the Apache Flex SDK and its (required) components.
+It is aimed at anyone who wants to use the latest release of the Apache Flex
+SDK, but who might not necessarily be familiar with the tools and procedures
+required to compile the Apache Flex SDK from source code. The application will
+grab the binary distribution of the SDK from apache.org or one of its mirrors,
+install it onto your computer and prepare it for use with your favourite IDE
+such as Adobe Flash Builder or JetBrains IntelliJ IDEA.
 
-      http://flex.apache.org/installer.html
+You can get the Apache Flex SDK Installer from the Apache Flex website at:
 
-    The SDK installer requires the Adobe AIR runtime to be installed.
+    http://flex.apache.org/installer.html
 
-    Starting with Apache Flex 4.12 the binary distribution can be installed
-    using only ANT in addition to the AIR installer mentioned above. This is
-    the recommended method for Linux users.  More information about installing
-    the binary package with ANT can be found on our wiki at :
+Starting with the Apache Flex SDK 4.12, Linux users can install the binary
+distribution using ANT. More information about installing the binary package
+with ANT can be found on our wiki at:
 
-      https://cwiki.apache.org/confluence/display/FLEX/Installation+help#Installationhelp-Antinstaller
+    https://cwiki.apache.org/confluence/display/FLEX/Installation+help#Installationhelp-Antinstaller
 
-Getting the latest sources via git
-==================================
 
-    Getting the source code is the recommended way to get Apache Flex.  We also
-    offer an automated installer along with binary distributions on our website
-    at http://flex.apache.org/.
 
-    You can always checkout the latest source via git using the following
-    command:
+Building the Apache Flex SDK from source
+========================================
 
-	 git clone https://git-wip-us.apache.org/repos/asf/flex-sdk.git sdk
-	 cd sdk
-	 git checkout develop
+The Apache Flex SDK is a large project. It requires build tools which must be
+installed on your system and it depends on some external software. The external
+software is downloaded as part of the build process.
 
-    An Apache Flex SDK also requires source code from other Apache Flex git
-    repositories.  To get the latest source via git for the Text Layout
-    Framework use the following command:
+There are two ways to get the SDK source.
+1) from a git repository
+2) from a source package distribution
 
-	 git clone https://git-wip-us.apache.org/repos/asf/flex-tlf.git tlf
-	 cd tlf
-	 git checkout develop
+The following steps are all you need for a fully functional SDK:
+- Prepare your system
+    - install external software
+    - set environment variables
+- Get the source code
+- Build the SDK
+- Prepare the SDK for use with an IDE
+- Optional steps:
+  - Flash Player configuration
+  - Other locale support
 
-    In an Apache Flex source code package hosted on the distribution server or
-    one of its mirrors, the Text Layout Framework code is already included in
-    the package.  This is also true for the convenience package.
 
-    Linux support is currently experimental and you may run into issues. Apache
-    Flex would like to see a fully supported Linux release, but we need support
-    from the community in order to do that. Please help out if you can.
+Prepare your system
+-------------------
 
-    For further information visit http://flex.apache.org/download-source.html
+Before building the Apache Flex SDK you must install the following software and
+set the corresponding environment variables. Make sure to use absolute paths,
+relative paths will result in build errors.
 
-Building Apache Flex 4.13.0
+The environment variables PLAYERGLOBAL_HOME, AIR_HOME, FLASHPLAYER_DEBUGGER,
+TLF_HOME, BLAZEDS_HOME and ADOBE_EXTENSION_MANAGER can also be set in a
+property file called env.properties. See the env-template.properties file
+for instructions.
+
+The Adobe Flash Player and Adobe AIR have non Apache compatible licenses so
+they can not be bundled with the Apache Flex SDK and need to be installed
+separately.
+
+The Adobe Flash Player ‘playerglobal.swc’ is needed to compile all the
+components with the exception of the ‘airframework’ and ‘airspark’
+components, which require ‘airglobal.swc’ from the AIR Integration Kit. The
+AIR Integration kit is also needed to build and debug mobile and desktop
+applications. The Adobe Flash Player content debugger is used by the ant
+‘checkintests’ target and other pieces of the test subsystem to run compiled
+applications.
+
+
+---------------------------------------------------------------------
+SOFTWARE                                      ENVIRONMENT VARIABLE
+---------------------------------------------------------------------
+
+Java SDK 1.6 or greater (* 1)                 JAVA_HOME
+    (for Java 1.7 see note at (* 2))
+
+Ant 1.7.1 or greater (* 1)                    ANT_HOME
+    (for Java 1.7 see note at (* 2))
+
+Adobe AIR Integration Kit (* 3)               AIR_HOME
+
+Adobe Flash Player Content Debugger (* 4)     FLASHPLAYER_DEBUGGER
+
+Adobe Flash Player playerglobal swcs (* 5)    PLAYERGLOBAL_HOME
+
+Optional: Text Layout Framework (* 6)         TLF_HOME
+
+Optional: Adobe Extension Manager CS5 (* 7)   ADOBE_EXTENSION_MANAGER
+
+Optional: Flex Messaging Common (* 8)         BLAZEDS_HOME
+
+---------------------------------------------------------------------
+
+* 1)
+The bin directories for ANT_HOME and JAVA_HOME should be added to your PATH.
+
+On Windows, set PATH to
+
+    PATH=%PATH%;%ANT_HOME%\bin;%JAVA_HOME%\bin
+
+On the Mac (bash), set PATH to
+
+    export PATH='$PATH:$ANT_HOME/bin:$JAVA_HOME/bin'
+
+On Linux make sure your path includes ANT_HOME and JAVA_HOME.
+
+* 2)
+If you are using Java SDK 1.7 or greater on a Mac you must use Ant 1.8 or
+greater. If you use Java 1.7 with Ant 1.7, ant reports the java version as
+1.6 so the JVM args for the data model (-d32/-d64) will not be set correctly
+and you will get compile errors.
+
+* 3)
+The Adobe AIR integration kit for Windows can be downloaded from:
+
+   http://airdownload.adobe.com/air/win/download/16.0/AdobeAIRSDK.zip
+
+The Adobe AIR integration kit for Mac can be downloaded from:
+
+    http://airdownload.adobe.com/air/mac/download/16.0/AdobeAIRSDK.tbz2
+
+The Adobe AIR integration kit for Linux can be downloaded from:
+
+    http://airdownload.adobe.com/air/lin/download/2.6/AdobeAIRSDK.tbz2
+
+Download the AIR SDK for your platform and unzip it. Set AIR_HOME to the
+absolute path of the AIR SDK directory.
+
+This version of the Apache Flex SDK was certified for use with Adobe AIR 16
+and is compatible with version 3.1 and up. It has been fully tested on AIR 3.7,
+4 and 16.
+
+* 4)
+The Adobe Flash Player content debuggers can be found here:
+
+    http://www.adobe.com/support/flashplayer/downloads.html
+
+This version of the Apache Flex SDK was certified for use with Adobe Flash
+Player 11.1, and is compatible with version 10.2 and up. It has been tested
+with versions 11.1, 11.7, 13.0 and 16.0 on Windows and Mac. It has been
+compiled, but not fully tested, against other Adobe Flash Player versions.
+It has not been fully tested on Linux.
+
+On Windows, set FLASHPLAYER_DEBUGGER to the absolute path including the
+filename of the FlashPlayerDebugger.exe. Note the filename of flash player
+debugger may be different, e.g. C:\MyPath\FlashPlayerDebugger.exe.
+
+On the Mac, set FLASHPLAYER_DEBUGGER to the absolute path of
+'Flash Player Debugger.app/Contents/MacOS/Flash Player Debugger'
+
+On Linux, set FLASHPLAYER_DEBUGGER to the absolute path of flashplayerdebugger.
+
+* 5)
+The Adobe Flash Player playerglobal.swc for 11.1 can be downloaded from:
+
+    http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc
+
+Set PLAYERGLOBAL_HOME to the absolute path of the player directory (not
+including the version subdirectory). The target-player option controls which
+PLAYERGLOBAL_HOME subdirectory is used.
+
+Additional information about downloading and setting up this and/or other
+versions of the Adobe Flash Player can be found in the section
+'Adobe Flash Player Version Support' below.
+
+* 6)
+The build scripts assume that the source code folder containing the Apache Flex
+Text Layout Framework root folder ('flex-tlf') is at the same level as the SDK
+root folder ('flex-sdk'). See 'Getting the source code', below. If this is not
+the case on your system, then you must set the TLF_HOME environment variable to
+point to your TLF root folder. If you are using a released artifact, the
+source should be included in the artifact, so setting TLF_HOME is not
+required.
+
+* 7)
+The Adobe Extension Manager is only required for those creating releases or
+testing changes to the flash-integration SWC. Note that if you change APIs on
+classes that flash-integration depends on, you may need to update
+flash-integration.
+
+On Windows, download the Adobe Extension Manager from:
+
+    http://download.macromedia.com/pub/dw_exchange/extension_manager/win/AdobeExtensionManager5All.zip
+
+and set ADOBE_EXTENSION_MANAGER to the absolute path of
+'Adobe Extension Manager CS5.exe'
+
+On Mac, download the Adobe Extension Manager from:
+
+    http://download.macromedia.com/pub/dw_exchange/extension_manager/mac/AdobeExtensionManager5All.dmg
+
+and set ADOBE_EXTENSION_MANAGER to the absolute path of
+'Adobe Extension Manager CS5.app/Contents/MacOS/Adobe Extension Manager CS5'
+
+On Linux, no Adobe Extension Manager exists.
+
+* 8)
+The build scripts assume that the source code folder containing the Apache Flex
+BlazeDS root folder ('flex-blazeds') is at the same level as the SDK
+root folder ('flex-sdk'). See 'Getting the source code', below. If this is not
+the case on your system, then you must set the BLAZEDS_HOME environment variable
+to point to your BLAZEDS root folder. If you are using a released artifact, the
+source should be included in the artifact, so setting BLAZEDS_HOME is not
+required.
+
+
+Get the source code
+-------------------
+
+You can get the source directly from the source code repository (Apache Flex
+uses git for SCM).
+
+Clone the latest source ('develop' branch) using the following commands:
+
+    git clone https://git-wip-us.apache.org/repos/asf/flex-sdk.git flex-sdk
+    cd flex-sdk
+    git checkout develop
+
+The Apache Flex SDK also requires source code from the Apache Flex Text Layout
+Framework (TLF). To get the latest source for TLF ('develop' branch), use the
+following commands:
+
+    git clone https://git-wip-us.apache.org/repos/asf/flex-tlf.git flex-tlf
+    cd flex-tlf
+    git checkout develop
+
+The Apache Flex SDK also requires source code from Apache Flex BlazeDS. To get 
+the latest source for Apache Flex BlazeDS (‘master’ branch), use the
+following commands:
+
+    git clone https://git-wip-us.apache.org/repos/asf/flex-blazeds.git flex-blazeds
+    cd flex-blazeds
+
+Another option to get the source is to download a released source package.
+
+For further information visit:
+
+    http://flex.apache.org/download-source.html
+
+
+Build the SDK
+-------------
+
+When you have all the prerequisites in place and the environment variables set,
+use these commands:
+
+    cd <flex-sdk>
+    ant main
+
+to download the third party dependencies and build the source. You will be
+prompted to acknowledge and/or confirm some of the downloads. Since the
+third-party dependencies take a little while to download and they don't change
+very often, they are not cleaned with the regular 'clean' target.
+
+If you would like to build the RSLs, use:
+
+    ant frameworks-rsls
+
+To clean the build of everything other than the downloaded third-party
+dependencies, use:
+
+    ant clean
+
+To clean the build of everything, including the downloaded third-party
+dependencies, use:
+
+    ant super-clean
+
+To generate a source distribution package and a binary distribution package,
+use:
+
+    ant -Dbuild.number=<YYYYMMDD> -Dbuild.noprompt= release
+
+The packages can then be found in the <flex-sdk>\out directory.
+
+To build the ASDoc package, use:
+
+    ant asdoc-package
+
+To get a brief listing of all the targets, use:
+
+    ant -projecthelp
+
+
+
+Prepare the SDK for use with an IDE
+-----------------------------------
+
+To create an SDK for Flash Builder or any other IDE, run:
+
+    cd <flex.dir>
+    ant frameworks-rsls
+    ant -f installer.xml
+    
+If you want to set the Flash Player and AIR versions to something other
+than their defaults, pass the verisons to the ant script like so:
+
+     ant -f installer.xml -Dflash.sdk.version=16.0 -Dair.sdk.version=16.0
+
+On Mac/Linux the AIR and Flash Player version can be changed, after the SDK
+has been compiled, by running:
+
+    ./ide/setFlashPlayerVersion.sh ./ 16.0
+    ./ide/addAIRtoSDK.sh 16.0 ./
+
+
+
+Using the Binary Distribution
+=============================
+
+In order to use the binary distribution of the SDK, follow the instructions in
+the 'Prepare the SDK for use with an IDE' section above.
+
+
+
+Flash Player Configuration
 =========================
 
-    Apache Flex is a large project. It requires some build tools which must be
-    installed prior to building Flex and it depends on some external software
-    which are downloaded as part of the build process.  Some of these have
-    different licenses.  See the Software Dependencies section for more
-    information on the external software dependencies.
+For testing, the Adobe Flash Player's mm.cfg file must have the following
+entries
 
-    From Apache's perspective, the Adobe Flash Player and Adobe AIR have
-    excluded licenses so they can not be bundled with the Apache Flex binaries.
-    They must be installed prior to building Apache Flex.
+    ErrorReportingEnable=1
+    TraceOutputFileEnable=1
 
-    Linux support is currently experimental and while it is possible to compile
-    the SDK it has not been fully tested so you may run into issues.
+and a FlashPlayerTrust file must allow local SWFs to access local files.
 
-Install Prerequisites
----------------------
+More information about these settings can be found here:
 
-    Before building Flex you must install the following software and set the
-    corresponding environment variables using absolute file paths.  Relative
-    file paths will result in build errors.
+    http://help.adobe.com/en_US/ActionScript/3.0_ProgrammingAS3/WS5b3ccc516d4fbf351e63e3d118a9b90204-7c95.html
 
-    The environment variables PLAYERGLOBAL_HOME, AIR_HOME, FLASHPLAYER_DEBUGGER,
-    TLF_HOME, and ADOBE_EXTENSION_MANAGER can also be set in the property file
-    called env.properties. See the env-template.properties file for
-    instructions.
 
-    The Adobe Flash Player playerglobal.swc is needed to compile all the
-    components
-    with the exception of the airframework and airspark components which require
-    airglobal.swc from the AIR Integration Kit.  The AIR Integration kit is also
-    needed to build and debug mobile applications.  The Adobe Flash Player
-    content debugger is used by checkintests and other pieces of the test
-    subsystem to run compiled applications.
-
-    The build scripts assume that the source code folder containing the Text
-    Layout Framework (tlf) folder is at the same level as the sdk folder or
-    located inside the frameworks/projects folder.   If this is not true, then
-    you must set the TLF_HOME environment variable to point to the tlf folder.
-
-    ==================================================================================
-    SOFTWARE                                    ENVIRONMENT VARIABLE (absolute paths)
-    ==================================================================================
-
-    Java SDK 1.6 or greater (*1)                JAVA_HOME
-        (for Java 1.7 see note at (*2))
-
-    Ant 1.7.1 or greater (*1)                   ANT_HOME
-        (for Java 1.7 see note at (*2))
-
-    Adobe AIR Integration Kit (*3)              AIR_HOME
-
-    Adobe Flash Player Content Debugger (*4)    FLASHPLAYER_DEBUGGER
-
-    Adobe Flash Player playerglobal swcs (*5)   PLAYERGLOBAL_HOME
-
-    Adobe Extension Manager CS5 (*6)            ADOBE_EXTENSION_MANAGER
-
-    Text Layout Framework                       TLF_HOME
-
-    ==================================================================================
-
-    *1) The bin directories for ANT_HOME and JAVA_HOME should be added to your
-        PATH.
-
-        On Windows, set PATH to
-
-            PATH=%PATH%;%ANT_HOME%\bin;%JAVA_HOME%\bin
-
-        On the Mac (bash), set PATH to
-
-            export PATH="$PATH:$ANT_HOME/bin:$JAVA_HOME/bin"
-
-         On Linux make sure you path include ANT_HOME and JAVA_HOME.
-
-    *2)  If you are using Java SDK 1.7 or greater on a Mac you must use Ant 1.8
-         or greater. If you use Java 1.7 with Ant 1.7, ant reports the java
-         version as 1.6 so the JVM args for the data model (-d32/-d64) will not
-         be set correctly and you will get compile errors.
-
-    *3) The Adobe AIR integration kit for Windows can be downloaded from:
-           http://airdownload.adobe.com/air/win/download/14.0/AdobeAIRSDK.zip
-
-         The Adobe AIR integration kit for Mac can be downloaded from:
-            http://airdownload.adobe.com/air/mac/download/14.0/AdobeAIRSDK.tbz2
-
-          The Adobe AIR integration kit for Linux can be downloaded from:
-            http://airdownload.adobe.com/air/lin/download/2.6/AdobeAIRSDK.tbz2
-
-        This version of Apache Flex was certified for use with AIR 14.0, and
-        should be compatible with other versions of AIR newer than 3.1. However
-        it hasn't been fully tested on AIR 3.2, 3.3, 3.5, 3.6 or 3.7.
-
-        Download the AIR SDK for your platform and unzip it. Set AIR_HOME to the
-        absolute path of the AIR SDK directory.
-
-    *4) The Adobe Flash Player content debuggers can be found here:
-            http://www.adobe.com/support/flashplayer/downloads.html
-
-        This version of Apache Flex was certified for use with Adobe Flash
-        Player 11.1, and is compatible with versions 10.2 through 14.0. It has
-        been tested with versions 11.1, 11.7, 11.8, 11.9, 12.0, 13.0 and 14.0
-        on Windows and Mac. It has been compiled against other Adobe Flash 
-        Player versions but has not been fully tested. It has not been fully 
-        tested on Linux.
-
-        On Windows, set FLASHPLAYER_DEBUGGER to the absolute path including the
-        filename of the FlashPlayerDebugger.exe. Note the filename of flash
-        player debugger maybe different.
-           e.g. C:\MyPath\FlashPlayerDebugger.exe
-
-        On the Mac, set FLASHPLAYER_DEBUGGER to the absolute path of
-        Flash Player Debugger.app/Contents/MacOS/Flash Player Debugger
-
-        On Linux, set FLASHPLAYER_DEBUGGER to the absolute path of
-        flashplayerdebugger
-
-    *5) The Adobe Flash Player playerglobal.swc for 11.1 can be downloaded from:
-            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc
-
-        Use URL above to download playerglobal11_1.swc. Create the directory,
-        player/11.1 and copy playerglobal11_1.swc to
-        player/11.1/playerglobal.swc.
-
-        Set PLAYERGLOBAL_HOME to the absolute path of the player directory (not
-        including the version subdirectory). The target-player option controls
-        which PLAYERGLOBAL_HOME subdirectory is used.
-
-        Other more recent versions of Adobe Flash Player playerglobal.swc can be
-        downloaded from:
-            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_2.swc
-            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_3.swc
-            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_4.swc
-            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_5.swc
-            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_6.swc
-            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_7.swc
-            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_8.swc
-            http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_9.swc
-            http://download.macromedia.com/get/flashplayer/updaters/12/playerglobal12_0.swc
-            http://download.macromedia.com/get/flashplayer/updaters/13/playerglobal13_0.swc
-            http://download.macromedia.com/get/flashplayer/updaters/14/playerglobal14_0.swc
-
-        These can be used with Apache Flex but not all have not been fully
-        tested.
-
-    *6) The Adobe Extension Manager is only required for those creating releases
-        or testing changes to the flash-integration swc.  Note that if you
-        change APIs on classes that flash-integration depends on, you may need
-        to update flash-integration.
-
-        The Adobe Extension Manager for Windows can be downloaded from:
-            http://download.macromedia.com/pub/dw_exchange/extension_manager/win/AdobeExtensionManager5All.zip
-
-         The Adobe Extension Manager for Mac can be downloaded from:
-            http://download.macromedia.com/pub/dw_exchange/extension_manager/mac/AdobeExtensionManager5All.dmg
-
-        On Windows, set ADOBE_EXTENSION_MANAGER to the absolute path of "Adobe
-        Extension Manager CS5.exe"
-
-        On Mac, set ADOBE_EXTENSION_MANAGER to the absolute path of "Adobe
-        Extension Manager CS5.app"
-
-        On Linux, no Adobe Extension Manager exists and there's nothing that
-        needs to be done here.
-
-FlashPlayer Configuration
--------------------------
-
-    For testing, the Adobe Flash Player's mm.cfg file must have the following
-    entries
-
-        ErrorReportingEnable=1
-        TraceOutputFileEnable=1
-
-    and a FlashPlayerTrust file must allow local SWFs to access local files.
 
 Other Locale Support
---------------------
+====================
 
-    The Apache Flex SDK defaults to using the en_US locale and SDK error
-    messages are by default displayed in American English.
+The Apache Flex SDK defaults to using the en_US locale and SDK error messages
+are by default displayed in American English.
 
-    To compile the SDK for another locale either:
+To compile the SDK for another locale either:
 
-    Change the locale in the build.properties file to have a value other than
-    "en_US".  For this new locale to take effect the SDK needs to be recompiled.
-    For example, to use the Australian English locale change locale to have a
-    value of "en_AU"
-    like so:
+Change the locale in the build.properties file to have a value other than
+'en_US'. For this new locale to take effect, the SDK needs to be recompiled. For
+example, to use the Australian English locale change locale to have a value of
+'en_AU' like so:
 
-        locale = en_AU
+    locale = en_AU
 
-    OR
+OR
 
-    Compile the SDK with a -Dlocale=<locale> option, where <locale> is the new
-    locale to compile the SDK against.
+Compile the SDK with a -Dlocale=<locale> option, where <locale> is the new
+locale to compile the SDK against.
 
-    To compile all supported locales, which may take some time, use
+To compile all supported locales, which may take some time, use:
 
-        ant other.locales
+    ant other.locales
 
-    The list of supported locales currently include:
-        da_DK	el_GR	en_GB	fi_FI	it_IT	nb_NO	pt_PT	zh_CN
-        de_CH	en_AU	en_US	fr_CH	ja_JP	nl_NL	ru_RU	zh_TW
-        de_DE	en_CA	es_ES	fr_FR	ko_KR	pt_BR	sv_SE
+The list of supported locales currently include:
+    da_DK    el_GR    en_GB    fi_FI    it_IT    nb_NO    pt_PT    zh_CN
+    de_CH    en_AU    en_US    fr_CH    ja_JP    nl_NL    ru_RU    zh_TW
+    de_DE    en_CA    es_ES    fr_FR    ko_KR    pt_BR    sv_SE
 
-    The Apache Flex SDK has only been tested for the en_US locale, however there
-    is unlikely to be any issues with a SDK compiled for another locales.
+The Apache Flex SDK has only been tested for the en_US locale. However, you are
+unlikely to run into any issues with a SDK compiled for another locale.
+
 
 Adobe Flash Player Version Support
-----------------------------------
+==================================
 
-    The Apache Flex SDK defaults to using the Adobe Flash Player 11.1. The SDK
-    can be used with Flash Player versions 10.2, 10.3, 11.0, 11.1, 11.2, 11.3,
-    11.4, 11.5, 11.6, 11.7, 11.8, 11.9, 12.0, 13.0 and 14.0.
+The Apache Flex SDK defaults to using the Adobe Flash Player 11.1. The SDK can
+be used with Flash Player versions 10.2 and up.
 
-    It is recommended that you update to the latest version of Adobe Flash
-    Player.  Newer versions of the Adobe Flash player address security
-    vulnerabilities, fix bugs/issues, increase stability, and implement new
-    features.
+It is recommended that you update to the latest version of Adobe Flash Player.
+Newer versions of the Adobe Flash player address security vulnerabilities, fix
+bugs/issues, increase stability, and support new features.
 
-    To use the SDK for another version of the Adobe Flash Player either:
+To use the SDK for another version of the Adobe Flash Player either:
 
-    Change the flex-config.xml configuration file to specify another version of
-    the Adobe Flash Player.
+Change the flex-config.xml configuration file to specify another version of the
+Adobe Flash Player.
 
-    OR
+OR
 
-    Change the playerglobal.version in the build.properties file to have a value
-    other than "11.1". For this change to take effect the SDK needs to be
-    recompiled.  For example to compile against the latest version of the Adobe
-    Flash Player set the value of playerglobal.version to be "14.0" like so:
+Change the playerglobal.version in the build.properties file to have a value
+other than '11.1'. For this change to take effect, the SDK needs to be
+recompiled. For example, to compile against the latest version of the Adobe
+Flash Player, set the value of playerglobal.version to be '16.0' like so:
 
-        playerglobal.version = 14.0
+    playerglobal.version = 16.0
 
-    OR
+OR
 
-    Compile the SDK with a -Dplayerglobal.version=<version> option, where
-    <version> is the Adobe Flash Player version to compile the SDK against.
+Compile the SDK with a -Dplayerglobal.version=<version> option, where <version>
+is the Adobe Flash Player version to compile the SDK against.
 
+Different versions of the Adobe Flash Player require different versions of
+playerglobal.swc.
 
-    Different versions of the Adobe Flash Player require different versions of
-    playerglobal.swc.
-
-    These can be found at:
+These can be found at:
 
     http://download.macromedia.com/get/flashplayer/installers/archive/playerglobal/playerglobal10_2.swc
     http://download.macromedia.com/get/flashplayer/installers/archive/playerglobal/playerglobal10_3.swc
-    http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_0.swc
-    http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc
-    http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_2.swc
-    http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_3.swc
-    http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_4.swc
-    http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_5.swc
-    http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_6.swc
-    http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_7.swc
-    http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_8.swc
-    http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_9.swc
-    http://download.macromedia.com/get/flashplayer/updaters/12/playerglobal12_0.swc
-    http://download.macromedia.com/get/flashplayer/updaters/13/playerglobal13_0.swc
-    http://download.macromedia.com/get/flashplayer/updaters/14/playerglobal14_0.swc
 
-    Copy the target playerglobal.swc to the directory:
+and
 
-        frameworks/libs/player/<version>/playerglobal.swc
+    http://download.macromedia.com/get/flashplayer/updaters/<version.major>/playerglobal<version.major>_<version.minor>.swc
 
-    Where <version> is the major and minor version numbers of the Adobe Flash
-    Player separated by a period or full stop.
+(e.g. http://download.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc)
 
-    If all of the playerglobal swcs where installed the frameworks/libs/player
-    directory structure would look like this.
+Copy the target playerglobal.swc to the directory:
 
-        /frameworks
-            /libs
-                /player
-                    /10.2
-                         /playerglobal.swc
-                    /10.3
-                         /playerglobal.swc
-                    /11.0
-                         /playerglobal.swc
-                    /11.2
-                         /playerglobal.swc
-                    /11.2
-                         /playerglobal.swc
-                    /11.3
-                         /playerglobal.swc
-                    /11.4
-                         /playerglobal.swc
-                    /11.5
-                         /playerglobal.swc
-                    /11.6
-                         /playerglobal.swc
-                    /11.7
-                         /playerglobal.swc
-                    /11.8
-                         /playerglobal.swc
-                    /11.9
-                         /playerglobal.swc
-                    /12.0
-                         /playerglobal.swc
-                    /13.0
-                         /playerglobal.swc
-                    /14.0
-                         /playerglobal.swc
+    frameworks/libs/player/<version.major>.<version.minor>/playerglobal.swc
+    
+On OSX, running the script:
 
-    Apache Flex has been tested with Adobe Flash Player 11.1, 11.5, 11.7, 11.8,
-    11.9, 12.0, 13.0 and 14.0 on Windows and Mac.
+    ./ide/checkAllPlayerGlobals.sh 
+ 
+will download any new or missing player global swcs.
 
-    Apache Flex has not been tested on Linux so some issues may exist in this
-    release.
-
-    It compiles against other Adobe Flash Player versions and is expected to
-    work but their may be some issues, particularly with the earlier 10.2 and
-    10.3 versions of the Adobe Flash Player.
 
 Software Dependencies
----------------------
+=====================
 
-    Apache Flex uses third-party code that will be downloaded as part of the
-    Apache Flex build.  In addition, there is some optional third-party code
-    that you can choose to download if you would like to take advantage of the
-    features offered and you agree to the license terms.
+The Apache Flex SDK uses third-party code that will be downloaded as part of
+the build. In addition, you can choose to download optional third-party code
+if you would like to take advantage of the features offered, and you agree to
+the license terms.
 
-    The Apache Version 2.0 license is in the LICENSE file.
+The following dependencies have licenses which are, or are compatible with, the
+Apache Version 2.0 license. You will not be prompted to acknowledge the
+download. Most of the jars are installed in lib/external.
 
-    The following dependencies have licenses which are, or are compatible with,
-    the Apache Version 2.0 license.  You will not be prompted to acknowledge the
-    download.  Most of the jars are installed in lib/external.
+    batik - http://archive.apache.org/dist/xmlgraphics/batik/batik-1.6.zip
+    commons-collections - http://archive.apache.org/dist/commons/collections/binaries/commons-collections-3.0.tar.gz
+    commons-discovery - http://archive.apache.org/dist/commons/discovery/binaries/commons-discovery-0.2.tar.gz
+    commons-logging - http://archive.apache.org/dist/commons/logging/binaries/commons-logging-1.0.4.tar.gz
+    javacc - http://java.net/projects/javacc/downloads/download/javacc-5.0.tar.gz
+    velocity - http://archive.apache.org/dist/velocity/engine/1.4/velocity-1.4.tar.gz
+    xalan - http://archive.apache.org/dist/xml/xalan-j/binaries/xalan-j_2_6_0-bin.tar.gz
+    xerces - http://archive.apache.org/dist/xerces/j/Xerces-J-bin.2.9.1.zip
 
-        batik - http://archive.apache.org/dist/xmlgraphics/batik/batik-1.6.zip
-        commons-collections - http://archive.apache.org/dist/commons/collections/binaries/commons-collections-3.0.tar.gz
-        commons-discovery - http://archive.apache.org/dist/commons/discovery/binaries/commons-discovery-0.2.tar.gz
-        commons-logging - http://archive.apache.org/dist/commons/logging/binaries/commons-logging-1.0.4.tar.gz
-        javacc - http://java.net/projects/javacc/downloads/download/javacc-5.0.tar.gz
-        saxon9 - http://sourceforge.net/projects/saxon/files/Saxon-B/9.1.0.8/saxonb9-1-0-8j.zip/download
-        velocity - http://archive.apache.org/dist/velocity/engine/1.4/velocity-1.4.tar.gz
-        xalan - http://archive.apache.org/dist/xml/xalan-j/binaries/xalan-j_2_6_0-bin.tar.gz
-        xerces - http://archive.apache.org/dist/xerces/j/Xerces-J-bin.2.9.1.zip
+The following dependencies have licenses which Apache considers to be
+reciprocal licenses. These files are installed in lib/external
+frameworks/libs respectively.
 
-    The following dependencies have licenses which Apache considers to be
-    reciprocal licenses so you will be prompted to acknowledge the license
-    before the software is downloaded to your system. These files are installed
-    in frameworks/libs.
+    saxon9 - http://sourceforge.net/projects/saxon/files/Saxon-B/9.1.0.8/saxonb9-1-0-8j.zip/download
+    osmf.swc (Open Source Media Framework v2.0; used for video components) - http://sourceforge.net/projects/osmf.adobe/files/OSMF%201.0%20%28final%20source%2C%20ASDocs%2C%20PDF%20guides%2C%20and%20release%20notes%29/OSMF_1.0.zip/download
 
-        osmf.swc
+    saxon9 is released under the Mozilla Public License Version 1.0:
+    osmf.swc is released under the Mozilla Public License Version 1.1:
 
-        Open Source Media Framework v1.0 used for video components
+        http://www.mozilla.org/MPL/
 
-        This file is extracted from:
-        http://sourceforge.net/projects/osmf.adobe/files/OSMF%201.0%20%28final%20source%2C%20ASDocs%2C%20PDF%20guides%2C%20and%20release%20notes%29/OSMF_1.0.zip/download
+The following dependencies have licenses which Apache considers to be
+incompatible with the Apache License Version 2.0. You will be prompted to read
+and agree to the license terms of the dependency before the software can be
+downloaded to your system. These are optional components which enable
+additional features. They are installed in libs/external/optional.
 
-        This software is released under the Mozilla Public License Version 1.1:
-        <http://www.mozilla.org/MPL/>
+    adt.jar, afe.jar, aglj40.jar, flex-fontkit.jar and rideau.jar (provide embedded font support)
 
-    The following dependencies have licenses which Apache considers to be not
-    compatible with the Apache License Version 2.0. You will be prompted to read
-    and agree to the license terms of the dependency before the software can be 
-    downloaded to your system.
-    These are optional components which enable additional features.  They are
-    installed in libs/external/optional.
+    These jars are extracted from:
 
-    flex-messaging-common.jar
-        Provides integration with Adobe BlazeDS.
-
-        This files are extracted from:
         http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6/flex_sdk_4.6.0.23201B.zip
 
-        This software is released under an Adobe license:
-        <http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf>
+    and are released under an Adobe license:
 
-    flex-fontkit.jar
-    afe.jar, adt.jar
-    aglj40.jar
-    rideau.jar
-        Adobe proprietary software which provides embedded font support.
-
-        These jars are extracted from:
-        http://fpdownload.adobe.com/pub/flex/sdk/builds/flex4.6/flex_sdk_4.6.0.23201B.zip
-
-        This software is released under an Adobe license:
-        <http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf>
-
-Using the Binary Distribution
------------------------------
-
-    You must download the third-party dependencies.
-
-    When you have all the prerequisites in place and the environment variables
-    set, (see Install Prerequisites above -- you cannot use the env.properties
-    file to set the environment variables for these steps.), use
-
-        cd <flex.dir>/frameworks
-        ant thirdparty-downloads
-
-    Additionally, you will need to build the RSLS for the SDK before you run the
-    batch files.
-
-        cd <flex.dir>
-        ant frameworks-rsls
-
-    To use this SDK in a IDE like Flash Builder 4.6 or 4.7 the SDK needs
-    several other files to be packaged and integrated with the Apache Flex SDK.
-
-	If you have an existing installation of Flash Builder run:
-
-		/ide/constructFlexForIDE.sh (on Mac and Linux)
-		/ide/constructFlexForIDE.bat (on Windows)
-
-	This will create an Apache Flex 4.13.0 SDK that can be used with Flash
-        Builder by copying the required files from the Adobe Flex 4.6 SDK.
-
-	To create an SDK for other IDE or if you want to use Adobe AIR 14.0
-        (rather than AIR 3.1 contained in Adobe Flex 4.6) run:
-
-		/ide/flashbuilder/makeApacheFlexForIDE.sh (on Mac and Linux)
-		/ide/flashbuilder/makeApacheFlexForIDE.bat (on Windows)
-
-	This will create an Apache Flex 4.13.0 SDK that can be used by an IDE by
-    downloading Adobe Flex 4.6 SDK and Adobe AIR 14.0.
-
-Building the Framework in a Binary Distribution
------------------------------------------------
-
-    The source for most of the framework is included in the binary distribution.
-    It can be useful if you wish to debug and/or extend components.
-
-    When you have all the prerequisites in place and the environment variables
-    set, (see Install Prerequisites above), use
-
-        cd <flex.dir>/frameworks
-        ant main        (or just ant since the default target is main)
-
-    to download the third-party dependencies and build the Flex framework.  You 
-    may be prompted to acknowledge some of the downloads.  Since the third-party
-    dependencies take a little while to download and they don't change very
-    often, they are not cleaned with the regular clean target.
-
-    To clean the build, of everything other than the downloaded third-party
-    dependencies use
-
-        ant clean
-
-    To clean the build, of everything, including the downloaded third-party
-    dependencies use
-
-        ant super-clean (which is just thirdparty-clean followed by clean)
-
-Building the Source in the Source Distribution
-----------------------------------------------
-
-    The source for both the Flex compiler and the Flex framework is included in
-    the source distribution.  The compiler is in the modules directory and the
-    framework is in the frameworks directory.
-
-	Because the sdk uses the Text Layout Framework, you will have to clone
-        it too and link it to the textLayout project of the sdk:
-
-	cd <flex.dir>/..
-	git clone https://git-wip-us.apache.org/repos/asf/flex-tlf.git tlf
-
-    When you have all the prerequisites in place and the environment variables
-    set (see Install Prerequisites above), use
-
-        cd <flex.dir>
-        ant main        (or just ant since the default target is main)
-
-    to download the thirdparty dependencies and build the source.  You may be
-    prompted to acknowledge and/or confirm some of the downloads.  Since the
-    third-party dependencies take a little while to download and they don't
-    change very often, they are not cleaned with the regular clean target.
-
-    If you would like to build the RSLs, use
-
-        ant frameworks-rsls
-
-    To clean the build, of everything other than the downloaded third-party
-    dependencies use
-
-        ant clean
-
-    To clean the build, of everything, including the downloaded third-party
-    dependencies use
-
-        ant super-clean (which is just thirdparty-clean followed by clean)
-
-    To generate a source distribution package and a binary distribution package
-    use
-
-        ant -Dbuild.number=<YYYYMMDD> -Dbuild.noprompt= release
-
-    The packages can be found in the "out" subdirectory.
-
-    To build the ASDoc package
-
-        ant asdoc-package
-
-    To get a brief listing of all the targets type
-
-        ant -projecthelp
+        http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf
 
 
-Thanks for using Apache Flex.  Enjoy!
 
-                                          The Apache Flex Project
-                                          <http://flex.apache.org>
+Thanks for using the Apache Flex SDK. Enjoy!
+
+                                      The Apache Flex Project
+                                      <http://flex.apache.org>

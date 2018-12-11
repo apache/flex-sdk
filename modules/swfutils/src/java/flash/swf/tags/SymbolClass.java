@@ -26,8 +26,6 @@ import java.util.*;
 
 /**
  * This represents a SymbolClass SWF tag.
- *
- * @author Clement Wong
  */
 public class SymbolClass extends Tag
 {

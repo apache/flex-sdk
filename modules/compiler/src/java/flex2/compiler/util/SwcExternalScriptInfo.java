@@ -23,8 +23,6 @@ import java.util.Set;
 
 /**
  * Information about how an external script is resolved.
- * 
- * @author dloverin
  */
 public interface SwcExternalScriptInfo
 {

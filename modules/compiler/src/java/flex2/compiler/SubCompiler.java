@@ -23,8 +23,6 @@ import flex2.compiler.util.PerformanceData;
 
 /**
  * Each subcompiler must implement this interface.
- *
- * @author Clement Wong
  */
 public interface SubCompiler
 {

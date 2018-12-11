@@ -217,16 +217,6 @@ public class EmailValidator extends Validator
 				if (nextPeriodPos == -1)
 				{
 					lastDomain = domain.substring(periodPos + 1);
-					if (lastDomain.length != 3 &&
-						lastDomain.length != 2 &&
-						lastDomain.length != 4 &&
-						lastDomain.length != 6)
-					{
-						results.push(new ValidationResult(
-							true, baseField, "invalidDomain",
-							validator.invalidDomainError));
-						return results;
-					}
 					break;
 				}
 				else if (nextPeriodPos == periodPos + 1)

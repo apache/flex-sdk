@@ -23,7 +23,6 @@ package flex2.tools.oem.internal;
  * Contains constants for all the configuration options.
  *
  * @version 2.0.1
- * @author Clement Wong
  */
 interface ConfigurationConstants
 {

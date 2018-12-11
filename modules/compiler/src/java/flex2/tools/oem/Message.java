@@ -34,7 +34,6 @@ package flex2.tools.oem;
  * The <code>Message.toString()</code> method returns the message text.
  * 
  * @version 2.0.1
- * @author Clement Wong
  */
 public interface Message
 {

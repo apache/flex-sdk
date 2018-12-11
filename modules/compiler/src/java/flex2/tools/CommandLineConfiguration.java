@@ -41,8 +41,6 @@ import java.util.List;
  * -file-specs, -help, -include-resource-bundles, -load-config,
  * -output, -projector, and -version.
  *
- * @author Roger Gonzalez
- * @author Clement Wong
  */
 public class CommandLineConfiguration extends ToolsConfiguration
 {

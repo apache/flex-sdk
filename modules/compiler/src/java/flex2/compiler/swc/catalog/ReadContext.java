@@ -26,8 +26,6 @@ import java.util.Stack;
 /**
  * Context that allows for retrieval of current element and parent
  * elements.
- *
- * @author Brian Deitte
  */
 public class ReadContext
 {

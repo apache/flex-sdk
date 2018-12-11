@@ -76,7 +76,6 @@ import com.adobe.internal.fxg.dom.types.NumberInherit.NumberInheritAsEnum;
  * Represents a &lt;RichText&gt; element of an FXG Document.
  *
  * @since 2.0
- * @author Min Plunkett
  */
 public class RichTextNode extends GraphicContentNode implements TextNode
 {

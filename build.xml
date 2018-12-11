@@ -70,6 +70,26 @@
             property="TLF_HOME"
             value="${FLEX_HOME}/frameworks/projects" />
 
+    <available file="${FLEX_HOME}/../flex-blazeds/modules/remoting"
+            type="dir"
+            property="BLAZEDS_HOME"
+            value="${FLEX_HOME}/../flex-blazeds" />
+
+    <available file="${FLEX_HOME}/../blazeds/modules/remoting"
+            type="dir"
+            property="BLAZEDS_HOME"
+            value="${FLEX_HOME}/../blazeds" />
+
+    <available file="${env.BLAZEDS_HOME}"
+            type="dir"
+            property="BLAZEDS_HOME"
+            value="${env.BLAZEDS_HOME}"/>
+
+    <available file="${FLEX_HOME}/modules/flex-messaging-common/common/src"
+            type="dir"
+            property="BLAZEDS_HOME"
+            value="${FLEX_HOME}/modules/flex-messaging-common/common/src" />
+
     <tstamp>
         <format property="build.number.date" pattern="yyyyMMdd" />
     </tstamp>
@@ -163,7 +183,7 @@
     <target name="prebuild" depends="check-compile-env,thirdparty-downloads,create-description" 
         description="Stuff that needs to be done before any builds." />
 
-    <target name="check-compile-env" depends="check-playerglobal-home,check-air-home,check-tlf-home"
+    <target name="check-compile-env" depends="check-playerglobal-home,check-air-home,check-tlf-home,check-blazeds-home"
         description="Check for the required environment variables for compilation.">
             <echo>OS: ${os.name} / ${os.version} / ${os.arch}</echo>
             <echo>VM: ${java.vm.name} / ${java.vm.version}</echo>
@@ -227,6 +247,21 @@
         <fail message="TLF_HOME must be set correctly for a release build" 
             unless="TLF_HOME"/>
     	
+    </target>
+
+    <target name="check-blazeds-home" unless="BLAZEDS_HOME"
+        description="Check BLAZEDS_HOME is a directory.">
+        
+        <echo message="BLAZEDS_HOME is ${env.BLAZEDS_HOME}"/>
+        
+        <available file="${env.BLAZEDS_HOME}"
+            type="dir"
+            property="BLAZEDS_HOME"
+            value="${env.BLAZEDS_HOME}"/>
+        
+        <fail message="BLAZEDS_HOME must be set correctly for a release build"
+            unless="BLAZEDS_HOME"/>
+        
     </target>
 
     <target name="check-adobe-extension-manager-env" unless="ADOBE_EXTENSION_MANAGER.set"
@@ -566,10 +601,16 @@
                 <include name="installer.properties/**"/>
                 <include name="CHANGES"/>
                 <include name="LICENSE"/>
+                <include name="LICENSE.base"/>
+                <include name="LICENSE.bin"/>
                 <include name="NOTICE"/>
+                <include name="NOTICE.asc"/>
+                <include name="NOTICE.base"/>
+                <include name="NOTICE.bin"/>
                 <include name="README"/>
                 <include name="RELEASE_NOTES"/>
             	<include name="CONTRIBUTING"/>
+                <include name="CONTRIBUTORS"/>
             </fileset>
         </copy>
          
@@ -584,6 +625,9 @@
 
         <!-- modules -->
         <antcall target="stage-modules"/>
+        
+        <!-- blazeds -->
+        <antcall target="stage-blazeds"/>
         
         <!-- asdoc -->
         <copy todir="${basedir}/temp/asdoc" includeEmptyDirs="false">
@@ -678,16 +722,10 @@
         <!-- frameworks/javascript -->
         <copy todir="${basedir}/temp/frameworks/javascript" includeEmptyDirs="false">
             <fileset dir="${basedir}/frameworks/javascript">
-                <include name="build.xml"/>
-            </fileset>
-        </copy>
-
-        <copy todir="${basedir}/temp/frameworks/javascript" includeEmptyDirs="false">
-            <fileset dir="${basedir}/frameworks/javascript">
+                <include name="**/**" />
                 <exclude name="FABridge/**/swfobject.js"/>
                 <exclude name="FABridge/readme.txt"/>
             </fileset>
-            <mapper type="glob" from="FABridge/*" to="fabridge/*" />            
         </copy>
         
         <!-- frameworks/tests -->
@@ -712,6 +750,23 @@
             <fileset dir="${TLF_HOME}/textLayout">
                 <include name="src/**"/>
                 <include name="manifest.xml"/>
+            </fileset>
+        </copy>
+    </target>
+    
+    <!-- blazeds -->
+    <target name="stage-blazeds">
+        <copy todir="${basedir}/temp/modules/flex-messaging-common/common" includeEmptyDirs="false">
+            <fileset dir="${BLAZEDS_HOME}/modules/common">
+                <include name="**/**"/>
+                <exclude name="target/**"/>
+                <exclude name="classes/**"/>
+            </fileset>
+        </copy>
+        <copy todir="${basedir}/temp/modules/flex-messaging-common" includeEmptyDirs="false">
+            <fileset dir="${BLAZEDS_HOME}">
+                <include name="LICENSE"/>
+                <include name="NOTICE"/>
             </fileset>
         </copy>
     </target>
@@ -850,13 +905,7 @@ There are no known issues.
         
         <antcall target="stage-source"/>
         
-        <!-- Delete files from source distro that are not in binary distro. -->        
-        <delete dir="${basedir}/temp/">
-            <include name="**/build.xml"/>
-            <exclude name="asdoc/build.xml"/>
-        </delete>
-
-        <!-- 
+        <!--
             Some, but not all framework sources are included.
             Need to include the sources required for build_framework.xml.
         -->
@@ -893,9 +942,13 @@ There are no known issues.
         <!-- these files are in addition to the remaining source files -->
         
         <!-- concat the license file with the binary license file for the 3rd party deps -->
-        <!--concat destfile="${basedir}/temp/LICENSE">
+        <concat destfile="${basedir}/temp/LICENSE">
             <filelist dir="${FLEX_HOME}" files="LICENSE,LICENSE.bin"/>
-        </concat-->
+        </concat>
+        <!-- concat the license file with the binary license file for the 3rd party deps -->
+        <concat destfile="${basedir}/temp/NOTICE">
+            <filelist dir="${FLEX_HOME}" files="NOTICE,NOTICE.bin"/>
+        </concat>
         
         <!-- use this to build frameworks -->
         <copy file="${basedir}/frameworks/build_framework.xml" 
@@ -932,6 +985,7 @@ There are no known issues.
                 <include name="core.swc"/>
             	<include name="experimental.swc"/>
             	<include name="experimental_mobile.swc"/>
+                <include name="flatspark.swc"/>
                 <include name="spark.swc"/>
                 <include name="framework.swc"/>
                 <include name="mx/mx.swc"/>
@@ -1031,6 +1085,7 @@ There are no known issues.
                 <include name="fdb.jar"/>
                 <include name="fcsh.jar"/>
                 <include name="flex-compiler-oem.jar"/>
+                <include name="flex-messaging-common.jar"/>
                 <include name="mxmlc.jar"/>
                 <include name="optimizer.jar"/>
                 <include name="swcdepends.jar"/>
@@ -1038,6 +1093,7 @@ There are no known issues.
                 <include name="swfutils.jar"/>
                 <include name="fxgutils.jar"/>
                 <include name="velocity-dep-1.4-flex.jar"/>
+                <include name="flex-tool-api.jar"/>
                 <exclude name="external/optional/**"/>
             </fileset>
         </copy>
@@ -1797,8 +1853,14 @@ There are no known issues.
                 <exclude name="modules/thirdparty/batik/sources/*.mf"/>
                 <!-- exclude text files -->
                 <exclude name="CONTRIBUTING"/>
+                <exclude name="CONTRIBUTORS"/>
+                <exclude name="LICENSE.bin"/>
+                <exclude name="NOTICE.bin"/>
+                <exclude name="NOTICE.asc"/>
+                <exclude name="NOTICE.base"/>
                 <exclude name="modules/thirdparty/batik/lib/**/LICENSE*.txt"/>
                 <exclude name="modules/thirdparty/batik/lib/**/README*.txt"/>
+                <exclude name="frameworks/projects/flatspark/src/flatspark/assets/fonts/**/OFL.txt"/>
                 <!-- exclude w3c sources -->
                 <exclude name="modules/thirdparty/batik/resources/org/apache/flex/forks/batik/dom/svg/resources/*.mod"/>
                 <exclude name="modules/thirdparty/batik/resources/org/apache/flex/forks/batik/dom/svg/resources/*.dtd"/>
@@ -1875,6 +1937,55 @@ There are no known issues.
 		<checksum algorithm="md5" file="${basedir}/out/${source.kit}.zip" forceOverwrite="yes"/>
 	</target>
 	
+    <target name="sign" >
+        <exec executable="gpg">
+            <arg value="--armor" />
+            <arg value="--output" />
+            <arg value="${basedir}/out/${source.kit}.zip.asc" />
+            <arg value="--detach-sig" />
+            <arg value="${basedir}/out/${source.kit}.zip" />
+        </exec>
+        
+        <exec executable="gpg">
+            <arg value="--armor" />
+            <arg value="--output" />
+            <arg value="${basedir}/out/${source.kit}.tar.gz.asc" />
+            <arg value="--detach-sig" />
+            <arg value="${basedir}/out/${source.kit}.tar.gz" />
+        </exec>
+        
+        <exec executable="gpg">
+            <arg value="--armor" />
+            <arg value="--output" />
+            <arg value="${basedir}/out/${binary.kit}.zip.asc" />
+            <arg value="--detach-sig" />
+            <arg value="${basedir}/out/${binary.kit}.zip" />
+        </exec>
+        
+        <exec executable="gpg">
+            <arg value="--armor" />
+            <arg value="--output" />
+            <arg value="${basedir}/out/${binary.kit}.tar.gz.asc" />
+            <arg value="--detach-sig" />
+            <arg value="${basedir}/out/${binary.kit}.tar.gz" />
+        </exec>
+    </target>
+        
+	<target name="doc-create-md5" >
+		<echo message="Generating MD5 hashes for doc artifacts"/>
+		<checksum algorithm="md5" file="${basedir}/out/${kit.prefix}-asdocs.zip" forceOverwrite="yes"/>
+	</target>
+	
+    <target name="doc-sign" >
+        <exec executable="gpg">
+            <arg value="--armor" />
+            <arg value="--output" />
+            <arg value="${basedir}/out/${kit.prefix}-asdocs.zip.asc" />
+            <arg value="--detach-sig" />
+            <arg value="${basedir}/out/${kit.prefix}-asdocs.zip" />
+        </exec>
+	</target>
+	
 	<target name="create-md5-pixelbender" >
 		<echo message="Generating MD5 hashes for release artifacts"/>
 		<checksum algorithm="md5" file="${basedir}/out/${binary-pixelbender.kit}.tar.gz" forceOverwrite="yes"/>
@@ -1945,5 +2056,13 @@ There are no known issues.
 		<checksum file="${file}" property="mymd5" />
 		<echo>${mymd5}</echo>
 	</target>
+
+  <!--
+      Run FlexUnit tests
+  -->
+
+  <target name="test" description="Run all framework projects' FlexUnit tests">
+      <ant dir="${basedir}/frameworks" target="test"/>
+  </target>
 
 </project>

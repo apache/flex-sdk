@@ -25,8 +25,6 @@ import flash.swf.types.CXForm;
 
 /**
  * This class represents a DefineButtonCxform SWF tag.
- *
- * @author Clement Wong
  */
 public class DefineButtonCxform extends Tag
 {

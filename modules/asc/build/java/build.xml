@@ -106,8 +106,8 @@
 	<target name="jar" depends="classes" >
 		<mkdir dir="${lib.dir}" />
 		<mkdir dir="${basedir}/classes/META-INF"/>
-        <copy file="${root.dir}/../../LICENSE" todir="${basedir}/classes/META-INF"/>
-        <copy file="${root.dir}/../../NOTICE" todir="${basedir}/classes/META-INF"/>
+        <copy file="${root.dir}/../../LICENSE.base" tofile="${basedir}/classes/META-INF/LICENSE"/>
+        <copy file="${root.dir}/../../NOTICE.asc" tofile="${basedir}/classes/META-INF/NOTICE"/>
 
 		<jar file="${lib.dir}/asc.jar" basedir="${basedir}/classes" includes="macromedia/asc/**/*,macromedia/abc/**/*,adobe/abc/**/*">
 		    <include name="META-INF/LICENSE"/>

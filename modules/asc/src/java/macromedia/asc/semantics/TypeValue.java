@@ -28,8 +28,6 @@ import static macromedia.asc.embedding.avmplus.RuntimeConstants.TYPE_object;
 
 /**
  * The interface for all types.
- *
- * @author Jeff Dyer
  */
 public final class TypeValue extends ObjectValue
 {

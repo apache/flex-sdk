@@ -25,8 +25,6 @@ import java.security.NoSuchAlgorithmException;
 /**
  * The Digest class represents the values of the digest or
  * signed-digest xml in catalog.xml.
- * 
- * @author dloverin
  */
 public class Digest
 {

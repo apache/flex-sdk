@@ -31,8 +31,6 @@ package com.adobe.internal.fxg.dom.types;
  *   1 = Reflect Mode
  *   2 = Repeat Mode
  * </pre>
- * 
- * @author Peter Farland
  */
 public enum SpreadMethod
 {

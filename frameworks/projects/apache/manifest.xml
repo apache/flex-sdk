@@ -32,4 +32,6 @@
 	<component id="VectorCollection" class="org.apache.flex.collections.VectorCollection"/>
 	<component id="VectorList" class="org.apache.flex.collections.VectorList"/>
 
+	<component id="Promise" class="org.apache.flex.promises.Promise"/>
+
 </componentPackage>

@@ -32,8 +32,6 @@ package com.adobe.internal.fxg.dom.types;
  *   2 = normal
  *   3 = horizontal
  * </pre>
- * 
- * @author Peter Farland
  */
 public enum ScaleMode
 {

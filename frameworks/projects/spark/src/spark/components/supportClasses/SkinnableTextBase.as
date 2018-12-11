@@ -77,13 +77,14 @@ include "../../styles/metadata/SelectionFormatTextStyles.as"
 
 /**
  *  The color of the border for this component.
+ *  Supported in iOS7+ skins
  * 
  *  @langversion 3.0
  *  @playerversion Flash 10
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */
-[Style(name="borderColor", type="uint", format="Color", inherit="no", theme="spark")]
+[Style(name="borderColor", type="uint", format="Color", inherit="no", theme="spark, mobile")]
 
 /**
  *  Controls the visibility of the border for this component.
@@ -2699,7 +2700,7 @@ public class SkinnableTextBase extends SkinnableComponent
         
         // We may have gone from empty to non-empty or vice-versa. This should
         // cause the prompt to show or hide.
-        if (prompt != null && prompt != "" && skin && 
+        if (prompt != null && prompt != "" && skin && skin.currentState &&
             (skin.currentState.indexOf("WithPrompt") != -1 && text.length != 0 ||
             skin.currentState.indexOf("WithPrompt") == -1 && text.length == 0))
             invalidateSkinState();

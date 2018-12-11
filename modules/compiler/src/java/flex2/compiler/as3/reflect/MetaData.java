@@ -30,8 +30,6 @@ import java.util.Map;
 /**
  * TypeTable implementation based on type information extracted from
  * ASC's MetaDataNode.
- *
- * @author Clement Wong
  */
 public final class MetaData implements flex2.compiler.abc.MetaData
 {

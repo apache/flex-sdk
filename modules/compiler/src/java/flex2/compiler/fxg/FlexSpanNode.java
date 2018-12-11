@@ -24,8 +24,6 @@ import com.adobe.internal.fxg.dom.text.SpanNode;
 /**
  * A Flex specific override for SpanNode used to capture the 
  * attributes specified on a &lt;span&gt; node in FXG.
- * 
- * @author Peter Farland
  */
 public class FlexSpanNode extends SpanNode
 {

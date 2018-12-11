@@ -22,8 +22,6 @@ package flex2.compiler.mxml.reflect;
 /**
  * Defines the reflection API of a class, function, property, or
  * variable, which has been deprecated.
- *
- * @author Clement Wong
  */
 public interface Deprecated
 {

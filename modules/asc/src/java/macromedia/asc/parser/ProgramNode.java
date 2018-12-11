@@ -25,8 +25,6 @@ import java.util.HashSet;
 
 /**
  * Node
- *
- * @author Jeff Dyer
  */
 public class ProgramNode extends Node
 {
