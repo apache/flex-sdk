@@ -1,0 +1,304 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<config>
+	<!--
+	<progressLabels>
+		<en_US>
+			<Copy>Copying %1 of %2</Copy>
+			<Get>Downloading bytes %1 of %2</Get>
+			<Checksum>Computing checksum: bytes %1 of %2</Checksum>
+		</en_US>
+	</progressLabels>
+	-->
+	<properties>
+	</properties>
+	<strings description="override default installer strings here">
+	</strings>
+	<steps description="targets that should have a 'step' in the GUI progress indicator, in order of appearance.">
+		<step id="air-download" property="do.air.install">
+			<de_DE>Adobe AIR SDK (Benötigt)</de_DE>
+			<el_GR>Αποσυμπίεση του Adobe AIR Runtime Kit</el_GR>
+			<en_US>Adobe AIR SDK (Required)</en_US>
+			<es_ES>Adobe AIR SDK (Requerido)</es_ES>
+			<fr_FR>Adobe AIR SDK (Requis)</fr_FR>
+			<nl_NL>Adobe AIR SDK (Verplicht)</nl_NL>
+			<pt_BR>Adobe AIR SDK (Obrigatório)</pt_BR>
+			<ko_KR>Adobe AIR SDK (필수)</ko_KR>
+			<zh_CN>Adobe AIR SDK (必须的)</zh_CN>
+			<zh_TW>Adobe AIR SDK (必須的)</zh_TW>
+		</step>
+		<step id="flash-download" property="do.flash.install">
+			<de_DE>Adobe Flash Player playerglobal.swc (Benötigt)</de_DE>
+			<el_GR>Λήψη Flash Player swc</el_GR>
+			<en_US>Adobe Flash Player playerglobal.swc (Required)</en_US>
+			<es_ES>Adobe Flash Player playerglobal.swc (Requerido)</es_ES>
+			<fr_FR>Adobe Flash Player playerglobal.swc (Requis)</fr_FR>
+			<nl_NL>Adobe Flash Player playerglobal.swc (Verplicht)</nl_NL>
+			<pt_BR>Adobe Flash Player playerglobal.swc (Obrigatório)</pt_BR>
+			<ko_KR>Adobe Flash Player playerglobal.swc (필수)</ko_KR>
+			<zh_CN>Adobe Flash Player playerglobal.swc (必须的)</zh_CN>
+			<zh_TW>Adobe Flash Player playerglobal.swc (必須的)</zh_TW>
+		</step>
+		<step id="swfobject-download">
+			<de_DE>SWFObject (Benötigt)</de_DE>
+			<el_GR>SWFObject (Απαιτούμενο)</el_GR>
+			<en_US>SWFObject (Required)</en_US>
+			<es_ES>SWFObject (Requerido)</es_ES>
+			<fr_FR>SWFObject (Requis)</fr_FR>
+			<nl_NL>SWFObject (Verplicht)</nl_NL>
+			<pt_BR>SWFObject (Obrigatório)</pt_BR>
+			<ko_KR>SWFObject (필수)</ko_KR>
+			<zh_CN>SWFObject (必须的)</zh_CN>
+			<zh_TW>SWFObject (必須的)</zh_TW>
+		</step>
+		<step id="osmf-download">
+			<de_DE>OSMF (Benötigt)</de_DE>
+			<el_GR>OSMF (Απαιτούμενο)</el_GR>
+			<en_US>OSMF (Required)</en_US>
+			<es_ES>OSMF (Requerido)</es_ES>
+			<fr_FR>OSMF (Requis)</fr_FR>
+			<nl_NL>OSMF (Verplicht)</nl_NL>
+			<pt_BR>OSMF (Obrigatório)</pt_BR>
+			<ko_KR>OSMF (필수)</ko_KR>
+			<zh_CN>OSMF (必须的)</zh_CN>
+			<zh_TW>OSMF (必須的)</zh_TW>
+		</step>
+		<step id="fontswf-download" property="do.fontswf.install">
+			<de_DE>Adobe Bibliothek zur Einbettung von Schriften (Optional)</de_DE>
+			<el_GR>Adobe Embedded Font Libraries and Utilities (Προαιρετικό)</el_GR>
+			<en_US>Adobe Embedded Font Libraries and Utilities (Optional)</en_US>
+			<es_ES>Librería y utilidades de fuentes embebidas de Adobe (Opcional)</es_ES>
+			<fr_FR>Bibliothèques Adobe Font embarquées et utilitaires (Facultatif)</fr_FR>
+			<nl_NL>Adobe Embedded Font Libraries en Utilities (Optioneel)</nl_NL>
+			<pt_BR>Bibliotecas e Utilidades de Fontes Embutidas da Adobe (Opcional)</pt_BR>
+			<ko_KR>Adobe Embedded Font 라이브러리 와 유틸리티 (선택)</ko_KR>
+			<zh_CN>Adobe 镶入字体库和实用程序 (可选的)</zh_CN>
+			<zh_TW>Adobe 鑲入字體庫和實用程式 (可選的)</zh_TW>
+		</step>
+		<step id="fixup-config-files">
+			<de_DE>Installiere Framework Konfigurationsdateien</de_DE>
+			<el_GR>Εγκατάσταση των αρχείων ρυθμίσεων του Framework</el_GR>
+			<en_US>Install Framework Configuration Files</en_US>
+			<es_ES>Instalar ficheros de configuración</es_ES>
+			<fr_FR>Installer les fichiers de configuration du framework</fr_FR>
+			<nl_NL>Framework Configuratie Bestanden Installeren</nl_NL>
+			<pt_BR>Instalando arquivos de configuração do Framework</pt_BR>
+			<ko_KR>프레임워크 설정파일 설치</ko_KR>
+			<zh_CN>安装框架配置文件</zh_CN>
+			<zh_TW>安裝框架設定檔案</zh_TW>
+		</step>
+	</steps>
+	<component id="STEP_REQUIRED_INSTALL_APACHE_FLEX_SDK" required="true" property="do.flex.install">
+		<de_DE>
+			<label>Apache Flex SDK (Benötigt)</label>
+			<message>Das Apache Flex SDK verwendet die Apache License V2. Möchten Sie jetzt das Apache Flex SDK installieren?</message>
+		</de_DE>
+		<el_GR>
+			<label>Apache Flex SDK (Απαιτούμενο)</label>
+			<message>Για το Apache Flex SDK ισχύει η συμφωνία χρήσης του Apache License V2. Θέλετε να εγκαταστήσετε το Apache Flex SDK;</message>
+		</el_GR>
+		<en_US>
+			<label>Apache Flex SDK (Required)</label>
+			<message>The Apache License V2 applies to the Apache Flex SDK.  Do you want to install the Apache Flex SDK?</message>
+			<license>Apache V2 License</license>
+			<licenseURL>http://www.apache.org/licenses/LICENSE-2.0.html</licenseURL>
+		</en_US>
+		<es_ES>
+			<label>Apache Flex SDK (Requerido)</label>
+			<message>Apache Flex SDK se ofrece bajo los términos de la licencia Apache License V2. ¿Quiere instalar el SDK de Apache Flex?</message>
+		</es_ES>
+		<fr_FR>
+			<label>Apache Flex SDK (Requis)</label>
+			<message>La licence Apache V2 s'applique au SDK Apache Flex. Voulez-vous installer le SDK Apache Flex?</message>
+		</fr_FR>
+		<nl_NL>
+			<label>Apache Flex SDK (Verplicht)</label>
+			<message>De Apache License V2 geldt voor de Apache Flex SDK. Wilt u de Apache Flex SDK installeren?</message>
+		</nl_NL>
+		<pt_BR>
+			<label>Apache Flex SDK (Obrigatório)</label>
+			<message>A licença Apache V2 aplica-se ao Apache Flex SDK. Você quer instalar o Apache Flex SDK?</message>
+			<license>Apache V2 License</license>
+			<licenseURL>http://www.apache.org/licenses/LICENSE-2.0.html</licenseURL>
+		</pt_BR>
+		<ko_KR>
+			<label>Apache Flex SDK (필수)</label>
+			<message>Apache Flex SDK에는 Apache License V2 가 적용됩니다. Apache Flex SDK를 설치하시겠습니까?</message>
+		</ko_KR>
+		<zh_CN>
+			<label>Apache Flex SDK (必须的)</label>
+			<message>Apache V2 许可协议适用于 Apache Flex SDK. 您想要安装 Apache Flex SDK 吗?</message>
+			<license>Apache V2 许可协议</license>
+		</zh_CN>
+		<zh_TW>
+			<label>Apache Flex SDK (必須的)</label>
+			<message>Apache V2 授權合約適用於 Apache Flex SDK. 您想要安裝 Apache Flex SDK 嗎?</message>
+			<license>Apache V2 授權合約</license>
+		</zh_TW>
+	</component>
+	<component id="STEP_REQUIRED_INSTALL_ADOBE_AIR_SDK" required="true" property="do.air.install">
+		<de_DE>
+			<label>Adobe AIR SDK (Benötigt)</label>
+			<message>Das Adobe AIR SDK verwendet die Adobe SDK Lizenzvereinbarung. Möchten SIe jetzt das Adobe AIR SDK installieren?</message>
+		</de_DE>
+		<el_GR>
+			<label>Adobe AIR SDK (Απαιτούμενο)</label>
+			<message>Για το Adobe AIR SDK ισχύει η συμφωνία χρήσης του Adobe SDK License. Θέλετε να εγκαταστήσετε το Adobe AIR SDK;</message>
+			<license>'Αδεια χρήσης Adobe AIR SDK</license>
+		</el_GR>
+		<en_US>
+			<label>Adobe AIR SDK (Required)</label>
+			<message>The Adobe SDK license agreement applies to the Adobe AIR SDK.  Do you want to install the Adobe AIR SDK?</message>
+			<license>Adobe AIR SDK License</license>
+			<licenseURL>http://www.adobe.com/products/air/sdk-eula.html</licenseURL>
+		</en_US>
+		<es_ES>
+			<label>Adobe AIR SDK (Requerido)</label>
+			<message>Adobe AIR SDK se ofrece bajo los términos de la licencia de Adobe SDK. ¿Quiere instalar el SDK de Adobe AIR?</message>
+		</es_ES>
+		<fr_FR>
+			<label>Adobe AIR SDK (Requis)</label>
+			<message>L'accord de licence SDK Adobe s'applique au SDK Adobe AIR. Voulez-vous installer le SDK Adobe AIR?</message>
+		</fr_FR>
+		<nl_NL>
+			<label>Adobe AIR SDK (Verplicht)</label>
+			<message>De Adobe SDK licentie overeenkomst geldt voor de Adobe AIR SDK. Wilt u de Adobe AIR SDK installeren?</message>
+		</nl_NL>
+		<pt_BR>
+			<label>Adobe AIR SDK (Obrigatório)</label>
+			<message>Os termos de licença Adobe SDK se aplicam ao Adobe AIR SDK. Você quer instalar o Adobe AIR SDK?</message>
+			<license>Adobe AIR SDK License</license>
+			<licenseURL>http://www.adobe.com/products/air/sdk-eula.html</licenseURL>
+		</pt_BR>
+		<ko_KR>
+			<label>Adobe AIR SDK (필수)</label>
+			<message>Adobe AIR SDK에는 Adobe SDK License가 적용됩니다. Adobe AIR SDK를 설치하시겠습니까?</message>
+		</ko_KR>
+		<zh_CN>
+			<label>Adobe AIR SDK (必须的)</label>
+			<message>Adobe SDK 许可协议适用于 Adobe AIR SDK. 您想要安装 Adobe AIR SDK 吗?</message>
+			<license>Adobe AIR SDK 许可协议</license>
+		</zh_CN>
+		<zh_TW>
+			<label>Adobe AIR SDK (必須的)</label>
+			<message>Adobe SDK 授權合約適用於 Adobe AIR SDK. 您想要安裝 Adobe AIR SDK 嗎?</message>
+			<license>Adobe AIR SDK 授權合約</license>
+		</zh_TW>
+	</component>
+	<component id="STEP_REQUIRED_INSTALL_FLASH_PLAYER_GLOBAL_SWC" required="true" property="do.flash.install">
+		<de_DE>
+			<label>Adobe Flash Player playerglobal.swc (Benötigt)</label>
+			<message>Die Adobe Flash Player playerglobal.swc verwendet die Adobe SDK Lizenzvereinbarung. Möchten SIe jetzt die Adobe Flash Player playerglobal.swc installieren?</message>
+		</de_DE>
+		<el_GR>
+			<label>Adobe Flash Player playerglobal.swc (Απαιτούμενο)</label>
+			<message>Για το Adobe Flash Player playerglobal.swc ισχύει η συμφωνία χρήσης του Adobe SDK License. Θέλετε να εγκαταστήσετε το Adobe Flash Player playerglobal.swc;</message>
+			<license>'Αδεια χρήσης Adobe Flex SDK</license>
+		</el_GR>
+		<en_US>
+			<label>Adobe Flash Player playerglobal.swc (Required)</label>
+			<message>The Adobe SDK license agreement applies to the Adobe Flash Player playerglobal.swc.  Do you want to install the Adobe Flash Player playerglobal.swc?</message>
+			<license>Adobe Flex SDK License</license>
+			<licenseURL>http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf</licenseURL>
+		</en_US>
+		<es_ES>
+			<label>Adobe Flash Player playerglobal.swc (Requerido)</label>
+			<message>Adobe Flash Player playerglobal.swc se ofrece bajo los términos de la licencia de Adobe SDK. ¿Quiere instalar el reproductor de Adobe Flash playerglobal.swc?</message>
+		</es_ES>
+		<fr_FR>
+			<label>Adobe Flash Player playerglobal.swc (Requis)</label>
+			<message>L'accord de licence SDK Adobe s'applique au Adobe Flash Player playerglobal.swc. Voulez-vous installer le logiciel Adobe Flash Player playerglobal.swc?</message>
+		</fr_FR>
+		<nl_NL>
+			<label>Adobe Flash Player playerglobal.swc (Verplicht)</label>
+			<message>De Adobe SDK licentie overeenkomst geldt voor de Adobe Flash Player playerglobal.swc. Wilt u de Adobe Flash Player playerglobal.swc installeren?</message>
+		</nl_NL>
+		<pt_BR>
+			<label>Adobe Flash Player playerglobal.swc (Required)</label>
+			<message>Os termos de licença Adobe SDK se aplicam ao Adobe Flash Player playerglobal.swc. Você quer instalar o Adobe Flash Player playerglobal.swc?</message>
+			<license>Adobe Flex SDK License</license>
+			<licenseURL>http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf</licenseURL>
+		</pt_BR>
+		<ko_KR>
+			<label>Adobe Flash Player playerglobal.swc (필수)</label>
+			<message>Adobe Flash Player의 playerglobal.swc에는 Adobe SDK License 가 적용됩니다. Adobe Flash Player의 playerglobal.swc를 설치하시겠습니까? </message>
+		</ko_KR>
+		<zh_CN>
+			<label>Adobe Flash Player playerglobal.swc (必须的)</label>
+			<message>Adobe SDK 许可协议适用于 Adobe Flash Player 的 playerglobal.swc 文件. 您想要安装 Adobe Flash Player 的 playerglobal.swc 文件吗?</message>
+			<license>Adobe Flex SDK 许可协议</license>
+		</zh_CN>
+		<zh_TW>
+			<label>Adobe Flash Player playerglobal.swc (必須的)</label>
+			<message>Adobe SDK 授權合約適用於 Adobe Flash Player 的 playerglobal.swc 檔案. 您想要安裝 Adobe Flash Player 的 playerglobal.swc 檔案嗎?</message>
+			<license>Adobe Flex SDK 授權合約</license>
+		</zh_TW>
+	</component>
+	<component id="FontSWF (Optional)" required="false" property="do.fontswf.install">
+		<de_DE>
+			<label>Adobe Bibliothek zur Einbettung von Schriften (Optional)</label>
+			<message>Apache Flex kann optional das Feature \"Einbetten von Schriftarten\" einbinden. Dieses Feature benötigt verschieden Schriftarten Jar-Dateien aus dem Adobe Flex SDK. Die Adobe SDK Lizenzvereinbarung für Adobe Flex 4.6 gilt für diese Jar-Dateien. Diese Lizenz ist nicht mit der Apache V2 Lizenz vereinbar. Möchten Sie diese Jar-Dateien aus dem Adobe Flex SDK installieren?\n\nNote: the use of the FlatSpark skin and components requires embedded font support.</message>
+		</de_DE>
+		<el_GR>
+			<label>Adobe Embedded Font Libraries and Utilities (Προαιρετικό)</label>
+			<message>Το Apache Flex μπορεί προαιρετικά να χρησιμοποιήσει την υποστήριξη που παρέχει η Adobe για ενσωματωμένες γραματοσειρές. Η λειτουργία αυτή απαιτεί κάποια jar αρχεία που υπάρχουν στο Adobe Flex SDK. Για τα αρχεία αυτά ισχύει η συμφωνία χρήσης της άδειας Adobe SDK για το Adobe Flex 4.6. Η άδεια αυτή δεν είναι συμβατή με την άδεια χρήσης Apache V2. Θέλετε να εγκαταστήσετε τα αρχεία αυτά απο το Adobe Flex SDK;\n\nNote: the use of the FlatSpark skin and components requires embedded font support.</message>
+			<license>'Αδεια χρήσης Adobe Flex SDK</license>
+		</el_GR>
+		<en_US>
+			<label>Adobe Embedded Font Libraries and Utilities (Optional)</label>
+			<message>Apache Flex can optionally integrate with Adobe's embedded font support. This feature requires a few font jars from the Adobe Flex SDK. The Adobe SDK license agreement for Adobe Flex 4.6 applies to these jars. This license is not compatible with the Apache V2 license. Do you want to install these jars from the Adobe Flex SDK?\n\nNote: the use of the FlatSpark skin and components requires embedded font support.</message>
+			<license>Adobe Flex SDK License</license>
+			<licenseURL>http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf</licenseURL>
+		</en_US>
+		<es_ES>
+			<label>Librería y utilidades de fuentes embebidas de Adobe (Opcional)</label>
+			<message>Apache Flex puede integrarse de manera opcional con el soporte para fuentes embebidas de Adobe. Esta característica necesita algunos ficheros de fuentes del SDK de Adobe Flex. Estos archivos se ofrecen bajo los términos de la licencia de Adobe SDK para Adobe Flex 4.6. Esta licencia no es compatible con la licencia Apache V2. ¿Quiere instalar estos archivos desde el SDK de Adobe Flex?\n\nNote: the use of the FlatSpark skin and components requires embedded font support.</message>
+		</es_ES>
+		<fr_FR>
+			<label>Bibliothèques Adobe Font embarquées et utilitaires (Facultatif)</label>
+			<message>Apache Flex peut éventuellement s'intégrer avec le support de polices embarquées Adobe (Adobe's embedded font support). Cette fonctionnalité nécessite quelques jars de polices du SDK Adobe Flex. L'accord de licence Adobe SDK pour Adobe Flex 4.6 s'applique à ces jars. Cette licence n'est pas compatible avec la licence Apache V2. Voulez-vous installer ces jars à partir du SDK Adobe Flex?\n\nL'utilisation des habillages et composants FlatSpark requiert les bibliothèques Adobe Font embarquées (Adobe's embedded font support).</message>
+		</fr_FR>
+		<nl_NL>
+			<label>Adobe Embedded Font Libraries en Utilities (Optioneel)</label>
+			<message>Apache Flex kan optioneel integreren met Adobe's embedded font support. Deze feature vereist een aantal font jars uit de Adobe Flex SDK. De Adobe SDK licentie overeenkomst voor Adobe Flex 4.6 geldt voor deze jars. Deze licentie is niet compatibel met de Apache V2 licentie. Wilt u deze jars uit de Adobe Flex SDK installeren?\n\nAttentie: het gebruik van de FlatSpark skin en componenten vereist embedded font support.</message>
+		</nl_NL>
+		<pt_BR>
+			<label>Adobe Embedded Font Libraries and Utilities (Opcional)</label>
+			<message>Apache Flex pode, opcionalmente, integrar-se com o suporte de fontes embutidas da Adobe. Este recurso requer alguns jars do Adobe Flex SDK, que estão sob o contrato de licença do Adobe Flex 4.6. Esta licença não é compatível com a licença Apache V2. Você quer instalar estes jars a partir do Adobe Flex SDK?\n\nNota: o uso dos skins e componentes FlatSpark requer suporte a fontes embutidas.</message>
+			<license>Adobe Flex SDK License</license>
+			<licenseURL>http://www.adobe.com/products/eulas/pdfs/adobe_flex_software_development_kit-combined-20110916_0930.pdf</licenseURL>
+		</pt_BR>
+		<ko_KR>
+			<label>Adobe Embedded Font 라이브러리 와 유틸리티 (선택)</label>
+			<message>Apache Flex는 선택적으로 Adobe의 임베드 폰트지원 기능을 통합할 수 있습니다. 이 기능에는 Adobe Flex SDK에 있는 폰트 jar 파일들이 필요합니다. 이 jar 파일들에는 Adobe Flex 4.6에 대한 Adobe SDK 라이센스 계약이 적용됩니다. 이 라이센스는 Apache V2 라이센스와 호환되지 않습니다. Adobe Flex SDK에서 이 jar 파일들을 가져와 설치하시겠습니까?\n\nNote: the use of the FlatSpark skin and components requires embedded font support.</message>
+		</ko_KR>
+		<zh_CN>
+			<label>Adobe 镶入字体库和实用程序 (可选的)</label>
+			<message>Apache Flex 可以选择性地与 Adobe 镶入字体支持 进行整合. 此功能须要 Adobe Flex SDK 里的一些与字体相关的 jar 文件, Adobe Flex 4.6 的 Adobe SDK 许可协议适用于这些 jar 文件, 此许可与 Apache V2 许可并不兼容. 您想要安装来自 Adobe Flex SDK 里的这些 jar 文件吗?\n\n提示: FlatSpark 主题的皮肤和组件须要 镶入字体库 的支持.</message>
+			<license>Adobe Flex SDK 许可协议</license>
+		</zh_CN>
+		<zh_TW>
+			<label>Adobe 鑲入字體庫和實用程式 (可選的)</label>
+			<message>Apache Flex 可以選擇性地與 Adobe 鑲入字體支援 進行整合. 此功能須要 Adobe Flex SDK 裡的一些與字體相關的 jar 檔案, Adobe Flex 4.6 的 Adobe SDK 授權合約適用於這些 jar 檔案, 此許可與 Apache V2 許可並不相容. 您想要安裝來自 Adobe Flex SDK 裡的這些 jar 檔案嗎?\n\n提示: FlatSpark 主題的皮膚和元件須要 鑲入字體庫 的支援.</message>
+			<license>Adobe Flex SDK 授權合約</license>
+		</zh_TW>
+	</component>
+</config>

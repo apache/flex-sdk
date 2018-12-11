@@ -20,7 +20,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 -->
 <s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark" 
-    xmlns:fb="http://ns.adobe.com/flashbuilder/2009" minWidth="24" minHeight="24">
+    xmlns:fb="http://ns.adobe.com/flashbuilder/2009" minWidth="21" minHeight="21">
     <fx:Metadata>
     <![CDATA[ 
         [HostComponent("spark.components.Button")]
@@ -30,7 +30,7 @@
      <fx:Script fb:purpose="styling">
          /* Define the skin elements that should not be colorized. 
             For dropDownList buttons, the graphics are colorized but the arrow is not. */
-         static private const exclusions:Array = ["icon"];
+         static private const exclusions:Array = [];
 
          /**
           * @private

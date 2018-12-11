@@ -1,20 +1,18 @@
 /*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- *  Licensed to the Apache Software Foundation (ASF) under one or more
- *  contributor license agreements.  See the NOTICE file distributed with
- *  this work for additional information regarding copyright ownership.
- *  The ASF licenses this file to You under the Apache License, Version 2.0
- *  (the "License"); you may not use this file except in compliance with
- *  the License.  You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package flash.tools.debugger;
@@ -66,7 +64,7 @@ public interface Variable
 	 * value can be compared directly to VariableAttribute.PUBLIC_SCOPE, etc.
 	 * using "==".
 	 * 
-	 * @see VariableAttribute
+	 * @see flash.tools.debugger.VariableAttribute
 	 */
 	public int			getScope();
 
@@ -100,12 +98,12 @@ public interface Variable
 	 * regarding the variable.  They are bitfields identified
 	 * as VariableAttribute.xxx
 	 * 
-	 * @see VariableAttribute
+	 * @see flash.tools.debugger.VariableAttribute
 	 */
 	public int			getAttributes();
 
 	/**
-	 * @see VariableAttribute
+	 * @see flash.tools.debugger.VariableAttribute
 	 */
 	public boolean		isAttributeSet(int variableAttribute);
 
@@ -136,11 +134,11 @@ public interface Variable
 	 *         invoked and the setter threw an exception. In that case, look at
 	 *         FaultEvent.information to see the error text of the exception
 	 *         that occurred.
-	 * @throws NoResponseException
+	 * @throws flash.tools.debugger.NoResponseException
 	 *             if times out
-	 * @throws NotSuspendedException
+	 * @throws flash.tools.debugger.NotSuspendedException
 	 *             if Player is running
-	 * @throws NotConnectedException
+	 * @throws flash.tools.debugger.NotConnectedException
 	 *             if Player is disconnected from Session
 	 */
 	public FaultEvent setValue(Session s, int type, String value) throws NotSuspendedException, NoResponseException, NotConnectedException;
@@ -158,9 +156,14 @@ public interface Variable
 	 * <p>
 	 * Has no effect if <code>needsToInvokeGetter()</code> is false.
 	 * 
-	 * @throws NotSuspendedException
-	 * @throws NoResponseException
-	 * @throws NotConnectedException
+	 * @throws flash.tools.debugger.NotSuspendedException
+	 * @throws flash.tools.debugger.NoResponseException
+	 * @throws flash.tools.debugger.NotConnectedException
 	 */
 	public void invokeGetter(Session s) throws NotSuspendedException, NoResponseException, NotConnectedException;
+	
+	/**
+	 * Get the worker id of the isolate to which this value belongs.
+	 */
+	public int getIsolateId();
 }

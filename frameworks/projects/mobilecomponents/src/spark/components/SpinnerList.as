@@ -41,7 +41,6 @@ import spark.layouts.supportClasses.LayoutBase;
 
 use namespace mx_internal;
 
-[Exclude(name="accentColor", kind="style")]
 [Exclude(name="chromeColor", kind="style")]
 [Exclude(name="layout", kind="property")]
 [Exclude(name="requireSelection", kind="property")]
@@ -396,6 +395,18 @@ public class SpinnerList extends ListBase
             }
         }
     }
+	
+	override protected function itemSelected(index:int, selected:Boolean):void
+	{
+		super.itemSelected(index, selected);
+		
+		var renderer:Object = dataGroup ? dataGroup.getElementAt(index) : null;
+		
+		if (renderer is IItemRenderer)
+		{
+			IItemRenderer(renderer).selected = selected;
+		}
+	}
     
     /**
      *  @private

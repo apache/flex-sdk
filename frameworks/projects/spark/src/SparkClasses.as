@@ -54,6 +54,7 @@ import spark.skins.spark.BorderContainerSkin; BorderContainerSkin;
 import spark.skins.spark.ButtonSkin; ButtonSkin;
 import spark.skins.spark.DefaultButtonSkin; DefaultButtonSkin;
 import spark.skins.spark.ButtonBarSkin; ButtonBarSkin;
+import spark.skins.spark.BusyIndicatorSkin; BusyIndicatorSkin;
 import spark.skins.spark.ButtonBarFirstButtonSkin; ButtonBarFirstButtonSkin;
 import spark.skins.spark.ButtonBarMiddleButtonSkin; ButtonBarMiddleButtonSkin;
 import spark.skins.spark.ButtonBarLastButtonSkin; ButtonBarLastButtonSkin;

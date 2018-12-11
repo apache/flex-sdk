@@ -591,7 +591,7 @@ public class ConstraintLayout extends LayoutBase
      */
     override mx_internal function get virtualLayoutSupported():Boolean
     {
-        return false
+        return false;
     }
     
     /**
@@ -605,7 +605,7 @@ public class ConstraintLayout extends LayoutBase
         if (value == null)
             return;
         
-        var constraintColumns:Vector.<ConstraintColumn> = this.constraintColumns;
+        var constraintColumns:Vector.<ConstraintColumn> = this._constraintColumns;
         var numCols:int = constraintColumns.length;
         var totalWidth:Number = 0;
         
@@ -626,7 +626,7 @@ public class ConstraintLayout extends LayoutBase
         if (value == null)
             return;
         
-        var constraintRows:Vector.<ConstraintRow> = this.constraintRows;
+        var constraintRows:Vector.<ConstraintRow> = this._constraintRows;
         var numRows:int = constraintRows.length;
         var totalHeight:Number = 0;
         
@@ -1669,24 +1669,23 @@ public class ConstraintLayout extends LayoutBase
         
         var message:String;
         
-        var temp:Array;
-        temp = LayoutElementHelper.parseConstraintExp(layoutElement.left);
+        var temp:Array = LayoutElementHelper.parseConstraintExp(layoutElement.left);
         left = temp[0];
         leftBoundary = temp[1];
         
-        temp = LayoutElementHelper.parseConstraintExp(layoutElement.right);
+        temp = LayoutElementHelper.parseConstraintExp(layoutElement.right, temp);
         right = temp[0];
         rightBoundary = temp[1];
         
-        temp = LayoutElementHelper.parseConstraintExp(layoutElement.top);
+        temp = LayoutElementHelper.parseConstraintExp(layoutElement.top, temp);
         top = temp[0];
         topBoundary = temp[1];
         
-        temp = LayoutElementHelper.parseConstraintExp(layoutElement.bottom);
+        temp = LayoutElementHelper.parseConstraintExp(layoutElement.bottom, temp);
         bottom = temp[0];
         bottomBoundary = temp[1];
         
-        temp = LayoutElementHelper.parseConstraintExp(layoutElement.baseline);
+        temp = LayoutElementHelper.parseConstraintExp(layoutElement.baseline, temp);
         baseline = temp[0];
         baselineBoundary = temp[1];
         

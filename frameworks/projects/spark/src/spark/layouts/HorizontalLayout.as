@@ -27,7 +27,6 @@ import mx.containers.utilityClasses.Flex;
 import mx.core.FlexVersion;
 import mx.core.ILayoutElement;
 import mx.core.IVisualElement;
-import mx.core.UIComponentGlobals;
 import mx.core.mx_internal;
 import mx.events.PropertyChangeEvent;
 
@@ -961,6 +960,9 @@ public class HorizontalLayout extends LayoutBase
         if (!g || (index < 0) || (index >= g.numElements) || !llv) 
             return null;
 
+        // We need a valid LLV for this function
+        updateLLV(g);
+		
         return llv.getBounds(index);
     }    
     

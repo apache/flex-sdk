@@ -150,5 +150,27 @@ public class DateSpinnerItemRenderer extends SpinnerListItemRenderer
             labelDisplay.alpha = enabled ? 1 : .5;
         }        
     }
+    
+    override public function set selected(value:Boolean):void
+    {
+        var oldValue:Boolean = selected;
+        super.selected = value;
+        if(oldValue != selected)
+        {
+            try
+            {
+                if (data["_emphasized_"] != undefined)
+                    _colorName = "accentColor"; // highlighted item
+                else
+                    _colorName = "color"; // reset to use standard color
+            }
+            catch (e:Error)
+            {
+                // Do nothing
+            }
+            setTextProperties();
+        }
+    }
+
 }
 }

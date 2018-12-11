@@ -46,6 +46,7 @@ import mx.core.IUIComponent;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.utils.Platform;
 
 use namespace mx_internal;
 
@@ -111,6 +112,9 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 	 */
 	public static var mixins:Array;
 
+    // flag to turn on/off some ie specific behavior
+    mx_internal static var ieshifttab:Boolean = true;
+
     //--------------------------------------------------------------------------
     //
     //  Constructor
@@ -141,8 +145,9 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 		this.popup = popup;
 
         IMEEnabled = true;
+		// Only <= IE8 supported focus cycling out of the SWF
         browserMode = Capabilities.playerType == "ActiveX" && !popup;
-        desktopMode = Capabilities.playerType == "Desktop" && !popup;
+        desktopMode = Platform.isAir && !popup;
         // Flash main windows come up activated, AIR main windows don't
         windowActivated = !desktopMode;
     
@@ -704,7 +709,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
         {
             dispatchEvent(new FlexEvent(FlexEvent.FLEX_WINDOW_ACTIVATE));
 		    // restore focus if this focus manager had last focus
-	        if (_lastFocus && !browserMode)
+            if (_lastFocus && (!browserMode || ieshifttab))
 	    	    _lastFocus.setFocus();
 	        lastAction = "ACTIVATE";
         }
@@ -1588,7 +1593,8 @@ public class FocusManager extends EventDispatcher implements IFocusManager
     public function getNextFocusManagerComponent(
                             backward:Boolean = false):IFocusManagerComponent
 	{
-		return getNextFocusManagerComponent2(backward, fauxFocus).displayObject as IFocusManagerComponent;
+        const focusInfo:FocusInfo = getNextFocusManagerComponent2(backward, fauxFocus); 
+        return focusInfo ? focusInfo.displayObject as IFocusManagerComponent : null; 
 	}
 	
 	/**
@@ -1621,7 +1627,7 @@ public class FocusManager extends EventDispatcher implements IFocusManager
             calculateCandidates = false;
         }
 
-        // trace("focus was at " + o);
+        // trace("focus was at " + fromObject);
         // trace("focusableObjects " + focusableObjects.length);
         var i:int = fromIndex;
         if (fromIndex == FROM_INDEX_UNSPECIFIED)
@@ -1630,6 +1636,8 @@ public class FocusManager extends EventDispatcher implements IFocusManager
     	    var o:DisplayObject = fromObject; 
         	if (!o)
         		o = form.systemManager.stage.focus;
+            else if (o == form.systemManager.stage)
+                o == null;
         
 	        o = DisplayObject(findFocusManagerComponent2(InteractiveObject(o)));
 	
@@ -2081,8 +2089,26 @@ public class FocusManager extends EventDispatcher implements IFocusManager
                 return;
             }
 
+            if (ieshifttab && lastAction == "ACTIVATE")
+            {
+                // IE seems to now require that we set focus to something during activate
+                // but then we get this keyFocusChange event.  I think we used to not
+                // need to set focus on activate and we still got the keyFocusChange
+                // and then stage.focus was null and we'd use the keyFocusChange event
+                // to determine which control (first or last) got focus based on
+                // the shift key.
+                // If we set focus on activate, then we get this keyFocusChange which moves
+                // the focus somewhere else, so we set fauxFocus to the stage as a signal
+                // to the setFocusToNextObject logic that it shouldn't use the stage.focus
+                // as the starting point.
+                fauxFocus = sm.stage;
+            }
             // trace("tabHandled by " + this);
             setFocusToNextObject(event);
+            if (ieshifttab && lastAction == "ACTIVATE")
+            {
+                fauxFocus = null;
+            }
 
             // if we changed focus or if we're the main app
             // eat the event

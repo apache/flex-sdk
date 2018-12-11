@@ -30,17 +30,17 @@ public class EnumerationIterator implements Iterator
     /**
      * The enumeration to iterate.
      */
-    private Enumeration enum = null;
+    private Enumeration enm = null;
 
     /**
      * Creates a new iteratorwrapper instance for the specified 
      * Enumeration.
      *
-     * @param enum  The Enumeration to wrap.
+     * @param enm  The Enumeration to wrap.
      */
-    public EnumerationIterator( Enumeration enum)
+    public EnumerationIterator( Enumeration enm)
     {
-        this.enum = enum;
+        this.enm = enm;
     }
 
     /**
@@ -50,7 +50,7 @@ public class EnumerationIterator implements Iterator
      */
     public Object next()
     {
-        return enum.nextElement();
+        return enm.nextElement();
     }
     
     /**
@@ -60,7 +60,7 @@ public class EnumerationIterator implements Iterator
      */
     public boolean hasNext()
     {
-        return enum.hasMoreElements();
+        return enm.hasMoreElements();
     }
 
     /**

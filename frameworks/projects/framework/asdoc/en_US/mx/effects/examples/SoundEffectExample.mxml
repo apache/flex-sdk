@@ -23,7 +23,7 @@
         xmlns:mx="library://ns.adobe.com/flex/mx">
 
     <fx:Declarations>
-        <mx:SoundEffect id="mySounds" source="@Embed(source='assets/jazz.mp3')"/>
+        <mx:SoundEffect id="mySounds" source="assets/jazz.mp3"/>
     </fx:Declarations>
 
     <s:Panel title="Sound Effect Example" width="75%" height="75%" >

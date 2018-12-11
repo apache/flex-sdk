@@ -54,3 +54,8 @@ s|TitleWindow
     cornerRadius: 0;
     dropShadowVisible: true;
 }
+
+s|CalloutButton
+{
+    rollOverOpenDelay: NaN; /* default behavior is clicking button to open callout for spark*/
+}

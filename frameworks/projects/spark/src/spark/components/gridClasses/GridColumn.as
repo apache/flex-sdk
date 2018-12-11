@@ -1180,6 +1180,49 @@ public class GridColumn extends EventDispatcher
         dispatchChangeEvent("maxWidthChanged");
     }
     
+    [Inspectable(category="General")]
+    [PercentProxy("percentWidth")]
+    
+    /**
+     *  @private
+     */
+    private var _percentWidth:Number = NaN;
+
+    [Bindable("widthChanged")]
+    [Inspectable(environment="none")]
+    
+    /**
+     *  The width of this column as a percentage of DataGrid width. 
+     *  Setting this property does not change the <code>width</code> 
+     *  or <code>minWidth</code> properties.
+     *
+     *  @default NaN
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 13
+     *  @playerversion AIR 13.0
+     *  @productversion Flex 4.12.2
+     */
+    public function get percentWidth ():Number 
+    {
+        return _percentWidth;
+    }
+    
+    /**
+     *  @private
+     */
+    public function set percentWidth(value:Number):void 
+    {
+        if (_percentWidth == value) 
+        {
+            return;
+        }
+        this._percentWidth = value;
+        invalidateGrid();
+        
+        dispatchChangeEvent("widthChanged");
+    }
+
     //----------------------------------
     //  rendererIsEditable
     //----------------------------------
@@ -1451,7 +1494,20 @@ public class GridColumn extends EventDispatcher
     private var _sortCompareType:String;
 
     /**
-     *  @inheritDoc
+	 *  The sortCompareType defines the valid constant values for the 
+	 *  <code>sortCompareType</code> property of the <code>SortField</code> and <code>GridColumn</code>.
+	 *  
+	 *  <p>Use the constants in ActionsScript, as the following example shows:</p>
+	 *  <pre>
+	 *    column.sortCompareType = SortFieldCompareTypes.NUMERIC;
+	 *  </pre>
+	 *
+	 *  <p>In MXML, use the String value of the constants, as the following example shows:</p>
+	 *  <pre>
+	 *    &lt;s:GridColumn sortCompareType="numeric" /&gt; 
+	 *  </pre>
+	 * 
+     *  @see spark.collections.SortFieldCompareTypes
      *
      *  @langversion 3.0
      *  @playerversion Flash 11.8

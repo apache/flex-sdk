@@ -60,6 +60,7 @@ import mx.managers.SystemManagerGlobals;
 import mx.styles.CSSStyleDeclaration;
 import mx.styles.StyleManager;
 import mx.styles.StyleProxy;
+import mx.utils.Platform;
 
 use namespace mx_internal;
 
@@ -2471,7 +2472,7 @@ public class WindowedApplication extends Application implements IWindow
         super.validateDisplayList();
         if (!nativeWindow.closed)
         {
-            if (Capabilities.os.substring(0, 3) == "Mac" && systemChrome == "standard")
+            if (Platform.isMac && systemChrome == "standard")
             {
                 //need to move the scroll bars to not overlap the systemChrome gripper
                 //if both scrollbars are already visible, this has been done for us

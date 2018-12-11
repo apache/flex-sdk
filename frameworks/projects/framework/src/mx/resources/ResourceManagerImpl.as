@@ -131,16 +131,23 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
             if (SystemManagerGlobals.topLevelSystemManagers[0].currentFrame == 1)
             {
                 ignoreMissingBundles = true;
+				inFrame1 = true;
                 SystemManagerGlobals.topLevelSystemManagers[0].
                     addEventListener(Event.ENTER_FRAME, enterFrameHandler);
             }
         }
         
         var info:Object = SystemManagerGlobals.info;
+		// Falcon injects this property and it is always false
+		// We ignore missing bundles because Falcon doesn't
+		// generate fallback bundles like MXMLC;
+		if (!inFrame1)
+			ignoreMissingBundles = info && info.hasOwnProperty("isMXMLC");
+		
         if (info)
             processInfo(info, false);
 
-        ignoreMissingBundles = false;
+        ignoreMissingBundles = info && info.hasOwnProperty("isMXMLC");
         
         if (SystemManagerGlobals.topLevelSystemManagers.length)
 		    SystemManagerGlobals.topLevelSystemManagers[0].
@@ -153,12 +160,19 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
     //
     //--------------------------------------------------------------------------
 
+	/**
+	 *  @private
+	 * 
+	 *  Whether or ignoreMissingBundles was set in frame 1
+	 */
+	private var inFrame1:Boolean = false;
+	
     /**
      *  @private
      * 
      *  Whether or not to throw an error.
      */
-    private var ignoreMissingBundles:Boolean;
+    private var ignoreMissingBundles:Boolean = false;
     
     /**
      *  @private
@@ -409,16 +423,20 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
                 "' for locale '" + locale + "'.");
         }
         
-        // Create an instance of the bundle class.
-        resourceBundle = ResourceBundle(new bundleClass());
+        // Create a proxy
+        var proxy:ResourceBundleProxy = new ResourceBundleProxy();
+        
+		proxy.bundleClass = bundleClass;
+		proxy.useWeakReference = useWeakReference;
 
         // In case we just created a ResourceBundle from a Flex 2 SWC,
         // set its locale and bundleName, because the old constructor
         // didn't used to do this.
-        ResourceBundle(resourceBundle)._locale = locale;
-        ResourceBundle(resourceBundle)._bundleName = bundleName;
+        proxy.locale = locale;
+        proxy.bundleName = bundleName;
                 
         // Add that resource bundle instance to the ResourceManager.
+        resourceBundle = proxy;
         addResourceBundle(resourceBundle, useWeakReference);
         
         return resourceBundle;
@@ -697,10 +715,17 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
             {
                 if (bundleObject[obj] == localeBundleNameString)
                 {
-                    bundle = obj as IResourceBundle;
+					if (obj is ResourceBundleProxy)
+						bundle = loadResourceBundleProxy(ResourceBundleProxy(obj));
+					else 
+						bundle = obj as IResourceBundle;
                     break;
                 }
             }
+        }
+        else if (bundleObject is ResourceBundleProxy)
+        {
+        	bundle = loadResourceBundleProxy(ResourceBundleProxy(bundleObject));
         }
         else 
         {
@@ -708,6 +733,17 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
         }
         
         return bundle;
+    }
+    
+    private function loadResourceBundleProxy(proxy:ResourceBundleProxy):ResourceBundle {
+    	var proxyClass:Class = proxy.bundleClass;
+        var resourceBundle:ResourceBundle = ResourceBundle(new proxyClass());
+   		resourceBundle._locale = proxy.locale;
+    	resourceBundle._bundleName = proxy.bundleName;
+    	
+    	addResourceBundle(resourceBundle, proxy.useWeakReference);
+    	
+    	return resourceBundle;
     }
     
     /**
@@ -841,10 +877,17 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
                 {
                     if (bundleObject[obj] == localeBundleNameString)
                     {
-                        bundle = obj as IResourceBundle;
+						if (obj is ResourceBundleProxy)
+							bundle = loadResourceBundleProxy(ResourceBundleProxy(obj));
+						else 
+							bundle = obj as IResourceBundle;
                         break;
                     }
                 }
+            }
+            else if (bundleObject is ResourceBundleProxy)
+            {
+        		bundle = loadResourceBundleProxy(ResourceBundleProxy(bundleObject));
             }
             else 
             {
@@ -1137,6 +1180,7 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
         {
             if (SystemManagerGlobals.topLevelSystemManagers[0].currentFrame == 2)
             {
+				inFrame1 = false;
                 SystemManagerGlobals.topLevelSystemManagers[0].
                     removeEventListener(Event.ENTER_FRAME, enterFrameHandler);
             }
@@ -1156,6 +1200,7 @@ import flash.events.EventDispatcher;
 import mx.events.ModuleEvent;
 import mx.events.ResourceEvent;
 import mx.modules.IModuleInfo;
+import mx.resources.IResourceBundle;
 import mx.resources.IResourceModule;
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -1316,4 +1361,46 @@ class ResourceEventDispatcher extends EventDispatcher
             new ResourceEvent(ResourceEvent.COMPLETE);
         dispatchEvent(resourceEvent);
     }
+}
+
+////////////////////////////////////////////////////////////////////////////////
+//
+//  Helper class: ResourceBundleProxy
+//
+////////////////////////////////////////////////////////////////////////////////
+
+/**
+ *  @private
+ */
+class ResourceBundleProxy implements IResourceBundle
+{
+	public var bundleClass:Class;
+	public var useWeakReference:Boolean;
+	
+	private var _bundleName:String;
+	private var _locale:String;
+ 
+    public function ResourceBundleProxy()
+	{
+	}
+       
+	public function get bundleName():String {
+		return _bundleName;
+	}
+	
+	public function set bundleName(value:String):void {
+		_bundleName = value;
+	}
+       
+    public function get content():Object {
+    	return null;
+    }
+        
+	public function get locale():String {
+		return _locale;
+	}
+	
+	public function set locale(value:String):void {
+		_locale = value;
+	}
 }

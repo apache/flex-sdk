@@ -519,13 +519,6 @@ public class Scroller extends SkinnableComponent
     
     /**
      *  @private
-     *  Maximum number of times per second we will change the scroll position 
-     *  and update the display while dragging.
-     */
-    private static const MAX_DRAG_RATE:Number = 30;
-    
-    /**
-     *  @private
      *  The name of the viewport's horizontal scroll position property
      */
     private static const HORIZONTAL_SCROLL_POSITION:String = "horizontalScrollPosition";
@@ -1352,8 +1345,39 @@ public class Scroller extends SkinnableComponent
         }
     }
     
-    
-    
+	//----------------------------------
+	//  maxDragRate
+	//----------------------------------
+	
+	private static var _maxDragRate:Number = 30;
+	
+	[Inspectable(category="General", defaultValue="30")]
+	
+	/**
+	 *
+	 *  Maximum number of times per second the scroll position
+	 *  and the display will be updated while dragging.
+	 *
+	 *  @default 30
+	 *
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10
+	 *  @playerversion AIR 2.5
+	 *  @productversion Flex 4.5
+	 */
+	
+	public static function get maxDragRate():Number
+	{
+		return _maxDragRate;
+	}
+	
+	public static function set maxDragRate(value:Number):void
+	{
+		_maxDragRate = value;
+	}
+	
+	
+	
     //--------------------------------------------------------------------------
     // 
     // Methods
@@ -2854,7 +2878,7 @@ public class Scroller extends SkinnableComponent
                 // In case we're not in touch mode, we need to instantiate our deferred skin parts immediately
                 // TODO (egeorgie): support deferred scrollbar parts in non-touch mode
                 ensureDeferredHScrollBarCreated();
-                ensureDeferredHScrollBarCreated();
+                ensureDeferredVScrollBarCreated();
                 
                 uninstallTouchListeners();
                 
@@ -3328,7 +3352,7 @@ public class Scroller extends SkinnableComponent
                         canScrollHorizontally,
                         canScrollVertically,
                         Math.round(minSlopInches * Capabilities.screenDPI), 
-                        dragEventThinning ? MAX_DRAG_RATE : NaN);
+                        dragEventThinning ? _maxDragRate : NaN);
                     event.stopImmediatePropagation();
                 }
                 else
@@ -3381,7 +3405,7 @@ public class Scroller extends SkinnableComponent
             canScrollHorizontally,
             canScrollVertically,
             Math.round(minSlopInches * Capabilities.screenDPI), 
-            dragEventThinning ? MAX_DRAG_RATE : NaN);
+            dragEventThinning ? _maxDragRate : NaN);
     }
     	
     /**

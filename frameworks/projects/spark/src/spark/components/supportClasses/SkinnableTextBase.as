@@ -43,12 +43,14 @@ import mx.events.SandboxMouseEvent;
 import mx.events.TouchInteractionEvent;
 import mx.managers.IFocusManagerComponent;
 import mx.utils.BitFlagUtil;
+import mx.utils.Platform;
 
 import spark.components.Application;
 import spark.components.RichEditableText;
 import spark.components.TextSelectionHighlighting;
 import spark.core.IDisplayText;
 import spark.core.IEditableText;
+import spark.core.IProxiedStageTextWrapper;
 import spark.core.ISoftKeyboardHintClient;
 import spark.events.TextOperationEvent;
 
@@ -443,11 +445,11 @@ public class SkinnableTextBase extends SkinnableComponent
      *  @private
      *  True if we received a mouseDown and we haven't receieved a mouseUp yet
      */
-    private var isMouseDown:Boolean = false;
+    private var isTouchMouseDown:Boolean = false;
     
     /**
      *  @private
-     *  True if setFocus is called while isMouseDown is true
+     *  True if setFocus is called while isTouchMouseDown is true
      */
     private var delaySetFocus:Boolean = false;
     
@@ -455,13 +457,13 @@ public class SkinnableTextBase extends SkinnableComponent
      *  @private
      *  The target from the current mouseDown event
      */
-    private var mouseDownTarget:InteractiveObject;
+    private var touchMouseDownTarget:InteractiveObject;
     
     /**
      *  @private
      *  Variable that determines whether this application is running on iOS.
      */
-    private static var isIOS:Boolean = (Capabilities.version.indexOf("IOS") == 0);
+    private static var isIOS:Boolean = Platform.isIOS;
     
     //--------------------------------------------------------------------------
     //
@@ -516,7 +518,7 @@ public class SkinnableTextBase extends SkinnableComponent
      *  The IEditableText that may be present
      *  in any skin assigned to this component.
      *  This is RichEditableText for the Spark theme
-     *  and StyleableStageText for the Mobile theme.
+     *  and StyleableStageText/ScrollableStageText for the Mobile theme.
      *  
      *  @langversion 3.0
      *  @playerversion Flash 10
@@ -1719,15 +1721,19 @@ public class SkinnableTextBase extends SkinnableComponent
             if (getStyle("interactionMode") == InteractionMode.TOUCH && !touchHandlersAdded)
             {
                 addEventListener(MouseEvent.MOUSE_DOWN, touchMouseDownHandler);
+                addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_STARTING,
+                        touchInteractionStartingHandler);
                 addEventListener(TouchInteractionEvent.TOUCH_INTERACTION_START,
-                    touchInteractionStartHandler);
+                        touchInteractionStartHandler);
                 touchHandlersAdded = true;
             }
             else if (getStyle("interactionMode") == InteractionMode.MOUSE && touchHandlersAdded)
             {
                 removeEventListener(MouseEvent.MOUSE_DOWN, touchMouseDownHandler);
+                removeEventListener(TouchInteractionEvent.TOUCH_INTERACTION_STARTING,
+                        touchInteractionStartingHandler);
                 removeEventListener(TouchInteractionEvent.TOUCH_INTERACTION_START,
-                    touchInteractionStartHandler);
+                        touchInteractionStartHandler);
                 touchHandlersAdded = false;
             }
         }
@@ -1854,28 +1860,17 @@ public class SkinnableTextBase extends SkinnableComponent
      */
     override public function setFocus():void
     {
-        // If the mouse is down, then we don't want the TextField to open the soft keyboard until mouse up. 
+        // If the mouse is down, then we don't want the TextField to open the soft keyboard until mouse up.
+        // we also want to prevent the keyboard from hiding until the next mouse up focus, or touch scroll.
         // Otherwise, this was called programmatically and we want the soft keyboard to appear immediately.
-        // Note that isMouseDown can only be true when we are in InteractionMode == TOUCH. 
+        // Note that isTouchMouseDown can only be true when we are in InteractionMode == TOUCH.
         if (textDisplay)
         {
-            if (isMouseDown)
+            if (isTouchMouseDown)
             {
                 delaySetFocus = true;
-                
-                // Cancelling an ACTIVATING event will close the softKeyboard if it is 
-                // currently active on iOS only. Add a check to only cancel the event
-                // if the softKeyboard is not active. Otherwise, the softKeyboard will
-                // close if you press on the skin of a text component.
-                var topLevelApp:Application = FlexGlobals.topLevelApplication as Application;
-                var cancelEvent:Boolean = !(topLevelApp && topLevelApp.isSoftKeyboardActive);
-                if (cancelEvent)
-                    addEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, softKeyboardActivatingHandler);
-                
-                textDisplay.setFocus();
-                
-                if (cancelEvent)
-                    removeEventListener(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, softKeyboardActivatingHandler);
+                if (textDisplay is IProxiedStageTextWrapper)
+                  IProxiedStageTextWrapper(textDisplay).keepSoftKeyboardActive();
             }
             else
             {
@@ -2585,8 +2580,8 @@ public class SkinnableTextBase extends SkinnableComponent
      */  
     private function touchMouseDownHandler(event:MouseEvent):void
     {
-        isMouseDown = true;
-        mouseDownTarget = event.target as InteractiveObject;
+        isTouchMouseDown = true;
+        touchMouseDownTarget = event.target as InteractiveObject;
         
         // If we already have focus, make sure to open soft keyboard
         // on mouse up
@@ -2602,30 +2597,42 @@ public class SkinnableTextBase extends SkinnableComponent
     
     /**
      * @private
-     * Called if we are in touch interaction mode and a mouseUp occurs on the stage while isMouseDown is true
+     * Called if we are in touch interaction mode and a mouseUp occurs on the stage while isTouchMouseDown is true
      */ 
     private function touchMouseUpHandler(event:Event):void
     {        
-        /* 
-         We set the focus on the component on mouseUp to activate the softKeyboard   
+        /*
+         We set the focus on the component on mouseUp to activate the softKeyboard
          We only set focus if the following conditions are met:
          1. mouseUp occurs on this component
          2. mouseDown occured on any subcomponent besides the textDisplay OR
          mouseDown occurred on textDisplay and mouseUp did not occur on textDisplay
-        
+
          The mouseDown and mouseUp on textDisplay case is handled by the Player
-        */        
-        if ((event.target is DisplayObject && contains(DisplayObject(event.target))) 
+        */
+        if ((event.target is DisplayObject && contains(DisplayObject(event.target)))
             && (delaySetFocus ||
-             (mouseDownTarget == textDisplay && event.target != textDisplay)))
+             (touchMouseDownTarget == textDisplay && event.target != textDisplay)))
         {
             if (textDisplay)
                 textDisplay.setFocus();
         }
-        
-        clearMouseDownState();
+
+        clearTouchMouseDownState();
     }
-       
+
+    /**
+     * @private
+     * Called if we are inside of a Scroller and the user is about to  start a scroll gesture.
+     * ask displayDisplay to show its proxy
+     */
+    private function touchInteractionStartingHandler(event: TouchInteractionEvent): void
+    {
+           if (textDisplay && textDisplay is IProxiedStageTextWrapper){
+               IProxiedStageTextWrapper(textDisplay).prepareForTouchScroll();
+           }
+    }
+
     /**
      * @private
      * Called if we are inside of a Scroller and the user has started a scroll gesture
@@ -2639,38 +2646,31 @@ public class SkinnableTextBase extends SkinnableComponent
             // set focus
             stage.focus = null;
         }
-        
-        // Clear out the state because starting a scroll gesture should never 
+
+        // Clear out the state because starting a scroll gesture should never
         // open the soft keyboard
-        clearMouseDownState();
-    }    
-    
+        clearTouchMouseDownState();
+    }
+
     /**
      * @private
      * Helper function to clear the state if the mouse is up or we started as scroll gesture
      */
-    private function clearMouseDownState():void
+    private function clearTouchMouseDownState():void
     {
-        if (isMouseDown)
+        if (isTouchMouseDown)
         {
             systemManager.getSandboxRoot().removeEventListener(
                 MouseEvent.MOUSE_UP, touchMouseUpHandler, false);
             systemManager.getSandboxRoot().removeEventListener(
                 SandboxMouseEvent.MOUSE_UP_SOMEWHERE, touchMouseUpHandler, false);
-            isMouseDown = false;
+            isTouchMouseDown = false;
             delaySetFocus = false;
-            mouseDownTarget = null;
+            touchMouseDownTarget = null;
         }
     }
     
-    /**
-     * @private
-     */
-    private function softKeyboardActivatingHandler(event:SoftKeyboardEvent):void
-    {
-        event.preventDefault();
-    }
-    
+
     /**
      *  @private
      *  Called when the RichEditableText dispatches a 'selectionChange' event.
@@ -2699,7 +2699,7 @@ public class SkinnableTextBase extends SkinnableComponent
         
         // We may have gone from empty to non-empty or vice-versa. This should
         // cause the prompt to show or hide.
-        if (prompt != null && prompt != "" && skin && 
+        if (prompt != null && prompt != "" && skin && skin.currentState &&
             (skin.currentState.indexOf("WithPrompt") != -1 && text.length != 0 ||
             skin.currentState.indexOf("WithPrompt") == -1 && text.length == 0))
             invalidateSkinState();

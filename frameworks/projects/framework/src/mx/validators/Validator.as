@@ -539,7 +539,7 @@ public class Validator extends EventDispatcher implements IMXMLObject,IValidator
     private var _source:Object;
     
     [Inspectable(category="General")]
-
+	[Bindable("sourceChanged")]
     /**
      *  Specifies the object containing the property to validate. 
      *  Set this to an instance of a component or a data model. 
@@ -587,7 +587,8 @@ public class Validator extends EventDispatcher implements IMXMLObject,IValidator
                 
         // Listen for the trigger event on the new source.
         addTriggerHandler();    
-        addListenerHandler();   
+        addListenerHandler();
+		dispatchEvent(new Event("sourceChanged"));
     }
 
     //----------------------------------

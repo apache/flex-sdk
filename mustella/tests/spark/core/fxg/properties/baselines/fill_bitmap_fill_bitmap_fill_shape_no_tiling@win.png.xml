@@ -1,0 +1,28 @@
+<DisplayList>
+  <fxgtemplate width="940" height="700">
+    <spark.skins.spark.ApplicationSkin width="940" height="700" blendMode="auto">
+      <spark.components.Group width="940" height="700" blendMode="auto">
+        <spark.components.Group width="940" height="700" blendMode="auto">
+          <comps.MyComp width="800" height="800" blendMode="auto">
+            <fxg.fill.bitmap_fill.bitmap_fill_shape_no_tiling width="310.5" height="420.5" blendMode="auto">
+              <flash.display.MovieClip width="301" height="230.8">
+                <flash.display.MovieClip x="10" y="10" width="40.3" height="40.3">
+                  <flash.display.Shape matrix="(a=-1.0606536865234375, b=-1.0606536865234375, c=1.0606536865234375, d=-1.0606536865234375, tx=150, ty=10)" x="150" y="10" width="40.3" height="40.3"/>
+                </flash.display.MovieClip>
+                <flash.display.Shape x="10" y="10" width="300" height="200"/>
+                <flash.display.Shape x="10" y="10" width="301" height="201"/>
+              </flash.display.MovieClip>
+              <flash.display.MovieClip width="301" height="230.8">
+                <flash.display.MovieClip x="10" y="220" width="40.3" height="40.3">
+                  <flash.display.Shape matrix="(a=-1.0606536865234375, b=-1.0606536865234375, c=1.0606536865234375, d=-1.0606536865234375, tx=150, ty=10)" x="150" y="10" width="40.3" height="40.3"/>
+                </flash.display.MovieClip>
+                <flash.display.Shape x="10" y="220" width="300" height="200"/>
+                <flash.display.Shape x="10" y="220" width="301" height="201"/>
+              </flash.display.MovieClip>
+            </fxg.fill.bitmap_fill.bitmap_fill_shape_no_tiling>
+          </comps.MyComp>
+        </spark.components.Group>
+      </spark.components.Group>
+    </spark.skins.spark.ApplicationSkin>
+  </fxgtemplate>
+</DisplayList>

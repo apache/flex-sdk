@@ -22,9 +22,11 @@ package spark.components
 
 import flash.display.DisplayObject;
 import flash.display.InteractiveObject;
+import flash.display.StageDisplayState;
 import flash.events.ContextMenuEvent;
 import flash.events.Event;
 import flash.events.EventDispatcher;
+import flash.events.FullScreenEvent;
 import flash.events.SoftKeyboardEvent;
 import flash.events.UncaughtErrorEvent;
 import flash.external.ExternalInterface;
@@ -53,6 +55,7 @@ import mx.managers.ToolTipManager;
 import mx.utils.BitFlagUtil;
 import mx.utils.DensityUtil;
 import mx.utils.LoaderUtil;
+import mx.utils.Platform;
 
 import spark.layouts.supportClasses.LayoutBase;
 
@@ -115,6 +118,18 @@ use namespace mx_internal;
  *  @productversion Flex 4
  */
 [Style(name="backgroundColor", type="uint", format="Color", inherit="no")]
+
+
+/**
+ * Height in pixels left for os top status bar display.
+ * <p>Status bar height is set by default to 20 pixels (at 160 DPI) for iOS7, on the following default skins: </p>
+ * <ul>
+ *     <li>>skins.spark.ApplicationSkin</li>
+ *     <li>spark.skins.mobile.TabbedViewNavigatorApplicationSkin</li>
+ *     <li>spark.skins.mobile.ViewNavigatorApplicationSkin</li>
+ *   </ul>
+ */
+[Style(name="osStatusBarHeight", type="Number", format="Length", inherit="no", theme="mobile")]
 
 //--------------------------------------
 //  Excluded APIs
@@ -373,7 +388,7 @@ public class Application extends SkinnableContainer
      *  @private
      */
     private static var _softKeyboardBehavior:String = null;
-    
+
     /**
      *  @private
      */
@@ -1341,7 +1356,7 @@ public class Application extends SkinnableContainer
             systemManager.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, uncaughtErrorRedispatcher);
 
         // Determine if we are running on an iOS device
-        isIOS = Capabilities.version.indexOf("IOS") == 0;
+        isIOS = Platform.isIOS;
         
         // To prevent a flicker described in SDK-30133, a flex application listens
         // for orientationChanging events dispatched by iOS AIR applications.
@@ -1352,6 +1367,12 @@ public class Application extends SkinnableContainer
         {
             sm.stage.addEventListener("orientationChanging", stage_orientationChangingHandler);
             sm.stage.addEventListener("orientationChange", stage_orientationChange);
+            sm.stage.addEventListener(FullScreenEvent.FULL_SCREEN, stage_fullScreenHandler)  ;
+
+            // if full screen app,  clear status bar height
+            if ( sm.stage.displayState == StageDisplayState.FULL_SCREEN || sm.stage.displayState == StageDisplayState.FULL_SCREEN_INTERACTIVE )  {
+                setStyle("osStatusBarHeight", 0);
+            }
         }
         
         _url = LoaderUtil.normalizeURL(sm.loaderInfo);
@@ -1465,6 +1486,34 @@ public class Application extends SkinnableContainer
         }
         
         explicitSizingForOrientation = false;
+    }
+
+    /** @private previous value of osStatusBarHeight on iOS when switch to full screen
+     *
+     */
+    protected var savedOsStatusBarHeight: Number = 0;
+
+    /**
+     *  @private
+     *  Handler to temporarily remove osStatusBarHeight is stage is set to full screen
+     *  only of iOS devices
+     */
+    protected function stage_fullScreenHandler(event: FullScreenEvent): void {
+
+        if (stage.displayState  == StageDisplayState.FULL_SCREEN ||  stage.displayState == StageDisplayState.FULL_SCREEN_INTERACTIVE) {
+            var statusBarHeight : Number = getStyle("osStatusBarHeight");
+            if (statusBarHeight > 0) {
+                savedOsStatusBarHeight = statusBarHeight;
+                setStyle("osStatusBarHeight", 0) ;
+            }
+        }
+        else
+        {
+              if (savedOsStatusBarHeight > 0)    {
+                  setStyle("osStatusBarHeight", savedOsStatusBarHeight);
+                  savedOsStatusBarHeight = 0;
+              }
+        }
     }
 
     /**
@@ -1811,14 +1860,10 @@ public class Application extends SkinnableContainer
      */
     private function initResizeBehavior():void
     {
-        var version:Array = Capabilities.version.split(' ')[1].split(',');
-        var versionPrefix:String = Capabilities.version.substr(0, 3).toLowerCase();
-        var runningOnMobile:Boolean = (versionPrefix != "win" && 
-                                       versionPrefix != "mac" && 
-                                       versionPrefix != "lnx");
-        
-        synchronousResize = (parseFloat(version[0]) > 10 ||
-                             (parseFloat(version[0]) == 10 && parseFloat(version[1]) >= 1)) && (Capabilities.playerType != "Desktop" || runningOnMobile);
+		var version:Array = Capabilities.version.split(' ')[1].split(',');
+		
+		synchronousResize = (parseFloat(version[0]) > 10 ||
+			(parseFloat(version[0]) == 10 && parseFloat(version[1]) >= 1)) && !Platform.isAir;
     }
     
     /**

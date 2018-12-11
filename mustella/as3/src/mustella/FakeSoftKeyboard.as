@@ -68,7 +68,8 @@ public class FakeSoftKeyboard
 		var comp:Object = event.target;
 		if (comp is TextField || comp is InteractiveObject)
 		{
-			if (!(comp.needsSoftKeyboard || getQualifiedClassName(comp).indexOf("StyleableStageText") > 0))
+            var className: String = getQualifiedClassName(comp);
+			if (!(comp.needsSoftKeyboard || className.indexOf("StyleableStageText") > 0 || className.indexOf("ScrollableStageText") > 0 ))
 				return;
 			
 			if (!comp.dispatchEvent(new SoftKeyboardEvent(SoftKeyboardEvent.SOFT_KEYBOARD_ACTIVATING, 

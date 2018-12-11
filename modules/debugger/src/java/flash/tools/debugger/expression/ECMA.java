@@ -1,23 +1,22 @@
 /*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- *  Licensed to the Apache Software Foundation (ASF) under one or more
- *  contributor license agreements.  See the NOTICE file distributed with
- *  this work for additional information regarding copyright ownership.
- *  The ASF licenses this file to You under the Apache License, Version 2.0
- *  (the "License"); you may not use this file except in compliance with
- *  the License.  You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 package flash.tools.debugger.expression;
 
+import flash.tools.debugger.Isolate;
 import flash.tools.debugger.PlayerDebugException;
 import flash.tools.debugger.Session;
 import flash.tools.debugger.Value;
@@ -45,19 +44,19 @@ public class ECMA
 	 */
 	public static boolean isPrimitive(Value v)
 	{
-		v = safeValue(v);
+		v = safeValue(v, Isolate.DEFAULT_ID);
 		Object o = v.getValueAsObject();
 		return (o == Value.UNDEFINED || o == null || o instanceof Boolean
 				|| o instanceof Double || o instanceof String);
 	}
 
-	private static Value callFunction(Session session, Value v, String functionName, Value[] args)
+	private static Value callFunction(Session session, Value v, String functionName, Value[] args, int isolateId)
 	{
-		v = safeValue(v);
+		v = safeValue(v, isolateId);
 
 		try
 		{
-			return session.callFunction(v, functionName, args);
+			return session.getWorkerSession(isolateId).callFunction(v, functionName, args);
 		}
 		catch (PlayerDebugException e)
 		{
@@ -68,10 +67,10 @@ public class ECMA
 	/**
 	 * Calls the valueOf() function of an object.
 	 */
-	private static Value callValueOf(Session session, Value v)
+	private static Value callValueOf(Session session, Value v, int isolateId)
 	{
-		v = safeValue(v);
-		return callFunction(session, v, "valueOf", new Value[0]); //$NON-NLS-1$
+		v = safeValue(v, isolateId);
+		return callFunction(session, v, "valueOf", new Value[0], isolateId); //$NON-NLS-1$
 	}
 
 	/**
@@ -80,10 +79,10 @@ public class ECMA
 	 * function, on the other hand, represents calling the toString() function
 	 * of an object.
 	 */
-	private static Value callToString(Session session, Value v)
+	private static Value callToString(Session session, Value v, int isolateId)
 	{
-		v = safeValue(v);
-		return callFunction(session, v, "toString", new Value[0]); //$NON-NLS-1$
+		v = safeValue(v, isolateId);
+		return callFunction(session, v, "toString", new Value[0], isolateId); //$NON-NLS-1$
 	}
 
 	/**
@@ -93,9 +92,11 @@ public class ECMA
 	 * @param optionalPreferredType
 	 *            either NUMBER, STRING, or null.
 	 */
-	public static Value defaultValue(Session session, Value v, PreferredType optionalPreferredType)
+	public static Value defaultValue(Session session, Value v, 
+			PreferredType optionalPreferredType,
+			int isolateId)
 	{
-		v = safeValue(v);
+		v = safeValue(v, isolateId);
 		String typename = v.getTypeName();
 		int at = typename.indexOf('@');
 		if (at != -1)
@@ -111,23 +112,23 @@ public class ECMA
 
 		if (optionalPreferredType == PreferredType.NUMBER)
 		{
-			Value result = callValueOf(session, v);
+			Value result = callValueOf(session, v, isolateId);
 			if (isPrimitive(result))
 				return result;
-			result = callToString(session, v);
+			result = callToString(session, v, isolateId);
 			if (isPrimitive(result))
 				return result;
-			throw new RuntimeException(new PlayerFaultException(new ExceptionFault(ASTBuilder.getLocalizationManager().getLocalizedTextString("typeError"), false, null))); //$NON-NLS-1$
+			throw new RuntimeException(new PlayerFaultException(new ExceptionFault(ASTBuilder.getLocalizationManager().getLocalizedTextString("typeError"), false, null, isolateId))); //$NON-NLS-1$
 		}
 		else
 		{
-			Value result = callToString(session, v);
+			Value result = callToString(session, v, isolateId);
 			if (isPrimitive(result))
 				return result;
-			result = callValueOf(session, v);
+			result = callValueOf(session, v, isolateId);
 			if (isPrimitive(result))
 				return result;
-			throw new RuntimeException(new PlayerFaultException(new ExceptionFault(ASTBuilder.getLocalizationManager().getLocalizedTextString("typeError"), false, null))); //$NON-NLS-1$
+			throw new RuntimeException(new PlayerFaultException(new ExceptionFault(ASTBuilder.getLocalizationManager().getLocalizedTextString("typeError"), false, null, isolateId))); //$NON-NLS-1$
 		}
 	}
 
@@ -140,9 +141,9 @@ public class ECMA
 	 * @return
 	 */
 	public static Value toPrimitive(Session session, Value v,
-			PreferredType optionalPreferredType)
+			PreferredType optionalPreferredType, int isolateId)
 	{
-		v = safeValue(v);
+		v = safeValue(v, isolateId);
 		switch (v.getType())
 		{
 		case VariableType.UNDEFINED:
@@ -153,14 +154,14 @@ public class ECMA
 			return v;
 
 		default:
-			return defaultValue(session, v, optionalPreferredType);
+			return defaultValue(session, v, optionalPreferredType, isolateId);
 		}
 	}
 
 	/** ECMA 9.2 */
 	public static boolean toBoolean(Value v)
 	{
-		v = safeValue(v);
+		v = safeValue(v, Isolate.DEFAULT_ID);
 		switch (v.getType())
 		{
 		case VariableType.UNDEFINED:
@@ -190,7 +191,7 @@ public class ECMA
 	/** ECMA 9.3 */
 	public static double toNumber(Session session, Value v)
 	{
-		v = safeValue(v);
+		v = safeValue(v, Isolate.DEFAULT_ID);
 		switch (v.getType())
 		{
 		case VariableType.UNDEFINED:
@@ -221,7 +222,7 @@ public class ECMA
 			}
 		}
 		default:
-			return toNumber(session, toPrimitive(session, v, PreferredType.NUMBER));
+			return toNumber(session, toPrimitive(session, v, PreferredType.NUMBER, v.getIsolateId()));
 		}
 	}
 
@@ -231,7 +232,7 @@ public class ECMA
 	/** ECMA 9.5 */
 	public static int toInt32(Session session, Value v)
 	{
-		v = safeValue(v);
+		v = safeValue(v, Isolate.DEFAULT_ID);
 		double d = toNumber(session, v);
 		if (d == Double.POSITIVE_INFINITY || d == Double.NEGATIVE_INFINITY)
 		{
@@ -251,7 +252,7 @@ public class ECMA
 	/** ECMA 9.6 */
 	public static long toUint32(Session session, Value v)
 	{
-		v = safeValue(v);
+		v = safeValue(v, Isolate.DEFAULT_ID);
 		long n = toInt32(session, v);
 		if (n < 0)
 			n = n + (long) 0x10000 * (long) 0x10000;
@@ -261,7 +262,7 @@ public class ECMA
 	/** ECMA 9.8 */
 	public static String toString(Session session, Value v)
 	{
-		v = safeValue(v);
+		v = safeValue(v, Isolate.DEFAULT_ID);
 		switch (v.getType())
 		{
 		case VariableType.UNDEFINED:
@@ -282,39 +283,39 @@ public class ECMA
 			}
 		}
 		default:
-			return toString(session, toPrimitive(session, v, PreferredType.STRING));
+			return toString(session, toPrimitive(session, v, PreferredType.STRING, v.getIsolateId()));
 		}
 	}
 
 	/** ECMA 11.8.5.  Returns true, false, or undefined. */
 	public static Value lessThan(Session session, Value x, Value y)
 	{
-		x = safeValue(x);
-		y = safeValue(y);
-		Value px = toPrimitive(session, x, PreferredType.NUMBER);
-		Value py = toPrimitive(session, y, PreferredType.NUMBER);
+		x = safeValue(x, Isolate.DEFAULT_ID);
+		y = safeValue(y, Isolate.DEFAULT_ID);
+		Value px = toPrimitive(session, x, PreferredType.NUMBER, x.getIsolateId());
+		Value py = toPrimitive(session, y, PreferredType.NUMBER, y.getIsolateId());
 		if (px.getType() == VariableType.STRING
 				&& py.getType() == VariableType.STRING)
 		{
 			String sx = px.getValueAsString();
 			String sy = py.getValueAsString();
-			return DValue.forPrimitive(new Boolean(sx.compareTo(sy) < 0));
+			return DValue.forPrimitive(new Boolean(sx.compareTo(sy) < 0), x.getIsolateId());
 		}
 		else
 		{
 			double dx = toNumber(session, px);
 			double dy = toNumber(session, py);
 			if (Double.isNaN(dx) || Double.isNaN(dy))
-				return DValue.forPrimitive(Value.UNDEFINED);
-			return DValue.forPrimitive(new Boolean(dx < dy));
+				return DValue.forPrimitive(Value.UNDEFINED, x.getIsolateId());
+			return DValue.forPrimitive(new Boolean(dx < dy), x.getIsolateId());
 		}
 	}
 
 	/** ECMA 11.9.3 */
 	public static boolean equals(Session session, Value xv, Value yv)
 	{
-		xv = safeValue(xv);
-		yv = safeValue(yv);
+		xv = safeValue(xv, Isolate.DEFAULT_ID);
+		yv = safeValue(yv, Isolate.DEFAULT_ID);
 
 		Object x = xv.getValueAsObject();
 		Object y = yv.getValueAsObject();
@@ -358,16 +359,16 @@ public class ECMA
 				return dx == dy;
 			}
 			if (x instanceof Boolean)
-				return equals(session, DValue.forPrimitive(new Double(toNumber(session, xv))), yv);
+				return equals(session, DValue.forPrimitive(new Double(toNumber(session, xv)), xv.getIsolateId()), yv);
 			if (y instanceof Boolean)
-				return equals(session, xv, DValue.forPrimitive(new Double(toNumber(session, yv))));
+				return equals(session, xv, DValue.forPrimitive(new Double(toNumber(session, yv)), xv.getIsolateId()));
 			if ((x instanceof String || x instanceof Double) && yv.getType() == VariableType.OBJECT)
 			{
-				return equals(session, xv, toPrimitive(session, yv, null));
+				return equals(session, xv, toPrimitive(session, yv, null, yv.getIsolateId()));
 			}
 			if (xv.getType() == VariableType.OBJECT && (y instanceof String || y instanceof Double))
 			{
-				return equals(session, toPrimitive(session, xv, null), yv);
+				return equals(session, toPrimitive(session, xv, null, xv.getIsolateId()), yv);
 			}
 			return false;
 		}
@@ -376,8 +377,8 @@ public class ECMA
 	/** ECMA 11.9.6 */
 	public static boolean strictEquals(Value xv, Value yv)
 	{
-		xv = safeValue(xv);
-		yv = safeValue(yv);
+		xv = safeValue(xv, Isolate.DEFAULT_ID);
+		yv = safeValue(yv, Isolate.DEFAULT_ID);
 
 		Object x = xv.getValueAsObject();
 		Object y = yv.getValueAsObject();
@@ -417,11 +418,11 @@ public class ECMA
 	 *            any Value, possibly null
 	 * @return a non-null Value
 	 */
-	public static Value safeValue(Value v)
+	public static Value safeValue(Value v, int isolateId)
 	{
 		if (v == null)
 		{
-			v = DValue.forPrimitive(null);
+			v = DValue.forPrimitive(null, isolateId);
 			assert v != null;
 		}
 		return v;

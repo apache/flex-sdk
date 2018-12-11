@@ -246,14 +246,18 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
         	
 		setBusy();
 
-    	//e4x doesn't provide an insertion operator so you tend to do
-    	//addition.  if we're inserting at the first item we you add
-    	//the old 1st to the new one.  if inserting in the middle or end
-    	//you just add to the one before
-        if (index == 0)
-            source[0] = length > 0 ? item + source[0] : item;
-        else
-            source[index - 1] += item;
+		if (length > 0)
+		{
+			var localLength:uint = source.length();
+			
+			// Adjust all indexes by 1
+			for (var i:uint = localLength; i>index; i--)
+			{
+				source[i] = source[i - 1];
+			}
+		}
+		
+		source[index] = item;
 
         startTrackUpdates(item, seedUID + uidCounter.toString());
 		uidCounter++;
@@ -416,7 +420,7 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
 	 */
 	public function removeItem( item:Object ):Boolean
 	{
-		var _item:Object = removeItemAt[getItemIndex(item)];
+		var _item:Object = removeItemAt(getItemIndex(item));
 		return _item != null;
 	}
 	

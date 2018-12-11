@@ -82,3 +82,26 @@ Menu {
 MenuBar {
     skinClass: ClassReference("spark.skins.MenuBarSkin");
 }
+
+MaskedTextInput {
+    fontFamily: _typewriter;
+}
+
+MaskedTextInput #textDisplay {
+    color: #000000;
+    fontStyle: normal;
+    typographicCase: uppercase;
+}
+
+MaskedTextInput #promptDisplay {
+    color: #cccccc;
+    fontStyle: normal;
+}
+
+MaskedTextInput:disabledWithPrompt {
+    color: #cccccc;
+}
+
+RichTextEditor {
+	skinClass: ClassReference("spark.skins.RichTextEditorSkin");
+}

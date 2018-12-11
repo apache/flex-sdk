@@ -19,6 +19,7 @@
 
 package spark.layouts.supportClasses
 {
+import mx.utils.StringUtil;
 
 [ExcludeClass]
 
@@ -79,28 +80,77 @@ public class LayoutElementHelper
      *  so that an array is returned where the first value is
      *  the offset (ie: 10) and the second value is 
      *  the boundary (ie: "col1")
+     *  @arg result :  optional Array to save an Array memory allocation
      */
-    public static function parseConstraintExp(val:Object):Array
+    public static function parseConstraintExp(val:Object, result:Array=null):Array
     {
-        if (val is Number)
-            return [Number(val), null];
-        
-        if (!val)
-            return [NaN, null];
-        // Replace colons with spaces
-        var temp:String = String(val).replace(/:/g, " ");
-        
-        // Split the string into an array 
-        var args:Array = temp.split(/\s+/);
+        // number
+        if (val is Number) {
+            if(result == null) {
+                return [val as Number, null];
+            }
+            else {
+                result[0] = val as Number;
+                result[1] = null;
+                return result;
+            }
+        }
+       // null
+        if (!val) {
+            if(result == null) {
+                return [NaN, null];
+            }
+            else {
+                result[0] = NaN;
+                result[1] = null;
+                return result;
+            }
+        }
+
+        // String case  : 2 sub-cases, number of constraint
+        var tmp:String = String(val);
+        var colonPos:int = tmp.indexOf(":");
         
         // If the val was a String object representing a single number (i.e. "100"),
         // then we'll hit this case:
-        if (args.length == 1)
-            return args;
+        if(colonPos == -1) {
+            return [StringUtil.trim(tmp)];
+        }
         
         // Return [offset, boundary]
-        return [args[1], args[0]];
+        if(result == null) {
+            result =[];
+        }
+        
+        //here we do not use StringUtil in order to avoid unnecessary memory allocations
+        var startIndex:int = 0;
+        while (StringUtil.isWhitespace(tmp.charAt(startIndex))) {
+            ++startIndex;
+        }
+        
+        var endIndex:int = tmp.length - 1;
+        while (StringUtil.isWhitespace(tmp.charAt(endIndex) )) {
+            --endIndex;
+        }
+        
+        var endIndexPart1:int = colonPos-1;
+        while (StringUtil.isWhitespace(tmp.charAt(endIndexPart1))) {
+            --endIndexPart1;
+        }
+        
+        var startIndexPart2:int = colonPos+1;
+        while (StringUtil.isWhitespace(tmp.charAt(startIndexPart2))) {
+            ++startIndexPart2;
+        }
+        
+        result[0] = tmp.substring(startIndexPart2, endIndex+1);
+        result[1] = tmp.substring(startIndex, endIndexPart1+1);
+        
+        return result;
     }
+
+
+
 }
 
 }

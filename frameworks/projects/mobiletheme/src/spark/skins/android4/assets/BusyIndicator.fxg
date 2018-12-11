@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008" viewWidth="36" viewHeight="36">
+  <Group>
+    <Group x="-12.8125" y="-6.73926">
+      <mask>
+        <Group x="12.8496" y="6.6665">
+          <Path winding="nonZero" data="M0 18.0117C0 27.9429 6.96289 35.9961 17.9629 36.0239L17.9629 33.0127C8.96289 32.9858 3.01074 26.2813 3.01074 18.0117 3.01074 9.74316 8.96289 3.03809 17.9629 3.00977L17.9629 0C6.96289 0.027832 0 8.08008 0 18.0117Z">
+            <fill>
+              <SolidColor color="#FFFFFF"/>
+            </fill>
+          </Path>
+        </Group>
+      </mask>
+      <Path winding="nonZero" data="M0 36.7485 16.332 0 44.7012 12.6084 28.3691 49.3569 0 36.7485Z">
+        <fill>
+          <LinearGradient x="13.4458" y="44.7148" scaleX="27.8603" rotation="293.962">
+            <GradientEntry ratio="0" color="#FFFFFF"/>
+            <GradientEntry ratio="0.576638" color="#B4B4B3"/>
+            <GradientEntry ratio="0.820765" color="#9C9C9B"/>
+            <GradientEntry ratio="1" color="#919190"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+    <Group x="2.61719" y="-8">
+      <mask>
+        <Group x="15.3828" y="7.92773">
+          <Path winding="nonZero" data="M0 3.00977C8 3.03809 14.9512 9.74316 14.9512 18.0117 14.9512 26.2813 8 32.9858 0 33.0127L0 36.0239C10 35.9961 17.9629 27.9429 17.9629 18.0117 17.9629 8.08008 10 0.027832 0 0L0 3.00977Z">
+            <fill>
+              <SolidColor color="#FFFFFF"/>
+            </fill>
+          </Path>
+        </Group>
+      </mask>
+      <Path winding="nonZero" data="M49.7617 34.4028 29.1016 0 0 17.4766 20.6621 51.8799 49.7617 34.4028Z">
+        <fill>
+          <LinearGradient x="37.6406" y="47.1841" scaleX="27.7241" rotation="239.012">
+            <GradientEntry ratio="0" color="#919190"/>
+            <GradientEntry ratio="1" color="#FFFFFF"/>
+          </LinearGradient>
+        </fill>
+      </Path>
+    </Group>
+  </Group>
+</Graphic>

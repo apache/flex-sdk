@@ -1,20 +1,18 @@
 /*
+ * Licensed to the Apache Software Foundation (ASF) under one or more
+ * contributor license agreements.  See the NOTICE file distributed with
+ * this work for additional information regarding copyright ownership.
+ * The ASF licenses this file to You under the Apache License, Version 2.0
+ * (the "License"); you may not use this file except in compliance with
+ * the License.  You may obtain a copy of the License at
  *
- *  Licensed to the Apache Software Foundation (ASF) under one or more
- *  contributor license agreements.  See the NOTICE file distributed with
- *  this work for additional information regarding copyright ownership.
- *  The ASF licenses this file to You under the Apache License, Version 2.0
- *  (the "License"); you may not use this file except in compliance with
- *  the License.  You may obtain a copy of the License at
+ *     http://www.apache.org/licenses/LICENSE-2.0
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- *  Unless required by applicable law or agreed to in writing, software
- *  distributed under the License is distributed on an "AS IS" BASIS,
- *  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- *  See the License for the specific language governing permissions and
- *  limitations under the License.
- *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 
 package flash.tools.debugger.concrete;
@@ -44,10 +42,10 @@ public class DVariable implements Variable, Comparable
 	/** Just name, without namespace */
 	private String		m_name;
 
-	/** @see Variable#getNamespace() */
+	/** @see flash.tools.debugger.Variable#getNamespace() */
 	private String		m_namespace = ""; //$NON-NLS-1$
 
-	/** @see VariableAttribute */
+	/** @see flash.tools.debugger.VariableAttribute */
 	private int			m_attribs;
 
 	/**
@@ -71,7 +69,7 @@ public class DVariable implements Variable, Comparable
 
 	/**
 	 * The variable's "level" -- see <code>Variable.getLevel()</code>
-	 * @see Variable#getLevel()
+	 * @see flash.tools.debugger.Variable#getLevel()
 	 */
 	private byte		m_level;
 
@@ -85,6 +83,11 @@ public class DVariable implements Variable, Comparable
 	 * parent's ID, or else my parent's parent's ID if my parent is <code>__proto__</code>.
 	 */
 	long				m_nonProtoParentId;
+	
+	/**
+	 * The worker to which this variable belongs.
+	 */
+	private int m_isolateId;
 
 	/**
 	 * Create a variable and its value.
@@ -95,7 +98,7 @@ public class DVariable implements Variable, Comparable
 	 * @param value
 	 *            the variable's value.
 	 */
-	public DVariable(String name, DValue value)
+	public DVariable(String name, DValue value, int isolateId)
 	{
 		m_rawName = name;
 		m_attribs = value.getAttributes();
@@ -127,6 +130,7 @@ public class DVariable implements Variable, Comparable
 		m_nonProtoParentId = Value.UNKNOWN_ID;
 		m_value = value;
 		value.setSession(m_session);
+		m_isolateId = isolateId;
 	}
 
 	/* getters/setters */
@@ -136,7 +140,11 @@ public class DVariable implements Variable, Comparable
 	public int			getScope()				{ return m_attribs & VariableAttribute.SCOPE_MASK; }
 	public int			getLevel()				{ return m_level; }
 	public String		getDefiningClass()		{ return m_definingClass; }
-
+	
+	public int getIsolateId() {
+		return m_isolateId;
+	}
+	
 	public void makePublic()
 	{
 		int attributes = getAttributes();
@@ -175,7 +183,7 @@ public class DVariable implements Variable, Comparable
 		boolean hasValueChanged = false;
 		if (s instanceof PlayerSession)
 		{
-			Value previousParent = ((PlayerSession)s).getPreviousValue(m_nonProtoParentId);
+			Value previousParent = ((PlayerSession)s).getPreviousValue(m_nonProtoParentId, m_isolateId);
 			if (previousParent != null)
 			{
 				try {
@@ -210,7 +218,7 @@ public class DVariable implements Variable, Comparable
 	 */
 	public FaultEvent setValue(Session s, int type, String value) throws NotSuspendedException, NoResponseException, NotConnectedException
 	{
-		return ((PlayerSession)s).setScalarMember(m_nonProtoParentId, m_rawName, type, value);
+		return ((PlayerSession)s).setScalarMember(m_nonProtoParentId, m_rawName, type, value, m_isolateId);
 	}
 
 	/*
@@ -265,7 +273,7 @@ public class DVariable implements Variable, Comparable
 
 		String n1 = getName();
 		String n2 = v2.getName();
-
+		
 		return String.CASE_INSENSITIVE_ORDER.compare(n1, n2);
 	}
 
@@ -289,7 +297,7 @@ public class DVariable implements Variable, Comparable
 
 			// If this Variable is stale (that is, the program has run since this Variable
 			// was created), then we can't invoke the getter.
-			if (playerSession.getRawValue(m_value.getId()) == m_value)
+			if (playerSession.getRawValue(m_value.getId(), m_isolateId) == m_value)
 			{
 				// temporarily turn on "invoke getters" preference
 				int oldInvokeGetters = playerSession.getPreference(SessionManager.PREF_INVOKE_GETTERS);
@@ -297,7 +305,7 @@ public class DVariable implements Variable, Comparable
 
 				try {
 					// fire the getter using the original object id. make sure we get something reasonable back
-					Value v = playerSession.getValue(m_nonProtoParentId, getRawName());
+					Value v = playerSession.getValue(m_nonProtoParentId, getRawName(), m_isolateId);
 					if (v != null)
 					{
 						m_value = v;
@@ -330,8 +338,9 @@ public class DVariable implements Variable, Comparable
 
 	/**
 	 * Added so that expressions such as <code>a.b.c = e.f</code> work in the command-line interface.
-	 * @see Context#lookup(Object)
+	 * @see flash.tools.debugger.expression.Context#lookup(Object)
 	 */
+	@Override
 	public String toString() { return getValue().getValueAsString(); }
 
 	/**

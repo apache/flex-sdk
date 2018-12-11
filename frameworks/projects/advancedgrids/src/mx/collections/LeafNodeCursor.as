@@ -236,7 +236,7 @@ public class LeafNodeCursor extends EventDispatcher
 	 */
     public function get beforeFirst():Boolean
     {
-    	return (currentIndex <= collection.length && current == null);
+    	return currentIndex < 0 && current == null;
     }
     
 	//----------------------------------
@@ -247,7 +247,7 @@ public class LeafNodeCursor extends EventDispatcher
 	 */
     public function get afterLast():Boolean
     {
-        return (currentIndex >= collection.length && current == null); 
+        return currentIndex >= collection.length && current == null;
     } 
     
 	//----------------------------------
@@ -304,8 +304,7 @@ public class LeafNodeCursor extends EventDispatcher
     		return false; 
     	
 		var uid:String = UIDUtil.getUID(currentNode);
-		if (!collection.parentMap.hasOwnProperty(uid))
-			collection.parentMap[uid] = parentNodes[parentNodes.length - 1];
+        collection.addParentMapping(uid, parentNodes[parentNodes.length - 1], false);
 
 		var flag:Boolean = true;		
 		// If current node is a branch and is open, the first child is our next item so return it

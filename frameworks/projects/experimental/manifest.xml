@@ -33,10 +33,14 @@
     <component id="DataNavigator" class="spark.components.DataNavigator"/>
     <!-- DataNavigatorGroup -->
     <component id="DataNavigatorGroup" class="spark.components.DataNavigatorGroup"/>
+    <!-- BorderDataNavigatorGroup -->
+    <component id="BorderDataNavigator" class="spark.components.BorderDataNavigator"/>
     <!-- InlineScroller -->
     <component id="InlineScroller" class="spark.components.InlineScroller"/>
     <!-- ColorPicker -->
     <component id="ColorPicker" class="spark.components.ColorPicker"/>
+    <!-- MaskedTextInput -->
+    <component id="MaskedTextInput" class="spark.components.MaskedTextInput"/>
     <!-- Menu -->
     <component id="Menu" class="spark.components.Menu"/>
     <component id="MenuItemRenderer" class="spark.components.itemRenderers.MenuItemRenderer"/>
@@ -45,6 +49,8 @@
     <component id="MenuBarItemRenderer" class="spark.components.itemRenderers.MenuBarItemRenderer"/>
     <!-- ProgressBar -->
     <component id="ProgressBar" class="spark.components.ProgressBar"/>
+    <!-- RichTextEditor -->
+    <component id="RichTextEditor" class="spark.components.RichTextEditor"/>
     
 	<!-- containers -->
     <component id="Accordion" class="spark.containers.Accordion"/>

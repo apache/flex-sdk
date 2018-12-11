@@ -1,0 +1,98 @@
+Apache Flex (Flex)
+==================
+
+Apache Flex SDK is an application development framework for easily building
+Flash-based applications for mobile devices, web browsers, and desktops.
+
+For detailed information about Apache Flex SDK and other Apache Flex projects
+please visit:
+    http://flex.apache.org/
+
+
+Contributing
+============
+
+Apache Flex is for the community and we would like to see more
+community involvement.
+
+The community can help the Apache Flex project by helping out in the following
+areas.
+    - Testing / Fixing bugs. Providing patches.
+    - Assisting other users with their requests for help.
+    - Helping out with release candidates.
+    - Wiki / Documentation.
+    - Translations into other languages.
+    - Public relations.
+    - Examples of code and components.
+
+All contributions are welcome. Continued involvement in the project may warrant
+you being selected as a committer by the Apache Flex PMC.
+
+For more details information please visit:
+    https://cwiki.apache.org/confluence/display/FLEX/Helping+Out
+
+
+Mailing Lists
+=============
+
+The two main mailing list are the user list for discussing how to code in Flex
+and any issues you run into and the dev list for discussing ongoing development
+of the SDK.
+
+You can subscribe to the mailing lists by sending an email to:
+    users-subscribe@flex.apache.org
+    dev-subscribe@flex.apache.org
+
+Note that both mailing lists have are mid-high volume lists.
+
+For those who prefer forums:
+    http://s.apache.org/flex-users-forum
+    http://s.apache.org/flex-dev-forum
+
+
+Reporting Bugs
+==============
+
+The bug base for Apache Flex can be found here:
+    https://issues.apache.org/jira/browse/FLEX
+
+You need to set up a JIRA account to submit a bug report but can browse and
+search the bug base without an account.
+    https://cwiki.apache.org/confluence/display/FLEX/3.1+JIRA+Account
+
+When reporting an issue the follow information is helpful:
+    - OS, browser and Flash Player version or AIR version
+    - Screen shots
+    - Small sample application showing the issue
+    - Steps on how to reproduce the issue
+     
+Please search through JIRA before submitting new bugs. It may be that the bug 
+you've found has already been reported.
+
+
+Getting the code
+================
+
+See the README for how to prepare your system, and get and build the SDK.
+
+You can also see a GitHub mirror here:
+    https://github.com/apache/flex-sdk
+
+
+Contributing Code
+=================
+
+If you have a bug fix, new component or other code you which to give to Apache
+Flex please open a JIRA ticket and attach the code to it.
+
+A committer will take a look, review and test it and help you get the code into
+the SDK.
+
+If the code is a significant size we may ask you to sign an license agreement
+(ICLA) or software grant.
+
+
+                                            Thanks for using Apache Flex. Enjoy!
+
+                                                         The Apache Flex Project
+                                                          http://flex.apache.org

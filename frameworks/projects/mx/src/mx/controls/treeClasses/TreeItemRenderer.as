@@ -363,7 +363,7 @@ public class TreeItemRenderer extends UIComponent
             disclosureIcon = null;
         }
 
-        if (_data != null)
+        if (_data != null && _listData != null)
         {
             listOwner = Tree(_listData.owner);
 

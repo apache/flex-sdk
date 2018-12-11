@@ -1444,7 +1444,7 @@ public class ObjectUtil
         if (oRef != refs[o])
             refs[o] = oRef;
         
-        return oRef
+        return oRef;
     }
     
     /**

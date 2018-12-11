@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+
+Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the "License"); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+-->
+<!--- The default skin class for Spark TextInput component.  
+
+     @see spark.components.TextInput
+        
+      @langversion 3.0
+      @playerversion Flash 10
+      @playerversion AIR 1.5
+      @productversion Flex 4
+-->
+<s:SparkSkin xmlns:fx="http://ns.adobe.com/mxml/2009" xmlns:s="library://ns.adobe.com/flex/spark"
+    xmlns:fb="http://ns.adobe.com/flashbuilder/2009" height="{TextInputSizeEnum.Normal}"
+    alpha.disabledStates="0.5" blendMode="normal">
+
+    <fx:Metadata>
+    <![CDATA[ 
+        /** 
+         * @copy spark.skins.spark.ApplicationSkin#hostComponent
+         */
+        [HostComponent("flatspark.components.TextInputIcon")]
+    ]]>
+    </fx:Metadata> 
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace fb "http://ns.adobe.com/flashbuilder/2009";
+		@namespace spark "spark.skins.spark.*";
+		
+		*
+		{
+			/*focusColor: #FFFFFF;
+			focusThickness: 1px;
+			focusAlpha: 1;*/
+			/*focusAlpha: 0;*/
+			errorColor: #E74C3C;
+		}
+	</fx:Style>
+    
+    <fx:Script fb:purpose="styling">
+        <![CDATA[
+			import mx.core.FlexVersion;
+			
+			import flatspark.enums.ButtonSizeEnum;
+			import flatspark.enums.TextInputSizeEnum;
+			import flatspark.utils.AwesomeUtils;
+			import flatspark.utils.ColorUtils;
+			
+        private var paddingChanged:Boolean;
+        
+        /* Define the skin elements that should not be colorized. */
+        static private const exclusions:Array = ["background", "background_disabled", "textDisplay", "promptDisplay", "border"];
+        
+        /* exclusions before Flex 4.5 for backwards-compatibility purposes */
+        static private const exclusions_4_0:Array = ["background", "background_disabled", "textDisplay", "promptDisplay"];
+        
+        /**
+         * @private
+         */
+        override public function get colorizeExclusions():Array 
+        {
+            // Since border is styleable via borderColor, no need to allow chromeColor to affect
+            // the border.  This is wrapped in a compatibility flag since this change was added  
+            // in Flex 4.5
+            if (FlexVersion.compatibilityVersion < FlexVersion.VERSION_4_5)
+            {
+                return exclusions_4_0;
+            }
+            
+            return exclusions;
+        }
+        
+        /* Define the content fill items that should be colored by the "contentBackgroundColor" style. */
+        static private const contentFill:Array = ["bgFill"];
+
+        /**
+         *  @private
+         */
+        override public function get contentItems():Array {return contentFill};
+        
+        /**
+         *  @private
+         */
+        override protected function commitProperties():void
+        {
+            super.commitProperties();
+            
+            if (paddingChanged)
+            {
+                updatePadding();
+                paddingChanged = false;
+            }
+        }
+        
+        /**
+         * @private
+         */
+        override protected function initializationComplete():void
+        {
+            useChromeColor = true;
+            super.initializationComplete();
+        }
+        
+        /**
+         *  @private
+         */
+        override protected function updateDisplayList(unscaledWidth:Number, unscaledHeight:Number):void
+        {
+            if (getStyle("borderVisible") == true)
+            {
+                border.visible = true;
+                background.left = background.top = background.right = background.bottom = 2;
+                textDisplay.left = textDisplay.top = textDisplay.bottom = 8;
+				textDisplay.right = 30;
+                if (promptDisplay)
+                {
+                    promptDisplay.setLayoutBoundsSize(unscaledWidth - 8, unscaledHeight - 8);
+                    promptDisplay.setLayoutBoundsPosition(5, 5);
+                }
+            }
+            else
+            {
+                border.visible = false;
+                background.left = background.top = background.right = background.bottom = 0;
+                textDisplay.left = textDisplay.top = textDisplay.right = textDisplay.bottom = 0;
+                if (promptDisplay)
+                {
+                    promptDisplay.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
+                    promptDisplay.setLayoutBoundsPosition(0, 0);
+                }
+            }
+            
+            /*borderStroke.color = getStyle("borderColor");
+            borderStroke.alpha = getStyle("borderAlpha");*/
+            
+            super.updateDisplayList(unscaledWidth, unscaledHeight);
+        }
+
+        /**
+         *  @private
+         */
+        private function updatePadding():void
+        {
+            if (!textDisplay)
+                return;
+            
+            // Push padding styles into the textDisplay
+            var padding:Number;
+            
+            padding = getStyle("paddingLeft");
+            if (textDisplay.getStyle("paddingLeft") != padding)
+                textDisplay.setStyle("paddingLeft", padding);
+            
+            padding = getStyle("paddingTop");
+            if (textDisplay.getStyle("paddingTop") != padding)
+                textDisplay.setStyle("paddingTop", padding);
+            
+            padding = getStyle("paddingRight");
+            if (textDisplay.getStyle("paddingRight") != padding)
+                textDisplay.setStyle("paddingRight", padding);
+            
+            padding = getStyle("paddingBottom");
+            if (textDisplay.getStyle("paddingBottom") != padding)
+                textDisplay.setStyle("paddingBottom", padding);
+            
+            if (!promptDisplay)
+                return;
+            
+            padding = getStyle("paddingLeft");
+            if (promptDisplay.getStyle("paddingLeft") != padding)
+                promptDisplay.setStyle("paddingLeft", padding);
+            
+            padding = getStyle("paddingTop");
+            if (promptDisplay.getStyle("paddingTop") != padding)
+                promptDisplay.setStyle("paddingTop", padding);
+            
+            padding = getStyle("paddingRight");
+            if (promptDisplay.getStyle("paddingRight") != padding)
+                promptDisplay.setStyle("paddingRight", padding);
+            
+            padding = getStyle("paddingBottom");
+            if (promptDisplay.getStyle("paddingBottom") != padding)
+                promptDisplay.setStyle("paddingBottom", padding);
+        }
+        
+        /**
+         *  @private
+         */
+        override public function styleChanged(styleProp:String):void
+        {
+            var allStyles:Boolean = !styleProp || styleProp == "styleName";
+
+            super.styleChanged(styleProp);
+            
+            if (allStyles || styleProp.indexOf("padding") == 0)
+            {
+                paddingChanged = true;
+                invalidateProperties();
+            }
+        }
+			
+			protected function textDisplay_focusInHandler(event:FocusEvent):void
+			{
+				borderStroke.color = ColorUtils.Asbestos;
+				iconFont.setStyle("color", ColorUtils.Asbestos);
+			}
+			
+			protected function textDisplay_focusOutHandler(event:FocusEvent):void
+			{
+				borderStroke.color = ColorUtils.Silver;
+				iconFont.setStyle("color", ColorUtils.Silver);
+			}
+			
+			private static function getFontSize(height:int):int
+			{
+				var altura:int = 15;
+				
+				switch (height)
+				{
+					case TextInputSizeEnum.Large:
+						altura = 17;
+						break;
+					case TextInputSizeEnum.Normal:
+						altura = 15;
+						break;
+					case TextInputSizeEnum.Small:
+						altura = 13;
+						break;
+				}
+				
+				return altura;
+			}
+			
+			private static function getIconSize(height:int):int
+			{
+				var altura:int = 17;
+				
+				switch (height)
+				{
+					case TextInputSizeEnum.Large:
+						altura = 19;
+						break;
+					case TextInputSizeEnum.Normal:
+						altura = 17;
+						break;
+					case TextInputSizeEnum.Small:
+						altura = 15;
+						break;
+				}
+				
+				return altura;
+			}
+			
+		]]>
+    </fx:Script>
+    
+    <fx:Script>
+        <![CDATA[
+        /** 
+         * @private 
+         */     
+        private static const focusExclusions:Array = ["textDisplay"];
+
+        /**
+         *  @private
+         */
+        override public function get focusSkinExclusions():Array { return focusExclusions;};
+        ]]>
+    </fx:Script>
+    
+    <s:states>
+        <s:State name="normal"/>
+        <s:State name="disabled" stateGroups="disabledStates"/>
+        <s:State name="normalWithPrompt"/>
+        <s:State name="disabledWithPrompt" stateGroups="disabledStates"/>
+    </s:states>
+    
+    <!-- border --> 
+    <!--- @private -->
+    <s:Rect left="0" right="0" top="0" bottom="0" id="border" radiusX="6">
+        <s:stroke>     
+            <!--- @private -->
+            <s:SolidColorStroke id="borderStroke" weight="2" color="{ColorUtils.Silver}"/>
+        </s:stroke>
+    </s:Rect>
+
+    <!-- fill -->
+    <!--- Defines the appearance of the TextInput component's background. -->
+    <s:Rect id="background" left="2" right="2" top="2" bottom="2" radiusX="6">
+        <s:fill>
+            <!--- @private Defines the background fill color. -->
+            <s:SolidColor id="bgFill" color="0xFFFFFF" />
+        </s:fill>
+    </s:Rect>
+	
+	<s:Rect id="background_disabled" left="2" right="2" top="2" bottom="2" radiusX="6" includeIn="disabledStates">
+		<s:fill>
+			<s:SolidColor color="0xf4f6f6"/>
+		</s:fill>
+	</s:Rect>
+    
+    <!-- text -->
+	<!--- @copy spark.components.supportClasses.SkinnableTextBase#textDisplay -->
+    <s:RichEditableText id="textDisplay"
+              verticalAlign="middle" focusIn="textDisplay_focusInHandler(event)" focusOut="textDisplay_focusOutHandler(event)"
+              widthInChars="10" fontFamily="Lato" fontWeight="normal" color="{ColorUtils.WetAsphalt}"
+              left="8" right="30" top="8" bottom="8" fontSize="{getFontSize(hostComponent.height)}"/>
+    <!--- Defines the Label that is used for prompt text. The includeInLayout property is false so the prompt text does not affect measurement. -->
+    <s:Label id="promptDisplay" maxDisplayedLines="1" fontSize="{getFontSize(hostComponent.height)}"
+                verticalAlign="middle" fontFamily="Lato" fontWeight="normal" fontStyle="normal" color="{ColorUtils.Silver}"
+                mouseEnabled="false" mouseChildren="false"
+                includeIn="normalWithPrompt,disabledWithPrompt" 
+                includeInLayout="false"
+                />
+	<s:Label id="iconFont" color="{ColorUtils.Silver}" color.disabledStates="{ColorUtils.Silver}" text="{hostComponent.iconFont}"
+			 textAlign="right" fontSize="{getIconSize(hostComponent.height)}" fontFamily="FontAwesome" fontStyle="normal"
+			 maxDisplayedLines="1" mouseChildren="false" mouseEnabled="false"
+			 horizontalCenter="0" verticalCenter="0" verticalAlign="middle"
+			 left="8" right="8" top="2" bottom="2" includeInLayout="{iconFont != null}">
+	</s:Label>
+</s:SparkSkin>

@@ -102,7 +102,7 @@ with latest version info ${major} ${minor} ${nano}
 				group="3"
 	            property="MAJOR"/>
 			<grep in="${currVerInfo}"
-				regex="(public static String FLEX_MINOR_VERSION =) (&quot;)([0-9])(&quot;+)"
+				regex="(public static String FLEX_MINOR_VERSION =) (&quot;)([0-9]*)(&quot;+)"
 				group="3"
 	            property="MINOR"/>
 			<grep in="${currVerInfo}"
@@ -117,7 +117,7 @@ with latest version info ${major}.${minor}.${nano}.0
 			
 			<!-- Update all Version.as files in the frameworks directory-->
 			<replaceregexp>
-				<regexp pattern='"[0-9].[0-9].[0-9].[0-9]";'/>
+				<regexp pattern='"[0-9].[0-9]*.[0-9].[0-9]";'/>
 				<substitution expression='"${major}.${minor}.${nano}.0";'/>
 				<fileset dir="${FLEX_HOME}/frameworks">
 					<include name="**/Version.as"/>
@@ -130,11 +130,11 @@ update ${FLEX_HOME}/build.properties release.version to ${major}.${minor}.${nano
 			
 			<!--update build.properties-->
 			<replaceregexp file="${FLEX_HOME}/build.properties">
-				<regexp pattern="release.version = [0-9].[0-9].[0-9]"/>
+				<regexp pattern="release.version = [0-9].[0-9]*.[0-9]"/>
 				<substitution expression="release.version = ${major}.${minor}.${nano}"/>
 			</replaceregexp>
 			<replaceregexp file="${FLEX_HOME}/build.properties">
-				<regexp pattern="release = Apache Flex [0-9].[0-9]"/>
+				<regexp pattern="release = Apache Flex [0-9].[0-9]*"/>
 				<substitution expression="release = Apache Flex ${major}.${minor}"/>
 			</replaceregexp>
 
@@ -148,7 +148,7 @@ update ${FLEX_HOME}/modules/compiler/src/java/flex2/tools/VersionInfo.java with 
 				<substitution expression='FLEX_MAJOR_VERSION = "${major}";'/>
 			</replaceregexp>
 			<replaceregexp file="${FLEX_HOME}/modules/compiler/src/java/flex2/tools/VersionInfo.java">
-				<regexp pattern='FLEX_MINOR_VERSION = "[0-9]";'/>
+				<regexp pattern='FLEX_MINOR_VERSION = "[0-9]*";'/>
 				<substitution expression='FLEX_MINOR_VERSION = "${minor}";'/>
 			</replaceregexp>
 			<replaceregexp file="${FLEX_HOME}/modules/compiler/src/java/flex2/tools/VersionInfo.java">

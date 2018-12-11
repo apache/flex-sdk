@@ -104,14 +104,16 @@ public class DispatchMouseEvent extends TestStep
 		{
 			stagePt = actualTarget.localToGlobal(new Point(0, 0));
 		}
-		root[mouseX] = stagePt.x;
-		root[mouseY] = stagePt.y;
-		UnitTester.setMouseXY(stagePt);
-		if (root["topLevelSystemManager"] != root)
-		{
-			root["topLevelSystemManager"][mouseX] = stagePt.x;
-			root["topLevelSystemManager"][mouseY] = stagePt.y;
-		}
+        try {
+            root[mouseX] = stagePt.x;
+            root[mouseY] = stagePt.y;
+            UnitTester.setMouseXY(stagePt);
+            if (root["topLevelSystemManager"] != root)
+            {
+                root["topLevelSystemManager"][mouseX] = stagePt.x;
+                root["topLevelSystemManager"][mouseY] = stagePt.y;
+            }            
+        } catch (e:Error) {}; // some scenarios don't support this
 
 		if (actualTarget is DisplayObjectContainer)
 		{

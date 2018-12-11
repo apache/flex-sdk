@@ -153,8 +153,8 @@
 				<SetProperty target="tree2" propertyName="width"  value="200" waitEvent="updateComplete"/>
 				<SetProperty target="tree"  propertyName="height" value="200" waitEvent="updateComplete"/>
 				<SetProperty target="tree2" propertyName="height" value="200" waitEvent="updateComplete"/>
-				<SetProperty propertyName="dataProvider" valueExpression="value=application.treeXMLEmptyBranches" target="tree" waitEvent="updateComplete" waitTarget="tree"/>
-				<SetProperty propertyName="dataProvider" valueExpression="value=application.treeXML" target="tree2" waitEvent="updateComplete" waitTarget="tree2"/>
+				<SetProperty propertyName="dataProvider" valueExpression="value=application.treeXMLEmptyBranches.copy()" target="tree" waitEvent="updateComplete" waitTarget="tree"/>
+				<SetProperty propertyName="dataProvider" valueExpression="value=application.treeXML.copy()" target="tree2" waitEvent="updateComplete" waitTarget="tree2"/>
 				<SetProperty target="tree"  propertyName="dropEnabled"  value="true" />
 				<SetProperty target="tree2" propertyName="dropEnabled"  value="true" />
 				<SetProperty target="tree"  propertyName="dragEnabled"  value="true" />
@@ -194,8 +194,8 @@
 				<SetProperty target="tree2" propertyName="width"  value="200" waitEvent="updateComplete" waitTarget="tree2"/>
 				<SetProperty target="tree"  propertyName="height" value="200" waitEvent="updateComplete" waitTarget="tree"/>
 				<SetProperty target="tree2" propertyName="height" value="200" waitEvent="updateComplete" waitTarget="tree2"/>
-				<SetProperty propertyName="dataProvider" valueExpression="value=application.treeXMLEmptyBranches" target="tree" waitEvent="updateComplete" waitTarget="tree"/>
-				<SetProperty propertyName="dataProvider" valueExpression="value=application.treeXML" target="tree2" waitEvent="updateComplete" waitTarget="tree2"/>
+				<SetProperty propertyName="dataProvider" valueExpression="value=application.treeXMLEmptyBranches.copy()" target="tree" waitEvent="updateComplete" waitTarget="tree"/>
+				<SetProperty propertyName="dataProvider" valueExpression="value=application.treeXML.copy()" target="tree2" waitEvent="updateComplete" waitTarget="tree2"/>
 				<SetProperty target="tree"  propertyName="dropEnabled"  value="true" />
 				<SetProperty target="tree2" propertyName="dropEnabled"  value="true" />
 				<SetProperty target="tree"  propertyName="dragEnabled"  value="true" />

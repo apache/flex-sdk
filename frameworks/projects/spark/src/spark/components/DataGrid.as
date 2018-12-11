@@ -1578,7 +1578,6 @@ public class DataGrid extends SkinnableContainerBase
     *  @playerversion AIR 3.4
     *  @productversion Flex 4.10
     */
-
     public function get doubleClickMode():String
     {
         return grid.doubleClickMode;
@@ -1589,13 +1588,10 @@ public class DataGrid extends SkinnableContainerBase
     */
     public function set doubleClickMode(newValue:String):void
     {
-        if (grid.doubleClickMode == newValue)
+        if (setGridProperty("doubleClickMode", newValue))
         {
-           return;
+            dispatchChangeEvent("doubleClickModeChanged");
         }
-
-        grid.doubleClickMode = newValue;
-        dispatchChangeEvent("doubleClickModeChanged");
     }
 
 
@@ -3427,7 +3423,10 @@ public class DataGrid extends SkinnableContainerBase
         
         elt.dataGrid = this;
         if (elt.nestLevel <= grid.nestLevel)
+        {
+            elt.validateNow();
             elt.nestLevel = grid.nestLevel + 1;
+        }
     }
     
     /**
@@ -6272,7 +6271,11 @@ public class DataGrid extends SkinnableContainerBase
             return null;
         
         // Calculate the drop location
-        return grid.layout.calculateDropLocation(event);
+        var location:DropLocation = grid.layout.calculateDropLocation(event);
+		if (location.dropIndex > dataProvider.length) 
+			location.dropIndex = dataProvider.length;
+		
+		return location;
     }
     
     /**

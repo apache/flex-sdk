@@ -34,6 +34,7 @@ import flash.events.MouseEvent;
 import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.system.Capabilities;
+import flash.utils.Dictionary;
 
 import mx.automation.IAutomationObject;
 import mx.core.FlexGlobals;
@@ -176,6 +177,14 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
      *  An array of information about currently active popups
      */
     mx_internal var popupInfo:Array = [];
+    
+    /**
+     *  @private
+     *  The first popup to use a blur per systemManager.
+     *  We need to track that in order to know when to remove the blur
+     *  if stacks of modal popups are created and then taken down. 
+     */
+    private var blurOwners:Dictionary = new Dictionary(true);
 
     //--------------------------------------------------------------------------
     //
@@ -956,6 +965,9 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             
             if (blurAmount)
             {
+                if (blurOwners[sm] == null)
+                    blurOwners[sm] = o.owner;
+                
                 // Ensure we blur the appropriate top level document.
                 if (DisplayObject(sm).parent is Stage)
                 {
@@ -1030,19 +1042,25 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
             o.fade = fade;
             fade.play();
             
-            // Blur effect on the application
-            const blurAmount:Number = popUpStyleClient.getStyle("modalTransparencyBlur");
+            var sm:ISystemManager = o.systemManager;
             
-            if (blurAmount)
+            // don't remove blur unless this is the first modal window to put up the blur
+            if (blurOwners[sm] != null && blurOwners[sm] == o.owner)
             {
-                const blur:Blur = new Blur(o.blurTarget);
-                blur.blurXFrom = blur.blurYFrom = blurAmount;
-                blur.blurXTo = blur.blurYTo = 0;
-                blur.duration = duration;
-                blur.addEventListener(EffectEvent.EFFECT_END, effectEndHandler);
-                o.blur = blur;
+                // Blur effect on the application
+                const blurAmount:Number = popUpStyleClient.getStyle("modalTransparencyBlur");
                 
-                blur.play();
+                if (blurAmount)
+                {
+                    const blur:Blur = new Blur(o.blurTarget);
+                    blur.blurXFrom = blur.blurYFrom = blurAmount;
+                    blur.blurXTo = blur.blurYTo = 0;
+                    blur.duration = duration;
+                    blur.addEventListener(EffectEvent.EFFECT_END, effectEndHandler);
+                    o.blur = blur;
+                    
+                    blur.play();
+                }
             }
         }
         else
@@ -1260,6 +1278,8 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
     				awm.numModalWindows--;
                 }
 
+                if (blurOwners[sm] == o.owner)
+                    blurOwners[sm] = null;
                 popupInfo.splice(i, 1);
                 break;
             }
@@ -1318,7 +1338,6 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 			if (obj.parent)	// Mustella can already take you off stage
 				obj.parent.removeChild(obj);
 		}
-		
     }
     
     /**
@@ -1466,7 +1485,7 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 					var o:PopUpData = popupInfo[i];
 					if (o && o != p && o.owner.accessibilityProperties)
 					{
-						o.owner.accessibilityProperties.silent	= true;
+						o.owner.accessibilityProperties.silent = true;
 					}
 				}
 				
@@ -1510,7 +1529,8 @@ public class PopUpManagerImpl extends EventDispatcher implements IPopUpManager
 				if (popupInfo.length<=1)
 				{
 					var sbRoot:Object = p.systemManager.getSandboxRoot();
-					sbRoot.document.accessibilityProperties.silent = false;
+					if (sbRoot.document.accessibilityProperties)
+						sbRoot.document.accessibilityProperties.silent = false;
 				}
 				
 				try {

@@ -198,6 +198,7 @@ public dynamic class WebService extends AbstractWebService
             op = new Operation(this, name);
             _operations[name] = op;
             op.asyncRequest = asyncRequest;
+            op.setKeepLastResultIfNotSet(_keepLastResult);
             initializeOperation(op as Operation);
         }
         return op;
@@ -370,6 +371,7 @@ public dynamic class WebService extends AbstractWebService
     {
         var httpService:HTTPService = new HTTPService();
         httpService.asyncRequest = asyncRequest;
+        httpService.setKeepLastResultIfNotSet(_keepLastResult);
         if (destination)
             httpService.destination = destination;
         httpService.useProxy = useProxy;

@@ -132,9 +132,16 @@
     	<antcall target="experimental"/>
     	<antcall target="experimental_mobile"/>
         <antcall target="compile-automation"/>
+        <antcall target="flatspark"/>
     </target>
 	
-	<target name="flex-config" depends="playerglobal-setswfversion" description="Copy the flex config template to flex-config.xml and inject version numbers">
+    <target name="test" description="Runs the tests for all projects that have FlexUnit tests">
+        <delete dir="${FLEX_HOME}/test-reports"/>
+
+        <antcall target="apache-test"/>
+    </target>
+
+	<target name="flex-config" depends="playerglobal-setswfversion" description="Copy the flex/air/airmobile config templates to flex/air/airmobile-config.xml and inject version numbers">
 		<copy file="${basedir}/flex-config-template.xml" tofile="${basedir}/flex-config.xml" overwrite="true">
 			<filterset>
 				<filter token="playerversion" value="${playerglobal.version}"/>
@@ -142,6 +149,20 @@
 				<filter token="locale" value="${locale}"/>
 			</filterset>
 		</copy>
+        <copy file="${basedir}/air-config-template.xml" tofile="${basedir}/air-config.xml" overwrite="true">
+            <filterset>
+                <filter token="playerversion" value="${playerglobal.version}"/>
+                <filter token="swfversion" value="${playerglobal.swfversion}"/>
+                <filter token="locale" value="${locale}"/>
+            </filterset>
+        </copy>
+        <copy file="${basedir}/airmobile-config-template.xml" tofile="${basedir}/airmobile-config.xml" overwrite="true">
+            <filterset>
+                <filter token="playerversion" value="${playerglobal.version}"/>
+                <filter token="swfversion" value="${playerglobal.swfversion}"/>
+                <filter token="locale" value="${locale}"/>
+            </filterset>
+        </copy>
 	</target>
 		
 	<target name="playerglobal-setswfversion" description="Set the swfversion to insert into the flex config file">
@@ -180,6 +201,21 @@
 		</condition>
 		<condition property="playerglobal.swfversion" value="22">
 			<equals arg1="${playerglobal.version}" arg2="11.9" />
+		</condition>
+		<condition property="playerglobal.swfversion" value="23">
+			<equals arg1="${playerglobal.version}" arg2="12.0" />
+		</condition>
+		<condition property="playerglobal.swfversion" value="24">
+			<equals arg1="${playerglobal.version}" arg2="13.0" />
+		</condition>
+		<condition property="playerglobal.swfversion" value="25">
+			<equals arg1="${playerglobal.version}" arg2="14.0" />
+		</condition>
+		<condition property="playerglobal.swfversion" value="26">
+			<equals arg1="${playerglobal.version}" arg2="15.0" />
+		</condition>
+		<condition property="playerglobal.swfversion" value="27">
+			<equals arg1="${playerglobal.version}" arg2="16.0" />
 		</condition>
 	</target>	
 
@@ -245,6 +281,7 @@
         <ant dir="${basedir}/projects/apache" target="doc" />
     	<ant dir="${basedir}/projects/experimental" target="doc" />
     	<ant dir="${basedir}/projects/experimental_mobile" target="doc" />
+        <!-- ant dir="${basedir}/projects/flatspark" target="doc" / -->
     </target>
    
     <!--
@@ -259,6 +296,8 @@
     
     <target name="clean" depends="check-tlf-home,automation-clean,airsdk-clean" description="Cleans all SWCs and their resource bundles">
         <delete file="${basedir}/flex-config.xml"/>
+        <delete file="${basedir}/air-config.xml"/>
+        <delete file="${basedir}/airmobile-config.xml"/>
         <!-- Delete output from SWC projects -->
         <ant dir="${basedir}/projects/textLayout" target="clean"/>
         <ant dir="${basedir}/projects/framework" target="clean"/>
@@ -281,6 +320,7 @@
     	<ant dir="${basedir}/projects/apache" target="clean"/>
     	<ant dir="${basedir}/projects/experimental" target="clean"/>
     	<ant dir="${basedir}/projects/experimental_mobile" target="clean"/>
+        <ant dir="${basedir}/projects/flatspark" target="clean"/>
         <ant dir="${basedir}/javascript" target="clean"/>
     	<ant dir="${basedir}/themes/AeonGraphical" target="clean"/>
         <!-- delete the FlashBuilder executable directories -->
@@ -472,6 +512,9 @@
     <target name="apache" description="Clean build of apache.swc">
         <ant dir="${basedir}/projects/apache"/>
     </target>
+    <target name="apache-test" description="Tests for 'apache' project">
+        <ant dir="${basedir}/projects/apache" target="test"/>
+    </target>
 	
     <target name="experimental" description="Clean build of experimental.swc">
         <ant dir="${basedir}/projects/experimental"/>
@@ -479,5 +522,9 @@
 	
     <target name="experimental_mobile" description="Clean build of experimental_mobile.swc">
         <ant dir="${basedir}/projects/experimental_mobile"/>
+    </target>
+	
+    <target name="flatspark" description="Clean build of flatspark.swc">
+        <ant dir="${basedir}/projects/flatspark"/>
     </target>
 </project>

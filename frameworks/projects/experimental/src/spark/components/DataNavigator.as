@@ -608,7 +608,7 @@ package spark.components
 		public function set labelField(value:String):void
 		{
 			if (value == _labelField)
-				return 
+				return;
 				
 				_labelField = value;
 			_labelFieldOrFunctionChanged = true;
@@ -657,7 +657,7 @@ package spark.components
 		public function set labelFunction(value:Function):void
 		{
 			if (value == _labelFunction)
-				return 
+				return;
 				
 				_labelFunction = value;
 			_labelFieldOrFunctionChanged = true;

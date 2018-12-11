@@ -55,6 +55,14 @@
         <name>defaults.css</name>
         <path>defaults.css</path>
     </include-file>
+	    <include-file>
+        <name>spark/skins/android4/assets/fonts/Roboto-Regular.ttf</name>
+        <path>src/spark/skins/android4/assets/fonts/Roboto-Regular.ttf</path>
+    </include-file>
+    <include-file>
+        <name>spark/skins/android4/assets/fonts/Roboto-Bold.ttf</name>
+        <path>src/spark/skins/android4/assets/fonts/Roboto-Bold.ttf</path>
+    </include-file>
     
     <resource-bundle-list>bundles.properties</resource-bundle-list>
     

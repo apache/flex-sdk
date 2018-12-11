@@ -22,12 +22,15 @@
     <!-- Load the local properties.  Need sdk.dir to load the Flex config env vars.  -->
     <property name="local_properties" value="local.properties" />
     <property file="${basedir}/${local_properties}" />
-    <property name="sdk.dir" value="${basedir}/.." />
-    
-    <property file="${sdk.dir}/env.properties"/>
     <property environment="env"/>
 
-    <pathconvert property="mustella.dir" dirsep="/" >
+    <condition property="sdk.dir" value="${env.FLEX_HOME}" else="${basedir}/..">
+        <isset property="env.FLEX_HOME"/>
+    </condition>
+        
+    <property file="${sdk.dir}/env.properties"/>
+
+	<pathconvert property="mustella.dir" dirsep="/" >
        <path location="${basedir}" />
     </pathconvert>
 
@@ -64,7 +67,10 @@
     <property name="apollo_transform_template" value="${mustella.dir}/Assets/AirTransform/WindowedAppTemplate.mxml" />
     <property name="previous.generated.testfiles" value="**/*.swf,**/*.output,**/SWFs/${apollo_transform_prefix}*.mxml,**/swfs/${apollo_transform_prefix}*.mxml,**/SWFs/${apollo_transform_prefix2}*.mxml,**/swfs/${apollo_transform_prefix2}*.mxml" />
     
-    <property name="sdk.mustella.dir" value="${mustella.dir}/tests" />
+    <condition property="sdk.mustella.dir" value="${env.MUSTELLA_TEST_DIR}" else="${mustella.dir}/tests">
+           <isset property="env.MUSTELLA_TEST_DIR"/>
+    </condition>
+
     <!-- 
         This directory doesn't exist in the source kit so make it although it would be better
         to make sure no targets that the source kit uses expect this directory to exist.
@@ -81,7 +87,7 @@
 
     <property name="compc.dir" value="${sdk.dir}/bin" />
     <property name="compc" value="" />
-    <property name="mxmlc.args" value="-debug -define=CONFIG::skaha,false -compiler.fonts.managers=flash.fonts.JREFontManager,flash.fonts.AFEFontManager,flash.fonts.BatikFontManager,flash.fonts.CFFFontManager" />
+    <property name="mxmlc.args" value="-debug -define+=CONFIG::skaha,false -compiler.fonts.managers=flash.fonts.JREFontManager,flash.fonts.AFEFontManager,flash.fonts.BatikFontManager,flash.fonts.CFFFontManager" />
     <property name="asclasspath" value=""/>
     <property name="aschartspath" value="."/>
     <property name="frameworks.dir1" value="${frameworks}" />
@@ -95,7 +101,9 @@
     <property name="strict" value="true" />
     <property name="exit_on_compile_error" value="" />
 
-    <property name="cygwinshell" value="/cygwin/bin/sh.exe" />
+	<available file="/cygwin/bin/sh.exe" property="cygwinshell" value="/cygwin/bin/sh.exe"/>
+    <available file="/cygwin64/bin/sh.exe" property="cygwinshell" value="/cygwin64/bin/sh.exe"/>
+	
     <property name="buildURL" value="true" />
 
     <property name="classes.dir" value="${mustella.dir}/classes" />
@@ -169,7 +177,7 @@
     <!-- Mobile stuff will be changed by handle_mobile_config later if it's a mobile run. -->
     <property name="target_os_name" value="${host_os_name}" />
 
-    <condition property="exclude_filename" value="${mustella.dir}/tests/ExcludeListWin.txt" >
+    <condition property="exclude_filename" value="${sdk.mustella.dir}/ExcludeListWin.txt" >
         <and>
             <equals arg1="${target_os_name}" arg2="windows" />
             <not>
@@ -178,7 +186,7 @@
         </and>
     </condition>
 
-    <condition property="exclude_filename" value="${mustella.dir}/tests/ExcludeListMac.txt" >
+    <condition property="exclude_filename" value="${sdk.mustella.dir}/ExcludeListMac.txt" >
         <and>
             <equals arg1="${target_os_name}" arg2="mac" />
             <not>
@@ -187,21 +195,21 @@
         </and>
     </condition>
     
-    <condition property="exclude_filename" value="${mustella.dir}/tests/ExcludeListMacAIR.txt" >
+    <condition property="exclude_filename" value="${sdk.mustella.dir}/ExcludeListMacAIR.txt" >
         <and>
             <equals arg1="${target_os_name}" arg2="mac" />
             <istrue value="${use_apollo}" />
         </and>
     </condition>
 
-    <condition property="exclude_filename" value="${mustella.dir}/tests/ExcludeListWinAIR.txt" >
+    <condition property="exclude_filename" value="${sdk.mustella.dir}/ExcludeListWinAIR.txt" >
         <and>
             <equals arg1="${target_os_name}" arg2="windows" />
             <istrue value="${use_apollo}" />
         </and>
     </condition>
 
-    <condition property="exclude_filename" value="${mustella.dir}/tests/ExcludeListLinux.txt" >
+    <condition property="exclude_filename" value="${sdk.mustella.dir}/ExcludeListLinux.txt" >
         <equals arg1="${target_os_name}" arg2="Linux" />
     </condition>
 
@@ -657,10 +665,11 @@
             <path path="${tmp.sdk.mustella.scripts2}" />
         </pathconvert>
         <exec  executable="${shell}" failonerror="${exit_on_compile_error}">
-            <arg value="${sdk.mustella.dir}/../scripts/shellrunner.sh" />
+            <arg value="${mustella.dir}/scripts/shellrunner.sh" />
             <env key="MUSTELLA_SCRIPTS2" value="${sdk.mustella.scripts2}" />
             <env key="SDK_DIR" value="${sdk.dir}" />
             <env key="MUSTELLA_DIR" value="${mustella.dir}" />
+            <env key="MUSTELLA_TEST_DIR" value="${sdk.mustella.dir}" />
             <env key="USE_APOLLO" value="${use_apollo}" />
             <env key="APOLLO_TRANSFORM" value="${apollo_transform}" />
         </exec>
@@ -697,7 +706,7 @@
         <taskdef name="getrunidtask" classname="mustella.GetRunIdTask" classpathref="flex.test.classpath"/>
         <getrunidtask  host="host" property="current.run.id" build="${build.id}" branch="${branch_name}" type="${run_type}" browserName="${browser_name}" config="${config_id}" swf="${version_fetcher}" player="${player}" time="${db_time}" os="${os}" osVersion="${os_version}" arch="${arch}"/>
         <echo message="yo yo yo new id: ${current.run.id}" />
-        <echo file="${mustella.dir}/tests/runid.properties" append="false">run_id=${current.run.id}</echo>
+        <echo file="${sdk.mustella.dir}/runid.properties" append="false">run_id=${current.run.id}</echo>
 
         <!-- read the file, make sure we match -->
 
@@ -729,7 +738,7 @@
     </condition>
     
     <target name="handle_mobile_config" depends="get_mobile_data,device_fail" if="do_handle_mobile_config" >
-        <condition property="exclude_filename" value="${mustella.dir}/tests/ExcludeList${os}.txt" >
+        <condition property="exclude_filename" value="${sdk.mustella.dir}/ExcludeList${os}.txt" >
             <equals arg1="${run_mobile_tests}" arg2="true" />
         </condition>
         
@@ -890,7 +899,7 @@
         <echo message="Deleting old results and files from previous testsuite build."/>
         <delete dir="${mustellagen.dir}" quiet="true"/>
         <!-- get rid of old runid prop file, in case we don't create a new one -->
-        <delete verbose="true" file="${mustella.dir}/tests/runid.properties" failonerror="false" quiet="true" />
+        <delete verbose="true" file="${sdk.mustella.dir}/runid.properties" failonerror="false" quiet="true" />
         <!-- delete file="${mustella.dir}/mustella.swc" failonerror="false"/ -->
         <delete quiet="true" failonerror="false" includeEmptyDirs="true">
             <fileset dir="${mustella.dir}">
@@ -944,7 +953,7 @@
                 <exclude name="RuntimeLocalization/RTL_SparkSkin/SWFs/Assets/bundles/flex20/enCustomBundle2_Flex20.swc"/>
             </fileset>
         </delete>
-        <delete dir="tests/MarshallPlan/SWFs/assets/MyUtils"/>
+        <delete dir="${sdk.mustella.dir}/MarshallPlan/SWFs/assets/MyUtils"/>
     </target>
 
    <property name="exclude_flag" value="" />
@@ -1115,21 +1124,21 @@
         <delete quiet="true">
             <fileset dir="${sdk.dir}/frameworks/componentSmoke" includes="*.cache"/>
         </delete>
-        <property name="frameworks.dir" value="${mustella.dir}/../frameworks" />
+        <property name="frameworks.dir" value="${sdk.dir}/frameworks" />
         <property name="mxmlc.dir" value="${sdk.dir}/bin" />
         <!-- property name="mxmlc.exe" value="mxmlc.exe" / -->
         <!-- remove? property name="pfchange" value="workspace" / -->
         <pathconvert pathSep=";" property="sdk.mustella.mxmlfiles" refid="sdk.mustella.fileset"/>
 
-        <!-- echo>stuff we're passing into compile: ${sdk.mustella.mxmlfiles}</echo -->
+        <!-- <echo>stuff we're passing into compile: ${sdk.mustella.mxmlfiles}</echo> -->
     
-        <!-- echo>Shell is currently ${shell}</echo -->
+        <!-- <echo>Shell is currently ${shell}</echo> -->
         <antcall target="shells" />
     
         <!-- write the target files to a file -->
         <taskdef name="namesToFile" classname="mustella.WriteFileNames" classpathref="flex.test.classpath"/>
         <namesToFile list="${sdk.mustella.mxmlfiles}" file="${mustella.dir}/test_files.tmp"/>
-    
+    	
         <java classname="mustella.CompileMustellaSwfs" fork="${fork_compile}" resultproperty="jreturn" >
             <classpath refid="flex.test.classpath"/>
             <sysproperty key="mxmlcdir" value="${mxmlc.dir}" />
@@ -1144,7 +1153,7 @@
             <sysproperty key="strict" value="${strict}"/>
             <sysproperty key="index" value="${index}"/>
             <sysproperty key="compcdir" value="${compc.dir}" />
-            <sysproperty key="mxmlc.args" value="${mxmlc.args} -source-path=${mustella.dir}/Assets "/>
+            <sysproperty key="mxmlc.args" value="${mxmlc.args} -source-path+=${mustella.dir}/Assets "/>
             <sysproperty key="rsl" value="${rsl}" />
             <sysproperty key="build" value="${build}"/>
             <sysproperty key="debug" value="${debug}"/>
@@ -1364,7 +1373,7 @@
     <target name="zip_tests_only"  depends="makemustellaswc" description="- package tests,jars,excludes, and results">
 
         <!-- assumption: we have a runid; we need it to get the failures relevant to the current build -->
-        <property file="${mustella.dir}/tests/runid.properties" />
+        <property file="${sdk.mustella.dir}/runid.properties" />
         <property name="current.run.id" value="${run_id}" />
     
         <echo>run id is ${current.run.id} </echo>
@@ -1439,7 +1448,7 @@
     </target>
 
     <target name="unzipSwfs" description="Unzip previously compiled test swfs" >
-        <unzip src="${mustella.dir}/${testpkg}" dest="${mustella.dir}/tests" />
+        <unzip src="${mustella.dir}/${testpkg}" dest="${sdk.mustella.dir}" />
     </target>
 
 
@@ -1910,7 +1919,7 @@
         <chmod perm="777" verbose="true" dir="${sdk.dir}/frameworks" includes="*" >
         </chmod>
         <chmod perm="777" verbose="true" maxparallel="50">
-            <dirset dir="${mustella.dir}/tests"  >
+            <dirset dir="${sdk.mustella.dir}"  >
             </dirset>
         </chmod>
         <antcall target="delete_cache">
@@ -2702,6 +2711,43 @@ db_time='${DB_TIME}'</echo>
     <target name="test_target" >
         <p4change description="test2" />
         <echo>${p4.change}</echo>
+    </target>
+
+    <target name="load-task">
+        <property name="FLEX_HOME" value="${sdk.dir}" />
+        <!-- load the <mxmlc> task; we can't do this at the <project> level -->
+        <!-- because targets that run before flexTasks.jar gets built would fail -->
+        <taskdef resource="flexTasks.tasks" classpath="${basedir}/../lib/flexTasks.jar"/>
+    </target>
+
+    <target name="build-imagediff" depends="load-task" unless="imagediff-built" >
+        <property file="${sdk.dir}/build.properties" />
+        <!-- compile the basic tests -->
+        <mxmlc fork="true"
+            file="${basedir}/utilities/ImageDiffAIR/src/ImageDiffAIR.mxml">
+            <jvmarg line="${mxmlc.jvm.args}"/>
+            <load-config filename="${sdk.dir}/frameworks/air-config.xml"/>
+        </mxmlc>
+    </target>
+    
+    <target name="check-imagediff">
+        <available file="${basedir}/utilities/ImageDiffAIR/src/ImageDiffAIR.swf" property="imagediff-built" />
+    </target>
+    
+    <target name="imagediff" depends="check-imagediff,build-imagediff" >
+        <!-- Paths to the adl. -->
+        <condition property="adl" value="${env.AIR_HOME}/bin/adl.exe">
+            <os family="windows"/>
+        </condition>
+        <condition property="adl" value="${env.AIR_HOME}/bin/adl">
+            <os family="mac"/>
+        </condition>
+        <condition property="adl" value="${env.AIR_HOME}/bin/adl">
+            <os family="unix"/>
+        </condition>
+        <exec executable="${adl}" dir="${basedir}/utilities/ImageDiffAIR/src" >
+            <arg value="${basedir}/utilities/ImageDiffAIR/src/ImageDiffAIR-app.xml"/>
+        </exec>
     </target>
 </project>
 

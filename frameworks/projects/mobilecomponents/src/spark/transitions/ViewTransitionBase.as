@@ -105,7 +105,7 @@ use namespace mx_internal;
  *      <li>A validation pass is performed on the pending 
  *        view, and the <code>captureEndValues()</code> method is called. 
  *        At this time, the transition captures any properties or 
- *        bitmaps representations from the pending view.</li    >
+ *        bitmaps representations from the pending view.</li>
  *      <li>The <code>prepareForPlay()</code> method is then called, 
  *        which allows the transition to perform any further preparations,
  *        such as preparing a Spark effects sequence, 
@@ -749,7 +749,7 @@ public class ViewTransitionBase extends EventDispatcher
     {
         // One final check to determine if we will be required to perform a full
         // (consolidated) transition.
-        if (!consolidatedTransition)
+        if (!consolidatedTransition && actionBar)
         {
             consolidatedTransition = 
                 ((actionBar.height != cachedActionBarHeight) ||

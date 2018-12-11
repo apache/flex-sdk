@@ -103,7 +103,6 @@ use namespace mx_internal;
  */
 [Style(name="stroke", type="mx.graphics.IStroke", inherit="no")]
 
-[Exclude(name="hlocColor", kind="style")]	//this is private style and excluded from tag inspector
 
 /**
  *  Represents financial data as a series of elements

@@ -37,13 +37,6 @@ fi
 
 
 
-# CLEAN
-rm -f ../local.properties
-rm -f local.properties
-LOG=$LOG"- Cleaned up 'local.properties' files from previous runs"$'\n'
-
-
-
 # VERSIONS
 
 VERSIONS_FILE="versions.txt"
@@ -56,54 +49,52 @@ fi
 
 # Toggle between versions:
 # 11.1 is the default version
-# 11.7 is the "current long term support" version
-# 11.8 is the latest release
-# 11.9 is the current beta version
+# 11.7 is a much used version?
+# 13 is the current "long term support" version
+# 16 is the beta and/or current version
+# Note: the previous release and current beta versions of AIR are both '4',
+#       so to make the distinction, the beta version is '4.01' on the VM
 if [ "$FLASH_VERSION" == "11.1" ]
 then
   FLASH_VERSION=11.7
   AIR_VERSION=3.7
+  AIR_SDK_DIR=3.7
 elif [ "$FLASH_VERSION" == "11.7" ]
 then
-  FLASH_VERSION=11.8
-  AIR_VERSION=3.8
-elif [ "$FLASH_VERSION" == "11.8" ]
+  FLASH_VERSION=13.0
+  AIR_VERSION=4.0
+  AIR_SDK_DIR=4.0
+elif [ "$FLASH_VERSION" == "13.0" ]
 then
-  FLASH_VERSION=11.9
-  AIR_VERSION=3.9
+  FLASH_VERSION=16.0
+  AIR_VERSION=16
+  AIR_SDK_DIR=16
 else
   FLASH_VERSION=11.1
   AIR_VERSION=3.7
+  AIR_SDK_DIR=3.7
 fi
-
-# write toggled values to 'versions' file
-cat > $VERSIONS_FILE <<END 
-FLASH_VERSION=$FLASH_VERSION
-AIR_VERSION=$AIR_VERSION
-END
 
 LOG=$LOG"- Set FLASH_VERSION to '$FLASH_VERSION' and AIR_VERSION to '$AIR_VERSION'"$'\n'
 
 
 
 # LOCATIONS
-#export AIR_HOME="/Users/erik/Documents/ApacheFlex/dependencies/AdobeAIRSDK"
-export AIR_HOME="C:\\ApacheFlex\\dependencies\\AdobeAIRSDK\\$AIR_VERSION"
+export AIR_HOME="C:\\ApacheFlex\\dependencies\\AdobeAIRSDK\\$AIR_SDK_DIR"
 LOG=$LOG"- Set AIR_HOME to '$AIR_HOME'"$'\n'
 
 case "$FLASH_VERSION" in
   11.1)
-    #export FLASHPLAYER_DEBUGGER="/Applications/Flash Player Debugger.app/Contents/MacOS/Flash Player Debugger"
     export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer11_1r102_55_win_sa_debug_32bit.exe"
   ;;
   11.7)
     export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer11_7r700_232_win_sa_debug.exe"
   ;;
-  11.8)
-    export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer11_8r800_94_win_sa_debug.exe"
+  13.0)
+    export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer13_0r0_214_win_sa_debug.exe"
   ;;
-  11.9)
-    export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer11-9_debugsa_win_32.exe"
+  16.0)
+    export FLASHPLAYER_DEBUGGER="C:\\ApacheFlex\\dependencies\\FlashPlayer_Debug\\flashplayer_16_sa_debug.exe"
   ;;
   *)
     echo "No valid Flash Player Debugger variable value could be parsed."
@@ -114,23 +105,7 @@ LOG=$LOG"- Set FLASHPLAYER_DEBUGGER to '$FLASHPLAYER_DEBUGGER'"$'\n'
 
 
 
-# To build the SDK using the versions specified above, write '../local.properties'
-cat > ../local.properties <<END 
-playerglobal.version = $FLASH_VERSION
-air.version = AIR_VERSION
-END
-
-
-
-# ANT
-ant -f ../build.xml clean -Dbuild.noprompt=true
-ant -f ../build.xml main -Dbuild.noprompt=true
-ant -f ../build.xml other.locales -Dbuild.noprompt=true
-LOG=$LOG"- Ran 'clean', 'main' and 'other.locales' ant targets to prepare the SDK for testing"$'\n'
-
-
-
-# RUN
+# RUN SETTINGS
 
 RUN_TYPE="main"
 while [ "$1" != "" ]; do
@@ -155,17 +130,81 @@ then
   TEST_SET=tests/apollo
 elif [ "$RUN_TYPE" == "mobile" ]
 then
+  TEST_COMMAND=-mobile
+  TEST_SET=tests/mobile
+fi
+
+
+
+# SETTINGS REPORT
+START=$(date +"%m-%d-%Y %H:%M")
+START_TIME=$(date +"%s")
+
+cat <<END
+
+
+
+============ JENKINS MUSTELLA SETTINGS REPORT ============
+
+Date/Time: $START
+
+Settings:
+player.version = $FLASH_VERSION
+air.version = $AIR_VERSION
+FLASHPLAYER_DEBUGGER = $FLASHPLAYER_DEBUGGER
+AIR_HOME = $AIR_HOME
+
+Build: 
+  type = $RUN_TYPE
+  command = $TEST_COMMAND
+  set = $TEST_SET
+
+=====================================================
+
+
+
+END
+
+
+
+# Remove old 'local.properties' files
+rm -f ../local.properties
+rm -f local.properties
+
+LOG=$LOG"- Cleaned up 'local.properties' files from previous runs"$'\n'
+
+
+
+# To build the SDK using the values specified above, write both 'local.properties' files
+cat > ../local.properties <<END 
+playerglobal.version = $FLASH_VERSION
+air.version = $AIR_VERSION
+END
+
+if [ "$RUN_TYPE" == "mobile" ]
+then
   cat > local.properties <<END 
 target_os_name=android
 android_sdk=C:/ApacheFlex/dependencies/AndroidSDK/adt-bundle-windows-x86_64-20130522/sdk
 runtimeApk=${AIR_HOME}/runtimes/air/android/emulator/Runtime.apk
 device_name=win
 END
-
-  TEST_COMMAND=-mobile
-  TEST_SET=tests/mobile
 fi
 
+LOG=$LOG"- Created fresh 'local.properties' files with containing run specific values"$'\n'
+
+
+
+# ANT
+ant -f ../build.xml clean -Dbuild.noprompt=true
+ant -f ../build.xml main -Dbuild.noprompt=true
+ant -f ../build.xml other.locales -Dbuild.noprompt=true
+
+LOG=$LOG"- Ran 'clean', 'main' and 'other.locales' ant targets to prepare the SDK for testing"$'\n'
+
+
+
+# RUN
 sh ./mini_run.sh $TEST_COMMAND $TEST_SET 
 
 LOG=$LOG"- Ran Mustella on the SDK with these parameters: '$TEST_COMMAND $TEST_SET'"$'\n'
@@ -191,15 +230,28 @@ fi
 
 
 
-# REPORT
-NOW=$(date +"%m-%d-%Y %H:%M")
+# RUN REPORT
+END=$(date +"%m-%d-%Y %H:%M")
+END_TIME=$(date +"%s")
+
+DURATION=$(($END_TIME - $START_TIME))
+
+DAYS=$(($DURATION / 60 / 60 / 24))
+HOURS=$((($DURATION / 60 / 60) - ($DAYS * 24)))
+MINUTES=$((($DURATION / 60) - (($DAYS * 24 + $HOURS) * 60)))
+SECONDS=$((($DURATION) - ((($DAYS * 24 + $HOURS) * 60 + $MINUTES) * 60)))
+
+DURATION_STR="$DAYS days $HOURS hours $MINUTES mins $SECONDS seconds"
+
 cat <<END
 
 
 
 ============ JENKINS MUSTELLA RUN REPORT ============
 
-Date and time: $NOW
+Date/Time: $END
+
+Run duration: $DURATION_STR
 
 Settings:
 player.version = $FLASH_VERSION
@@ -219,6 +271,14 @@ $LOG
 
 
 
+END
+
+
+
+# write 'used' values to 'versions.txt' to allow 
+cat > $VERSIONS_FILE <<END 
+FLASH_VERSION=$FLASH_VERSION
+AIR_VERSION=$AIR_VERSION
 END
 
 

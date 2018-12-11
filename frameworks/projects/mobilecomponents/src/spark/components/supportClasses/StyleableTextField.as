@@ -1013,7 +1013,7 @@ public class StyleableTextField extends FlexTextField
         // if we already have the focus, no need to set it again.
         // if we do indeed set it again, we might end up scrolling the 
         // TextField when we don't want that to happen (SDK-29453)
-        if (stage.focus != this)
+        if (stage && stage.focus != this)
             stage.focus = this;
         
         // Work around a runtime bug where calling setSelection(0,0) doesn't

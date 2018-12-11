@@ -42,16 +42,27 @@
     
     <fx:Script fb:purpose="styling">
         <![CDATA[
-            /**
-             *  @private
-             */
-            override protected function updateDisplayList(unscaledWidth:Number, 
-                unscaledHeight:Number) : void
+        override public function styleChanged(styleProp: String): void
+        {
+            super.styleChanged(styleProp);
+            var allStyles: Boolean = (styleProp == null || styleProp == "styleName");
+
+            if (allStyles || styleProp == "osStatusBarHeight")
             {
-                bgRectFill.color = getStyle('backgroundColor');
-                bgRectFill.alpha = getStyle('backgroundAlpha');
-                super.updateDisplayList(unscaledWidth, unscaledHeight);
+                var osStatusBarHeight: Number = Number(getStyle("osStatusBarHeight"));
+                containerGrp.top = isNaN(osStatusBarHeight) ? 0 : osStatusBarHeight;
             }
+        }
+
+        /**
+         *  @private
+         */
+        override protected function updateDisplayList(unscaledWidth: Number, unscaledHeight: Number): void
+        {
+            bgRectFill.color = getStyle('backgroundColor');
+            bgRectFill.alpha = getStyle('backgroundAlpha');
+            super.updateDisplayList(unscaledWidth, unscaledHeight);
+        }
         ]]>
     </fx:Script>
     
@@ -74,7 +85,7 @@
         </s:fill>
     </s:Rect>
         
-    <s:Group left="0" right="0" top="0" bottom="0">
+    <s:Group left="0" right="0" top="0" bottom="0" id="containerGrp">
         <s:layout>
             <s:VerticalLayout gap="0" horizontalAlign="justify" />
         </s:layout>

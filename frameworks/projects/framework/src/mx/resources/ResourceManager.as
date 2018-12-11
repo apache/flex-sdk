@@ -120,10 +120,12 @@ public class ResourceManager
 				// won't have been initialized by SystemManager
 				// or FlexModuleFactory (since these don't get linked in)
 				// so the above call to getInstance() will throw an exception.
-				// In this situation, the ResourceManager simply creates
-				// its own ResourceManagerImpl.
-				instance = new ResourceManagerImpl();
 			}
+			
+			// In this situation, the ResourceManager simply creates
+			// its own ResourceManagerImpl.
+			if (!instance)
+				instance = new ResourceManagerImpl();
 
             CONFIG::performanceInstrumentation
             {

@@ -83,6 +83,7 @@ public class Binding
         this.destFunc = destFunc;
         this.destString = destString;
         this.srcString = srcString;
+        this.destFuncFailed = false;
 
         if (this.srcFunc == null)
         {
@@ -234,6 +235,11 @@ public class Binding
      *  @productversion Flex 3
      */
     mx_internal var destFunc:Function;
+    
+    /**
+     * @private 
+     */
+    mx_internal var destFuncFailed:Boolean;
 
 	/**
      *  The destination represented as a String.
@@ -285,6 +291,15 @@ public class Binding
         while (i < (chain.length - 1))
         {
             element = element[chain[i++]];
+            //if the element does not exist : avoid exception as it's heavy on memory allocations
+            if (element == null) {
+                destFuncFailed = true;
+                if (BindingManager.debugDestinationStrings[destString])
+                {
+                    trace("Binding: destString = " + destString + ", error = 1009");
+                }
+                return;
+            }
         }
 
         element[chain[i]] = value;
@@ -401,49 +416,51 @@ public class Binding
         try
         {
             var result:Object = wrappedFunction.apply(thisArg, args);
+            if(destFuncFailed == true) {
+                destFuncFailed = false;
+                return null;
+            }
             wrappedFunctionSuccessful = true;
             return result;
         }
-        catch(itemPendingError:ItemPendingError)
-        {
-            itemPendingError.addResponder(new EvalBindingResponder(this, object));
-            if (BindingManager.debugDestinationStrings[destString])
-            {
-                trace("Binding: destString = " + destString + ", error = " + itemPendingError);
-            }
-        }
-        catch(rangeError:RangeError)
-        {
-            if (BindingManager.debugDestinationStrings[destString])
-            {
-                trace("Binding: destString = " + destString + ", error = " + rangeError);
-            }
-        }
         catch(error:Error)
         {
-            // Certain errors are normal when executing a srcFunc or destFunc,
-            // so we swallow them:
-            //   Error #1006: Call attempted on an object that is not a function.
-            //   Error #1009: null has no properties.
-            //   Error #1010: undefined has no properties.
-            //   Error #1055: - has no properties.
-            //   Error #1069: Property - not found on - and there is no default value
-            // We allow any other errors to be thrown.
-            if ((error.errorID != 1006) &&
-                (error.errorID != 1009) &&
-                (error.errorID != 1010) &&
-                (error.errorID != 1055) &&
-                (error.errorID != 1069))
-            {
-                throw error;
-            }
-            else
-            {
-                if (BindingManager.debugDestinationStrings[destString])
-                {
-                    trace("Binding: destString = " + destString + ", error = " + error);
-                }
-            }
+			if (error is ItemPendingError) {
+	            error.addResponder(new EvalBindingResponder(this, object));
+	            if (BindingManager.debugDestinationStrings[destString])
+	            {
+	                trace("Binding: destString = " + destString + ", error = " + error);
+	            }
+			} else if (error is RangeError) {
+	            if (BindingManager.debugDestinationStrings[destString])
+	            {
+	                trace("Binding: destString = " + destString + ", error = " + error);
+	            }
+			} else {
+	            // Certain errors are normal when executing a srcFunc or destFunc,
+	            // so we swallow them:
+	            //   Error #1006: Call attempted on an object that is not a function.
+	            //   Error #1009: null has no properties.
+	            //   Error #1010: undefined has no properties.
+	            //   Error #1055: - has no properties.
+	            //   Error #1069: Property - not found on - and there is no default value
+	            // We allow any other errors to be thrown.
+	            if ((error.errorID != 1006) &&
+	                (error.errorID != 1009) &&
+	                (error.errorID != 1010) &&
+	                (error.errorID != 1055) &&
+	                (error.errorID != 1069))
+	            {
+	                throw error;
+	            }
+	            else
+	            {
+	                if (BindingManager.debugDestinationStrings[destString])
+	                {
+	                    trace("Binding: destString = " + destString + ", error = " + error);
+	                }
+	            }
+			}
         }
 
         return null;
@@ -474,6 +491,7 @@ public class Binding
      */
     private function innerExecute():void
     {
+        destFuncFailed = false;
         var value:Object = wrapFunctionCall(document, srcFunc);
 
         if (BindingManager.debugDestinationStrings[destString])
@@ -492,9 +510,11 @@ public class Binding
         	{
 	            destFunc.call(document, value);
 
-	            //	Note: state is not updated if destFunc throws
-	            lastValue = value;
-	            hasHadValue = true;
+                if(destFuncFailed == false) {
+                    //	Note: state is not updated if destFunc throws
+                    lastValue = value;
+                    hasHadValue = true;
+	            }
 	        }
         }
     }

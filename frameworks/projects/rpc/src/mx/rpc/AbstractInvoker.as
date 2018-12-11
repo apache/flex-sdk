@@ -91,6 +91,45 @@ public class AbstractInvoker extends EventDispatcher
     //
     //-------------------------------------------------------------------------
 
+    private var _keepLastResult:Boolean = true;
+    private var _keepLastResultSet: Boolean = false;
+
+    /**  Flag indicating whether the operation should keep its last call result for later access.
+     * <p> If set to true, the last call result will be accessible through <code>lastResult</code> bindable property. </p>
+     * <p> If set to false, the last call result will be cleared after the call,
+     * and must be processed in the operation's result handler.
+     * This will allow the result object to be garbage collected,
+     * which is especially useful if the operation is only called a few times and returns a large result. </p>
+     * <p>If not set, will use the <code>keepLastResult</code> value of its owning Service, if any, or the default value.</p>
+     *  @see #lastResult
+     *  @see mx.rpc.AbstractService#keepLastResult
+     *   @default true
+     *
+     *  @playerversion Flash 10
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.11
+     */
+    public function get keepLastResult():Boolean
+    {
+        return _keepLastResult;
+    }
+
+    public function set keepLastResult(value:Boolean):void
+    {
+        _keepLastResult = value;
+        _keepLastResultSet = true;
+    }
+
+    /** @private
+     * sets keepLastResult if not set locally, typically by container Service or RemoteObject
+     * @param value
+     */
+    mx_internal function setKeepLastResultIfNotSet( value: Boolean):void
+    {
+        if (!_keepLastResultSet)
+              _keepLastResult = value;
+    }
+
     [Bindable("resultForBinding")]
 
     /**
@@ -324,6 +363,10 @@ public class AbstractInvoker extends EventDispatcher
             var resultEvent:ResultEvent = ResultEvent.createEvent(_result, token, event.message);
             resultEvent.headers = _responseHeaders;
             dispatchRpcEvent(resultEvent);
+            // we are done with the result, clear if not kept, for GC
+            if (!_keepLastResult){
+                  _result = null;
+            }
         }
         //no else, we assume process would have dispatched the faults if necessary
     }

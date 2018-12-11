@@ -55,7 +55,7 @@ is defined by the ComboBoxTextInputSkin class.
             /**
              * @private
              */
-            override public function get contentItems():Array {return contentFill};
+            override public function get contentItems():Array {return contentFill; }
 
             /**
              *  @private

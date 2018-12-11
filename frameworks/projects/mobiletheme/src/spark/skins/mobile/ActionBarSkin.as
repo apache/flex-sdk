@@ -40,6 +40,7 @@ import spark.skins.mobile160.assets.ActionBarBackground;
 import spark.skins.mobile240.assets.ActionBarBackground;
 import spark.skins.mobile320.assets.ActionBarBackground;
 import spark.skins.mobile480.assets.ActionBarBackground;
+import spark.skins.mobile640.assets.ActionBarBackground;
 
 use namespace mx_internal;
 
@@ -89,6 +90,18 @@ public class ActionBarSkin extends MobileSkin
         
         switch (applicationDPI)
         {
+			case DPIClassification.DPI_640:
+			{
+				// Note provisional may need changes
+				borderSize = 2;
+				layoutShadowHeight = 12;
+				layoutContentGroupHeight = 172;
+				layoutTitleGroupHorizontalPadding = 52;
+				
+				borderClass = spark.skins.mobile640.assets.ActionBarBackground;
+				
+				break;
+			}
 			case DPIClassification.DPI_480:
 			{
 				// Note provisional may need changes
@@ -96,8 +109,7 @@ public class ActionBarSkin extends MobileSkin
 				layoutShadowHeight = 9;
 				layoutContentGroupHeight = 130;
 				layoutTitleGroupHorizontalPadding = 40;
-				
-				borderClass = spark.skins.mobile240.assets.ActionBarBackground;
+				borderClass = spark.skins.mobile480.assets.ActionBarBackground;
 				
 				break;
 			}

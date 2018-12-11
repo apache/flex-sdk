@@ -1,0 +1,103 @@
+The following volunteers have contributed code, documentation, testing and/or
+support to the Apache Flex SDK.
+
+Apache Flex SDK 4.14.0
+----------------------
+Aaron Nash, Ad Pijnenburg, After24, Alex Harui, Andras Janurik, Anthony,
+Chris Martin, Christofer Dutz, Curtis Aube, Darrell Loverin,  Dimitri Kara,
+Erik de Bruin, Frédéric Thomas, Gareth Daniel Smith, Hugo Ferreira, Jeff Spicer, 
+Jorn Nolles, Justin Mclean, Keith Lee, Kevin Godell, Lee Burrows, Mahmoud Ali, 
+Marcus Wilkinson, Mark Kessler, Mihai Chira, Neil Madsen, Olaf Krüger, 
+OmPrakash Muppirala, Peter Volf, Shigeru Nakagaki, Stefan Overkamp, 
+Tom Chiverton, Vadim Usoltsev, Vitaliy Parfenov
+
+Apache Flex SDK 4.13.0
+----------------------
+Alex Harui, Alexander Konovalov, Alexander Mazuruk, Alexander Scheibe, Bi Jane Jia,
+Chris Martin, Constantin A., Darkstone, Erik de Bruin, Fabiano Citrone, faniprasad,
+Frédéric Monjo, Frédéric Thomas, J. Terry Corbet, João Fernandes, Jose Barragan,
+Justin Mclean, Kevin lam, Mark Kessler, Maurice Amsellem, Michael Labriola, Mihai Chira,
+Nick Kwiatkowski, OmPrakash Muppirala, Quinn Buchanan, Tom Chiverton, Vladimir Cicmanec 
+
+Apache Flex SDK 4.12.1
+----------------------
+Achim, Alex Harui, Alexander Scheibe, Darkstone, Doug Pierce, Erik de Bruin,
+Franklyn de Quadros, Frédéric Leroy, Frédéric Thomas, George Yabra, Jeff Spicer,
+João Fernandes, Jose Barragan, Josh Weinberg, Justin Mclean, Lee Burrows, Marcus Fritze,
+Maurice Amsellem, Mihai Chira, Nick Kwiatkowski, OmPrakash Muppirala, Ori Segal,
+Piotr Zarzycki, Shigeru Nakagaki
+
+Apache Flex SDK 4.12.0
+----------------------
+Alan Holden, Aleksey, Alex Harui, Andrey Gorbatov, Benjamin Chalupka, Benoit Wiart,
+Carlos Rovira, Chris Martin, Colin Childs, Curtis Aube, Dan Murray, Danko Kozar,
+David Harrburger, Deyan Vitanov, Dudda, Eric De Bruin, Fabiano Citrone, Frédéric Thomas,
+Gareth Daniel Smith, Hugo Ferreira, Jaroslav Pavlicek, João Fernandes, Justin Mclean,
+Keith Lee, Lee Burrows, Mario Specht, Mark Kessler, Mark Saunders, Maurice Amsellem,
+Micha Pooh, Mihai Chira, Morten Gorm Madsen, Nils Berghs, OmPrakash Muppirala,
+Paul Hastings, Piotr Zarzycki, Pol Poggi, Santosh Radhakrishna, Shardul Singh Bartwal,
+Simon Lavallee, Stepan Hilbert, Stephan Plath, Swen van Zanten, Sword Dragon,
+Tamás Nepusz, Thiago Maia, Tom Chiverton, Tristan, Vincent Spallek
+
+Apache Flex SDK 4.11.0
+----------------------
+Alex Harui, Ashish Desai, Brian Chiu, Bui Sy Nguyen, Caio, Chengxingpeng, Chris Velevitch,
+Cosma Colanicchia, Cyrill Zadra, David Lantier, David Yun, Dylan Randall, Erik de Bruin,
+Frédéric Monjo, Frédéric Thomas, Gareth Daniel Smith, Gary N Griswold, Gkk, Harbs,
+Hugo Ferreira, Igor Costa, Jozef Chutka, Justin Mclean, Karthik Dhanapal, Lee Burrows,
+Marcus Fritze, Marcus Wilkinson, Mario Specht, Mark Kessler, Maurice Amsellem,
+Michael O'Keefe, Michał Sz., Mihai Chira, Mike Crank, Morgan Bruneau, Nicholas Kwiatkowski,
+OmPrakash Muppirala, Paul Hastings, Pol Poggi, Robbyn Gerhardt, Robert Bar, Robert Hunt,
+Sebastian Toro, Sebastien Paturel, Stefan Overkamp, Stephan Plath,Swen van Zanten,
+Sword Dragon, Tom Chiverton, Vitali Kabak
+
+Apache Flex SDK 4.10.0
+----------------------
+Al Birdy, Alex Harui, Aurélien Baroiller, aYo, Benjamin Chalupka, Carlos Rovira,
+Carol Frampton, Chris Martin, Colin Childs, Cyrill Zadra, Dasa Paddock, David Bel,
+Edgar Rivera, Ejaz Asghar, Erik de Bruin, Fabio Todaro, Flex Hdsign, Fréderic Cox,
+Frédéric Thomas, Giles Roadnight, Harbs, João Fernandes, João Sérgio Nobre Saleiro,
+Jozef Chutka, Justin Mclean, Koen Weyn, Mark Kessler, Mark Saunders, Maxime Cowez,
+Mihai Chira, Nazar Yavny, Nick Kwiatkowski, OmPrakash Muppirala, Pedro Varela,
+Peter Wharmby, Philip Mair, Ryan, Sebastien Paturel, Sky, Swen van Zanten,Tristan,
+Vikas Saurabh, Wilson Silva, Yann Cabon, Yiotis Katsambas
+
+Apache Flex SDK 4.9.1
+---------------------
+Adnan Doric, Alex Harui, aYo, Bjorn Svensson, Carol Frampton, Frédéric Leroy,
+Frédéric Thomas, JC Franco, João Saleiro, Justin Mclean, Mikko Torniainen,
+Nicholas Kwiatkowski, OmPrakash Muppirala, Rahul Singh Rawat
+
+Apache Flex SDK 4.9.0
+---------------------
+Alex Harui, Carol Frampton, Chema Balsas, Cyrill Zadra, Dave Fisher, Deepti Yadav,
+Droopy, Erik de Bruin, Frédéric Thomas, Jigar Oza, João Fernandes, Justin Mclean,
+Leif Wells, Maurice Amsellem, Maxime Cowez, Mikko Torniainen, Nicholas Kwiatkowski,
+OmPrakash Muppirala, Pablo Beltran, Rahul, Raimundas Banevicius, Robbyn Gerhardt,
+Sebastian Wichmann, Simon Gladman, Sudhir, Sugan Naicker, Zqlu
+
+Apache Flex SDK 4.8.0
+---------------------
+Alex Harui, Bertrand Delacretaz, Carlos Rovira, Carol Frampton, Christofer Dutz,
+Christophe Herreman, Dave Fisher, David Yun, Heinrich Ruoff, Igor Costa, Jason Moore,
+Joan Llenas Masó, João Fernandes, Justin Mclean, Maurice Amsellem, Michael A. Labriola,
+Nicholas Kwiatkowski, OmPrakash Muppirala, Peter Elst, Shigeru Nakagaki,
+Spiros Aggelopoulos
+
+Many other people have contributed in other ways to the Apache Flex project by
+helping out on the mailing list, maintaining the website, adding and editing wiki
+content, raising bugs in JIRA, and with many other tasks.
+
+Please check the Apache Flex website [1], Apache Flex wiki [2], Apache Flex team
+page [3], dev mailing list [4], Apache Flex JIRA [5], GitHub mirror [6] for some
+of these contributions.
+
+If you've missing from any of these lists please get in touch and you'll appear
+in future versions of this document.
+
+1. http://flex.apache.org
+2. http://en.wikipedia.org/wiki/Apache_Flex
+3. http://flex.apache.org/about-people.html
+4. http://markmail.org/search/+list:org.apache.incubator.flex-dev
+5. https://issues.apache.org/jira/browse/FLEX
+6. https://github.com/apache/flex-sdk

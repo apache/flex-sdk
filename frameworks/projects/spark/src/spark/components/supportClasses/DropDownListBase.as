@@ -29,7 +29,7 @@ import flash.events.MouseEvent;
 import flash.geom.Point;
 
 import mx.collections.IList;
-import mx.core.mx_internal;
+import mx.core.InteractionMode;
 import mx.events.CollectionEvent;
 import mx.events.FlexEvent;
 
@@ -37,8 +37,8 @@ import spark.components.List;
 import spark.core.NavigationUnit;
 import spark.events.DropDownEvent;
 import spark.events.IndexChangeEvent;
-import spark.utils.LabelUtil;
 
+import mx.core.mx_internal;
 use namespace mx_internal;
 
 //--------------------------------------
@@ -437,11 +437,13 @@ public class DropDownListBase extends List
             return;
             
         _dropDownController = value;
-            
+		
         _dropDownController.addEventListener(DropDownEvent.OPEN, dropDownController_openHandler);
         _dropDownController.addEventListener(DropDownEvent.CLOSE, dropDownController_closeHandler);
             
-        if (openButton)
+		_dropDownController.closeOnResize = _closeDropDownOnResize;
+
+		if (openButton)
             _dropDownController.openButton = openButton;
         if (dropDown)
             _dropDownController.dropDown = dropDown;    
@@ -467,7 +469,72 @@ public class DropDownListBase extends List
             return false;
     }
         
-    //----------------------------------
+	//----------------------------------
+	//  closeDropDownOnResize
+	//----------------------------------
+
+    /**
+     *  @private
+     *
+     *  cached value: getStyle("interactionMode") == InteractionMode.TOUCH
+     */
+    private var isTouchInteractionMode:Boolean = false;
+
+    /**
+     *  @private
+     *
+     *  do not know what default value for closeDropDownOnResize will be until styles have been applied,
+     *  but user may set property before that. this flag indicates whether property has been explicitly set,
+     *  and so will not need to be determined from css when stylesInitialized() or styleChanged() is called.
+     */
+    private var isCloseDropDownOnResizeExplicitlySet:Boolean = false;
+
+    /**
+     *  @private
+     */
+    protected var _closeDropDownOnResize:Boolean = true;
+	
+    [Inspectable(category="General", enumeration="true,false", defaultValue="true")]
+	
+    /**
+     *  When <code>true</code>, resizing the system manager
+     *  closes the drop down.
+     *  For mobile applications, this property is set
+ 	 *  to <code>false</code> so that the drop down stays open when the
+     *  page orientation changes.
+     *
+ 	 *  @default true
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.12
+     */
+    public function get closeDropDownOnResize():Boolean
+	{
+        return _closeDropDownOnResize;
+    }
+
+    /**
+     *  @private
+     */
+    public function set closeDropDownOnResize(value:Boolean):void
+	{
+        setCloseDropDownOnResize(value, true);
+    }
+		
+    /**
+     *  @private
+     */
+    private function setCloseDropDownOnResize(value:Boolean, explicitlySet:Boolean):void
+	{
+        _closeDropDownOnResize = value;
+        isCloseDropDownOnResizeExplicitlySet ||= explicitlySet;
+        if (dropDownController)
+            dropDownController.closeOnResize = _closeDropDownOnResize;
+	}        
+
+	//----------------------------------
     //  userProposedSelectedIndex
     //----------------------------------
 
@@ -498,6 +565,69 @@ public class DropDownListBase extends List
     //
     //--------------------------------------------------------------------------
     
+	/**
+	 *  @private
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.12
+     */
+    override public function stylesInitialized():void
+    {
+        super.stylesInitialized();
+        setInteractionMode();
+    }
+	
+    /**
+     *  @private
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.12
+     */
+	override public function styleChanged(styleProp:String):void
+	{
+        super.styleChanged(styleProp);
+        if (!styleProp || styleProp == "styleName" || styleProp == "interactionMode")
+            setInteractionMode();
+    }
+		
+    /**
+     *  @private
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.12
+     */
+    private function setInteractionMode():void
+    {
+	    isTouchInteractionMode = getStyle("interactionMode") == InteractionMode.TOUCH;
+        if (!isCloseDropDownOnResizeExplicitlySet)
+            setCloseDropDownOnResize(!isTouchInteractionMode, false);
+    }
+		
+    /**
+     *  @private
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 1.5
+     *  @productversion Flex 4.12
+     */
+    override public function setSelectedIndex(rowIndex:int, dispatchChangeEvent:Boolean = false, changeCaret:Boolean = true):void
+    {
+	    super.setSelectedIndex(rowIndex, dispatchChangeEvent, changeCaret);
+	    if (isTouchInteractionMode)
+	    {
+            userProposedSelectedIndex = rowIndex;
+            closeDropDown(true);
+        }
+    }
+		
+		
     /**
      *  @private
      *  Called by the initialize() method of UIComponent
@@ -738,8 +868,11 @@ public class DropDownListBase extends List
     override protected function item_mouseDownHandler(event:MouseEvent):void
     {
         super.item_mouseDownHandler(event);
-        userProposedSelectedIndex = selectedIndex;
-        closeDropDown(true);
+        if (!isTouchInteractionMode)
+	    {
+            userProposedSelectedIndex = selectedIndex;
+            closeDropDown(true);
+        }
     }
             
     /**

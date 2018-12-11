@@ -160,6 +160,8 @@ public class HScrollBar extends ScrollBarBase
     //
     //--------------------------------------------------------------------------
     
+    private var maxAndPageSizeInvalid:Boolean = false;
+
     private function updateMaximumAndPageSize():void
     {
         var hsp:Number = viewport.horizontalScrollPosition;
@@ -321,11 +323,12 @@ public class HScrollBar extends ScrollBarBase
             thumbPosTrackX = trackSize - thumbSize;
         }
         
-        if (!fixedThumbSize)
-            thumb.setLayoutBoundsSize(thumbSize, NaN);
+		if (!fixedThumbSize)
+			thumb.setLayoutBoundsSize(thumbSize, NaN);
+		
         if (getStyle("autoThumbVisibility") === true)
             thumb.visible = thumbSize < trackSize;
-        
+
         // convert thumb position to parent's coordinates.
         thumbPos = track.localToGlobal(new Point(thumbPosTrackX, 0));
         if (thumb.parent)
@@ -515,7 +518,7 @@ public class HScrollBar extends ScrollBarBase
             {
                 // SDK-28898: reverted previous behavior for desktop, resets
                 // scroll position to zero when all content is removed.
-                maximum = viewport.contentWidth - viewport.width;
+                maximum = Math.max(0, viewport.contentWidth - viewport.width);
             }
         }
     }
@@ -532,10 +535,28 @@ public class HScrollBar extends ScrollBarBase
         if (allStyles || styleName == "interactionMode")
         {
             if (viewport)
-                updateMaximumAndPageSize();
+            {
+                // Some of the information needed
+                // is calculated in measure() on a child
+                maxAndPageSizeInvalid = true;
+                invalidateSize();
+            }
         }
     }
     
+    /**
+     *  @private 
+     */
+    override protected function measure():void
+    {
+        super.measure();
+        if (maxAndPageSizeInvalid)
+        {
+            maxAndPageSizeInvalid = false;
+            updateMaximumAndPageSize();
+        }
+    }
+        
     /**
      *  @private
      *  Scroll horizontally by event.delta "steps".  This listener is added to the viewport
