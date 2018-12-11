@@ -392,23 +392,27 @@ public class Sort extends EventDispatcher implements ISort
         {
             compareForFind = this.compareFunction;
             // configure the search criteria
-            if (values && fieldList.length > 0)
+				if (values && fields.length > 0)
             {
                 fieldsForCompare = [];
                 //build up the fields we can compare, if we skip a field in the
                 //middle throw an error.  it is ok to not have all the fields
                 //though
-                var fieldName:String;
+					var field:ISortField;
                 var hadPreviousFieldName:Boolean = true;
-                for (var i:int = 0; i < fieldList.length; i++)
+					for (var i:int = 0; i < fields.length; i++)
                 {
-                    fieldName = fieldList[i];
-                    if (fieldName)
+						field = fields[i];
+						if (field)
                     {
                         var hasFieldName:Boolean = false;     
 						try
                         {
-                            hasFieldName = values[fieldName] !== undefined;
+								hasFieldName = field.compareFunction != null;
+
+								if ( !hasFieldName ) {
+									hasFieldName = values[field.name] !== undefined;
+								}
                         }
                         catch(e:Error)
                         {
@@ -418,12 +422,12 @@ public class Sort extends EventDispatcher implements ISort
                             if (!hadPreviousFieldName)
                             {
                                 message = resourceManager.getString(
-                                    "collections", "findCondition", [ fieldName ]);
+										"collections", "findCondition", [ field.name ]);
                                 throw new SortError(message);
                             }
                             else
                             {
-                                fieldsForCompare.push(fieldName);
+									fieldsForCompare.push(field);
                             }
                         }
                         else

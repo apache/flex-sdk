@@ -62,7 +62,7 @@ use namespace mx_internal;
  *  
  *  <pre>
  *  &lt;mx:DateFormatter
- *    formatString="Y|M|D|A|E|H|J|K|L|N|S|Q"
+ *    formatString="Y|M|D|A|E|H|J|K|L|N|S|Q|O|Z"
  *   /> 
  *  </pre>
  *  

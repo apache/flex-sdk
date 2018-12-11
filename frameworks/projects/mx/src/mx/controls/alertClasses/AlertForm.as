@@ -331,6 +331,7 @@ public class AlertForm extends UIComponent implements IFontContextComponent
 
 		// Limit the height if it exceeds the height of the Stage.
 		prefHeight = Math.min(prefHeight, screen.height * 0.75);
+		
 		// Add space for buttons, spacing between buttons and text,
 		// and top/bottom margins
 		prefHeight += buttons[0].height + (3 * 8);
@@ -379,6 +380,11 @@ public class AlertForm extends UIComponent implements IFontContextComponent
 		}
 
 		var newHeight:Number = textField.getExplicitOrMeasuredHeight();
+		var maxHeight:Number = unscaledHeight - buttons[0].height;
+		
+		if (newHeight > maxHeight)
+			newHeight = maxHeight;
+		
 		textField.move(newX, Math.round((newY - newHeight) / 2));
 		textField.setActualSize(textWidth+5, newHeight);
 	}
