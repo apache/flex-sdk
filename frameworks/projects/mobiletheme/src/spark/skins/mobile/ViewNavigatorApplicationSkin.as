@@ -124,9 +124,10 @@ public class ViewNavigatorApplicationSkin extends MobileSkin
     override protected function layoutContents(unscaledWidth:Number, unscaledHeight:Number):void
     {
         super.layoutContents(unscaledWidth, unscaledHeight);
-        
-        navigator.setLayoutBoundsSize(unscaledWidth, unscaledHeight);
-        navigator.setLayoutBoundsPosition(0, 0);
+        var osStatusBarHeight: Number = Number(getStyle("osStatusBarHeight"));
+        if (isNaN(osStatusBarHeight)) osStatusBarHeight = 0;
+        navigator.setLayoutBoundsSize(unscaledWidth, unscaledHeight - osStatusBarHeight);
+        navigator.setLayoutBoundsPosition(0, osStatusBarHeight);
     }
 }
 }

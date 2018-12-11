@@ -72,12 +72,18 @@ public class ScrollerLayout extends LayoutBase
     //
     //--------------------------------------------------------------------------   
 
-    /**
-     *  @private
-     *  Used by updateDisplayList() to prevent looping.
-     */
-    private var invalidationCount:int = 0;
-    
+	/**
+	 *  @private
+	 *  Used by updateDisplayList() to prevent looping.
+	 */
+	private var invalidationCount:int = 0;
+	
+	/**
+	 *  @private
+	 *  Used by updateDisplayList() to prevent looping.
+	 */
+	private var removeCount:int = 0;
+	
     /**
      *  @private
      */
@@ -224,7 +230,7 @@ public class ScrollerLayout extends LayoutBase
      *  the horizontal scrollbar (hsb) at its minimum size.   The HSB is assumed 
      *  to be non-null and visible.
      * 
-     *  If includeVSB is false we check to see if the HSB woudl fit if the 
+     *  If includeVSB is false we check to see if the HSB would fit if the 
      *  VSB wasn't visible.
      */
     private function hsbFits(w:Number, h:Number, includeVSB:Boolean=true):Boolean
@@ -347,6 +353,8 @@ public class ScrollerLayout extends LayoutBase
         const scroller:Scroller = getScroller();
         if (!scroller) 
             return;
+		
+		removeCount = 0;
             
         const minViewportInset:Number = scroller.minViewportInset;
         const measuredSizeIncludesScrollBars:Boolean = scroller.measuredSizeIncludesScrollBars && (scroller.getStyle("interactionMode") == InteractionMode.MOUSE);
@@ -449,6 +457,7 @@ public class ScrollerLayout extends LayoutBase
         g.measuredMinWidth = Math.ceil(minW); 
         g.measuredMinHeight = Math.ceil(minH);
     }
+
 
     /** 
      *  @private
@@ -607,18 +616,28 @@ public class ScrollerLayout extends LayoutBase
 
                 if (hsbIsDependent)
                 {
-                    if (vsbFits(w, h, false))  // VSB will fit if HSB isn't shown   
+                    if (removeCount < 2 && vsbFits(w, h, false))  // VSB will fit if HSB isn't shown
+					{
+						removeCount++;
                         hsbVisible = false;
-                    else 
+					}
+                    else
+					{
                         vsbVisible = hsbVisible = false;
+					}
   
                 }
                 else if (vsbIsDependent)
                 {
-                    if (hsbFits(w, h, false)) // HSB will fit if VSB isn't shown
+                    if (removeCount < 2 && hsbFits(w, h, false)) // HSB will fit if VSB isn't shown
+					{
+						removeCount++;
                         vsbVisible = false;
+					}
                     else
+					{
                         hsbVisible = vsbVisible = false; 
+					}	
                 }
                 else if (vsbFits(w, h, false)) // VSB will fit if HSB isn't shown
                     hsbVisible = false;
@@ -652,20 +671,18 @@ public class ScrollerLayout extends LayoutBase
         else 
             viewportH = explicitViewportH;
         
-        // Layout the viewport and scrollbars.
-
-        if (viewport)
-        {
-            viewport.setLayoutBoundsSize(viewportW, viewportH);
-            viewport.setLayoutBoundsPosition(minViewportInset, minViewportInset);
-        }
-        
+		// Layout the viewport and scrollbars.
+		if (viewport)
+		{
+			viewport.setLayoutBoundsSize(viewportW, viewportH);
+			viewport.setLayoutBoundsPosition(minViewportInset, minViewportInset);
+		}
+		
         if (hsbVisible)
         {
 			var hsbH:Number = hsb.getPreferredBoundsHeight();
             var hsbW:Number = vsbVisible ? w - vsb.getPreferredBoundsWidth() : w;
-            hsb.setLayoutBoundsSize(Math.max(hsb.getMinBoundsWidth(), hsbW), hsbH);
-            
+            hsb.setLayoutBoundsSize(Math.max(hsb.getMinBoundsWidth(), hsbW), hsbH);           
 			hsb.setLayoutBoundsPosition(0, h - hsbH);
         }
 
@@ -673,8 +690,7 @@ public class ScrollerLayout extends LayoutBase
         {
             var vsbW:Number = vsb.getPreferredBoundsWidth(); 
             var vsbH:Number = hsbVisible ? h - hsb.getPreferredBoundsHeight() : h;
-			vsb.setLayoutBoundsSize(vsbW, Math.max(vsb.getMinBoundsHeight(), vsbH));
-			
+			vsb.setLayoutBoundsSize(vsbW, Math.max(vsb.getMinBoundsHeight(), vsbH));		
 			vsb.setLayoutBoundsPosition(w - vsbW, 0);
         }
 
@@ -691,11 +707,11 @@ public class ScrollerLayout extends LayoutBase
             if (viewportGroup && viewportGroup.layout && viewportGroup.layout.useVirtualLayout)
                 viewportGroup.invalidateSize();
             
-            invalidationCount += 1; 
+            invalidationCount++; 
         }
         else
             invalidationCount = 0;
-             
+        
         target.setContentSize(w, h);
     }
 

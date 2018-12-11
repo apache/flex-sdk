@@ -1,4 +1,5 @@
-﻿junheider is Top Posting this file�people hate this on mailing lists.
+﻿Test by piotrz :)
+junheider is Top Posting this file�people hate this on mailing lists.
 
 Flex committers can use this file to check their svn access.
 "I love work; it fascinates me; I can sit and watch it for hours." -- Jerome K. Jerome
@@ -71,5 +72,4 @@ Me too.  Woot.
 
 mamsellem git commit first try (2013/09/29)
 
-
-
+Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it. (Brian Kernighan)

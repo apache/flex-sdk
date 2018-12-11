@@ -93,7 +93,7 @@
 			    <RunCode code="application.radiobutton1.setFocus()" waitTarget="radiobutton1" waitEvent="focusIn" />
 			    <DispatchKeyEvent key="TAB" waitEvent="focusIn" waitTarget="togglebutton1" />
 				<AssertStyleValue target="togglebutton1" styleName="focusColor" value="0x990000"/>
-				<CompareBitmap url="../globalSelectors/baselines/$testID.png" target="togglebutton_box" numColorVariances="10" ignoreMaxColorVariance="true"/>
+				<CompareBitmap url="../globalSelectors/baselines/$testID.png" target="togglebutton_box" numColorVariances="16" ignoreMaxColorVariance="true"/>
 			</body>
 		</TestCase>
 		<TestCase testID="GlobalStyles_MxmlOverride_colorContainer" keywords="[color]" description="Ensure that color defined in mxml on a Container overrides the global style">

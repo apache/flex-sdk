@@ -1,3 +1,238 @@
+Apache Flex 4.12.1
+=================
+
+Apache Flex 4.12.1 is an update to Apache Flex 4.12. 
+
+Known Issues
+_____________
+
+Adobe Flash Builder Integration
+
+Adobe Flash Builder 4.7 and Adobe Flash Builder 4.6 both contain a bug where,
+when generating the .mxml file for a new project that uses Apache Flex SDK
+4.10.0 or later Spark Application, Flash Builder will incorrectly insert the
+attribute:
+
+	layout="absolute"
+
+This results in a compile error in the new project.  The remedy is to simply
+remove the errant attribute.
+
+The following wiki page has been set up to contain the latest news on Adobe's
+attempt to correct this problem:
+
+https://cwiki.apache.org/confluence/display/FLEX/Adobe+Flash+Builder+'New+Project'+Bug
+
+Adobe has provided a patch for Flash Builder 4.7 that resolves this issue:
+
+http://helpx.adobe.com/flash-builder/kb/flex-new-project-issue--.html
+
+
+Differences from Apache Flex 4.12 include:
+
+AIR and Flash Player support
+------------------------------
+ - Support Flash Player 13.0
+ - Support for AIR 13.0
+
+SDK Changes
+-------------
+- Extended mobile media query support
+
+Compiler Changes
+------------------
+- Fix issue with 3rd party license components not working
+
+Bug Fixes
+----------
+ Below is a complete list of all the bug fixes that have been included since
+ the last full release, Apache Flex 4.12.0.
+ If you would like specific information about any of the items below, go to
+ https://issues.apache.org and search for the JIRA Issue Number by using the
+ Quick Search.  Details of the bug and its fix will be included on the
+ resulting page.
+
+JIRA Issue Number and Summary                                                                                        
+-------------------------------------------------------------------------------------------------------------------
+FLEX-34231  StageText displays wrong text
+FLEX-34230  StageText skins prevents garbage collection of component with TextInputs and TextAreas
+FLEX-34229  DataGridEditor doesn't remove the Event.DEACTIVATE listener on destroyItemEditor()
+FLEX-34228  spark datagrid syntax
+FLEX-34216  GridItemEditor's save() method is still called despite the grid not being on stage anymore
+FLEX-34209  DateFormatter's parseDateTime method doesn't handle AM PM properly when time is in the 12 PM hour
+FLEX-34200  ResourceModuleProxy doesn't load properly
+FLEX-34189  ActionBar button is too big in 640 DPI
+FLEX-34145  Mobile Theme: TextInput with layoutDirection="rtl" becomes mirror on focus out.
+FLEX-34142  Can not change the color of the header with the property headerStyleName (MobileGridColumn)
+FLEX-34141  softkeyboardActivate events are not dispatched in Flex 4.12 on iOS
+FLEX-34139  Missing 120DPI Skin References
+FLEX-34133  ADG RTE in columnHeaderWordWrap
+FLEX-34132  DataGrid columns with no dataField specified give "[object Object]"
+FLEX-34125  CheckAllPlayerGlobals script in ide folder is missing Windows implementation
+FLEX-34117  Button: Small gap in the corner
+FLEX-34098  Deleteing/Replacing Surrogate-Pair string causes RTE in TLF
+FLEX-34057  RTE on pasting empty data after Excel operation
+FLEX-34013  RTE at TextClipboard#importToScrap()
+FLEX-33994  Need a way to distinguish phone and tablet target devices through css
+FLEX-33948  Add touch behaviour to spark DropDownList classes
+FLEX-33423  We can input text over than maxChars when we use "Insert" mode.
+FLEX-33421  Broken metadata RequiresLicense
+FLEX-33350  CallOutButton for Web (desktop / not AIR)
+
+Apache Flex 4.12
+=================
+
+Apache Flex 4.12 is an update to Apache Flex 4.11. 
+
+Known Issues
+_____________
+
+Adobe Flash Builder Integration
+
+Adobe Flash Builder 4.7 and Adobe Flash Builder 4.6 both contain a bug where,
+when generating the .mxml file for a new project that uses Apache Flex SDK
+4.10.0 or later Spark Application, Flash Builder will incorrectly insert the
+attribute:
+
+	layout="absolute"
+
+This results in a compile error in the new project.  The remedy is to simply
+remove the errant attribute.
+
+The following wiki page has been set up to contain the latest news on Adobe's
+attempt to correct this problem:
+
+https://cwiki.apache.org/confluence/display/FLEX/Adobe+Flash+Builder+'New+Project'+Bug
+
+Adobe has provided a patch for Flash Builder 4.7 that resolves this issue:
+
+http://helpx.adobe.com/flash-builder/kb/flex-new-project-issue--.html
+
+
+Differences from Apache Flex 4.11 include:
+
+AIR and Flash Player support
+------------------------------
+ - Support Flash Player 12.0 and 13.0 beta.
+ - Support for AIR 4.0 and 13.0 beta.
+
+SDK Changes
+-------------
+- Improved Callout for Desktop.
+- Improved UID generation performance.
+- Improved mobile memory usage/performance.
+- Improved CSS styles memory usage/performance.
+- Changed DPI to be 160 for iPad/iPad mini and 320 for iPad retina/iPad mini retina.
+- Fixed scaling of Checkbox and Radio button 320dpi skins.
+- Option to not store last call result in RomoteObject and WebService.
+- StageTextInput can now be included in scrollable content.
+- new iOS os-version media css selector.
+- iOS7 status bar support.
+- Improved try/catch performance in several areas. 
+- New MaskedTextinput component.
+- JSON support for ArrayCollection and ArrayList.
+
+Build Changes
+---------------
+- Made PixelBender shader binaries a separate release.
+- Support for compiling with Java 7
+
+Compiler Changes
+------------------
+- Fixed FDB waiting before you can start debugging a SWF
+
+Bug Fixes
+----------
+ Below is a complete list of all the bug fixes that have been included since
+ the last full release, Apache Flex 4.11.0.
+ If you would like specific information about any of the items below, go to
+ https://issues.apache.org and search for the JIRA Issue Number by using the
+ Quick Search.  Details of the bug and its fix will be included on the
+ resulting page.
+
+JIRA Issue Number and Summary                                                                                        
+-------------------------------------------------------------------------------------------------------------------
+FLEX-34124  1069 error when try to close a Callout by clicking outside the component
+FLEX-34109  Bevel 120DPI back-arrow design problem
+FLEX-34107  IconItemRenderer separators disappear when using a large font
+FLEX-34108  JSON.stringify and arraycollection
+FLEX-34104  fontswf utility fails with exception
+FLEX-34101  Regression from 4.8 to 4.10: Spark list doesn't refresh with filterFunction
+FLEX-34097  Missing Assets In The mobile.swc Theme File
+FLEX-34088  CalloutButton with Dropdown
+FLEX-34084  Error with PopupButton/Menu in headerrenderer in DataGrid
+FLEX-34070  Build script does not update target-player and swf-version values in air/airmobile config files
+FLEX-34065  AdvancedDataGrid throws RTE #1009 when groupedColumns is set to null
+FLEX-34062  FDB waits up to 20s per SWF before we can start debugging
+FLEX-34059  StageTextInput with prompt turns entered text gray on iOS 7
+FLEX-34054  Formatting applied to NumericStepper when using increment/decrement arrows
+FLEX-34053  Create a new MaskedTextInput Component
+FLEX-34052  ADG RTE in columnResizeMouseOverHandler
+FLEX-34051  RTE in endEdit() when clicking at bottom of column
+FLEX-34049  Allow the output symbols to be escaped when called from an IDE
+FLEX-34046  prints full stack if Flash Player detects not handled exception
+FLEX-34045  adds file id to the stack info printed by fdb
+FLEX-34044  Breakpoints in ActionScript files do not work when debugging app using ANE
+FLEX-34043  Impossible to set breakpoint in MXML files that contains item renderer
+FLEX-34038  experimental MobileGrid seems to overflow itself & leak out into any components below it
+FLEX-34032  abnormal focus behavior in popup ultimiately causes unhandled exception
+FLEX-34020  Null object reference when truncating RichText
+FLEX-34019  ComboBox not closed when selecting an item from the dropdown list under certain conditions
+FLEX-34011  Axis Render throws RTE when axis is null
+FLEX-34006  RTE null reference in ViewTransitionBase.captureEndValues() when Skin doesn't provide an ActionBar
+FLEX-33999  spark.skins.mobile480.assets.BeveledActionButton_
+FLEX-33992  Zero division at Grid.as setters for horizontalScrollPosition and verticalScrollPosition
+FLEX-33990  RTE in AdvancedDataGridBase drawItem
+FLEX-33989  ViewNavigatorBase discards MultiDPIBitmapSource information for icon when saving and re-loading view
+FLEX-33987  FocusManager NPE
+FLEX-33985  [TLF] Pressing BACKSPACE key when editing a TextInput deletes a whole line
+FLEX-33984  Spark CheckBox does not support labelPlacement like it's mx counter part
+FLEX-33978  AIR mobile + flex sdk 4.10 + text field setFocus runtime error
+FLEX-33976  closing Alert from modal TitleWindow removes blur in main app
+FLEX-33971  480 DPI Display bug with Mobile CheckBox
+FLEX-33947  Errors in mobile ButtonBar Flex 4.11
+FLEX-33921  BitmapImage don't show up in specific case
+FLEX-33920  spark ComboBox.changeHighlightedSelection doesn't check the newindex upperbound
+FLEX-33919  Listbase selectItem getter does not validate selectedIndex for values below 0 other than -1.
+FLEX-33913  XMLListCollection addItem(item) modifies a parent XMLList of the item
+FLEX-33904  EffectManager#getEventForEffectTrigger : avoid unneeded memory allocations
+FLEX-33902  ResourceManager#getInstance should not allocate unneeded memory
+FLEX-33899  DataGrid goes blank when removing last item from dataProvider when requestedRowCount is set
+FLEX-33897  MediaQueryParser should not allocate memory for expressions already cached
+FLEX-33893  CSSStyleDeclaration is inefficient during style matching
+FLEX-33891  Styleprotochain#getstyleManager shouldn't be called twice during style computations
+FLEX-33885  BindingManager#executeBindings : Avoid unneeded memory allocation
+FLEX-33884  Android mobile app crashes when you click on a modal
+FLEX-33880  Popup modal blocks the application
+FLEX-33878  Matrix computations : avoid unneeded flash.geom.Transform and flash.geom.Matrix allocations
+FLEX-33877  BusyCursor : Avoid unneeded Point allocations
+FLEX-33875  Runtime error #1069 in MobileSkin class on focus out
+FLEX-33874  Binding management is memory inefficient when using the defaultDestFunc
+FLEX-33871  message error "Definition spark.skins.mobile480.assets:ActionBarBackground could not be found"
+FLEX-33865  ConstraintLayout / LayoutElementHelper are memory inefficient (and slow)
+FLEX-33864  spark DataGrid drag and drop on empty grid causes RangeError
+FLEX-33861  Flex Incorrectly Scaling Down Application on iPad
+FLEX-33860  Support For iOS7 status bar
+FLEX-33853  Optimize UIDUtil / RPCUIDUtil fromByteArray() method
+FLEX-33852  Port UIDUtil optimizations to RPCUIDUtil
+FLEX-33842  CXFormWithAlpha doesn't override toString() method, causing swfdump to ignore alpha effects
+FLEX-33835  LocaleSorter#sortLocalesByPreference is slow
+FLEX-33836  ResourceManagerImpl should implement some kind of lazy loading
+FLEX-33830  SDK 4.10.0 spark datagrid header and horizontal scrollbar behavior effected by app state change
+FLEX-33829  Improve ArrayList performance
+FLEX-33824  Disappearing spark DataGrid columns when we set dataProvider to null
+FLEX-33813  Datagrid goes blank when assigning new dataProvider.source and calling refresh
+FLEX-33779  RTE in Label.as when it's 8px wide and uses the Myriad Web Pro font face
+FLEX-33772  Incorrect tab focus behavior (closed loops) when using focus groups (such as RadioButton components)
+FLEX-33745  Null error in the PopupManagerImpl if accessibility is deactivated
+FLEX-33715  Error: Attempted access of inaccessible method getStyle through a reference with static type MXFTETextInput.
+FLEX-33671  Warning messages when using experimental components.
+FLEX-33632  Getting Run Time Error when loading resource module at runtime.
+FLEX-26768  When debugging multi-module projects impossible to set breakpoint
+FLEX-26308  ListCollectionView addAllAt causes RTE on filtered collections
+FLEX-25962  PopupAnchor needs modal functionality
+FLEX-24623  Remove private declarations in PopUpAnchor
+
 Apache Flex 4.11
 =================
 
@@ -22,7 +257,7 @@ attempt to correct this problem:
 
 https://cwiki.apache.org/confluence/display/FLEX/Adobe+Flash+Builder+'New+Project'+Bug
 
-Adobe have provided a patch for Flash Builder 4.7 that resolves this issue:
+Adobe has provided a patch for Flash Builder 4.7 that resolves this issue:
 
 http://helpx.adobe.com/flash-builder/kb/flex-new-project-issue--.html
 

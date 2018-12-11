@@ -278,6 +278,7 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
             if (!op.name)
                 op.name = i;
             op.asyncRequest = asyncRequest;
+            op.setKeepLastResultIfNotSet( _keepLastResult);
         }
         _operations = ops;
         dispatchEvent(new flash.events.Event("operationsChange"));
@@ -312,6 +313,38 @@ public dynamic class AbstractService extends Proxy implements IEventDispatcher
         {
             asyncRequest.requestTimeout = value;
         }
+    }
+
+    //----------------------------------
+    //  keepLastResult
+    //----------------------------------
+    protected var _keepLastResult: Boolean = true ;
+
+
+    [Inspectable(defaultValue="true", category="General")]
+
+    /**  Flag indicating whether the service's operations should keep their last call result for later access.
+     * <p>Setting this flag at the service level will set <code>keepLastResult</code> for each operation, unless explicitly  set in the operation.</p>
+     * <p> If set to true or not set, each operation's last call result will be accessible through its <code>lastResult</code> bindable property. </p>
+     * <p> If set to false, each operation's last call result will be cleared after the call,
+     * and must be processed in the operation's result handler.
+     * This will allow the result object to be garbage collected,
+     * which is especially useful if the operation is only called a few times and returns a large result. </p>
+     *  @see mx.rpc.AbstractInvoker#keepLastResult
+     *   @default true
+     *
+     *  @playerversion Flash 10
+     *  @playerversion AIR 3
+     *  @productversion Flex 4.11
+     */
+    public function get keepLastResult():Boolean
+    {
+        return _keepLastResult;
+    }
+
+    public function set keepLastResult(value:Boolean):void
+    {
+        _keepLastResult = value;
     }
     
     //-------------------------------------------------------------------------

@@ -252,14 +252,14 @@ public class DateFormatter extends Formatter
                 }
                 marker = 0;
 				
-				// Other lacales AM/PM 
+				// All known locales AM/PM 
 				if (ampm.hasOwnProperty(word))
 				{
 					isPM = true;
 					
 					if (hour > 12)
 						break; // error
-					else if (hour >= 0)
+					else if (hour >= 0 && hour < 12)
 						hour += 12;
 				}
             }
@@ -299,7 +299,7 @@ public class DateFormatter extends Formatter
                 }
 
                 // If the current letter is a slash or a dash,
-                // assign num to year or month or day or sec.
+                // assign num to year or month or day or min or sec.
                 else if (punctuation.hasOwnProperty(letter) && punctuation[letter].date)
                 {
 					var monthFirst:Boolean = year != -1;
@@ -313,6 +313,8 @@ public class DateFormatter extends Formatter
 						day = num;
 					else if (!monthFirst && mon < 0)
 						mon = (num -1);
+					else if (min < 0)
+						min = num;
 					else if (sec < 0)
 						sec = num;
 					else if (milli < 0)
@@ -333,7 +335,7 @@ public class DateFormatter extends Formatter
 						{
 							if (hour > 12)
 								break; //error
-							else
+							else if (hour >= 0 && hour < 12)
 								hour += 12;
 						}
 					}
@@ -387,7 +389,7 @@ public class DateFormatter extends Formatter
                     break;  //error
                 }
                 
-                marker = 0
+                marker = 0;
             }
         }
 		

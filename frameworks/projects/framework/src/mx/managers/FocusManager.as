@@ -46,6 +46,7 @@ import mx.core.IUIComponent;
 import mx.core.IVisualElement;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
+import mx.utils.Platform;
 
 use namespace mx_internal;
 
@@ -141,8 +142,9 @@ public class FocusManager extends EventDispatcher implements IFocusManager
 		this.popup = popup;
 
         IMEEnabled = true;
+		// Only <= IE8 supported focus cycling out of the SWF
         browserMode = Capabilities.playerType == "ActiveX" && !popup;
-        desktopMode = Capabilities.playerType == "Desktop" && !popup;
+        desktopMode = Platform.isAir && !popup;
         // Flash main windows come up activated, AIR main windows don't
         windowActivated = !desktopMode;
     
@@ -1588,7 +1590,8 @@ public class FocusManager extends EventDispatcher implements IFocusManager
     public function getNextFocusManagerComponent(
                             backward:Boolean = false):IFocusManagerComponent
 	{
-		return getNextFocusManagerComponent2(backward, fauxFocus).displayObject as IFocusManagerComponent;
+        const focusInfo:FocusInfo = getNextFocusManagerComponent2(backward, fauxFocus); 
+        return focusInfo ? focusInfo.displayObject as IFocusManagerComponent : null; 
 	}
 	
 	/**

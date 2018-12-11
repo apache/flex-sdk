@@ -26,6 +26,8 @@ import flash.geom.Point;
 import mx.core.DPIClassification;
 import mx.core.mx_internal;
 
+import spark.components.supportClasses.IStyleableEditableText;
+
 import spark.components.supportClasses.SkinnableTextBase;
 import spark.components.supportClasses.StyleableStageText;
 import spark.components.supportClasses.StyleableTextField;
@@ -202,7 +204,7 @@ public class StageTextSkinBase extends MobileSkin
      *  @playerversion AIR 3.0
      *  @productversion Flex 4.6
      */
-    public var textDisplay:StyleableStageText;
+    public var textDisplay:IStyleableEditableText;
     
     [Bindable]
     /**
@@ -230,11 +232,11 @@ public class StageTextSkinBase extends MobileSkin
         
         if (!textDisplay)
         {
-            textDisplay = new StyleableStageText(multiline);
+            textDisplay = createTextDisplay();
             textDisplay.editable = true;
 
             textDisplay.styleName = this;
-            this.addChild(textDisplay);
+            this.addChild(DisplayObject(textDisplay));
         }
         
         if (!border)
@@ -242,6 +244,14 @@ public class StageTextSkinBase extends MobileSkin
             border = new borderClass();
             addChild(border);
         }
+    }
+
+    /**  Could be overridden by subclasses
+     *
+     * @return   instance of  IStyleableEditableText
+     */
+    protected function createTextDisplay():IStyleableEditableText {
+        return   new StyleableStageText(multiline);
     }
 
     /**

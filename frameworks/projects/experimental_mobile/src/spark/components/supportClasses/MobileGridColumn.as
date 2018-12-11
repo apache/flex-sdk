@@ -259,6 +259,7 @@ public class MobileGridColumn extends EventDispatcher
     /** Defines the css style name to be used for displaying this column's header label.
      * <p>Use this property to display the header in a different color or font, or with a different text alignment.</p>
      */
+    [Bindable]
     public function get headerStyleName():String
     {
         return _headerStyleName;
@@ -266,7 +267,7 @@ public class MobileGridColumn extends EventDispatcher
 
     public function set headerStyleName(value:String):void
     {
-        _headerStyleName = value;
+        _headerStyleName = value;     // Bindable so will update MobileGridHeader corresponding renderer, magic of ArrayList
     }
 
     private var _sortDescending:Boolean;

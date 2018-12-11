@@ -37,6 +37,13 @@ import flash.geom.Rectangle;
 import flash.geom.Transform;
 import flash.geom.Vector3D;
 
+import mx.binding.Binding;
+import mx.binding.BindingManager;
+import mx.binding.FunctionReturnWatcher;
+import mx.binding.PropertyWatcher;
+import mx.binding.StaticPropertyWatcher;
+import mx.binding.Watcher;
+import mx.binding.XMLWatcher;
 import mx.core.AdvancedLayoutFeatures;
 import mx.core.DesignLayer;
 import mx.core.IInvalidating;
@@ -4675,6 +4682,506 @@ public class GraphicElement extends EventDispatcher
     {
         filters = _filters;
     }
+
+	//--------------------------------------------------------------------------
+	//
+	//  new MXML codegen
+	//
+	//--------------------------------------------------------------------------
+	
+	//----------------------------------
+	//  MXML Descriptor
+	//----------------------------------
+	
+	/**
+	 *  The descriptor of MXML children.
+	 */
+	private var _MXMLDescriptor:Array;
+	
+	public function get MXMLDescriptor():Array
+	{
+		return _MXMLDescriptor;
+	}
+	
+	public function setMXMLDescriptor(value:Array):void
+	{
+		_MXMLDescriptor = value;    
+	}
+	
+	//----------------------------------
+	//  MXML Properties
+	//----------------------------------
+	
+	/**
+	 *  The attributes of MXML top tag.
+	 */
+	private var _MXMLProperties:Array;
+	
+	public function get MXMLProperties():Array
+	{
+		return _MXMLProperties;
+	}
+	
+	public function setMXMLProperties(value:Array):void
+	{
+		_MXMLProperties = value;    
+	}
+
+	protected function generateMXMLObject(document:Object, data:Array):Object
+	{
+		var i:int = 0;
+		var cls:Class = data[i++];
+		var comp:Object = new cls();
+		
+		var m:int;
+		var j:int;
+		var name:String;
+		var simple:*;
+		var value:Object;
+		var id:String;
+		
+		m = data[i++]; // num props
+		for (j = 0; j < m; j++)
+		{
+			name = data[i++];
+			simple = data[i++];
+			value = data[i++];
+			if (simple === null)
+				value = generateMXMLArray(document, value as Array);
+			else if (simple === undefined)
+				value = generateMXMLVector(document, value as Array);
+			else if (simple == false)
+				value = generateMXMLObject(document, value as Array);
+			if (name == "id")
+			{
+				document[value] = comp;
+				id = value as String;
+				if (comp is IMXMLObject)
+					continue;  // skip assigment to comp
+				if (!("id" in comp))
+					continue;
+			}
+			else if (name == "_id")
+			{
+				document[value] = comp;
+				id = value as String;
+				continue; // skip assignment to comp
+			}
+			comp[name] = value;
+		}
+		m = data[i++]; // num styles
+		for (j = 0; j < m; j++)
+		{
+			name = data[i++];
+			simple = data[i++];
+			value = data[i++];
+			if (simple == null)
+				value = generateMXMLArray(document, value as Array);
+			else if (simple == false)
+				value = generateMXMLObject(document, value as Array);
+			comp.setStyle(name, value);
+		}
+		
+		m = data[i++]; // num effects
+		for (j = 0; j < m; j++)
+		{
+			name = data[i++];
+			simple = data[i++];
+			value = data[i++];
+			if (simple == null)
+				value = generateMXMLArray(document, value as Array);
+			else if (simple == false)
+				value = generateMXMLObject(document, value as Array);
+			comp.setStyle(name, value);
+		}
+		
+		m = data[i++]; // num events
+		for (j = 0; j < m; j++)
+		{
+			name = data[i++];
+			value = data[i++];
+			comp.addEventListener(name, value);
+		}
+		
+		if (comp is IUIComponent)
+		{
+			if (comp.document == null)
+				comp.document = document;
+		}
+		var children:Array = data[i++];
+		if (children)
+		{
+			comp.generateMXMLInstances(document, children);
+		}
+		
+		if (id)
+		{
+			document[id] = comp;
+			mx.binding.BindingManager.executeBindings(document, id, comp); 
+		}
+		if (comp is IMXMLObject)
+			comp.initialized(document, id);
+		return comp;
+	}
+	
+	public function generateMXMLVector(document:Object, data:Array, recursive:Boolean = true):*
+	{
+		var comps:Array;
+		
+		var n:int = data.length;
+		var hint:* = data.shift();
+		var generatorFunction:Function = data.shift();
+		comps = generateMXMLArray(document, data, recursive);
+		return generatorFunction(comps);
+	}
+	
+	public function generateMXMLArray(document:Object, data:Array, recursive:Boolean = true):Array
+	{
+		var comps:Array = [];
+		
+		var n:int = data.length;
+		var i:int = 0;
+		while (i < n)
+		{
+			var cls:Class = data[i++];
+			var comp:Object = new cls();
+			
+			var m:int;
+			var j:int;
+			var name:String;
+			var simple:*;
+			var value:Object;
+			var id:String = null;
+			
+			m = data[i++]; // num props
+			for (j = 0; j < m; j++)
+			{
+				name = data[i++];
+				simple = data[i++];
+				value = data[i++];
+				if (simple === null)
+					value = generateMXMLArray(document, value as Array, recursive);
+				else if (simple === undefined)
+					value = generateMXMLVector(document, value as Array, recursive);
+				else if (simple == false)
+					value = generateMXMLObject(document, value as Array);
+				if (name == "id")
+				{
+					document[value] = comp;
+					id = value as String;
+					if (comp is IMXMLObject)
+						continue;  // skip assigment to comp
+					try {
+						if (!("id" in comp))
+							continue;
+					}
+					catch (e:Error)
+					{
+						continue; // proxy subclasses might throw here
+					}
+				}
+				if (name == "document" && !comp.document)
+					comp.document = document;
+				else if (name == "_id")
+					id = value as String; // and don't assign to comp
+				else
+					comp[name] = value;
+			}
+			m = data[i++]; // num styles
+			for (j = 0; j < m; j++)
+			{
+				name = data[i++];
+				simple = data[i++];
+				value = data[i++];
+				if (simple == null)
+					value = generateMXMLArray(document, value as Array, recursive);
+				else if (simple == false)
+					value = generateMXMLObject(document, value as Array);
+				comp.setStyle(name, value);
+			}
+			
+			m = data[i++]; // num effects
+			for (j = 0; j < m; j++)
+			{
+				name = data[i++];
+				simple = data[i++];
+				value = data[i++];
+				if (simple == null)
+					value = generateMXMLArray(document, value as Array, recursive);
+				else if (simple == false)
+					value = generateMXMLObject(document, value as Array);
+				comp.setStyle(name, value);
+			}
+			
+			m = data[i++]; // num events
+			for (j = 0; j < m; j++)
+			{
+				name = data[i++];
+				value = data[i++];
+				comp.addEventListener(name, value);
+			}
+			
+			if (comp is IUIComponent)
+			{
+				if (comp.document == null)
+					comp.document = document;
+			}
+			var children:Array = data[i++];
+			if (children)
+			{
+				if (recursive)
+					comp.generateMXMLInstances(document, children, recursive);
+				else
+					comp.setMXMLDescriptor(children);
+			}
+			
+			if (id)
+			{
+				document[id] = comp;
+				mx.binding.BindingManager.executeBindings(document, id, comp); 
+			}
+			if (comp is IMXMLObject)
+				comp.initialized(document, id);
+			comps.push(comp);
+		}
+		return comps;
+	}
+	
+	protected function generateMXMLInstances(document:Object, data:Array, recursive:Boolean = true):void
+	{
+		var comps:Array = generateMXMLArray(document, data, recursive);
+		var children:Array = [];
+		for each (var comp:Object in comps)
+		{
+			if (comp is DisplayObject || comp is IVisualElement)
+				children.push(comp);
+		}
+	}
+	
+	protected function generateMXMLAttributes(data:Array):void
+	{
+		var i:int = 0;
+		var m:int;
+		var j:int;
+		var name:String;
+		var simple:*;
+		var value:Object;
+		var id:String = null;
+		
+		m = data[i++]; // num props
+		for (j = 0; j < m; j++)
+		{
+			name = data[i++];
+			simple = data[i++];
+			value = data[i++];
+			if (simple === null)
+				value = generateMXMLArray(this, value as Array);
+			else if (simple === undefined)
+				value = generateMXMLVector(this, value as Array);
+			else if (simple == false)
+				value = generateMXMLObject(this, value as Array);
+			if (name == "id")
+				id = value as String;
+			if (name == "_id")
+				id = value as String; // and don't assign
+			else
+				this[name] = value;
+		}
+		m = data[i++]; // num styles
+		for (j = 0; j < m; j++)
+		{
+			name = data[i++];
+			simple = data[i++];
+			value = data[i++];
+			if (simple == null)
+				value = generateMXMLArray(this, value as Array, false);
+			else if (simple == false)
+				value = generateMXMLObject(this, value as Array);
+			//this.setStyle(name, value);
+		}
+		
+		m = data[i++]; // num effects
+		for (j = 0; j < m; j++)
+		{
+			name = data[i++];
+			simple = data[i++];
+			value = data[i++];
+			if (simple == null)
+				value = generateMXMLArray(this, value as Array, false);
+			else if (simple == false)
+				value = generateMXMLObject(this, value as Array);
+			//this.setStyle(name, value);
+		}
+		
+		m = data[i++]; // num events
+		for (j = 0; j < m; j++)
+		{
+			name = data[i++];
+			value = data[i++];
+			this.addEventListener(name, value as Function);
+		}
+	}
+	
+	mx_internal function setupBindings(bindingData:Array):void
+	{
+		var fieldWatcher:Object;
+		var n:int = bindingData[0];
+		var bindings:Array = [];
+		var i:int;
+		var index:int = 1;
+		for (i = 0; i < n; i++)
+		{
+			var source:Object = bindingData[index++];
+			var destFunc:Object = bindingData[index++];
+			var destStr:Object = bindingData[index++];
+			var binding:Binding = new Binding(this,
+				(source is Function) ? source as Function : null,
+				(destFunc is Function) ? destFunc as Function : null,
+				(destStr is String) ? destStr as String : destStr.join("."),
+				(source is Function) ? null : (source is String) ? source as String : source.join("."));
+			bindings.push(binding);
+		}
+		var watchers:Object = decodeWatcher(this, bindingData.slice(index), bindings);
+		this["_bindings"] = bindings;
+		this["_watchers"] = watchers;
+		for each (binding in bindings)
+			binding.execute();
+		
+	}
+	
+	private function decodeWatcher(target:Object, bindingData:Array, bindings:Array):Array
+	{
+		var watcherMap:Object = {};
+		var watchers:Array = [];
+		var n:int = bindingData.length;
+		var index:int = 0;
+		var watcherData:Object;
+		var theBindings:Array;
+		var bindingIndices:Array;
+		var bindingIndex:int;
+		var propertyName:String;
+		var eventNames:Array;
+		var eventName:String;
+		var eventObject:Object;
+		var getterFunction:Function;
+		var value:*;
+		var w:Watcher;
+		
+		while (index < n)
+		{
+			var parentObj:Object = target;
+			var watcherIndex:int = bindingData[index++];
+			var type:int = bindingData[index++];
+			switch (type)
+			{
+				case 0:
+				{
+					var functionName:String = bindingData[index++];
+					var paramFunction:Function = bindingData[index++];
+					value = bindingData[index++];
+					if (value is String)
+						eventNames = [ value ];
+					else
+						eventNames = value;
+					eventObject = {};
+					for each (eventName in eventNames)
+					eventObject[eventName] = true;
+					value = bindingData[index++];
+					if (value is Array)
+						bindingIndices = value;
+					else
+						bindingIndices = [ value ];
+					theBindings = [];
+					for each (bindingIndex in bindingIndices)
+					theBindings.push(bindings[bindingIndex]);
+					w = new FunctionReturnWatcher(functionName,
+						this,
+						paramFunction,
+						eventObject,
+						theBindings);
+					break;
+				}
+				case 1:
+				{
+					propertyName = bindingData[index++];
+					value = bindingData[index++];
+					if (value is String)
+						eventNames = [ value ];
+					else
+						eventNames = value;
+					eventObject = {};
+					for each (eventName in eventNames)
+					eventObject[eventName] = true;
+					value = bindingData[index++];
+					if (value is Array)
+						bindingIndices = value;
+					else
+						bindingIndices = [ value ];
+					theBindings = [];
+					for each (bindingIndex in bindingIndices)
+					theBindings.push(bindings[bindingIndex]);
+					getterFunction = bindingData[index++];
+					w = new StaticPropertyWatcher(propertyName, 
+						eventObject, theBindings, getterFunction);
+					parentObj = bindingData[index++];
+					break;
+				}
+				case 2:
+				{
+					propertyName = bindingData[index++];
+					value = bindingData[index++];
+					if (value is String)
+						eventNames = [ value ];
+					else
+						eventNames = value;
+					eventObject = {};
+					for each (eventName in eventNames)
+					eventObject[eventName] = true;
+					value = bindingData[index++];
+					if (value is Array)
+						bindingIndices = value;
+					else
+						bindingIndices = [ value ];
+					theBindings = [];
+					for each (bindingIndex in bindingIndices)
+					theBindings.push(bindings[bindingIndex]);
+					getterFunction = bindingData[index++];
+					w = new PropertyWatcher(propertyName, 
+						eventObject, theBindings, getterFunction);
+					break;
+				}
+				case 3:
+				{
+					propertyName = bindingData[index++];
+					value = bindingData[index++];
+					if (value is Array)
+						bindingIndices = value;
+					else
+						bindingIndices = [ value ];
+					theBindings = [];
+					for each (bindingIndex in bindingIndices)
+					theBindings.push(bindings[bindingIndex]);
+					w = new XMLWatcher(propertyName, theBindings);
+					break;
+				}
+			}
+			watchers.push(w);
+			w.updateParent(parentObj);
+			if (target is Watcher)
+			{
+				if (w is FunctionReturnWatcher)
+					FunctionReturnWatcher(w).parentWatcher = Watcher(target);
+				Watcher(target).addChild(w);
+			}
+			
+			var children:Array = bindingData[index++];
+			if (children != null)
+			{
+				children = decodeWatcher(w, children, bindings);
+			}
+		}            
+		return watchers;
+	}
 
 }
 

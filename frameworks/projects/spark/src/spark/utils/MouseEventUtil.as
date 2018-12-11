@@ -162,6 +162,8 @@ package spark.utils
     }
 }
 
+import flash.events.Event;
+
 /**
  * Event used to remove the handlers associated with the press-drag-release
  * gesture handlers.

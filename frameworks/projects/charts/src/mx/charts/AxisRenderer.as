@@ -640,10 +640,10 @@ public class AxisRenderer extends DualStyleObject implements IAxisRenderer
 
         _axis = value;
 
-        value.addEventListener("axisChange", axisChangeHandler,
-                               false, 0, true);
-        value.addEventListener("titleChange", titleChangeHandler,
-                               false, 0, true);
+		if (_axis) {
+        	value.addEventListener("axisChange", axisChangeHandler, false, 0, true);
+        	value.addEventListener("titleChange", titleChangeHandler, false, 0, true);
+		}
     }
     
     //----------------------------------

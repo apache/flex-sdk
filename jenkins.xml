@@ -55,7 +55,7 @@
 
     <!-- playerglobal.swc -->
     <!-- Because this requires a network connection it copies playerglobal.swc only if it doesn't already exist. -->	
-	<target name="playerglobal-download" depends="playerglobal-check,playerglobal-settarget,playerglobal10.2-download,playerglobal10.3-download,playerglobal11.0-download,playerglobal11.1-download,playerglobal11.2-download,playerglobal11.3-download,playerglobal11.4-download,playerglobal11.5-download,playerglobal11.6-download,playerglobal11.7-download,playerglobal11.8-download,playerglobal11.9-download" description="Copies playerglobal.swc from the Adobe website">
+	<target name="playerglobal-download" depends="playerglobal-check,playerglobal-settarget,playerglobal10.2-download,playerglobal10.3-download,playerglobal11.0-download,playerglobal11.1-download,playerglobal11.2-download,playerglobal11.3-download,playerglobal11.4-download,playerglobal11.5-download,playerglobal11.6-download,playerglobal11.7-download,playerglobal11.8-download,playerglobal11.9-download,playerglobal12.0-download,playerglobal13.0-download" description="Copies playerglobal.swc from the Adobe website">
     </target>
 	
 	<target name="playerglobal-settarget" unless="playerglobal.swc.present">
@@ -94,6 +94,12 @@
 		</condition>
 		<condition property="target11.9">
 			<equals arg1="${playerglobal.version}" arg2="11.9" />
+		</condition>
+		<condition property="target12.0">
+			<equals arg1="${playerglobal.version}" arg2="12.0" />
+		</condition>
+		<condition property="target13.0">
+			<equals arg1="${playerglobal.version}" arg2="13.0" />
 		</condition>
 	 </target>
 
@@ -180,7 +186,21 @@
             dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
             verbose="false"/>
     </target>
-
+	
+    <target name="playerglobal12.0-download" if="target12.0">
+    	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
+        <get src="http://download.macromedia.com/get/flashplayer/updaters/12/playerglobal12_0.swc" 
+            dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
+            verbose="false"/>
+    </target>
+            	
+    <target name="playerglobal13.0-download" if="target13.0">
+    	<mkdir dir="${basedir}/lib/player/${playerglobal.version}"/>
+        <get src="http://labsdownload.adobe.com/pub/labs/flashruntimes/flashplayer/flashplayer13_playerglobal.swc" 
+            dest="${basedir}/lib/player/${playerglobal.version}/playerglobal.swc" 
+            verbose="false"/>
+    </target>
+            	
     <target name="clean" description="Cleans third party downloaded files.">
     	<delete dir="${FLEX_HOME}/temp" />
     	<delete dir="${FLEX_HOME}/air" />

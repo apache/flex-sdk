@@ -41,10 +41,10 @@ public class MobileGridSkin extends MobileSkin
 {
 
     [Embed(source="../../../assets/images/mobile320/dg_header_shadow.png")]
-    private const headerShadowCls320:Class;
+    private var headerShadowCls320:Class;
 
     [Embed(source="../../../assets/images/mobile160/dg_header_shadow.png")]
-    private const headerShadowCls160:Class;
+    private var headerShadowCls160:Class;
 
     public var hostComponent:MobileGrid;
     // skin parts
@@ -170,7 +170,7 @@ public class MobileGridSkin extends MobileSkin
         setElementPosition(headerShadow, 0, headerHeight);
         // Scroller
         scroller.minViewportInset = borderWidth;
-        setElementSize(scroller, unscaledWidth, unscaledHeight);
+        setElementSize(scroller, unscaledWidth, unscaledHeight - headerHeight);
         setElementPosition(scroller, 0, headerHeight);
     }
 }

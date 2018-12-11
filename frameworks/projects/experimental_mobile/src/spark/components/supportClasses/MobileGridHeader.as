@@ -23,6 +23,7 @@ import mx.collections.ArrayList;
 import mx.core.IVisualElement;
 import mx.core.UIComponent;
 import mx.core.mx_internal;
+import mx.styles.IStyleClient;
 
 import spark.components.ButtonBar;
 import spark.components.MobileGrid;
@@ -48,16 +49,16 @@ public class MobileGridHeader extends ButtonBar
 {
 
     [Embed(source="../../../../assets/images/mobile320/dg_header_asc.png")]
-    private const ascIcon320Cls:Class;
+    private var ascIcon320Cls:Class;
 
     [Embed(source="../../../../assets/images/mobile320/dg_header_desc.png")]
-    private const descIcon320Cls:Class;
+    private var descIcon320Cls:Class;
 
     [Embed(source="../../../../assets/images/mobile160/dg_header_asc.png")]
-    private const ascIcon160Cls:Class;
+    private var ascIcon160Cls:Class;
 
     [Embed(source="../../../../assets/images/mobile160/dg_header_desc.png")]
-    private const descIcon160Cls:Class;
+    private var descIcon160Cls:Class;
 
     protected var descIconCls:MultiDPIBitmapSource;
     protected var ascIconCls:MultiDPIBitmapSource;
@@ -149,6 +150,15 @@ public class MobileGridHeader extends ButtonBar
             return null;
 
         return dataGroup.getElementAt(index);
+    }
+
+    /**
+     *  @private
+     */
+    override public function updateRenderer(renderer: IVisualElement, itemIndex: int, data: Object): void
+    {
+        super.updateRenderer(renderer, itemIndex, data);
+        IStyleClient(renderer).styleName = MobileGridColumn(data).headerStyleName;
     }
 
     public function updateHeaderWidths():void

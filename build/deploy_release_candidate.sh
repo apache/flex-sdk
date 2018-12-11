@@ -22,7 +22,7 @@
 
 if [ $# -ne 2 ]
 then
-    echo "Usage: deploy_release_branch flex_version ([0-99].[0-99].[0-999]) release_candidate ([0-100])"
+    echo "Usage: deploy_release_candidate flex_version ([0-99].[0-99].[0-999]) release_candidate ([0-100])"
 fi
 
 FLEX_VERSION="$1"
@@ -76,6 +76,7 @@ cp README "${RC_DIR}"
 cp RELEASE_NOTES "${RC_DIR}"
 cp ./out/*-src.* "${RC_DIR}"
 cp ./out/*-bin.* "${BIN_DIR}"
+cp ./out/*-config.xml "${BIN_DIR}"
 cp ./out/*-asdocs.* "${DOC_DIR}"
 
 

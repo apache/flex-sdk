@@ -23,6 +23,7 @@
 
 	<!-- properties -->
 	<property file="${FLEX_HOME}/build.properties"/>
+	<property file="${FLEX_HOME}/local.properties"/>
 
 	<property name="download.dir" value="${FLEX_HOME}/in"/>
 	
@@ -31,7 +32,10 @@
 
     <property name="adobe.flex.dir" value="adobe_flex_sdk_4.6"/>
     <property name="adobe.flex.zip.file" value="flex_sdk_4.6.0.23201B.zip"/>
-
+    <property name="pixelbender.url" value="http://www.apache.org/dyn/mirrors/mirrors.cgi" />
+    <property name="pixelbender.folder" value="flex/pixelbender/1.0/binaries" />
+    <property name="pixelbender.bin.zip" value="apache-flex-sdk-pixel-bender-1.0.0-bin.zip" />
+    
     <property name="adobe.flex.license" value="
         ${line.separator}
         ${line.separator}Adobe Flex SDK License Agreement:
@@ -52,8 +56,8 @@
        clean does not remove these since they don't change often and the downloads take time.
     -->
     <target name="main" 
-        depends="swfobject-download,swfobject-fabridge-download,osmf-download,optional-downloads" 
-        description="Copies third-party software into place for build">
+        depends="pixelbender-download,swfobject-download,swfobject-fabridge-download,osmf-download,optional-downloads"
+        description="Copies third-party and upstream software into place for build">
         <echo message="Use thirdparty-clean or super-clean to remove these."/> 
     </target>
     
@@ -61,7 +65,7 @@
         depends="blazeds-jar, font-jars, clean-adobe-flex-sdk" 
         description="Downloads, after prompt for each, the optional thirdparty JARs"/>
 
-    <target name="clean" depends="swfobject-clean,swfobject-fabridge-clean,clean-adobe-flex-sdk" 
+    <target name="clean" depends="pixelbender-clean,swfobject-clean,swfobject-fabridge-clean,clean-adobe-flex-sdk"
         description="Cleans thirdparty downloaded files.">
         <delete failonerror="false">
             <fileset dir="${basedir}/libs">
@@ -135,13 +139,42 @@
             verbose="false"/>
     </target>
     
+    <!-- pixelbender files (Version 1.0) -->
+    <!-- Because this requires a network connection it downloads only if it doesn't already exist. -->
+    <target name="pixelbender-check" description="Checks if PixelBender files have been downloaded.">
+        <available file="${basedir}/projects/spark/src/spark/effects/CrossFade.pbj" property="pixelbender.pbj.present"/>
+    </target>
+    
+    <target name="pixelbender-download" depends="pixelbender-check" unless="pixelbender.pbj.present"
+        description="Downloads PixelBender from flex distribution server">
+        
+        <mkdir dir="${download.dir}"/>
+        <antcall target="get_from_mirror" >
+            <param name="server" value="${pixelbender.url}" />
+            <param name="folder" value="${pixelbender.folder}" />
+            <param name="file" value="${pixelbender.bin.zip}" />
+            <param name="dest" value="${download.dir}/${pixelbender.bin.zip}" />
+        </antcall>
+        
+        <unzip src="${download.dir}/${pixelbender.bin.zip}" dest="${FLEX_HOME}">
+            <patternset>
+                <include name="**/*.pbj"/>
+            </patternset>
+        </unzip>
+    </target>
+
+    <target name="pixelbender-clean" description="Deletes pbj files.">
+        <ant dir="${FLEX_HOME}/frameworks/projects/framework" target="pixelbender-clean" />
+        <ant dir="${FLEX_HOME}/frameworks/projects/spark" target="pixelbender-clean" />
+    </target>
+        
     <!-- swfobject.js (Version 2.2) -->
     <!-- Because this requires a network connection it downloads SWFObject only if it doesn't already exist. -->
     <target name="swfobject-check" description="Checks if SWFObject has been downloaded.">
         <available file="${basedir}/../templates/swfobject/swfobject.js" property="swfobject.js.present"/>
     </target>
 
-    <target name="swfobject-download" depends="swfobject-check" unless="swfobject.js.present" 
+    <target name="swfobject-download" depends="swfobject-check" unless="swfobject.js.present"
         description="Copies SWFObject from code.google.com">
         
         <mkdir dir="${download.dir}"/>
@@ -340,5 +373,42 @@
     
     <target name="clean-adobe-flex-sdk">
         <delete dir="${download.dir}/${adobe.flex.dir}"/>
-    </target>    
+    </target>
+    
+    <target name="get_from_mirror">
+        <condition property="usingmirror" value="true">
+            <contains string="${server}" substring="mirrors.cgi" />
+        </condition>
+        <antcall target="download_using_mirror">
+            <param name="server" value="${server}" />
+            <param name="folder" value="${folder}" />
+            <param name="file" value="${file}" />
+            <param name="dest" value="${dest}" />
+        </antcall>
+        <antcall target="download_using_get">
+            <param name="server" value="${server}" />
+            <param name="folder" value="${folder}" />
+            <param name="file" value="${file}" />
+            <param name="dest" value="${dest}" />
+        </antcall>
+    </target>
+    
+    <target name="download_using_mirror" if="usingmirror">
+        <get src="${server}/${folder}/${file}?asjson=true" verbose="true" dest="${basedir}/mirror.json" />
+        <replace file="${basedir}/mirror.json">
+            <replacefilter token="&quot;"
+            value="" />
+            <replacefilter token=": "
+            value="=" />
+        </replace>
+        <property file="${basedir}/mirror.json" />
+        <delete file="${basedir}/mirror.json" />
+        <echo>Using mirror: ${preferred}</echo>
+        <get src="${preferred}${folder}/${file}" dest="${dest}" />
+    </target>
+    
+    <target name="download_using_get" unless="usingmirror">
+        <get src="${server}/${folder}/${file}" dest="${dest}" />
+    </target>
+
 </project>

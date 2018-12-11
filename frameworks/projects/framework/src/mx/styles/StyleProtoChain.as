@@ -95,7 +95,7 @@ public class StyleProtoChain
         var className:String = qualified ? getQualifiedClassName(object) : object.className;
         var advancedObject:IAdvancedStyleClient = object as IAdvancedStyleClient;
 
-        var typeHierarchy:OrderedObject = getTypeHierarchy(object, qualified);
+        var typeHierarchy:OrderedObject = getTypeHierarchy(object, styleManager, qualified);
         var types:Array = typeHierarchy.propertyList;
         var typeCount:int = types.length;
         var classDecls:Array = null;
@@ -788,7 +788,7 @@ public class StyleProtoChain
     {
         var styleManager:IStyleManager2 = getStyleManager(object);
         var qualified:Boolean = styleManager.qualifiedTypeSelectors;
-        var typeHierarchy:OrderedObject = getTypeHierarchy(object, qualified);
+        var typeHierarchy:OrderedObject = getTypeHierarchy(object, styleManager, qualified);
         return typeHierarchy.object_proxy::getObjectProperty(cssType) != null;
     }
 
@@ -841,9 +841,8 @@ public class StyleProtoChain
      *  name and then each super class name until we hit a stop class, such as
      *  mx.core::UIComponent.
      */
-    private static function getTypeHierarchy(object:IStyleClient, qualified:Boolean=true):OrderedObject
+    private static function getTypeHierarchy(object:IStyleClient, styleManager:IStyleManager2, qualified:Boolean=true):OrderedObject
     {
-        var styleManager:IStyleManager2 = getStyleManager(object);
         var className:String = getQualifiedClassName(object);
         var hierarchy:OrderedObject = styleManager.typeHierarchyCache[className] as OrderedObject;
         if (hierarchy == null)

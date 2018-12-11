@@ -2703,5 +2703,42 @@ db_time='${DB_TIME}'</echo>
         <p4change description="test2" />
         <echo>${p4.change}</echo>
     </target>
+
+    <target name="load-task">
+        <property name="FLEX_HOME" value="${sdk.dir}" />
+        <!-- load the <mxmlc> task; we can't do this at the <project> level -->
+        <!-- because targets that run before flexTasks.jar gets built would fail -->
+        <taskdef resource="flexTasks.tasks" classpath="${basedir}/../lib/flexTasks.jar"/>
+    </target>
+
+    <target name="build-imagediff" depends="load-task" unless="imagediff-built" >
+        <property file="${sdk.dir}/build.properties" />
+        <!-- compile the basic tests -->
+        <mxmlc fork="true"
+            file="${basedir}/utilities/ImageDiffAIR/src/ImageDiffAIR.mxml">
+            <jvmarg line="${mxmlc.jvm.args}"/>
+            <load-config filename="${sdk.dir}/frameworks/air-config.xml"/>
+        </mxmlc>
+    </target>
+    
+    <target name="check-imagediff">
+        <available file="${basedir}/utilities/ImageDiffAIR/src/ImageDiffAIR.swf" property="imagediff-built" />
+    </target>
+    
+    <target name="imagediff" depends="check-imagediff,build-imagediff" >
+        <!-- Paths to the adl. -->
+        <condition property="adl" value="${env.AIR_HOME}/bin/adl.exe">
+            <os family="windows"/>
+        </condition>
+        <condition property="adl" value="${env.AIR_HOME}/bin/adl">
+            <os family="mac"/>
+        </condition>
+        <condition property="adl" value="${env.AIR_HOME}/bin/adl">
+            <os family="unix"/>
+        </condition>
+        <exec executable="${adl}" dir="${basedir}/utilities/ImageDiffAIR/src" >
+            <arg value="${basedir}/utilities/ImageDiffAIR/src/ImageDiffAIR-app.xml"/>
+        </exec>
+    </target>
 </project>
 

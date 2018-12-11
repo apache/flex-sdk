@@ -19,7 +19,7 @@
 
 package mx.collections
 {
-
+import flash.system.ApplicationDomain;
 import flash.utils.IDataInput;
 import flash.utils.IDataOutput;
 import flash.utils.IExternalizable;
@@ -105,7 +105,7 @@ public class ArrayCollection extends ListCollectionView implements IExternalizab
     //  Properties
     //
     //--------------------------------------------------------------------------
-
+		
     //----------------------------------
     //  source
     //----------------------------------
@@ -147,6 +147,20 @@ public class ArrayCollection extends ListCollectionView implements IExternalizab
     //
     //--------------------------------------------------------------------------
 
+	/**
+	 *  Converts an Array Collection to JavaScript Object Notation (JSON) format.
+	 *  Called by the JSON.stringify() method and should not be called directly.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 11
+	 *  @playerversion AIR 3.0
+	 *  @productversion Apache Flex 4.12
+	 */
+	public function toJSON(s:String):*
+	{
+		return toArray();
+	}
+	
     /**
      *  @private
      *  Ensures that only the source property is serialized.

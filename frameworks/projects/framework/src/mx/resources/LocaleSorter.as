@@ -66,17 +66,17 @@ public class LocaleSorter
 		
 		var i:int;
         var j:int;
-        var k:int;
-        var l:int;
-		var locale:String;
 		
 		var locales:Array = trimAndNormalize(appLocales);
 		var preferenceLocales:Array	= trimAndNormalize(systemPreferences);
 		
 		addUltimateFallbackLocale(preferenceLocales, ultimateFallbackLocale);
 		
+		var noLocales:int = locales.length;
+		var noPreferenceLocales:int = preferenceLocales.length;
+		
 		// For better performance, save the locales in a lookup table.
-		for (j = 0; j < locales.length; j++)
+		for (j = 0; j < noLocales; j++)
         {
 			hasLocale[locales[j]] = j;
 		}
@@ -90,9 +90,21 @@ public class LocaleSorter
 			}
 		}
 		
-		for (i = 0, l = preferenceLocales.length; i < l; i++)
+		var preferenceLocalesID:Vector.<LocaleID> = new Vector.<LocaleID>(noPreferenceLocales);
+		for (i = 0; i < noPreferenceLocales; i++)
         {
-			var plocale:LocaleID = LocaleID.fromString(preferenceLocales[i]);
+        	preferenceLocalesID[i] = LocaleID.fromString(preferenceLocales[i]);
+        }
+		
+		var localesID:Vector.<LocaleID> = new Vector.<LocaleID>(noLocales);
+		for (i = 0; i < noLocales; i++)
+        {
+        	localesID[i] = LocaleID.fromString(locales[i]);
+        }
+		
+		for (i = 0; i < noPreferenceLocales; i++)
+        {
+			var plocale:LocaleID = preferenceLocalesID[i].clone();
 			
 			// Step 1: Promote the perfect match.
 			promote(preferenceLocales[i]);
@@ -106,25 +118,23 @@ public class LocaleSorter
 			}
 			
 			// Parse it again.
-			plocale = LocaleID.fromString(preferenceLocales[i]);
+			plocale = preferenceLocalesID[i].clone();
 			
             // Step 3: Promote the order of siblings from preferenceLocales.
-			for (j = 0; j < l; j++)
+			for (j = 0; j < noPreferenceLocales; j++)
             {
-				locale = preferenceLocales[j];
-				if (plocale.isSiblingOf(LocaleID.fromString(locale)))
-					promote(locale);
+				if (plocale.isSiblingOf(preferenceLocalesID[j]))
+					promote(preferenceLocales[j]);
 			}
             				
 			// Step 4: Promote all remaining siblings
             // (aka not in preferenceLocales)
 			// eg. push en_UK after en_US and en if the user
             // doesn't have en_UK in the preference list
-			for (j = 0, k = locales.length; j < k; j++)
+			for (j = 0; j < noLocales; j++)
             {
-				locale = locales[j];
-				if (plocale.isSiblingOf(LocaleID.fromString(locale)))
-					promote(locale);
+				if (plocale.isSiblingOf(localesID[j]))
+					promote(locales[j]);
 			}
 		}
 		
@@ -132,7 +142,7 @@ public class LocaleSorter
         {
 			// Check what locales are not already loaded
             // and push them preserving the order.
-			for (j = 0, k = locales.length; j < k; j++)
+			for (j = 0; j < noLocales; j++)
             {
 				promote(locales[j]);
 			}
@@ -443,6 +453,32 @@ class LocaleID
 	//  Methods
 	//
 	//--------------------------------------------------------------------------
+
+    /**
+     *  @private
+     */
+    public function clone():LocaleID {
+
+       var copy:LocaleID = new LocaleID();
+       copy.lang = lang;
+       copy.script = script;
+       copy.region = region;
+       copy.extended_langs = extended_langs.concat();
+       copy.variants = variants.concat();
+       copy.extensions = {};
+       for (var i:String in extensions)
+       {
+           if (extensions.hasOwnProperty(i))
+           {
+           	    copy.extensions[i] = extensions[i].concat();
+           }
+       }
+           
+        copy.privates = privates.concat();
+        copy.privateLangs = privateLangs;
+    
+        return copy;
+    }
 
 	/**
      *  @private

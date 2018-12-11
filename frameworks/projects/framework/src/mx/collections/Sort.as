@@ -405,14 +405,13 @@ public class Sort extends EventDispatcher implements ISort
                     fieldName = fieldList[i];
                     if (fieldName)
                     {
-                        var hasFieldName:Boolean;
-                        try
+                        var hasFieldName:Boolean = false;     
+						try
                         {
                             hasFieldName = values[fieldName] !== undefined;
                         }
                         catch(e:Error)
                         {
-                            hasFieldName = false;
                         }
                         if (hasFieldName)
                         {

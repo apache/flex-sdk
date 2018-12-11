@@ -51,7 +51,7 @@
       <SolidColor color="#FFFFFF"/>
     </fill>
   </Rect>
-  <Rect x="4" y="62" alpha="0.1" width="56" height="2" scaleX="2.0" scaleY="2.0">
+  <Rect x="4" y="124" alpha="0.1" width="56" height="2" scaleX="2.0" scaleY="2.0">
     <fill>
       <SolidColor/>
     </fill>

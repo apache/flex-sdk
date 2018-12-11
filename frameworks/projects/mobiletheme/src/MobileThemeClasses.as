@@ -57,6 +57,8 @@ import spark.skins.mobile.SkinnableContainerSkin; SkinnableContainerSkin;
 import spark.skins.mobile.SplitViewNavigatorSkin; SplitViewNavigatorSkin;
 import spark.skins.mobile.StageTextAreaSkin; StageTextAreaSkin;
 import spark.skins.mobile.StageTextInputSkin; StageTextInputSkin;
+ import spark.skins.mobile.ScrollingStageTextInputSkin; ScrollingStageTextInputSkin;
+import spark.skins.mobile.ScrollingStageTextAreaSkin; ScrollingStageTextAreaSkin
 import spark.skins.mobile.TabbedViewNavigatorApplicationSkin; TabbedViewNavigatorApplicationSkin;
 import spark.skins.mobile.TabbedViewNavigatorSkin; TabbedViewNavigatorSkin;
 import spark.skins.mobile.TabbedViewNavigatorTabBarSkin; TabbedViewNavigatorTabBarSkin;
