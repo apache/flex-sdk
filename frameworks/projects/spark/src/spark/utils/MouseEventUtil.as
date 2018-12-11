@@ -118,7 +118,7 @@ package spark.utils
                         target.systemManager.deployMouseShields(false);
                         break;
                 }
-            }
+            };
             target.addEventListener(MouseEvent.MOUSE_DOWN, f);
             target.addEventListener("removeHandler", f);
         }    

@@ -101,7 +101,7 @@ package mx.collections
         {
             function filterOutLocationNode(node:DataNode):Boolean {
                 return node && node.label != locationNodeName;
-            };
+            }
 
             const locationNodeName:String = StringUtil.trim(HIERARCHY_STRING.split("\n")[2]);
 
@@ -123,7 +123,7 @@ package mx.collections
             assertEquals(1, _sut.length);
         }
 
-        private function attemptNavigation(into:HierarchicalCollectionView):int
+        private static function attemptNavigation(into:HierarchicalCollectionView):int
         {
             var cursor:IViewCursor = into.createCursor();
             var i:int = 0;

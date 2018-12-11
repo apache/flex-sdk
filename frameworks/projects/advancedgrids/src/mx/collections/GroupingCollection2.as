@@ -1212,8 +1212,6 @@ public class GroupingCollection2 extends HierarchicalData implements IGroupingCo
             // initialize the variables
             initialize();
         
-           
-            
             if ((source as ICollectionView).length == 0)
                 return false;
             

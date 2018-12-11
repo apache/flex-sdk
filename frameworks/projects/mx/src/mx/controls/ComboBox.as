@@ -1388,9 +1388,7 @@ public class ComboBox extends ComboBase
      */
     public function get selectedLabel():String
     {
-        var item:Object = selectedItem;
-
-        return itemToLabel(item);
+        return itemToLabel(selectedItem);
     }
 
     //--------------------------------------------------------------------------

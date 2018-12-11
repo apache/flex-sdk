@@ -1109,7 +1109,9 @@ public class GridColumnHeaderGroup extends Group implements IDataGridElement
         }
         
         const columnIndex:int = (pressSeparatorIndex != -1) ? pressSeparatorIndex : eventColumnIndex;
-        dispatchGridEvent(event, gridEventType, eventHeaderXY, columnIndex);
+	if (columnIndex != -1) {
+        	dispatchGridEvent(event, gridEventType, eventHeaderXY, columnIndex);
+	}
     }
     
     /**

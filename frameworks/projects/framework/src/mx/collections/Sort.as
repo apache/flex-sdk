@@ -95,6 +95,11 @@ package mx.collections
  *  sorting for strings.  For this type of sorting please see the 
  *  <code>spark.collections.Sort</code> and 
  *  <code>spark.collections.SortField</code> classes.</p>
+ *
+ *  Note: to prevent problems like
+ *  <a href="https://issues.apache.org/jira/browse/FLEX-34853">FLEX-34853</a>
+ *  it is recommended to use SortField
+ *  instances as immutable objects (by not changing their state).
  * 
  *  @mxml
  *
@@ -568,7 +573,9 @@ public class Sort extends EventDispatcher implements ISort
      */
     public function propertyAffectsSort(property:String):Boolean
     {
-        if (usingCustomCompareFunction || !fields) return true;
+        if (usingCustomCompareFunction || !fields)
+            return true;
+
         for (var i:int = 0; i < fields.length; i++)
         {
             var field:ISortField = fields[i];

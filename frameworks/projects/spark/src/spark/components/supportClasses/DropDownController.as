@@ -607,14 +607,6 @@ public class DropDownController extends EventDispatcher
             if (openButton && target && openButton.contains(target))
                 return;
 			
-			// don't close if something just been selected in a DropDownList
-			if (target is IUIComponent)
-			{
-                var document:Object = (target as IUIComponent).document;
-                if (("hostComponent" in document) && document.hostComponent is DropDownList)
-			        return;
-            }
-
             if (hitAreaAdditions != null)
             {
 				var length:int = hitAreaAdditions.length;

@@ -2377,7 +2377,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
             var f:Function = function():void
             {
                 doSetSelectedIndices(valueCopy);
-            }
+            };
             deferredOperations.push(f);  // function f() to be called by commitProperties()
             invalidateProperties();
         }
@@ -4329,7 +4329,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
      *  Create and/or configure this Grid's GridViews.  We're assuming that the
      *  Grid's viewFactory, columns and dataProvider are specified.
 	 * 
-	 *  If GridVeiws are added or removed, a "gridViewsChanged" event is dispatched.
+	 *  If GridViews are added or removed, a "gridViewsChanged" event is dispatched.
      */
     private function configureGridViews():void
     {
@@ -4805,7 +4805,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
             {
                 currentObject = dataProvider.getItemAt(loopingIndex);
 
-                if (currentObject.hasOwnProperty(field) == true && currentObject[field].search(pattern) != -1)
+                if (currentObject.hasOwnProperty(field) == true && pattern.test(currentObject[field]) == true)
                 {
                     return loopingIndex;
                 }
@@ -4862,7 +4862,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
                 //Loop through regex patterns from the values array.
                 for (loopingValuesIndex = 0; loopingValuesIndex < valuesTotal; loopingValuesIndex++)
                 {
-                    if (currentObject[field].search(regexList[loopingValuesIndex]) != -1)
+                    if (regexList[loopingValuesIndex].test(currentObject[field]) == true)
                     {
                         matchedIndices.push(loopingDataProviderIndex);
 

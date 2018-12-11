@@ -81,6 +81,7 @@ obj/
 [Dd]ebug*/
 !debugger/
 modules/debugger/classes/
+modules/asc/build/java/classes/
 [Rr]elease*/
 Ankh.NoLoad
 

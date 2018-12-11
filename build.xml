@@ -566,7 +566,7 @@
                 <include name="installer.properties/**"/>
                 <include name="CHANGES"/>
                 <include name="LICENSE"/>
-                <include name="licenseParts/*"/>
+                <include name="licenseParts/**"/>
                 <include name="NOTICE"/>
                 <include name="README"/>
                 <include name="RELEASE_NOTES"/>
@@ -1795,7 +1795,7 @@ There are no known issues.
                 <!-- exclude text files -->
                 <exclude name="CONTRIBUTING"/>
                 <exclude name="CONTRIBUTORS"/>
-                <exclude name="licenseParts/*"/>
+                <exclude name="licenseParts/**"/>
                 <exclude name="modules/thirdparty/batik/lib/**/LICENSE*.txt"/>
                 <exclude name="modules/thirdparty/batik/lib/**/README*.txt"/>
                 <exclude name="frameworks/projects/flatspark/src/flatspark/assets/fonts/**/OFL.txt"/>

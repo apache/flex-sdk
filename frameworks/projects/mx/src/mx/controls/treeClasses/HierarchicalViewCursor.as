@@ -20,17 +20,16 @@
 package mx.controls.treeClasses
 {
 
-import flash.events.EventDispatcher;
-import flash.utils.Dictionary;
-import mx.collections.CursorBookmark;
-import mx.collections.ICollectionView;
-import mx.collections.IList;
-import mx.collections.IViewCursor;
-import mx.events.CollectionEvent;
-import mx.events.CollectionEventKind;
-import mx.utils.UIDUtil;
+	import flash.events.EventDispatcher;
+	import flash.utils.Dictionary;
 
-[ExcludeClass]
+	import mx.collections.CursorBookmark;
+	import mx.collections.ICollectionView;
+	import mx.collections.IViewCursor;
+	import mx.events.CollectionEvent;
+	import mx.events.CollectionEventKind;
+
+	[ExcludeClass]
 
 /**
  *  @private
@@ -84,11 +83,7 @@ public class HierarchicalViewCursor extends EventDispatcher
 		modelCursor = model.createCursor();
 		
 		//check to see if the model has more than one top level items
-		if (model.length > 1)
-			more = true;
-		else 
-			more = false;
-			
+		more = model.length > 1;
     }
 
     //--------------------------------------------------------------------------
@@ -787,10 +782,7 @@ public class HierarchicalViewCursor extends EventDispatcher
     {
 		childNodes = [];
 		modelCursor.seek(CursorBookmark.FIRST, 0);
-		if (model.length > 1)
-			more = true;
-		else
-			more = false;
+		more = model.length > 1;
         currentChildIndex = 0;
         parentNodes = [];
         childIndexStack = [];
@@ -807,7 +799,7 @@ public class HierarchicalViewCursor extends EventDispatcher
 		childIndexStack = [];
 		_currentDepth = 1;
 		parentNodes = [];
-		var emptyBranch:Boolean = false;
+
 		//first move to the end of the top level collection
 		modelCursor.seek(CursorBookmark.LAST, 0);
 		//if its a branch and open then get children for the last item
@@ -866,7 +858,7 @@ public class HierarchicalViewCursor extends EventDispatcher
 		var i:int;
 		var n:int;
         var node:Object;
-		var nodeParent:Object
+		var nodeParent:Object;
         var parent:Object;
         var parentStack:Array;
         var parentTable:Dictionary;

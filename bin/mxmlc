@@ -42,7 +42,7 @@ D32=''
 if [ $OS = "Windows" ]; then
     # set FLEX_HOME relative to mxmlc if not set
     test "$FLEX_HOME" = "" && {
-        FLEX_HOME=`dirname $0`/..
+        FLEX_HOME=`dirname "$0"`/..
         FLEX_HOME=`cygpath -m $FLEX_HOME`
     }
 

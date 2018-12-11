@@ -539,7 +539,8 @@ package spark.components {
          *  @playerversion Flash 9
          *  @playerversion AIR 1.1
          *  @productversion Flex 3
-         */ public function get defaultButtonFlag():int {
+         */
+	public function get defaultButtonFlag():int {
             return _defaultButtonFlag;
         }
 
@@ -838,7 +839,7 @@ package spark.components {
          */
         private function onKeyDown(e:KeyboardEvent):void {
             if (e.charCode == Keyboard.ESCAPE) {
-                removeAlert(identifyButton(_buttons[ _defaultButtonFlag ] as Button));
+                removeAlert(identifyButton(getDefaultButton()));
             }
         }
     }

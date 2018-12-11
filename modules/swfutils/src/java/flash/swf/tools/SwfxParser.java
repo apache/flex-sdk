@@ -497,6 +497,8 @@ public class SwfxParser extends DefaultHandler
         tag.suppressCrossDomainCaching = parseBoolean(getAttribute(attributes, "suppressCrossDomainCaching"));
         tag.swfRelativeUrls = parseBoolean(getAttribute(attributes, "swfRelativeUrls"));
         tag.useNetwork = parseBoolean(getAttribute(attributes, "useNetwork"));
+        tag.brokerProductManager = parseBoolean(getAttribute(attributes, "brokerProductManager"));
+        tag.brokerLocalConnection = parseBoolean(getAttribute(attributes, "brokerLocalConnection"));
         stack.push(tag);
     }
     
