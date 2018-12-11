@@ -22,4 +22,4 @@ rem
 
 if "%FLEX_HOME%"=="" set FLEX_HOME=%~dp0\..
 
-java -Xmx384m -Dsun.io.useCanonCaches=false -jar "%FLEX_HOME%\lib\mxmlc.jar" +flexlib="%FLEX_HOME%\frameworks" %*
+java -Xmx384m -Dsun.io.useCanonCaches=false -Djava.util.Arrays.useLegacyMergeSort=true -jar "%FLEX_HOME%\lib\mxmlc.jar" +flexlib="%FLEX_HOME%\frameworks" %*

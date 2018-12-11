@@ -20,7 +20,6 @@
 package spark.skins.mobile.supportClasses
 {
 import flash.display.BlendMode;
-import flash.display.DisplayObject;
 import flash.display.GradientType;
 import flash.display.Graphics;
 import flash.display.GraphicsPathCommand;
@@ -36,7 +35,6 @@ import mx.utils.ColorUtil;
 import spark.components.Application;
 import spark.components.ArrowDirection;
 import spark.components.Callout;
-import spark.core.SpriteVisualElement;
 import spark.skins.mobile.CalloutSkin;
 
 use namespace mx_internal;
@@ -151,22 +149,45 @@ public class CalloutArrow extends UIComponent
     /**
      *  @copy spark.skins.mobile.CalloutSkin#borderColor
      */
-    protected var borderColor:Number;
-    
+    protected var borderColor:Number = -1; // if not set
+
     /**
      *  @copy spark.skins.mobile.CalloutSkin#borderThickness
      */
-    protected var borderThickness:Number = NaN;
-    
+    protected var borderThickness:Number = -1 ;      // marker that borderThickness was not set  directly
+
     /**
      *  @private
      *  A sibling of the arrow used to erase the drop shadow in CalloutSkin
      */
     private var eraseFill:Sprite;
+
+    /* helper private accessors */
+
+    /* returns borderThickness from style if member is -1, or borderThickness.  Returns 0 if NaN */
+    private function get actualBorderThickness():Number
+    {
+        return calloutSkin.actualBorderThickness;
+    }
+
+    private function get actualBorderColor():uint
+    {
+        return calloutSkin.actualBorderColor;
+    }
+
+    protected function get calloutSkin():CalloutSkin
+    {
+        return parent as CalloutSkin ;
+    }
+
+    protected function get calloutHostComponent():Callout {
+        return  calloutSkin.hostComponent;
+    }
     
     /**
      * @private
      */
+
     override protected function createChildren():void
     {
         super.createChildren();
@@ -189,9 +210,7 @@ public class CalloutArrow extends UIComponent
         
         graphics.clear();
         eraseFill.graphics.clear();
-        
-        var calloutSkin:CalloutSkin = (parent as CalloutSkin);
-        var hostComponent:Callout = calloutSkin.hostComponent;
+        var hostComponent: Callout = calloutHostComponent;
         var arrowDirection:String = hostComponent.arrowDirection;
         
         if (arrowDirection == ArrowDirection.NONE)
@@ -208,9 +227,10 @@ public class CalloutArrow extends UIComponent
         var arrowTipY:Number = 0;
         var arrowEndX:Number = 0;
         var arrowEndY:Number = 0;
-        
-        var showBorder:Boolean = !isNaN(borderThickness);
-        var borderWeight:Number = showBorder ? borderThickness : 0;
+
+        var borderWeight:Number = actualBorderThickness;
+        var showBorder:Boolean = borderWeight > 0;
+
         var borderHalf:Number = borderWeight / 2;
         var isHorizontal:Boolean = false;
         
@@ -358,7 +378,7 @@ public class CalloutArrow extends UIComponent
         
         // draw arrow path
         if (showBorder)
-            arrowGraphics.lineStyle(borderThickness, borderColor, 1, true);
+            arrowGraphics.lineStyle(borderWeight, actualBorderColor, 1, true);
         
         arrowGraphics.drawPath(commands, coords);
         arrowGraphics.endFill();

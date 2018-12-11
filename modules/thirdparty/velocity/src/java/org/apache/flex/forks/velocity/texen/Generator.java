@@ -451,10 +451,10 @@ public class Generator
      */
     protected void fillContextHash (Context context, Hashtable objs)
     {
-        Enumeration enum = objs.keys();
-        while (enum.hasMoreElements())
+        Enumeration enm = objs.keys();
+        while (enm.hasMoreElements())
         {
-            String key = enum.nextElement().toString();
+            String key = enm.nextElement().toString();
             context.put (key, objs.get(key));
         }
     }
@@ -479,11 +479,11 @@ public class Generator
      */
     protected void fillContextProperties (Context context)
     {
-        Enumeration enum = props.propertyNames();
+        Enumeration enm = props.propertyNames();
         
-        while (enum.hasMoreElements())
+        while (enm.hasMoreElements())
         {
-            String nm = (String)enum.nextElement();
+            String nm = (String)enm.nextElement();
             if (nm.startsWith ("context.objects."))
             {
                 

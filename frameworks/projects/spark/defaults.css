@@ -50,8 +50,21 @@ ButtonBar
     skinClass: ClassReference("spark.skins.spark.ButtonBarSkin");
 }
 
+Callout
+{
+    backgroundColor: #ffffff;
+    contentBackgroundAppearance: flat;
+    contentBackgroundColor: #FFFFFF;
+    skinClass: ClassReference("spark.skins.spark.CalloutSkin");
+    borderColor: #3d3d3d;
+    borderThickness: 1;
+}
+
+
 CheckBox
 {
+    gap: 5;
+    labelPlacement: "right";
     skinClass: ClassReference("spark.skins.spark.CheckBoxSkin");
 }
 

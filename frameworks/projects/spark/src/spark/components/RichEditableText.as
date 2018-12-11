@@ -48,6 +48,7 @@ package spark.components
     import flashx.textLayout.edit.IEditManager;
     import flashx.textLayout.edit.ISelectionManager;
     import flashx.textLayout.edit.SelectionState;
+    import flashx.textLayout.edit.TextClipboard;
     import flashx.textLayout.elements.Configuration;
     import flashx.textLayout.elements.GlobalSettings;
     import flashx.textLayout.elements.InlineGraphicElement;
@@ -79,11 +80,10 @@ package spark.components
     import mx.core.IIMESupport;
     import mx.core.ISystemCursorClient;
     import mx.core.UIComponent;
-    import mx.core.mx_internal;
+	import mx.core.mx_internal;
     import mx.events.FlexEvent;
     import mx.managers.IFocusManager;
     import mx.managers.IFocusManagerComponent;
-    import mx.resources.ResourceManager;
     import mx.utils.StringUtil;
     
     import spark.components.supportClasses.RichEditableTextContainerManager;
@@ -4743,7 +4743,31 @@ package spark.components
                 // Paste is implemented in operationEnd.  The basic idea is to allow 
                 // the paste to go through unchanged, but group it together with a 
                 // second operation that modifies text as part of the same 
-                // transaction. This is vastly simpler for TLF to manage. 
+                // transaction. This is vastly simpler for TLF to manage.
+                // But first, we do a multi-line check and remove newlines if not
+                if (!multiline)
+                {
+                    var po:PasteOperation = PasteOperation(op);
+
+                    // Make sure the clipboard has something to paste.
+                    if (po.textScrap == null || po.textScrap.textFlow == null)
+                        return;
+
+                    // If copied/cut from displayAsPassword field the pastedText
+                    // is '*' characters but this is correct.
+                    var pastedText:String = staticPlainTextExporter.export(
+                        po.textScrap.textFlow, ConversionType.STRING_TYPE) as String;
+                    
+                    // If there are no newlines there is nothing
+                    // more to do.
+                    if (pastedText.search(ALL_NEWLINES_REGEXP) != -1)
+                    {
+                        pastedText = pastedText.replace(ALL_NEWLINES_REGEXP, "");
+                        po.textScrap = 
+                            TextClipboard.importToScrap(pastedText, 
+                                TextConverter.PLAIN_TEXT_FORMAT);
+                    }
+                }
             }
             else if (op is DeleteTextOperation || op is CutOperation)
             {

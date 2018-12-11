@@ -23,30 +23,39 @@ import flash.display.DisplayObject;
 import flash.display.DisplayObjectContainer;
 import flash.display.InteractiveObject;
 import flash.display.Stage;
-import flash.events.Event;
 import flash.events.ErrorEvent;
-import flash.events.FocusEvent;
+import flash.events.Event;
 import flash.events.EventDispatcher;
+import flash.events.FocusEvent;
 import flash.events.IOErrorEvent;
 import flash.events.ProgressEvent;
 import flash.events.SecurityErrorEvent;
 import flash.events.UncaughtErrorEvent;
-import flash.geom.Point;
 import flash.geom.Matrix;
+import flash.geom.Point;
 import flash.geom.Rectangle;
 import flash.net.Socket;
+import flash.net.URLLoader;
+import flash.net.URLLoaderDataFormat;
+import flash.net.URLRequest;
 import flash.system.ApplicationDomain;
 import flash.system.Security;
 import flash.system.fscommand;
 import flash.utils.Dictionary;
-import flash.utils.getQualifiedClassName;
 import flash.utils.Timer;
+import flash.utils.getQualifiedClassName;
 import flash.utils.setTimeout;
-import flash.net.URLRequest;
-import flash.net.URLLoader;
-import flash.net.URLLoaderDataFormat;
 
+import mx.binding.Binding;
+import mx.binding.BindingManager;
+import mx.binding.FunctionReturnWatcher;
+import mx.binding.PropertyWatcher;
+import mx.binding.StaticPropertyWatcher;
+import mx.binding.Watcher;
+import mx.binding.XMLWatcher;
+import mx.core.IMXMLObject;
 import mx.core.mx_internal;
+
 use namespace mx_internal;
 
 [Mixin]
@@ -147,7 +156,6 @@ public class UnitTester extends EventDispatcher
 		// don't let child swfs override this
 		if (!_root)
 			_root = root;
-
 
 		/// set device if not set.
 		if (cv == null){
@@ -252,8 +260,16 @@ public class UnitTester extends EventDispatcher
 			}
 		}
 
+        var passive:Boolean;
+        try {
+            passive = !(root.loaderInfo.parentAllowsChild && root.loaderInfo.childAllowsParent);
+        } catch (e:Error)
+        {
+            // in single-frame apps, loaderInfo may not be ready
+            passive = false;
+        }
 		// if we're sandboxed and have no scripts, assume we're passive.
-		if (!(root.loaderInfo.parentAllowsChild && root.loaderInfo.childAllowsParent))
+		if (passive)
 		{
 			if (eventScripts == null)
 			{
@@ -303,7 +319,8 @@ public class UnitTester extends EventDispatcher
 		}
 		*/
 
-		var g:Class = Class(appdom.getDefinition("mx.core.UIComponentGlobals"));
+		var g:Class = appdom.hasDefinition("mx.core.UIComponentGlobals") ? 
+                            Class(appdom.getDefinition("mx.core.UIComponentGlobals")) : null;
 		if (g)
         {
 			g["catchCallLaterExceptions"] = true;
@@ -1098,7 +1115,7 @@ public class UnitTester extends EventDispatcher
         // just as it is waiting for a focusIn event or
         // deferring focus assignment
         // but I think that's the best we can do for now
-        if (waitEvent == "focusIn" || uiComponentGlobals.nextFocusObject != null)
+        if (waitEvent == "focusIn" || (uiComponentGlobals && uiComponentGlobals.nextFocusObject != null))
             return;
         
 		if (blockFocusEvents && event.relatedObject == null)
@@ -1156,7 +1173,8 @@ public class UnitTester extends EventDispatcher
 
 	public static function pre_startEventHandler(event:Event):void 
 	{
-		_root["topLevelSystemManager"].addEventListener("callLaterError", callLaterErrorDefaultHandler, false, -1);
+        if ("topLevelSystemManager" in _root)
+    		_root["topLevelSystemManager"].addEventListener("callLaterError", callLaterErrorDefaultHandler, false, -1);
 
 		if (event.type == "applicationComplete")
 		{
@@ -1260,9 +1278,14 @@ public class UnitTester extends EventDispatcher
 			_root = originalRoot;
 
 		TestOutput.logResult("ScriptComplete: completely done");
-		_root[mouseX] = undefined;
-		_root[mouseY] = undefined;
-		setMouseXY(null);
+        try {
+    		_root[mouseX] = undefined;
+	    	_root[mouseY] = undefined;
+		    setMouseXY(null);
+        } catch (e:Error)
+        {
+            // not all use cases support this
+        }
 		_root.removeEventListener("focusIn", focusBlockingHandler, true);
 		_root.removeEventListener("focusOut", focusBlockingHandler, true);
 		_root.removeEventListener("deactivate", activateBlockingHandler, true);
@@ -1455,6 +1478,11 @@ public class UnitTester extends EventDispatcher
 	 */
 	public static var _root:DisplayObject;
 
+    /**
+     *  the object to use for property lookups in stringToObject
+     */
+    public static var contextFunction:Function;
+    
 	/**
 	 *  the list of tests to run (if not specified, runs all tests)
 	 */
@@ -1474,8 +1502,45 @@ public class UnitTester extends EventDispatcher
 		scriptName = getQualifiedClassName(this);
 		if (scriptName.indexOf("::") >= 0)
 			scriptName = scriptName.substring(scriptName.indexOf("::") + 2);
-
 			
+	}
+
+	//----------------------------------
+	//  MXML Descriptor
+	//----------------------------------
+	
+	/**
+	 *  The descriptor of MXML children.
+	 */
+	private var _MXMLDescriptor:Array;
+	
+	public function get MXMLDescriptor():Array
+	{
+		return _MXMLDescriptor;
+	}
+	
+	public function setMXMLDescriptor(value:Array):void
+	{
+		_MXMLDescriptor = value;    
+	}
+	
+	//----------------------------------
+	//  MXML Properties
+	//----------------------------------
+	
+	/**
+	 *  The attributes of MXML top tag.
+	 */
+	private var _MXMLProperties:Array;
+	
+	public function get MXMLProperties():Array
+	{
+		return _MXMLProperties;
+	}
+	
+	public function setMXMLProperties(value:Array):void
+	{
+		_MXMLProperties = value;    
 	}
 
 	/**
@@ -1535,8 +1600,14 @@ public class UnitTester extends EventDispatcher
 	 */
 	public function stringToObject(s:*):Object
 	{
+        var context:Object;
+        if (contextFunction != null)
+            context = contextFunction();
+        else
+            context = _root["document"];
+        
 		if (s == null || s == "")
-			return _root["document"];
+			return context;
 
 		var original:String = s;
 
@@ -1549,26 +1620,26 @@ public class UnitTester extends EventDispatcher
 			{
 				s = s.substring(11);
 				s = s.substring(0, s.indexOf(")"));
-				return _root["document"].getChildAt(parseInt(s));
+				return context.getChildAt(parseInt(s));
 			}
 			if (s.indexOf("getLayoutElementAt(") == 0 && s.indexOf(".") == -1)
 			{
 				s = s.substring(19);
 				s = s.substring(0, s.indexOf(")"));
-				return _root["document"].getLayoutElementAt(parseInt(s));
+				return context.getLayoutElementAt(parseInt(s));
 			}
 			if (s.indexOf("getElementAt(") == 0 && s.indexOf(".") == -1)
 			{
 				s = s.substring(13);
 				s = s.substring(0, s.indexOf(")"));
-				return _root["document"].getElementAt(parseInt(s));
+				return context.getElementAt(parseInt(s));
 			}
 			if (s.indexOf("script:") == 0)
 			{
 				propName = s.substring(7);
 				return this[propName];
 			}
-			return _root["document"][propName];
+			return context[propName];
 		}
 		catch (e:Error)
 		{
@@ -1579,7 +1650,7 @@ public class UnitTester extends EventDispatcher
 			var cc:int = s.indexOf("::");
 			var gd:int = -1;
             var className:String = s;
-            var obj:Object = _root["document"];
+            var obj:Object = context;
             if (cc > 0)
             {
 				gd = s.indexOf("getDefinition");
@@ -1794,9 +1865,16 @@ public class UnitTester extends EventDispatcher
 	 */
 	public function startTests():void
 	{
+		var children:Array =  this.MXMLDescriptor;
+		if (children)
+			generateMXMLInstances(this, children);
+
 		var r:Object = _root;
-		r = r["topLevelSystemManager"];
-		r = r.rawChildren;
+        if ("topLevelSystemManager" in _root)
+        {
+    		r = r["topLevelSystemManager"];
+	    	r = r.rawChildren;
+        }
 		var n:int = r.numChildren;
 		for (var i:int = 0; i < n; i++)
 		{
@@ -1813,7 +1891,8 @@ public class UnitTester extends EventDispatcher
 		// if (RTESocket)
 		//	RTESocket.addEventListener(ProgressEvent.SOCKET_DATA, RTEHandler);
 
-		_root["topLevelSystemManager"].addEventListener("callLaterError", callLaterErrorHandler);
+        if ("topLevelSystemManager" in _root)
+    		_root["topLevelSystemManager"].addEventListener("callLaterError", callLaterErrorHandler);
 
 		if (testCases)
 			numTests = testCases.length;
@@ -1943,7 +2022,8 @@ public class UnitTester extends EventDispatcher
 		// if (RTESocket)
 		// 	RTESocket.removeEventListener(ProgressEvent.SOCKET_DATA, RTEHandler);
 
-		_root["topLevelSystemManager"].removeEventListener("callLaterError", callLaterErrorHandler);
+        if ("topLevelSystemManager" in _root)
+    		_root["topLevelSystemManager"].removeEventListener("callLaterError", callLaterErrorHandler);
 		TestOutput.logResult("testComplete");
 		dispatchEvent(new Event("testComplete"));
 	}
@@ -1994,7 +2074,8 @@ public class UnitTester extends EventDispatcher
 		if (!appdom)
 			appdom = ApplicationDomain.currentDomain;
 
-		var g:Class = Class(appdom.getDefinition("mx.core.UIComponentGlobals"));
+		var g:Class = appdom.hasDefinition("mx.core.UIComponentGlobals") ?
+                        Class(appdom.getDefinition("mx.core.UIComponentGlobals")) : null;
 		if (g)
 		{
 			o = g[layoutManager];
@@ -2012,6 +2093,367 @@ public class UnitTester extends EventDispatcher
 			}
 		}
 
+	}
+
+	protected function addMXMLChildren(comps:Array):void
+	{
+	}
+	
+	protected function generateMXMLObject(document:Object, data:Array):Object
+	{
+		var i:int = 0;
+		var cls:Class = data[i++];
+		var comp:Object = new cls();
+		
+		var m:int;
+		var j:int;
+		var name:String;
+		var simple:*;
+		var value:Object;
+		var id:String;
+		
+		m = data[i++]; // num props
+		for (j = 0; j < m; j++)
+		{
+			name = data[i++];
+			simple = data[i++];
+			value = data[i++];
+			if (simple == null)
+				value = generateMXMLArray(document, value as Array);
+			else if (simple == false)
+				value = generateMXMLObject(document, value as Array);
+			if (name == "id")
+			{
+				document[value] = comp;
+				id = value as String;
+			}
+			else if (name == "_id")
+			{
+				document[value] = comp;
+				id = value as String;
+				continue; // skip assignment to comp
+			}
+			comp[name] = value;
+		}
+		if (comp is IMXMLObject)
+			comp.initialized(document, id);
+		return comp;
+	}
+	
+	public function generateMXMLArray(document:Object, data:Array, recursive:Boolean = true):Array
+	{
+		var comps:Array = [];
+		
+		var n:int = data.length;
+		var i:int = 0;
+		while (i < n)
+		{
+			var cls:Class = data[i++];
+			var comp:Object = new cls();
+			
+			var m:int;
+			var j:int;
+			var name:String;
+			var simple:*;
+			var value:Object;
+			var id:String = null;
+			
+			m = data[i++]; // num props
+			for (j = 0; j < m; j++)
+			{
+				name = data[i++];
+				simple = data[i++];
+				value = data[i++];
+				if (simple == null)
+					value = generateMXMLArray(document, value as Array, recursive);
+				else if (simple == false)
+					value = generateMXMLObject(document, value as Array);
+				if (name == "id")
+					id = value as String;
+				if (name == "document" && !comp.document)
+					comp.document = document;
+				else if (name == "_id")
+					id = value as String; // and don't assign to comp
+				else
+					comp[name] = value;
+			}
+			m = data[i++]; // num styles
+			for (j = 0; j < m; j++)
+			{
+				name = data[i++];
+				simple = data[i++];
+				value = data[i++];
+				if (simple == null)
+					value = generateMXMLArray(document, value as Array, recursive);
+				else if (simple == false)
+					value = generateMXMLObject(document, value as Array);
+				//comp.setStyle(name, value);
+			}
+			
+			m = data[i++]; // num effects
+			for (j = 0; j < m; j++)
+			{
+				name = data[i++];
+				simple = data[i++];
+				value = data[i++];
+				if (simple == null)
+					value = generateMXMLArray(document, value as Array, recursive);
+				else if (simple == false)
+					value = generateMXMLObject(document, value as Array);
+				//comp.setStyle(name, value);
+			}
+			
+			m = data[i++]; // num events
+			for (j = 0; j < m; j++)
+			{
+				name = data[i++];
+				value = data[i++];
+				comp.addEventListener(name, value);
+			}
+			
+			var children:Array = data[i++];
+			if (children)
+			{
+				if (recursive)
+					comp.generateMXMLInstances(document, children, recursive);
+				else
+					comp.setMXMLDescriptor(children);
+			}
+			
+			if (id)
+			{
+				document[id] = comp;
+				mx.binding.BindingManager.executeBindings(document, id, comp); 
+			}
+			if (comp is IMXMLObject)
+				comp.initialized(document, id);
+			comps.push(comp);
+		}
+		return comps;
+	}
+	
+	protected function generateMXMLInstances(document:Object, data:Array, recursive:Boolean = true):void
+	{
+		var comps:Array = generateMXMLArray(document, data, recursive);
+		addMXMLChildren(comps);
+	}
+	
+	protected function generateMXMLAttributes(data:Array):void
+	{
+		var i:int = 0;
+		var m:int;
+		var j:int;
+		var name:String;
+		var simple:*;
+		var value:Object;
+		var id:String = null;
+		
+		m = data[i++]; // num props
+		for (j = 0; j < m; j++)
+		{
+			name = data[i++];
+			simple = data[i++];
+			value = data[i++];
+			if (simple == null)
+				value = generateMXMLArray(this, value as Array, false);
+			else if (simple == false)
+				value = generateMXMLObject(this, value as Array);
+			if (name == "id")
+				id = value as String;
+			if (name == "_id")
+				id = value as String; // and don't assign
+			else
+				this[name] = value;
+		}
+		m = data[i++]; // num styles
+		for (j = 0; j < m; j++)
+		{
+			name = data[i++];
+			simple = data[i++];
+			value = data[i++];
+			if (simple == null)
+				value = generateMXMLArray(this, value as Array, false);
+			else if (simple == false)
+				value = generateMXMLObject(this, value as Array);
+			// this.setStyle(name, value);
+		}
+		
+		m = data[i++]; // num effects
+		for (j = 0; j < m; j++)
+		{
+			name = data[i++];
+			simple = data[i++];
+			value = data[i++];
+			if (simple == null)
+				value = generateMXMLArray(this, value as Array, false);
+			else if (simple == false)
+				value = generateMXMLObject(this, value as Array);
+			// this.setStyle(name, value);
+		}
+		
+		m = data[i++]; // num events
+		for (j = 0; j < m; j++)
+		{
+			name = data[i++];
+			value = data[i++];
+			this.addEventListener(name, value as Function);
+		}
+	}
+
+	mx_internal function setupBindings(bindingData:Array):void
+	{
+		var fieldWatcher:Object;
+		var n:int = bindingData[0];
+		var bindings:Array = [];
+		var i:int;
+		var index:int = 1;
+		for (i = 0; i < n; i++)
+		{
+			var source:Object = bindingData[index++];
+			var destFunc:Object = bindingData[index++];
+			var destStr:Object = bindingData[index++];
+			var binding:Binding = new Binding(this,
+				(source is Function) ? source as Function : null,
+				(destFunc is Function) ? destFunc as Function : null,
+				(destStr is String) ? destStr as String : destStr.join("."),
+				(source is Function) ? null : (source is String) ? source as String : source.join("."));
+			bindings.push(binding);
+		}
+		var watchers:Object = decodeWatcher(this, bindingData.slice(index), bindings);
+		this["_bindings"] = bindings;
+		this["_watchers"] = watchers;
+	}
+	
+	private function decodeWatcher(target:Object, bindingData:Array, bindings:Array):Array
+	{
+		var watcherMap:Object = {};
+		var watchers:Array = [];
+		var n:int = bindingData.length;
+		var index:int = 0;
+		var watcherData:Object;
+		var theBindings:Array;
+		var bindingIndices:Array;
+		var bindingIndex:int;
+		var propertyName:String;
+		var eventNames:Array;
+		var eventName:String;
+		var eventObject:Object;
+		var getterFunction:Function;
+		var value:*;
+		var w:Watcher;
+		
+		while (index < n)
+		{
+			var watcherIndex:int = bindingData[index++];
+			var type:int = bindingData[index++];
+			switch (type)
+			{
+				case 0:
+				{
+					var functionName:String = bindingData[index++];
+					var paramFunction:Function = bindingData[index++];
+					value = bindingData[index++];
+					if (value is String)
+						eventNames = [ value ];
+					else
+						eventNames = value;
+					eventObject = {};
+					for each (eventName in eventNames)
+						eventObject[eventName] = true;
+					value = bindingData[index++];
+					if (value is Array)
+						bindingIndices = value;
+					else
+						bindingIndices = [ value ];
+					theBindings = [];
+					for each (bindingIndex in bindingIndices)
+						theBindings.push(bindings[bindingIndex]);
+					w = new FunctionReturnWatcher(functionName,
+						this,
+						paramFunction,
+						eventObject,
+						theBindings);
+					break;
+				}
+				case 1:
+				{
+					propertyName = bindingData[index++];
+					value = bindingData[index++];
+					if (value is String)
+						eventNames = [ value ];
+					else
+						eventNames = value;
+					eventObject = {};
+					for each (eventName in eventNames)
+						eventObject[eventName] = true;
+					value = bindingData[index++];
+					if (value is Array)
+						bindingIndices = value;
+					else
+						bindingIndices = [ value ];
+					theBindings = [];
+					for each (bindingIndex in bindingIndices)
+						theBindings.push(bindings[bindingIndex]);
+					getterFunction = bindingData[index++];
+					w = new StaticPropertyWatcher(propertyName, 
+						eventObject, theBindings, getterFunction);
+					break;
+				}
+				case 2:
+				{
+					propertyName = bindingData[index++];
+					value = bindingData[index++];
+					if (value is String)
+						eventNames = [ value ];
+					else
+						eventNames = value;
+					eventObject = {};
+					for each (eventName in eventNames)
+						eventObject[eventName] = true;
+					value = bindingData[index++];
+					if (value is Array)
+						bindingIndices = value;
+					else
+						bindingIndices = [ value ];
+					theBindings = [];
+					for each (bindingIndex in bindingIndices)
+						theBindings.push(bindings[bindingIndex]);
+					getterFunction = bindingData[index++];
+					w = new PropertyWatcher(propertyName, 
+						eventObject, theBindings, getterFunction);
+					break;
+				}
+				case 3:
+				{
+					propertyName = bindingData[index++];
+					value = bindingData[index++];
+					if (value is Array)
+						bindingIndices = value;
+					else
+						bindingIndices = [ value ];
+					theBindings = [];
+					for each (bindingIndex in bindingIndices)
+						theBindings.push(bindings[bindingIndex]);
+					w = new XMLWatcher(propertyName, theBindings);
+					break;
+				}
+			}
+			watchers.push(w);
+			w.updateParent(target);
+			if (target is Watcher)
+			{
+				if (w is FunctionReturnWatcher)
+					FunctionReturnWatcher(w).parentWatcher = Watcher(target);
+				Watcher(target).addChild(w);
+			}
+			
+			var children:Array = bindingData[index++];
+			if (children != null)
+			{
+				children = decodeWatcher(w, children, bindings);
+			}
+		}            
+		return watchers;
 	}
 
 	private static function callLaterErrorDefaultHandler(event:Event):void

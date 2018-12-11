@@ -1360,6 +1360,43 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
         dispatchEvent(new Event("sortCompareFunctionChanged"));
     }
 
+
+    //----------------------------------
+    //  sortCompareType
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _sortCompareType:String;
+
+    /**
+     *  @inheritDoc
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 11.8
+     *  @playerversion AIR 3.8
+     *  @productversion Flex 4.11
+     */
+    [Bindable("sortCompareTypeChanged")]
+    public function get sortCompareType():String
+    {
+        return _sortCompareType;
+    }
+
+    /**
+     *  @private
+     */
+    public function set sortCompareType(value:String):void
+    {
+        if (_sortCompareType != value)
+        {
+            _sortCompareType = value;
+            dispatchEvent(new Event("sortCompareTypeChanged"));
+        }
+    }
+
+
     //----------------------------------
     //  visible
     //----------------------------------
@@ -1691,7 +1728,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
      */
     public function itemToLabel(data:Object):String
     {
-        if (!data)
+        if (data == null)
             return " ";
 
         if (labelFunction != null)
@@ -1702,17 +1739,18 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
 
         if (typeof(data) == "object" || typeof(data) == "xml")
         {
-            try
-            {
-                if ( !hasComplexFieldName ) 
-                data = data[dataField];
-                else 
-                    data = deriveComplexColumnData( data );
-            }
-            catch(e:Error)
-            {
-                data = null;
-            }
+            if (hasComplexFieldName)
+			{
+				data = deriveComplexColumnData(data);
+			}
+			else if (dataField != null && dataField in data)
+			{
+				data = data[dataField];
+			}
+	        else
+			{
+				data = null;
+			}
         }
 
         if (data is String)
@@ -1761,17 +1799,13 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
             var field:String = dataTipField;
             if (!field)
                 field = owner.dataTipField;
-            try
-            {
-                if (data[field] != null)
-                    data = data[field];
-                else if (data[dataField] != null)
-                    data = data[dataField];
-            }
-            catch(e:Error)
-            {
-                data = null;
-            }
+
+            if (field in data && data[field] != null)
+                data = data[field];
+            else if (dataField in data && data[dataField] != null)
+                data = data[dataField];
+			else
+				data = null;
         }
 
         if (data is String)
@@ -1791,16 +1825,18 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
     /**
      * @private
      */
-    protected function deriveComplexColumnData( data:Object ):Object 
+    protected function deriveComplexColumnData(data:Object):Object 
     {
         var currentRef:Object = data;
-        if ( complexFieldNameComponents ) 
+		var length:int = complexFieldNameComponents.length
+		
+        if (complexFieldNameComponents) 
         {
-            for ( var i:int=0; i<complexFieldNameComponents.length; i++ )
-                currentRef = currentRef[ complexFieldNameComponents[ i ] ];
+            for (var i:int=0; currentRef && i < length; i++)
+                currentRef = currentRef[complexFieldNameComponents[i]];
         }
         
-        return currentRef;
+        return currentRef?currentRef:"";
     }
 
     /**
@@ -1853,7 +1889,7 @@ public class DataGridColumn extends CSSStyleDeclaration implements IIMESupport
             return _contextHeaderRenderer;
         }
 
-        if (!data)
+        if (data == null)
         {
             if (!_contextNullItemRenderer)
                 _contextNullItemRenderer = replaceItemRendererFactory(nullItemRenderer);

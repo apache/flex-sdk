@@ -1,0 +1,115 @@
+<?xml version="1.0"?>
+<!--
+
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
+
+     http://www.apache.org/licenses/LICENSE-2.0
+
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+
+-->
+<s:View xmlns:fx="http://ns.adobe.com/mxml/2009"
+        xmlns:s="library://ns.adobe.com/flex/spark"
+        xmlns:exp="http://flex.apache.org/experimental/ns"
+        title="MobileGrid w/ Custom Renderer"
+        creationComplete="creationCompleteHandler(event)"
+        >
+
+	<exp:MobileGrid id="dgm" dataProvider="{dataProvider}" width="100%" height="100%" >
+		<exp:columns>
+			<exp:MobileGridColumn  dataField="Name" styleName="bold" width="20%"  />
+			<exp:MobileGridColumn  dataField="Surname" styleName="bold" width="20%"/>
+			<exp:MobileGridColumn dataField="comments" width="100%"   />
+            <exp:MobileGridColumn headerText="Action" dataField="Name" width="80" sortable="false"
+                                  itemRenderer="renderers.MyIconItemRenderer"/>
+		</exp:columns>
+	</exp:MobileGrid>
+
+	<fx:Declarations>
+
+	</fx:Declarations>
+
+	<fx:Script><![CDATA[
+        import mx.collections.ArrayCollection;
+        import mx.events.FlexEvent;
+
+        import spark.utils.MultiDPIBitmapSource;
+
+        [Embed('../../embedded/images/aqua_inset_36_red.png')]
+        private var iconRed36:Class;
+
+        [Embed('../../embedded/images/aqua_inset_36_green.png')]
+        private var iconGreen36:Class;
+
+        [Embed('../../embedded/images/status_aqua24_red.png')]
+        private var iconRed24:Class;
+
+        [Embed('../../embedded/images/status_aqua24_green.png')]
+        private var iconGreen24:Class;
+
+        [Embed('../../embedded/images/status_aqua16_red.png')]
+        private var iconRed18:Class;
+
+        [Embed('../../embedded/images/status_aqua16_green.png')]
+        private var iconGreen18:Class;
+
+        private const dataProvider:ArrayCollection = new ArrayCollection();
+
+        private var iconRed:MultiDPIBitmapSource;
+        private var iconGreen:MultiDPIBitmapSource;
+
+        private function creationCompleteHandler(event:FlexEvent):void
+        {
+
+            iconRed = new MultiDPIBitmapSource();
+            with (iconRed)
+            {
+                source160dpi = iconRed18;
+                source240dpi = iconRed24;
+                source320dpi = iconRed36;
+            }
+
+            iconGreen = new MultiDPIBitmapSource()
+            with (iconGreen)
+            {
+                source160dpi = iconGreen18;
+                source240dpi = iconGreen24;
+                source320dpi = iconGreen36;
+            }
+
+            var src:Array = [];
+            for (var i:int = 0; i <50; i++)
+            {
+                src.push({Name: "John_" + i, Surname: "Doe_" + i, Age: 5 + i, status: 1000 + i, comments: "Sed tamen haec cum ita tutius observentur, quidam vigore artuum inminuto rogati ad nuptias\n ubi aurum dextris manibus cavatis offertur, inpigre vel usque Spoletium pergunt. haec nobilium sunt."});
+                src.push({Name: "Paul_" + i, Surname: "Smith_" + i, Age: 12 + i, status: 2000 + i, comments: "Quanta autem vis amicitiae sit, ex hoc intellegi maxime potest, quod ex infinita societate \ngeneris humani, quam conciliavit ipsa natura, ita contracta res est et adducta in angustum ut omnis caritas." });
+                 src.push({Name: "Sarah_" + i, Surname: "Lee_" + i, Age: 42 + i, status: 2000 + i, comments: "Ideo urbs venerabilis post superbas efferatarum gentium cervices oppressas latasque leges \nfundamenta libertatis et retinacula sempiterna velut frugi parens et prudens et dives Caesaribus tamquam."});
+            }
+            dataProvider.source = src;
+        }
+
+        private function fullName(o:Object):String
+        {
+            return o.Name + " " + o.Surname;
+        }
+
+        public function get160DPIStatusIcon(e:Object):Class
+        {
+            return e.status >= 2000 ? iconRed18 : iconGreen18;
+        }
+
+        public function getMDPIStatusIcon(e:Object):MultiDPIBitmapSource
+        {
+            return e.status >= 2000 ? iconRed : iconGreen;
+        }
+        ]]></fx:Script>
+</s:View>
+

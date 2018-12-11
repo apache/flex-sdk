@@ -20,7 +20,11 @@ package spark.utils
 {
 	import mx.collections.ArrayList;
 	import mx.collections.IList;
-	/**
+
+// for asdoc
+[Experimental]
+
+/**
 	 *
 	 */
 	public class ColorPickerUtil

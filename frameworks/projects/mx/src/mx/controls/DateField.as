@@ -470,14 +470,24 @@ public class DateField extends ComboBase
 		var maskParts:Array = [];
         var part:int = 0;
 		var length:int;
+		var position:int = 0;
 		
 		if (valueString == null || inputFormat == null)
 			return null;
 		
+		var monthNames:Array = ResourceManager.getInstance()
+			.getStringArray("SharedResources", "monthNames");
+		
+		var noMonths:int = monthNames.length;
+		for (var i:int = 0; i < noMonths; i++) {
+			valueString = valueString.replace(monthNames[i], (i+1).toString());
+			valueString = valueString.replace(monthNames[i].substr(0,3), (i+1).toString());
+		}
+		
 		length = valueString.length;
 		
 		dateParts[part] = "";
-        for (var i:int = 0; i < length; i++)
+        for (i = 0; i < length; i++)
         {
 			dateChar = valueString.charAt(i);
  
@@ -519,8 +529,27 @@ public class DateField extends ComboBase
 			
 			lastChar = maskChar;
 		}
-		
+			
 		length = maskParts.length;
+
+		if (dateParts.length != length)
+		{
+			if (valueString.length != inputFormat.length) {
+				return null;
+			}
+			
+			for (i = 0; i < length; i++) {
+				dateParts[i] = valueString.substr(position, maskParts[i].length);
+				position += maskParts[i].length;
+			}
+			
+		}
+		
+		if (dateParts.length != length)
+		{
+			return null;
+		}
+
 		for (i = 0; i < length; i++) {
 			maskChar = maskParts[i].charAt(0);
 			
@@ -535,10 +564,8 @@ public class DateField extends ComboBase
 			}
 		}
 		
-		if (dateParts.length != maskParts.length)
-		{
+		if (dateString == null || monthString == null || yearString == null)
 			return null;
-		}
 		
 		var dayNum:Number = Number(dateString);
         var monthNum:Number = Number(monthString);
@@ -2629,11 +2656,12 @@ public class DateField extends ComboBase
         }
         else if (event.keyCode == Keyboard.ESCAPE)
         {
-            if (showingDropdown)
+            if (showingDropdown) {
                 selectedDate = lastSelectedDate;
-            displayDropdown(false, event);
-			if (!editable)
-           		event.stopPropagation();
+            	displayDropdown(false, event);
+				if (!editable)
+           			event.stopPropagation();
+			}
         }
         else if (event.keyCode == Keyboard.ENTER)
         {

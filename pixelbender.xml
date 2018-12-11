@@ -1,0 +1,124 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+<project name="pixel bender" default="main" basedir=".">
+	
+    <property file="${basedir}/env.properties"/>
+    <property environment="env"/>
+    <property file="${basedir}/local.properties"/>
+    <property file="${basedir}/build.properties"/>
+    
+    <target name="main" depends="clean-pixelbender,build-pixelbender"/>
+    
+    <target name="build-pixelbender" depends="check-pixelbender-home">
+        <ant dir="${basedir}/frameworks/projects/framework" target="pixelbender-compile"/>
+        <ant dir="${basedir}/frameworks/projects/spark" target="pixelbender-compile"/>
+    </target>
+    
+    <target name="clean" depends="clean-pixelbender" description="Cleans Pixel Bender PBJ files." />
+    
+    <target name="clean-pixelbender" >
+    	<delete>
+            <fileset dir="${basedir}/frameworks/projects/framework">
+                <include name="**/*.pbj" />
+            </fileset>
+            <fileset dir="${basedir}/frameworks/projects/spark">
+                <include name="**/*.pbj" />
+            </fileset>
+        </delete>
+    </target>
+    
+    <target name="check-pixelbender-home" unless="pbutil.exe.exists"
+        description="Check PIXELBENDER_HOME for both a directory and an exe file">
+        
+        <echo message="PIXELBENDER_HOME is ${env.PIXELBENDER_HOME}"/>
+        
+        <available file="${env.PIXELBENDER_HOME}"
+        type="dir"
+        property="PIXELBENDER_HOME.set"/>
+        
+        <fail message="The environment variable PIXELBENDER_HOME is not set to a directory"
+        unless="PIXELBENDER_HOME.set"/>
+        
+        <condition property="pbutil.exe.exists">
+            <and>
+                <os family="mac"/>
+                <available file="${env.PIXELBENDER_HOME}/pbutil" type="file"/>
+            </and>
+        </condition>
+        
+        <condition property="pbutil.exe.exists">
+            <and>
+                <os family="unix"/>
+                <available file="${env.PIXELBENDER_HOME}/pb.tar.gz" type="file"/>
+            </and>
+        </condition>
+        
+        <condition property="pbutil.exe.exists">
+            <and>
+                <os family="windows"/>
+                <available file="${env.PIXELBENDER_HOME}/pbutil.exe" type="file"/>
+            </and>
+        </condition>
+        
+        <fail message="The directory ${env.PIXELBENDER_HOME} does not contain the pbutil executable or pb files"
+        unless="pbutil.exe.exists"/>
+    </target>
+    
+    <target name="copy-to-flex-sdk" depends="check-flex-home"
+        description="copies PBK and PBJ files to Flex SDK folder">
+        <copy todir="${FLEX_HOME}" >
+            <fileset dir="${basedir}">
+                <include name="**/*.pbk" />
+                <include name="**/*.pbj" />
+            </fileset>
+        </copy>
+    </target>
+    
+    <target name="check-flex-home" unless="FLEX_HOME"
+        description="Check FLEX_HOME for both a directory and an exe file">
+        
+        <echo message="FLEX_HOME is ${env.FLEX_HOME}"/>
+        
+        <available file="${env.FLEX_HOME}"
+            type="dir"
+            property="FLEX_HOME" value="${env.FLEX_HOME}"/>
+        
+        <fail message="The environment variable FLEX_HOME is not set to a directory"
+            unless="FLEX_HOME"/>
+        
+        <fail message="The directory ${env.FLEX_HOME} does not contain a frameworks/projects/framework directory">
+            <condition>
+                <not>
+                    <available file="${env.FLEX_HOME}/frameworks/projects/framework" type="dir"/>
+                </not>
+            </condition>
+        </fail>
+        
+        <fail message="The directory ${env.FLEX_HOME} does not contain a frameworks/projects/spark directory">
+            <condition>
+                <not>
+                    <available file="${env.FLEX_HOME}/frameworks/projects/spark" type="dir"/>
+                </not>
+            </condition>
+        </fail>
+    </target>
+
+</project>

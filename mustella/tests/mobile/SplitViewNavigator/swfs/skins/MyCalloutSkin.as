@@ -18,22 +18,23 @@
 ////////////////////////////////////////////////////////////////////////////////
 package skins
 {
-	import spark.skins.mobile.CalloutSkin;
-	
-	public class MyCalloutSkin extends CalloutSkin
-	{
-		public function MyCalloutSkin()
-		{
-			super();
-			contentCornerRadius=20;
-			frameThickness=10;
-			arrowWidth = 50;
-			arrowHeight = 50;
-			borderThickness = 10;
-			borderColor = 0xFF0000;
-			dropShadowVisible=true;
-			backgroundCornerRadius=30;
-			
-		}
-	}
+
+import spark.skins.mobile.CalloutSkin;
+
+public class MyCalloutSkin extends CalloutSkin
+{
+    public function MyCalloutSkin()
+    {
+        super();
+        contentCornerRadius = 20;
+        frameThickness = 10;
+        arrowWidth = 50;
+        arrowHeight = 50;
+        borderThickness = 10;
+        borderColor = 0xFF0000;
+        dropShadowVisible = true;
+        backgroundCornerRadius = 30;
+
+    }
+}
 }

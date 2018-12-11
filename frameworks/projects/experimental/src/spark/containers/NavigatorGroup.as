@@ -31,13 +31,15 @@ package spark.containers
 	import spark.events.IndexChangeEvent;
 	import spark.layouts.supportClasses.LayoutBase;
 	
-	import spark.containers.supportClazzes.DeferredCreationPolicy;
+	import spark.containers.supportClasses.DeferredCreationPolicy;
 	import spark.layouts.StackLayout;
 	import spark.layouts.supportClasses.AnimationNavigatorLayoutBase;
 	import spark.layouts.supportClasses.INavigatorLayout;
-	
 
-	//--------------------------------------
+// for asdoc
+[Experimental]
+
+//--------------------------------------
 	//  Events
 	//--------------------------------------
 	

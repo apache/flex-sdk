@@ -84,7 +84,7 @@ public class ActionBarButtonSkinBase extends ButtonSkin
 				layoutPaddingBottom = 20;
 				layoutPaddingLeft = 40;
 				layoutPaddingRight = 40;
-				measuredDefaultWidth = 2012;
+				measuredDefaultWidth = 212;
 				measuredDefaultHeight = 172;
 				break;
 			}
@@ -122,7 +122,7 @@ public class ActionBarButtonSkinBase extends ButtonSkin
                 measuredDefaultHeight = 65;
                 break;
             }
-			case DPIClassification.DPI_160:
+			case DPIClassification.DPI_120:
 			{
 				// Note provisional may need changes
 				layoutBorderSize = 1;

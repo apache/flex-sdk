@@ -288,13 +288,16 @@ public class CandlestickSeries extends HLOCSeriesBase
     {
         HaloDefaults.init(styleManager);
 		
-		var csSeriesStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.series.CandlestickSeries");
-		csSeriesStyle.setStyle("boxStroke", new SolidColorStroke(0,0));
-		csSeriesStyle.setStyle("declineFill", new SolidColor(0));
-		csSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.CandlestickItemRenderer));
-		csSeriesStyle.setStyle("fill", new SolidColor(0xFFFFFF));
-		csSeriesStyle.setStyle("fills", []);
-		csSeriesStyle.setStyle("stroke", new SolidColorStroke(0,0));
+		var csSeriesStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.series.CandlestickSeries");
+		if (csSeriesStyle)
+		{
+			csSeriesStyle.setStyle("boxStroke", new SolidColorStroke(0,0));
+			csSeriesStyle.setStyle("declineFill", new SolidColor(0));
+			csSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.CandlestickItemRenderer));
+			csSeriesStyle.setStyle("fill", new SolidColor(0xFFFFFF));
+			csSeriesStyle.setStyle("fills", []);
+			csSeriesStyle.setStyle("stroke", new SolidColorStroke(0,0));
+		}
 		
         return true;
     }

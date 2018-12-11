@@ -1439,7 +1439,57 @@ public class GridColumn extends EventDispatcher
         
         dispatchChangeEvent("sortCompareFunctionChanged");
     }
-    
+
+
+    //----------------------------------
+    //  sortCompareType
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _sortCompareType:String;
+
+    /**
+	 *  The sortCompareType defines the valid constant values for the 
+	 *  <code>sortCompareType</code> property of the <code>SortField</code> and <code>GridColumn</code>.
+	 *  
+	 *  <p>Use the constants in ActionsScript, as the following example shows:</p>
+	 *  <pre>
+	 *    column.sortCompareType = SortFieldCompareTypes.NUMERIC;
+	 *  </pre>
+	 *
+	 *  <p>In MXML, use the String value of the constants, as the following example shows:</p>
+	 *  <pre>
+	 *    &lt;s:GridColumn sortCompareType="numeric" /&gt; 
+	 *  </pre>
+	 * 
+     *  @see spark.collections.SortFieldCompareTypes
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 11.8
+     *  @playerversion AIR 3.8
+     *  @productversion Flex 4.11
+     */
+    [Bindable("sortCompareTypeChanged")]
+    public function get sortCompareType():String
+    {
+        return _sortCompareType;
+    }
+
+    /**
+     *  @private
+     */
+    public function set sortCompareType(value:String):void
+    {
+        if (_sortCompareType != value)
+        {
+            _sortCompareType = value;
+            dispatchEvent(new Event("sortCompareTypeChanged"));
+        }
+    }
+
+
     //----------------------------------
     //  sortDescending
     //----------------------------------
@@ -1534,7 +1584,9 @@ public class GridColumn extends EventDispatcher
         {
             sortField = new SortField(dataField);
         }
-        
+
+        sortField.sortCompareType = column._sortCompareType;
+
         var cF:Function = null;
         if (_sortCompareFunction != null)
         {

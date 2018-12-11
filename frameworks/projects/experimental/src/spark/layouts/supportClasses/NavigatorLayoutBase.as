@@ -37,9 +37,11 @@ package spark.layouts.supportClasses
 	import spark.primitives.supportClasses.GraphicElement;
 	
 	use namespace mx_internal;
-	
-	
-	//--------------------------------------
+
+// for asdoc
+[Experimental]
+
+//--------------------------------------
 	//  Events
 	//--------------------------------------
 	

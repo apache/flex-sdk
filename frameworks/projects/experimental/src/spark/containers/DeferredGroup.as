@@ -50,11 +50,14 @@ package spark.containers
 	import spark.layouts.BasicLayout;
 	import spark.layouts.supportClasses.LayoutBase;
 	
-	import spark.containers.supportClazzes.DeferredCreationPolicy;
+	import spark.containers.supportClasses.DeferredCreationPolicy;
 	
 	use namespace mx_internal;
-	
-	//--------------------------------------
+
+// for asdoc
+[Experimental]
+
+//--------------------------------------
 	//  Events
 	//--------------------------------------
 	
@@ -955,8 +958,8 @@ package spark.containers
 				// see https://bugs.adobe.com/jira/browse/SDK-25601
 				// https://bugs.adobe.com/jira/browse/SDK-25333
 				throw new Error( "You cannot use an IGraphicElement in a DeferredGroup, all elements must extend UIComponent" );
-				numGraphicElements++;
-				addingGraphicElementChild(element as IGraphicElement);
+				//numGraphicElements++;
+				//addingGraphicElementChild(element as IGraphicElement);
 				invalidateDisplayObjectOrdering();
 			}   
 			else

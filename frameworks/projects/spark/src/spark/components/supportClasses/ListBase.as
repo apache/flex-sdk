@@ -488,7 +488,7 @@ public class ListBase extends SkinnableDataContainer implements IDataProviderEnh
         }
         else
         {
-            return false
+            return false;
         }
     }
 
@@ -568,7 +568,7 @@ public class ListBase extends SkinnableDataContainer implements IDataProviderEnh
     public function set labelField(value:String):void
     {
         if (value == _labelField)
-            return 
+            return;
             
         _labelField = value;
         labelFieldOrFunctionChanged = true;
@@ -619,7 +619,7 @@ public class ListBase extends SkinnableDataContainer implements IDataProviderEnh
     public function set labelFunction(value:Function):void
     {
         if (value == _labelFunction)
-            return 
+            return;
             
         _labelFunction = value;
         labelFieldOrFunctionChanged = true;
@@ -923,7 +923,7 @@ public class ListBase extends SkinnableDataContainer implements IDataProviderEnh
         if (allowCustomSelectedItem && selectedIndex == CUSTOM_SELECTED_ITEM)
             return _selectedItem;
         
-        if (selectedIndex == NO_SELECTION || dataProvider == null)
+        if (selectedIndex < 0 || dataProvider == null)
            return undefined;
            
         return dataProvider.length > selectedIndex ? dataProvider.getItemAt(selectedIndex) : undefined;

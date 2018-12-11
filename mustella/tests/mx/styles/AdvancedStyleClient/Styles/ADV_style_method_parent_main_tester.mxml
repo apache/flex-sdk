@@ -60,7 +60,7 @@
 			<body>
 				<!--test get styleParent-->
 				<AssertMethodValue method="value=application.testStyle.styleParent" 
-								   value="ADV_style_method_parent_main0.ApplicationSkin2._ApplicationSkin_Group1.contentGroup.labelParent"/>
+								   value="ADV_style_method_parent_main0.ApplicationSkin2.containerGrp.contentGroup.labelParent"/>
 				
 				<!--test non-inheritance style-->
 				<AssertMethodValue method="value=application.testStyle.getStyle('teststyle_1_string_noinh')" value="defaultString"/>

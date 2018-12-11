@@ -243,7 +243,6 @@
 			return date;
 		} 
 		
-		//TODO support this
 		public function changeStringToNoSeperators():Date
 		{
 			var date:Date = DateField.stringToDate("19042013", "DDMMYYYY");
@@ -578,7 +577,7 @@
 				<SetProperty target="df" propertyName="selectedDate" valueExpression="value=new Date(2001, 1, 1)" waitEvent="updateComplete" waitTarget="df"/>				
 			</setup>
 			<body> 
-				<AssertMethodValue target="df" method="value=changeStringToNoSeperators()" valueExpression="value=null"/>
+				<AssertMethodValue target="df" method="value=changeStringToNoSeperators()" valueExpression="value=new Date(2013, 3, 19)"/>
 			</body>
 		</TestCase>
 		<TestCase testID="DateField_Format_No_Seperators_Single_Digit" keywords="[stringToDate, DateChooser]">

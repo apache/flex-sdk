@@ -20,6 +20,9 @@
 package spark.utils
 {
 import mx.core.DPIClassification;
+import mx.core.FlexGlobals;
+
+import mx.utils.DensityUtil;
     
 /**
  *  This class provides a list of bitmaps for various runtime densities.  It is supplied
@@ -100,6 +103,31 @@ public class MultiDPIBitmapSource
 	 *  @productversion ApacheFlex 4.11
 	 */
 	public var source640dpi:Object;
+	
+	/**
+	 *  Select one of the sourceXXXdpi properties based on the run time DPI.
+	 *
+	 *  @return One of the sourceXXXdpi properties based on the run time DPI.
+	 * 
+	 *  @langversion 3.0
+	 *  @playerversion Flash 10.2
+	 *  @playerversion AIR 2.6
+	 *  @productversion Flex 4.11
+	 */
+	public function getMultiSource():Object {
+		var app:Object = FlexGlobals.topLevelApplication;
+		var dpi:Number;
+		var multiSource:Object;
+		
+		if ("runtimeDPI" in app)
+			dpi = app["runtimeDPI"];
+		else
+			dpi = DensityUtil.getRuntimeDPI();
+		
+		multiSource = getSource(dpi);
+		
+		return multiSource;
+	}
     
     /**
      *  Select one of the sourceXXXdpi properties based on the given DPI.  This

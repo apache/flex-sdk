@@ -56,7 +56,6 @@ import spark.events.GridItemEditorEvent;
 
 use namespace mx_internal;
 
-[ExcludeClass]
 
 /**
  *  The DataGridEditor contains all the logic and event handling needed to 
@@ -180,8 +179,12 @@ public class DataGridEditor
     private var _dataGrid:DataGrid;
 
     /**
-     *  @private
-     *  The data grid that owns this editor.
+     *  Reference to the <code>DataGrid</code> that created the editor.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get dataGrid():DataGrid
     {
@@ -189,8 +192,12 @@ public class DataGridEditor
     }
     
     /**
-     *  @private
-     *  Convenience property to get the grid.
+     *  Convenience property to get the <code>Grid</code> associated with the parent <code>DataGrid</code>.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function get grid():Grid
     {
@@ -236,7 +243,12 @@ public class DataGridEditor
     }
     
     /**
-     *  @private
+     *  Sets the edited item position based on the grids <code>rowIndex</code> and <code>columnIndex</code>.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function set editedItemPosition(value:Object):void
     {
@@ -442,15 +454,19 @@ public class DataGridEditor
     //--------------------------------------------------------------------------
     
     /**
-     *  @private
-     *  Called by the data grid after construction to initialize the editor. No
+     *  Called by the <code>DataGrid</code> after construction to initialize the editor. No
      *  item editors can be created until after this method is called.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */  
     public function initialize():void
     {
         // add listeners to enable cell editing
         var grid:Grid = dataGrid.grid;
-        
+
         dataGrid.addEventListener(KeyboardEvent.KEY_DOWN, dataGrid_keyboardDownHandler);
         
         // Make sure we get first shot at mouse events before selection is changed. We use 
@@ -458,21 +474,25 @@ public class DataGridEditor
         grid.addEventListener(GridEvent.GRID_MOUSE_DOWN, grid_gridMouseDownHandler, false, 1000);
         grid.addEventListener(GridEvent.GRID_MOUSE_UP, grid_gridMouseUpHandler, false, 1000);
         grid.addEventListener(GridEvent.GRID_DOUBLE_CLICK, grid_gridDoubleClickHandler);
+        grid.addEventListener(MouseEvent.MOUSE_WHEEL, grid_gridMouseWheelHandler, false, 0);
     }
     
     /**
-     *  @private
+     *  The method is called to disable item editing on the <code>DataGrid</code>.
      * 
-     *  The method is called to disable item editing on the data grid.
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */ 
     public function uninitialize():void
     {
         // remove listeners to disable cell editing   
-        
         grid.removeEventListener(KeyboardEvent.KEY_DOWN, dataGrid_keyboardDownHandler);
         grid.removeEventListener(GridEvent.GRID_MOUSE_DOWN, grid_gridMouseDownHandler);
         grid.removeEventListener(GridEvent.GRID_MOUSE_UP, grid_gridMouseUpHandler);
         grid.removeEventListener(GridEvent.GRID_DOUBLE_CLICK, grid_gridDoubleClickHandler);
+        grid.removeEventListener(MouseEvent.MOUSE_WHEEL, grid_gridMouseWheelHandler);
     }
     
     /**
@@ -493,7 +513,7 @@ public class DataGridEditor
     {
         // trace("destroyItemEditor");
         if (grid.root)
-            grid.systemManager.addEventListener(Event.DEACTIVATE, deactivateHandler, false, 0, true);
+            grid.systemManager.removeEventListener(Event.DEACTIVATE, deactivateHandler);
         
         grid.systemManager.getSandboxRoot().
             removeEventListener(MouseEvent.MOUSE_DOWN, sandBoxRoot_mouseDownHandler, true);
@@ -512,6 +532,7 @@ public class DataGridEditor
             
             o.removeEventListener(KeyboardEvent.KEY_DOWN, editor_keyDownHandler);
             o.removeEventListener(FocusEvent.FOCUS_OUT, editor_focusOutHandler);
+            o.removeEventListener(Event.REMOVED_FROM_STAGE, editor_removedFromStageHandler);
             o.removeEventListener(FocusEvent.KEY_FOCUS_CHANGE, editor_keyFocusChangeHandler);
             addRemoveFlexEventEnterListener(DisplayObject(o), false);
             
@@ -570,7 +591,7 @@ public class DataGridEditor
         
         _editedItemRenderer = item;
         
-       // Need to turn on focusable children flag so focus manager will
+        // Need to turn on focusable children flag so focus manager will
         // allow focus into the data grid's children.
         if (restoreFocusableChildren)
             saveDataGridHasFocusableChildren = dataGrid.hasFocusableChildren; 
@@ -578,6 +599,10 @@ public class DataGridEditor
         
         if (dataGrid.scroller)
         {
+            //Correct the item edit positioning based on the scroll position.
+            localCellOrigin.x -= grid.horizontalScrollPosition;
+            localCellOrigin.y -= grid.verticalScrollPosition;
+
             if (restoreFocusableChildren)
                 saveScrollerHasFocusableChildren = dataGrid.scroller.hasFocusableChildren; 
             dataGrid.scroller.hasFocusableChildren = true;
@@ -649,7 +674,7 @@ public class DataGridEditor
             var editor:IEventDispatcher = itemEditorInstance ? itemEditorInstance : editedItemRenderer;
             
             editor.addEventListener(FocusEvent.FOCUS_OUT, editor_focusOutHandler);
-            
+			editor.addEventListener(Event.REMOVED_FROM_STAGE, editor_removedFromStageHandler);
             // listen for keyStrokes on the itemEditorInstance (which lets the grid supervise for ESC/ENTER)
             editor.addEventListener(KeyboardEvent.KEY_DOWN, editor_keyDownHandler);
             editor.addEventListener(FocusEvent.KEY_FOCUS_CHANGE, editor_keyFocusChangeHandler, false, 1000);
@@ -767,8 +792,6 @@ public class DataGridEditor
     }
     
     /**
-     *  @private
-     * 
      *  Start editing a cell for a specified row and column index.
      *  
      *  Dispatches a <code>GridItemEditorEvent.GRID_ITEM_EDITOR_SESSION_STARTING
@@ -777,6 +800,11 @@ public class DataGridEditor
      *  @param rowIndex The zero-based row index of the cell to edit.
      * 
      *  @param columnIndex The zero-based column index of the cell to edit.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 10
+     *  @playerversion AIR 2.5
+     *  @productversion Flex 4.5
      */
     public function startItemEditorSession(rowIndex:int, columnIndex:int):Boolean
     {
@@ -1026,8 +1054,8 @@ public class DataGridEditor
         // increment is -1 if we are moving backward and 1 if moving
         // forward.
         const increment:int = backward ? -1 : 1;
-        var rowIndex:int = rowIndex;
-        var columnIndex:int = columnIndex;
+        //var rowIndex:int = rowIndex;
+        //var columnIndex:int = columnIndex;
         do {
             var nextColumn:int = columnIndex + increment;
             if (nextColumn >= 0 && nextColumn < dataGrid.columns.length)
@@ -1461,6 +1489,22 @@ public class DataGridEditor
         lastItemDown = null;            
     }
 
+
+    /**
+     *  Grid MouseWheel event handler.  Used to end the itemeditor when scrolling on the grid.
+     *  Default action is to save the edited contents.
+     * 
+     *  @langversion 3.0
+     *  @playerversion Flash 11.8
+     *  @playerversion AIR 3.8
+     *  @productversion Flex 4.11
+     */
+    protected function grid_gridMouseWheelHandler(event:MouseEvent):void
+    {
+        endEdit();
+    }
+
+
     /**
      *  @private
      * 
@@ -1527,6 +1571,23 @@ public class DataGridEditor
         }
     }
     
+    /**
+     *  @private
+     *  Closes the itemEditorInstance if the focus is outside of the data grid.
+     */
+    private function editor_removedFromStageHandler(event:Event):void
+	{
+		if (itemEditorInstance || editedItemRenderer)
+		{
+			// If we can't save the data, say, because the data was invalid, 
+			// then cancel the save.
+			if (!dataGrid.endItemEditorSession())
+			{
+				dataGrid.endItemEditorSession(true);
+			}
+		}
+	}
+	
     /**
      *  @private
      *  Closes the itemEditorInstance if the focus is outside of the data grid.
@@ -1652,7 +1713,14 @@ public class DataGridEditor
         // Prevent the DataGrid from processing any keystrokes that were 
         // received by the editor. We don't cancel the keystokes here 
         // because on AIR that cancels text input into the text field.
-        event.stopPropagation();
+    	// We need to let the copy/cut/past combinations pass through
+    	// because they need to reach the NativeApplication in order to
+    	// be correctly processed by the item editors.
+        // Note on Mac OS ctrlKey covers ctrl and command keys
+    	if (!event.ctrlKey) 
+    	{
+    		event.stopPropagation();
+    	}
     }
     
     /**

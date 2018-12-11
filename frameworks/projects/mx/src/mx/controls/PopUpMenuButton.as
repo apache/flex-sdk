@@ -818,10 +818,7 @@ public class PopUpMenuButton extends PopUpButton
     //
     //--------------------------------------------------------------------------
 
-    /**
-     *  @private
-     */
-    private function menuClickHandler(event:MouseEvent):void
+	protected function menuClickHandler(event:MouseEvent):void
     {
         if (selectedIndex >= 0)
         {

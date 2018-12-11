@@ -30,12 +30,15 @@ import flash.events.TimerEvent;
 import flash.ui.Keyboard;
 import flash.utils.Timer;
 
+import mx.core.IUIComponent;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
 import mx.events.SandboxMouseEvent;
 import mx.managers.ISystemManager;
 
+import spark.components.DropDownList;
 import spark.events.DropDownEvent;
+import mx.controls.CalendarLayout;
 
 use namespace mx_internal;
 
@@ -604,13 +607,24 @@ public class DropDownController extends EventDispatcher
             var target:DisplayObject = event.target as DisplayObject;
             if (openButton && target && openButton.contains(target))
                 return;
-            
+			
+			// don't close if something just been selected in a DropDownList
+			if (target is IUIComponent)
+			{
+                var document:Object = (target as IUIComponent).document;
+                if (("hostComponent" in document) && document.hostComponent is DropDownList)
+			        return;
+				 if (target.parent is CalendarLayout)
+			        return;
+            }
+
             if (hitAreaAdditions != null)
             {
-                for (var i:int = 0;i<hitAreaAdditions.length;i++)
+				var length:int = hitAreaAdditions.length;
+                for (var i:int = 0;i < length; i++)
                 {
-                    if (hitAreaAdditions[i] == event.target ||
-                        ((hitAreaAdditions[i] is DisplayObjectContainer) && DisplayObjectContainer(hitAreaAdditions[i]).contains(event.target as DisplayObject)))
+                    if (hitAreaAdditions[i] == target ||
+                        ((hitAreaAdditions[i] is DisplayObjectContainer) && DisplayObjectContainer(hitAreaAdditions[i]).contains(target)))
                         return;
                 }
             }

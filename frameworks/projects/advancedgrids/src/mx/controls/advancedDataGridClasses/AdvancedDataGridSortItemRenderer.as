@@ -484,7 +484,7 @@ public class AdvancedDataGridSortItemRenderer extends UIComponent
             var listData:AdvancedDataGridListData = (parent as IDropInListItemRenderer).listData
                                                     as AdvancedDataGridListData;
             if (listData && listData.columnIndex != -1)
-                return grid.getFieldSortInfo(grid.columns[listData.columnIndex]);
+                return grid.getFieldSortInfo(grid.mx_internal::rawColumns[listData.columnIndex]);
         }
 
         return null;

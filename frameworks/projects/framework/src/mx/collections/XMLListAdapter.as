@@ -198,8 +198,9 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
     //--------------------------------------------------------------------------
 
     /**
-     *  Add the specified item to the end of the list.
-     *  Equivalent to addItemAt(item, length);
+     *  Add the specified item to the end of the list.  Unlike addItemAt, this
+     *  does not change the source memory pointer.
+     *
      *  @param item the item to add
      *  
      *  @langversion 3.0
@@ -209,13 +210,42 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
      */
     public function addItem(item:Object):void
     {
-        addItemAt(item, length);
+        var message:String;
+
+        if (!(item is XML) && !(item is XMLList && item.length() == 1))
+        {
+            message = resourceManager.getString(
+                    "collections", "invalidType");
+            throw new Error(message);
+        }
+
+        setBusy();
+
+        source[length] = item;
+
+        startTrackUpdates(item, seedUID + uidCounter.toString());
+        uidCounter++;
+
+        if (_dispatchEvents == 0)
+        {
+            var event:CollectionEvent =
+                    new CollectionEvent(CollectionEvent.COLLECTION_CHANGE);
+            event.kind = CollectionEventKind.ADD;
+            event.items.push(item);
+            event.location = source.length()-1;
+            dispatchEvent(event);
+        }
+
+        clearBusy();
     }
     
     /**
      *  Add the item at the specified index.  Any item that was after
      *  this index is moved out by one.  If the list is shorter than 
-     *  the specified index it will grow to accomodate the new item.
+     *  the specified index it will grow to accommodate the new item.
+     *
+     *  The source array may change, and changes made to it may not be
+     *  tracked after this operation if you access it directly.
      * 
      *  @param item the item to place at the index
      *  @param index the index at which to place the item
@@ -246,14 +276,36 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
         	
 		setBusy();
 
-    	//e4x doesn't provide an insertion operator so you tend to do
-    	//addition.  if we're inserting at the first item we you add
-    	//the old 1st to the new one.  if inserting in the middle or end
-    	//you just add to the one before
-        if (index == 0)
-            source[0] = length > 0 ? item + source[0] : item;
-        else
-            source[index - 1] += item;
+        // Replace the current source XMLList with a new list in order to add
+        // the item to the list.  This is needed to maintain the structure of
+        // the new item added to the list and avoid an FP bug.
+
+		if (length > 0)
+		{
+            var newSource:XMLList = new XMLList();
+
+            for (var i:uint = 0; i <= (length); i++)
+            {
+                if (i < index)
+                {
+                    newSource[i] = source[i];
+                }
+                else if (i == index)
+                {
+                    newSource[i] = item;
+                }
+                else if (i > index)
+                {
+                    newSource[i] = source[i-1];
+                }
+            }
+
+            source = newSource;
+		}
+		else
+        {
+            source[index] = item;
+        }
 
         startTrackUpdates(item, seedUID + uidCounter.toString());
 		uidCounter++;
@@ -276,7 +328,8 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
      * 
      *  @param index the index in the list from which to retrieve the item
      *  @param	prefetch int indicating both the direction and amount of items
-     *			to fetch during the request should the item not be local.
+     *			to fetch during the request should the item not be local. It is
+	 *			not used at this time.
      *  @return the item at that index, null if there is none
      *  @throws ItemPendingError if the data for that index needs to be 
      *                          loaded from a remote location
@@ -389,8 +442,9 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
             for (var i:int=length - 1; i >= 0; i--)
             {
                 stopTrackUpdates(source[i]);
-                delete source[i];
             }
+
+            source = new XMLList();
             
             if (_dispatchEvents == 0)
             {
@@ -445,8 +499,34 @@ public class XMLListAdapter extends EventDispatcher implements IList, IXMLNotifi
 		setBusy();
 
         var removed:Object = source[index];
-        delete source[index];
         stopTrackUpdates(removed);
+
+        // loop through array to remove that index.
+
+        if (length > 1)
+        {
+            var newSource:XMLList = new XMLList();
+
+            for (var i:uint = 0; i < length; i++)
+            {
+                if (i < index)
+                {
+                    newSource[i] = source[i];
+                }
+                else if (i > index)
+                {
+                    newSource[i-1] = source[i];
+                }
+            }
+
+            source = newSource;
+        }
+        else
+        {
+            source = new XMLList();
+        }
+
+
         if (_dispatchEvents == 0)
         {
             var event:CollectionEvent =

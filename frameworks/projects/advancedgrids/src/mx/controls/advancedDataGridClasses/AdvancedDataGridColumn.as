@@ -1284,6 +1284,43 @@ public class AdvancedDataGridColumn extends CSSStyleDeclaration implements IIMES
         dispatchEvent(new Event("sortCompareFunctionChanged"));
     }
 
+
+    //----------------------------------
+    //  sortCompareType
+    //----------------------------------
+
+    /**
+     *  @private
+     */
+    private var _sortCompareType:String;
+
+    /**
+     *  @inheritDoc
+     *
+     *  @langversion 3.0
+     *  @playerversion Flash 11.8
+     *  @playerversion AIR 3.8
+     *  @productversion Flex 4.11
+     */
+    [Bindable("sortCompareTypeChanged")]
+    public function get sortCompareType():String
+    {
+        return _sortCompareType;
+    }
+
+    /**
+     *  @private
+     */
+    public function set sortCompareType(value:String):void
+    {
+        if (_sortCompareType != value)
+        {
+            _sortCompareType = value;
+            dispatchEvent(new Event("sortCompareTypeChanged"));
+        }
+    }
+
+
     //----------------------------------
     //  visible
     //----------------------------------
@@ -1741,14 +1778,10 @@ public class AdvancedDataGridColumn extends CSSStyleDeclaration implements IIMES
 
         if (typeof(data) == "object" || typeof(data) == "xml")
         {
-            try
-            {
-                data = data[dataField];
-            }
-            catch(e:Error)
-            {
-                data = null;
-            }
+			if (dataField != null && dataField in data)
+	            data = data[dataField];
+			else
+				return " "; // stops "[object Object]" showing
         }
 
         if (data is String)
@@ -1801,17 +1834,19 @@ public class AdvancedDataGridColumn extends CSSStyleDeclaration implements IIMES
             var field:String = dataTipField;
             if (!field)
                 field = owner.dataTipField;
-            try
-            {
-                if (data[field] != null)
-                    data = data[field];
-                else if (data[dataField] != null)
-                    data = data[dataField];
-            }
-            catch(e:Error)
-            {
-                data = null;
-            }                
+
+            if (field != null)
+			{
+				if (field in data && data[field] != null)
+					data = data[field];
+			}
+            else if (dataField != null)
+			{
+				if (dataField in data && data[dataField] != null)
+	                data = data[dataField];
+				else
+					data = null;  
+			}
         }
 
         if (data is String)

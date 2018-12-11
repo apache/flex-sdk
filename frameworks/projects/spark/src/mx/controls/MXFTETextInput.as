@@ -65,7 +65,7 @@ use namespace mx_internal;
  *  @playerversion AIR 1.5
  *  @productversion Flex 4
  */ 
-public class MXFTETextInput extends TextInput implements ITextInput
+public class MXFTETextInput extends spark.components.TextInput implements ITextInput
 {
     include "../../spark/core/Version.as";
 

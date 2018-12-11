@@ -132,6 +132,8 @@ Callout
     contentBackgroundColor: #FFFFFF;
     gap: 12;
     skinClass: ClassReference("spark.skins.mobile.CalloutSkin");
+    borderThickness: NaN;
+    borderColor: 0;
 }
 
 Callout ViewNavigator
@@ -311,7 +313,7 @@ TextArea
     paddingRight: 9;
     paddingTop: 9;
     showPromptWhenFocused: true;
-    skinClass: ClassReference("spark.skins.mobile.StageTextAreaSkin");
+    skinClass: ClassReference("spark.skins.mobile.ScrollingStageTextAreaSkin");
 }
 
 TextArea VScrollBar
@@ -331,7 +333,7 @@ TextInput
     paddingRight: 9;
     paddingTop: 9;
     showPromptWhenFocused: true;
-    skinClass: ClassReference("spark.skins.mobile.StageTextInputSkin");
+    skinClass: ClassReference("spark.skins.mobile.ScrollingStageTextInputSkin");
 }
 
 ToggleSwitch
@@ -460,12 +462,12 @@ global
 		paddingBottom: 6;
 		paddingTop: 6;
 		horizontalGap: 6;
-		verticalGap: 4;
+		verticalGap: 3;
 	}
 	
 	.iconItemRendererMessageStyle
 	{
-		fontSize: 8;
+		fontSize: 11;
 	}
 	
 	LabelItemRenderer
@@ -478,8 +480,8 @@ global
 	
 	SpinnerListItemRenderer
 	{
-		paddingTop : 9;
-		paddingBottom : 9;
+		paddingTop : 8;
+		paddingBottom : 8;
 		paddingLeft : 6;
 		paddingRight : 6;
 	}
@@ -502,17 +504,17 @@ global
 	
 	TabbedViewNavigator #tabBar
 	{
-		fontSize: 10;
+		fontSize: 11;
 	}
 	
 	ToggleSwitch
 	{
-		fontSize: 13;
+		fontSize: 14;
 	}
 	
 	global
 	{
-		fontSize: 6;
+		fontSize: 12;
 		focusThickness: 2;
 	}
 }
@@ -925,5 +927,48 @@ global
     {
         leading: 4.5;
         paddingRight: 3;
+    }
+}
+
+/* ios 7 status bar
+ requires new os-version selector (cf FLEX-FLEX-33949)
+ */
+
+@media (application-dpi: 120) AND (os-platform:"IOS") AND (min-os-version: 7)
+{
+    Application
+    {
+        osStatusBarHeight: 15;
+    }
+}
+
+@media (application-dpi: 160) AND (os-platform:"IOS") AND (min-os-version: 7)
+{
+    Application {
+         osStatusBarHeight: 20;
+    }
+}
+
+@media (application-dpi: 240) AND (os-platform:"IOS") AND (min-os-version: 7)
+{
+    Application
+    {
+        osStatusBarHeight: 30;
+    }
+}
+
+@media (application-dpi: 320) AND (os-platform:"IOS") AND (min-os-version: 7)
+{
+    Application
+    {
+        osStatusBarHeight: 40;
+    }
+}
+
+@media (application-dpi: 480) AND (os-platform:"IOS") AND (min-os-version: 7)
+{
+    Application
+    {
+        osStatusBarHeight: 60;
     }
 }

@@ -1063,7 +1063,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
      *  Some may be offscreen depending on horizontalScrollPolicy
      *  and the width of the AdvancedDataGrid.
      */
-    override  public function get columnCount():int
+    override public function get columnCount():int
     {
         if (_columns)
             return _columns.length;
@@ -1377,6 +1377,28 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         invalidateDisplayList();
         dispatchEvent(new Event("columnsChanged"));
     }
+	
+	/**
+	 *  An array of AdvancedDataGridColumn objects, one for each column that
+	 *  can be displayed. 
+	 * 
+	 *  <p>Used internally instead of using <code>columns<code> when higher
+	 *  performance is required.</p>
+	 *
+	 *  <p>Use externally with caution and don't modify the array that comes
+	 *  back or you may get unexpected issues.</p>
+	 *   
+	 *  @langversion 3.0
+	 *  @playerversion Flash 9
+	 *  @playerversion AIR 1.1
+	 *  @productversion Flex 4.11
+	 * 
+	 *  @private
+	 */
+	mx_internal function get rawColumns():Array {
+		return _columns;
+	}
+	
     
     //----------------------------------
     //  draggableColumns
@@ -2348,8 +2370,15 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             // Force visibleColumns to be recomputed now so if there are lockedColumns and
             // updateSubContent() is called before updateDisplayList() is called,
             // visibleColumns will be correct.
-            if (horizontalScrollPosition > visibleHeaderInfos.length)
-                horizontalScrollPosition = visibleHeaderInfos.length - 1;
+			if (visibleHeaderInfos)
+			{
+				if (horizontalScrollPosition > visibleHeaderInfos.length)
+					horizontalScrollPosition = visibleHeaderInfos.length - 1;
+			}
+			else
+			{
+				horizontalScrollPosition = 0;
+			}
         }
 
         super.commitProperties();
@@ -3397,7 +3426,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                     ObjectUtil.getClassInfo(iterator.current,
                                             ["uid", "mx_internal_uid"]);
 
-                if (info)
+                if(info)
                     cols = info.properties;
             }
 
@@ -3420,21 +3449,15 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                 // this is an old recordset - use its columns
                 var n:int = cols.length;
                 var colName:Object;
-				if  (n == 0) {
-					col = new AdvancedDataGridColumn();
-					newCols.push(col);
-				}
-				else {
-	                for (var i:int = 0; i < n; i++)
-	                {
-	                    colName = cols[i];
-	                    if (colName is QName)
-	                        colName = QName(colName).localName;
-	                    col = new AdvancedDataGridColumn();
-	                    col.dataField = String(colName);
-	                    newCols.push(col);
-	                }
-				}
+                for (var i:int = 0; i < n; i++)
+                {
+                    colName = cols[i];
+                    if (colName is QName)
+                        colName = QName(colName).localName;
+                    col = new AdvancedDataGridColumn();
+                    col.dataField = String(colName);
+                    newCols.push(col);
+                }
             }
             columns = newCols;
             generatedColumns = true;
@@ -3974,14 +3997,14 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 
         // Height is usually as tall is the items in the row, but not if
         // it would extend below the bottom of listContent
-        var height:Number = Math.min(height,
+        var minHeight:Number = Math.min(height,
                                      listContent.height -
                                      y);
 
         var g:Graphics = background.graphics;
         g.clear();
         g.beginFill(color, getStyle("backgroundAlpha"));
-        g.drawRect(0, 0, displayWidth, height);
+        g.drawRect(0, 0, displayWidth, minHeight);
         g.endFill();
     }
 
@@ -4023,7 +4046,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         var g:Graphics = background.graphics;
         g.clear();
 
-        if (columnIndex >= lockedColumnCount && 
+        if(columnIndex >= lockedColumnCount && 
            columnIndex < lockedColumnCount + horizontalScrollPosition)
             return;
 
@@ -4041,9 +4064,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 
         // Height is usually as tall is the items in the row, but not if
         // it would extend below the bottom of listContent
-		var height:Number = 0;
-		if (lastRow)
-        	height = Math.min(lastRow.y + lastRow.height, listContent.height - yy);
+        var height:Number = Math.min(lastRow.y + lastRow.height,
+                                     listContent.height - yy);
 
         g.drawRect(xx, yy, headerInfo.headerItem.width, height);
         g.endFill();
@@ -6076,11 +6098,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         if (!column.sortable)
             return;
 
-         var headerInfo:AdvancedDataGridHeaderInfo = getHeaderInfo(column);
-         if(headerInfo && headerInfo.internalLabelFunction != null && column.sortCompareFunction == null)
-             return;
-
          var desc:Boolean = column.sortDescending;
+		 var fields:Array;
          
          var singleColumnSort:Boolean = false;
          if (!collection.sort || !collection.sort.fields)
@@ -6114,13 +6133,18 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         }
 
         column.sortDescending = desc;
-        var field:ISortField = new SortField(columnName); // name
+        var field:ISortField = new SortField(columnName);
+        field.sortCompareType = column.sortCompareType;
         field.descending = desc;
         
-//        field.name = column.dataField;
         if (column.sortCompareFunction != null)
             field.compareFunction = column.sortCompareFunction;
-        collection.sort.fields.push(field);
+		
+		fields = collection.sort.fields;
+		if (fields == null)
+			fields = [];
+		fields.push(field);
+		collection.sort.fields = fields;
     }
 
     /**
@@ -7402,7 +7426,7 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
 
         super.focusInHandler(event);
 
-        if (editable.length && !isPressed) // don't do this if we're mouse focused
+        if (editable && editable.length && !isPressed) // don't do this if we're mouse focused
         {
             _editedItemPosition = lastEditedItemPosition;
 
@@ -7415,20 +7439,24 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
             for (;
                  _editedItemPosition.columnIndex != _columns.length;
                  _editedItemPosition.columnIndex++)
-	            {
-	                // If the editedItemPosition is valid, focus it,
-	                // otherwise find one.
-	                if (_columns[_editedItemPosition.columnIndex].editable &&
-	                    _columns[_editedItemPosition.columnIndex].visible)
-	                {
-						var row:Array = listItems[_editedItemPosition.rowIndex];
-						if (row && row[_editedItemPosition.columnIndex])
-						{
-							foundOne = true;
-							break;
-						}
-	                }
-	            }
+            {
+                // If the editedItemPosition is valid, focus it,
+                // otherwise find one.
+                if (_columns[_editedItemPosition.columnIndex].editable &&
+                    _columns[_editedItemPosition.columnIndex].visible)
+                {
+					var row:Array = listItems[_editedItemPosition.rowIndex];
+					if (row && row[_editedItemPosition.columnIndex])
+					{
+						foundOne = true;
+						break;
+					}
+                }
+            }
+			
+			// leave at last column or an RTE can occur
+			if (_editedItemPosition.columnIndex >= _columns.length)
+				_editedItemPosition.columnIndex = _columns.length - 1;
 
             if (foundOne)
             {
@@ -7586,6 +7614,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
         var target:DisplayObject = DisplayObject(event.target);
         var index:int = target.parent.getChildIndex(target);
         var optimumColumns:Array = getOptimumColumns();
+		if (index < 0 || index >= optimumColumns.length)
+			return;
         if (!optimumColumns[index].resizable)
             return;
 
@@ -7969,12 +7999,12 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                 fm.setFocus(IFocusManagerComponent(itemEditorInstance));
             fm.defaultButtonEnabled = false;
 
-            var event:AdvancedDataGridEvent =
+            var itemFocusInEvent:AdvancedDataGridEvent =
                 new AdvancedDataGridEvent(AdvancedDataGridEvent.ITEM_FOCUS_IN);
-            event.columnIndex = _editedItemPosition.columnIndex;
-            event.rowIndex = _editedItemPosition.rowIndex;
-            event.itemRenderer = itemEditorInstance;
-            dispatchEvent(event);
+            itemFocusInEvent.columnIndex = _editedItemPosition.columnIndex;
+            itemFocusInEvent.rowIndex = _editedItemPosition.rowIndex;
+            itemFocusInEvent.itemRenderer = itemEditorInstance;
+            dispatchEvent(itemFocusInEvent);
         }
     }
 
@@ -8009,8 +8039,8 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                 var newData:Object = itemEditorInstance[_columns[event.columnIndex].editorDataField];
                 var property:String = _columns[event.columnIndex].dataField;
                 var data:Object = event.itemRenderer.data;
-                var typeInfo:String = describeType(data).@name;
-                for each (var variable:XML in describeType(data).variable)
+                var typeInfo:String = "";
+                for each(var variable:XML in describeType(data).variable)
                 {
                     if (property == variable.@name.toString())
                     {
@@ -8039,23 +8069,11 @@ public class AdvancedDataGridBaseEx extends AdvancedDataGridBase implements IIME
                     if (!(newData is int))
                         newData = Number(newData);
                 }
-				if (property == null)
-				{
-					if (data != newData)
-					{
-						bChanged = true;
-						data = newData;
-					}	
-				}
-				else
-				{
-					if (data[property] != newData)
-					{
-						bChanged = true;
-						data[property] = newData;
-					}					
-				}
-
+                if (data[property] != newData)
+                {
+                    bChanged = true;
+                    data[property] = newData;
+                }
                 if (bChanged && !(data is IPropertyChangeNotifier))
                 {
                     collection.itemUpdated(data, property);

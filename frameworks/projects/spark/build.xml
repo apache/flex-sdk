@@ -153,7 +153,7 @@
         <bundler locale="el_GR"/><!-- Greek Language  resources -->
     </target>
         
-    <target name="clean" depends="bundles-clean, pixelbender-clean">
+    <target name="clean" depends="bundles-clean">
         <delete failonerror="false">
             <fileset dir="${basedir}" >
                 <include name="bundles.properties"/>
@@ -190,15 +190,8 @@
         </delete>
     </target>
 
-    <target name="compile" depends="pixelbender-compile, pixelbender-unzip, swc-compile" description="Compiles spark.swc"/>
+    <target name="compile" depends="swc-compile" description="Compiles spark.swc"/>
 
-    <target name="pixelbender-unzip" if="isLinux">
-		<echo message="Unziping pixel bender files" />
-		<gunzip src="${env.PIXELBENDER_HOME}/pb.tar.gz" dest="${FLEX_HOME}" />
-		<untar src="${FLEX_HOME}/pb.tar" dest="${FLEX_HOME}" />
-		<delete file="${FLEX_HOME}/pb.tar" />
-    </target>
-    
     <target name="pixelbender-compile" unless="isLinux">
         <exec executable="${env.PIXELBENDER_HOME}/pbutil">
             <arg value="${FLEX_HOME}/frameworks/projects/spark/asdoc/en_US/spark/effects/examples/assets/twist.pbk" />

@@ -64,6 +64,6 @@ fi
 
 # don't use $FLEX_HOME in this variable because it may contain spaces,
 # instead put it on the java args directly, with double-quotes around it
-VMARGS="-Xmx384m -Dsun.io.useCanonCaches=false "
+VMARGS="-Xmx384m -Dsun.io.useCanonCaches=false -Djava.util.Arrays.useLegacyMergeSort=true "
 
 java $VMARGS $D32 $SETUP_SH_VMARGS -jar "$FLEX_HOME/lib/mxmlc.jar" +flexlib="$FLEX_HOME/frameworks" "$@"

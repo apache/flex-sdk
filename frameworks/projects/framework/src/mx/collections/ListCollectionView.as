@@ -652,7 +652,7 @@ public class ListCollectionView extends Proxy
      *  @productversion Flex 3
      */
     public function addAllAt(addList:IList, index:int):void
-    {
+    {	
         if (index < 0 || index > this.length)
         {
             var message:String = resourceManager.getString(
@@ -661,16 +661,15 @@ public class ListCollectionView extends Proxy
         }
         
         var length:int = addList.length;
-		var maxLength:int = length
-			
-		// incremental index may be out of bounds because of filtering,
-		// so add this item to the end.
-		if (index > maxLength)
-			index = maxLength;
 
         for (var i:int=0; i < length; i++)
         {
             var insertIndex:int = i + index;
+			
+			// incremental index may be out of bounds because of filtering,
+			// so add this item to the end.
+			if (insertIndex > this.length)
+				insertIndex = this.length;
 			
             this.addItemAt(addList.getItemAt(i), insertIndex);
         }
@@ -1174,6 +1173,7 @@ public class ListCollectionView extends Proxy
 					else
 					{
 						loc = -1;
+						addLocation = -1;
 					}
 				}
 				else if (sort)
@@ -1289,14 +1289,12 @@ public class ListCollectionView extends Proxy
         }
 
         var value:Object;
-        try
+		try
         {
             value = getItemAt(index);
         }
         catch(e:Error)
         {
-            // the cursor was over something that is not yet on the client
-            value = null;
         }
         return new ListCollectionViewBookmark(value,
                                               this,

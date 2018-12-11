@@ -130,11 +130,11 @@ public class ToggleSwitchSkin extends MobileSkin
 			{
 				layoutThumbWidth = 35;
 				layoutThumbHeight = 21;
-				layoutStrokeWeight = 2;
+				layoutStrokeWeight = 1;
 				layoutBorderSize = 1;
 				layoutTextShadowOffset = -1;
 				layoutInnerPadding = 5;
-				layoutOuterPadding = 9;
+				layoutOuterPadding = 8;
 				slidingContentOverlayClass = spark.skins.mobile120.assets.ToggleSwitch_contentShadow;
 				break;
 			}

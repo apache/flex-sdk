@@ -265,8 +265,8 @@ public class GridItemEditorEvent extends Event
     public function GridItemEditorEvent(type:String, 
                                       bubbles:Boolean = false, 
                                       cancelable:Boolean = false,
-                                      rowIndex:uint = -1,
-                                      columnIndex:uint = -1, 
+                                      rowIndex:uint = int.MAX_VALUE,
+                                      columnIndex:uint = int.MAX_VALUE, 
                                       column:GridColumn = null)
     {
         super(type, bubbles, cancelable);

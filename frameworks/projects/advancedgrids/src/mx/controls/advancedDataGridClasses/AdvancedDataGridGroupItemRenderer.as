@@ -357,7 +357,7 @@ public class AdvancedDataGridGroupItemRenderer extends UIComponent
             listOwner = AdvancedDataGrid(_listData.owner);
             
             var column:AdvancedDataGridColumn =
-                listOwner.columns[_listData.columnIndex];
+                listOwner.mx_internal::rawColumns[_listData.columnIndex];
 
             if (_listData.disclosureIcon)
             {
@@ -555,12 +555,25 @@ public class AdvancedDataGridGroupItemRenderer extends UIComponent
 
         if (data && parent)
         {
+			var selMode: String = listOwner.selectionMode;
             if (!enabled)
                 labelColor = getStyle("disabledColor");
-            else if (listOwner.isItemHighlighted(listData.uid))
+            else if ((selMode == AdvancedDataGridBase.SINGLE_ROW
+            		|| selMode == AdvancedDataGridBase.MULTIPLE_ROWS)
+            		&& listOwner.isItemHighlighted(listData.uid))
                 labelColor = getStyle("textRollOverColor");
-            else if (listOwner.isItemSelected(listData.uid))
+            else if ((selMode == AdvancedDataGridBase.SINGLE_ROW
+            		|| selMode == AdvancedDataGridBase.MULTIPLE_ROWS)
+            		&& listOwner.isItemSelected(listData.uid))
                 labelColor = getStyle("textSelectedColor");
+			else if ((selMode == AdvancedDataGridBase.SINGLE_CELL
+					|| selMode == AdvancedDataGridBase.MULTIPLE_CELLS)
+					&& listOwner.isCellItemHighlighted(listData.uid, listData.columnIndex))
+				labelColor = getStyle("textRollOverColor");
+			else if ((selMode == AdvancedDataGridBase.SINGLE_CELL
+					|| selMode == AdvancedDataGridBase.MULTIPLE_CELLS)
+					&& listOwner.isCellItemSelected(listData.uid, listData.columnIndex))
+				labelColor = getStyle("textSelectedColor");
             else
                 labelColor = getStyle("color");
 

@@ -299,7 +299,7 @@ declarations define DataGrid skin parts except <code>headerColumnSeparator</code
         /**
          * @private
          */
-        override public function get contentItems():Array {return contentFill};
+        override public function get contentItems():Array { return contentFill; }
         
         /**
          * @private

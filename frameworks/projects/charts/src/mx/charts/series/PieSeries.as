@@ -1167,7 +1167,6 @@ public class PieSeries extends Series
     //
     //--------------------------------------------------------------------------
 
-	
 	/**
 	 *  @private
 	 */
@@ -1183,12 +1182,14 @@ public class PieSeries extends Series
 			pieFills[i] = HaloDefaults.defaultFills[i];
 		}
 		
-		var pieSeriesStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.series.PieSeries");
-		pieSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.WedgeItemRenderer));
-		pieSeriesStyle.setStyle("fills", pieFills);
-		pieSeriesStyle.setStyle("legendMarkerRenderer", new ClassFactory(PieSeriesLegendMarker));
-		pieSeriesStyle.setStyle("calloutStroke", new SolidColorStroke(0,0,1));
-		
+		var pieSeriesStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.series.PieSeries");
+		if (pieSeriesStyle)
+		{
+			pieSeriesStyle.setStyle("itemRenderer", new ClassFactory(mx.charts.renderers.WedgeItemRenderer));
+			pieSeriesStyle.setStyle("fills", pieFills);
+			pieSeriesStyle.setStyle("legendMarkerRenderer", new ClassFactory(PieSeriesLegendMarker));
+			pieSeriesStyle.setStyle("calloutStroke", new SolidColorStroke(0,0,1));
+		}		
 		return true;
 	}
 	
@@ -3069,7 +3070,7 @@ public class PieSeries extends Series
 //      angle = (angle - _startAngleRadians) % (twoMP);
 //      if (angle < 0)
 //          angle += twoMP;
-        return angle
+        return angle;
     }
 
     /**
@@ -3118,6 +3119,7 @@ public class PieSeries extends Series
 
 import flash.display.Graphics;
 import flash.geom.Rectangle;
+
 import mx.charts.chartClasses.LegendData;
 import mx.core.IDataRenderer;
 import mx.graphics.IFill;

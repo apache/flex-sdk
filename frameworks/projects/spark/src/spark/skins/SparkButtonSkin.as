@@ -19,6 +19,8 @@
 
 package spark.skins
 {
+    import flash.events.Event;
+  
     import mx.core.IVisualElement;
     import mx.styles.IStyleClient;
     

@@ -550,13 +550,16 @@ public class ButtonBarBase extends ListBase
 
 
     /**
-    *  Changes the <code>enabled</code> property of a ButtonBar's Button referencing it by the ButtonBarbutton's <code>label</code>. 
+    *  Allows changing the <code>enabled</code> property of a the child ButtonBarbutton's.
+    *  It identifies the button given its label field (default) or an different optional field name may be passed. 
     *
-    *  <p>The method takes a single ButtonBarButton label, a new <code>enabled</code> property value, and an optional field name to search for.</p>
-    *  <pre>myButtonBar.setButtonEnabled("My Button Label", false)</pre>
+    *  <p>The method takes a single ButtonBarButton label, a new <code>enabled</code> property value, and an optional field name to use as the comparison field.</p>
+    *  <pre>
+    *  myButtonBar.setButtonEnabled("My Button Label", false)</pre>
     *
-    *  @param labelValue Is the ButtonBarButton label
-    *  @param fieldName Field used for comparing the label
+    *  @param labelValue Is the ButtonBarButton label.
+    *  @param enabledValue The buttons new enabled value.
+    *  @param fieldName Field used to compare the label value against.
     *
     *  @langversion 3.0
     *  @playerversion Flash 11.1
@@ -570,13 +573,16 @@ public class ButtonBarBase extends ListBase
 
 
     /**
-    *  Disables several of a ButtonBar's Buttons, referencing them by the ButtonBarbutton's <code>label</code>. 
+    *  Allows changing the <code>enabled</code> property of several child ButtonBarbutton's.
+    *  It identifies the buttons given their label fields (default) or an different optional field name may be passed. 
     *
-    *  <p>The method takes an array of ButtonBarButton labels, a new <code>enabled</code> property value, and an optional field name to search for.</p>
-    *  <pre>myButtonBar.setButtonsEnabled(["My Button Label1", "My Label2"], false)</pre>
+    *  <p>The method takes an array of ButtonBarButton labels, a new <code>enabled</code> property value, and an optional field name to use as the comparison field.</p>
+    *  <pre>
+    *  myButtonBar.setButtonsEnabled(["My Button Label1", "My Label2"], false)</pre>
     *
     *  @param labelValues Is an array of ButtonBarButton labels.
-    *  @param fieldName Field used for comparing the label
+    *  @param enabledValue The buttons new enabled value.
+    *  @param fieldName Field used to compare the label value against.
     *
     *  @langversion 3.0
     *  @playerversion Flash 11.1

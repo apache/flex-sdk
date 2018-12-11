@@ -38,7 +38,10 @@ package spark.components
 	
 	use namespace mx_internal;
 
-	//--------------------------------------
+    // for asdoc
+    [Experimental]
+
+//--------------------------------------
 	//  Events
 	//--------------------------------------
 	

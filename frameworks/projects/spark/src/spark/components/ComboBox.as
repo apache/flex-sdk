@@ -35,6 +35,7 @@ import flashx.textLayout.operations.DeleteTextOperation;
 import flashx.textLayout.operations.FlowOperation;
 import flashx.textLayout.operations.InsertTextOperation;
 
+import mx.collections.IList;
 import mx.core.IIMESupport;
 import mx.core.mx_internal;
 import mx.events.FlexEvent;
@@ -327,6 +328,27 @@ public class ComboBox extends DropDownListBase implements IIMESupport
      */ 
     public var itemMatchingFunction:Function = null;     
     
+	
+	//----------------------------------
+	//  dataProvider
+	//----------------------------------
+	
+	[Inspectable(category="Data")]
+	
+	/**
+	 *  @private
+	 *  Update the label if the dataProvider has changed
+	 */
+	override public function set dataProvider(value:IList):void
+	{   
+		if (dataProvider === value)
+			return;
+		
+		if (dataProvider != null)
+			selectedItem = null;
+		super.dataProvider = value;
+	}
+
     //--------------------------------------------------------------------------
     //  labelToItemFunction
     //--------------------------------------------------------------------------
@@ -650,6 +672,7 @@ public class ComboBox extends DropDownListBase implements IIMESupport
             }
             else
             {
+				selectedItem = textInput.text;
                 super.changeHighlightedSelection(CUSTOM_SELECTED_ITEM);
             }
         }
@@ -853,6 +876,17 @@ public class ComboBox extends DropDownListBase implements IIMESupport
             textInput.removeEventListener(FocusEvent.FOCUS_OUT, textInput_focusOutHandler, true);
         }
     }
+	
+	/**
+	 *  @private
+	 */
+	override public function set enabled(value:Boolean):void
+	{
+		if (enabled == value)
+			return;
+		
+		super.enabled = value;
+	}
     
     /**
      *  @private 
@@ -861,7 +895,7 @@ public class ComboBox extends DropDownListBase implements IIMESupport
     {
         super.changeHighlightedSelection(newIndex, scrollToTop);
         
-        if (newIndex >= 0)
+        if (newIndex >= 0 && newIndex < dataProvider.length)
         {
             var item:Object = dataProvider ? dataProvider.getItemAt(newIndex) : undefined;
             if (item && textInput)
@@ -947,7 +981,7 @@ public class ComboBox extends DropDownListBase implements IIMESupport
                 if (selectedItem != null)
                     textInput.text = itemToLabel(selectedItem);
                 else
-                textInput.text = "";
+                	textInput.text = "";
             }
             changeHighlightedSelection(selectedIndex);
         }

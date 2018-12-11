@@ -28,7 +28,10 @@ package spark.containers
 
 	import spark.components.Group;
 
-	[Exclude(name="layout", kind="property")]
+// for asdoc
+[Experimental]
+
+[Exclude(name="layout", kind="property")]
 	[DefaultProperty("children")]
 	[ResourceBundle("dividers")]
 	/**

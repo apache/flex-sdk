@@ -198,7 +198,7 @@ public class CandlestickChart extends CartesianChart
     //
     //--------------------------------------------------------------------------
 
-    /**
+	/**
      *  @private
      */
     private function initStyles():Boolean
@@ -206,36 +206,39 @@ public class CandlestickChart extends CartesianChart
         HaloDefaults.init(styleManager);
 		
 		var candlestickChartSeriesStyles:Array /* of Object */ = [];
-		var csChartStyle:CSSStyleDeclaration = styleManager.getStyleDeclaration("mx.charts.CandlestickChart");
-		csChartStyle.setStyle("chartSeriesStyles", candlestickChartSeriesStyles);
-		csChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
-		csChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
-		csChartStyle.setStyle("horizontalAxisStyleNames", ["blockCategoryAxis"]);
-		csChartStyle.setStyle("verticalAxisStyleNames", ["blockNumericAxis"]);
+		var csChartStyle:CSSStyleDeclaration = HaloDefaults.findStyleDeclaration(styleManager, "mx.charts.CandlestickChart");
+		if (csChartStyle)
+		{
+			csChartStyle.setStyle("chartSeriesStyles", candlestickChartSeriesStyles);
+			csChartStyle.setStyle("fill", new SolidColor(0xFFFFFF, 0));
+			csChartStyle.setStyle("calloutStroke", new SolidColorStroke(0x888888,2));
+			csChartStyle.setStyle("horizontalAxisStyleNames", ["blockCategoryAxis"]);
+			csChartStyle.setStyle("verticalAxisStyleNames", ["blockNumericAxis"]);
+				
+	        var n:int = HaloDefaults.defaultColors.length;
+	        for (var i:int = 0; i < n; i++)
+	        {
+	            var styleName:String = "haloCandlestickSeries" + i;
+	            candlestickChartSeriesStyles[i] = styleName;
+	            
+	            var o:CSSStyleDeclaration =
+	                HaloDefaults.createSelector("." + styleName, styleManager);
+	            
+	            var f:Function = function(o:CSSStyleDeclaration, boxStroke:Stroke,
+	                                      declineFill:IFill):void
+	            {
+	                o.defaultFactory = function():void
+	                {
+	                    this.boxStroke = boxStroke;
+	                    this.declineFill = declineFill;
+	                }
+	            }
+	            
+	            f(o, new Stroke(HaloDefaults.defaultColors[i], 0, 1),
+	                new SolidColor(HaloDefaults.defaultColors[i]));
+	        }
+		}
 		
-        var n:int = HaloDefaults.defaultColors.length;
-        for (var i:int = 0; i < n; i++)
-        {
-            var styleName:String = "haloCandlestickSeries" + i;
-            candlestickChartSeriesStyles[i] = styleName;
-            
-            var o:CSSStyleDeclaration =
-                HaloDefaults.createSelector("." + styleName, styleManager);
-            
-            var f:Function = function(o:CSSStyleDeclaration, boxStroke:Stroke,
-                                      declineFill:IFill):void
-            {
-                o.defaultFactory = function():void
-                {
-                    this.boxStroke = boxStroke;
-                    this.declineFill = declineFill;
-                }
-            }
-            
-            f(o, new Stroke(HaloDefaults.defaultColors[i], 0, 1),
-                new SolidColor(HaloDefaults.defaultColors[i]));
-        }
-        
         return true;
     }
     

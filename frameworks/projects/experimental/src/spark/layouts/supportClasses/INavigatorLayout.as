@@ -23,7 +23,10 @@ package spark.layouts.supportClasses
 	import mx.core.ISelectableList;
 	import mx.core.IVisualElement;
 
-	/**
+// for asdoc
+[Experimental]
+
+/**
 	 *  The INavigatorLayout interface indicates that the implementor
 	 * 	is an LayoutBase that supports a <code>selectedIndex</code> property.
 	 *  

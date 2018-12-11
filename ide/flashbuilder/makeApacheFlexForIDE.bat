@@ -42,15 +42,20 @@ REM
 set APACHE_FLEX_BIN_DISTRO_DIR=..\..
 
 REM
-REM     Adobe AIR SDK Version 3.8
+REM     Adobe AIR SDK Version 13.0
 REM
 set ADOBE_AIR_SDK_WIN_FILE=AdobeAIRSDK.zip
-set ADOBE_AIR_SDK_WIN_URL=http://airdownload.adobe.com/air/win/download/3.8/%ADOBE_AIR_SDK_WIN_FILE%
+set ADOBE_AIR_SDK_WIN_URL=http://airdownload.adobe.com/air/win/download/13.0/%ADOBE_AIR_SDK_WIN_FILE%
 
 REM
 REM     Adobe Flash Player Version 11.1
 REM
-set ADOBE_FB_GLOBALPLAYER_SWC_URL=http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc
+set ADOBE_FB_GLOBALPLAYER_11_1_SWC_URL=http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal11_1.swc
+
+REM
+REM     Adobe Flash Player Version 13.0
+REM
+set ADOBE_FB_GLOBALPLAYER_13_0_SWC_URL=http://fpdownload.macromedia.com/get/flashplayer/updaters/11/playerglobal13_0.swc
 
 :getDir
 if not [%1] == [] goto checkJar
@@ -97,7 +102,9 @@ if not exist "%tempDir%" mkdir "%tempDir%"
 REM
 REM the third-party downloads, including the optional components
 REM
-call ant -f "%FLEX_HOME%/frameworks/downloads.xml"
+REM (note: the %2 argument is to allow for '-Dbuild.noprompt=true' when building FlexUnit on CI.
+REM
+call ant -f "%FLEX_HOME%/frameworks/downloads.xml" %2
 
 REM
 REM     Download AIR Runtime Kit for Windows
@@ -107,13 +114,23 @@ cscript //B //nologo winUtil.vbs "%ADOBE_AIR_SDK_WIN_URL%" "%tempDir%\%ADOBE_AIR
 if %errorlevel% neq 0 goto errorExit
 
 REM
-REM     Download playerglobal.swc
+REM     Download 11.1 playerglobal.swc
 REM
 set FB_GLOBALPLAYER_DIR=%FLEX_HOME%\frameworks\libs\player\11.1
 if not exist "%FB_GLOBALPLAYER_DIR%" mkdir "%FB_GLOBALPLAYER_DIR%"
 
-echo Downloading Adobe Flash Player playerglobal.swc from "%ADOBE_FB_GLOBALPLAYER_SWC_URL%" to "%FB_GLOBALPLAYER_DIR%\playerglobal.swc"
-cscript //B //nologo winUtil.vbs "%ADOBE_FB_GLOBALPLAYER_SWC_URL%" "%FB_GLOBALPLAYER_DIR%\playerglobal.swc"
+echo Downloading Adobe Flash Player playerglobal.swc from "%ADOBE_FB_GLOBALPLAYER_11_1_SWC_URL%" to "%FB_GLOBALPLAYER_DIR%\playerglobal.swc"
+cscript //B //nologo winUtil.vbs "%ADOBE_FB_GLOBALPLAYER_11_1_SWC_URL%" "%FB_GLOBALPLAYER_DIR%\playerglobal.swc"
+if %errorlevel% neq 0 goto errorExit
+
+REM
+REM     Download 13.0 playerglobal.swc
+REM
+set FB_GLOBALPLAYER_DIR=%FLEX_HOME%\frameworks\libs\player\13.0
+if not exist "%FB_GLOBALPLAYER_DIR%" mkdir "%FB_GLOBALPLAYER_DIR%"
+
+echo Downloading Adobe Flash Player playerglobal.swc from "%ADOBE_FB_GLOBALPLAYER_13_0_SWC_URL%" to "%FB_GLOBALPLAYER_DIR%\playerglobal.swc"
+cscript //B //nologo winUtil.vbs "%ADOBE_FB_GLOBALPLAYER_13_0_SWC_URL%" "%FB_GLOBALPLAYER_DIR%\playerglobal.swc"
 if %errorlevel% neq 0 goto errorExit
 
 REM

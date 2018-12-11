@@ -1289,8 +1289,7 @@ public class List extends ListBase implements IIMESupport
 
         // Height is usually as tall is the items in the row,
         // but not if it would extend below the bottom of listContent.
-        var height:Number = Math.min(
-            rowInfo[rowIndex].height,
+        var minHeight:Number = Math.min( rowInfo[rowIndex].height,
             listContent.height - rowInfo[rowIndex].y);
 
         bg.y = rowInfo[rowIndex].y;
@@ -1298,7 +1297,7 @@ public class List extends ListBase implements IIMESupport
         var g:Graphics = bg.graphics;
         g.clear();
         g.beginFill(color, getStyle("backgroundAlpha"));
-        g.drawRect(0, 0, listContent.width, height);
+        g.drawRect(0, 0, listContent.width, minHeight);
         g.endFill();
     }
 
@@ -1527,16 +1526,16 @@ public class List extends ListBase implements IIMESupport
             listContent.setChildIndex(DisplayObject(itemEditorInstance),
                                       listContent.numChildren - 1);
             item = listItems[actualRowIndex][actualColIndex];
-            var rowInfo:ListRowInfo = rowInfo[actualRowIndex];
+            var listRowInfo:ListRowInfo = rowInfo[actualRowIndex];
             if (item && !rendererIsEditor)
             {
                 var dx:Number = editorXOffset;
                 var dy:Number = editorYOffset;
                 var dw:Number = editorWidthOffset;
                 var dh:Number = editorHeightOffset;
-                layoutEditor(item.x + dx, rowInfo.y + dy,
+                layoutEditor(item.x + dx, listRowInfo.y + dy,
                             Math.min(item.width + dw, listContent.width - listContent.x - itemEditorInstance.x),
-                            Math.min(rowInfo.height + dh, listContent.height - listContent.y - itemEditorInstance.y));
+                            Math.min(listRowInfo.height + dh, listContent.height - listContent.y - itemEditorInstance.y));
 
             }
         }
@@ -1845,14 +1844,14 @@ public class List extends ListBase implements IIMESupport
 
             if (more)
             {
+				// if we run out of data, assume all remaining rows are the size of the previous row
+				more = false;
                 try
                 {
                     more = iterator.moveNext();
                 }
                 catch(e:ItemPendingError)
                 {
-                    // if we run out of data, assume all remaining rows are the size of the previous row
-                    more = false;
                 }
             }
         }
@@ -2807,11 +2806,11 @@ public class List extends ListBase implements IIMESupport
             if (itemEditorInstance is IFocusManagerComponent)
                 fm.setFocus(IFocusManagerComponent(itemEditorInstance));
             
-            var event:ListEvent =
+            var itemFocusInEvent:ListEvent =
                 new ListEvent(ListEvent.ITEM_FOCUS_IN);
-            event.rowIndex = _editedItemPosition.rowIndex;
-            event.itemRenderer = itemEditorInstance;
-            dispatchEvent(event);
+            itemFocusInEvent.rowIndex = _editedItemPosition.rowIndex;
+            itemFocusInEvent.itemRenderer = itemEditorInstance;
+            dispatchEvent(itemFocusInEvent);
         }
     }
 

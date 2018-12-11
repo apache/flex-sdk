@@ -38,6 +38,7 @@ import mx.core.UITextField;
 import mx.core.mx_internal;
 import mx.styles.ISimpleStyleClient;
 import mx.styles.IStyleClient;
+import mx.utils.Platform;
 
 use namespace mx_internal;
 
@@ -55,20 +56,6 @@ use namespace mx_internal;
 public class TitleBar extends UIComponent
 {
     include "../../core/Version.as";
-
-    //--------------------------------------------------------------------------
-    //
-    //  Class methods
-    //
-    //--------------------------------------------------------------------------
-
-    /**
-     *  @private
-     */
-    private static function isMac():Boolean
-    {
-        return Capabilities.os.substring(0, 3) == "Mac";
-    }
 
     //--------------------------------------------------------------------------
     //
@@ -372,7 +359,7 @@ public class TitleBar extends UIComponent
                                             maximizeButton_clickHandler);
             addChild(maximizeButton);
 
-            restoreButtonSkin = isMac() ? null : getStyle("restoreButtonSkin");
+            restoreButtonSkin = Platform.isMac ? null : getStyle("restoreButtonSkin");
         }
 
         if (!closeButton)
@@ -488,7 +475,7 @@ public class TitleBar extends UIComponent
         }
 
         // If we're on Windows, check to see if we're maximized or not.
-        if (!isMac())
+        if (!Platform.isMac)
         {
             if (window.nativeWindow.displayState ==
                 NativeWindowDisplayState.MAXIMIZED)
@@ -515,7 +502,7 @@ public class TitleBar extends UIComponent
         }
         else
         {
-            if (isMac())
+            if (Platform.isMac)
             {
                 buttonAlign = "left";
                 placeButtons("left", width, height,
@@ -532,7 +519,7 @@ public class TitleBar extends UIComponent
             String(getStyle("titleAlignment"));
         if (titleAlign == "center" || titleAlign == "left")
             placeTitle(titleAlign, leftOffset, rightOffset, buttonAlign);
-        else if (isMac())
+        else if (Platform.isMac)
             placeTitle("center",  leftOffset, rightOffset, buttonAlign);
         else
             placeTitle("left",  leftOffset, rightOffset, buttonAlign);
@@ -848,7 +835,7 @@ public class TitleBar extends UIComponent
      */
     protected function doubleClickHandler(event:MouseEvent):void
     {
-        if (isMac())
+        if (Platform.isMac)
         {
             window.minimize();
         }

@@ -20,7 +20,7 @@
 
 
 <Graphic version="2.0" xmlns="http://ns.adobe.com/fxg/2008">
-      <Path x="4" y="10" data="M0 22 10 12 22 24 46 0 56 10 22 44 0 22Z">
+      <Path x="4" y="10" data="M0 22 10 12 22 24 46 0 56 10 22 44 0 22Z" scaleX="2.0" scaleY="2.0">
         <fill>
           <LinearGradient x="28" y="12" scaleX="32" rotation="90">
             <GradientEntry ratio="0" color="#5A5A5A"/>
@@ -28,14 +28,9 @@
           </LinearGradient>
         </fill>
       </Path>
-      <Path x="4" y="10" alpha="0.7" data="M0 22 10 12 22 24 46 0 56 10">
+      <Path x="4" y="10" alpha="0.7" data="M0 22 10 12 22 24 46 0 56 10" scaleX="2.0" scaleY="2.0">
         <stroke>
           <SolidColorStroke weight="1" joints="bevel" color="#FFFFFF"/>
-        </stroke>
-      </Path>
-      <Path x="4" y="20" data="M0 12 22 34 56 0">
-        <stroke>
-          <SolidColorStroke weight="1" joints="bevel"/>
         </stroke>
       </Path>
 </Graphic>

@@ -27,7 +27,10 @@ package spark.layouts.supportClasses
 	import spark.layouts.VerticalAlign;
 	import spark.primitives.Rect;
 
-	public class PerspectiveAnimationNavigatorLayoutBase extends AnimationNavigatorLayoutBase
+// for asdoc
+[Experimental]
+
+public class PerspectiveAnimationNavigatorLayoutBase extends AnimationNavigatorLayoutBase
 	{
 		
 		

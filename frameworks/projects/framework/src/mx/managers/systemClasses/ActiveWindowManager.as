@@ -25,16 +25,16 @@ import flash.display.InteractiveObject;
 import flash.display.Sprite;
 import flash.events.Event;
 import flash.events.EventDispatcher;
-import flash.events.IEventDispatcher;
 import flash.events.FocusEvent;
+import flash.events.IEventDispatcher;
 import flash.events.MouseEvent;
 
 import mx.core.IChildList;
 import mx.core.IFlexModuleFactory;
 import mx.core.IRawChildrenContainer;
 import mx.core.IUIComponent;
-import mx.core.mx_internal;
 import mx.core.Singleton;
+import mx.core.mx_internal;
 import mx.events.DynamicEvent;
 import mx.events.Request;
 import mx.managers.IActiveWindowManager;
@@ -428,6 +428,30 @@ public class ActiveWindowManager extends EventDispatcher implements IActiveWindo
 
 	/**
 	 *  @private
+	 */
+	private function findHighestModalForm():int
+	{
+		var n:int = forms.length;
+		var rc:IChildList = systemManager.rawChildren;
+		for (var i:int = n - 1; i >= 0; i--)
+		{
+			var f:Object = forms[i];
+			if (f is DisplayObject)
+			{
+				var index:int = rc.getChildIndex(f as DisplayObject);
+				if (index > 0)
+				{
+					var under:DisplayObject = rc.getChildAt(index - 1);
+					if (under.name == "modalWindow")
+						return i;
+				}
+			}
+		}
+		return 0;
+	}
+	
+	/**
+	 *  @private
 	 *  Track mouse clicks to see if we change top-level forms.
 	 */
 	private function mouseDownHandler(event:MouseEvent):void
@@ -437,106 +461,114 @@ public class ActiveWindowManager extends EventDispatcher implements IActiveWindo
 		    if (!dispatchEvent(new FocusEvent(MouseEvent.MOUSE_DOWN, false, true, InteractiveObject(event.target))))
 			    return;
 
-		if (numModalWindows == 0) // no modal windows are up
+		var startIndex:int = 0;
+		if (numModalWindows > 0)
 		{
-			if (!systemManager.isTopLevelRoot() || forms.length > 1)
-			{
-				var n:int = forms.length;
-				var p:DisplayObject = DisplayObject(event.target);
-                var isApplication:Boolean = systemManager.document is IRawChildrenContainer ? 
-                                            IRawChildrenContainer(systemManager.document).rawChildren.contains(p) :
-                                            systemManager.document.contains(p);
-				while (p)
-				{
-					for (var i:int = 0; i < n; i++)
-					{
-						var form_i:Object = forms[i];
-                        if (hasEventListener("actualForm"))
-                        {
-						    var request:Request = new Request("actualForm", false, true);
-						    request.value = forms[i];
-                            if (!dispatchEvent(request))
-                                form_i = forms[i].window;
-                        }
-						if (form_i == p)
-						{
-							var j:int = 0;
-							var index:int;
-							var newIndex:int;
-							var childList:IChildList;
-
-							if (((p != form) && p is IFocusManagerContainer) ||
-							    (!systemManager.isTopLevelRoot() && p == form))
-							{
-								if (systemManager.isTopLevelRoot())
-								activate(IFocusManagerContainer(p));
-
-								if (p == systemManager.document)
-                                {
-                                    if (hasEventListener("activateApplication"))
-									    dispatchEvent(new Event("activateApplication"));
-                                }
-								else if (p is DisplayObject)
-                                {
-                                    if (hasEventListener("activateWindow"))
-    									dispatchEvent(new FocusEvent("activateWindow", false, false, InteractiveObject(p)));
-                                }
-							}
-							
-							if (systemManager.popUpChildren.contains(p))
-								childList = systemManager.popUpChildren;
-							else
-								childList = systemManager;
-
-							index = childList.getChildIndex(p); 
-							newIndex = index;
-							
-							//we need to reset n because activating p's 
-							//FocusManager could have caused 
-							//forms.length to have changed. 
-							n = forms.length;
-							for (j = 0; j < n; j++)
-							{
-								var f:DisplayObject;
-                                isRemotePopUp = false;
-                                if (hasEventListener("isRemote"))
-                                {
-								    request = new Request("isRemote", false, true);
-								    request.value = forms[j];
-								    var isRemotePopUp:Boolean = false;
-								    if (!dispatchEvent(request))
-    									isRemotePopUp = request.value as Boolean;
-                                }
-								if (isRemotePopUp)
-								{
-									if (forms[j].window is String)
-										continue;
-									f = forms[j].window;
-								}
-								else 
-									f = forms[j];
-								if (isRemotePopUp)
-								{
-									var fChildIndex:int = getChildListIndex(childList, f);
-									if (fChildIndex > index)
-										newIndex = Math.max(fChildIndex, newIndex);	
-								}
-								else if (childList.contains(f))
-									if (childList.getChildIndex(f) > index)
-										newIndex = Math.max(childList.getChildIndex(f), newIndex);
-							}
-							if (newIndex > index && !isApplication)
-								childList.setChildIndex(p, newIndex);
-
-							return;
-						}
-					}
-					p = p.parent;
-				}
-			}
-			else if (hasEventListener("activateApplication"))
-				dispatchEvent(new Event("activateApplication"));
+			// if there is a modal window, only the top modal and non-modal
+			// windows above it are in play
+			startIndex = findHighestModalForm();
 		}
+		
+		if (!systemManager.isTopLevelRoot() || forms.length > 1)
+		{
+			var n:int = forms.length;
+			var p:DisplayObject = DisplayObject(event.target);
+            var isApplication:Boolean = systemManager.document is IRawChildrenContainer ? 
+                                        IRawChildrenContainer(systemManager.document).rawChildren.contains(p) :
+                                        systemManager.document.contains(p);
+			while (p)
+			{
+				for (var i:int = startIndex; i < n; i++)
+				{
+					var form_i:Object = forms[i];
+                    if (hasEventListener("actualForm"))
+                    {
+					    var request:Request = new Request("actualForm", false, true);
+					    request.value = forms[i];
+                        if (!dispatchEvent(request))
+                            form_i = forms[i].window;
+                    }
+					if (form_i == p)
+					{
+						var j:int = 0;
+						var index:int;
+						var newIndex:int;
+						var childList:IChildList;
+
+						if (((p != form) && p is IFocusManagerContainer) ||
+						    (!systemManager.isTopLevelRoot() && p == form))
+						{
+							if (systemManager.isTopLevelRoot())
+							activate(IFocusManagerContainer(p));
+
+							if (p == systemManager.document)
+                            {
+                                if (hasEventListener("activateApplication"))
+								    dispatchEvent(new Event("activateApplication"));
+                            }
+							else if (p is DisplayObject)
+                            {
+                                if (hasEventListener("activateWindow"))
+									dispatchEvent(new FocusEvent("activateWindow", false, false, InteractiveObject(p)));
+                            }
+						}
+						
+						if (systemManager.popUpChildren.contains(p))
+							childList = systemManager.popUpChildren;
+						else
+							childList = systemManager;
+
+						index = childList.getChildIndex(p); 
+						newIndex = index;
+                        // activating top-most modal so don't switch it to the top
+						if (p == forms[startIndex])
+                            return;
+                        
+						//we need to reset n because activating p's 
+						//FocusManager could have caused 
+						//forms.length to have changed. 
+						n = forms.length;
+						for (j = startIndex; j < n; j++)
+						{
+							var f:DisplayObject;
+                            isRemotePopUp = false;
+                            if (hasEventListener("isRemote"))
+                            {
+							    request = new Request("isRemote", false, true);
+							    request.value = forms[j];
+							    var isRemotePopUp:Boolean = false;
+							    if (!dispatchEvent(request))
+									isRemotePopUp = request.value as Boolean;
+                            }
+							if (isRemotePopUp)
+							{
+								if (forms[j].window is String)
+									continue;
+								f = forms[j].window;
+							}
+							else 
+								f = forms[j];
+							if (isRemotePopUp)
+							{
+								var fChildIndex:int = getChildListIndex(childList, f);
+								if (fChildIndex > index)
+									newIndex = Math.max(fChildIndex, newIndex);	
+							}
+							else if (childList.contains(f))
+								if (childList.getChildIndex(f) > index)
+									newIndex = Math.max(childList.getChildIndex(f), newIndex);
+						}
+						if (newIndex > index && !isApplication)
+							childList.setChildIndex(p, newIndex);
+
+						return;
+					}
+				}
+				p = p.parent;
+			}
+		}
+		else if (hasEventListener("activateApplication"))
+			dispatchEvent(new Event("activateApplication"));
 	}
 
 	/**

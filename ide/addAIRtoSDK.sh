@@ -30,12 +30,13 @@
 AIR_VERSION="$1"
 OS=`uname`
 
-if [[ "${AIR_VERSION}" != "3.8" && "${AIR_VERSION}" != "3.7" && "${AIR_VERSION}" != "3.6"
-  && "${AIR_VERSION}" != "3.5" && "${AIR_VERSION}" != "3.4"  
-  && "${AIR_VERSION}" != "3.3"  && "${AIR_VERSION}" != "3.2" && "${AIR_VERSION}" != "3.1"
-  && "${AIR_VERSION}" != "3.0" && "${AIR_VERSION}" != "2.7" && "${AIR_VERSION}" != "2.6" ]]
+if [[ "${AIR_VERSION}" != "13.0" &&"${AIR_VERSION}" != "4.0" && "${AIR_VERSION}" != "3.9"
+  && "${AIR_VERSION}" != "3.8" && "${AIR_VERSION}" != "3.7" && "${AIR_VERSION}" != "3.6"
+  && "${AIR_VERSION}" != "3.5" && "${AIR_VERSION}" != "3.4" && "${AIR_VERSION}" != "3.3"
+  && "${AIR_VERSION}" != "3.2" && "${AIR_VERSION}" != "3.1" && "${AIR_VERSION}" != "3.0"
+  && "${AIR_VERSION}" != "2.7" && "${AIR_VERSION}" != "2.6" ]]
 then
-	echo Unknown version ${AIR_VERISON} of AIR. Versions 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7 and 3.8 are supported.
+	echo Unknown version ${AIR_VERISON} of AIR. Versions 2.6, 2.7, 3.0, 3.1, 3.2, 3.3, 3.4, 3.5, 3.6, 3.7, 3.8, 3.9, 4.0 and 13.0 are supported.
 	exit 1;
 fi
 
@@ -153,8 +154,28 @@ updatePlayerDescription "${AIR_VERSION}" "${IDE_SDK_DIR}/flex-sdk-description.xm
 for configFile in "${configFiles[@]}"
 do
 	echo Updating ${configFile}
+
+	# 13.0 needs FP 13 and swf version 24
+	if [ ${AIR_VERSION} = "13.0" ]
+	then
+		updatePlayerVersion 13.0 "${configFile}"
+		updateSWFVersion 24 "${configFile}"
+	fi	
 	
-	
+	# 4.0 needs FP 12 and swf version 23
+	if [ ${AIR_VERSION} = "4.0" ]
+	then
+		updatePlayerVersion 12.0 "${configFile}"
+		updateSWFVersion 23 "${configFile}"
+	fi	
+		
+	# 3.8 needs FP 11.9 and swf version 22
+	if [ ${AIR_VERSION} = "3.9" ]
+	then
+		updatePlayerVersion 11.9 "${configFile}"
+		updateSWFVersion 22 "${configFile}"
+	fi	
+		
 	# 3.8 needs FP 11.8 and swf version 21
 	if [ ${AIR_VERSION} = "3.8" ]
 	then

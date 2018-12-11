@@ -7349,9 +7349,9 @@ public class ListBase extends ScrollControlBase
                     return;
                 }
                 var bookmark:CursorBookmark = collectionIterator.bookmark;
-                var index:int = bookmark.getViewIndex();
-                if (index >= 0)
-                    insertSelectionDataBefore(uid, new ListBaseSelectionData(item, index, true), firstSelectionData);
+                var viewIndex:int = bookmark.getViewIndex();
+                if (viewIndex >= 0)
+                    insertSelectionDataBefore(uid, new ListBaseSelectionData(item, viewIndex, true), firstSelectionData);
                 else
                 {
                     try
@@ -7372,11 +7372,11 @@ public class ListBase extends ScrollControlBase
                 }
                 if (items.length == 0)
                 {
-                    _selectedIndex = index;
+                    _selectedIndex = viewIndex;
                     _selectedItem = item;
-                    caretIndex = index;
+                    caretIndex = viewIndex;
                     caretBookmark = collectionIterator.bookmark;
-                    anchorIndex = index;
+                    anchorIndex = viewIndex;
                     anchorBookmark = collectionIterator.bookmark;
                 }
             }

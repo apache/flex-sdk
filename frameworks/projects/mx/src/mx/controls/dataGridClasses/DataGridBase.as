@@ -1569,7 +1569,7 @@ public class DataGridBase extends ListBase implements IFontContextComponent
         factory = c.getItemRendererFactory(forHeader, data);
         if (!factory)
         {
-            if (!data)
+            if (data == null)
                 factory = nullItemRenderer;
             if (!factory)
                 factory = itemRenderer;
@@ -2285,6 +2285,7 @@ public class DataGridBase extends ListBase implements IFontContextComponent
         }
         if (lockedColumnContent)
         {
+			lastRowIndex = lockedColumnContent.listItems.length - 1;
             lastRowItems = lockedColumnContent.listItems[lastRowIndex];
             numColumns = lastRowItems.length;
             rowWidth = lockedColumnContent.width;

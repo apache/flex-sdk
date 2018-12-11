@@ -25,7 +25,10 @@ package spark.layouts
 	import spark.layouts.HorizontalAlign;
 	import spark.layouts.VerticalAlign;
 
-	/**
+// for asdoc
+[Experimental]
+
+/**
 	 *  The RolodexLayout class arranges the layout elements in a depth sequence,
 	 *  front to back, with optional depths between the elements and optional aligment
 	 *  of the sequence of elements.

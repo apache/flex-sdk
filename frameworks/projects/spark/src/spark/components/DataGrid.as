@@ -3427,7 +3427,10 @@ public class DataGrid extends SkinnableContainerBase
         
         elt.dataGrid = this;
         if (elt.nestLevel <= grid.nestLevel)
+        {
+            elt.validateNow();
             elt.nestLevel = grid.nestLevel + 1;
+        }
     }
     
     /**
@@ -4769,10 +4772,18 @@ public class DataGrid extends SkinnableContainerBase
 	 */ 
 	protected function isCellEditable(rowIndex:int, columnIndex:int):Boolean
 	{
-		var dataItem:Object = dataProvider.getItemAt(rowIndex);
-		var column:GridColumn = GridColumn(columns.getItemAt(columnIndex));
-		var dataField:String = column.dataField;
-		
+        try
+        {
+            var dataItem:Object = dataProvider.getItemAt(rowIndex);
+            var column:GridColumn = GridColumn(columns.getItemAt(columnIndex));
+            var dataField:String = column.dataField;
+        }
+        catch (e:RangeError)
+        {
+            return false;
+        }
+
+
 		return isDataEditable(dataItem, dataField);
 	}
 	
@@ -5021,18 +5032,24 @@ public class DataGrid extends SkinnableContainerBase
         for each (var columnIndex:int in columnIndices)
         {
             var col:GridColumn = this.getColumnAt(columnIndex);
+
             if (!col || (!col.dataField && (col.labelFunction == null) && (col.sortCompareFunction == null)))
                 return null;
-            
+
             var dataField:String = col.dataField;
             var isComplexDataField:Boolean = (dataField && (dataField.indexOf(".") != -1));
             var sortField:ISortField = findSortField(dataField, previousFields, isComplexDataField);
             
             if (!sortField)
-                sortField = col.sortField;  // constructs a new sortField
+            {
+                //Constructs a new sortField from the columns own sortField property.
+                sortField = col.sortField;
+            }
             else
+            {
                 sortField.descending = col.sortDescending;
-            
+            }
+
             fields.push(sortField);
         }
         
@@ -6258,7 +6275,11 @@ public class DataGrid extends SkinnableContainerBase
             return null;
         
         // Calculate the drop location
-        return grid.layout.calculateDropLocation(event);
+        var location:DropLocation = grid.layout.calculateDropLocation(event);
+		if (location.dropIndex > dataProvider.length) 
+			location.dropIndex = dataProvider.length;
+		
+		return location;
     }
     
     /**

@@ -66,7 +66,10 @@ build outputs: sdk/lib/fdb.jar
     <target name="compile" depends="available,prepare,run-depend" description="compile">
         <javac source="${javac.src}" target="${javac.src}" debug="${src.debug}" destdir="${module.classes}" srcdir="${module.src}"
             includes="**/*.java" classpathref="classpath"/>
-        <echo file="${module.classes}/flex/tools/debugger/cli/version.properties" append="false">build=${build.number}</echo>
+        <tstamp>
+        	<format property="build.number.date" pattern="yyyyMMdd" />
+        </tstamp>
+        <echo file="${module.classes}/flex/tools/debugger/cli/version.properties" append="false">build=${build.number.date}</echo>
         <copy todir="${module.classes}">
 			<fileset dir="${module.src}" includes="**/*.txt, **/*.properties" />
         </copy>

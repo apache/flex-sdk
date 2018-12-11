@@ -34,7 +34,10 @@ package spark.managers
 	
 	import spark.layouts.supportClasses.INavigatorLayout;
 
-	[ExcludeClass]
+// for asdoc
+[Experimental]
+
+[ExcludeClass]
 	/**
 	 *  @private
 	 *  The NavigatorBrowserManager is a Singleton manager that acts as

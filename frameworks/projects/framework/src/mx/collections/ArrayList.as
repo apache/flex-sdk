@@ -19,9 +19,10 @@
 
 package mx.collections 
 {
-    
+ 
 import flash.events.EventDispatcher;
 import flash.events.IEventDispatcher;
+import flash.system.ApplicationDomain;
 import flash.utils.IDataInput;
 import flash.utils.IDataOutput;
 import flash.utils.IExternalizable;
@@ -118,7 +119,6 @@ public class ArrayList extends EventDispatcher
         disableEvents();
         this.source = source;
         enableEvents();
-        _uid = UIDUtil.createUID();
     }
     
     //--------------------------------------------------------------------------
@@ -255,6 +255,9 @@ public class ArrayList extends EventDispatcher
      */  
     public function get uid():String
     {
+		if (!_uid) {
+			_uid = UIDUtil.createUID();
+		}
         return _uid;
     }
     
@@ -269,6 +272,20 @@ public class ArrayList extends EventDispatcher
     // 
     //--------------------------------------------------------------------------
 
+	/**
+	 *  Converts an Array List to JavaScript Object Notation (JSON) format.
+	 * 	Called by the JSON.stringify() method and should not be called directly.
+	 *  
+	 *  @langversion 3.0
+	 *  @playerversion Flash 11
+	 *  @playerversion AIR 3.0
+	 *  @productversion Apache Flex 4.12
+	 */
+	public function toJSON(s:String):*
+	{
+		return toArray();
+	}
+	
     /**
      *  Get the item at the specified index.
      * 

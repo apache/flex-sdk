@@ -18,9 +18,11 @@
 ////////////////////////////////////////////////////////////////////////////////
 package spark.layouts.supportClasses
 {
-	
 
-	/**
+// for asdoc
+[Experimental]
+
+/**
 	 *  The DeferredCreationPolicy class defines the constant values
 	 *  for the <code>creationPolicy</code> property of the DeferedGroup class.
 	 *

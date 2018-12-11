@@ -1,0 +1,243 @@
+<?xml version="1.0"?>
+<!--
+
+  Licensed to the Apache Software Foundation (ASF) under one or more
+  contributor license agreements.  See the NOTICE file distributed with
+  this work for additional information regarding copyright ownership.
+  The ASF licenses this file to You under the Apache License, Version 2.0
+  (the "License"); you may not use this file except in compliance with
+  the License.  You may obtain a copy of the License at
+
+      http://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+
+-->
+
+
+<project name="experimental_mobile" default="main" basedir=".">
+
+	<property name="FLEX_HOME" location="${basedir}/../../.."/>
+
+    <property file="${FLEX_HOME}/env.properties"/>
+    <property environment="env"/>
+	<property file="${FLEX_HOME}/build.properties"/>
+
+	<macrodef name="bundle">
+		<attribute name="locale"/>
+			<sequential>
+				<echo message="Compiling frameworks/locale/@{locale}/experimental_mobile_rb.swc"/>
+
+			<!-- Load the <compc> task. We can't do this at the <project> level -->
+			<!-- because targets that run before flexTasks.jar gets built would fail. -->
+			<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+                <compc fork="true"
+                       output="${FLEX_HOME}/frameworks/locale/@{locale}/experimental_mobile_rb.swc">
+				<jvmarg line="${compc.jvm.args}"/>
+                <load-config filename="bundle-config.xml" />
+                <arg value="+playerglobal.version=${playerglobal.version}" />
+                <arg value="+env.PLAYERGLOBAL_HOME=${env.PLAYERGLOBAL_HOME}" />
+                <arg value="+locale=@{locale}" />
+                </compc>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="fat-swc">
+		<attribute name="locale"/>
+		<sequential>
+			<mkdir dir="${basedir}/bundles/@{locale}/docs" />
+			<zip destfile="${FLEX_HOME}/frameworks/locale/@{locale}/experimental_mobile_rb.swc" update="true">
+				<zipfileset dir="${basedir}/bundles/@{locale}/docs" prefix="docs">
+					<include name="*.*"/>
+				</zipfileset>
+				<zipfileset dir="${basedir}/bundles/en_US" prefix="docs">
+					<include name="packages.dita"/>
+				</zipfileset>
+			</zip>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="bundle-clean">
+		<attribute name="locale"/>
+		<sequential>
+			<delete failonerror="false">
+				<fileset dir="${FLEX_HOME}/frameworks/locale">
+					<include name="@{locale}/experimental_mobile_rb.swc"/>
+					<include name="@{locale}/experimental_mobile_rb.swc.incr"/>
+				</fileset>
+			</delete>
+		</sequential>
+	</macrodef>
+
+	<macrodef name="bundler">
+		<attribute name="locale"/>
+		<element name="run.fat.swc" optional="yes"/>
+		<sequential>
+			<bundle-clean locale="@{locale}"/>
+			<bundle locale="@{locale}"/>
+			<run.fat.swc/>
+		</sequential>
+	</macrodef>
+
+	<target name="main" depends="clean,compile" description="Clean build of experimental_mobile.swc and default locale">
+		<bundle locale="${locale}"/>
+	</target>
+
+	<target name="other.locales" depends="bundles" description="Build other locale SWCs"/>
+
+	<!-- This is a private target for building experimental_mobile.swc for various locales. -->
+	<!-- The targets below set the 'locale' parameter and call it with <antcall>. -->
+	<target name="bundles">
+        <!-- these languages do not have localized docs-->
+        <bundler locale="en_AU"/><!-- Australian resources -->
+        <bundler locale="en_GB"/><!-- United Kingdom resources -->
+        <bundler locale="en_CA"/><!-- Canadian resources -->
+        <bundler locale="da_DK"/><!-- Danish resources -->
+        <bundler locale="de_DE"><!-- German resources -->
+            <run.fat.swc>
+                <fat-swc locale="de_DE"/>
+            </run.fat.swc>
+        </bundler>
+        <bundler locale="de_CH"/><!-- Swiss German resources -->
+        <bundler locale="es_ES"/><!-- Spanish resources -->
+        <bundler locale="fi_FI"/><!--  Finnish resources-->
+		<bundler locale="fr_CH"/><!-- Swiss French resources -->
+        <bundler locale="fr_FR"><!-- French resources -->
+            <run.fat.swc>
+                <fat-swc locale="fr_FR"/>
+            </run.fat.swc>
+        </bundler>
+        <bundler locale="it_IT"/><!-- Italian resources -->
+        <bundler locale="ja_JP"><!-- Japanese resources -->
+            <run.fat.swc>
+                <fat-swc locale="ja_JP"/>
+            </run.fat.swc>
+        </bundler>
+        <bundler locale="ko_KR"/><!-- Korean resources -->
+        <bundler locale="nb_NO"/><!-- Norwegian Bokmal resources -->
+        <bundler locale="nl_NL"/><!-- Dutch resources -->
+        <bundler locale="pt_BR"/><!-- Brazilian Portuguese resources -->
+        <bundler locale="pt_PT"/><!-- Portugal Portuguese resources -->
+        <bundler locale="ru_RU"><!-- Russian resources -->
+            <run.fat.swc>
+                <fat-swc locale="ru_RU"/>
+            </run.fat.swc>
+        </bundler>
+        <bundler locale="sv_SE"/><!-- Swedish resources -->
+        <bundler locale="zh_CN"><!-- Simplified Chinese resources -->
+            <run.fat.swc>
+                <fat-swc locale="zh_CN"/>
+            </run.fat.swc>
+        </bundler>
+        <bundler locale="zh_TW"/><!-- Traditional Chinese resources -->
+        <bundler locale="el_GR"/><!-- Greek Language  resources -->
+	</target>
+
+	<target name="clean" depends="bundles-clean">
+		<delete failonerror="false">
+			<fileset dir="${basedir}" >
+				<include name="bundles.properties"/>
+			    <include name="bundles/en_US/packages.dita"/>
+			</fileset>
+			<fileset dir="${FLEX_HOME}/frameworks/libs">
+				<include name="experimental_mobile.swc"/>
+				<include name="experimental_mobile.swc.incr"/>
+			</fileset>
+		</delete>
+	</target>
+
+	<target name="bundles-clean">
+		<delete failonerror="false">
+			<fileset dir="${FLEX_HOME}/frameworks/locale">
+				<include name="*/experimental_mobile_rb.swc"/>
+				<include name="*/experimental_mobile_rb.swc.incr"/>
+			</fileset>
+		</delete>
+	</target>
+
+    <target name="prepare" description="Copies manifests to project directories so the IDE can find them">
+        <copy file="${FLEX_HOME}/frameworks/experimental-mobile-manifest.xml" tofile="${basedir}/manifest.xml" overwrite="true"/>
+    </target>
+
+	<target name="compile" depends="prepare" description="Compiles experimental_mobile.swc">
+		<echo message="Compiling frameworks/libs/experimental_mobile.swc"/>
+        <echo message="Using ${env.AIR_HOME}/frameworks/libs/air/airglobal.swc" level="info"/>
+
+        <!-- Load the <compc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+		<!--
+			Link in the classes (and their dependencies) for the experimental classes
+			listed in this project's manifest.xml.
+			Also link the additional classes (and their dependencies)
+			listed in ExperimentalMobileClasses.as,
+			because these aren't referenced by the manifest classes.
+			Keep the standard metadata when compiling.
+			Link in accessibility support.
+			Include the appropriate CSS files and assets in the SWC.
+			Don't include any resources in the SWC.
+			Write a bundle list of referenced resource bundles
+			into the file bundles.properties in this directory.
+		-->
+        <compc fork="true"
+               output="${FLEX_HOME}/frameworks/libs/experimental_mobile.swc">
+			<jvmarg line="${compc.jvm.args}"/>
+            <load-config filename="compile-config.xml" />
+            <arg value="+playerglobal.version=${playerglobal.version}" />
+            <arg value="+env.AIR_HOME=${env.AIR_HOME}"/>
+        </compc>
+	</target>
+
+	<target name="doc" depends="clean-temp-docs" description="updates experimental_mobile.swc with asdoc xml">
+		<!-- Load the <asdoc> task. We can't do this at the <project> level -->
+		<!-- because targets that run before flexTasks.jar gets built would fail. -->
+		<taskdef resource="flexTasks.tasks" classpath="${FLEX_HOME}/lib/flexTasks.jar"/>
+
+	    <condition property="asdoc.jvm.args" value="-Xmx384m">
+	        <os family="windows"/>
+	    </condition>
+
+	    <condition property="asdoc.jvm.args" value="-Xmx512m">
+	        <os family="mac"/>
+	    </condition>
+
+	    <condition property="asdoc.jvm.args" value="-Xmx512m">
+	        <os family="unix"/>
+	    </condition>
+
+
+		<!-- Call asdoc to generate dita xml files -->
+		<asdoc output="${FLEX_HOME}/tempDoc" lenient="true" failonerror="true" keep-xml="true" skip-xsl="true" fork="true">
+		    <compiler.source-path path-element="${basedir}/src"/>
+		    <doc-classes class="ExperimentalMobileClasses"/>
+            <external-library-path dir="${FLEX_HOME}/frameworks/themes/Mobile">
+                <include name="mobile.swc"/>
+            </external-library-path>
+            <external-library-path dir="${FLEX_HOME}/frameworks/libs/mobile">
+                <include name="mobilecomponents.swc"/>
+            </external-library-path>
+		    <namespace uri="http://flex.apache.org/experimental/ns" manifest="${basedir}/manifest.xml"/>
+		    <namespace uri="library://ns.adobe.com/flex/spark" manifest="${basedir}/spark-manifest.xml"/>
+		    <jvmarg line="${asdoc.jvm.args}"/>
+		</asdoc>
+
+		<!-- updates experimental.swc with asdoc xml -->
+		<zip destfile="${FLEX_HOME}/frameworks/locale/en_US/experimental_mobile_rb.swc" update="true">
+		    <zipfileset dir="${FLEX_HOME}/tempDoc/tempdita" prefix="docs">
+			    <include name="*.*"/>
+				<exclude name="ASDoc_Config.xml"/>
+				<exclude name="overviews.xml"/>
+		    </zipfileset>
+		</zip>
+		<copy file="${FLEX_HOME}/tempDoc/tempdita/packages.dita" tofile="${basedir}/bundles/en_US/packages.dita"/>
+	</target>
+
+	<target name="clean-temp-docs">
+		<delete dir="${FLEX_HOME}/tempDoc" failonerror="false" includeEmptyDirs="true"/>
+		<delete file="${basedir}/bundles/en_US/packages.dita" failonerror="false"/>
+	</target>
+</project>
