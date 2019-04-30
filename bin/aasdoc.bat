@@ -30,4 +30,4 @@ rem
 
 if "%FLEX_HOME%"=="" set FLEX_HOME=%~dp0\..
 
-java -Xmx1024m -Dsun.io.useCanonCaches=false -Xbootclasspath/p:"%FLEX_HOME%\lib\xalan.jar" -classpath "%FLEX_HOME%\lib\asdoc.jar" flex2.tools.ASDoc +configname=air +flexlib="%FLEX_HOME%\frameworks" %*
+java -Xmx1024m -Dsun.io.useCanonCaches=false -Xbootclasspath/a:"%FLEX_HOME%\lib\xalan.jar" -classpath "%FLEX_HOME%\lib\asdoc.jar" flex2.tools.ASDoc +configname=air +flexlib="%FLEX_HOME%\frameworks" %*
