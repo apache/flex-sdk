@@ -408,6 +408,10 @@
             <replacefilter token="http="
             value="http:" />
         </replace>
+        <replace file="${basedir}/mirror.json">
+            <replacefilter token="https="
+            value="https:" />
+        </replace>
         <property file="${basedir}/mirror.json" />
         <delete file="${basedir}/mirror.json" />
         <echo>Using mirror: ${preferred}</echo>
