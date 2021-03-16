@@ -79,7 +79,7 @@
     <property name="commons-logging.name" value="commons-logging-1.0.4"/>
 	
     <property name="saxon9.jar" value="saxonb9-1-0-8.jar"/>
-    <property name="saxon9.download.url" value="http://repo1.maven.org/maven2/net/sourceforge/saxon/saxon/9.1.0.8/saxon-9.1.0.8.jar"/>
+    <property name="saxon9.download.url" value="https://repo1.maven.org/maven2/net/sourceforge/saxon/saxon/9.1.0.8/saxon-9.1.0.8.jar"/>
     <property name="saxon9.notice.dir" value="${FLEX_HOME}/licenseParts/saxon9-NOTICES"/>
     
     <property name="xerces.dir" value="xerces-2_9_1"/>
