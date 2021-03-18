@@ -930,9 +930,6 @@ public class ResourceManagerImpl extends EventDispatcher implements IResourceMan
         var resourceBundle:IResourceBundle = findBundle(bundleName, resourceName, locale);
         if (!resourceBundle)
             return null;
-        
-        if(!(resourceName in resourceBundle.content))
-            return null;
 
         var value:String = String(resourceBundle.content[resourceName]);
         
