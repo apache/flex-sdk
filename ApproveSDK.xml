@@ -71,9 +71,6 @@
 	<condition property="do.copy.downloads" >
 		<isset property="download.cache.dir" /> 
 	</condition>
-	
-    <fail message="The ANT_HOME environment variable is not set."
-        unless="env.ANT_HOME"/>
 		
 	<available file="${env.AIR_HOME}"
 		type="dir" 
