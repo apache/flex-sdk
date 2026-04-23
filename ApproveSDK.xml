@@ -200,7 +200,7 @@
     <target name="main" depends="write-out-jars-list,install-rat,download,check-sigs,uncompress,rat-check,examine-jars,external-jar-folder-dump,check-notices,build,approve" description="Perform required release approval steps">
     </target>
     
-    <target name="main-no-download" depends="write-out-jars-list,install-rat,check-sigs,uncompress,rat-check,examine-jars,external-jar-folder-dump,check-notices,build,approve" description="Perform required release approval steps">
+    <target name="main-no-download" depends="write-out-jars-list,install-rat,check-sigs,uncompress,rat-check,examine-jars,external-jar-folder-dump,check-notices,build,approve" description="Perform required release approval steps without downloading release distribution (archive and signatures must already exist in same directory)">
     </target>
 	
     <target name="test" >
