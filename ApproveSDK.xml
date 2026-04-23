@@ -304,7 +304,7 @@
         dest="${basedir}/${bin.package.url.name}"/>
     </target>
 
-    <target name="rat-check" >
+    <target name="rat-check" depends="rat-taskdef">
 
         <echo message="Checking files at ${basedir}/${src.package.url.name}, report is ${src.rat.report}"/>
 
@@ -398,7 +398,7 @@
         addproperty="rat.bin.binaries.ok"/>
     </target>
 
-    <target name="binary-rat" >
+    <target name="binary-rat" depends="rat-taskdef">
         <echo>${jars-list}</echo>
         <rat:report xmlns:rat="antlib:org.apache.rat.anttasks"
             reportFile="${bin.rat.report}">
