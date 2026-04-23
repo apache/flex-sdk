@@ -938,11 +938,7 @@
         <echo>end of list of folders in external jars.  This may impact LICENSE and NOTICE</echo>
     </target>
 
-    <!-- someday figure out how to use
-     find . -name "*.jar" -exec tar ft {} \; | sort -u > paths.txt -->
-
-    <!-- how to do tar and sort on Windows? -->
-    <target name="examine-jars" if="isMac">
+    <target name="examine-jars">
         <!-- comma delimited list, no spaces, not one file per line -->
         <copy file="jars.txt" tofile="loop.txt" />
         <ant antfile="ApproveSDK.xml" target="loopOnce" inheritAll="false" />
@@ -980,21 +976,23 @@
         <delete dir="${basedir}/jar" failonerror="false" />
         <mkdir dir="${basedir}/jar" />
         <unjar src="${basedir}/${bin.package.url.name}/${thisFile}" dest="${basedir}/jar" />
-        <exec executable="tar" output="${basedir}/jarclasses.txt">
+        <exec executable="${java.home}/bin/jar" output="${basedir}/jarclasses.txt">
             <arg value="tf" />
             <arg value="${basedir}/${bin.package.url.name}/${thisFile}" />
         </exec>
         <replaceregexp file="${basedir}/jarclasses.txt" match="(.*)/(.*)" replace="\1" flags="m" byline="true"/>
-        <exec executable="sort" output="${basedir}/jarpaths.txt">
-            <arg value="-u" />
-            <arg value="${basedir}/jarclasses.txt" />
-        </exec>
+        <copy file="${basedir}/jarclasses.txt" tofile="${basedir}/jarpaths.txt">
+            <filterchain>
+                <sortfilter/>
+                <uniqfilter/>
+            </filterchain>
+        </copy>
         <antcall target="display-text" >
             <param name="file" value="${basedir}/jarpaths.txt" />
         </antcall>
     </target>
     
-    <target name="jar-check" >
+    <target name="jar-check">
         <antcall target="show-jar-folders" />
         <input
         message="Above is the list of folders in this ${thisFile}.&#xA;Folder names can sometimes indicate presence of third-party content that needs to be in LICENSE and/or NOTICE files.&#xA;Press the Enter key to see the LICENSE for this jar."/>
