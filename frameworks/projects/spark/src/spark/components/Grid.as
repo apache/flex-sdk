@@ -4396,6 +4396,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
 			{
                 gridLayout.topGridView = topGridView = createGridView();
 				topGridView.gridViewLayout.verticalScrollingLocked = true;
+				topGridView.gridViewLayout.horizontalScrollPosition = centerGridView.horizontalScrollPosition;
 				gridViewsChanged = true;
 			}
             
@@ -4432,6 +4433,7 @@ public class Grid extends Group implements IDataGridElement, IDataProviderEnhanc
 			{
                 gridLayout.leftGridView = leftGridView = createGridView();
 				leftGridView.gridViewLayout.horizontalScrollingLocked = true;
+				leftGridView.gridViewLayout.verticalScrollPosition = centerGridView.verticalScrollPosition;
 				gridViewsChanged = true;
 			}
             

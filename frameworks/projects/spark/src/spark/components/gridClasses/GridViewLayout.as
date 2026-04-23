@@ -866,7 +866,7 @@ public class GridViewLayout extends LayoutBase
      */
     override public function measure():void
     {
-        const gridView:GridView = target as GridView;  // TBD: requestedRowCount should be a local property...
+        const gridView:GridView = target as GridView;
         const grid:Grid = this.grid;
         
         if (!gridView || !grid)
@@ -1876,10 +1876,12 @@ public class GridViewLayout extends LayoutBase
         const gridColumn:GridColumn = getGridColumn(columnIndex);
         if (gridColumn)
         {
-            renderer.rowIndex = rowIndex;
+            renderer.rowIndex = rowIndex + viewRowIndex;
             renderer.column = gridColumn;
             if (dataItem == null)
                 dataItem = getDataProviderItem(rowIndex);
+			rowIndex += viewRowIndex;
+			columnIndex += viewColumnIndex;
             
             renderer.label = gridColumn.itemToLabel(dataItem);
             
