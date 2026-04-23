@@ -52,18 +52,18 @@
 
     <target name="copyExamples" description="Copy all  projects asdocs subdir to singe location">
         <copy todir="${include_examples}">
-            <fileset dir="${flexlib}/projects/advancedgrids/asdoc/en_US"/>
-            <fileset dir="${flexlib}/projects/airframework/asdoc/en_US"/>
+            <fileset dir="${flexlib}/projects/advancedgrids/bundles/en_US"/>
+            <fileset dir="${flexlib}/projects/airframework/bundles/en_US"/>
             <!-- <fileset dir="${flexlib}/projects/apache/asdoc/en_US"/>-->
-            <fileset dir="${flexlib}/projects/charts/asdoc/en_US"/>
+            <fileset dir="${flexlib}/projects/charts/bundles/en_US"/>
             <!--  <fileset dir="${flexlib}/projects/core/asdoc/en_US"/>-->
             <!--  <fileset dir="${flexlib}/projects/experimental/asdoc/en_US"/>-->
-            <fileset dir="${flexlib}/projects/framework/asdoc/en_US"/>
-            <fileset dir="${flexlib}/projects/mobilecomponents/asdoc/en_US"/>
-            <fileset dir="${flexlib}/projects/experimental_mobile/asdoc/en_US"/>
+            <fileset dir="${flexlib}/projects/framework/bundles/en_US"/>
+            <fileset dir="${flexlib}/projects/mobilecomponents/bundles/en_US"/>
+            <fileset dir="${flexlib}/projects/experimental_mobile/bundles/en_US"/>
             <!--  <fileset dir="${flexlib}/projects/mx/asdoc/en_US"/>-->
-            <fileset dir="${flexlib}/projects/rpc/asdoc/en_US"/>
-            <fileset dir="${flexlib}/projects/spark/asdoc/en_US"/>
+            <fileset dir="${flexlib}/projects/rpc/bundles/en_US"/>
+            <fileset dir="${flexlib}/projects/spark/bundles/en_US"/>
         </copy>
     </target>
 
