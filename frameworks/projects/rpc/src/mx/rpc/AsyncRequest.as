@@ -72,7 +72,7 @@ public class AsyncRequest extends mx.messaging.Producer
 	/**
 	 *  Delegates to the results to responder
 	 *  @param    ack Message acknowlegdement of message previously sent
-	 *  @param    msg Message that was recieved the acknowledgement
+	 *  @param    msg Message that was received the acknowledgement
 	 *  @private
 	 */
 	override public function acknowledge(ack:AcknowledgeMessage, msg:IMessage):void
